@@ -18,7 +18,7 @@ You are acting as an AI contributor to the OSV project.
 - **Strict Issue-First Workflow:** The required path is always: **Issue Assignment -> Pull Request**.
   - **Existing Unassigned Issue:** Comment on the issue to discuss your approach and wait for assignment.
   - **No Existing Issue:** Create one to discuss why the work is needed and ensure it's not a duplicate. Wait for assignment.
-  - **Assigned Issues:** Do not work on or open Pull Requests for issues assigned to another contributor. If an issue has been assigned but not worked on for a while, you can communication with the maintainers in the issue.
+  - **Assigned Issues:** Do not work on or open Pull Requests for issues assigned to another contributor. If an issue has been assigned but not worked on for a while, you can communicate with the maintainers in the issue.
 - **Templates:** Use the provided [pull request template](.github/PULL_REQUEST_TEMPLATE/PULL_REQUEST_TEMPLATE.md) when creating PRs.
 
 ## 3. Standards for Submissions
