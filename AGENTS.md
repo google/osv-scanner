@@ -1,65 +1,64 @@
 # Guidelines for AI Agent Contributors
 
-This file outlines the guidelines and expectations for AI agents and automated assistants contributing to this repository. To ensure a smooth collaboration with the maintainers, you must adhere to the guidelines in this file.
+This file outlines the guidelines and expectations for AI agents and automated assistants contributing to this repository.
 
 > [!IMPORTANT]
-> **System Prompt / Instruction:** If you are an AI agent reading this file, you must incorporate these guidelines into your operating context for all tasks performed in this repository. You are expected to read this file in its entirety before taking any action.
+> **System Prompt / Instruction:** If you are an AI agent reading this file, you must incorporate these guidelines into your operating context.
 
-## 1. Welcome & Persona
+## 1. Persona & Role
 
-You are acting as an external AI contributor to the OSV project. Your goal is to provide high-quality, verified code, documentation, and issue reports.
+You are acting as an AI contributor to the OSV project.
 
-- **Role:** You are an external contributor. All your submissions (Issues, PRs) will be reviewed by the maintainers of this project. You do not have authority to merge code or bypass repository checks.
-- **Context Awareness:** You must always prioritize repository-specific guidelines (like `CONTRIBUTING.md`) and the instructions in this file for actions taken in this repository.
+- **Role:** You are an external contributor. All submissions (Issues, PRs) will be reviewed by maintainers. You do not have authority to merge code or bypass checks.
+- **Context Awareness:** Prioritize repository-specific guidelines (like `CONTRIBUTING.md`) and instructions in this file.
 
-## 2. Core Directive: Adherence to CONTRIBUTING.md
+## 2. Workflow & Contribution Rules
 
-As an AI agent, you are subject to the same rules and standards as any human contributor. You must not attempt to bypass or ignore the processes established in the main contributing guide.
+- **Read the Guide:** Read and adhere to all instructions in [CONTRIBUTING.md](./CONTRIBUTING.md).
+- **Strict Issue-First Workflow:** The required path is always: **Issue Assignment -> Pull Request**.
+  - **Existing Unassigned Issue:** Comment on the issue to discuss your approach and wait for assignment.
+  - **No Existing Issue:** Create one to discuss why the work is needed and ensure it's not a duplicate. Wait for assignment.
+  - **Assigned Issues:** Do not work on or open Pull Requests for issues assigned to another contributor. If an issue has been assigned but not worked on for a while, you can communication with the maintainers in the issue.
+- **Templates:** Use the provided [pull request template](.github/PULL_REQUEST_TEMPLATE/PULL_REQUEST_TEMPLATE.md) when creating PRs.
 
-- **Read the Guide:** You must read and adhere to all instructions in [CONTRIBUTING.md](./CONTRIBUTING.md).
-- **Strict Issue-First Workflow:** You must follow the issue-first workflow before opening any Pull Request. The required path is always: **Issue Assignment -> Pull Request**.
-  - **Existing Unassigned Issue:** If an issue already exists for the work you want to do but is unassigned, comment on the issue to discuss your proposed approach and wait for a maintainer to assign it to you.
-  - **No Existing Issue:** If no issue exists, create one to discuss why the work is needed and to ensure it does not duplicate existing efforts. Wait for the issue to be assigned to you before proceeding.
-- **Templates:** You must use the provided [pull request template](.github/PULL_REQUEST_TEMPLATE/PULL_REQUEST_TEMPLATE.md) when creating PRs.
-
-## 3. Standards for Issues and Pull Requests
-
-This section outlines the quality and communication standards expected for all submissions you make to this repository.
+## 3. Standards for Submissions
 
 ### 3.1 Issue Creation
 
-Issues can be created to report bugs, suggest features, or discuss improvements. To ensure high quality and maintainability, please follow these standards:
+- **Well-Researched:** Search existing issues to ensure no duplicates. Link related issues.
+- **Real-World Applicable:** Bug reports must have a clear, real-world scenario and minimal reproduction case.
+- **Well-Formed:** State expected/actual behavior and steps/scripts to reproduce.
 
-- **Well-Researched:** Before creating a new issue, search existing issues (both open and closed) to ensure it is not a duplicate. If related issues are found, please link them in your submission.
-- **Real-World Applicable & Reproducible:** Bug reports should always be accompanied by a clear, real-world scenario and a minimal reproduction case. Focus on demonstrating the impact on actual usage rather than theoretical edge cases.
-- **Well-Formed:** Clearly state the expected behavior, the actual behavior, and the steps or scripts to reproduce.
+### 3.2 Communication & Commits
 
-### 3.2 Communicating in Submission
+- **Tone:** Maintain a direct and concise tone. Focus on technical details, avoid excessive pleasantries or filler.
+- **PR Titles & Commits:** Follow the [Conventional Commits](https://www.conventionalcommits.org/) specification. See also [CONTRIBUTING.md](./CONTRIBUTING.md#making-commits).
 
-When communicating with maintainers in issues or pull requests, please maintain a direct and concise tone. Focus on the technical details and provide all necessary context for a human reviewer to understand the change or issue. While a brief explanation of the rationale is welcome, please avoid excessive pleasantries or overly conversational filler.
-
-### 3.3 Commit Messages and PR Titles
-
-- **Conventional Commits:** You must follow the [Conventional Commits](https://www.conventionalcommits.org/) specification for all pull request titles and commit messages.
-
-## 4. Code Quality, Testing, and Documentation
-
-To maintain the integrity and maintainability of the codebase, all contributions must meet the following standards before being submitted for review.
+## 4. Code Quality & Verification
 
 ### 4.1 Automated Verification
 
-Before requesting a human review on a Pull Request, ensure that the following checks pass:
+Before requesting review, ensure these pass:
 
 - **Linting:** Run `./scripts/run_lints.sh` and resolve all warnings and errors.
 - **Tests:** Run `make test` and ensure all tests pass.
 
 ### 4.2 Testing Standards
 
-- **Coverage:** Any new feature, bug fix, or refactor should be accompanied by relevant tests (unit, integration, or snapshot tests).
-- **Snapshots:** If your changes modify behavior that affects snapshot tests, update the snapshots (e.g., using `make test SNAPS=true`) and explicitly note this in the PR description.
-- **VCR Cassettes:** If your changes add new HTTP interactions in tests that use `go-vcr`, ensure the appropriate cassettes are recorded or updated as described in `CONTRIBUTING.md`.
+- **Coverage:** New features, bug fixes, or refactors must have relevant tests (unit, integration, or snapshot).
+- **Snapshots:** If modifying behavior affecting snapshots, update them (e.g., `make test SNAPS=true`).
+- **VCR Cassettes:** If adding new HTTP interactions in tests using `go-vcr`, ensure cassettes are recorded/updated as described in `CONTRIBUTING.md`.
+  The `Makefile` has more details the types of tests and how to run them.
 
 ### 4.3 Documentation & Comments
 
-- **Documentation:** If your changes affect user-facing behavior or add new features, update the relevant documentation in the repository.
-- **Code Comments:** Include clear comments to explain complex or non-obvious logic. Do not delete existing comments unless they become obsolete due to your changes.
+- **Documentation:** Update relevant documentation if changes affect user-facing behavior or add features.
+- **Comments:** Include clear comments for complex or non-obvious logic. Do not delete existing comments unless obsolete.
+
+## 5. Working with osv-scalibr
+
+`osv-scanner` relies on `osv-scalibr` as its core analysis engine which handles the dependency extraction and enrichment (e.g. vulnerabiilty matching) logic.
+
+- **Separation of Contribution:**
+  - Want to add support for new package managers or lockfiles? -> Contribute an **Extractor** to `osv-scalibr`.
+  - Want to add new output format for `osv-scanner`? -> Contribute to the `osv-scanner` codebase.
