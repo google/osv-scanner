@@ -66,13 +66,16 @@ func New(initialQueryTimeout time.Duration, userAgent string, httpClient *http.C
 // MatchVulnerabilities matches vulnerabilities for a list of packages.
 func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*extractor.Package) ([][]*osvschema.Vulnerability, error) {
 	var batchResp *api.BatchVulnerabilityList
+	var queryIndexes []int
 	deadlineExceeded := false
 
 	{
 		var err error
 
-		// convert Package to Query for each pkgs element
-		queries := pkgsToQueries(pkgs)
+		// Convert packages to unique queries while keeping enough information to
+		// expand results back to the original package order.
+		queries, indexes := pkgsToUniqueQueries(pkgs)
+		queryIndexes = indexes
 		// If there is a timeout for the initial query, set an additional context deadline here.
 		if matcher.InitialQueryTimeout > 0 {
 			batchQueryCtx, cancelFunc := context.WithDeadline(ctx, time.Now().Add(matcher.InitialQueryTimeout))
@@ -99,12 +102,12 @@ func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*ext
 		}
 	}
 
-	vulnerabilities := make([][]*osvschema.Vulnerability, len(batchResp.GetResults()))
+	uniqueVulnerabilities := make([][]*osvschema.Vulnerability, len(batchResp.GetResults()))
 	g, ctx := errgroup.WithContext(ctx)
 	g.SetLimit(maxConcurrentRequests)
 
 	for batchIdx, resp := range batchResp.GetResults() {
-		vulnerabilities[batchIdx] = make([]*osvschema.Vulnerability, len(resp.GetVulns()))
+		uniqueVulnerabilities[batchIdx] = make([]*osvschema.Vulnerability, len(resp.GetVulns()))
 		for resultIdx, vuln := range resp.GetVulns() {
 			g.Go(func() error {
 				// exit early if another hydration request has already failed
@@ -116,7 +119,7 @@ func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*ext
 				if err != nil {
 					return err
 				}
-				vulnerabilities[batchIdx][resultIdx] = vuln
+				uniqueVulnerabilities[batchIdx][resultIdx] = vuln
 
 				return nil
 			})
@@ -127,6 +130,7 @@ func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*ext
 		return nil, err
 	}
 
+	vulnerabilities := expandQueryResults(uniqueVulnerabilities, queryIndexes)
 	if deadlineExceeded {
 		return vulnerabilities, context.DeadlineExceeded
 	}
@@ -181,14 +185,47 @@ func pkgToQuery(pkg *extractor.Package) *api.Query {
 	return nil
 }
 
-// pkgsToQueries converts packages to queries via the osv-scanner internal imodels
-// to perform the necessary transformations
-func pkgsToQueries(pkgs []*extractor.Package) []*api.Query {
-	queries := make([]*api.Query, len(pkgs))
+// pkgsToUniqueQueries converts packages to deduplicated OSV queries while
+// preserving a mapping back to the original package order.
+func pkgsToUniqueQueries(pkgs []*extractor.Package) ([]*api.Query, []int) {
+	queries := make([]*api.Query, 0, len(pkgs))
+	queryIndexes := make([]int, len(pkgs))
+	seen := make(map[string]int, len(pkgs))
 
 	for i, pkg := range pkgs {
-		queries[i] = pkgToQuery(pkg)
+		query := pkgToQuery(pkg)
+		key := queryKey(query)
+		if queryIdx, ok := seen[key]; ok {
+			queryIndexes[i] = queryIdx
+			continue
+		}
+		queryIndexes[i] = len(queries)
+		seen[key] = len(queries)
+		queries = append(queries, query)
 	}
 
-	return queries
+	return queries, queryIndexes
+}
+
+func queryKey(query *api.Query) string {
+	if query == nil {
+		return "nil"
+	}
+	if query.GetCommit() != "" {
+		return "commit\x00" + query.GetCommit()
+	}
+
+	pkg := query.GetPackage()
+	return "version\x00" + pkg.GetEcosystem() + "\x00" + pkg.GetName() + "\x00" + query.GetVersion()
+}
+
+func expandQueryResults(uniqueResults [][]*osvschema.Vulnerability, queryIndexes []int) [][]*osvschema.Vulnerability {
+	results := make([][]*osvschema.Vulnerability, len(queryIndexes))
+	for i, queryIdx := range queryIndexes {
+		if queryIdx < len(uniqueResults) {
+			results[i] = uniqueResults[queryIdx]
+		}
+	}
+
+	return results
 }

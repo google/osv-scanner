@@ -4,8 +4,6 @@ package osvmatcher
 import (
 	"context"
 	"errors"
-	"maps"
-	"slices"
 	"sync"
 	"time"
 
@@ -70,7 +68,7 @@ func (matcher *CachedOSVMatcher) doQueries(ctx context.Context, invs []*extracto
 	var queries []*api.Query
 	// determine which packages aren't already cached
 	// convert Package to Query for each pkgs element
-	toQuery := make(map[*api.Query]struct{})
+	toQuery := make(map[string]*api.Query)
 	for _, inv := range invs {
 		if imodels.Name(inv) == "" || imodels.Ecosystem(inv).IsEmpty() {
 			continue
@@ -80,10 +78,14 @@ func (matcher *CachedOSVMatcher) doQueries(ctx context.Context, invs []*extracto
 			Ecosystem: imodels.Ecosystem(inv).String(),
 		}
 		if _, ok := matcher.vulnCache.Load(vulns.NewPackageKey(pkg)); !ok {
-			toQuery[&api.Query{Package: pkg}] = struct{}{}
+			query := &api.Query{Package: pkg}
+			toQuery[queryKey(query)] = query
 		}
 	}
-	queries = slices.AppendSeq(make([]*api.Query, 0, len(toQuery)), maps.Keys(toQuery))
+	queries = make([]*api.Query, 0, len(toQuery))
+	for _, query := range toQuery {
+		queries = append(queries, query)
+	}
 
 	if len(queries) == 0 {
 		return nil
