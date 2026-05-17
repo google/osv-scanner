@@ -1,15 +1,12 @@
-package main
+package plugins_test
 
 import (
 	"log/slog"
 	"testing"
 
-	"github.com/google/osv-scanner/v2/cmd/osv-scanner/fix"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/cmd"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/testcmd"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/plugins"
-	"github.com/google/osv-scanner/v2/cmd/osv-scanner/scan"
-	"github.com/google/osv-scanner/v2/cmd/osv-scanner/update"
 	"github.com/google/osv-scanner/v2/internal/config"
 	"github.com/google/osv-scanner/v2/internal/testlogger"
 	"github.com/google/osv-scanner/v2/internal/testutility"
@@ -17,25 +14,8 @@ import (
 
 func TestMain(m *testing.M) {
 	config.OSVScannerConfigName = "osv-scanner-test.toml"
-
-	cleanupGitFixtures, err := testcmd.SetupGitFixtures()
-
-	if err != nil {
-		cleanupGitFixtures()
-
-		panic(err)
-	}
-
 	slog.SetDefault(slog.New(testlogger.New()))
-	testcmd.CommandsUnderTest = []cmd.CommandBuilder{
-		scan.Command,
-		fix.Command,
-		plugins.Command,
-		update.Command,
-	}
+	testcmd.CommandsUnderTest = []cmd.CommandBuilder{plugins.Command}
 	m.Run()
-
-	cleanupGitFixtures()
-
 	testutility.CleanSnapshots(m)
 }

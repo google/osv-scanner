@@ -186,6 +186,34 @@ func TestResolve(t *testing.T) {
 	}
 }
 
+func TestExtractorPresetNames(t *testing.T) {
+	t.Parallel()
+
+	got := scalibrplugin.ExtractorPresetNames()
+	want := []string{"artifact", "directory", "lockfile", "sbom"}
+
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Fatalf("ExtractorPresetNames() mismatch (-want +got):\n%s", diff)
+	}
+}
+
+func TestPluginNames(t *testing.T) {
+	t.Parallel()
+
+	got := scalibrplugin.PluginNames()
+
+	for _, want := range []string{
+		composerlock.Name,
+		apk.Name,
+		transitivedependencypomxml.Name,
+		codeserver.Name,
+	} {
+		if !slices.Contains(got, want) {
+			t.Fatalf("PluginNames() missing %q", want)
+		}
+	}
+}
+
 func TestResolve_Detectors(t *testing.T) {
 	t.Parallel()
 

@@ -3,6 +3,7 @@ package scalibrplugin
 
 import (
 	"fmt"
+	"maps"
 	"slices"
 
 	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
@@ -122,4 +123,64 @@ func filterPluginsMissingRequiredPlugins(pluginStatues map[string]bool, loaded [
 	}
 
 	return plugins
+}
+
+func sortedPresetNames[T any](presets map[string]T) []string {
+	names := slices.Collect(maps.Keys(presets))
+	slices.Sort(names)
+
+	return names
+}
+
+func sortedNestedPluginNames[T any](presets map[string]map[string]T) []string {
+	seen := map[string]struct{}{}
+
+	for _, preset := range presets {
+		for name := range preset {
+			seen[name] = struct{}{}
+		}
+	}
+
+	names := slices.Collect(maps.Keys(seen))
+	slices.Sort(names)
+
+	return names
+}
+
+func ExtractorPresetNames() []string {
+	return sortedPresetNames(ExtractorPresets)
+}
+
+func DetectorPresetNames() []string {
+	return sortedPresetNames(detectorPresets)
+}
+
+func AnnotatorPresetNames() []string {
+	return sortedPresetNames(annotatorPresets)
+}
+
+func EnricherPresetNames() []string {
+	return sortedPresetNames(enricherPresets)
+}
+
+func PluginNames() []string {
+	seen := map[string]struct{}{}
+
+	for _, name := range sortedNestedPluginNames(ExtractorPresets) {
+		seen[name] = struct{}{}
+	}
+	for _, name := range sortedNestedPluginNames(detectorPresets) {
+		seen[name] = struct{}{}
+	}
+	for _, name := range sortedNestedPluginNames(annotatorPresets) {
+		seen[name] = struct{}{}
+	}
+	for _, name := range sortedNestedPluginNames(enricherPresets) {
+		seen[name] = struct{}{}
+	}
+
+	names := slices.Collect(maps.Keys(seen))
+	slices.Sort(names)
+
+	return names
 }

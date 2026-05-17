@@ -6,6 +6,7 @@ import (
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/fix"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/cmd"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/mcp"
+	"github.com/google/osv-scanner/v2/cmd/osv-scanner/plugins"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/scan"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/update"
 )
@@ -15,6 +16,7 @@ func main() {
 		cmd.Run(os.Args, os.Stdout, os.Stderr, nil, []cmd.CommandBuilder{
 			scan.Command,
 			fix.Command,
+			plugins.Command,
 			update.Command,
 			mcp.Command,
 		}),
