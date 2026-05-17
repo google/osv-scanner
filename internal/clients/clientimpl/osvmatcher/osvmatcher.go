@@ -216,6 +216,7 @@ func queryKey(query *api.Query) string {
 	}
 
 	pkg := query.GetPackage()
+
 	return "version\x00" + pkg.GetEcosystem() + "\x00" + pkg.GetName() + "\x00" + query.GetVersion()
 }
 

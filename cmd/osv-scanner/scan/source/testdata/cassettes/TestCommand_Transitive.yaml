@@ -1525,7 +1525,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "click"
               },
-              "version": "8.3.3"
+              "version": "8.4.0"
             },
             {
               "package": {
@@ -1696,7 +1696,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "click"
               },
-              "version": "8.3.3"
+              "version": "8.4.0"
             },
             {
               "package": {
@@ -1971,7 +1971,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "click"
               },
-              "version": "8.3.3"
+              "version": "8.4.0"
             },
             {
               "package": {

@@ -137,7 +137,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 882
+      content_length: 760
       host: api.osv.dev
       body: |
         {
@@ -162,13 +162,6 @@ interactions:
                 "name": "league/flysystem"
               },
               "version": "1.0.8"
-            },
-            {
-              "package": {
-                "ecosystem": "npm",
-                "name": "ansi-html"
-              },
-              "version": "0.0.1"
             },
             {
               "package": {
@@ -204,7 +197,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 271
+      content_length: 352
       body: |
         {
           "results": [
@@ -226,21 +219,13 @@ interactions:
                 }
               ]
             },
-            {
-              "vulns": [
-                {
-                  "id": "GHSA-whgm-jr23-g3j9",
-                  "modified": "2023-11-08T04:05:08.868477Z"
-                }
-              ]
-            },
             {},
             {}
           ]
         }
       headers:
         Content-Length:
-          - "271"
+          - "352"
         Content-Type:
           - application/json
       status: 200 OK
@@ -250,7 +235,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 882
+      content_length: 760
       host: api.osv.dev
       body: |
         {
@@ -275,13 +260,6 @@ interactions:
                 "name": "league/flysystem"
               },
               "version": "1.0.8"
-            },
-            {
-              "package": {
-                "ecosystem": "npm",
-                "name": "ansi-html"
-              },
-              "version": "0.0.1"
             },
             {
               "package": {
@@ -317,7 +295,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 271
+      content_length: 352
       body: |
         {
           "results": [
@@ -339,21 +317,13 @@ interactions:
                 }
               ]
             },
-            {
-              "vulns": [
-                {
-                  "id": "GHSA-whgm-jr23-g3j9",
-                  "modified": "2023-11-08T04:05:08.868477Z"
-                }
-              ]
-            },
             {},
             {}
           ]
         }
       headers:
         Content-Length:
-          - "271"
+          - "352"
         Content-Type:
           - application/json
       status: 200 OK
