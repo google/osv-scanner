@@ -1,16 +1,11 @@
 package fix_test
 
 import (
-	"context"
 	"os"
-	"slices"
 	"testing"
 
-	"github.com/google/osv-scanner/v2/cmd/osv-scanner/fix"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/testcmd"
-	"github.com/google/osv-scanner/v2/internal/remediation/upgrade"
 	"github.com/google/osv-scanner/v2/internal/testutility"
-	"github.com/urfave/cli/v3"
 )
 
 func matchFile(t *testing.T, file string) {
@@ -165,121 +160,6 @@ func TestCommand_OfflineDatabase(t *testing.T) {
 			}
 			if manifest != "" {
 				matchFile(t, manifest)
-			}
-		})
-	}
-}
-
-func parseFlags(t *testing.T, flags []string, arguments []string) (*cli.Command, error) {
-	// This is a bit hacky: make a mock App with only the flags we care about.
-	// Then use app.RunAndMatchSnapshots() to parse the flags into the cli.Context, which is returned.
-	t.Helper()
-	appFlags := make([]cli.Flag, 0, len(flags))
-	for _, f := range fix.Command(nil, nil, nil).Flags {
-		if slices.ContainsFunc(f.Names(), func(s string) bool { return slices.Contains(flags, s) }) {
-			appFlags = append(appFlags, f)
-		}
-	}
-	var parsedCmd *cli.Command
-	app := cli.Command{
-		Flags: appFlags,
-		Action: func(_ context.Context, cmd *cli.Command) error {
-			t.Helper()
-			parsedCmd = cmd
-
-			return nil
-		},
-	}
-	err := app.Run(t.Context(), append([]string{""}, arguments...))
-
-	return parsedCmd, err
-}
-
-func Test_parseUpgradeConfig(t *testing.T) {
-	t.Parallel()
-
-	flags := []string{"upgrade-config"}
-
-	tests := []struct {
-		name string
-		args []string
-		want map[string]upgrade.Level
-	}{
-		{
-			name: "default_behaviour",
-			args: []string{},
-			want: map[string]upgrade.Level{
-				"foo": upgrade.Major,
-				"bar": upgrade.Major,
-			},
-		},
-		{
-			name: "general_level_config",
-			args: []string{"--upgrade-config=minor"},
-			want: map[string]upgrade.Level{
-				"foo": upgrade.Minor,
-				"bar": upgrade.Minor,
-			},
-		},
-		{
-			name: "all_levels",
-			args: []string{
-				"--upgrade-config", "major:major",
-				"--upgrade-config", "minor:minor",
-				"--upgrade-config", "patch:patch",
-				"--upgrade-config", "none:none",
-			},
-			want: map[string]upgrade.Level{
-				"major": upgrade.Major,
-				"minor": upgrade.Minor,
-				"patch": upgrade.Patch,
-				"none":  upgrade.None,
-				"other": upgrade.Major,
-			},
-		},
-		{
-			name: "package_takes_precedence_over_general",
-			args: []string{
-				"--upgrade-config", "pkg1:minor",
-				"--upgrade-config", "none",
-				"--upgrade-config", "pkg2:major",
-			},
-			want: map[string]upgrade.Level{
-				"pkg1": upgrade.Minor,
-				"pkg2": upgrade.Major,
-				"pkg3": upgrade.None,
-			},
-		},
-		{
-			name: "package_names_with_colons",
-			args: []string{
-				"--upgrade-config=none:patch:minor:major",
-				"--upgrade-config=none:patch:minor",
-				"--upgrade-config=none:patch",
-				"--upgrade-config=none",
-			},
-			want: map[string]upgrade.Level{
-				"none:patch:minor": upgrade.Major,
-				"none:patch":       upgrade.Minor,
-				"none":             upgrade.Patch,
-				"other":            upgrade.None,
-			},
-		},
-	}
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
-
-			cmd, err := parseFlags(t, flags, tt.args)
-			if err != nil {
-				t.Fatalf("error parsing flags: %v", err)
-			}
-			config := upgrade.ParseUpgradeConfig(cmd.StringSlice("upgrade-config"))
-			for pkg, want := range tt.want {
-				if got := config.Get(pkg); got != want {
-					t.Errorf("Config.Get(%s) got = %v, want %v", pkg, got, want)
-				}
 			}
 		})
 	}

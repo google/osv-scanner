@@ -12,8 +12,8 @@ import (
 // tests with cmp.Diff to disregard the order in which the Inventories
 // are reported.
 func inventorySort(a, b *extractor.Package) int {
-	aLoc := fmt.Sprintf("%v", a.Locations)
-	bLoc := fmt.Sprintf("%v", b.Locations)
+	aLoc := a.Location.PathOrEmpty()
+	bLoc := b.Location.PathOrEmpty()
 
 	var aExtr, bExtr string
 	var aPURL, bPURL string

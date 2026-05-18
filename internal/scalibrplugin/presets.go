@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	annotatorlist "github.com/google/osv-scalibr/annotator/list"
+	"github.com/google/osv-scalibr/annotator/misc/brewsource"
 	apkanno "github.com/google/osv-scalibr/annotator/osduplicate/apk"
 	dpkganno "github.com/google/osv-scalibr/annotator/osduplicate/dpkg"
 	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
@@ -15,7 +16,9 @@ import (
 	transitivedependencyrequirements "github.com/google/osv-scalibr/enricher/transitivedependency/requirements"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/cpp/conanlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dart/pubspec"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/csproj"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/depsjson"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/nugetcpm"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/packagesconfig"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/packageslockjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/erlang/mixlock"
@@ -43,13 +46,13 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/ruby/gemfilelock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargoauditable"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargolock"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/swift/packageresolved"
 	extractors "github.com/google/osv-scalibr/extractor/filesystem/list"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
+	"github.com/google/osv-scalibr/extractor/filesystem/os/homebrew"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
-	"github.com/google/osv-scanner/v2/internal/datasource"
-	"github.com/google/osv-scanner/v2/internal/depsdev"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
@@ -110,11 +113,16 @@ var ExtractorPresets = map[string]extractors.InitMap{
 		// Ruby
 		gemfilelock.Name: {gemfilelock.New},
 
+		// Swift
+		packageresolved.Name: {packageresolved.New},
+
 		// Rust
 		cargolock.Name: {cargolock.New},
 
 		// NuGet
+		csproj.Name:           {csproj.New},
 		depsjson.Name:         {depsjson.New},
+		nugetcpm.Name:         {nugetcpm.New},
 		packagesconfig.Name:   {packagesconfig.New},
 		packageslockjson.Name: {packageslockjson.New},
 
@@ -153,6 +161,8 @@ var ExtractorPresets = map[string]extractors.InitMap{
 		apk.Name: {apk.New},
 		// Debian
 		dpkg.Name: {dpkg.New},
+		// Homebrew
+		homebrew.Name: {homebrew.New},
 	},
 }
 
@@ -170,22 +180,15 @@ var enricherPresets = map[string]enricherlist.InitMap{
 
 var annotatorPresets = map[string]annotatorlist.InitMap{
 	"artifact": {
-		apkanno.Name:  {apkanno.New},
-		dpkganno.Name: {dpkganno.New},
+		apkanno.Name:    {apkanno.New},
+		dpkganno.Name:   {dpkganno.New},
+		brewsource.Name: {brewsource.New},
 	},
 }
 
 func baseImageEnricher(_ *cpb.PluginConfig) (enricher.Enricher, error) {
-	// The grpc client **does not** make any requests. It starts in an IDLE state until
-	// the first function call is made. This means we can safely initialize the client even in offline mode,
-	// and the enricher plugin will be filtered out in offline mode.
-	insightsClient, err := datasource.NewInsightsAlphaClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
-	if err != nil {
-		return nil, fmt.Errorf("unable to connect to insights server: %w", err)
-	}
-
-	baseImageEnricher, err := baseimage.New(&baseimage.Config{
-		Client: baseimage.NewClientGRPC(insightsClient),
+	baseImageEnricher, err := baseimage.New(&cpb.PluginConfig{
+		UserAgent: "osv-scanner_scan/" + version.OSVVersion,
 	})
 
 	if err != nil {

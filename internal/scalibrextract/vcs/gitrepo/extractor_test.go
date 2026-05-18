@@ -31,7 +31,7 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 			WantPackages: []*extractor.Package{
 				{
-					Locations: []string{"testdata/example-git/.git"},
+					Location: extractor.LocationFromPath("testdata/example-git/.git"),
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "862ac4bd2703b622e85f29f55a2fd8cd6caf8182",
 					},

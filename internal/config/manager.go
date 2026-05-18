@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/BurntSushi/toml"
+	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 )
 
@@ -127,6 +128,14 @@ func tryLoadConfig(configPath string) (Config, error) {
 
 		config.LoadPath = configPath
 		config.warnAboutDuplicates()
+
+		for _, override := range config.PackageOverrides {
+			if override.NameIsRegex && override.Name != "" {
+				if _, err := cachedregexp.Compile("^" + override.Name + "$"); err != nil {
+					return Config{}, fmt.Errorf("invalid regex %q in package override: %w", override.Name, err)
+				}
+			}
+		}
 	}
 
 	return config, err

@@ -22,13 +22,16 @@ use GitHub pull requests for this purpose. Consult
 [GitHub Help](https://help.github.com/articles/about-pull-requests/) for more
 information on using pull requests.
 
-When creating a pull request, please use the provided
-[pull request template](/.github/PULL_REQUEST_TEMPLATE/pull_request_template.md)
-and fill out the sections to ensure a smooth review process.
+Before you start working on a pull request, please
+[create an issue first](https://github.com/google/osv-scanner/issues/new)
+to discuss the proposed changes and wait for it to be assigned to you.
+This applies to new features, bug fixes, or other improvements.
+This helps ensure that your contribution is aligned with the project's goals
+and avoids duplicate efforts.
 
-For any new feature, please create an issue first to discuss the proposed changes
-before proceeding to make a pull request. This helps ensure that your contribution
-is aligned with the project's goals and avoids duplicate work.
+When creating a pull request, please use the provided
+[pull request template](/.github/PULL_REQUEST_TEMPLATE/PULL_REQUEST_TEMPLATE.md)
+and fill out the sections to ensure a smooth review process.
 
 ## Community Guidelines
 
@@ -174,11 +177,11 @@ Please follow these steps to successfully contribute documentation.
 3. Preview the changes by spinning up a GitHub page for your fork, building from your working branch.
    <!-- markdown-link-check-disable-next-line -->
    - On your fork, go to the settings tab and then the GitHub page settings. Sample URL: https://github.com/{your-github-profile}/osv-scanner/settings/pages
-   - Under "Build and deployment" select "Deploy from a branch"
-   - Set the branch to your working branch
-   - Set the github page to build from the "/docs" folder
-   - Hit save and wait for your site to build
+   - Under "Build and deployment" select "GitHub Actions"
+   - Add your working branch to the on push branches (line 5) in the "docs-deploy.yml" file, this can be found in the ".github/workflows" directory
+   - Push your commit and wait for the pages to build
    - Once it is ready, click the link and preview the docs
+   - If the pages were built successfully, remove your branch from the "docs-deploy.yml" workflow
 
 ![Image shows the UI settings for building the GitHub page, which is described in step 3 of the contributing documentation instructions.](docs/images/github-page.png)
 

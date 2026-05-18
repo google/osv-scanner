@@ -1,0 +1,19 @@
+{
+  "lockfileVersion": 0,
+  "workspaces": {
+    "": {
+      "name": "bun-lockfile",
+      "dependencies": {
+        "some-git-dep": "github:org/repo#bca26e4"
+      }
+    }
+  },
+  "packages": {
+    "some-git-dep": [
+      "some-git-dep@github:org/repo#bca26e4",
+      "",
+      {},
+      "sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ=="
+    ]
+  }
+}

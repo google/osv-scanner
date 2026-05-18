@@ -22,6 +22,7 @@ import (
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
+	"github.com/google/osv-scanner/v2/internal/output"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitcommitdirect"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
@@ -142,7 +143,11 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*inventory.Inven
 
 	// --- Directories ---
 	for _, path := range actions.DirectoryPaths {
-		cmdlogger.Infof("Scanning dir %s", path)
+		// path is user-controlled and is logged to stdout, which the GitHub Actions
+		// runner parses for ::command::value sequences regardless of --format.
+		// Sanitize \r/\n so an attacker-supplied directory name cannot inject
+		// workflow commands.
+		cmdlogger.Infof("Scanning dir %s", output.SanitizeForWorkflowCommand(path))
 		if _, err := pathToRootMap(rootMap, path, actions.Recursive); err != nil {
 			return nil, err
 		}
@@ -212,21 +217,24 @@ SBOMLoop:
 		return nil, fmt.Errorf("failed to parse exclude patterns: %w", err)
 	}
 
+	capabilities := plugin.Capabilities{
+		DirectFS:           true,
+		RunningSystem:      true,
+		Network:            plugin.NetworkOnline,
+		OS:                 osCapability,
+		AllowUnsafePlugins: true,
+	}
+
+	if actions.CompareOffline {
+		capabilities.Network = plugin.NetworkOffline
+	}
+
+	filteredPlugins := append(plugin.FilterByCapabilities(plugins, &capabilities), gitDirectPlugin)
+
 	// For each root, run scalibr's scan() once.
 	for root, paths := range rootMap {
-		capabilities := plugin.Capabilities{
-			DirectFS:      true,
-			RunningSystem: true,
-			Network:       plugin.NetworkOnline,
-			OS:            osCapability,
-		}
-
-		if actions.CompareOffline {
-			capabilities.Network = plugin.NetworkOffline
-		}
-
 		sr := scanner.Scan(context.Background(), &scalibr.ScanConfig{
-			Plugins:               append(plugin.FilterByCapabilities(plugins, &capabilities), gitDirectPlugin),
+			Plugins:               filteredPlugins,
 			Capabilities:          &capabilities,
 			ScanRoots:             fs.RealFSScanRoots(root),
 			PathsToExtract:        paths,

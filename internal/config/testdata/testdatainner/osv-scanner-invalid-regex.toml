@@ -1,0 +1,5 @@
+[[PackageOverrides]]
+name = "[invalid"
+nameIsRegex = true
+ignore = true
+reason = "this regex is invalid"

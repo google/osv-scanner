@@ -347,6 +347,12 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "--config=./testdata/osv-scanner-unknown-config.toml", "./testdata/locks-many"},
 			Exit: 127,
 		},
+		// config file with invalid regex in package override
+		{
+			Name: "config_file_with_invalid_regex",
+			Args: []string{"", "source", "--config=./testdata/osv-scanner-invalid-regex-config.toml", "./testdata/locks-many"},
+			Exit: 127,
+		},
 		// config file with multiple ignores with the same id
 		{
 			Name: "config_files_should_not_have_multiple_ignores_with_the_same_id",
@@ -363,6 +369,11 @@ func TestCommand(t *testing.T) {
 		{
 			Name: "go_packages_in_osv-scanner.json_format",
 			Args: []string{"", "source", "-L", "osv-scanner:./testdata/locks-insecure/osv-scanner.json"},
+			Exit: 1,
+		},
+		{
+			Name: "Scan_locks-dotnet",
+			Args: []string{"", "source", "./testdata/locks-dotnet"},
 			Exit: 1,
 		},
 		{
@@ -450,6 +461,38 @@ func TestCommand_JavareachArchive(t *testing.T) {
 	}
 }
 
+func TestCommand_HomebrewWithAnnotators(t *testing.T) {
+	t.Parallel()
+
+	if runtime.GOOS != "darwin" {
+		testutility.Skip(t, "The detector in this test only works on Darwin")
+	}
+
+	client := testcmd.InsertCassette(t)
+
+	tests := []testcmd.Case{
+		{
+			Name: "homebrew_extractor_via_artifact_plugin",
+			Args: []string{"", "source", "-r", "--no-ignore", "--experimental-plugins=artifact", "./testdata/homebrew/Cellar/"},
+			Exit: 1,
+		},
+		{
+			Name: "homebrew_extractor_explicitly_enabled_with_annotator",
+			Args: []string{"", "source", "-r", "--no-ignore", "--experimental-plugins=os/homebrew", "--experimental-plugins=misc/brew-source", "./testdata/homebrew/Cellar/"},
+			Exit: 1,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+
+			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
+
+			testcmd.RunAndMatchSnapshots(t, tt)
+		})
+	}
+}
+
 func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 	t.Parallel()
 
@@ -457,9 +500,9 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 
 	tests := []testcmd.Case{
 		{
-			Name: "empty_plugins_flag_does_nothing",
+			Name: "empty_plugins_flag_does_default",
 			Args: []string{"", "source", "--experimental-plugins="},
-			Exit: 127,
+			Exit: 128,
 		},
 		{
 			Name: "extractors_cancelled_out_specified_individually",
@@ -1405,9 +1448,9 @@ func TestCommand_MoreLockfiles(t *testing.T) {
 			Exit: 127,
 		},
 		{
-			Name: "Package.resolved_-_Unsupported_ecosystem,_should_not_be_scanned",
+			Name: "Package.resolved_-_SwiftURL_ecosystem_vulnerabilities_detected",
 			Args: []string{"", "source", "-L", "./testdata/locks-scalibr/Package.resolved"},
-			Exit: 127,
+			Exit: 1,
 		},
 	}
 
@@ -1653,6 +1696,16 @@ func TestCommand_Filter(t *testing.T) {
 		{
 			Name: "Show_all_Packages_with_empty_config",
 			Args: []string{"", "source", "--format=json", "--all-packages", "--config=./testdata/osv-scanner-empty-config.toml", "--lockfile=osv-scanner:./testdata/locks-insecure/osv-scanner-with-unscannables.json"},
+			Exit: 0,
+		},
+		{
+			Name: "bun_lock_with_short_commit_hash_skipped",
+			Args: []string{"", "source", "--format=json", "./testdata/locks-bun-shorthash"},
+			Exit: 0,
+		},
+		{
+			Name: "bun_lock_with_short_commit_hash_skipped_show_all",
+			Args: []string{"", "source", "--format=json", "--all-packages", "./testdata/locks-bun-shorthash"},
 			Exit: 0,
 		},
 	}

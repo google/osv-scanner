@@ -14,7 +14,7 @@ func copyFile(from, to string) (string, error) {
 		return "", fmt.Errorf("could not read test file: %w", err)
 	}
 
-	if err := os.WriteFile(to, b, 0600); err != nil {
+	if err := os.WriteFile(to, b, 0600); err != nil { //nolint:gosec // Safe in tests
 		return "", fmt.Errorf("could not copy test file: %w", err)
 	}
 

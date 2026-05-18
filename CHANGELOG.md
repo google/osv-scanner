@@ -1,8 +1,52 @@
+# v2.3.7/v2.3.8
+
+### Fixes:
+
+- Fix installation issues with `go install` due to dependency conflicts (downgrade `containerd/cgroups/v3`, `moby/buildkit` and `opencontainers/runtime-spec`).
+- [Bug #2762](https://github.com/google/osv-scanner/pull/2762) Skip packages with short commit hashes instead of aborting scan.
+- [Bug #2781](https://github.com/google/osv-scanner/pull/2781) Secure file path handling with `os.OpenRoot`.
+- [Bug #2766](https://github.com/google/osv-scanner/pull/2766) Correct typos across docs, configs, and Go source.
+
+### Misc:
+
+- Update osv-scalibr to `v0.4.6-0.20260504042738-9293bfa4f86f`.
+- Remove replace directive (#2782).
+- Update contributing.md (#2779).
+
+# v2.3.6
+
+### Features:
+
+- [Feature #2658](https://github.com/google/osv-scanner/pull/2658) Support regex matching for package name overrides.
+- [Feature #2510](https://github.com/google/osv-scanner/pull/2510) Scan Homebrew inventory using git repository metadata.
+
+### Fixes:
+
+- [Bug #2750](https://github.com/google/osv-scanner/pull/2750) Sanitize \r/\n in default/table/vertical output to prevent GitHub Actions workflow command injection.
+- [Bug #2641](https://github.com/google/osv-scanner/pull/2641) Correctly output packages from osv-scanner.json source in spdx format.
+- [Bug #2729](https://github.com/google/osv-scanner/pull/2729) Increase color contrast of vulnerability stats.
+- [Bug #2664](https://github.com/google/osv-scanner/pull/2664) Remove second newline at end of vertical output.
+- [Bug #2669](https://github.com/google/osv-scanner/pull/2669) Sanitize \r in gh-annotations to prevent GitHub Actions workflow command injection.
+
+### Misc:
+
+- Update osv-scalibr to `v0.4.6-0.20260428235529-7791e288d6c1`.
+- Update Go version to 1.26.2 (#2706).
+
+# v2.3.5
+
+### Misc:
+
+- Fix broken release workflow.
+
 # v2.3.4
+
+[!NOTE] This release was abandoned, due to issues with the release workflow.
 
 ### Features:
 
 - [Feature #2571](https://github.com/google/osv-scanner/pull/2571) Enable transitive scanning for Python requirements.txt files using the deps.dev API.
+- [Feature #2649](https://github.com/google/osv-scanner/pull/2649) Add ability to allow unsafe plugins, logging a warning when any unsafe plugin is enabled.
 
 ### Fixes:
 

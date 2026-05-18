@@ -109,8 +109,8 @@ func run(args []string, stdout, stderr io.Writer) int {
 			var termWidth int
 			var err error
 			if stdoutAsFile, ok := stdout.(*os.File); ok {
-				termWidth, _, err = term.GetSize(int(stdoutAsFile.Fd()))
-				if err != nil { // If output is not a terminal,
+				termWidth, _, err = term.GetSize(int(stdoutAsFile.Fd())) //nolint:gosec // Fd() is safe to convert to int
+				if err != nil {                                          // If output is not a terminal,
 					termWidth = 0
 				}
 			}

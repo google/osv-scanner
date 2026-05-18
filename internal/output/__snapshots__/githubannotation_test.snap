@@ -195,6 +195,10 @@
 ::error file=path/to/my/first/lockfile::path/to/my/first/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 |      | 1.2.3           |               |%0A| mine3   | https://osv.dev/OSV-2 |      | 0.10.2-rc       |               |%0A+---------+-----------------------+------+-----------------+---------------+
 ---
 
+[TestPrintGHAnnotationReport_WithVulnerabilities/one_source_with_workflow_command_injection_attempt_in_path - 1]
+::error file=dir%0D::stop-commands::T%0D::error::INJECTED%0A::warning::pwn/lockfile::dir%0D::stop-commands::T%0D::error::INJECTED%0A::warning::pwn/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 |      | 1.2.3           |               |%0A+---------+-----------------------+------+-----------------+---------------+
+---
+
 [TestPrintGHAnnotationReport_WithVulnerabilities/two_sources_with_packages,_one_vulnerability - 1]
 ::error file=path/to/my/first/lockfile::path/to/my/first/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 |      | 1.2.3           |               |%0A+---------+-----------------------+------+-----------------+---------------+
 ---

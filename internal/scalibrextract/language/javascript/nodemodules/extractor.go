@@ -42,7 +42,7 @@ func (e Extractor) FileRequired(fapi filesystem.FileAPI) bool {
 	return filepath.Base(filepath.Dir(fapi.Path())) == "node_modules" && filepath.Base(fapi.Path()) == ".package-lock.json"
 }
 
-// Extract extracts packages from yarn.lock files passed through the scan input.
+// Extract extracts packages from .package-lock.json files passed through the scan input.
 func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) (inventory.Inventory, error) {
 	return e.actualExtractor.Extract(ctx, input)
 }

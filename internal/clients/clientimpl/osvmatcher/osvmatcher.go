@@ -4,9 +4,11 @@ import (
 	"context"
 	"errors"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/purl"
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels"
@@ -132,7 +134,7 @@ func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*ext
 	return vulnerabilities, nil
 }
 
-func pkgToQuery(pkg imodels.PackageInfo) *api.Query {
+func pkgToQuery(pkg *extractor.Package) *api.Query {
 	if imodels.Name(pkg) != "" && !imodels.Ecosystem(pkg).IsEmpty() && imodels.Version(pkg) != "" {
 		name := imodels.Name(pkg)
 
@@ -147,6 +149,11 @@ func pkgToQuery(pkg imodels.PackageInfo) *api.Query {
 			if match != nil {
 				name += "/" + match[1]
 			}
+		}
+
+		// Special case for Homebrew packages with a source code repo
+		if pkg.PURL().Type == purl.TypeBrew && pkg.SourceCode != nil {
+			name = strings.ToLower(pkg.SourceCode.Repo)
 		}
 
 		return &api.Query{
@@ -180,7 +187,6 @@ func pkgsToQueries(pkgs []*extractor.Package) []*api.Query {
 	queries := make([]*api.Query, len(pkgs))
 
 	for i, pkg := range pkgs {
-		pkg := imodels.FromPackage(pkg)
 		queries[i] = pkgToQuery(pkg)
 	}
 

@@ -412,6 +412,7 @@ header {
   overflow: hidden;
   white-space: nowrap;
   user-select: none;
+  font-weight: bold;
 }
 
 .severity-long p {
@@ -427,6 +428,7 @@ header {
 
 .high {
   background-color: #ffa500;
+  color: #292929;
 }
 
 .medium {
@@ -441,6 +443,7 @@ header {
 
 .unknown {
   background-color: #80868b;
+  color: #000;
 }
 
 .severity-count-summary {
@@ -450,6 +453,7 @@ header {
 .severity-short {
   width: 40px;
   user-select: none;
+  font-weight: bold;
 }
 
 .severity-short p {
@@ -533,6 +537,7 @@ header {
   text-decoration: underline;
   text-decoration-style: dotted;
   text-underline-offset: 3px;
+  font-weight: 100;
 }
 
 .tooltip.no-underline {

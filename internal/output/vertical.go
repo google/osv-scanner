@@ -51,7 +51,7 @@ func PrintVerticalResults(vulnResult *models.VulnerabilityResults, outputWriter 
 		}
 	}
 
-	fmt.Fprintln(outputWriter)
+	fmt.Fprint(outputWriter)
 }
 
 func printVerticalLicenseSummary(licenseSummary LicenseSummary, out io.Writer) {
@@ -152,10 +152,13 @@ func printBaseImages(imageResult ImageInfo, out io.Writer) {
 }
 
 func printVerticalHeader(result SourceResult, out io.Writer) {
+	// result.Name is user-controlled; sanitize \r/\n before printing to prevent
+	// GitHub Actions workflow command injection.
+	safeName := SanitizeForWorkflowCommand(result.Name)
 	fmt.Fprintf(
 		out,
 		"%s: found %s %s with issues\n",
-		text.FgMagenta.Sprintf("%s", result.Name),
+		text.FgMagenta.Sprintf("%s", safeName),
 		text.FgYellow.Sprintf("%d", result.PackageTypeCount.Regular),
 		Form(result.PackageTypeCount.Regular, "package", "packages"),
 	)
@@ -182,7 +185,9 @@ func printVerticalVulnerabilitiesCountSummary(count int, printingCalled bool, so
 			count,
 			state,
 			Form(count, "vulnerability", "vulnerabilities"),
-			sourcePath,
+			// sourcePath is user-controlled; sanitize \r/\n before printing to
+			// prevent GitHub Actions workflow command injection.
+			SanitizeForWorkflowCommand(sourcePath),
 		),
 	)
 

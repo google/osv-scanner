@@ -60,11 +60,11 @@ func newPackageInfo(source string, pi pkginfo) models.PackageInfo {
 		ImageOrigin:   pi.ImageOrigin,
 		Deprecated:    pi.Deprecated,
 		Inventory: &extractor.Package{
-			Name:      pi.Name,
-			Version:   pi.Version,
-			Plugins:   []string{pi.Extractor.Name()},
-			Locations: []string{source},
-			PURLType:  resolvePURLType(pi.Ecosystem),
+			Name:     pi.Name,
+			Version:  pi.Version,
+			Plugins:  []string{pi.Extractor.Name()},
+			Location: extractor.LocationFromPath(source),
+			PURLType: resolvePURLType(pi.Ecosystem),
 		},
 	}
 
@@ -1338,6 +1338,37 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									Groups: []models.GroupInfo{{IDs: []string{"OSV-2"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{Id: "OSV-2"},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			// Source path contains \r and \n bytes that, if echoed verbatim to
+			// stdout under a GitHub Actions runner, would be parsed as workflow
+			// commands (::stop-commands::, ::error::, etc.). The output formats
+			// must encode these bytes (for the GHA-aware text formats) or quote
+			// them via the format's native escaping (for the structured formats).
+			name: "one_source_with_workflow_command_injection_attempt_in_path",
+			args: outputTestCaseArgs{
+				vulnResult: &models.VulnerabilityResults{
+					Results: []models.PackageSource{
+						{
+							Source: models.SourceInfo{Path: "dir\r::stop-commands::T\r::error::INJECTED\n::warning::pwn/lockfile", Type: models.SourceTypeProjectPackage},
+							Packages: []models.PackageVulns{
+								{
+									Package: newPackageInfo("dir\r::stop-commands::T\r::error::INJECTED\n::warning::pwn/lockfile", pkginfo{
+										Name:      "mine1",
+										Version:   "1.2.3",
+										Ecosystem: "npm",
+										Extractor: packagelockjson.Extractor{},
+									}),
+									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
+									Vulnerabilities: []*osvschema.Vulnerability{
+										{Id: "OSV-1", Summary: "Test vulnerability"},
 									},
 								},
 							},
