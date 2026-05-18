@@ -562,6 +562,65 @@ failed to load image from tarball with path "../../testdata/locks-manyoci-image/
 
 ---
 
+[TestCommand_OCIImage/Scanning_Red_Hat_image - 1]
+Scanning local image tarball "./testdata/test-redhat.tar"
+
+
+Container Scanning Result (Red Hat Enterprise Linux 9.3 (Plow)) (Based on "redhat/ubi9-minimal" image):
+Total 33 packages affected by 114 known vulnerabilities (6 Critical, 44 High, 56 Medium, 2 Low, 6 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
+Red Hat
++---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/var/lib/rpm/rpmdb.sqlite                                                                                                                           |
++------------------------+-------------------------------+------------------+------------+-----------------------------+------------------+---------------------+
+| SOURCE PACKAGE         | INSTALLED VERSION             | FIX AVAILABLE    | VULN COUNT | BINARY PACKAGES (COUNT)     | INTRODUCED LAYER | IN BASE IMAGE       |
++------------------------+-------------------------------+------------------+------------+-----------------------------+------------------+---------------------+
+| bzip2-libs             | 1.0.8-8.el9                   | No fix available |          1 | bzip2-libs                  | # 22 Layer       | redhat/ubi9-minimal |
+| ca-certificates        | 2023.2.60_v7.0.306-90.1.el9_2 | No fix available |          1 | ca-certificates             | # 22 Layer       | redhat/ubi9-minimal |
+| curl-minimal           | 7.76.1-26.el9_3.3             | No fix available |          2 | curl-minimal                | # 22 Layer       | redhat/ubi9-minimal |
+| file-libs              | 5.39-14.el9                   | No fix available |          1 | file-libs                   | # 22 Layer       | redhat/ubi9-minimal |
+| glib2                  | 2.68.4-11.el9                 | No fix available |          3 | glib2                       | # 22 Layer       | redhat/ubi9-minimal |
+| glibc                  | 2.34-83.el9_3.12              | No fix available |          8 | glibc                       | # 22 Layer       | redhat/ubi9-minimal |
+| glibc-common           | 2.34-83.el9_3.12              | No fix available |          7 | glibc-common                | # 22 Layer       | redhat/ubi9-minimal |
+| glibc-minimal-langpack | 2.34-83.el9_3.12              | No fix available |          7 | glibc-minimal-langpa... (1) | # 22 Layer       | redhat/ubi9-minimal |
+| gmp                    | 6.2.0-13.el9                  | No fix available |          1 | gmp                         | # 22 Layer       | redhat/ubi9-minimal |
+| gnupg2                 | 2.3.3-4.el9                   | No fix available |          3 | gnupg2                      | # 22 Layer       | redhat/ubi9-minimal |
+| gnutls                 | 3.7.6-23.el9_3.3              | No fix available |          4 | gnutls                      | # 22 Layer       | redhat/ubi9-minimal |
+| krb5-libs              | 1.21.1-1.el9                  | No fix available |          5 | krb5-libs                   | # 22 Layer       | redhat/ubi9-minimal |
+| libarchive             | 3.5.3-4.el9                   | No fix available |          4 | libarchive                  | # 22 Layer       | redhat/ubi9-minimal |
+| libblkid               | 2.37.4-15.el9                 | No fix available |          1 | libblkid                    | # 22 Layer       | redhat/ubi9-minimal |
+| libcap                 | 2.48-9.el9_2                  | No fix available |          1 | libcap                      | # 22 Layer       | redhat/ubi9-minimal |
+| libcurl-minimal        | 7.76.1-26.el9_3.3             | No fix available |          2 | libcurl-minimal             | # 22 Layer       | redhat/ubi9-minimal |
+| libgcc                 | 11.4.1-2.1.el9                | No fix available |          1 | libgcc                      | # 22 Layer       | redhat/ubi9-minimal |
+| libgcrypt              | 1.10.0-10.el9_2               | No fix available |          2 | libgcrypt                   | # 22 Layer       | redhat/ubi9-minimal |
+| libmount               | 2.37.4-15.el9                 | No fix available |          1 | libmount                    | # 22 Layer       | redhat/ubi9-minimal |
+| libnghttp2             | 1.43.0-5.el9_3.1              | No fix available |          2 | libnghttp2                  | # 22 Layer       | redhat/ubi9-minimal |
+| libsmartcols           | 2.37.4-15.el9                 | No fix available |          1 | libsmartcols                | # 22 Layer       | redhat/ubi9-minimal |
+| libsolv                | 0.7.24-2.el9                  | No fix available |          1 | libsolv                     | # 22 Layer       | redhat/ubi9-minimal |
+| libstdc++              | 11.4.1-2.1.el9                | No fix available |          1 | libstdc++                   | # 22 Layer       | redhat/ubi9-minimal |
+| libtasn1               | 4.16.0-8.el9_1                | No fix available |          2 | libtasn1                    | # 22 Layer       | redhat/ubi9-minimal |
+| libuuid                | 2.37.4-15.el9                 | No fix available |          1 | libuuid                     | # 22 Layer       | redhat/ubi9-minimal |
+| libxml2                | 2.9.13-5.el9_3                | No fix available |          4 | libxml2                     | # 22 Layer       | redhat/ubi9-minimal |
+| ncurses-base           | 6.2-10.20210508.el9           | No fix available |          2 | ncurses-base                | # 22 Layer       | redhat/ubi9-minimal |
+| ncurses-libs           | 6.2-10.20210508.el9           | No fix available |          2 | ncurses-libs                | # 22 Layer       | redhat/ubi9-minimal |
+| openssl-libs           | 3.0.7-25.el9_3                | No fix available |         36 | openssl-libs                | # 22 Layer       | redhat/ubi9-minimal |
+| p11-kit                | 0.24.1-2.el9                  | No fix available |          1 | p11-kit                     | # 22 Layer       | redhat/ubi9-minimal |
+| sqlite-libs            | 3.34.1-7.el9_3                | No fix available |          2 | sqlite-libs                 | # 22 Layer       | redhat/ubi9-minimal |
+| systemd-libs           | 252-18.el9                    | No fix available |          3 | systemd-libs                | # 22 Layer       | redhat/ubi9-minimal |
+| xz-libs                | 5.2.5-8.el9_0                 | No fix available |          1 | xz-libs                     | # 22 Layer       | redhat/ubi9-minimal |
++------------------------+-------------------------------+------------------+------------+-----------------------------+------------------+---------------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
+
+---
+
+[TestCommand_OCIImage/Scanning_Red_Hat_image - 2]
+
+---
+
 [TestCommand_OCIImage/Scanning_Ubuntu_image_with_go_OS_packages_json - 1]
 Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
