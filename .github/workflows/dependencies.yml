@@ -1,4 +1,4 @@
-name: Dependencies
+name: Update osv-scalibr
 
 on:
   schedule:
