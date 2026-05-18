@@ -51,6 +51,7 @@ rust/cargoauditable
 rust/cargolock
 sbom/cdx
 sbom/spdx
+swift/packageresolved
 transitivedependency/pomxml
 transitivedependency/requirements
 vcs/gitrepo
@@ -183,6 +184,7 @@ python/uvlock
 r/renvlock
 ruby/gemfilelock
 rust/cargolock
+swift/packageresolved
 ---
 
 [TestResolve_Extractors_Presets/sbom - 1]

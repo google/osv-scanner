@@ -5591,12 +5591,32 @@ Total 2 packages affected by 2 known vulnerabilities (1 Critical, 1 High, 0 Medi
 
 ---
 
-[TestCommand_MoreLockfiles/Package.resolved_-_Unsupported_ecosystem,_should_not_be_scanned - 1]
+[TestCommand_MoreLockfiles/Package.resolved_-_SwiftURL_ecosystem_vulnerabilities_detected - 1]
+Scanned <rootdir>/testdata/locks-scalibr/Package.resolved file and found 2 packages
+
+Total 2 packages affected by 12 known vulnerabilities (5 Critical, 5 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+12 vulnerabilities can be fixed.
+
++-------------------------------------+------+-----------+----------------------------------+---------+---------------+-----------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                          | VERSION | FIXED VERSION | SOURCE                                  |
++-------------------------------------+------+-----------+----------------------------------+---------+---------------+-----------------------------------------+
+| https://osv.dev/GHSA-ccw9-q5h2-8c2w | 7.5  | SwiftURL  | github.com/apple/swift-nio-http2 | 1.19.1  | 1.19.2        | testdata/locks-scalibr/Package.resolved |
+| https://osv.dev/GHSA-pgfx-g6rc-8cjv | 7.5  | SwiftURL  | github.com/apple/swift-nio-http2 | 1.19.1  | 1.19.2        | testdata/locks-scalibr/Package.resolved |
+| https://osv.dev/GHSA-q36x-r5x4-h4q6 | 7.5  | SwiftURL  | github.com/apple/swift-nio-http2 | 1.19.1  | 1.20          | testdata/locks-scalibr/Package.resolved |
+| https://osv.dev/GHSA-qppj-fm5r-hxr3 | 6.9  | SwiftURL  | github.com/apple/swift-nio-http2 | 1.19.1  | 1.28.0        | testdata/locks-scalibr/Package.resolved |
+| https://osv.dev/GHSA-w3f6-pc54-gfw7 | 7.5  | SwiftURL  | github.com/apple/swift-nio-http2 | 1.19.1  | 1.19.2        | testdata/locks-scalibr/Package.resolved |
+| https://osv.dev/GHSA-xvr7-p2c6-j83w | 6.3  | SwiftURL  | github.com/apple/swift-nio-http2 | 1.19.1  | 1.38.0        | testdata/locks-scalibr/Package.resolved |
+| https://osv.dev/GHSA-84m3-f99p-cqx5 | 9.8  | SwiftURL  | github.com/pytorch/executorch    | 0.6.0   | 0.7.0         | testdata/locks-scalibr/Package.resolved |
+| https://osv.dev/GHSA-9m39-3mf3-xwch | 9.8  | SwiftURL  | github.com/pytorch/executorch    | 0.6.0   | 0.7.0         | testdata/locks-scalibr/Package.resolved |
+| https://osv.dev/GHSA-f9hx-c6jf-3qxm | 9.8  | SwiftURL  | github.com/pytorch/executorch    | 0.6.0   | 0.7.0         | testdata/locks-scalibr/Package.resolved |
+| https://osv.dev/GHSA-h952-963h-rv99 | 8.1  | SwiftURL  | github.com/pytorch/executorch    | 0.6.0   | 0.7.0-rc1     | testdata/locks-scalibr/Package.resolved |
+| https://osv.dev/GHSA-hj95-mhgf-jxc4 | 9.8  | SwiftURL  | github.com/pytorch/executorch    | 0.6.0   | 0.7.0         | testdata/locks-scalibr/Package.resolved |
+| https://osv.dev/GHSA-xc7w-r669-48pf | 9.8  | SwiftURL  | github.com/pytorch/executorch    | 0.6.0   | 0.7.0         | testdata/locks-scalibr/Package.resolved |
++-------------------------------------+------+-----------+----------------------------------+---------+---------------+-----------------------------------------+
 
 ---
 
-[TestCommand_MoreLockfiles/Package.resolved_-_Unsupported_ecosystem,_should_not_be_scanned - 2]
-could not determine extractor suitable to this file: "<rootdir>/testdata/locks-scalibr/Package.resolved"
+[TestCommand_MoreLockfiles/Package.resolved_-_SwiftURL_ecosystem_vulnerabilities_detected - 2]
 
 ---
 
