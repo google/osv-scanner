@@ -38,6 +38,9 @@ func TestPrintCycloneDXResults(t *testing.T) {
 		{"CycloneDX16_WithVulnerabilities", models.CycloneDXVersion16, testOutputWithVulnerabilities},
 		{"CycloneDX16_WithLicenseViolations", models.CycloneDXVersion16, testOutputWithLicenseViolations},
 		{"CycloneDX16_WithMixedIssues", models.CycloneDXVersion16, testOutputWithMixedIssues},
+		{"CycloneDX17_WithVulnerabilities", models.CycloneDXVersion17, testOutputWithVulnerabilities},
+		{"CycloneDX17_WithLicenseViolations", models.CycloneDXVersion17, testOutputWithLicenseViolations},
+		{"CycloneDX17_WithMixedIssues", models.CycloneDXVersion17, testOutputWithMixedIssues},
 	}
 
 	for _, tt := range tests {
