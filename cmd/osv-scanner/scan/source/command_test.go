@@ -372,6 +372,11 @@ func TestCommand(t *testing.T) {
 			Exit: 1,
 		},
 		{
+			Name: "Scan_locks-dotnet",
+			Args: []string{"", "source", "./testdata/locks-dotnet"},
+			Exit: 1,
+		},
+		{
 			Name: "help",
 			Args: []string{"", "source", "--help"},
 			Exit: 127,
@@ -1443,9 +1448,9 @@ func TestCommand_MoreLockfiles(t *testing.T) {
 			Exit: 127,
 		},
 		{
-			Name: "Package.resolved_-_Unsupported_ecosystem,_should_not_be_scanned",
+			Name: "Package.resolved_-_SwiftURL_ecosystem_vulnerabilities_detected",
 			Args: []string{"", "source", "-L", "./testdata/locks-scalibr/Package.resolved"},
-			Exit: 127,
+			Exit: 1,
 		},
 	}
 
@@ -1691,6 +1696,16 @@ func TestCommand_Filter(t *testing.T) {
 		{
 			Name: "Show_all_Packages_with_empty_config",
 			Args: []string{"", "source", "--format=json", "--all-packages", "--config=./testdata/osv-scanner-empty-config.toml", "--lockfile=osv-scanner:./testdata/locks-insecure/osv-scanner-with-unscannables.json"},
+			Exit: 0,
+		},
+		{
+			Name: "bun_lock_with_short_commit_hash_skipped",
+			Args: []string{"", "source", "--format=json", "./testdata/locks-bun-shorthash"},
+			Exit: 0,
+		},
+		{
+			Name: "bun_lock_with_short_commit_hash_skipped_show_all",
+			Args: []string{"", "source", "--format=json", "--all-packages", "./testdata/locks-bun-shorthash"},
 			Exit: 0,
 		},
 	}

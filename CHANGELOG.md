@@ -1,12 +1,17 @@
-# v2.3.7
+# v2.3.7/v2.3.8
 
 ### Fixes:
 
 - Fix installation issues with `go install` due to dependency conflicts (downgrade `containerd/cgroups/v3`, `moby/buildkit` and `opencontainers/runtime-spec`).
+- [Bug #2762](https://github.com/google/osv-scanner/pull/2762) Skip packages with short commit hashes instead of aborting scan.
+- [Bug #2781](https://github.com/google/osv-scanner/pull/2781) Secure file path handling with `os.OpenRoot`.
+- [Bug #2766](https://github.com/google/osv-scanner/pull/2766) Correct typos across docs, configs, and Go source.
 
 ### Misc:
 
 - Update osv-scalibr to `v0.4.6-0.20260504042738-9293bfa4f86f`.
+- Remove replace directive (#2782).
+- Update contributing.md (#2779).
 
 # v2.3.6
 

@@ -97,7 +97,7 @@ Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
           "rules": [],
           "supportedTaxonomies": [],
           "taxa": [],
-          "version": "2.3.7"
+          "version": "2.3.8"
         },
         "extensions": []
       },
@@ -374,7 +374,7 @@ Total 2 packages affected by 11 known vulnerabilities (3 Critical, 6 High, 2 Med
           ],
           "supportedTaxonomies": [],
           "taxa": [],
-          "version": "2.3.7"
+          "version": "2.3.8"
         },
         "extensions": []
       },
@@ -392,6 +392,27 @@ Total 2 packages affected by 11 known vulnerabilities (3 Critical, 6 High, 2 Med
 [TestCommand/Sarif_with_vulns - 2]
 Scanning dir ./testdata/locks-many-with-insecure/package-lock.json
 Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
+
+---
+
+[TestCommand/Scan_locks-dotnet - 1]
+Scanning dir ./testdata/locks-dotnet
+Scanned <rootdir>/testdata/locks-dotnet/Directory.Packages.props file and found 1 package
+Scanned <rootdir>/testdata/locks-dotnet/test.csproj file and found 1 package
+
+Total 2 packages affected by 2 known vulnerabilities (0 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+2 vulnerabilities can be fixed.
+
++-------------------------------------+------+-----------+--------------------------------+---------+---------------+------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                        | VERSION | FIXED VERSION | SOURCE                                         |
++-------------------------------------+------+-----------+--------------------------------+---------+---------------+------------------------------------------------+
+| https://osv.dev/GHSA-cmhx-cq75-c4mj | 7.5  | NuGet     | System.Text.RegularExpressions | 4.3.0   | 4.3.1         | testdata/locks-dotnet/Directory.Packages.props |
+| https://osv.dev/GHSA-5crp-9r3c-p9vr | 7.5  | NuGet     | Newtonsoft.Json                | 12.0.1  | 13.0.1        | testdata/locks-dotnet/test.csproj              |
++-------------------------------------+------+-----------+--------------------------------+---------+---------------+------------------------------------------------+
+
+---
+
+[TestCommand/Scan_locks-dotnet - 2]
 
 ---
 
@@ -1061,7 +1082,7 @@ Total 27 packages affected by 200 known vulnerabilities (22 Critical, 87 High, 6
 | https://osv.dev/DEBIAN-CVE-2025-4575  | 6.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2025-66199 | 5.9  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2025-9231  | 6.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
-| https://osv.dev/DEBIAN-CVE-2026-2673  | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-2673  | 7.3  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2026-28386 | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2026-28387 | 8.1  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2026-28388 | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -2310,7 +2331,7 @@ Total 27 packages affected by 194 known vulnerabilities (22 Critical, 82 High, 6
 | https://osv.dev/DEBIAN-CVE-2025-4575  | 6.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2025-66199 | 5.9  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2025-9231  | 6.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
-| https://osv.dev/DEBIAN-CVE-2026-2673  | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-2673  | 7.3  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2026-28386 | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2026-28387 | 8.1  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2026-28388 | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -2551,7 +2572,7 @@ Total 24 packages affected by 186 known vulnerabilities (20 Critical, 79 High, 6
 | https://osv.dev/DEBIAN-CVE-2025-4575  | 6.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2025-66199 | 5.9  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2025-9231  | 6.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/DEBIAN-CVE-2026-2673  | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-2673  | 7.3  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2026-28386 | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2026-28387 | 8.1  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2026-28388 | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2958,6 +2979,65 @@ Filtered 1 local/unscannable package/s from the scan.
 
 ---
 
+[TestCommand_Filter/bun_lock_with_short_commit_hash_skipped - 1]
+{
+  "results": [],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
+[TestCommand_Filter/bun_lock_with_short_commit_hash_skipped - 2]
+Scanning dir ./testdata/locks-bun-shorthash
+Scanned <rootdir>/testdata/locks-bun-shorthash/bun.lock file and found 1 package
+Skipping some-git-dep: short commit hash "bca26e4" cannot be queried; OSV API requires a full 40-character SHA.
+Filtered 1 local/unscannable package/s from the scan.
+
+---
+
+[TestCommand_Filter/bun_lock_with_short_commit_hash_skipped_show_all - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "<rootdir>/testdata/locks-bun-shorthash/bun.lock",
+        "type": "lockfile"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "some-git-dep",
+            "version": "",
+            "ecosystem": "npm",
+            "commit": "bca26e4"
+          }
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
+[TestCommand_Filter/bun_lock_with_short_commit_hash_skipped_show_all - 2]
+Scanning dir ./testdata/locks-bun-shorthash
+Scanned <rootdir>/testdata/locks-bun-shorthash/bun.lock file and found 1 package
+Skipping some-git-dep: short commit hash "bca26e4" cannot be queried; OSV API requires a full 40-character SHA.
+Filtered 1 local/unscannable package/s from the scan.
+
+---
+
 [TestCommand_FlagDeprecatedPackages/package_deprecated_false_no_vuln_json - 1]
 {
   "results": [],
@@ -3334,7 +3414,7 @@ Total 1 package affected by 2 known vulnerabilities (0 Critical, 2 High, 0 Mediu
           ],
           "supportedTaxonomies": [],
           "taxa": [],
-          "version": "2.3.7"
+          "version": "2.3.8"
         },
         "extensions": []
       },
@@ -4823,7 +4903,7 @@ Total 22 packages affected by 183 known vulnerabilities (19 Critical, 78 High, 5
 | https://osv.dev/DEBIAN-CVE-2025-4575  | 6.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2025-66199 | 5.9  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2025-9231  | 6.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/DEBIAN-CVE-2026-2673  | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-2673  | 7.3  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2026-28386 | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2026-28387 | 8.1  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2026-28388 | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
@@ -5056,7 +5136,7 @@ Total 22 packages affected by 183 known vulnerabilities (19 Critical, 78 High, 5
 | https://osv.dev/DEBIAN-CVE-2025-4575  | 6.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2025-66199 | 5.9  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2025-9231  | 6.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/DEBIAN-CVE-2026-2673  | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-2673  | 7.3  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2026-28386 | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2026-28387 | 8.1  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2026-28388 | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
@@ -5511,12 +5591,32 @@ Total 2 packages affected by 2 known vulnerabilities (1 Critical, 1 High, 0 Medi
 
 ---
 
-[TestCommand_MoreLockfiles/Package.resolved_-_Unsupported_ecosystem,_should_not_be_scanned - 1]
+[TestCommand_MoreLockfiles/Package.resolved_-_SwiftURL_ecosystem_vulnerabilities_detected - 1]
+Scanned <rootdir>/testdata/locks-scalibr/Package.resolved file and found 2 packages
+
+Total 2 packages affected by 12 known vulnerabilities (5 Critical, 5 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+12 vulnerabilities can be fixed.
+
++-------------------------------------+------+-----------+----------------------------------+---------+---------------+-----------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                          | VERSION | FIXED VERSION | SOURCE                                  |
++-------------------------------------+------+-----------+----------------------------------+---------+---------------+-----------------------------------------+
+| https://osv.dev/GHSA-ccw9-q5h2-8c2w | 7.5  | SwiftURL  | github.com/apple/swift-nio-http2 | 1.19.1  | 1.19.2        | testdata/locks-scalibr/Package.resolved |
+| https://osv.dev/GHSA-pgfx-g6rc-8cjv | 7.5  | SwiftURL  | github.com/apple/swift-nio-http2 | 1.19.1  | 1.19.2        | testdata/locks-scalibr/Package.resolved |
+| https://osv.dev/GHSA-q36x-r5x4-h4q6 | 7.5  | SwiftURL  | github.com/apple/swift-nio-http2 | 1.19.1  | 1.20          | testdata/locks-scalibr/Package.resolved |
+| https://osv.dev/GHSA-qppj-fm5r-hxr3 | 6.9  | SwiftURL  | github.com/apple/swift-nio-http2 | 1.19.1  | 1.28.0        | testdata/locks-scalibr/Package.resolved |
+| https://osv.dev/GHSA-w3f6-pc54-gfw7 | 7.5  | SwiftURL  | github.com/apple/swift-nio-http2 | 1.19.1  | 1.19.2        | testdata/locks-scalibr/Package.resolved |
+| https://osv.dev/GHSA-xvr7-p2c6-j83w | 6.3  | SwiftURL  | github.com/apple/swift-nio-http2 | 1.19.1  | 1.38.0        | testdata/locks-scalibr/Package.resolved |
+| https://osv.dev/GHSA-84m3-f99p-cqx5 | 9.8  | SwiftURL  | github.com/pytorch/executorch    | 0.6.0   | 0.7.0         | testdata/locks-scalibr/Package.resolved |
+| https://osv.dev/GHSA-9m39-3mf3-xwch | 9.8  | SwiftURL  | github.com/pytorch/executorch    | 0.6.0   | 0.7.0         | testdata/locks-scalibr/Package.resolved |
+| https://osv.dev/GHSA-f9hx-c6jf-3qxm | 9.8  | SwiftURL  | github.com/pytorch/executorch    | 0.6.0   | 0.7.0         | testdata/locks-scalibr/Package.resolved |
+| https://osv.dev/GHSA-h952-963h-rv99 | 8.1  | SwiftURL  | github.com/pytorch/executorch    | 0.6.0   | 0.7.0-rc1     | testdata/locks-scalibr/Package.resolved |
+| https://osv.dev/GHSA-hj95-mhgf-jxc4 | 9.8  | SwiftURL  | github.com/pytorch/executorch    | 0.6.0   | 0.7.0         | testdata/locks-scalibr/Package.resolved |
+| https://osv.dev/GHSA-xc7w-r669-48pf | 9.8  | SwiftURL  | github.com/pytorch/executorch    | 0.6.0   | 0.7.0         | testdata/locks-scalibr/Package.resolved |
++-------------------------------------+------+-----------+----------------------------------+---------+---------------+-----------------------------------------+
 
 ---
 
-[TestCommand_MoreLockfiles/Package.resolved_-_Unsupported_ecosystem,_should_not_be_scanned - 2]
-could not determine extractor suitable to this file: "<rootdir>/testdata/locks-scalibr/Package.resolved"
+[TestCommand_MoreLockfiles/Package.resolved_-_SwiftURL_ecosystem_vulnerabilities_detected - 2]
 
 ---
 
@@ -5919,8 +6019,8 @@ Total 3 packages affected by 9 known vulnerabilities (0 Critical, 3 High, 4 Medi
 [TestCommand_Transitive/requirements.txt_transitive_default - 1]
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
 
-Total 5 packages affected by 23 known vulnerabilities (1 Critical, 9 High, 11 Medium, 1 Low, 1 Unknown) from 1 ecosystem.
-23 vulnerabilities can be fixed.
+Total 5 packages affected by 24 known vulnerabilities (1 Critical, 10 High, 11 Medium, 1 Low, 1 Unknown) from 1 ecosystem.
+24 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | FIXED VERSION | SOURCE                                       |
@@ -5955,6 +6055,7 @@ Total 5 packages affected by 23 known vulnerabilities (1 Critical, 9 High, 11 Me
 | https://osv.dev/GHSA-38jv-5279-wg99 | 8.9  | PyPI      | urllib3  | 1.24.3  | 2.6.3         | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-gm62-xv2j-4w53 | 8.9  | PyPI      | urllib3  | 1.24.3  | 2.6.0         | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-pq67-6m6q-mj2v | 5.3  | PyPI      | urllib3  | 1.24.3  | 2.5.0         | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-qccp-gfcp-xxvc | 8.2  | PyPI      | urllib3  | 1.24.3  | 2.7.0         | testdata/locks-requirements/requirements.txt |
 +-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
 
 ---
@@ -5966,8 +6067,8 @@ Total 5 packages affected by 23 known vulnerabilities (1 Critical, 9 High, 11 Me
 [TestCommand_Transitive/requirements.txt_transitive_native_source - 1]
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
 
-Total 5 packages affected by 23 known vulnerabilities (1 Critical, 9 High, 11 Medium, 1 Low, 1 Unknown) from 1 ecosystem.
-23 vulnerabilities can be fixed.
+Total 5 packages affected by 24 known vulnerabilities (1 Critical, 10 High, 11 Medium, 1 Low, 1 Unknown) from 1 ecosystem.
+24 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | FIXED VERSION | SOURCE                                       |
@@ -6002,6 +6103,7 @@ Total 5 packages affected by 23 known vulnerabilities (1 Critical, 9 High, 11 Me
 | https://osv.dev/GHSA-38jv-5279-wg99 | 8.9  | PyPI      | urllib3  | 1.24.3  | 2.6.3         | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-gm62-xv2j-4w53 | 8.9  | PyPI      | urllib3  | 1.24.3  | 2.6.0         | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-pq67-6m6q-mj2v | 5.3  | PyPI      | urllib3  | 1.24.3  | 2.5.0         | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-qccp-gfcp-xxvc | 8.2  | PyPI      | urllib3  | 1.24.3  | 2.7.0         | testdata/locks-requirements/requirements.txt |
 +-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
 
 ---
