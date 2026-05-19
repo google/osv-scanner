@@ -619,8 +619,8 @@ Scanning local image tarball "./testdata/test-java-full.tar"
 
 
 Container Scanning Result (Alpine Linux v3.21) (Based on "eclipse-temurin" image):
-Total 30 packages affected by 109 known vulnerabilities (6 Critical, 50 High, 46 Medium, 6 Low, 1 Unknown) from 2 ecosystems.
-109 vulnerabilities can be fixed.
+Total 30 packages affected by 110 known vulnerabilities (6 Critical, 51 High, 46 Medium, 6 Low, 1 Unknown) from 2 ecosystems.
+110 vulnerabilities can be fixed.
 
 
 Maven
@@ -659,7 +659,7 @@ Alpine:v3.21
 | busybox        | 1.37.0-r9         | Fix Available |          2 | busybox... (3)             | # 0 Layer        | alpine          |
 | expat          | 2.6.4-r0          | Fix Available |          7 | libexpat                   | # 5 Layer        | eclipse-temurin |
 | gnupg          | 2.4.7-r0          | Fix Available |          2 | gnupg... (11)              | # 5 Layer        | eclipse-temurin |
-| gnutls         | 3.8.8-r0          | Fix Available |         14 | gnutls                     | # 5 Layer        | eclipse-temurin |
+| gnutls         | 3.8.8-r0          | Fix Available |         15 | gnutls                     | # 5 Layer        | eclipse-temurin |
 | libpng         | 1.6.44-r0         | Fix Available |         11 | libpng                     | # 5 Layer        | eclipse-temurin |
 | libtasn1       | 4.19.0-r2         | Fix Available |          2 | libtasn1                   | # 5 Layer        | eclipse-temurin |
 | musl           | 1.2.5-r8          | Fix Available |          3 | musl, musl-utils           | # 0 Layer        | alpine          |
@@ -754,8 +754,8 @@ Scanning local image tarball "./testdata/test-python-full.tar"
 
 
 Container Scanning Result (Debian GNU/Linux 10 (buster)) (Based on "python" image):
-Total 21 packages affected by 59 known vulnerabilities (1 Critical, 19 High, 21 Medium, 3 Low, 15 Unknown) from 2 ecosystems.
-57 vulnerabilities can be fixed.
+Total 21 packages affected by 60 known vulnerabilities (1 Critical, 19 High, 22 Medium, 3 Low, 15 Unknown) from 2 ecosystems.
+58 vulnerabilities can be fixed.
 
 
 PyPI
@@ -792,7 +792,7 @@ PyPI
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| idna    | 2.7               | Fix Available |          1 | # 17 Layer       | --            |
+| idna    | 2.7               | Fix Available |          2 | # 17 Layer       | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +-------------------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/local/lib/python3.9/site-packages/pip-23.0.1.dist-info/METADATA                  |
@@ -1377,9 +1377,10 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
               "index": 17
             }
           },
-          "groups": 1,
+          "groups": 2,
           "vulnerabilities": [
             "PYSEC-2024-60",
+            "GHSA-65pc-fj4g-8rjx",
             "GHSA-jjg7-2v4v-x38h"
           ]
         }
