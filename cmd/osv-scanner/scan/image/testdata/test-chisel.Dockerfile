@@ -1,6 +1,6 @@
 FROM ubuntu:26.04@sha256:f3d28607ddd78734bb7f71f117f3c6706c666b8b76cbff7c9ff6e5718d46ff64 AS builder
 
-RUN apt install --update -y curl wget
+RUN apt install --update -y curl wget git
 
 # Deb arch to GOARCH
 RUN arch="$(dpkg --print-architecture | sed -e 's/armhf/arm/g' -e 's/ppc64el/ppc64le/g')" && \
@@ -12,8 +12,11 @@ RUN arch="$(dpkg --print-architecture | sed -e 's/armhf/arm/g' -e 's/ppc64el/ppc
 
 RUN sha384sum -c chisel_v*sha384
 RUN tar -xf chisel_v*tar.gz -C /usr/local/bin
+RUN git clone --depth 1 --branch ubuntu-26.04 https://github.com/canonical/chisel-releases.git chisel-releases
+# Remove the `resolute-security` and `resolute-updates` suites from `chisel.yaml` to force pull from a frozen pocket
+RUN sed -i 's/suites: \[resolute, resolute-security, resolute-updates\]/suites: \[resolute\]/g' chisel-releases/chisel.yaml
 RUN mkdir /rootfs && \
-    chisel cut --root /rootfs \
+    chisel cut --release ./chisel-releases --root /rootfs \
         base-files_base \
         base-files_chisel \
         base-files_release-info \
