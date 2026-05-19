@@ -9,6 +9,7 @@ import (
 	"github.com/google/osv-scalibr/annotator/misc/brewsource"
 	apkanno "github.com/google/osv-scalibr/annotator/osduplicate/apk"
 	dpkganno "github.com/google/osv-scalibr/annotator/osduplicate/dpkg"
+	rpmanno "github.com/google/osv-scalibr/annotator/osduplicate/rpm"
 	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
 	"github.com/google/osv-scalibr/detector/cis/generic_linux/etcpasswdpermissions"
 	"github.com/google/osv-scalibr/detector/govulncheck/binary"
@@ -31,6 +32,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/homebrew"
+	rpmextractor "github.com/google/osv-scalibr/extractor/filesystem/os/rpm"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
@@ -521,9 +523,11 @@ func TestResolve_Extractors(t *testing.T) {
 				homebrew.Name,
 				gobinary.Name,
 				nodemodules.Name,
+				rpmextractor.Name,
 				wheelegg.Name,
 				apkanno.Name,
 				dpkganno.Name,
+				rpmanno.Name,
 				brewsource.Name,
 			},
 		},
@@ -542,9 +546,11 @@ func TestResolve_Extractors(t *testing.T) {
 				homebrew.Name,
 				gobinary.Name,
 				nodemodules.Name,
+				rpmextractor.Name,
 				wheelegg.Name,
 				apkanno.Name,
 				dpkganno.Name,
+				rpmanno.Name,
 				brewsource.Name,
 			},
 		},
@@ -569,8 +575,10 @@ func TestResolve_Extractors(t *testing.T) {
 				gobinary.Name,
 				homebrew.Name,
 				nodemodules.Name,
+				rpmextractor.Name,
 				apkanno.Name,
 				dpkganno.Name,
+				rpmanno.Name,
 				brewsource.Name,
 			},
 		},
@@ -591,10 +599,12 @@ func TestResolve_Extractors(t *testing.T) {
 				gitrepo.Name,
 				gobinary.Name,
 				nodemodules.Name,
+				rpmextractor.Name,
 				vendored.Name,
 				wheelegg.Name,
 				apkanno.Name,
 				dpkganno.Name,
+				rpmanno.Name,
 				brewsource.Name,
 			},
 		},
@@ -700,6 +710,21 @@ func TestResolve_Extractors_Presets(t *testing.T) {
 
 			testutility.NewSnapshot().MatchText(t, strings.Join(gotNames, "\n"))
 		})
+	}
+}
+
+func TestResolve_LockfilePresetIncludesRPM(t *testing.T) {
+	t.Parallel()
+
+	got := scalibrplugin.Resolve([]string{"lockfile"}, []string{}, &cpb.PluginConfig{})
+
+	gotNames := make([]string, 0, len(got))
+	for _, extractor := range got {
+		gotNames = append(gotNames, extractor.Name())
+	}
+
+	if !slices.Contains(gotNames, rpmextractor.Name) {
+		t.Fatalf("lockfile preset does not include %s", rpmextractor.Name)
 	}
 }
 
