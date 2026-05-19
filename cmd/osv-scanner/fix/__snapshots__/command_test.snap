@@ -9509,6 +9509,7 @@ Guided remediation (the fix command) can be risky when run on untrusted projects
 
 [TestCommand/fix_non-interactive_override_pom.xml - 1]
 Guided remediation (the fix command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
+error attempting to patch for vulns [GHSA-fmj5-wv96-r2ch]: error resolving manifest dependencies: cannot get imports for Maven:org.apache.httpcomponents:httpclient[Concrete:4.3.6]: rpc error: code = Unavailable desc = upstream connect error or disconnect/reset before headers. reset reason: connection timeout
 Found 13 vulnerabilities matching the filter
 Can fix 13/13 matching vulnerabilities by overriding 4 dependencies
 OVERRIDE-PACKAGE: org.apache.httpcomponents:httpclient,4.5.13
@@ -13170,16 +13171,11 @@ UNFIXABLE-VULNS: 7
 
 [TestCommand_OfflineDatabase/fix_non_interactive_relax_package_json_with_offline_vulns - 1]
 Guided remediation (the fix command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
-Found 7 vulnerabilities matching the filter
-Can fix 3/7 matching vulnerabilities by changing 1 dependencies
-UPGRADED-PACKAGE: npm-registry-client,6.2.0,^7.5.0
-FIXED-VULN-IDS: GHSA-43f8-2h32-f4cj,GHSA-c2qf-rxjj-qqgw,GHSA-c6rq-rjc2-86v2
-REMAINING-VULNS: 4
-UNFIXABLE-VULNS: 4
 
 ---
 
 [TestCommand_OfflineDatabase/fix_non_interactive_relax_package_json_with_offline_vulns - 2]
+failed resolving manifest: error resolving manifest dependencies: cannot create tree node: cannot get Requirements for {NPM:ansi-regex[Concrete:5.0.1] {}}: rpc error: code = Unavailable desc = upstream connect error or disconnect/reset before headers. reset reason: connection timeout
 
 ---
 
@@ -13195,7 +13191,7 @@ UNFIXABLE-VULNS: 4
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "npm-registry-client": "^7.5.0"
+    "npm-registry-client": "6.2.0"
   }
 }
 

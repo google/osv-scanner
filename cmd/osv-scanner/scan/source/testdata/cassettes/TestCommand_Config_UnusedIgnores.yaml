@@ -1803,7 +1803,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2026-41989",
-                  "modified": "2026-04-28T20:31:52.784484Z"
+                  "modified": "2026-05-18T21:00:35.644624Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-41990",
@@ -2484,7 +2484,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2026-2673",
-                  "modified": "2026-05-14T09:00:11.435092Z"
+                  "modified": "2026-05-19T09:00:10.116381Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-28386",
@@ -4439,7 +4439,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2026-41989",
-                  "modified": "2026-04-28T20:31:52.784484Z"
+                  "modified": "2026-05-18T21:00:35.644624Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-41990",
@@ -5120,7 +5120,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2026-2673",
-                  "modified": "2026-05-14T09:00:11.435092Z"
+                  "modified": "2026-05-19T09:00:10.116381Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-28386",
