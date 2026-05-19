@@ -8,7 +8,7 @@ require (
 	deps.dev/api/v3 v3.0.0-20260422013440-90c27f84dd6f
 	deps.dev/api/v3alpha v0.0.0-20260422013440-90c27f84dd6f
 	github.com/BurntSushi/toml v1.6.0
-	github.com/CycloneDX/cyclonedx-go v0.10.0
+	github.com/CycloneDX/cyclonedx-go v0.11.0
 	github.com/gkampitakis/go-snaps v0.5.21
 	github.com/go-git/go-git/v5 v5.19.0
 	github.com/gobwas/glob v0.2.3
