@@ -1630,7 +1630,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-hxwh-jpp2-84pm",
-                  "modified": "2026-02-04T02:15:39.891834Z"
+                  "modified": "2026-05-19T05:26:16.591908Z"
                 },
                 {
                   "id": "GHSA-xc3p-ff3m-f46v",
@@ -1642,7 +1642,7 @@ interactions:
                 },
                 {
                   "id": "PYSEC-2024-71",
-                  "modified": "2025-10-09T08:27:44.186589Z"
+                  "modified": "2026-05-19T05:26:16.591908Z"
                 }
               ]
             },
@@ -1781,7 +1781,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 2223
+      content_length: 2293
       body: |
         {
           "results": [
@@ -1842,6 +1842,10 @@ interactions:
             },
             {
               "vulns": [
+                {
+                  "id": "GHSA-65pc-fj4g-8rjx",
+                  "modified": "2026-05-19T14:45:16.378872Z"
+                },
                 {
                   "id": "GHSA-jjg7-2v4v-x38h",
                   "modified": "2026-02-04T03:49:45.087439Z"
@@ -1941,7 +1945,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "2223"
+          - "2293"
         Content-Type:
           - application/json
       status: 200 OK
@@ -2060,7 +2064,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 2223
+      content_length: 2293
       body: |
         {
           "results": [
@@ -2121,6 +2125,10 @@ interactions:
             },
             {
               "vulns": [
+                {
+                  "id": "GHSA-65pc-fj4g-8rjx",
+                  "modified": "2026-05-19T14:45:16.378872Z"
+                },
                 {
                   "id": "GHSA-jjg7-2v4v-x38h",
                   "modified": "2026-02-04T03:49:45.087439Z"
@@ -2220,7 +2228,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "2223"
+          - "2293"
         Content-Type:
           - application/json
       status: 200 OK
