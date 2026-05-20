@@ -619,8 +619,8 @@ Scanning local image tarball "./testdata/test-java-full.tar"
 
 
 Container Scanning Result (Alpine Linux v3.21) (Based on "eclipse-temurin" image):
-Total 30 packages affected by 109 known vulnerabilities (6 Critical, 50 High, 46 Medium, 6 Low, 1 Unknown) from 2 ecosystems.
-109 vulnerabilities can be fixed.
+Total 30 packages affected by 110 known vulnerabilities (6 Critical, 51 High, 46 Medium, 6 Low, 1 Unknown) from 2 ecosystems.
+110 vulnerabilities can be fixed.
 
 
 Maven
@@ -659,7 +659,7 @@ Alpine:v3.21
 | busybox        | 1.37.0-r9         | Fix Available |          2 | busybox... (3)             | # 0 Layer        | alpine          |
 | expat          | 2.6.4-r0          | Fix Available |          7 | libexpat                   | # 5 Layer        | eclipse-temurin |
 | gnupg          | 2.4.7-r0          | Fix Available |          2 | gnupg... (11)              | # 5 Layer        | eclipse-temurin |
-| gnutls         | 3.8.8-r0          | Fix Available |         14 | gnutls                     | # 5 Layer        | eclipse-temurin |
+| gnutls         | 3.8.8-r0          | Fix Available |         15 | gnutls                     | # 5 Layer        | eclipse-temurin |
 | libpng         | 1.6.44-r0         | Fix Available |         11 | libpng                     | # 5 Layer        | eclipse-temurin |
 | libtasn1       | 4.19.0-r2         | Fix Available |          2 | libtasn1                   | # 5 Layer        | eclipse-temurin |
 | musl           | 1.2.5-r8          | Fix Available |          3 | musl, musl-utils           | # 0 Layer        | alpine          |
@@ -754,8 +754,8 @@ Scanning local image tarball "./testdata/test-python-full.tar"
 
 
 Container Scanning Result (Debian GNU/Linux 10 (buster)) (Based on "python" image):
-Total 21 packages affected by 59 known vulnerabilities (1 Critical, 19 High, 21 Medium, 3 Low, 15 Unknown) from 2 ecosystems.
-57 vulnerabilities can be fixed.
+Total 21 packages affected by 60 known vulnerabilities (1 Critical, 19 High, 22 Medium, 3 Low, 15 Unknown) from 2 ecosystems.
+58 vulnerabilities can be fixed.
 
 
 PyPI
@@ -792,7 +792,7 @@ PyPI
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| idna    | 2.7               | Fix Available |          1 | # 17 Layer       | --            |
+| idna    | 2.7               | Fix Available |          2 | # 17 Layer       | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +-------------------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/local/lib/python3.9/site-packages/pip-23.0.1.dist-info/METADATA                  |
@@ -1041,6 +1041,76 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 ---
 
 [TestCommand_OCIImage/scanning_insecure_alpine_image_without_detectors - 2]
+
+---
+
+[TestCommand_OCIImage/scanning_insecure_chiseled_ubuntu_image - 1]
+Scanning local image tarball "./testdata/test-chisel.tar"
+
+
+Container Scanning Result (Ubuntu 26.04 LTS):
+Total 7 packages affected by 103 known vulnerabilities (0 Critical, 0 High, 1 Medium, 0 Low, 102 Unknown) from 2 ecosystems.
+102 vulnerabilities can be fixed.
+
+
+Go
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/lib/go-1.25/bin/go                                                     |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| stdlib  | 1.25.7            | Fix Available |         17 | # 0 Layer        | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/lib/go-1.25/bin/gofmt                                                  |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| stdlib  | 1.25.7            | Fix Available |         17 | # 0 Layer        | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/lib/go-1.25/pkg/tool/linux_amd64/asm                                   |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| stdlib  | 1.25.7            | Fix Available |         17 | # 0 Layer        | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/lib/go-1.25/pkg/tool/linux_amd64/compile                               |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| stdlib  | 1.25.7            | Fix Available |         17 | # 0 Layer        | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/lib/go-1.25/pkg/tool/linux_amd64/link                                  |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| stdlib  | 1.25.7            | Fix Available |         17 | # 0 Layer        | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/lib/go-1.25/pkg/tool/linux_amd64/vet                                   |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| stdlib  | 1.25.7            | Fix Available |         17 | # 0 Layer        | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
+Ubuntu:26.04
++-------------------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/var/lib/chisel/manifest.wall                                                                                                   |
++----------------+-----------------------------+------------------+------------+-------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION           | FIX AVAILABLE    | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+-----------------------------+------------------+------------+-------------------------+------------------+---------------+
+| coreutils      | 9.5-1ubuntu2+0.0.0~ubuntu25 | No fix available |          1 | coreutils               | # 0 Layer        | --            |
++----------------+-----------------------------+------------------+------------+-------------------------+------------------+---------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
+
+---
+
+[TestCommand_OCIImage/scanning_insecure_chiseled_ubuntu_image - 2]
 
 ---
 
@@ -1377,9 +1447,10 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
               "index": 17
             }
           },
-          "groups": 1,
+          "groups": 2,
           "vulnerabilities": [
             "PYSEC-2024-60",
+            "GHSA-65pc-fj4g-8rjx",
             "GHSA-jjg7-2v4v-x38h"
           ]
         }
@@ -2914,6 +2985,290 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
 
 [TestCommand_OCIImage_JSONFormat/scanning_insecure_alpine_image_with_specific_detector_enabled - 2]
 Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
+
+---
+
+[TestCommand_OCIImage_JSONFormat/scanning_insecure_chiseled_ubuntu_image - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "/usr/lib/go-1.25/bin/go",
+        "type": "artifact"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "stdlib",
+            "version": "1.25.7",
+            "ecosystem": "Go",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 17,
+          "vulnerabilities": [
+            "GO-2026-4601",
+            "GO-2026-4602",
+            "GO-2026-4603",
+            "GO-2026-4864",
+            "GO-2026-4865",
+            "GO-2026-4869",
+            "GO-2026-4870",
+            "GO-2026-4918",
+            "GO-2026-4946",
+            "GO-2026-4947",
+            "GO-2026-4971",
+            "GO-2026-4976",
+            "GO-2026-4977",
+            "GO-2026-4980",
+            "GO-2026-4981",
+            "GO-2026-4982",
+            "GO-2026-4986"
+          ]
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "/usr/lib/go-1.25/bin/gofmt",
+        "type": "artifact"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "stdlib",
+            "version": "1.25.7",
+            "ecosystem": "Go",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 17,
+          "vulnerabilities": [
+            "GO-2026-4601",
+            "GO-2026-4602",
+            "GO-2026-4603",
+            "GO-2026-4864",
+            "GO-2026-4865",
+            "GO-2026-4869",
+            "GO-2026-4870",
+            "GO-2026-4918",
+            "GO-2026-4946",
+            "GO-2026-4947",
+            "GO-2026-4971",
+            "GO-2026-4976",
+            "GO-2026-4977",
+            "GO-2026-4980",
+            "GO-2026-4981",
+            "GO-2026-4982",
+            "GO-2026-4986"
+          ]
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "/usr/lib/go-1.25/pkg/tool/linux_amd64/asm",
+        "type": "artifact"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "stdlib",
+            "version": "1.25.7",
+            "ecosystem": "Go",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 17,
+          "vulnerabilities": [
+            "GO-2026-4601",
+            "GO-2026-4602",
+            "GO-2026-4603",
+            "GO-2026-4864",
+            "GO-2026-4865",
+            "GO-2026-4869",
+            "GO-2026-4870",
+            "GO-2026-4918",
+            "GO-2026-4946",
+            "GO-2026-4947",
+            "GO-2026-4971",
+            "GO-2026-4976",
+            "GO-2026-4977",
+            "GO-2026-4980",
+            "GO-2026-4981",
+            "GO-2026-4982",
+            "GO-2026-4986"
+          ]
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "/usr/lib/go-1.25/pkg/tool/linux_amd64/compile",
+        "type": "artifact"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "stdlib",
+            "version": "1.25.7",
+            "ecosystem": "Go",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 17,
+          "vulnerabilities": [
+            "GO-2026-4601",
+            "GO-2026-4602",
+            "GO-2026-4603",
+            "GO-2026-4864",
+            "GO-2026-4865",
+            "GO-2026-4869",
+            "GO-2026-4870",
+            "GO-2026-4918",
+            "GO-2026-4946",
+            "GO-2026-4947",
+            "GO-2026-4971",
+            "GO-2026-4976",
+            "GO-2026-4977",
+            "GO-2026-4980",
+            "GO-2026-4981",
+            "GO-2026-4982",
+            "GO-2026-4986"
+          ]
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "/usr/lib/go-1.25/pkg/tool/linux_amd64/link",
+        "type": "artifact"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "stdlib",
+            "version": "1.25.7",
+            "ecosystem": "Go",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 17,
+          "vulnerabilities": [
+            "GO-2026-4601",
+            "GO-2026-4602",
+            "GO-2026-4603",
+            "GO-2026-4864",
+            "GO-2026-4865",
+            "GO-2026-4869",
+            "GO-2026-4870",
+            "GO-2026-4918",
+            "GO-2026-4946",
+            "GO-2026-4947",
+            "GO-2026-4971",
+            "GO-2026-4976",
+            "GO-2026-4977",
+            "GO-2026-4980",
+            "GO-2026-4981",
+            "GO-2026-4982",
+            "GO-2026-4986"
+          ]
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "/usr/lib/go-1.25/pkg/tool/linux_amd64/vet",
+        "type": "artifact"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "stdlib",
+            "version": "1.25.7",
+            "ecosystem": "Go",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 17,
+          "vulnerabilities": [
+            "GO-2026-4601",
+            "GO-2026-4602",
+            "GO-2026-4603",
+            "GO-2026-4864",
+            "GO-2026-4865",
+            "GO-2026-4869",
+            "GO-2026-4870",
+            "GO-2026-4918",
+            "GO-2026-4946",
+            "GO-2026-4947",
+            "GO-2026-4971",
+            "GO-2026-4976",
+            "GO-2026-4977",
+            "GO-2026-4980",
+            "GO-2026-4981",
+            "GO-2026-4982",
+            "GO-2026-4986"
+          ]
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "/var/lib/chisel/manifest.wall",
+        "type": "os"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "coreutils",
+            "os_package_name": "coreutils",
+            "version": "9.5-1ubuntu2+0.0.0~ubuntu25",
+            "ecosystem": "Ubuntu:26.04",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "UBUNTU-CVE-2025-5278"
+          ]
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  },
+  "image_metadata": {
+    "os": "Ubuntu 26.04 LTS",
+    "layer_metadata": [
+      {
+        "diff_id": "sha256:...",
+        "command": "COPY /rootfs/ / # buildkit",
+        "is_empty": false,
+        "base_image_index": 0
+      }
+    ],
+    "base_images": [
+      {}
+    ]
+  }
+}
+
+---
+
+[TestCommand_OCIImage_JSONFormat/scanning_insecure_chiseled_ubuntu_image - 2]
+Scanning local image tarball "./testdata/test-chisel.tar"
 
 ---
 
