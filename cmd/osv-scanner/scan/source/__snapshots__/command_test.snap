@@ -3644,7 +3644,7 @@ Total 4 packages affected by 56 known vulnerabilities (18 Critical, 30 High, 6 M
 | https://osv.dev/GHSA-w3f4-3q6j-rh82 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.7.9.5       | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-wh8g-3j2c-rqj5 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.9.10.8      | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-j288-q9x7-2f5v | 6.5  | Maven     | org.apache.commons:commons-lang3            | 3.12.0           | 3.18.0        | testdata/artifact/javareach_test.jar |
-| https://osv.dev/GHSA-355h-qmc2-wpwf | 7.4  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 9.4.60        | testdata/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-355h-qmc2-wpwf | 7.4  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 12.0.33       | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-cj7v-27pg-wf7q | 2.7  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 9.4.47        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-hmr7-m48g-48f6 | 5.3  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 9.4.52        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-qh8g-58pp-2wxh | 6.3  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 12.0.12       | testdata/artifact/javareach_test.jar |
@@ -3729,7 +3729,7 @@ Total 8 packages affected by 62 known vulnerabilities (18 Critical, 32 High, 9 M
 | https://osv.dev/GHSA-wh8g-3j2c-rqj5 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.9.10.8      | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-j288-q9x7-2f5v | 6.5  | Maven     | org.apache.commons:commons-lang3            | 3.12.0           | 3.18.0        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-7r82-7xv7-xcpj | 5.3  | Maven     | org.apache.httpcomponents:httpclient        | 4.5.5            | 4.5.13        | testdata/artifact/javareach_test.jar |
-| https://osv.dev/GHSA-355h-qmc2-wpwf | 7.4  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 9.4.60        | testdata/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-355h-qmc2-wpwf | 7.4  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 12.0.33       | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-cj7v-27pg-wf7q | 2.7  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 9.4.47        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-hmr7-m48g-48f6 | 5.3  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 9.4.52        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-qh8g-58pp-2wxh | 6.3  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 12.0.12       | testdata/artifact/javareach_test.jar |
@@ -3809,7 +3809,7 @@ Total 8 packages affected by 62 known vulnerabilities (18 Critical, 32 High, 9 M
 | https://osv.dev/GHSA-wh8g-3j2c-rqj5 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.9.10.8      | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-j288-q9x7-2f5v | 6.5  | Maven     | org.apache.commons:commons-lang3            | 3.12.0           | 3.18.0        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-7r82-7xv7-xcpj | 5.3  | Maven     | org.apache.httpcomponents:httpclient        | 4.5.5            | 4.5.13        | testdata/artifact/javareach_test.jar |
-| https://osv.dev/GHSA-355h-qmc2-wpwf | 7.4  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 9.4.60        | testdata/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-355h-qmc2-wpwf | 7.4  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 12.0.33       | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-cj7v-27pg-wf7q | 2.7  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 9.4.47        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-hmr7-m48g-48f6 | 5.3  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 9.4.52        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-qh8g-58pp-2wxh | 6.3  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 12.0.12       | testdata/artifact/javareach_test.jar |
