@@ -521,7 +521,6 @@ func makeVulnRequestWithMatcher(
 
 // Filters out Go version or Overrides it using osv-scanner.toml
 func filterAndOverrideGoVersion(scanResults *results.ScanResults) {
-
 	// Filter inventory packages
 	scanResults.Inventory.Packages = slices.DeleteFunc(scanResults.Inventory.Packages, func(pkg *extractor.Package) bool {
 		if pkg.Name == "stdlib" && string(pkg.Ecosystem().Ecosystem) == string(osvconstants.EcosystemGo) {
