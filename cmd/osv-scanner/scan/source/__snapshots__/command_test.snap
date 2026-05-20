@@ -164,9 +164,7 @@ Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 Scanning dir ./testdata/go-project
 Scanned <rootdir>/testdata/go-project/go.mod file and found 1 package
 
-Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-0 vulnerabilities can be fixed.
-
+No issues found
 
 ---
 
@@ -179,9 +177,7 @@ Scanning dir ./testdata/go-project
 Scanned <rootdir>/testdata/go-project/go.mod file and found 1 package
 Scanned <rootdir>/testdata/go-project/nested/go.mod file and found 1 package
 
-Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-0 vulnerabilities can be fixed.
-
+No issues found
 
 ---
 
@@ -193,14 +189,9 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 Scanning dir ./testdata/go-project
 Scanned <rootdir>/testdata/go-project/go.mod file and found 1 package
 
-Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
 0 vulnerabilities can be fixed.
 
-+--------------+-------------------------+
-| LICENSE      | NO. OF PACKAGE VERSIONS |
-+--------------+-------------------------+
-| BSD-3-Clause |                       1 |
-+--------------+-------------------------+
 
 ---
 
