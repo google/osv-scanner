@@ -2,5 +2,5 @@
 
 set -ex
 
-export GOTOOLCHAIN="${GOTOOLCHAIN:-go1.26.2}"
+export GOTOOLCHAIN="${GOTOOLCHAIN:-go1.26.3}"
 go run github.com/golangci/golangci-lint/v2/cmd/golangci-lint@$(cat .golangci-lint-version) run ./... "$@"
