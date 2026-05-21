@@ -26,6 +26,7 @@ func TestIntegration_MCP_SSE_Subprocess(t *testing.T) {
 	if testing.Short() {
 		testutility.Skip(t, "skipping integration test in short mode")
 	}
+	t.Setenv("OSV_SCANNER_MCP_SSE_TOKEN", "")
 
 	binPath := buildTestBinary(t)
 	addr := findFreePort(t)

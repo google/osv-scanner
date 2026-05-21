@@ -11,6 +11,7 @@ import (
 type fileOpenedLogger struct {
 	stats.NoopCollector
 
+	workspaceRoots []string
 	collectedLines []string
 }
 
@@ -26,7 +27,7 @@ func (c *fileOpenedLogger) AfterExtractorRun(_ string, extractorstats *stats.Aft
 	c.collectedLines = append(c.collectedLines,
 		fmt.Sprintf(
 			"Scanned %s file and found %d %s",
-			filepath.Join(extractorstats.Root, extractorstats.Path),
+			redactWorkspaceRoots(filepath.Join(extractorstats.Root, extractorstats.Path), c.workspaceRoots),
 			pkgsFound,
 			output.Form(pkgsFound, "package", "packages"),
 		))
