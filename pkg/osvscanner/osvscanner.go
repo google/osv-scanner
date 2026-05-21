@@ -17,6 +17,7 @@ import (
 	"github.com/google/osv-scalibr/binary/proto"
 	"github.com/google/osv-scalibr/clients/datasource"
 	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gomod"
 	"github.com/google/osv-scalibr/inventory"
 	scalibrlog "github.com/google/osv-scalibr/log"
 	"github.com/google/osv-scalibr/plugin"
@@ -523,10 +524,16 @@ func makeVulnRequestWithMatcher(
 func filterAndOverrideGoVersion(scanResults *results.ScanResults) {
 	// Filter inventory packages
 	scanResults.Inventory.Packages = slices.DeleteFunc(scanResults.Inventory.Packages, func(pkg *extractor.Package) bool {
-		if pkg.Name == "stdlib" && string(pkg.Ecosystem().Ecosystem) == string(osvconstants.EcosystemGo) {
-			configToUse := scanResults.ConfigManager.Get(imodels.Location(pkg))
+		if imodels.Name(pkg) == "stdlib" && imodels.Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo {
+			// Only apply the filter if it's from a go.mod file.
+			// The 'go' directive in go.mod specifies the minimum required language version,
+			// not the actual toolchain version used to build/run, which can lead to false positives.
+			// We still want to scan binary stdlib versions as they represent the actual toolchain used.
+			if slices.Contains(pkg.Plugins, gomod.Name) {
+				configToUse := scanResults.ConfigManager.Get(imodels.Location(pkg))
 
-			return !configToUse.ScanGoModVersion
+				return !configToUse.ScanGoModVersion
+			}
 		}
 
 		return false
@@ -534,7 +541,7 @@ func filterAndOverrideGoVersion(scanResults *results.ScanResults) {
 
 	// Override versions for remaining inventory packages
 	for i, pkg := range scanResults.Inventory.Packages {
-		if pkg.Name == "stdlib" && string(pkg.Ecosystem().Ecosystem) == string(osvconstants.EcosystemGo) {
+		if imodels.Name(pkg) == "stdlib" && imodels.Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo {
 			configToUse := scanResults.ConfigManager.Get(imodels.Location(pkg))
 			if configToUse.GoVersionOverride != "" {
 				scanResults.Inventory.Packages[i].Version = configToUse.GoVersionOverride
