@@ -1,0 +1,8 @@
+NAME=Fedora
+VERSION="32 (Container Image)"
+ID=fedora
+VERSION_ID=32
+VERSION_CODENAME=""
+PLATFORM_ID="platform:f32"
+PRETTY_NAME="Fedora 32 (Container Image)"
+CPE_NAME="cpe:/o:fedoraproject:fedora:32"

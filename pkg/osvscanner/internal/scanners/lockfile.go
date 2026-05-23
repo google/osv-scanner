@@ -38,6 +38,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargolock"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
+	"github.com/google/osv-scalibr/extractor/filesystem/os/rpm"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
 )
@@ -46,6 +47,7 @@ import (
 var osvscannerScalibrExtractionMapping = map[string][]string{
 	"apk-installed":               {apk.Name},
 	"dpkg-status":                 {dpkg.Name},
+	"rpmdb":                       {rpm.Name},
 	"pubspec.lock":                {pubspec.Name},
 	"pnpm-lock.yaml":              {pnpmlock.Name},
 	"yarn.lock":                   {yarnlock.Name},
