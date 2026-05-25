@@ -379,7 +379,7 @@ func TestCommand(t *testing.T) {
 		{
 			Name: "help",
 			Args: []string{"", "source", "--help"},
-			Exit: 127,
+			Exit: 0,
 		},
 	}
 	for _, tt := range tests {
