@@ -40,7 +40,7 @@ You are acting as an AI contributor to the OSV project.
 
 Before requesting review, ensure these pass:
 
-- **Linting:** Run `./scripts/run_lints.sh` and resolve all warnings and errors.
+- **Linting:** Run `./scripts/run_lints.sh` and resolve all warnings and errors. If you run into a toolchain error about go being tool old. Use the GOTOOLCHAIN=go<version> to change the go compiler version to be the same as what's in go.mod. Example `GOTOOLCHAIN=go1.26.3 ./scripts/run_lints.sh`
 - **Tests:** Run `make test` and ensure all tests pass.
 
 ### 4.2 Testing Standards
