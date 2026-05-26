@@ -1158,15 +1158,15 @@ interactions:
                 },
                 {
                   "id": "DRUPAL-CORE-2026-001",
-                  "modified": "2026-04-15T19:57:30.305696Z"
+                  "modified": "2026-05-21T09:26:01.119793Z"
                 },
                 {
                   "id": "DRUPAL-CORE-2026-002",
-                  "modified": "2026-04-15T19:45:11.714415Z"
+                  "modified": "2026-05-21T09:26:08.698854Z"
                 },
                 {
                   "id": "DRUPAL-CORE-2026-004",
-                  "modified": "2026-05-20T18:45:03.974160Z"
+                  "modified": "2026-05-21T19:00:03.853407Z"
                 },
                 {
                   "id": "GHSA-83v7-c2cf-p9c2",
@@ -3246,7 +3246,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 23664
+      content_length: 24013
       body: |
         {
           "results": [
@@ -3558,6 +3558,10 @@ interactions:
                 {
                   "id": "GO-2022-0493",
                   "modified": "2026-02-04T03:42:54.589715Z"
+                },
+                {
+                  "id": "GO-2026-5024",
+                  "modified": "2026-05-22T19:45:12.763756Z"
                 }
               ]
             },
@@ -3633,7 +3637,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2026-41989",
-                  "modified": "2026-05-18T21:00:35.644624Z"
+                  "modified": "2026-05-22T23:00:08.627309Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-41990",
@@ -4542,6 +4546,22 @@ interactions:
                   "modified": "2026-04-28T20:30:31.167223Z"
                 },
                 {
+                  "id": "DEBIAN-CVE-2026-42496",
+                  "modified": "2026-05-26T08:48:11.574624Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-42497",
+                  "modified": "2026-05-26T08:48:20.174717Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-8376",
+                  "modified": "2026-05-26T08:48:07.986014Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-9538",
+                  "modified": "2026-05-26T08:48:18.172113Z"
+                },
+                {
                   "id": "DLA-3926-1",
                   "modified": "2026-03-09T01:20:46.118633Z"
                 },
@@ -4843,7 +4863,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "23664"
+          - "24013"
         Content-Type:
           - application/json
       status: 200 OK
@@ -4984,7 +5004,7 @@ interactions:
                 },
                 {
                   "id": "GO-2025-4014",
-                  "modified": "2026-05-15T10:59:21.920937Z"
+                  "modified": "2026-05-21T10:29:29.571049Z"
                 },
                 {
                   "id": "GO-2025-4015",
@@ -4992,7 +5012,7 @@ interactions:
                 },
                 {
                   "id": "GO-2025-4155",
-                  "modified": "2026-05-20T10:44:13.479815Z"
+                  "modified": "2026-05-21T10:29:29.263573Z"
                 },
                 {
                   "id": "GO-2025-4175",
@@ -5000,7 +5020,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4337",
-                  "modified": "2026-05-20T10:44:11.616660Z"
+                  "modified": "2026-05-21T10:29:30.061114Z"
                 },
                 {
                   "id": "GO-2026-4340",
@@ -5008,15 +5028,15 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4341",
-                  "modified": "2026-05-20T10:44:14.114531Z"
+                  "modified": "2026-05-21T10:29:30.657427Z"
                 },
                 {
                   "id": "GO-2026-4342",
-                  "modified": "2026-05-15T10:59:24.578996Z"
+                  "modified": "2026-05-21T10:29:30.414735Z"
                 },
                 {
                   "id": "GO-2026-4601",
-                  "modified": "2026-05-20T10:44:12.126892Z"
+                  "modified": "2026-05-26T10:44:20.421456Z"
                 },
                 {
                   "id": "GO-2026-4602",
@@ -5028,7 +5048,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4864",
-                  "modified": "2026-05-20T10:44:11.859569Z"
+                  "modified": "2026-05-26T10:44:20.254676Z"
                 },
                 {
                   "id": "GO-2026-4865",
@@ -5040,7 +5060,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4870",
-                  "modified": "2026-05-20T10:44:12.672282Z"
+                  "modified": "2026-05-26T10:44:20.581519Z"
                 },
                 {
                   "id": "GO-2026-4918",
@@ -5048,11 +5068,11 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4946",
-                  "modified": "2026-05-20T10:44:13.405941Z"
+                  "modified": "2026-05-26T10:44:20.870574Z"
                 },
                 {
                   "id": "GO-2026-4947",
-                  "modified": "2026-05-20T10:44:14.184571Z"
+                  "modified": "2026-05-26T10:44:20.335619Z"
                 },
                 {
                   "id": "GO-2026-4971",
@@ -6751,7 +6771,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 5014
+      content_length: 5079
       body: |
         {
           "results": [
@@ -7072,8 +7092,12 @@ interactions:
                   "modified": "2025-10-09T07:22:50.566622Z"
                 },
                 {
+                  "id": "PYSEC-2024-260",
+                  "modified": "2026-05-21T15:00:12.457440Z"
+                },
+                {
                   "id": "PYSEC-2024-271",
-                  "modified": "2026-05-20T09:19:00.391910Z"
+                  "modified": "2026-05-21T15:00:12.481016Z"
                 },
                 {
                   "id": "PYSEC-2024-71",
@@ -7093,7 +7117,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "5014"
+          - "5079"
         Content-Type:
           - application/json
       status: 200 OK
