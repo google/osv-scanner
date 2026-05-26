@@ -6289,7 +6289,6 @@ Total 5 packages affected by 25 known vulnerabilities (1 Critical, 10 High, 12 M
 | https://osv.dev/GHSA-38jv-5279-wg99 | 8.9  | PyPI      | urllib3  | 1.24.3  | 2.6.3         | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-gm62-xv2j-4w53 | 8.9  | PyPI      | urllib3  | 1.24.3  | 2.6.0         | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-pq67-6m6q-mj2v | 5.3  | PyPI      | urllib3  | 1.24.3  | 2.5.0         | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-qccp-gfcp-xxvc | 8.2  | PyPI      | urllib3  | 1.24.3  | 2.7.0         | testdata/locks-requirements/requirements.txt |
 +-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
 
 ---
@@ -6340,7 +6339,6 @@ Total 5 packages affected by 25 known vulnerabilities (1 Critical, 10 High, 12 M
 | https://osv.dev/GHSA-38jv-5279-wg99 | 8.9  | PyPI      | urllib3  | 1.24.3  | 2.6.3         | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-gm62-xv2j-4w53 | 8.9  | PyPI      | urllib3  | 1.24.3  | 2.6.0         | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-pq67-6m6q-mj2v | 5.3  | PyPI      | urllib3  | 1.24.3  | 2.5.0         | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-qccp-gfcp-xxvc | 8.2  | PyPI      | urllib3  | 1.24.3  | 2.7.0         | testdata/locks-requirements/requirements.txt |
 +-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
 
 ---
