@@ -16,7 +16,9 @@ import (
 	transitivedependencyrequirements "github.com/google/osv-scalibr/enricher/transitivedependency/requirements"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/cpp/conanlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dart/pubspec"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/csproj"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/depsjson"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/nugetcpm"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/packagesconfig"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/packageslockjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/erlang/mixlock"
@@ -44,8 +46,10 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/ruby/gemfilelock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargoauditable"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargolock"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/swift/packageresolved"
 	extractors "github.com/google/osv-scalibr/extractor/filesystem/list"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
+	"github.com/google/osv-scalibr/extractor/filesystem/os/chisel"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/homebrew"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
@@ -110,11 +114,16 @@ var ExtractorPresets = map[string]extractors.InitMap{
 		// Ruby
 		gemfilelock.Name: {gemfilelock.New},
 
+		// Swift
+		packageresolved.Name: {packageresolved.New},
+
 		// Rust
 		cargolock.Name: {cargolock.New},
 
 		// NuGet
+		csproj.Name:           {csproj.New},
 		depsjson.Name:         {depsjson.New},
+		nugetcpm.Name:         {nugetcpm.New},
 		packagesconfig.Name:   {packagesconfig.New},
 		packageslockjson.Name: {packageslockjson.New},
 
@@ -153,6 +162,8 @@ var ExtractorPresets = map[string]extractors.InitMap{
 		apk.Name: {apk.New},
 		// Debian
 		dpkg.Name: {dpkg.New},
+		// Chisel
+		chisel.Name: {chisel.New},
 		// Homebrew
 		homebrew.Name: {homebrew.New},
 	},

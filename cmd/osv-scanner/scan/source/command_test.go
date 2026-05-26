@@ -372,6 +372,11 @@ func TestCommand(t *testing.T) {
 			Exit: 1,
 		},
 		{
+			Name: "Scan_locks-dotnet",
+			Args: []string{"", "source", "./testdata/locks-dotnet"},
+			Exit: 1,
+		},
+		{
 			Name: "help",
 			Args: []string{"", "source", "--help"},
 			Exit: 127,
@@ -1443,9 +1448,9 @@ func TestCommand_MoreLockfiles(t *testing.T) {
 			Exit: 127,
 		},
 		{
-			Name: "Package.resolved_-_Unsupported_ecosystem,_should_not_be_scanned",
+			Name: "Package.resolved_-_SwiftURL_ecosystem_vulnerabilities_detected",
 			Args: []string{"", "source", "-L", "./testdata/locks-scalibr/Package.resolved"},
-			Exit: 127,
+			Exit: 1,
 		},
 	}
 
