@@ -1129,8 +1129,8 @@ Scanned <rootdir>/testdata/sbom-insecure/postgres-stretch.cdx.xml file and found
 Scanned <rootdir>/testdata/sbom-insecure/with-duplicates.cdx.xml file and found 17 packages
 Filtered 10 local/unscannable package/s from the scan.
 
-Total 27 packages affected by 200 known vulnerabilities (22 Critical, 86 High, 65 Medium, 4 Low, 23 Unknown) from 4 ecosystems.
-11 vulnerabilities can be fixed.
+Total 27 packages affected by 205 known vulnerabilities (22 Critical, 86 High, 65 Medium, 4 Low, 28 Unknown) from 4 ecosystems.
+12 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+---------------------------------------------------------------------+
 | OSV URL                               | CVSS | ECOSYSTEM | PACKAGE                        | VERSION                            | FIXED VERSION                     | SOURCE                                                              |
@@ -1157,6 +1157,7 @@ Total 27 packages affected by 200 known vulnerabilities (22 Critical, 86 High, 6
 | https://osv.dev/GHSA-cgrx-mc8f-2prm   |      |           |                                |                                    |                                   |                                                                     |
 | https://osv.dev/GO-2022-0493          | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | 0.0.0-20220412211240-33da011f77ad | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/GHSA-p782-xgp4-8hr8   |      |           |                                |                                    |                                   |                                                                     |
+| https://osv.dev/GO-2026-5024          |      | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | 0.44.0                            | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib                           | 1.2.12-r1                          | --                                | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
 | https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine    | zlib                           | 1.2.12-r1                          | --                                | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
 | https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib                           | 1.2.12-r1                          | --                                | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
@@ -1329,6 +1330,10 @@ Total 27 packages affected by 200 known vulnerabilities (22 Critical, 86 High, 6
 | https://osv.dev/DEBIAN-CVE-2021-36770 | 7.8  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2023-47038 | 7.8  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2025-40909 | 5.9  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-42496 |      | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-42497 |      | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-8376  |      | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-9538  |      | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5135-1            |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DLA-3072-1            |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DLA-3189-1            |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -1874,7 +1879,7 @@ Scanned <rootdir>/testdata/locks-requirements/the_requirements_for_test.txt file
 Scanned <rootdir>/testdata/locks-requirements/unresolvable-requirements.txt file and found 3 packages
 
 Total 12 packages affected by 52 known vulnerabilities (5 Critical, 20 High, 22 Medium, 4 Low, 1 Unknown) from 1 ecosystem.
-51 vulnerabilities can be fixed.
+50 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+------------+---------+---------------+-----------------------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE    | VERSION | FIXED VERSION | SOURCE                                                    |
@@ -1942,10 +1947,11 @@ Total 12 packages affected by 52 known vulnerabilities (5 Critical, 20 High, 22 
 | https://osv.dev/GHSA-68rp-wp8r-4726 | 2.3  | PyPI      | flask      | 1.0.0   | 3.1.3         | testdata/locks-requirements/unresolvable-requirements.txt |
 | https://osv.dev/PYSEC-2020-43       | 8.7  | PyPI      | flask-cors | 1.0.0   | 3.0.9         | testdata/locks-requirements/unresolvable-requirements.txt |
 | https://osv.dev/GHSA-xc3p-ff3m-f46v |      |           |            |         |               |                                                           |
+| https://osv.dev/PYSEC-2024-260      | 8.7  | PyPI      | flask-cors | 1.0.0   | --            | testdata/locks-requirements/unresolvable-requirements.txt |
+| https://osv.dev/PYSEC-2024-71       |      |           |            |         |               |                                                           |
+| https://osv.dev/GHSA-hxwh-jpp2-84pm |      |           |            |         |               |                                                           |
 | https://osv.dev/PYSEC-2024-271      | 5.3  | PyPI      | flask-cors | 1.0.0   | --            | testdata/locks-requirements/unresolvable-requirements.txt |
 | https://osv.dev/GHSA-84pr-m4jr-85g5 |      |           |            |         |               |                                                           |
-| https://osv.dev/PYSEC-2024-71       | 8.7  | PyPI      | flask-cors | 1.0.0   | 4.0.2         | testdata/locks-requirements/unresolvable-requirements.txt |
-| https://osv.dev/GHSA-hxwh-jpp2-84pm |      |           |            |         |               |                                                           |
 | https://osv.dev/GHSA-43qf-4rqw-9q2g | 5.3  | PyPI      | flask-cors | 1.0.0   | 6.0.0         | testdata/locks-requirements/unresolvable-requirements.txt |
 | https://osv.dev/GHSA-7rxf-gvfg-47g4 | 4.3  | PyPI      | flask-cors | 1.0.0   | 6.0.0         | testdata/locks-requirements/unresolvable-requirements.txt |
 | https://osv.dev/GHSA-8vgw-p6qm-5gr7 | 5.3  | PyPI      | flask-cors | 1.0.0   | 6.0.0         | testdata/locks-requirements/unresolvable-requirements.txt |
@@ -2387,8 +2393,8 @@ Filtered 8 vulnerabilities from output
 testdata/osv-scanner-partial-ignores-config.toml has unused ignores:
  - CVE-2019-5188
 
-Total 27 packages affected by 194 known vulnerabilities (22 Critical, 81 High, 64 Medium, 4 Low, 23 Unknown) from 4 ecosystems.
-10 vulnerabilities can be fixed.
+Total 27 packages affected by 199 known vulnerabilities (22 Critical, 81 High, 64 Medium, 4 Low, 28 Unknown) from 4 ecosystems.
+11 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+---------------------------------------------------------------------+
 | OSV URL                               | CVSS | ECOSYSTEM | PACKAGE                        | VERSION                            | FIXED VERSION                     | SOURCE                                                              |
@@ -2413,6 +2419,7 @@ Total 27 packages affected by 194 known vulnerabilities (22 Critical, 81 High, 6
 | https://osv.dev/GHSA-cgrx-mc8f-2prm   |      |           |                                |                                    |                                   |                                                                     |
 | https://osv.dev/GO-2022-0493          | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | 0.0.0-20220412211240-33da011f77ad | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/GHSA-p782-xgp4-8hr8   |      |           |                                |                                    |                                   |                                                                     |
+| https://osv.dev/GO-2026-5024          |      | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | 0.44.0                            | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib                           | 1.2.12-r1                          | --                                | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
 | https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine    | zlib                           | 1.2.12-r1                          | --                                | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
 | https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib                           | 1.2.12-r1                          | --                                | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
@@ -2579,6 +2586,10 @@ Total 27 packages affected by 194 known vulnerabilities (22 Critical, 81 High, 6
 | https://osv.dev/DEBIAN-CVE-2021-36770 | 7.8  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2023-47038 | 7.8  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2025-40909 | 5.9  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-42496 |      | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-42497 |      | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-8376  |      | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-9538  |      | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5135-1            |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DLA-3072-1            |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DLA-3189-1            |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -2636,8 +2647,8 @@ Filtered 6 vulnerabilities from output
 testdata/osv-scanner-partial-ignores-config.toml has unused ignores:
  - CVE-2019-5188
 
-Total 24 packages affected by 186 known vulnerabilities (20 Critical, 78 High, 61 Medium, 4 Low, 23 Unknown) from 3 ecosystems.
-10 vulnerabilities can be fixed.
+Total 24 packages affected by 191 known vulnerabilities (20 Critical, 78 High, 61 Medium, 4 Low, 28 Unknown) from 3 ecosystems.
+11 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+-------------------------------------------------+
 | OSV URL                               | CVSS | ECOSYSTEM | PACKAGE                        | VERSION                            | FIXED VERSION                     | SOURCE                                          |
@@ -2662,6 +2673,7 @@ Total 24 packages affected by 186 known vulnerabilities (20 Critical, 78 High, 6
 | https://osv.dev/GHSA-cgrx-mc8f-2prm   |      |           |                                |                                    |                                   |                                                 |
 | https://osv.dev/GO-2022-0493          | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | 0.0.0-20220412211240-33da011f77ad | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-p782-xgp4-8hr8   |      |           |                                |                                    |                                   |                                                 |
+| https://osv.dev/GO-2026-5024          |      | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | 0.44.0                            | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2026-40200 | 8.1  | Alpine    | musl                           | 1.2.3-r4                           | --                                | testdata/sbom-insecure/alpine.cdx.xml           |
 | https://osv.dev/ALPINE-CVE-2026-6042  | 4.8  | Alpine    | musl                           | 1.2.3-r4                           | --                                | testdata/sbom-insecure/alpine.cdx.xml           |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml           |
@@ -2820,6 +2832,10 @@ Total 24 packages affected by 186 known vulnerabilities (20 Critical, 78 High, 6
 | https://osv.dev/DEBIAN-CVE-2021-36770 | 7.8  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2023-47038 | 7.8  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2025-40909 | 5.9  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-42496 |      | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-42497 |      | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-8376  |      | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-9538  |      | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5135-1            |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3072-1            |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3189-1            |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
