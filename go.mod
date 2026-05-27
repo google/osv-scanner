@@ -8,12 +8,12 @@ require (
 	deps.dev/api/v3 v3.0.0-20260422013440-90c27f84dd6f
 	deps.dev/api/v3alpha v0.0.0-20260422013440-90c27f84dd6f
 	github.com/BurntSushi/toml v1.6.0
-	github.com/CycloneDX/cyclonedx-go v0.10.0
+	github.com/CycloneDX/cyclonedx-go v0.11.0
 	github.com/gkampitakis/go-snaps v0.5.21
 	github.com/go-git/go-git/v5 v5.19.0
 	github.com/gobwas/glob v0.2.3
 	github.com/google/go-cmp v0.7.0
-	github.com/google/osv-scalibr v0.4.6-0.20260518035708-d200bdbc3d2c
+	github.com/google/osv-scalibr v0.4.6-0.20260525062843-228e6c10b607
 	github.com/ianlancetaylor/demangle v0.0.0-20260505044615-1ff4bf46051f
 	github.com/jedib0t/go-pretty/v6 v6.7.9
 	github.com/modelcontextprotocol/go-sdk v1.5.0
