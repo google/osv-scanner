@@ -197,7 +197,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 352
+      content_length: 189
       body: |
         {
           "results": [
@@ -225,7 +225,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "352"
+          - "189"
         Content-Type:
           - application/json
       status: 200 OK
@@ -295,7 +295,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 352
+      content_length: 189
       body: |
         {
           "results": [
@@ -323,7 +323,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "352"
+          - "189"
         Content-Type:
           - application/json
       status: 200 OK
