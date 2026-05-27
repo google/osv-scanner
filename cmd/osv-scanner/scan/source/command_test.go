@@ -251,6 +251,28 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "--format", "cyclonedx-1-5", "--all-packages", "./testdata/locks-insecure"},
 			Exit: 1,
 		},
+		// output format: cyclonedx 1.6
+		{
+			Name: "Empty_cyclonedx_1.6_output",
+			Args: []string{"", "source", "--format", "cyclonedx-1-6", "./testdata/locks-many/composer.lock"},
+			Exit: 0,
+		},
+		{
+			Name: "cyclonedx_1.6_output",
+			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "--format", "cyclonedx-1-6", "--all-packages", "./testdata/locks-insecure"},
+			Exit: 1,
+		},
+		// output format: cyclonedx 1.7
+		{
+			Name: "Empty_cyclonedx_1.7_output",
+			Args: []string{"", "source", "--format", "cyclonedx-1-7", "./testdata/locks-many/composer.lock"},
+			Exit: 0,
+		},
+		{
+			Name: "cyclonedx_1.7_output",
+			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "--format", "cyclonedx-1-7", "--all-packages", "./testdata/locks-insecure"},
+			Exit: 1,
+		},
 		// output format: spdx 2.3
 		{
 			Name: "Empty_spdx_2.3_output",
