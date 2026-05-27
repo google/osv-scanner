@@ -135,3 +135,23 @@ func insertDefaultCommand(args []string, commands []*cli.Command, defaultCommand
 
 	return args
 }
+
+// isExplicitHelp checks if the arguments contain an explicit request for help.
+func isExplicitHelp(args []string) bool {
+	names := cli.HelpFlag.Names()
+	helpFlags := make([]string, 0, 2*len(names)+1)
+	for _, flag := range names {
+		helpFlags = append(helpFlags, "-"+flag)
+		helpFlags = append(helpFlags, "--"+flag)
+	}
+	// Also add "help" subcommand
+	helpFlags = append(helpFlags, "help")
+
+	for _, arg := range args {
+		if slices.Contains(helpFlags, arg) {
+			return true
+		}
+	}
+
+	return false
+}

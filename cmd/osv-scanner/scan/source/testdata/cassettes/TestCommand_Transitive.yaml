@@ -1525,7 +1525,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "click"
               },
-              "version": "8.4.0"
+              "version": "8.4.1"
             },
             {
               "package": {
@@ -1589,7 +1589,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 945
+      content_length: 1010
       body: |
         {
           "results": [
@@ -1641,8 +1641,12 @@ interactions:
                   "modified": "2025-10-09T07:22:50.566622Z"
                 },
                 {
+                  "id": "PYSEC-2024-260",
+                  "modified": "2026-05-21T15:00:12.457440Z"
+                },
+                {
                   "id": "PYSEC-2024-271",
-                  "modified": "2026-05-20T09:19:00.391910Z"
+                  "modified": "2026-05-21T15:00:12.481016Z"
                 },
                 {
                   "id": "PYSEC-2024-71",
@@ -1666,7 +1670,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "945"
+          - "1010"
         Content-Type:
           - application/json
       status: 200 OK
@@ -1700,7 +1704,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "click"
               },
-              "version": "8.4.0"
+              "version": "8.4.1"
             },
             {
               "package": {
@@ -1848,7 +1852,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-65pc-fj4g-8rjx",
-                  "modified": "2026-05-19T14:45:16.378872Z"
+                  "modified": "2026-05-21T01:29:26.777151Z"
                 },
                 {
                   "id": "GHSA-jjg7-2v4v-x38h",
@@ -1987,7 +1991,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "click"
               },
-              "version": "8.4.0"
+              "version": "8.4.1"
             },
             {
               "package": {
@@ -2135,7 +2139,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-65pc-fj4g-8rjx",
-                  "modified": "2026-05-19T14:45:16.378872Z"
+                  "modified": "2026-05-21T01:29:26.777151Z"
                 },
                 {
                   "id": "GHSA-jjg7-2v4v-x38h",

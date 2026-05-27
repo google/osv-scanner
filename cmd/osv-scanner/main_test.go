@@ -18,7 +18,7 @@ func Test_run(t *testing.T) {
 		{
 			Name: "",
 			Args: []string{"--help"},
-			Exit: 127,
+			Exit: 0,
 		},
 		{
 			Name: "version",

@@ -163,6 +163,94 @@ interactions:
         Content-Type:
           - application/json
         X-Test-Name:
+          - TestCommand/Empty_cyclonedx_1.6_output
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 16
+      body: |
+        {
+          "results": [
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "16"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 151
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "sentry/sdk"
+              },
+              "version": "2.0.4"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand/Empty_cyclonedx_1.7_output
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 16
+      body: |
+        {
+          "results": [
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "16"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 151
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "sentry/sdk"
+              },
+              "version": "2.0.4"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
           - TestCommand/Empty_gh-annotations_output
       url: https://api.osv.dev/v1/querybatch
       method: POST
@@ -786,7 +874,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 3237
+      content_length: 3372
       host: api.osv.dev
       body: |
         {
@@ -950,6 +1038,13 @@ interactions:
             {
               "package": {
                 "ecosystem": "Packagist",
+                "name": "league/flysystem"
+              },
+              "version": "1.0.8"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
                 "name": "sentry/sdk"
               },
               "version": "2.0.4"
@@ -974,7 +1069,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 1555
+      content_length: 1637
       body: |
         {
           "results": [
@@ -1100,13 +1195,21 @@ interactions:
               ]
             },
             {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-9f46-5r25-5wfm",
+                  "modified": "2026-03-13T22:01:08.982482Z"
+                }
+              ]
+            },
             {},
             {}
           ]
         }
       headers:
         Content-Length:
-          - "1555"
+          - "1637"
         Content-Type:
           - application/json
       status: 200 OK
@@ -1358,6 +1461,172 @@ interactions:
           - application/json
         X-Test-Name:
           - TestCommand/cyclonedx_1.5_output
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 107
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-9f46-5r25-5wfm",
+                  "modified": "2026-03-13T22:01:08.982482Z"
+                }
+              ]
+            },
+            {},
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "107"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 638
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "has-flag"
+              },
+              "version": "4.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "wrappy"
+              },
+              "version": "1.0.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "league/flysystem"
+              },
+              "version": "1.0.8"
+            },
+            {
+              "package": {
+                "ecosystem": "Go",
+                "name": "stdlib"
+              },
+              "version": "1.99.9"
+            },
+            {
+              "package": {
+                "ecosystem": "Go",
+                "name": "toolchain"
+              },
+              "version": "1.99.9"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand/cyclonedx_1.6_output
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 107
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-9f46-5r25-5wfm",
+                  "modified": "2026-03-13T22:01:08.982482Z"
+                }
+              ]
+            },
+            {},
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "107"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 638
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "has-flag"
+              },
+              "version": "4.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "wrappy"
+              },
+              "version": "1.0.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "league/flysystem"
+              },
+              "version": "1.0.8"
+            },
+            {
+              "package": {
+                "ecosystem": "Go",
+                "name": "stdlib"
+              },
+              "version": "1.99.9"
+            },
+            {
+              "package": {
+                "ecosystem": "Go",
+                "name": "toolchain"
+              },
+              "version": "1.99.9"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand/cyclonedx_1.7_output
       url: https://api.osv.dev/v1/querybatch
       method: POST
     response:
@@ -1748,7 +2017,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 20142
+      content_length: 23023
       host: api.osv.dev
       body: |
         {
@@ -1857,6 +2126,62 @@ interactions:
                 "name": "zlib"
               },
               "version": "1.2.10-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "alpine-baselayout"
+              },
+              "version": "3.4.0-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "alpine-baselayout-data"
+              },
+              "version": "3.4.0-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "apk-tools"
+              },
+              "version": "2.12.10-r1"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "busybox-binsh"
+              },
+              "version": "1.36.1-r27"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "libcrypto3"
+              },
+              "version": "3.0.8-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "libssl3"
+              },
+              "version": "3.0.8-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "musl-utils"
+              },
+              "version": "1.2.3-r4"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "scanelf"
+              },
+              "version": "1.3.5-r1"
             },
             {
               "package": {
@@ -2809,6 +3134,104 @@ interactions:
                 "name": "zstd"
               },
               "version": "1.1.2-1+deb9u1"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "alpine-baselayout"
+              },
+              "version": "3.4.0-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "alpine-baselayout-data"
+              },
+              "version": "3.4.0-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "alpine-keys"
+              },
+              "version": "2.4-r1"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "apk-tools"
+              },
+              "version": "2.12.10-r1"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "busybox-binsh"
+              },
+              "version": "1.36.1-r27"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "ca-certificates-bundle"
+              },
+              "version": "20220614-r4"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "libc-utils"
+              },
+              "version": "0.7.2-r3"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "libcrypto3"
+              },
+              "version": "3.0.8-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "libssl3"
+              },
+              "version": "3.0.8-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "musl"
+              },
+              "version": "1.2.3-r4"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "musl-utils"
+              },
+              "version": "1.2.3-r4"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "scanelf"
+              },
+              "version": "1.3.5-r1"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "ssl_client"
+              },
+              "version": "1.36.1-r27"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "zlib"
+              },
+              "version": "1.2.10-r0"
             }
           ]
         }
@@ -2823,7 +3246,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 23148
+      content_length: 24013
       body: |
         {
           "results": [
@@ -2891,6 +3314,14 @@ interactions:
                 }
               ]
             },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
             {
               "vulns": [
                 {
@@ -3127,6 +3558,10 @@ interactions:
                 {
                   "id": "GO-2022-0493",
                   "modified": "2026-02-04T03:42:54.589715Z"
+                },
+                {
+                  "id": "GO-2026-5024",
+                  "modified": "2026-05-22T19:45:12.763756Z"
                 }
               ]
             },
@@ -3202,7 +3637,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2026-41989",
-                  "modified": "2026-05-18T21:00:35.644624Z"
+                  "modified": "2026-05-22T23:00:08.627309Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-41990",
@@ -4111,8 +4546,20 @@ interactions:
                   "modified": "2026-04-28T20:30:31.167223Z"
                 },
                 {
+                  "id": "DEBIAN-CVE-2026-42496",
+                  "modified": "2026-05-26T08:48:11.574624Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-42497",
+                  "modified": "2026-05-26T08:48:20.174717Z"
+                },
+                {
                   "id": "DEBIAN-CVE-2026-8376",
-                  "modified": "2026-05-21T21:00:08.681305Z"
+                  "modified": "2026-05-26T08:48:07.986014Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-9538",
+                  "modified": "2026-05-26T08:48:18.172113Z"
                 },
                 {
                   "id": "DLA-3926-1",
@@ -4363,12 +4810,60 @@ interactions:
               ]
             },
             {},
-            {}
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "ALPINE-CVE-2025-26519",
+                  "modified": "2025-12-11T11:16:21.978419Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-40200",
+                  "modified": "2026-04-11T08:33:07.486264Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-6042",
+                  "modified": "2026-04-11T10:34:34.952791Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "ALPINE-CVE-2018-25032",
+                  "modified": "2025-12-03T22:47:03.844688Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2022-37434",
+                  "modified": "2025-12-03T22:50:43.469206Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-22184",
+                  "modified": "2026-04-14T16:32:07.574001Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-27171",
+                  "modified": "2026-04-14T16:32:22.282381Z"
+                }
+              ]
+            }
           ]
         }
       headers:
         Content-Length:
-          - "23148"
+          - "24013"
         Content-Type:
           - application/json
       status: 200 OK
@@ -4541,7 +5036,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4601",
-                  "modified": "2026-05-21T10:29:30.199796Z"
+                  "modified": "2026-05-26T10:44:20.421456Z"
                 },
                 {
                   "id": "GO-2026-4602",
@@ -4553,7 +5048,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4864",
-                  "modified": "2026-05-21T10:29:29.051446Z"
+                  "modified": "2026-05-26T10:44:20.254676Z"
                 },
                 {
                   "id": "GO-2026-4865",
@@ -4565,7 +5060,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4870",
-                  "modified": "2026-05-21T10:29:29.125657Z"
+                  "modified": "2026-05-26T10:44:20.581519Z"
                 },
                 {
                   "id": "GO-2026-4918",
@@ -4573,11 +5068,11 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4946",
-                  "modified": "2026-05-21T10:29:29.929426Z"
+                  "modified": "2026-05-26T10:44:20.870574Z"
                 },
                 {
                   "id": "GO-2026-4947",
-                  "modified": "2026-05-21T10:29:29.338105Z"
+                  "modified": "2026-05-26T10:44:20.335619Z"
                 },
                 {
                   "id": "GO-2026-4971",
@@ -4714,7 +5209,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 399
+      content_length: 1024
       host: api.osv.dev
       body: |
         {
@@ -4732,6 +5227,41 @@ interactions:
                 "name": "sentry/sdk"
               },
               "version": "2.0.4"
+            },
+            {
+              "package": {
+                "ecosystem": "RubyGems",
+                "name": "ast"
+              },
+              "version": "2.4.2"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "balanced-match"
+              },
+              "version": "1.0.2"
+            },
+            {
+              "package": {
+                "ecosystem": "RubyGems",
+                "name": "ast"
+              },
+              "version": "2.4.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "sentry/sdk"
+              },
+              "version": "2.0.4"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "balanced-match"
+              },
+              "version": "1.0.2"
             },
             {
               "package": {
@@ -4753,10 +5283,15 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 22
+      content_length: 37
       body: |
         {
           "results": [
+            {},
+            {},
+            {},
+            {},
+            {},
             {},
             {},
             {}
@@ -4764,7 +5299,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "22"
+          - "37"
         Content-Type:
           - application/json
       status: 200 OK
@@ -6120,7 +6655,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 991
+      content_length: 1712
       host: api.osv.dev
       body: |
         {
@@ -6149,6 +6684,13 @@ interactions:
             {
               "package": {
                 "ecosystem": "PyPI",
+                "name": "flask"
+              },
+              "version": "1.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
                 "name": "numpy"
               },
               "version": "2.3.1"
@@ -6166,6 +6708,41 @@ interactions:
                 "name": "django"
               },
               "version": "2.2.24"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "django"
+              },
+              "version": "1.11.29"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "flask"
+              },
+              "version": "1.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "requests"
+              },
+              "version": "2.20.0"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "numpy"
+              },
+              "version": "2.3.1"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "flask"
+              },
+              "version": "1.0.0"
             },
             {
               "package": {
@@ -6194,7 +6771,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 3506
+      content_length: 5079
       body: |
         {
           "results": [
@@ -6255,6 +6832,22 @@ interactions:
                 {
                   "id": "PYSEC-2021-98",
                   "modified": "2023-12-06T01:01:16.755410Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-68rp-wp8r-4726",
+                  "modified": "2026-02-23T23:43:45.778179Z"
+                },
+                {
+                  "id": "GHSA-m2qf-hxjv-5gpq",
+                  "modified": "2025-02-21T05:42:17.337040Z"
+                },
+                {
+                  "id": "PYSEC-2023-62",
+                  "modified": "2023-11-08T04:12:28.231927Z"
                 }
               ]
             },
@@ -6378,6 +6971,99 @@ interactions:
             {
               "vulns": [
                 {
+                  "id": "GHSA-68w8-qjq3-2gfm",
+                  "modified": "2024-09-20T15:46:52.557962Z"
+                },
+                {
+                  "id": "GHSA-6w2r-r2m5-xq5w",
+                  "modified": "2026-05-20T08:11:10.875803Z"
+                },
+                {
+                  "id": "GHSA-7xr5-9hcq-chf9",
+                  "modified": "2026-02-04T03:48:05.224740Z"
+                },
+                {
+                  "id": "GHSA-8x94-hmjh-97hq",
+                  "modified": "2026-02-04T02:45:55.690257Z"
+                },
+                {
+                  "id": "GHSA-frmv-pr5f-9mcr",
+                  "modified": "2026-05-20T08:11:38.853710Z"
+                },
+                {
+                  "id": "GHSA-qw25-v68c-qjf3",
+                  "modified": "2026-05-20T08:11:10.816089Z"
+                },
+                {
+                  "id": "GHSA-rrqc-c2jx-6jgv",
+                  "modified": "2024-10-30T19:23:59.139649Z"
+                },
+                {
+                  "id": "PYSEC-2021-98",
+                  "modified": "2023-12-06T01:01:16.755410Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-68rp-wp8r-4726",
+                  "modified": "2026-02-23T23:43:45.778179Z"
+                },
+                {
+                  "id": "GHSA-m2qf-hxjv-5gpq",
+                  "modified": "2025-02-21T05:42:17.337040Z"
+                },
+                {
+                  "id": "PYSEC-2023-62",
+                  "modified": "2023-11-08T04:12:28.231927Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-9hjg-9r4m-mvj7",
+                  "modified": "2026-02-04T03:44:00.676479Z"
+                },
+                {
+                  "id": "GHSA-9wx4-h78v-vm56",
+                  "modified": "2026-02-04T02:43:42.271895Z"
+                },
+                {
+                  "id": "GHSA-gc5v-m9x4-r6x2",
+                  "modified": "2026-03-27T22:17:33.595885Z"
+                },
+                {
+                  "id": "GHSA-j8r2-6x86-q33q",
+                  "modified": "2026-02-04T03:34:13.807518Z"
+                },
+                {
+                  "id": "PYSEC-2023-74",
+                  "modified": "2023-11-08T04:12:35.436175Z"
+                }
+              ]
+            },
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-68rp-wp8r-4726",
+                  "modified": "2026-02-23T23:43:45.778179Z"
+                },
+                {
+                  "id": "GHSA-m2qf-hxjv-5gpq",
+                  "modified": "2025-02-21T05:42:17.337040Z"
+                },
+                {
+                  "id": "PYSEC-2023-62",
+                  "modified": "2023-11-08T04:12:28.231927Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
                   "id": "GHSA-43qf-4rqw-9q2g",
                   "modified": "2026-02-04T02:30:19.251090Z"
                 },
@@ -6431,7 +7117,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "3506"
+          - "5079"
         Content-Type:
           - application/json
       status: 200 OK
