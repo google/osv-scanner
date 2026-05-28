@@ -1,4 +1,4 @@
 **/testdata/**
 /docs/vendor/**
-/docs/_sites/**
+/docs/_site/**
 /internal/output/html/*.gohtml
