@@ -47,8 +47,9 @@ Before requesting review, ensure these pass:
 
 - **Coverage:** New features, bug fixes, or refactors must have relevant tests (unit, integration, or snapshot).
 - **Snapshots:** If modifying behavior affecting snapshots, update them (e.g., `make test SNAPS=true`).
+  - **Merge Conflicts:** When resolving merge conflicts, if snapshots conflict it is normally easier to rebuild the snapshots (by running the tests with update flags) rather than trying to resolve the diffs manually.
 - **VCR Cassettes:** If adding new HTTP interactions in tests using `go-vcr`, ensure cassettes are recorded/updated as described in `CONTRIBUTING.md`.
-  The `Makefile` has more details the types of tests and how to run them.
+  The `Makefile` has more details on the types of tests and how to run them.
 
 ### 4.3 Documentation & Comments
 
@@ -57,8 +58,12 @@ Before requesting review, ensure these pass:
 
 ## 5. Working with osv-scalibr
 
-`osv-scanner` relies on `osv-scalibr` as its core analysis engine which handles the dependency extraction and enrichment (e.g. vulnerabiilty matching) logic.
+`osv-scanner` relies on [osv-scalibr](https://github.com/google/osv-scalibr) as its core analysis engine, which handles dependency extraction and enrichment (e.g., vulnerability matching) logic.
 
-- **Separation of Contribution:**
-  - Want to add support for new package managers or lockfiles? -> Contribute an **Extractor** to `osv-scalibr`.
-  - Want to add new output format for `osv-scanner`? -> Contribute to the `osv-scanner` codebase.
+Understanding how they work together is key:
+- **Integration:** `osv-scanner` invokes `osv-scalibr` libraries to perform the actual scanning and extraction of dependencies.
+- **Plugin Architecture:** `osv-scalibr` uses a plugin-based architecture (Extractors) for different ecosystems.
+
+- **Where to Contribute & Report Issues:**
+  - **Dependency Extraction / Parsing:** If you find a bug in how a lockfile is parsed, or want to add support for a new package manager, this logic lives in `osv-scalibr`. You should open issues or PRs in the [osv-scalibr repository](https://github.com/google/osv-scalibr).
+  - **Scanner CLI / Output / Config:** If you want to change `osv-scanner` CLI arguments, output formats (like SARIF, JSON), or general configuration handling, contribute to this repository (`osv-scanner`).
