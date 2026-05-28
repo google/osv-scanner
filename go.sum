@@ -247,8 +247,8 @@ github.com/google/go-cpy v0.0.0-20211218193943-a9c933c06932 h1:5/4TSDzpDnHQ8rKEE
 github.com/google/go-cpy v0.0.0-20211218193943-a9c933c06932/go.mod h1:cC6EdPbj/17GFCPDK39NRarlMI+kt+O60S12cNB5J9Y=
 github.com/google/jsonschema-go v0.4.2 h1:tmrUohrwoLZZS/P3x7ex0WAVknEkBZM46iALbcqoRA8=
 github.com/google/jsonschema-go v0.4.2/go.mod h1:r5quNTdLOYEz95Ru18zA0ydNbBuYoo9tgaYcxEYhJVE=
-github.com/google/osv-scalibr v0.4.6-0.20260525062843-228e6c10b607 h1:keIzUX8KgtLFllniQinP67CnL6Y+Iuey4QxMwHK+zG4=
-github.com/google/osv-scalibr v0.4.6-0.20260525062843-228e6c10b607/go.mod h1:qZnHCiqBSwYlFWlnCblnI90muJ75Lt2yfhbD8X7KFi4=
+github.com/google/osv-scalibr v0.4.6-0.20260526142046-0f5758ff77ec h1:skA80ldpqT1ww+3kHOmsJZIdi8mF9CaAQTXjr2SCWbc=
+github.com/google/osv-scalibr v0.4.6-0.20260526142046-0f5758ff77ec/go.mod h1:qZnHCiqBSwYlFWlnCblnI90muJ75Lt2yfhbD8X7KFi4=
 github.com/google/pprof v0.0.0-20250820193118-f64d9cf942d6 h1:EEHtgt9IwisQ2AZ4pIsMjahcegHh6rmhqxzIRQIyepY=
 github.com/google/pprof v0.0.0-20250820193118-f64d9cf942d6/go.mod h1:I6V7YzU0XDpsHqbsyrghnFZLO1gwK6NPTNvmetQIk9U=
 github.com/google/uuid v1.6.0 h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=
