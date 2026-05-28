@@ -61,6 +61,7 @@ Before requesting review, ensure these pass:
 `osv-scanner` relies on [osv-scalibr](https://github.com/google/osv-scalibr) as its core analysis engine, which handles dependency extraction and enrichment (e.g., vulnerability matching) logic.
 
 Understanding how they work together is key:
+
 - **Integration:** `osv-scanner` invokes `osv-scalibr` libraries to perform the actual scanning and extraction of dependencies.
 - **Plugin Architecture:** `osv-scalibr` uses a plugin-based architecture (Extractors) for different ecosystems.
 
