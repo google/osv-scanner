@@ -14,8 +14,8 @@ deps.dev/api/v3 v3.0.0-20260422013440-90c27f84dd6f h1:bkdwfmqQpnBWIaJnQzrBz2PJqu
 deps.dev/api/v3 v3.0.0-20260422013440-90c27f84dd6f/go.mod h1:0hHra9TKQ6NiQ521weKybVVWKbsQqCAiYLYnVsj2mrg=
 deps.dev/api/v3alpha v0.0.0-20260422013440-90c27f84dd6f h1:vWUbOQPEXTa7X1jG96z0rVo+PeaQh7fRdhrd8jPruN8=
 deps.dev/api/v3alpha v0.0.0-20260422013440-90c27f84dd6f/go.mod h1:NHzNeKCx55mrWIvk1rr2XbM45IVwgPvkGysdr6XAgJk=
-deps.dev/util/maven v0.0.0-20260422013440-90c27f84dd6f h1:MIseqlRy6LSf2vGW99b0T+sg7e0BdzPeMnllW62/R9s=
-deps.dev/util/maven v0.0.0-20260422013440-90c27f84dd6f/go.mod h1:eGrXziwI7scSGrwIj+5EBHtTeSxAZD/yi8Hb3nFXesA=
+deps.dev/util/maven v0.0.0-20260528042559-b92437de09fd h1:cD6d2B/iyyt1swuYgKQEJjeLb06NLsnivusaafKWHzs=
+deps.dev/util/maven v0.0.0-20260528042559-b92437de09fd/go.mod h1:eGrXziwI7scSGrwIj+5EBHtTeSxAZD/yi8Hb3nFXesA=
 deps.dev/util/pypi v0.0.0-20260422013440-90c27f84dd6f h1:hOkMV3kN25Ya1KQt8wAjCXB6DX0dlp4r+pun4EcmudY=
 deps.dev/util/pypi v0.0.0-20260422013440-90c27f84dd6f/go.mod h1:qmA0z/Lsfa1FMtuLd9JmVZLMHR3GBX/EmbM6z1X3EDU=
 deps.dev/util/resolve v0.0.0-20260422013440-90c27f84dd6f h1:oO5wqRVaL9YgyTs4ChzkuUMoJF9YVRpoOWMFzEzVOTA=
@@ -247,8 +247,8 @@ github.com/google/go-cpy v0.0.0-20211218193943-a9c933c06932 h1:5/4TSDzpDnHQ8rKEE
 github.com/google/go-cpy v0.0.0-20211218193943-a9c933c06932/go.mod h1:cC6EdPbj/17GFCPDK39NRarlMI+kt+O60S12cNB5J9Y=
 github.com/google/jsonschema-go v0.4.3 h1:/DBOLZTfDow7pe2GmaJNhltueGTtDKICi8V8p+DQPd0=
 github.com/google/jsonschema-go v0.4.3/go.mod h1:r5quNTdLOYEz95Ru18zA0ydNbBuYoo9tgaYcxEYhJVE=
-github.com/google/osv-scalibr v0.4.6-0.20260526142046-0f5758ff77ec h1:skA80ldpqT1ww+3kHOmsJZIdi8mF9CaAQTXjr2SCWbc=
-github.com/google/osv-scalibr v0.4.6-0.20260526142046-0f5758ff77ec/go.mod h1:qZnHCiqBSwYlFWlnCblnI90muJ75Lt2yfhbD8X7KFi4=
+github.com/google/osv-scalibr v0.4.6-0.20260528054050-7bf4ca1f5741 h1:XMOYIHmucl0wO7LD+OX5brOjDeOSSP6Sw6gtRgn/kJY=
+github.com/google/osv-scalibr v0.4.6-0.20260528054050-7bf4ca1f5741/go.mod h1:LMxs43EyIMi3TeiUkMeO8I9+uKnJV7QrQySEaCL2Io0=
 github.com/google/pprof v0.0.0-20250820193118-f64d9cf942d6 h1:EEHtgt9IwisQ2AZ4pIsMjahcegHh6rmhqxzIRQIyepY=
 github.com/google/pprof v0.0.0-20250820193118-f64d9cf942d6/go.mod h1:I6V7YzU0XDpsHqbsyrghnFZLO1gwK6NPTNvmetQIk9U=
 github.com/google/uuid v1.6.0 h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=
