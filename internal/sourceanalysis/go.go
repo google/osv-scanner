@@ -5,7 +5,6 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"fmt"
 	"io"
 	"os"
 	"os/exec"
@@ -14,6 +13,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/sourceanalysis/govulncheck"
 	"github.com/google/osv-scanner/v2/internal/url"
+	"github.com/google/osv-scanner/v2/internal/utility/pathfilter"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"golang.org/x/vuln/scan"
@@ -153,12 +153,18 @@ func runGovulncheck(moddir string, vulns []*osvschema.Vulnerability, goVersion s
 		}
 	}()
 
+	root, err := os.OpenRoot(dbdir)
+	if err != nil {
+		return nil, err
+	}
+	defer root.Close()
+
 	for _, vuln := range vulns {
 		dat, err := protojson.Marshal(vuln)
 		if err != nil {
 			return nil, err
 		}
-		if err := os.WriteFile(fmt.Sprintf("%s/%s.json", dbdir, vuln.GetId()), dat, 0600); err != nil {
+		if err := root.WriteFile(pathfilter.FilterPath(vuln.GetId())+".json", dat, 0600); err != nil {
 			return nil, err
 		}
 	}

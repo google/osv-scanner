@@ -10,7 +10,9 @@ cve/cve-2023-38408
 cve/cve-2023-6019
 cve/cve-2024-2912
 dart/pubspec
+dotnet/csproj
 dotnet/depsjson
+dotnet/nugetcpm
 dotnet/packagesconfig
 dotnet/packageslockjson
 erlang/mixlock
@@ -32,6 +34,7 @@ javascript/yarnlock
 license/depsdev
 misc/brew-source
 os/apk
+os/chisel
 os/dpkg
 os/homebrew
 osv/osvscannerjson
@@ -49,6 +52,7 @@ rust/cargoauditable
 rust/cargolock
 sbom/cdx
 sbom/spdx
+swift/packageresolved
 transitivedependency/pomxml
 transitivedependency/requirements
 vcs/gitrepo
@@ -69,6 +73,7 @@ java/archive
 javascript/nodemodules
 misc/brew-source
 os/apk
+os/chisel
 os/dpkg
 os/homebrew
 python/wheelegg
@@ -108,6 +113,7 @@ java/archive
 javascript/nodemodules
 misc/brew-source
 os/apk
+os/chisel
 os/dpkg
 os/homebrew
 python/wheelegg
@@ -136,6 +142,7 @@ java/archive
 javascript/nodemodules
 misc/brew-source
 os/apk
+os/chisel
 os/dpkg
 os/homebrew
 python/wheelegg
@@ -152,7 +159,9 @@ vcs/gitrepo
 [TestResolve_Extractors_Presets/lockfile - 1]
 cpp/conanlock
 dart/pubspec
+dotnet/csproj
 dotnet/depsjson
+dotnet/nugetcpm
 dotnet/packagesconfig
 dotnet/packageslockjson
 erlang/mixlock
@@ -179,6 +188,7 @@ python/uvlock
 r/renvlock
 ruby/gemfilelock
 rust/cargolock
+swift/packageresolved
 ---
 
 [TestResolve_Extractors_Presets/sbom - 1]

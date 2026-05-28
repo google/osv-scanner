@@ -1,0 +1,46 @@
+# osv-scanner
+
+> A high-performance vulnerability scanner for Open Source Vulnerabilities (OSV), written in Go.
+
+## Overview & Role
+`osv-scanner` is a user-facing command-line interface (CLI) tool and the primary consumer of the `osv-scalibr` library. It handles user interaction, parses arguments, configures the scan, and formats results.
+
+## Scan Workflow
+`osv-scanner` relies on the rich set of built-in plugins available within `osv-scalibr`. When a user runs `osv-scanner`, it:
+1.  Determines the scan targets.
+2.  Initializes `osv-scalibr` with a configuration.
+3.  Selects the appropriate `osv-scalibr` plugins to enable based on the scan type and user flags. This typically includes various Extractors for different ecosystems.
+4.  Executes the scan using `osv-scalibr`.
+5.  Receives the structured `ScanResults` from `osv-scalibr`.
+6.  Formats these results for display to the user.
+
+## Integration with osv-scalibr
+
+`osv-scanner` acts as the presentation and orchestration layer, while `osv-scalibr` (https://github.com/google/osv-scalibr) provides the core analysis engine.
+
+- **Explicit Enablement:** Plugins from `osv-scalibr` are NOT automatically used by `osv-scanner`. They must be explicitly imported and added to the `Plugins` slice within the `scalibr.ScanConfig`.
+- **Plugin Configuration:** The primary logic for configuring which osv-scalibr plugins to run is within `pkg/osvscanner/scan.go` (and related files like `pkg/osvscanner/osvscanner.go`). Look for where `scalibr.ScanConfig` is created and populated.
+- **Default Plugins:** `osv-scanner` maintains a list of default `osv-scalibr` extractors and enrichers it considers essential for a good baseline scan. This list is hardcoded in the `osv-scanner` codebase.
+- **Experimental Plugins:** New or less stable plugins from `osv-scalibr` might be gated behind `osv-scanner` CLI flags (e.g., an `--experimental` flag) before being enabled by default.
+
+### Example Workflow: Adding a new osv-scalibr plugin and using it in osv-scanner
+1.  **Develop in `osv-scalibr`:**
+    *   Implement your new Extractor (e.g., `MyLangExtractor`) within the `google/osv-scalibr` repository, following its contribution guidelines and plugin interface.
+    *   Place the extractor in the appropriate subdirectory under `extractor/filesystem/language/` (or similar).
+    *   Register the new extractor in `osv-scalibr/plugin/list/list.go` so it can be enabled by name.
+    *   Add thorough tests within `osv-scalibr`.
+    *   Get the changes merged into `osv-scalibr`.
+
+2. **Enable in `osv-scanner`:**
+    *   **Update dependencies:** Run `go get github.com/google/osv-scalibr@v...` to pull in the new version containing your plugin. This might already be done automatically by dependabot.
+    *   **Register in presets:** Open `internal/scalibrplugin/presets.go`, import the new plugin, and add it to the preset map if appropriate using its name and constructor.
+    *   **Experimental features:** If the feature is experimental, instead of adding it to a  preset, add logic in `pkg/osvscanner/scan.go` to enable it based on a CLI flag.
+
+## Development & Testing Tips
+- **Test Data:** Mock lockfiles and test fixtures are typically located in `testdata/` directories within the relevant packages.
+
+## Repository Map
+- [/cmd/osv-scanner](https://github.com/google/osv-scanner/tree/main/cmd/osv-scanner): Main CLI entry point.
+- [/pkg/osvscanner](https://github.com/google/osv-scanner/tree/main/pkg/osvscanner): Public programmatic API.
+- [/internal/output](https://github.com/google/osv-scanner/tree/main/internal/output): Result rendering (JSON, Table, SBOM).
+- [/pkg/osvscanner/testdata](https://github.com/google/osv-scanner/tree/main/pkg/osvscanner/testdata): Test fixtures for scanner tests.

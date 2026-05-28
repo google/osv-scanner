@@ -3,6 +3,7 @@ package testcmd
 import (
 	"bytes"
 	"cmp"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -173,7 +174,10 @@ func InsertCassette(t *testing.T) *http.Client {
 		sortCassetteInteractions(t, path)
 	})
 
-	return r.GetDefaultClient()
+	client := r.GetDefaultClient()
+	client.Transport = &vcrErrorWrappingTransport{wrapper: client.Transport}
+
+	return client
 }
 
 // sortCassetteInteractions reorders the interactions in the given cassette, based
@@ -254,4 +258,24 @@ func matchBody(r *http.Request, i cassette.Request) bool {
 	}
 
 	return true
+}
+
+type vcrErrorWrappingTransport struct {
+	wrapper http.RoundTripper
+}
+
+func (t *vcrErrorWrappingTransport) RoundTrip(req *http.Request) (*http.Response, error) {
+	resp, err := t.wrapper.RoundTrip(req)
+	if err != nil && errors.Is(err, cassette.ErrInteractionNotFound) {
+		// Convert VCR error to a 404 response to avoid retries by the client
+		return &http.Response{
+			StatusCode: http.StatusNotFound,
+			Status:     "404 Not Found (VCR: requested interaction not found)",
+			Body:       io.NopCloser(strings.NewReader("VCR: requested interaction not found")),
+			Header:     make(http.Header),
+			Request:    req,
+		}, nil
+	}
+
+	return resp, err
 }

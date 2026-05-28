@@ -7,4 +7,5 @@ const (
 	CycloneDXVersion14 CycloneDXVersion = iota
 	CycloneDXVersion15
 	CycloneDXVersion16
+	CycloneDXVersion17
 )
