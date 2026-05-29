@@ -98,4 +98,3 @@ jobs:
       - name: Run lint action
         uses: ./.github/workflows/lint-action
 
-
