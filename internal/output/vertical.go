@@ -90,7 +90,7 @@ func printVerticalLicenseViolations(source SourceResult, out io.Writer) {
 
 		fmt.Fprintf(out,
 			"    %s (%s)\n",
-			text.FgYellow.Sprintf("%s@%s", pkg.Name, pkg.InstalledVersion),
+			text.FgYellow.Sprintf("%s@%s", SanitizeForWorkflowCommand(pkg.Name), SanitizeForWorkflowCommand(pkg.InstalledVersion)),
 			text.FgCyan.Sprintf("%s", strings.Join(violations, ", ")),
 		)
 	}
@@ -115,7 +115,7 @@ func printVerticalPkgDeprecatedSummary(source SourceResult, out io.Writer) {
 
 		fmt.Fprintf(out,
 			"    %s\n",
-			text.FgYellow.Sprintf("%s@%s", pkg.Name, pkg.InstalledVersion),
+			text.FgYellow.Sprintf("%s@%s", SanitizeForWorkflowCommand(pkg.Name), SanitizeForWorkflowCommand(pkg.InstalledVersion)),
 		)
 	}
 }
@@ -227,7 +227,7 @@ func printVerticalVulnerabilitiesForPackages(packages []PackageResult, out io.Wr
 
 		fmt.Fprintf(out,
 			"  %s%s %s\n",
-			text.FgYellow.Sprintf("%s@%s", pkgSourceName, pkg.InstalledVersion),
+			text.FgYellow.Sprintf("%s@%s", SanitizeForWorkflowCommand(pkgSourceName), SanitizeForWorkflowCommand(pkg.InstalledVersion)),
 			text.FgYellow.Sprintf("%s", pkgNameInfo),
 			text.FgRed.Sprintf("has the following %s vulnerabilities:", state),
 		)
