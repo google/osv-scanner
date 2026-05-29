@@ -43,7 +43,9 @@ func Run(args []string, stdout, stderr io.Writer, client *http.Client, commands 
 	// ---
 
 	cli.HelpPrinter = func(w io.Writer, templ string, data any) {
-		cmdlogger.SetHasErrored()
+		if !isExplicitHelp(args) {
+			cmdlogger.SetHasErrored()
+		}
 		cli.HelpPrinterCustom(w, templ, data, nil)
 	}
 

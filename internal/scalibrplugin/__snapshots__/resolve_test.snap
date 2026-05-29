@@ -34,6 +34,7 @@ javascript/yarnlock
 license/depsdev
 misc/brew-source
 os/apk
+os/chisel
 os/dpkg
 os/homebrew
 osv/osvscannerjson
@@ -72,6 +73,7 @@ java/archive
 javascript/nodemodules
 misc/brew-source
 os/apk
+os/chisel
 os/dpkg
 os/homebrew
 python/wheelegg
@@ -111,6 +113,7 @@ java/archive
 javascript/nodemodules
 misc/brew-source
 os/apk
+os/chisel
 os/dpkg
 os/homebrew
 python/wheelegg
@@ -139,6 +142,7 @@ java/archive
 javascript/nodemodules
 misc/brew-source
 os/apk
+os/chisel
 os/dpkg
 os/homebrew
 python/wheelegg
