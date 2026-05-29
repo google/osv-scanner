@@ -79,6 +79,7 @@ jobs:
         with:
           pattern: image-testdata-${{ github.run_number }}-*
           path: cmd/osv-scanner/scan/image/testdata/
+          merge-multiple: true
       - name: Set up Go
         uses: actions/setup-go@4b73464bb391d4059bd26b0524d20df3927bd417 # v6.3.0
         with:
