@@ -13,7 +13,7 @@ require (
 	github.com/go-git/go-git/v5 v5.19.0
 	github.com/gobwas/glob v0.2.3
 	github.com/google/go-cmp v0.7.0
-	github.com/google/osv-scalibr v0.4.6-0.20260526142046-0f5758ff77ec
+	github.com/google/osv-scalibr v0.4.6-0.20260528054050-7bf4ca1f5741
 	github.com/ianlancetaylor/demangle v0.0.0-20260505044615-1ff4bf46051f
 	github.com/jedib0t/go-pretty/v6 v6.7.10
 	github.com/modelcontextprotocol/go-sdk v1.6.0
@@ -40,7 +40,7 @@ require (
 	bitbucket.org/creachadair/stringset v0.0.14 // indirect
 	cloud.google.com/go/compute/metadata v0.9.0 // indirect
 	dario.cat/mergo v1.0.2 // indirect
-	deps.dev/util/maven v0.0.0-20260422013440-90c27f84dd6f // indirect
+	deps.dev/util/maven v0.0.0-20260528042559-b92437de09fd // indirect
 	deps.dev/util/pypi v0.0.0-20260422013440-90c27f84dd6f // indirect
 	deps.dev/util/resolve v0.0.0-20260422013440-90c27f84dd6f // indirect
 	deps.dev/util/semver v0.0.0-20260422013440-90c27f84dd6f // indirect
