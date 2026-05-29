@@ -6086,6 +6086,33 @@ No issues found
 
 ---
 
+[TestCommand_Transitive/pom.xml_offline_vulnerabilities_keeps_transitive - 1]
+Scanning dir ./testdata/maven-transitive/pom.xml
+Scanned <rootdir>/testdata/maven-transitive/pom.xml file and found 1 package
+Warning: enricher transitivedependency/pomxml may be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts.
+Loaded Maven local db from <tempdir>/osv-scanner/Maven/all.zip
+
+Total 1 package affected by 7 known vulnerabilities (2 Critical, 1 High, 4 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+7 vulnerabilities can be fixed.
+
++-------------------------------------+------+-----------+-------------------------------------+---------+---------------+-----------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                             | VERSION | FIXED VERSION | SOURCE                            |
++-------------------------------------+------+-----------+-------------------------------------+---------+---------------+-----------------------------------+
+| https://osv.dev/GHSA-3pxv-7cmr-fjr4 | 6.9  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.25.4        | testdata/maven-transitive/pom.xml |
+| https://osv.dev/GHSA-6hg6-v5c8-fphq | 6.3  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.25.4        | testdata/maven-transitive/pom.xml |
+| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.16.0        | testdata/maven-transitive/pom.xml |
+| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.17.1        | testdata/maven-transitive/pom.xml |
+| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.15.0        | testdata/maven-transitive/pom.xml |
+| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.17.0        | testdata/maven-transitive/pom.xml |
+| https://osv.dev/GHSA-vc5p-v9hr-52mj | 6.3  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.25.3        | testdata/maven-transitive/pom.xml |
++-------------------------------------+------+-----------+-------------------------------------+---------+---------------+-----------------------------------+
+
+---
+
+[TestCommand_Transitive/pom.xml_offline_vulnerabilities_keeps_transitive - 2]
+
+---
+
 [TestCommand_Transitive/pom.xml_transitive_default - 1]
 Scanning dir ./testdata/maven-transitive/pom.xml
 Scanned <rootdir>/testdata/maven-transitive/pom.xml file and found 1 package

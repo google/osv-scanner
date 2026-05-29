@@ -3,7 +3,56 @@ package osvscanner
 import (
 	"path/filepath"
 	"testing"
+
+	"github.com/google/osv-scalibr/plugin"
 )
+
+func Test_networkCapability(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name    string
+		actions ScannerActions
+		want    plugin.Network
+	}{
+		{
+			name: "default_online",
+			want: plugin.NetworkOnline,
+		},
+		{
+			name: "offline_vulnerabilities_keeps_network_online",
+			actions: ScannerActions{
+				CompareOffline: true,
+			},
+			want: plugin.NetworkOnline,
+		},
+		{
+			name: "plugin_network_disabled_sets_network_offline",
+			actions: ScannerActions{
+				PluginNetworkDisabled: true,
+			},
+			want: plugin.NetworkOffline,
+		},
+		{
+			name: "full_offline_sets_network_offline",
+			actions: ScannerActions{
+				CompareOffline:        true,
+				PluginNetworkDisabled: true,
+			},
+			want: plugin.NetworkOffline,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			if got := networkCapability(tt.actions); got != tt.want {
+				t.Errorf("networkCapability(%+v) = %v, want %v", tt.actions, got, tt.want)
+			}
+		})
+	}
+}
 
 func Test_isDescendent(t *testing.T) {
 	t.Parallel()

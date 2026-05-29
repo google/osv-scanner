@@ -96,6 +96,14 @@ func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions Sc
 	return plugins
 }
 
+func networkCapability(actions ScannerActions) plugin.Network {
+	if actions.PluginNetworkDisabled {
+		return plugin.NetworkOffline
+	}
+
+	return plugin.NetworkOnline
+}
+
 // countNotEnrichers counts the number of plugins that are not enricher.Enricher plugins
 func countNotEnrichers(plugins []plugin.Plugin) int {
 	count := 0
@@ -220,13 +228,9 @@ SBOMLoop:
 	capabilities := plugin.Capabilities{
 		DirectFS:           true,
 		RunningSystem:      true,
-		Network:            plugin.NetworkOnline,
+		Network:            networkCapability(actions),
 		OS:                 osCapability,
 		AllowUnsafePlugins: true,
-	}
-
-	if actions.CompareOffline {
-		capabilities.Network = plugin.NetworkOffline
 	}
 
 	filteredPlugins := append(plugin.FilterByCapabilities(plugins, &capabilities), gitDirectPlugin)

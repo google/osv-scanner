@@ -59,6 +59,9 @@ type ScannerActions struct {
 	DownloadDatabases bool
 	LocalDBPath       string
 
+	// network-backed plugins
+	PluginNetworkDisabled bool
+
 	// license scanning
 	ScanLicensesSummary   bool
 	ScanLicensesAllowlist []string
@@ -306,13 +309,9 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	capabilities := &plugin.Capabilities{
 		DirectFS:           true,
 		RunningSystem:      false,
-		Network:            plugin.NetworkOnline,
+		Network:            networkCapability(actions),
 		OS:                 plugin.OSLinux,
 		AllowUnsafePlugins: true,
-	}
-
-	if actions.CompareOffline {
-		capabilities.Network = plugin.NetworkOffline
 	}
 
 	plugins = plugin.FilterByCapabilities(plugins, capabilities)
