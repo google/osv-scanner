@@ -9,14 +9,14 @@ require (
 	deps.dev/api/v3alpha v0.0.0-20260422013440-90c27f84dd6f
 	github.com/BurntSushi/toml v1.6.0
 	github.com/CycloneDX/cyclonedx-go v0.11.0
-	github.com/gkampitakis/go-snaps v0.5.21
+	github.com/gkampitakis/go-snaps v0.5.22
 	github.com/go-git/go-git/v5 v5.19.1
 	github.com/gobwas/glob v0.2.3
 	github.com/google/go-cmp v0.7.0
 	github.com/google/osv-scalibr v0.4.6-0.20260528054050-7bf4ca1f5741
 	github.com/ianlancetaylor/demangle v0.0.0-20260505044615-1ff4bf46051f
 	github.com/jedib0t/go-pretty/v6 v6.7.10
-	github.com/modelcontextprotocol/go-sdk v1.6.0
+	github.com/modelcontextprotocol/go-sdk v1.6.1
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/ossf/osv-schema/bindings/go v0.0.0-20260424063704-83285ce2a866
 	github.com/owenrumney/go-sarif/v3 v3.3.0
@@ -101,7 +101,7 @@ require (
 	github.com/erikgeiser/coninput v0.0.0-20211004153227-1c3628e74d0f // indirect
 	github.com/erikvarga/go-rpmdb v0.0.0-20250523120114-a15a62cd4593 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
-	github.com/gkampitakis/ciinfo v0.3.2 // indirect
+	github.com/gkampitakis/ciinfo v0.3.4 // indirect
 	github.com/go-errors/errors v1.5.1 // indirect
 	github.com/go-git/gcfg v1.5.1-0.20230307220236-3a3c6141e376 // indirect
 	github.com/go-git/go-billy/v5 v5.9.0 // indirect
@@ -126,7 +126,7 @@ require (
 	github.com/kr/text v0.2.0 // indirect
 	github.com/lucasb-eyer/go-colorful v1.4.0 // indirect
 	github.com/lunixbochs/struc v0.0.0-20241101090106-8d528fa2c543 // indirect
-	github.com/maruel/natural v1.1.1 // indirect
+	github.com/maruel/natural v1.3.0 // indirect
 	github.com/masahiro331/go-ext4-filesystem v0.0.0-20260423010602-fe51f5b5e52b // indirect
 	github.com/mattn/go-isatty v0.0.22 // indirect
 	github.com/mattn/go-localereader v0.0.1 // indirect
