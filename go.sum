@@ -189,10 +189,10 @@ github.com/erikvarga/go-rpmdb v0.0.0-20250523120114-a15a62cd4593 h1:cIQ/Ziclb/qr
 github.com/erikvarga/go-rpmdb v0.0.0-20250523120114-a15a62cd4593/go.mod h1:MiEorPk0IChAoCwpg2FXyqVgbNvOlPWZAYHqqIoDNoY=
 github.com/felixge/httpsnoop v1.0.4 h1:NFTV2Zj1bL4mc9sqWACXbQFVBBg2W3GPvqp8/ESS2Wg=
 github.com/felixge/httpsnoop v1.0.4/go.mod h1:m8KPJKqk1gH5J9DgRY2ASl2lWCfGKXixSwevea8zH2U=
-github.com/gkampitakis/ciinfo v0.3.2 h1:JcuOPk8ZU7nZQjdUhctuhQofk7BGHuIy0c9Ez8BNhXs=
-github.com/gkampitakis/ciinfo v0.3.2/go.mod h1:1NIwaOcFChN4fa/B0hEBdAb6npDlFL8Bwx4dfRLRqAo=
-github.com/gkampitakis/go-snaps v0.5.21 h1:SvhSFeZviQXwlT+dnGyAIATVehkhqRVW6qfQZhCZH+Y=
-github.com/gkampitakis/go-snaps v0.5.21/go.mod h1:gC3YqxQTPyIXvQrw/Vpt3a8VqR1MO8sVpZFWN4DGwNs=
+github.com/gkampitakis/ciinfo v0.3.4 h1:5eBSibVuSMbb/H6Elc0IIEFbkzCJi3lm94n0+U7Z0KY=
+github.com/gkampitakis/ciinfo v0.3.4/go.mod h1:1NIwaOcFChN4fa/B0hEBdAb6npDlFL8Bwx4dfRLRqAo=
+github.com/gkampitakis/go-snaps v0.5.22 h1:xg9omphRnbDnimMCl1KqznC4krlxOGpkB0vDSfX2P7M=
+github.com/gkampitakis/go-snaps v0.5.22/go.mod h1:uy3lVzCCRRsAwYqSocyw5fY8xRLCYEfqoOJNxr8HonM=
 github.com/glebarez/go-sqlite v1.20.3 h1:89BkqGOXR9oRmG58ZrzgoY/Fhy5x0M+/WV48U5zVrZ4=
 github.com/glebarez/go-sqlite v1.20.3/go.mod h1:u3N6D/wftiAzIOJtZl6BmedqxmmkDfH3q+ihjqxC9u0=
 github.com/gliderlabs/ssh v0.3.8 h1:a4YXD1V7xMF9g5nTkdfnja3Sxy1PVDCj1Zg4Wb8vY6c=
@@ -291,8 +291,8 @@ github.com/lucasb-eyer/go-colorful v1.4.0 h1:UtrWVfLdarDgc44HcS7pYloGHJUjHV/4FwW
 github.com/lucasb-eyer/go-colorful v1.4.0/go.mod h1:R4dSotOR9KMtayYi1e77YzuveK+i7ruzyGqttikkLy0=
 github.com/lunixbochs/struc v0.0.0-20241101090106-8d528fa2c543 h1:GxMuVb9tJajC1QpbQwYNY1ZAo1EIE8I+UclBjOfjz/M=
 github.com/lunixbochs/struc v0.0.0-20241101090106-8d528fa2c543/go.mod h1:vy1vK6wD6j7xX6O6hXe621WabdtNkou2h7uRtTfRMyg=
-github.com/maruel/natural v1.1.1 h1:Hja7XhhmvEFhcByqDoHz9QZbkWey+COd9xWfCfn1ioo=
-github.com/maruel/natural v1.1.1/go.mod h1:v+Rfd79xlw1AgVBjbO0BEQmptqb5HvL/k9GRHB7ZKEg=
+github.com/maruel/natural v1.3.0 h1:VsmCsBmEyrR46RomtgHs5hbKADGRVtliHTyCOLFBpsg=
+github.com/maruel/natural v1.3.0/go.mod h1:v+Rfd79xlw1AgVBjbO0BEQmptqb5HvL/k9GRHB7ZKEg=
 github.com/masahiro331/go-ext4-filesystem v0.0.0-20260423010602-fe51f5b5e52b h1:IAYuiQq6BVizPeXTKBoY3Jcin3gGn8No7h31lvH0aKo=
 github.com/masahiro331/go-ext4-filesystem v0.0.0-20260423010602-fe51f5b5e52b/go.mod h1:3XMMY1M486mWGTD13WPItg6FsgflQR72ZMAkd+gsyoQ=
 github.com/mattn/go-isatty v0.0.22 h1:j8l17JJ9i6VGPUFUYoTUKPSgKe/83EYU2zBC7YNKMw4=
@@ -332,8 +332,8 @@ github.com/moby/sys/userns v0.1.0 h1:tVLXkFOxVu9A64/yh59slHVv9ahO9UIev4JZusOLG/g
 github.com/moby/sys/userns v0.1.0/go.mod h1:IHUYgu/kao6N8YZlp9Cf444ySSvCmDlmzUcYfDHOl28=
 github.com/moby/term v0.5.2 h1:6qk3FJAFDs6i/q3W/pQ97SX192qKfZgGjCQqfCJkgzQ=
 github.com/moby/term v0.5.2/go.mod h1:d3djjFCrjnB+fl8NJux+EJzu0msscUP+f8it8hPkFLc=
-github.com/modelcontextprotocol/go-sdk v1.6.0 h1:PPLS3kn7WtOEnR+Af4X5H96SG0qSab8R/ZQT/HkhPkY=
-github.com/modelcontextprotocol/go-sdk v1.6.0/go.mod h1:kzm3kzFL1/+AziGOE0nUs3gvPoNxMCvkxokMkuFapXQ=
+github.com/modelcontextprotocol/go-sdk v1.6.1 h1:0zOSupjKUxPKSocPT1Wtago+mUHU2/uZ4xSOY0FGReU=
+github.com/modelcontextprotocol/go-sdk v1.6.1/go.mod h1:kzm3kzFL1/+AziGOE0nUs3gvPoNxMCvkxokMkuFapXQ=
 github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826 h1:RWengNIwukTxcDr9M+97sNutRR1RKhG96O6jWumTTnw=
 github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826/go.mod h1:TaXosZuwdSHYgviHp1DAtfrULt5eUgsSMsZf+YrPgl8=
 github.com/morikuni/aec v1.1.0 h1:vBBl0pUnvi/Je71dsRrhMBtreIqNMYErSAbEeb8jrXQ=
