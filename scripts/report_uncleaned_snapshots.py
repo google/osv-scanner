@@ -6,7 +6,7 @@ import glob
 
 def annotate_file(file, msg):
   if os.getenv('CI') is not None:
-    print(f'::error file={file} msg={msg}')
+    print(f'::error file={file},line=1::{msg}')
 
 
 def does_clean_snapshots(pkg_dir):
