@@ -1,0 +1,3993 @@
+
+[TestPrintGitLabResults_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_no_license_violations - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations#01 - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_some_license_violations - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_and_groups,_some_license_violations - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithLicenseViolations/multiple_sources_with_no_packages - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithLicenseViolations/no_sources - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithLicenseViolations/one_source_with_no_packages - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithLicenseViolations/one_source_with_one_package,_no_license_violations - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithLicenseViolations/one_source_with_one_package,_no_licenses - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithLicenseViolations/one_source_with_one_package_and_an_unknown_license - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithLicenseViolations/one_source_with_one_package_and_multiple_license_violations - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithLicenseViolations/one_source_with_one_package_and_one_license_violation - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithLicenseViolations/one_source_with_one_package_and_one_license_violation_(dev) - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithLicenseViolations/one_source_with_one_package_with_both_a_version_and_a_commit_and_one_license_violation - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithLicenseViolations/one_source_with_one_package_with_just_a_commit_and_one_license_violation - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithLicenseViolations/two_sources_with_packages,_one_license_violation - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithMixedIssues/multiple_sources_with_a_mixed_count_of_packages,_some_called_vulnerabilities_and_license_violations - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [
+    {
+      "id": "a144cccfbec55737fb2a925cf90a97472dd1e7350722b7e25c8d6f23c58e1018",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "bbf730559b5a49062cd42db03d2fdc502a36ced8a254d10c96e1ee191117ef6c",
+      "name": "OSV-2",
+      "message": "Something less scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/second/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine2"
+          },
+          "version": "3.2.5"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/second/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-2",
+          "value": "OSV-2"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "ac9c534a05c557e7ba166b70882c5a6eb93912dc47dad6d9f92d7ba7447da4ed",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/third/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/third/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    }
+  ],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithMixedIssues/multiple_sources_with_a_mixed_count_of_packages,_some_vulnerabilities_and_license_violations - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [
+    {
+      "id": "a144cccfbec55737fb2a925cf90a97472dd1e7350722b7e25c8d6f23c58e1018",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "bbf730559b5a49062cd42db03d2fdc502a36ced8a254d10c96e1ee191117ef6c",
+      "name": "OSV-2",
+      "message": "Something less scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/second/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine2"
+          },
+          "version": "3.2.5"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/second/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-2",
+          "value": "OSV-2"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "ac9c534a05c557e7ba166b70882c5a6eb93912dc47dad6d9f92d7ba7447da4ed",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/third/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/third/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    }
+  ],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithMixedIssues/multiple_sources_with_a_mixed_count_of_packages_with_versions_and_commits,_some_vulnerabilities_and_license_violations - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [
+    {
+      "id": "a144cccfbec55737fb2a925cf90a97472dd1e7350722b7e25c8d6f23c58e1018",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "3f649118d9781fb40f0ee6312b9f690cf8a0bb71f8bf1389836e075eb73fe025",
+      "name": "OSV-2",
+      "message": "Something less scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/second/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine2"
+          }
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/second/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-2",
+          "value": "OSV-2"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "ac9c534a05c557e7ba166b70882c5a6eb93912dc47dad6d9f92d7ba7447da4ed",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/third/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/third/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    }
+  ],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithMixedIssues/one_source_in_working_directory_with_one_package,_one_vulnerability,_and_one_license_violation - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [
+    {
+      "id": "a144cccfbec55737fb2a925cf90a97472dd1e7350722b7e25c8d6f23c58e1018",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    }
+  ],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithMixedIssues/one_source_with_one_deprecated_package - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithMixedIssues/one_source_with_one_package,_one_called_vulnerability,_and_one_license_violation - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [
+    {
+      "id": "a144cccfbec55737fb2a925cf90a97472dd1e7350722b7e25c8d6f23c58e1018",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    }
+  ],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithMixedIssues/one_source_with_one_package,_one_uncalled_vulnerability,_and_one_license_violation - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [
+    {
+      "id": "a144cccfbec55737fb2a925cf90a97472dd1e7350722b7e25c8d6f23c58e1018",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    }
+  ],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithMixedIssues/one_source_with_one_package,_one_vulnerability,_and_one_license_violation - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [
+    {
+      "id": "a144cccfbec55737fb2a925cf90a97472dd1e7350722b7e25c8d6f23c58e1018",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    }
+  ],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithMixedIssues/two_sources_with_packages,_one_vulnerability,_one_license_violation - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [
+    {
+      "id": "a144cccfbec55737fb2a925cf90a97472dd1e7350722b7e25c8d6f23c58e1018",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    }
+  ],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_grouped_packages,_and_multiple_vulnerabilities - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [
+    {
+      "id": "a144cccfbec55737fb2a925cf90a97472dd1e7350722b7e25c8d6f23c58e1018",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "b44093b1b011261246b0b662db0b141f74798f9324a11b36dab25a34721aee66",
+      "name": "OSV-5",
+      "message": "Something scarier!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-5",
+          "value": "OSV-5"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "50b0f53ac304a940e705ceb6793e97215dd67e3fc5de712cb93185c792cd9bfb",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.2"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "bbf730559b5a49062cd42db03d2fdc502a36ced8a254d10c96e1ee191117ef6c",
+      "name": "OSV-2",
+      "message": "Something less scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/second/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine2"
+          },
+          "version": "3.2.5"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/second/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-2",
+          "value": "OSV-2"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "552270fc451ee2a5377bc059151e48670e11c2b93142f0f3cbbd7fa11508877d",
+      "name": "OSV-3",
+      "message": "Something mildly scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/second/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine3"
+          },
+          "version": "0.4.1"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/second/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-3",
+          "value": "OSV-3"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "d53a83ac8e601b78d788288fe7cb1d5783ee6588d088c5b1415b541925bf22e0",
+      "name": "OSV-5",
+      "message": "Something scarier!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/second/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine3"
+          },
+          "version": "0.4.1"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/second/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-5",
+          "value": "OSV-5"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    }
+  ],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages,_and_multiple_vulnerabilities - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [
+    {
+      "id": "a144cccfbec55737fb2a925cf90a97472dd1e7350722b7e25c8d6f23c58e1018",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "b44093b1b011261246b0b662db0b141f74798f9324a11b36dab25a34721aee66",
+      "name": "OSV-5",
+      "message": "Something scarier!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-5",
+          "value": "OSV-5"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "50b0f53ac304a940e705ceb6793e97215dd67e3fc5de712cb93185c792cd9bfb",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.2"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "bbf730559b5a49062cd42db03d2fdc502a36ced8a254d10c96e1ee191117ef6c",
+      "name": "OSV-2",
+      "message": "Something less scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/second/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine2"
+          },
+          "version": "3.2.5"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/second/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-2",
+          "value": "OSV-2"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "552270fc451ee2a5377bc059151e48670e11c2b93142f0f3cbbd7fa11508877d",
+      "name": "OSV-3",
+      "message": "Something mildly scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/second/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine3"
+          },
+          "version": "0.4.1"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/second/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-3",
+          "value": "OSV-3"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "d53a83ac8e601b78d788288fe7cb1d5783ee6588d088c5b1415b541925bf22e0",
+      "name": "OSV-5",
+      "message": "Something scarier!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/second/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine3"
+          },
+          "version": "0.4.1"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/second/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-5",
+          "value": "OSV-5"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    }
+  ],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages,_no_vulnerabilities - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages,_some_vulnerabilities - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [
+    {
+      "id": "a144cccfbec55737fb2a925cf90a97472dd1e7350722b7e25c8d6f23c58e1018",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "bbf730559b5a49062cd42db03d2fdc502a36ced8a254d10c96e1ee191117ef6c",
+      "name": "OSV-2",
+      "message": "Something less scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/second/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine2"
+          },
+          "version": "3.2.5"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/second/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-2",
+          "value": "OSV-2"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "ac9c534a05c557e7ba166b70882c5a6eb93912dc47dad6d9f92d7ba7447da4ed",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/third/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/third/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    }
+  ],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_and_multiple_vulnerabilities - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [
+    {
+      "id": "9e231753200bbe123d6e94f439a25060336330ae976ede156d4796bd1a757f77",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "author1/mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "3c124751cdfecd2a0aa81027c355d780d4904bd5d4e2e31cb17568ba93f19741",
+      "name": "OSV-5",
+      "message": "Something scarier!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "author1/mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-5",
+          "value": "OSV-5"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "50b0f53ac304a940e705ceb6793e97215dd67e3fc5de712cb93185c792cd9bfb",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.2"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "bbf730559b5a49062cd42db03d2fdc502a36ced8a254d10c96e1ee191117ef6c",
+      "name": "OSV-2",
+      "message": "Something less scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/second/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine2"
+          },
+          "version": "3.2.5"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/second/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-2",
+          "value": "OSV-2"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "fddd4528907fa3081d692505cb504bbc5356ae0f2758c0b57b53111f62e864ec",
+      "name": "OSV-3",
+      "message": "Something mildly scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/second/lockfile",
+        "dependency": {
+          "package": {
+            "name": "author3/mine3"
+          },
+          "version": "0.4.1"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/second/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-3",
+          "value": "OSV-3"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "214f8a9e43ff41bfb02f85ae24720315311bf1e05ef6e571480e22d2525b0e72",
+      "name": "OSV-5",
+      "message": "Something scarier!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/second/lockfile",
+        "dependency": {
+          "package": {
+            "name": "author3/mine3"
+          },
+          "version": "0.4.1"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/second/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-5",
+          "value": "OSV-5"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    }
+  ],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_and_multiple_vulnerabilities,_but_some_uncalled - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [
+    {
+      "id": "9e231753200bbe123d6e94f439a25060336330ae976ede156d4796bd1a757f77",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "author1/mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "3c124751cdfecd2a0aa81027c355d780d4904bd5d4e2e31cb17568ba93f19741",
+      "name": "OSV-5",
+      "message": "Something scarier!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "author1/mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-5",
+          "value": "OSV-5"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "50b0f53ac304a940e705ceb6793e97215dd67e3fc5de712cb93185c792cd9bfb",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.2"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "bbf730559b5a49062cd42db03d2fdc502a36ced8a254d10c96e1ee191117ef6c",
+      "name": "OSV-2",
+      "message": "Something less scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/second/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine2"
+          },
+          "version": "3.2.5"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/second/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-2",
+          "value": "OSV-2"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "fddd4528907fa3081d692505cb504bbc5356ae0f2758c0b57b53111f62e864ec",
+      "name": "OSV-3",
+      "message": "Something mildly scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/second/lockfile",
+        "dependency": {
+          "package": {
+            "name": "author3/mine3"
+          },
+          "version": "0.4.1"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/second/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-3",
+          "value": "OSV-3"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "214f8a9e43ff41bfb02f85ae24720315311bf1e05ef6e571480e22d2525b0e72",
+      "name": "OSV-5",
+      "message": "Something scarier!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/second/lockfile",
+        "dependency": {
+          "package": {
+            "name": "author3/mine3"
+          },
+          "version": "0.4.1"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/second/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-5",
+          "value": "OSV-5"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    }
+  ],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems_using_commits_and_version,_and_multiple_vulnerabilities - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [
+    {
+      "id": "9e231753200bbe123d6e94f439a25060336330ae976ede156d4796bd1a757f77",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "author1/mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "3c124751cdfecd2a0aa81027c355d780d4904bd5d4e2e31cb17568ba93f19741",
+      "name": "OSV-5",
+      "message": "Something scarier!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "author1/mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-5",
+          "value": "OSV-5"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "1590360c9aaa3e696461b333625249f508bcc540129f807b8de67ce1a7b1ae14",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          }
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "bbf730559b5a49062cd42db03d2fdc502a36ced8a254d10c96e1ee191117ef6c",
+      "name": "OSV-2",
+      "message": "Something less scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/second/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine2"
+          },
+          "version": "3.2.5"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/second/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-2",
+          "value": "OSV-2"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "fddd4528907fa3081d692505cb504bbc5356ae0f2758c0b57b53111f62e864ec",
+      "name": "OSV-3",
+      "message": "Something mildly scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/second/lockfile",
+        "dependency": {
+          "package": {
+            "name": "author3/mine3"
+          },
+          "version": "0.4.1"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/second/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-3",
+          "value": "OSV-3"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "214f8a9e43ff41bfb02f85ae24720315311bf1e05ef6e571480e22d2525b0e72",
+      "name": "OSV-5",
+      "message": "Something scarier!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/second/lockfile",
+        "dependency": {
+          "package": {
+            "name": "author3/mine3"
+          },
+          "version": "0.4.1"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/second/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-5",
+          "value": "OSV-5"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    }
+  ],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithVulnerabilities/multiple_sources_with_no_packages - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithVulnerabilities/no_sources - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithVulnerabilities/one_source_with_no_packages - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithVulnerabilities/one_source_with_one_package,_no_vulnerabilities - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithVulnerabilities/one_source_with_one_package,_one_uncalled_vulnerability,_and_one_called_vulnerability - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [
+    {
+      "id": "a144cccfbec55737fb2a925cf90a97472dd1e7350722b7e25c8d6f23c58e1018",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "d71cf841a1d70d0ea2df9d9e82f4a9835c39a8f75d246683b980ee086f1f0daa",
+      "name": "GHSA-123",
+      "message": "Something scarier!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "ghsa",
+          "name": "GHSA-123",
+          "value": "GHSA-123",
+          "url": "https://github.com/advisories/GHSA-123"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    }
+  ],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithVulnerabilities/one_source_with_one_package,_one_vulnerability,_and_a_max_severity - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [
+    {
+      "id": "a144cccfbec55737fb2a925cf90a97472dd1e7350722b7e25c8d6f23c58e1018",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    }
+  ],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithVulnerabilities/one_source_with_one_package_and_one_called_vulnerability - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [
+    {
+      "id": "a144cccfbec55737fb2a925cf90a97472dd1e7350722b7e25c8d6f23c58e1018",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    }
+  ],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithVulnerabilities/one_source_with_one_package_and_one_uncalled_vulnerability - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [
+    {
+      "id": "a144cccfbec55737fb2a925cf90a97472dd1e7350722b7e25c8d6f23c58e1018",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    }
+  ],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [
+    {
+      "id": "a144cccfbec55737fb2a925cf90a97472dd1e7350722b7e25c8d6f23c58e1018",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    }
+  ],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability_(dev) - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [
+    {
+      "id": "a144cccfbec55737fb2a925cf90a97472dd1e7350722b7e25c8d6f23c58e1018",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    }
+  ],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithVulnerabilities/one_source_with_one_package_and_two_aliases_of_a_single_uncalled_vulnerability - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [
+    {
+      "id": "a144cccfbec55737fb2a925cf90a97472dd1e7350722b7e25c8d6f23c58e1018",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "62acb699b44c86bc540867adebb4c8709ef233e05d028f8d1d0135fff457719c",
+      "name": "GHSA-123",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "ghsa",
+          "name": "GHSA-123",
+          "value": "GHSA-123",
+          "url": "https://github.com/advisories/GHSA-123"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    }
+  ],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithVulnerabilities/one_source_with_one_package_and_two_aliases_of_a_single_vulnerability_with_a_max_severity - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [
+    {
+      "id": "a144cccfbec55737fb2a925cf90a97472dd1e7350722b7e25c8d6f23c58e1018",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "62acb699b44c86bc540867adebb4c8709ef233e05d028f8d1d0135fff457719c",
+      "name": "GHSA-123",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "ghsa",
+          "name": "GHSA-123",
+          "value": "GHSA-123",
+          "url": "https://github.com/advisories/GHSA-123"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    }
+  ],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithVulnerabilities/one_source_with_one_package_and_two_aliases_of_a_single_vulnerability_without_a_max_severity - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [
+    {
+      "id": "a144cccfbec55737fb2a925cf90a97472dd1e7350722b7e25c8d6f23c58e1018",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "62acb699b44c86bc540867adebb4c8709ef233e05d028f8d1d0135fff457719c",
+      "name": "GHSA-123",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "ghsa",
+          "name": "GHSA-123",
+          "value": "GHSA-123",
+          "url": "https://github.com/advisories/GHSA-123"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    }
+  ],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithVulnerabilities/one_source_with_one_package_with_both_a_version_and_commit_and_one_vulnerability - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [
+    {
+      "id": "a144cccfbec55737fb2a925cf90a97472dd1e7350722b7e25c8d6f23c58e1018",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    }
+  ],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithVulnerabilities/one_source_with_one_package_with_just_a_commit_and_one_vulnerability - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [
+    {
+      "id": "1590360c9aaa3e696461b333625249f508bcc540129f807b8de67ce1a7b1ae14",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          }
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    }
+  ],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithVulnerabilities/one_source_with_vulnerabilities,_some_missing_content - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [
+    {
+      "id": "e168971937f4fabd1dc86266b47f6d503929e8ccafd14d3a53a46574dd589e99",
+      "name": "OSV-1",
+      "description": "This vulnerability allows for some very scary stuff to happen - seriously, you'd not believe it!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ]
+    },
+    {
+      "id": "d7be56bfac71257a431de4a276c242a877594dae813ae03878767b5d1722418d",
+      "name": "OSV-2",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine3"
+          },
+          "version": "0.10.2-rc"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-2",
+          "value": "OSV-2"
+        }
+      ]
+    }
+  ],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithVulnerabilities/two_sources_with_packages,_one_vulnerability - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [
+    {
+      "id": "a144cccfbec55737fb2a925cf90a97472dd1e7350722b7e25c8d6f23c58e1018",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    }
+  ],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---
+
+[TestPrintGitLabResults_WithVulnerabilities/two_sources_with_the_same_vulnerable_package - 1]
+{
+  "version": "15.2.4",
+  "vulnerabilities": [
+    {
+      "id": "a144cccfbec55737fb2a925cf90a97472dd1e7350722b7e25c8d6f23c58e1018",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/first/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/first/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    },
+    {
+      "id": "7f8e3994464148063a2c6336e1af55e6835c1ed1f313385d567c1caefea42e4e",
+      "name": "OSV-1",
+      "message": "Something scary!",
+      "severity": "Unknown",
+      "solution": "No solution provided",
+      "location": {
+        "file": "<rootdir>/path/to/my/second/lockfile",
+        "dependency": {
+          "package": {
+            "name": "mine1"
+          },
+          "version": "1.2.3"
+        },
+        "files": [
+          {
+            "path": "<rootdir>/path/to/my/second/lockfile",
+            "type": "lockfile"
+          }
+        ]
+      },
+      "identifiers": [
+        {
+          "type": "osv",
+          "name": "OSV-1",
+          "value": "OSV-1"
+        }
+      ],
+      "cvss_vectors": [
+        {
+          "vendor": "unknown",
+          "vector": "1"
+        }
+      ]
+    }
+  ],
+  "scan": {
+    "analyzer": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "scanner": {
+      "id": "osv-scanner",
+      "name": "osv-scanner",
+      "url": "https://github.com/google/osv-scanner",
+      "vendor": {
+        "name": "Google"
+      },
+      "version": "2.3.5"
+    },
+    "type": "dependency_scanning",
+    "status": "success",
+    "start_time": "2024-01-01T00:00:00",
+    "end_time": "2024-01-01T00:00:00"
+  }
+}
+
+---

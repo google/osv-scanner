@@ -7,38 +7,68 @@ import (
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
-var format = []string{"table", "html", "vertical", "json", "markdown", "sarif", "gh-annotations", "cyclonedx-1-4", "cyclonedx-1-5", "cyclonedx-1-6", "cyclonedx-1-7", "spdx-2-3"}
+const (
+	FormatTable         = "table"
+	FormatHTML          = "html"
+	FormatVertical      = "vertical"
+	FormatJSON          = "json"
+	FormatMarkdown      = "markdown"
+	FormatSARIF         = "sarif"
+	FormatGHAnnotations = "gh-annotations"
+	FormatCycloneDX14   = "cyclonedx-1-4"
+	FormatCycloneDX15   = "cyclonedx-1-5"
+	FormatCycloneDX16   = "cyclonedx-1-6"
+	FormatCycloneDX17   = "cyclonedx-1-7"
+	FormatSPDX23        = "spdx-2-3"
+	FormatGitLab        = "gitlab"
+)
 
 func Format() []string {
-	return format
+	return []string{
+		FormatTable,
+		FormatHTML,
+		FormatVertical,
+		FormatJSON,
+		FormatMarkdown,
+		FormatSARIF,
+		FormatGHAnnotations,
+		FormatCycloneDX14,
+		FormatCycloneDX15,
+		FormatCycloneDX16,
+		FormatCycloneDX17,
+		FormatSPDX23,
+		FormatGitLab,
+	}
 }
 
 func newResultPrinter(format string, writer io.Writer, terminalWidth int, showAllVulns bool) (resultPrinter, error) {
 	switch format {
-	case "html":
+	case FormatHTML:
 		return &htmlReporter{writer}, nil
-	case "json":
+	case FormatJSON:
 		return &jsonReporter{writer}, nil
-	case "vertical":
+	case FormatVertical:
 		return &verticalReporter{writer, terminalWidth, showAllVulns}, nil
-	case "table":
+	case FormatTable:
 		return &tableReporter{writer, false, terminalWidth, showAllVulns}, nil
-	case "markdown":
+	case FormatMarkdown:
 		return &tableReporter{writer, true, terminalWidth, showAllVulns}, nil
-	case "sarif":
+	case FormatSARIF:
 		return &sarifReporter{writer}, nil
-	case "gh-annotations":
+	case FormatGHAnnotations:
 		return &ghAnnotationsReporter{writer}, nil
-	case "cyclonedx-1-4":
+	case FormatCycloneDX14:
 		return &cycloneDXReporter{writer, models.CycloneDXVersion14}, nil
-	case "cyclonedx-1-5":
+	case FormatCycloneDX15:
 		return &cycloneDXReporter{writer, models.CycloneDXVersion15}, nil
-	case "cyclonedx-1-6":
+	case FormatCycloneDX16:
 		return &cycloneDXReporter{writer, models.CycloneDXVersion16}, nil
-	case "cyclonedx-1-7":
+	case FormatCycloneDX17:
 		return &cycloneDXReporter{writer, models.CycloneDXVersion17}, nil
-	case "spdx-2-3":
+	case FormatSPDX23:
 		return &spdxReporter{writer}, nil
+	case FormatGitLab:
+		return &gitlabReporter{writer}, nil
 	default:
 		return nil, fmt.Errorf("%v is not a valid format", format)
 	}

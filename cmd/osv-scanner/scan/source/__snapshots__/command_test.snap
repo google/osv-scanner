@@ -1864,7 +1864,7 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium,
 ---
 
 [TestCommand/output_format:_unsupported - 2]
-unsupported output format "unknown" - must be one of: table, html, vertical, json, markdown, sarif, gh-annotations, cyclonedx-1-4, cyclonedx-1-5, cyclonedx-1-6, cyclonedx-1-7, spdx-2-3
+unsupported output format "unknown" - must be one of: table, html, vertical, json, markdown, sarif, gh-annotations, cyclonedx-1-4, cyclonedx-1-5, cyclonedx-1-6, cyclonedx-1-7, spdx-2-3, gitlab
 
 ---
 

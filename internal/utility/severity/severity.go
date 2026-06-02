@@ -2,6 +2,7 @@
 package severity
 
 import (
+	"errors"
 	"strconv"
 	"strings"
 
@@ -22,6 +23,10 @@ const (
 	LowRating      Rating = "LOW"
 	UnknownRating  Rating = "UNKNOWN"
 )
+
+func (r Rating) String() string {
+	return string(r)
+}
 
 func CalculateScore(severity *osvschema.Severity) (float64, string, error) {
 	score := -1.0
@@ -85,6 +90,34 @@ func CalculateOverallScore(severities []*osvschema.Severity) (float64, string, e
 	}
 
 	return maxScore, maxRating, nil
+}
+
+func CalculateScoreBasedOnMostRecentCvssVersionAvailable(severities []*osvschema.Severity) (float64, string, error) {
+	mappedSeverities := map[osvschema.Severity_Type]*osvschema.Severity{}
+	for _, severity := range severities {
+		if _, ok := mappedSeverities[severity.GetType()]; !ok {
+			mappedSeverities[severity.GetType()] = severity
+		}
+	}
+
+	var severity *osvschema.Severity
+	for _, severityType := range []osvschema.Severity_Type{osvschema.Severity_CVSS_V4, osvschema.Severity_CVSS_V3, osvschema.Severity_CVSS_V2} {
+		if value, ok := mappedSeverities[severityType]; ok {
+			severity = value
+			break
+		}
+	}
+
+	if severity == nil {
+		return -1, string(UnknownRating), errors.New("no CVSS severity found")
+	}
+
+	score, rating, err := CalculateScore(severity)
+	if err != nil {
+		return -1, string(UnknownRating), err
+	}
+
+	return score, rating, nil
 }
 
 func CalculateRating(score string) (Rating, error) {
