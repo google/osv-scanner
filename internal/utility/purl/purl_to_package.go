@@ -9,7 +9,11 @@ import (
 // used like so: purlEcosystems[PkgURL.Type][PkgURL.Namespace]
 // * means it should match any namespace string
 var purlEcosystems = map[string]map[string]osvconstants.Ecosystem{
-	"apk":      {"alpine": osvconstants.EcosystemAlpine},
+	"apk":      {
+		"alpaquita": osvconstants.EcosystemAlpaquita,
+		"alpine": osvconstants.EcosystemAlpine,
+		"bellsoft-hardened-containers": osvconstants.EcosystemBellSoftHardenedContainers,
+	},
 	"cargo":    {"*": osvconstants.EcosystemCratesIO},
 	"composer": {"*": osvconstants.EcosystemPackagist},
 	"conan":    {"*": osvconstants.EcosystemConanCenter},
@@ -68,7 +72,7 @@ func ToPackage(purl string) (models.PackageInfo, error) {
 		case osvconstants.EcosystemMaven:
 			// Maven uses : to separate namespace and package
 			name = parsedPURL.Namespace + ":" + parsedPURL.Name
-		case osvconstants.EcosystemDebian, osvconstants.EcosystemAlpine, osvconstants.EcosystemUbuntu:
+		case osvconstants.EcosystemAlpaquita, osvconstants.EcosystemAlpine, osvconstants.EcosystemBellSoftHardenedContainers, osvconstants.EcosystemDebian, osvconstants.EcosystemUbuntu:
 			// Debian and Alpine repeats their namespace in PURL, so don't add it to the name
 			name = parsedPURL.Name
 		default:

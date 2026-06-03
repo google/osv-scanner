@@ -87,6 +87,28 @@ func TestPURLToPackage(t *testing.T) {
 			},
 		},
 		{
+			name: "valid_PURL_alpaquta",
+			args: args{
+				purl: "pkg:apk/alpaquita/busybox@1.37.0-r37?arch=x86_64&distro=alpaquita-stream",
+			},
+			want: models.PackageInfo{
+				Name:      "busybox",
+				Version:   "1.37.0-r37",
+				Ecosystem: string(osvconstants.EcosystemAlpaquita),
+			},
+		},
+		{
+			name: "valid_PURL_bellsoft-hardened-containers",
+			args: args{
+				purl: "pkg:apk/bellsoft-hardened-containers/apk-tools@3.0.6-r0?arch=x86_64&distro=bellsoft-hardened-containers-stream",
+			},
+			want: models.PackageInfo{
+				Name:      "apk-tools",
+				Version:   "3.0.6-r0",
+				Ecosystem: string(osvconstants.EcosystemBellSoftHardenedContainers),
+			},
+		},
+		{
 			name: "invalid_PURL",
 			args: args{
 				purl: "pkg-golang/github.com/gogo/protobuf.0",
