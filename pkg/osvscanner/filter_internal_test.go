@@ -2,15 +2,68 @@ package osvscanner
 
 import (
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/inventory"
+	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scanner/v2/internal/config"
 	"github.com/google/osv-scanner/v2/internal/imodels/results"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
+
+func Test_sanitizeReasonForLog(t *testing.T) {
+	t.Parallel()
+
+	got := sanitizeReasonForLog("accepted risk\n::warning title=OSV_POC::injected")
+	want := "accepted risk%0A::warning title=OSV_POC::injected"
+	if got != want {
+		t.Errorf("sanitizeReasonForLog() = %q, want %q", got, want)
+	}
+
+	got = sanitizeReasonForLog("")
+	want = "(no reason given)"
+	if got != want {
+		t.Errorf("sanitizeReasonForLog(empty) = %q, want %q", got, want)
+	}
+}
+
+func Test_formatExtractionErrorSanitizesWorkflowCommandFields(t *testing.T) {
+	t.Parallel()
+
+	extractorName, msg := formatExtractionError(&plugin.Status{
+		Name: "npm\n::warning title=PLUGIN::injected",
+		Status: &plugin.ScanStatus{
+			FailureReason: "failed\n::warning title=FAILURE::injected",
+			FileErrors: []*plugin.FileError{
+				{
+					FilePath:     "repo\n::warning title=PATH::injected/package-lock.json",
+					ErrorMessage: "unexpected EOF\n::warning title=ERROR::injected",
+				},
+			},
+		},
+	})
+
+	for _, got := range []string{extractorName, msg} {
+		if strings.Contains(got, "\n::warning") {
+			t.Errorf("formatted extraction error contains workflow command line break: %q", got)
+		}
+	}
+
+	if !strings.Contains(extractorName, "%0A::warning title=PLUGIN::injected") {
+		t.Errorf("extractorName = %q, want encoded workflow command newline", extractorName)
+	}
+	for _, want := range []string{
+		"%0A::warning title=PATH::injected",
+		"%0A::warning title=ERROR::injected",
+	} {
+		if !strings.Contains(msg, want) {
+			t.Errorf("msg = %q, want substring %q", msg, want)
+		}
+	}
+}
 
 func Test_filterUnscannablePackages_shortCommitHash(t *testing.T) {
 	t.Parallel()

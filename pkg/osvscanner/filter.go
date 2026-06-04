@@ -9,10 +9,19 @@ import (
 	"github.com/google/osv-scanner/v2/internal/config"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/imodels/results"
+	"github.com/google/osv-scanner/v2/internal/output"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvconstants"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
+
+func sanitizeReasonForLog(reason string) string {
+	if reason == "" {
+		reason = "(no reason given)"
+	}
+
+	return output.SanitizeForWorkflowCommand(reason)
+}
 
 // filterUnscannablePackages removes packages that don't have enough information to be scanned or
 // are not a supported ecosystem, and returns the list of removed packages (if --all-packages flag is passed in)
@@ -97,10 +106,7 @@ func filterIgnoredPackages(scanResults *results.ScanResults) {
 		if ignore, ignoreLine := configToUse.ShouldIgnorePackage(psr); ignore {
 			pkgString := fmt.Sprintf("%s/%s/%s", imodels.Ecosystem(psr).String(), imodels.Name(psr), imodels.Version(psr))
 
-			reason := ignoreLine.Reason
-			if reason == "" {
-				reason = "(no reason given)"
-			}
+			reason := sanitizeReasonForLog(ignoreLine.Reason)
 			cmdlogger.Infof("Package %s has been filtered out because: %s", pkgString, reason)
 
 			continue
@@ -155,11 +161,7 @@ func filterPackageVulns(pkgVulns models.PackageVulns, configToUse config.Config)
 					ignoredVulns[id] = struct{}{}
 				}
 
-				reason := ignoreLine.Reason
-
-				if reason == "" {
-					reason = "(no reason given)"
-				}
+				reason := sanitizeReasonForLog(ignoreLine.Reason)
 
 				// NB: This only prints the first reason encountered in all the aliases.
 				switch len(group.Aliases) {

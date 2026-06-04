@@ -33,6 +33,26 @@ import (
 
 var ErrExtractorNotFound = errors.New("could not determine extractor suitable to this file")
 
+func formatExtractionError(status *plugin.Status) (string, string) {
+	msg := output.SanitizeForWorkflowCommand(status.Status.FailureReason)
+
+	if len(status.Status.FileErrors) > 0 {
+		builder := strings.Builder{}
+		for _, fileError := range status.Status.FileErrors {
+			if len(status.Status.FileErrors) > 1 {
+				// If there is more than 1 file error, write them on new lines
+				builder.WriteString("\n\t")
+			}
+			fmt.Fprintf(&builder, "%s: %s",
+				output.SanitizeForWorkflowCommand(fileError.FilePath),
+				output.SanitizeForWorkflowCommand(fileError.ErrorMessage))
+		}
+		msg = builder.String()
+	}
+
+	return output.SanitizeForWorkflowCommand(status.Name), msg
+}
+
 func configurePlugins(plugins []plugin.Plugin, accessors ExternalAccessors, actions ScannerActions) {
 	for _, plug := range plugins {
 		vendored.Configure(plug, vendored.Config{
@@ -271,28 +291,16 @@ SBOMLoop:
 
 		for _, status := range sr.PluginStatus {
 			if status.Status.Status != plugin.ScanStatusSucceeded {
-				builder := strings.Builder{}
 				criticalError := false
 				for _, fileError := range status.Status.FileErrors {
-					if len(status.Status.FileErrors) > 1 {
-						// If there is more than 1 file error, write them on new lines
-						builder.WriteString("\n\t")
-					}
-					fmt.Fprintf(&builder, "%s: %s", fileError.FilePath, fileError.ErrorMessage)
-
 					// Check if the erroring file was a path specifically passed in (not a result of a file walk)
 					if slices.Contains(specificPaths, filepath.Join(root, fileError.FilePath)) {
 						criticalError = true
 					}
 				}
 
-				msg := status.Status.FailureReason
-
-				if len(status.Status.FileErrors) > 0 {
-					msg = builder.String()
-				}
-
-				cmdlogger.Errorf("Error during extraction: (extracting as %s) %s", status.Name, msg)
+				extractorName, msg := formatExtractionError(status)
+				cmdlogger.Errorf("Error during extraction: (extracting as %s) %s", extractorName, msg)
 				if criticalError {
 					return nil, errors.New("extraction failed on specified lockfile")
 				}
