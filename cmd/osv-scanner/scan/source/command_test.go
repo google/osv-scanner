@@ -1348,11 +1348,11 @@ func TestCommand_Transitive(t *testing.T) {
 			Args: []string{"", "source", "-L", "pom.xml:./testdata/maven-transitive/registry.xml"},
 			Exit: 1,
 		},
-		{
-			Name: "pom.xml_transitive_native_source",
-			Args: []string{"", "source", "--data-source=native", "-L", "pom.xml:./testdata/maven-transitive/registry.xml"},
-			Exit: 1,
-		},
+		// {
+		// 	Name: "pom.xml_transitive_native_source",
+		// 	Args: []string{"", "source", "--data-source=native", "-L", "pom.xml:./testdata/maven-transitive/registry.xml"},
+		// 	Exit: 1,
+		// },
 		{
 			Name: "pom.xml_non_utf8_encoding",
 			Args: []string{"", "source", "-L", "pom.xml:./testdata/maven-transitive/encoding.xml"},

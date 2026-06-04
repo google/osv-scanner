@@ -37,6 +37,7 @@ os/apk
 os/chisel
 os/dpkg
 os/homebrew
+os/rpm
 osv/osvscannerjson
 php/composerlock
 python/pdmlock
@@ -58,6 +59,7 @@ transitivedependency/requirements
 vcs/gitrepo
 vex/os-duplicate/apk
 vex/os-duplicate/dpkg
+vex/os-duplicate/rpm
 vulnmatch/osvdev
 vulnmatch/osvlocal
 weakcredentials/codeserver
@@ -76,10 +78,12 @@ os/apk
 os/chisel
 os/dpkg
 os/homebrew
+os/rpm
 python/wheelegg
 rust/cargoauditable
 vex/os-duplicate/apk
 vex/os-duplicate/dpkg
+vex/os-duplicate/rpm
 ---
 
 [TestResolve_Detectors_Presets/cis - 1]
@@ -116,10 +120,12 @@ os/apk
 os/chisel
 os/dpkg
 os/homebrew
+os/rpm
 python/wheelegg
 rust/cargoauditable
 vex/os-duplicate/apk
 vex/os-duplicate/dpkg
+vex/os-duplicate/rpm
 ---
 
 [TestResolve_Enrichers_Presets/licenses - 1]
@@ -145,10 +151,12 @@ os/apk
 os/chisel
 os/dpkg
 os/homebrew
+os/rpm
 python/wheelegg
 rust/cargoauditable
 vex/os-duplicate/apk
 vex/os-duplicate/dpkg
+vex/os-duplicate/rpm
 ---
 
 [TestResolve_Extractors_Presets/directory - 1]
@@ -177,6 +185,7 @@ javascript/pnpmlock
 javascript/yarnlock
 os/apk
 os/dpkg
+os/rpm
 osv/osvscannerjson
 php/composerlock
 python/pdmlock

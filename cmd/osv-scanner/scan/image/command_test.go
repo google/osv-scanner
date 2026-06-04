@@ -236,6 +236,11 @@ func TestCommand_OCIImage(t *testing.T) {
 			Exit: 1,
 		},
 		{
+			Name: "Scanning_Red_Hat_image",
+			Args: []string{"", "image", "--archive", "./testdata/test-redhat.tar"},
+			Exit: 1,
+		},
+		{
 			Name: "Empty_Ubuntu_22.04_image_tar_with_unimportant_vulns",
 			Args: []string{"", "image", "--all-vulns", "--archive", "./testdata/test-ubuntu.tar"},
 			Exit: 1,
@@ -375,6 +380,10 @@ func TestCommand_OCIImage(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
+
+			if tt.Name == "Scanning_Red_Hat_image" && runtime.GOOS == "windows" {
+				testutility.Skip(t, "Skipping Red Hat image scan test as RPM extraction is not supported on Windows")
+			}
 
 			// point out that we need the images to be built and saved separately
 			for _, arg := range tt.Args {
