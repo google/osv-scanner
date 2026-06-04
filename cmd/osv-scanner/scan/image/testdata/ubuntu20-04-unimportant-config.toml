@@ -98,3 +98,7 @@ name = "sed"
 reason = "Just want to test only unimportant vulns"
 ignore = true
 
+[[PackageOverrides]]
+name = "bzip2"
+reason = "Just want to test only unimportant vulns"
+ignore = true

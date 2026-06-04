@@ -116,7 +116,7 @@ Version updates (the update command) can be risky when run on untrusted projects
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-core</artifactId>
-      <version>2.21.4</version>
+      <version>2.22.0</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -188,7 +188,7 @@ Version updates (the update command) can be risky when run on untrusted projects
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-core</artifactId>
-      <version>2.21.4</version>
+      <version>2.22.0</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -275,7 +275,7 @@ Version updates (the update command) can be risky when run on untrusted projects
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-migrator</artifactId>
-        <version>2.0.18</version>
+        <version>2.0.0</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -287,7 +287,7 @@ Version updates (the update command) can be risky when run on untrusted projects
         <dependency>
           <groupId>org.apache.logging.log4j</groupId>
           <artifactId>log4j-api</artifactId>
-          <version>2.26.0</version>
+          <version>2.0</version>
         </dependency>
       </dependencies>
     </profile>

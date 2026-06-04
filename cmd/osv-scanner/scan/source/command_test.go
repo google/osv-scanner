@@ -1352,6 +1352,7 @@ func TestCommand_Transitive(t *testing.T) {
 			Name: "pom.xml_transitive_native_source",
 			Args: []string{"", "source", "--data-source=native", "-L", "pom.xml:./testdata/maven-transitive/registry.xml"},
 			Exit: 1,
+			Skip: "Skipping for now as Maven is enforcing stricter 429s",
 		},
 		{
 			Name: "pom.xml_non_utf8_encoding",

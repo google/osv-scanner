@@ -13,6 +13,9 @@ type Case struct {
 	Args []string
 	Exit int
 
+	// If Skip is not empty, the test will be skipped with the following reason.
+	Skip string
+
 	// ReplaceRules are only used for JSON output
 	ReplaceRules []testutility.JSONReplaceRule
 
