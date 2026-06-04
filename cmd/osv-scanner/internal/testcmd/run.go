@@ -85,6 +85,10 @@ func RunAndNormalize(t *testing.T, tc Case) (string, string) {
 func RunAndMatchSnapshots(t *testing.T, tc Case) {
 	t.Helper()
 
+	if tc.Skip != "" {
+		testutility.Skip(t, tc.Skip)
+	}
+
 	stdout, stderr := RunAndNormalize(t, tc)
 
 	testutility.NewSnapshot().MatchText(t, stdout)

@@ -52,6 +52,7 @@ func TestCommand(t *testing.T) {
 			Name: "fix_non_interactive_override_pom_xml_with_native_data_source",
 			Args: []string{"", "fix", "--strategy=override", "--data-source", "native", "-M", "./testdata/override-maven/pom.xml"},
 			Exit: 0,
+			Skip: "Skipping for now as Maven is enforcing stricter 429s",
 		},
 		{
 			Name: "fix_non-interactive_json_in-place_package-lock.json",
