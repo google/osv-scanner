@@ -30,7 +30,9 @@ func TestCommand(t *testing.T) {
 		{
 			Name: "update_pom_with_in_place_changes_using_native_data_source",
 			Args: []string{"", "update", "--data-source", "native", "-M", "./testdata/pom.xml"},
+			// TODO: This should probably not return 0 when it fails to get any versions.
 			Exit: 0,
+			Skip: "Skipping for now as Maven is enforcing stricter 429s. (This is returning 0 even though it failed to get any versions as well)",
 		},
 		{
 			Name: "errors_with_invalid_data_source",
