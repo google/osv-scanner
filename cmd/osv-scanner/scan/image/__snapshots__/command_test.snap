@@ -448,8 +448,8 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 26 packages affected by 76 known vulnerabilities (8 Critical, 23 High, 38 Medium, 5 Low, 2 Unknown) from 1 ecosystem.
-31 vulnerabilities can be fixed.
+Total 26 packages affected by 75 known vulnerabilities (8 Critical, 23 High, 37 Medium, 5 Low, 2 Unknown) from 1 ecosystem.
+33 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -478,7 +478,7 @@ Ubuntu:22.04
 | perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |         11 | perl-base               | # 4 Layer        | ubuntu        |
 | sed            | 4.8-1ubuntu2                 | Fix Available           |          1 | sed                     | # 4 Layer        | ubuntu        |
 | shadow         | 1:4.8.1-2ubuntu2.2           | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
-| systemd        | 249.11-0ubuntu3.12           | Partial fixes Available |          9 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
+| systemd        | 249.11-0ubuntu3.12           | Partial fixes Available |          8 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
 | tar            | 1.34+dfsg-1ubuntu0.1.22.04.2 | No fix available        |          2 | tar                     | # 4 Layer        | ubuntu        |
 | util-linux     | 1:2.37.2-4ubuntu3.4          | No fix available        |          1 | bsdutils                | # 4 Layer        | ubuntu        |
 | util-linux     | 2.37.2-4ubuntu3.4            | Partial fixes Available |          2 | libblkid1... (6)        | # 4 Layer        | ubuntu        |
@@ -501,8 +501,8 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 26 packages affected by 76 known vulnerabilities (8 Critical, 23 High, 38 Medium, 5 Low, 2 Unknown) from 1 ecosystem.
-31 vulnerabilities can be fixed.
+Total 26 packages affected by 75 known vulnerabilities (8 Critical, 23 High, 37 Medium, 5 Low, 2 Unknown) from 1 ecosystem.
+33 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -531,7 +531,7 @@ Ubuntu:22.04
 | perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |         11 | perl-base               | # 4 Layer        | ubuntu        |
 | sed            | 4.8-1ubuntu2                 | Fix Available           |          1 | sed                     | # 4 Layer        | ubuntu        |
 | shadow         | 1:4.8.1-2ubuntu2.2           | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
-| systemd        | 249.11-0ubuntu3.12           | Partial fixes Available |          9 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
+| systemd        | 249.11-0ubuntu3.12           | Partial fixes Available |          8 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
 | tar            | 1.34+dfsg-1ubuntu0.1.22.04.2 | No fix available        |          2 | tar                     | # 4 Layer        | ubuntu        |
 | util-linux     | 1:2.37.2-4ubuntu3.4          | No fix available        |          1 | bsdutils                | # 4 Layer        | ubuntu        |
 | util-linux     | 2.37.2-4ubuntu3.4            | Partial fixes Available |          2 | libblkid1... (6)        | # 4 Layer        | ubuntu        |
@@ -573,8 +573,8 @@ Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 26 packages affected by 76 known vulnerabilities (8 Critical, 23 High, 38 Medium, 5 Low, 2 Unknown) from 1 ecosystem.
-31 vulnerabilities can be fixed.
+Total 26 packages affected by 75 known vulnerabilities (8 Critical, 23 High, 37 Medium, 5 Low, 2 Unknown) from 1 ecosystem.
+33 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -603,7 +603,7 @@ Ubuntu:22.04
 | perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |         11 | perl-base               | # 4 Layer        | ubuntu        |
 | sed            | 4.8-1ubuntu2                 | Fix Available           |          1 | sed                     | # 4 Layer        | ubuntu        |
 | shadow         | 1:4.8.1-2ubuntu2.2           | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
-| systemd        | 249.11-0ubuntu3.12           | Partial fixes Available |          9 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
+| systemd        | 249.11-0ubuntu3.12           | Partial fixes Available |          8 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
 | tar            | 1.34+dfsg-1ubuntu0.1.22.04.2 | No fix available        |          2 | tar                     | # 4 Layer        | ubuntu        |
 | util-linux     | 1:2.37.2-4ubuntu3.4          | No fix available        |          1 | bsdutils                | # 4 Layer        | ubuntu        |
 | util-linux     | 2.37.2-4ubuntu3.4            | Partial fixes Available |          2 | libblkid1... (6)        | # 4 Layer        | ubuntu        |
@@ -4228,7 +4228,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
               "index": 4
             }
           },
-          "groups": 9,
+          "groups": 8,
           "vulnerabilities": [
             "USN-7559-1",
             "USN-8119-1",
@@ -4289,7 +4289,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
               "index": 4
             }
           },
-          "groups": 9,
+          "groups": 8,
           "vulnerabilities": [
             "USN-7559-1",
             "USN-8119-1",
@@ -5341,7 +5341,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 9,
+          "groups": 8,
           "vulnerabilities": [
             "USN-7559-1",
             "USN-8119-1",
@@ -5402,7 +5402,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 9,
+          "groups": 8,
           "vulnerabilities": [
             "USN-7559-1",
             "USN-8119-1",
