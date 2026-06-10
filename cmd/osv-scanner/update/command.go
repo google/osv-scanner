@@ -21,7 +21,7 @@ import (
 	"github.com/urfave/cli/v3"
 )
 
-func Command(_, _ io.Writer, _ *http.Client) *cli.Command {
+func Command(_, _ io.Writer, client *http.Client) *cli.Command {
 	return &cli.Command{
 		Hidden: true,
 		Name:   "update",
@@ -56,11 +56,13 @@ func Command(_, _ io.Writer, _ *http.Client) *cli.Command {
 				},
 			},
 		},
-		Action: action,
+		Action: func(ctx context.Context, cmd *cli.Command) error {
+			return action(ctx, cmd, client)
+		},
 	}
 }
 
-func action(ctx context.Context, cmd *cli.Command) error {
+func action(ctx context.Context, cmd *cli.Command, httpClient *http.Client) error {
 	cmdlogger.Warnf("Version updates (the update command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.")
 
 	opts := options.UpdateOptions{
@@ -75,11 +77,15 @@ func action(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
+	if httpClient == nil {
+		httpClient = &http.Client{}
+	}
+
 	// MavenClient is required for Maven projects
 	mc, err := datasource.NewMavenRegistryAPIClient(ctx, datasource.MavenRegistry{
 		URL:             cmd.String("maven-registry"),
 		ReleasesEnabled: true,
-	}, "", false)
+	}, "", false, httpClient, nil)
 	if err != nil {
 		return err
 	}

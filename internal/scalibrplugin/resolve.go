@@ -8,6 +8,7 @@ import (
 	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
 	"github.com/google/osv-scalibr/enricher"
 	"github.com/google/osv-scalibr/plugin"
+	"github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scalibr/plugin/list"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
@@ -17,7 +18,11 @@ import (
 )
 
 func resolveFromName(name string, cfg *cpb.PluginConfig) (plugin.Plugin, error) {
-	plug, err := list.FromName(name, cfg)
+	pluginCfg := &config.PluginConfig{
+		ProtoConfig:     cfg,
+		ClientFactories: config.NewDefaultClientFactories(),
+	}
+	plug, err := list.FromName(name, pluginCfg)
 
 	if err == nil {
 		return plug, nil

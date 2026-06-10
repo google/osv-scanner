@@ -28,6 +28,7 @@ import (
 	"github.com/google/osv-scalibr/guidedremediation/options"
 	"github.com/google/osv-scalibr/guidedremediation/strategy"
 	"github.com/google/osv-scalibr/guidedremediation/upgrade"
+	"github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/depsdev"
 	"github.com/google/osv-scanner/v2/internal/version"
@@ -43,7 +44,7 @@ const (
 	autoModeCategory = "non-interactive options:" // intentionally lowercase to force it to sort after the other categories
 )
 
-func Command(stdout, _ io.Writer, _ *http.Client) *cli.Command {
+func Command(stdout, _ io.Writer, client *http.Client) *cli.Command {
 	return &cli.Command{
 		Name:        "fix",
 		Usage:       "scans a manifest and/or lockfile for vulnerabilities and suggests changes for remediating them",
@@ -206,12 +207,12 @@ func Command(stdout, _ io.Writer, _ *http.Client) *cli.Command {
 			},
 		},
 		Action: func(ctx context.Context, cmd *cli.Command) error {
-			return action(ctx, cmd, stdout)
+			return action(ctx, cmd, stdout, client)
 		},
 	}
 }
 
-func action(ctx context.Context, cmd *cli.Command, stdout io.Writer) error {
+func action(ctx context.Context, cmd *cli.Command, stdout io.Writer, httpClient *http.Client) error {
 	cmdlogger.Warnf("Guided remediation (the fix command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.")
 	if !cmd.IsSet("manifest") && !cmd.IsSet("lockfile") {
 		return errors.New("manifest or lockfile is required")
@@ -241,11 +242,15 @@ func action(ctx context.Context, cmd *cli.Command, stdout io.Writer) error {
 		opts.Strategy = strategy.StrategyRelax
 	}
 
+	if httpClient == nil {
+		httpClient = &http.Client{}
+	}
+
 	// MavenClient is required for Maven projects
 	mc, err := datasource.NewMavenRegistryAPIClient(ctx, datasource.MavenRegistry{
 		URL:             cmd.String("maven-registry"),
 		ReleasesEnabled: true,
-	}, "", false)
+	}, "", false, httpClient, nil)
 	if err != nil {
 		return err
 	}
@@ -288,7 +293,11 @@ func action(ctx context.Context, cmd *cli.Command, stdout io.Writer) error {
 				}}},
 			},
 		}
-		enricher, err := osvlocal.New(cfg)
+		pluginCfg := &config.PluginConfig{
+			ProtoConfig:     cfg,
+			ClientFactories: config.NewDefaultClientFactories(),
+		}
+		enricher, err := osvlocal.New(pluginCfg)
 		if err != nil {
 			return err
 		}
