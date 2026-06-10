@@ -78,6 +78,7 @@ func getPURLEcosystem(pkgURL packageurl.PackageURL) osvconstants.Ecosystem {
 				if len(parts) >= 2 {
 					return osvconstants.Ecosystem(fmt.Sprintf("Alpine:v%s.%s", parts[0], parts[1]))
 				}
+
 				return osvconstants.Ecosystem("Alpine:v" + parts[0])
 			}
 		}
