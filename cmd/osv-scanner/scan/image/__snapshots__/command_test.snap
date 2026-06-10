@@ -583,6 +583,35 @@ failed to load image from tarball with path "../../testdata/locks-manyoci-image/
 
 ---
 
+[TestCommand_OCIImage/Scanning_Mageia_9_image - 1]
+Scanning local image tarball "./testdata/test-mageia-9.tar"
+
+Total 2 packages affected by 9 known vulnerabilities (0 Critical, 3 High, 5 Medium, 1 Low, 0 Unknown) from 1 ecosystem.
+9 vulnerabilities can be fixed.
+
++-------------------------------------+------+-----------+------------+---------+---------------+------------------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE    | VERSION | FIXED VERSION | SOURCE                                                     |
++-------------------------------------+------+-----------+------------+---------+---------------+------------------------------------------------------------+
+| https://osv.dev/PYSEC-2023-228      | 6.8  | PyPI      | pip        | 23.0.1  | 23.3          | usr/share/python-wheels/pip-23.0.1-py3-none-any.whl        |
+| https://osv.dev/GHSA-mq26-g339-26xf |      |           |            |         |               |                                                            |
+| https://osv.dev/PYSEC-2026-196      | 5.5  | PyPI      | pip        | 23.0.1  | 26.1.2        | usr/share/python-wheels/pip-23.0.1-py3-none-any.whl        |
+| https://osv.dev/GHSA-4xh5-x5gv-qwph | 5.9  | PyPI      | pip        | 23.0.1  | 25.3          | usr/share/python-wheels/pip-23.0.1-py3-none-any.whl        |
+| https://osv.dev/GHSA-58qw-9mgm-455v | 4.6  | PyPI      | pip        | 23.0.1  | 26.1          | usr/share/python-wheels/pip-23.0.1-py3-none-any.whl        |
+| https://osv.dev/GHSA-6vgw-5pg2-w6jp | 2.0  | PyPI      | pip        | 23.0.1  | 26.0          | usr/share/python-wheels/pip-23.0.1-py3-none-any.whl        |
+| https://osv.dev/GHSA-jp4c-xjxw-mgf9 | 5.3  | PyPI      | pip        | 23.0.1  | 26.1          | usr/share/python-wheels/pip-23.0.1-py3-none-any.whl        |
+| https://osv.dev/PYSEC-2022-43012    | 8.7  | PyPI      | setuptools | 65.5.0  | 65.5.1        | usr/share/python-wheels/setuptools-65.5.0-py3-none-any.whl |
+| https://osv.dev/GHSA-r9hx-vwmv-q579 |      |           |            |         |               |                                                            |
+| https://osv.dev/PYSEC-2025-49       | 8.8  | PyPI      | setuptools | 65.5.0  | 78.1.1        | usr/share/python-wheels/setuptools-65.5.0-py3-none-any.whl |
+| https://osv.dev/GHSA-5rjg-fvgr-3xxf |      |           |            |         |               |                                                            |
+| https://osv.dev/GHSA-cx63-2mw6-8hw5 | 8.8  | PyPI      | setuptools | 65.5.0  | 70.0.0        | usr/share/python-wheels/setuptools-65.5.0-py3-none-any.whl |
++-------------------------------------+------+-----------+------------+---------+---------------+------------------------------------------------------------+
+
+---
+
+[TestCommand_OCIImage/Scanning_Mageia_9_image - 2]
+
+---
+
 [TestCommand_OCIImage/Scanning_Ubuntu_image_with_go_OS_packages_json - 1]
 Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
@@ -3429,6 +3458,99 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
 
 [TestCommand_OCIImage_JSONFormat/scanning_insecure_chiseled_ubuntu_image - 2]
 Scanning local image tarball "./testdata/test-chisel.tar"
+
+---
+
+[TestCommand_OCIImage_JSONFormat/scanning_mageia_9_image - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "/usr/share/python-wheels/pip-23.0.1-py3-none-any.whl",
+        "type": "artifact"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "pip",
+            "version": "23.0.1",
+            "ecosystem": "PyPI",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 6,
+          "vulnerabilities": [
+            "PYSEC-2023-228",
+            "PYSEC-2026-196",
+            "GHSA-4xh5-x5gv-qwph",
+            "GHSA-58qw-9mgm-455v",
+            "GHSA-6vgw-5pg2-w6jp",
+            "GHSA-jp4c-xjxw-mgf9",
+            "GHSA-mq26-g339-26xf"
+          ]
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "/usr/share/python-wheels/setuptools-65.5.0-py3-none-any.whl",
+        "type": "artifact"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "setuptools",
+            "version": "65.5.0",
+            "ecosystem": "PyPI",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 3,
+          "vulnerabilities": [
+            "PYSEC-2022-43012",
+            "PYSEC-2025-49",
+            "GHSA-5rjg-fvgr-3xxf",
+            "GHSA-cx63-2mw6-8hw5",
+            "GHSA-r9hx-vwmv-q579"
+          ]
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  },
+  "image_metadata": {
+    "os": "Mageia 9",
+    "layer_metadata": [
+      {
+        "diff_id": "sha256:...",
+        "command": "ADD rootfs.tar.xz / # buildkit",
+        "is_empty": false,
+        "base_image_index": 0
+      },
+      {
+        "diff_id": "",
+        "command": "CMD [/"/bin/bash/"]",
+        "is_empty": true,
+        "base_image_index": 0
+      }
+    ],
+    "base_images": [
+      {}
+    ]
+  }
+}
+
+---
+
+[TestCommand_OCIImage_JSONFormat/scanning_mageia_9_image - 2]
+Scanning local image tarball "./testdata/test-mageia-9.tar"
 
 ---
 
