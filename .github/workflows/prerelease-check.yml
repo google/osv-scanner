@@ -52,7 +52,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Run lint action
-        uses: ./.github/workflows/format-action
+        uses: ./actions/internal/format-action
   tidy:
     permissions:
       contents: read # to fetch code (actions/checkout)
@@ -86,7 +86,7 @@ jobs:
           go-version-file: "go.mod"
           check-latest: true
       - name: Run lint action
-        uses: ./.github/workflows/lint-action
+        uses: ./actions/internal/lint-action
   prepare_test_image_testdata:
     permissions:
       contents: read # to fetch code (actions/checkout)
@@ -129,7 +129,7 @@ jobs:
           go-version-file: "go.mod"
           check-latest: true
       - name: Run test action
-        uses: ./actions/test-action
+        uses: ./actions/internal/test-action
         with:
           codecov_token: ${{ secrets.CODECOV_TOKEN }}
   generators:
