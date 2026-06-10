@@ -1,6 +1,9 @@
 package purl
 
 import (
+	"fmt"
+	"strings"
+
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvconstants"
 	"github.com/package-url/packageurl-go"
@@ -50,6 +53,34 @@ func getPURLEcosystem(pkgURL packageurl.PackageURL) osvconstants.Ecosystem {
 		return osvconstants.Ecosystem("")
 	}
 
+	if ecosystem == osvconstants.EcosystemAlpine {
+		distro := ""
+		for _, q := range pkgURL.Qualifiers {
+			if q.Key == "distro" {
+				distro = q.Value
+				break
+			}
+		}
+		if distro != "" {
+			versionID := distro
+			if idx := strings.LastIndex(distro, "-"); idx != -1 {
+				versionID = distro[idx+1:]
+			}
+			versionID = strings.TrimLeft(versionID, "vV")
+
+			if versionID == "edge" {
+				return osvconstants.Ecosystem("Alpine:edge")
+			}
+
+			if len(versionID) > 0 && versionID[0] >= '0' && versionID[0] <= '9' {
+				parts := strings.Split(versionID, ".")
+				if len(parts) >= 2 {
+					return osvconstants.Ecosystem(fmt.Sprintf("Alpine:v%s.%s", parts[0], parts[1]))
+				}
+			}
+		}
+	}
+
 	return ecosystem
 }
 
@@ -64,7 +95,8 @@ func ToPackage(purl string) (models.PackageInfo, error) {
 	// PackageInfo expects the full namespace in the name for ecosystems that specify it.
 	name := parsedPURL.Name
 	if parsedPURL.Namespace != "" {
-		switch ecosystem {
+		ecosystemBase, _, _ := strings.Cut(string(ecosystem), ":")
+		switch osvconstants.Ecosystem(ecosystemBase) {
 		case osvconstants.EcosystemMaven:
 			// Maven uses : to separate namespace and package
 			name = parsedPURL.Namespace + ":" + parsedPURL.Name

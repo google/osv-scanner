@@ -5,7 +5,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 1635
+      content_length: 1641
       host: api.osv.dev
       body: |
         {
@@ -89,7 +89,7 @@ interactions:
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.22",
                 "name": "zlib"
               },
               "version": "1.2.12-r1"
@@ -117,7 +117,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2021-36159",
-                  "modified": "2025-12-03T22:50:23.251262Z"
+                  "modified": "2026-06-09T21:31:35.444336Z"
                 }
               ]
             },
@@ -133,15 +133,15 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2022-37434",
-                  "modified": "2025-12-03T22:50:43.469206Z"
+                  "modified": "2026-06-09T21:31:37.249119Z"
                 },
                 {
                   "id": "ALPINE-CVE-2026-22184",
-                  "modified": "2026-04-14T16:32:07.574001Z"
+                  "modified": "2026-06-09T21:31:42.686303Z"
                 },
                 {
                   "id": "ALPINE-CVE-2026-27171",
-                  "modified": "2026-04-14T16:32:22.282381Z"
+                  "modified": "2026-06-09T21:31:42.654301Z"
                 }
               ]
             }
@@ -264,7 +264,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2021-36159",
-                  "modified": "2025-12-03T22:50:23.251262Z"
+                  "modified": "2026-06-09T21:31:35.444336Z"
                 }
               ]
             },
@@ -395,7 +395,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2021-36159",
-                  "modified": "2025-12-03T22:50:23.251262Z"
+                  "modified": "2026-06-09T21:31:35.444336Z"
                 }
               ]
             },
@@ -526,7 +526,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2021-36159",
-                  "modified": "2025-12-03T22:50:23.251262Z"
+                  "modified": "2026-06-09T21:31:35.444336Z"
                 }
               ]
             },
