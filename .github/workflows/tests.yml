@@ -22,7 +22,7 @@ on:
       - "docs/**"
       - ".github/workflows/*"
       - "!.github/workflows/tests.yml"
-      - "!.github/workflows/test-action/**"
+
   pull_request:
     # The branches below must be a subset of the branches above
     branches: ["main", "v1", "mcp"]
@@ -31,7 +31,7 @@ on:
       - "docs/**"
       - ".github/workflows/*"
       - "!.github/workflows/tests.yml"
-      - "!.github/workflows/test-action/**"
+
   workflow_dispatch:
 
 concurrency:
@@ -86,7 +86,7 @@ jobs:
           go-version-file: "go.mod"
           check-latest: true
       - name: Run test action
-        uses: ./.github/workflows/test-action
+        uses: ./actions/test-action
         with:
           codecov_token: ${{ secrets.CODECOV_TOKEN }}
   docker:

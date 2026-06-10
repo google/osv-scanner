@@ -129,7 +129,7 @@ jobs:
           go-version-file: "go.mod"
           check-latest: true
       - name: Run test action
-        uses: ./.github/workflows/test-action
+        uses: ./actions/test-action
         with:
           codecov_token: ${{ secrets.CODECOV_TOKEN }}
   generators:
