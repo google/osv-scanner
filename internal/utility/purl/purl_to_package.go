@@ -95,14 +95,12 @@ func ToPackage(purl string) (models.PackageInfo, error) {
 	// PackageInfo expects the full namespace in the name for ecosystems that specify it.
 	name := parsedPURL.Name
 	if parsedPURL.Namespace != "" {
-		switch {
-		case ecosystem == osvconstants.EcosystemMaven:
+		ecosystemBase, _, _ := strings.Cut(string(ecosystem), ":")
+		switch osvconstants.Ecosystem(ecosystemBase) {
+		case osvconstants.EcosystemMaven:
 			// Maven uses : to separate namespace and package
 			name = parsedPURL.Namespace + ":" + parsedPURL.Name
-		case ecosystem == osvconstants.EcosystemDebian ||
-			ecosystem == osvconstants.EcosystemUbuntu ||
-			ecosystem == osvconstants.EcosystemAlpine ||
-			strings.HasPrefix(string(ecosystem), string(osvconstants.EcosystemAlpine)+":"):
+		case osvconstants.EcosystemDebian, osvconstants.EcosystemAlpine, osvconstants.EcosystemUbuntu:
 			// Debian and Alpine repeats their namespace in PURL, so don't add it to the name
 			name = parsedPURL.Name
 		default:
