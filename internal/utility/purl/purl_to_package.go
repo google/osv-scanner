@@ -1,6 +1,9 @@
 package purl
 
 import (
+	"fmt"
+	"strings"
+
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvconstants"
 	"github.com/package-url/packageurl-go"
@@ -50,6 +53,36 @@ func getPURLEcosystem(pkgURL packageurl.PackageURL) osvconstants.Ecosystem {
 		return osvconstants.Ecosystem("")
 	}
 
+	if ecosystem == osvconstants.EcosystemAlpine {
+		distro := ""
+		for _, q := range pkgURL.Qualifiers {
+			if q.Key == "distro" {
+				distro = q.Value
+				break
+			}
+		}
+		if distro != "" {
+			versionID := distro
+			if idx := strings.LastIndex(distro, "-"); idx != -1 {
+				versionID = distro[idx+1:]
+			}
+			versionID = strings.TrimPrefix(versionID, "v")
+			versionID = strings.TrimPrefix(versionID, "V")
+
+			if versionID == "edge" {
+				return osvconstants.Ecosystem("Alpine:edge")
+			}
+
+			if len(versionID) > 0 && versionID[0] >= '0' && versionID[0] <= '9' {
+				parts := strings.Split(versionID, ".")
+				if len(parts) >= 2 {
+					return osvconstants.Ecosystem(fmt.Sprintf("Alpine:v%s.%s", parts[0], parts[1]))
+				}
+				return osvconstants.Ecosystem("Alpine:v" + parts[0])
+			}
+		}
+	}
+
 	return ecosystem
 }
 
@@ -64,11 +97,14 @@ func ToPackage(purl string) (models.PackageInfo, error) {
 	// PackageInfo expects the full namespace in the name for ecosystems that specify it.
 	name := parsedPURL.Name
 	if parsedPURL.Namespace != "" {
-		switch ecosystem {
-		case osvconstants.EcosystemMaven:
+		switch {
+		case ecosystem == osvconstants.EcosystemMaven:
 			// Maven uses : to separate namespace and package
 			name = parsedPURL.Namespace + ":" + parsedPURL.Name
-		case osvconstants.EcosystemDebian, osvconstants.EcosystemAlpine, osvconstants.EcosystemUbuntu:
+		case ecosystem == osvconstants.EcosystemDebian ||
+			ecosystem == osvconstants.EcosystemUbuntu ||
+			ecosystem == osvconstants.EcosystemAlpine ||
+			strings.HasPrefix(string(ecosystem), string(osvconstants.EcosystemAlpine)+":"):
 			// Debian and Alpine repeats their namespace in PURL, so don't add it to the name
 			name = parsedPURL.Name
 		default:

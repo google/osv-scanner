@@ -76,9 +76,53 @@ func TestPURLToPackage(t *testing.T) {
 			},
 		},
 		{
-			name: "valid_PURL_alpine",
+			name: "valid_PURL_alpine_distro_prefixed",
 			args: args{
 				purl: "pkg:apk/alpine/zlib@1.2.13-r0?arch=x86_64upstream=zlib&distro=alpine-3.17.2",
+			},
+			want: models.PackageInfo{
+				Name:      "zlib",
+				Version:   "1.2.13-r0",
+				Ecosystem: "Alpine:v3.17",
+			},
+		},
+		{
+			name: "valid_PURL_alpine_distro_version_only",
+			args: args{
+				purl: "pkg:apk/alpine/zlib@1.2.13-r0?distro=3.21.2",
+			},
+			want: models.PackageInfo{
+				Name:      "zlib",
+				Version:   "1.2.13-r0",
+				Ecosystem: "Alpine:v3.21",
+			},
+		},
+		{
+			name: "valid_PURL_alpine_distro_edge",
+			args: args{
+				purl: "pkg:apk/alpine/zlib@1.2.13-r0?distro=alpine-edge",
+			},
+			want: models.PackageInfo{
+				Name:      "zlib",
+				Version:   "1.2.13-r0",
+				Ecosystem: "Alpine:edge",
+			},
+		},
+		{
+			name: "valid_PURL_alpine_distro_edge_only",
+			args: args{
+				purl: "pkg:apk/alpine/zlib@1.2.13-r0?distro=edge",
+			},
+			want: models.PackageInfo{
+				Name:      "zlib",
+				Version:   "1.2.13-r0",
+				Ecosystem: "Alpine:edge",
+			},
+		},
+		{
+			name: "valid_PURL_alpine_no_distro",
+			args: args{
+				purl: "pkg:apk/alpine/zlib@1.2.13-r0",
 			},
 			want: models.PackageInfo{
 				Name:      "zlib",

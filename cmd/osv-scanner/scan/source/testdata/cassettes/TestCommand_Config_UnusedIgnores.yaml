@@ -5,105 +5,105 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 1852
+      content_length: 1936
       host: api.osv.dev
       body: |
         {
           "queries": [
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "alpine-baselayout"
               },
               "version": "3.4.0-r0"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "alpine-baselayout-data"
               },
               "version": "3.4.0-r0"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "alpine-keys"
               },
               "version": "2.4-r1"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "apk-tools"
               },
               "version": "2.12.10-r1"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "busybox-binsh"
               },
               "version": "1.36.1-r27"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "ca-certificates-bundle"
               },
               "version": "20220614-r4"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "libc-utils"
               },
               "version": "0.7.2-r3"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "libcrypto3"
               },
               "version": "3.0.8-r0"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "libssl3"
               },
               "version": "3.0.8-r0"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "musl"
               },
               "version": "1.2.3-r4"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "musl-utils"
               },
               "version": "1.2.3-r4"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "scanelf"
               },
               "version": "1.3.5-r1"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "ssl_client"
               },
               "version": "1.36.1-r27"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "zlib"
               },
               "version": "1.2.10-r0"
@@ -121,7 +121,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 576
+      content_length: 289
       body: |
         {
           "results": [
@@ -138,15 +138,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2025-26519",
-                  "modified": "2025-12-11T11:16:21.978419Z"
-                },
-                {
-                  "id": "ALPINE-CVE-2026-40200",
-                  "modified": "2026-04-11T08:33:07.486264Z"
-                },
-                {
-                  "id": "ALPINE-CVE-2026-6042",
-                  "modified": "2026-04-11T10:34:34.952791Z"
+                  "modified": "2026-06-09T21:31:28.459159Z"
                 }
               ]
             },
@@ -157,19 +149,11 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2018-25032",
-                  "modified": "2025-12-03T22:47:03.844688Z"
+                  "modified": "2026-06-09T21:31:29.987152Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-37434",
-                  "modified": "2025-12-03T22:50:43.469206Z"
-                },
-                {
-                  "id": "ALPINE-CVE-2026-22184",
-                  "modified": "2026-04-14T16:32:07.574001Z"
-                },
-                {
-                  "id": "ALPINE-CVE-2026-27171",
-                  "modified": "2026-04-14T16:32:22.282381Z"
+                  "modified": "2026-06-09T21:31:37.249119Z"
                 }
               ]
             }
@@ -177,7 +161,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "576"
+          - "289"
         Content-Type:
           - application/json
       status: 200 OK
@@ -187,112 +171,112 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 20142
+      content_length: 20232
       host: api.osv.dev
       body: |
         {
           "queries": [
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.22",
                 "name": "zlib"
               },
               "version": "1.2.12-r1"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "alpine-baselayout"
               },
               "version": "3.4.0-r0"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "alpine-baselayout-data"
               },
               "version": "3.4.0-r0"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "alpine-keys"
               },
               "version": "2.4-r1"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "apk-tools"
               },
               "version": "2.12.10-r1"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "busybox-binsh"
               },
               "version": "1.36.1-r27"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "ca-certificates-bundle"
               },
               "version": "20220614-r4"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "libc-utils"
               },
               "version": "0.7.2-r3"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "libcrypto3"
               },
               "version": "3.0.8-r0"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "libssl3"
               },
               "version": "3.0.8-r0"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "musl"
               },
               "version": "1.2.3-r4"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "musl-utils"
               },
               "version": "1.2.3-r4"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "scanelf"
               },
               "version": "1.3.5-r1"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "ssl_client"
               },
               "version": "1.36.1-r27"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "zlib"
               },
               "version": "1.2.10-r0"
@@ -1262,7 +1246,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 23714
+      content_length: 24717
       body: |
         {
           "results": [
@@ -1270,15 +1254,15 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2022-37434",
-                  "modified": "2025-12-03T22:50:43.469206Z"
+                  "modified": "2026-06-09T21:31:37.249119Z"
                 },
                 {
                   "id": "ALPINE-CVE-2026-22184",
-                  "modified": "2026-04-14T16:32:07.574001Z"
+                  "modified": "2026-06-09T21:31:42.686303Z"
                 },
                 {
                   "id": "ALPINE-CVE-2026-27171",
-                  "modified": "2026-04-14T16:32:22.282381Z"
+                  "modified": "2026-06-09T21:31:42.654301Z"
                 }
               ]
             },
@@ -1295,15 +1279,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2025-26519",
-                  "modified": "2025-12-11T11:16:21.978419Z"
-                },
-                {
-                  "id": "ALPINE-CVE-2026-40200",
-                  "modified": "2026-04-11T08:33:07.486264Z"
-                },
-                {
-                  "id": "ALPINE-CVE-2026-6042",
-                  "modified": "2026-04-11T10:34:34.952791Z"
+                  "modified": "2026-06-09T21:31:28.459159Z"
                 }
               ]
             },
@@ -1314,19 +1290,11 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2018-25032",
-                  "modified": "2025-12-03T22:47:03.844688Z"
+                  "modified": "2026-06-09T21:31:29.987152Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-37434",
-                  "modified": "2025-12-03T22:50:43.469206Z"
-                },
-                {
-                  "id": "ALPINE-CVE-2026-22184",
-                  "modified": "2026-04-14T16:32:07.574001Z"
-                },
-                {
-                  "id": "ALPINE-CVE-2026-27171",
-                  "modified": "2026-04-14T16:32:22.282381Z"
+                  "modified": "2026-06-09T21:31:37.249119Z"
                 }
               ]
             },
@@ -1569,7 +1537,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-5024",
-                  "modified": "2026-05-22T19:45:12.763756Z"
+                  "modified": "2026-06-09T18:59:22.740765Z"
                 }
               ]
             },
@@ -1939,7 +1907,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2025-8732",
-                  "modified": "2026-04-28T20:31:03.058430Z"
+                  "modified": "2026-06-08T17:00:30.019748Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2025-9714",
@@ -1947,23 +1915,23 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2026-0989",
-                  "modified": "2026-04-28T20:31:05.053651Z"
+                  "modified": "2026-06-08T11:00:08.070295Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-0990",
-                  "modified": "2026-04-28T20:31:05.282992Z"
+                  "modified": "2026-06-08T11:00:08.042369Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-0992",
-                  "modified": "2026-04-28T20:31:05.722209Z"
+                  "modified": "2026-06-08T11:00:08.088Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-1757",
-                  "modified": "2026-04-28T20:31:06.245680Z"
+                  "modified": "2026-06-08T11:00:08.083057Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-6732",
-                  "modified": "2026-05-06T09:19:59.111962Z"
+                  "modified": "2026-06-07T17:00:11.739703Z"
                 },
                 {
                   "id": "DLA-3012-1",
@@ -2334,19 +2302,19 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2026-28387",
-                  "modified": "2026-04-28T20:31:26.507026Z"
+                  "modified": "2026-06-09T11:00:07.931866Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-28388",
-                  "modified": "2026-04-28T20:31:26.486301Z"
+                  "modified": "2026-06-09T11:00:07.912823Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-28389",
-                  "modified": "2026-04-28T20:31:26.964918Z"
+                  "modified": "2026-06-09T11:00:07.910963Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-28390",
-                  "modified": "2026-04-28T20:31:26.585008Z"
+                  "modified": "2026-06-09T11:00:07.932170Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-31789",
@@ -2355,6 +2323,74 @@ interactions:
                 {
                   "id": "DEBIAN-CVE-2026-31790",
                   "modified": "2026-04-28T20:31:34.226749Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-34180",
+                  "modified": "2026-06-09T23:00:10.346220Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-34181",
+                  "modified": "2026-06-09T23:00:10.220454Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-34182",
+                  "modified": "2026-06-09T23:00:10.257774Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-34183",
+                  "modified": "2026-06-09T23:00:08.269341Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-35188",
+                  "modified": "2026-06-09T20:00:24.403101Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-42764",
+                  "modified": "2026-06-09T23:00:08.294624Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-42765",
+                  "modified": "2026-06-09T20:00:26.149453Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-42766",
+                  "modified": "2026-06-09T23:00:08.483583Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-42767",
+                  "modified": "2026-06-09T23:00:08.533364Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-42768",
+                  "modified": "2026-06-09T23:00:08.321053Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-42769",
+                  "modified": "2026-06-09T23:00:08.348331Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-42770",
+                  "modified": "2026-06-09T23:00:08.481375Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-45445",
+                  "modified": "2026-06-09T23:00:08.544024Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-45446",
+                  "modified": "2026-06-09T23:00:08.551576Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-45447",
+                  "modified": "2026-06-09T23:00:10.379510Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-7383",
+                  "modified": "2026-06-09T23:00:10.334285Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-9076",
+                  "modified": "2026-06-09T23:00:11.716139Z"
                 },
                 {
                   "id": "DLA-3008-1",
@@ -2576,6 +2612,10 @@ interactions:
                 {
                   "id": "DEBIAN-CVE-2026-48962",
                   "modified": "2026-05-30T06:00:09.600845Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-7010",
+                  "modified": "2026-06-04T21:00:09.221072Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-8376",
@@ -2839,7 +2879,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "23714"
+          - "24717"
         Content-Type:
           - application/json
       status: 200 OK
@@ -2849,105 +2889,105 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 19884
+      content_length: 19968
       host: api.osv.dev
       body: |
         {
           "queries": [
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "alpine-baselayout"
               },
               "version": "3.4.0-r0"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "alpine-baselayout-data"
               },
               "version": "3.4.0-r0"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "alpine-keys"
               },
               "version": "2.4-r1"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "apk-tools"
               },
               "version": "2.12.10-r1"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "busybox-binsh"
               },
               "version": "1.36.1-r27"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "ca-certificates-bundle"
               },
               "version": "20220614-r4"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "libc-utils"
               },
               "version": "0.7.2-r3"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "libcrypto3"
               },
               "version": "3.0.8-r0"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "libssl3"
               },
               "version": "3.0.8-r0"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "musl"
               },
               "version": "1.2.3-r4"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "musl-utils"
               },
               "version": "1.2.3-r4"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "scanelf"
               },
               "version": "1.3.5-r1"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "ssl_client"
               },
               "version": "1.36.1-r27"
             },
             {
               "package": {
-                "ecosystem": "Alpine",
+                "ecosystem": "Alpine:v3.17",
                 "name": "zlib"
               },
               "version": "1.2.10-r0"
@@ -3910,7 +3950,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 23402
+      content_length: 24405
       body: |
         {
           "results": [
@@ -3927,15 +3967,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2025-26519",
-                  "modified": "2025-12-11T11:16:21.978419Z"
-                },
-                {
-                  "id": "ALPINE-CVE-2026-40200",
-                  "modified": "2026-04-11T08:33:07.486264Z"
-                },
-                {
-                  "id": "ALPINE-CVE-2026-6042",
-                  "modified": "2026-04-11T10:34:34.952791Z"
+                  "modified": "2026-06-09T21:31:28.459159Z"
                 }
               ]
             },
@@ -3946,19 +3978,11 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2018-25032",
-                  "modified": "2025-12-03T22:47:03.844688Z"
+                  "modified": "2026-06-09T21:31:29.987152Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-37434",
-                  "modified": "2025-12-03T22:50:43.469206Z"
-                },
-                {
-                  "id": "ALPINE-CVE-2026-22184",
-                  "modified": "2026-04-14T16:32:07.574001Z"
-                },
-                {
-                  "id": "ALPINE-CVE-2026-27171",
-                  "modified": "2026-04-14T16:32:22.282381Z"
+                  "modified": "2026-06-09T21:31:37.249119Z"
                 }
               ]
             },
@@ -4193,7 +4217,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-5024",
-                  "modified": "2026-05-22T19:45:12.763756Z"
+                  "modified": "2026-06-09T18:59:22.740765Z"
                 }
               ]
             },
@@ -4563,7 +4587,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2025-8732",
-                  "modified": "2026-04-28T20:31:03.058430Z"
+                  "modified": "2026-06-08T17:00:30.019748Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2025-9714",
@@ -4571,23 +4595,23 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2026-0989",
-                  "modified": "2026-04-28T20:31:05.053651Z"
+                  "modified": "2026-06-08T11:00:08.070295Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-0990",
-                  "modified": "2026-04-28T20:31:05.282992Z"
+                  "modified": "2026-06-08T11:00:08.042369Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-0992",
-                  "modified": "2026-04-28T20:31:05.722209Z"
+                  "modified": "2026-06-08T11:00:08.088Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-1757",
-                  "modified": "2026-04-28T20:31:06.245680Z"
+                  "modified": "2026-06-08T11:00:08.083057Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-6732",
-                  "modified": "2026-05-06T09:19:59.111962Z"
+                  "modified": "2026-06-07T17:00:11.739703Z"
                 },
                 {
                   "id": "DLA-3012-1",
@@ -4958,19 +4982,19 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2026-28387",
-                  "modified": "2026-04-28T20:31:26.507026Z"
+                  "modified": "2026-06-09T11:00:07.931866Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-28388",
-                  "modified": "2026-04-28T20:31:26.486301Z"
+                  "modified": "2026-06-09T11:00:07.912823Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-28389",
-                  "modified": "2026-04-28T20:31:26.964918Z"
+                  "modified": "2026-06-09T11:00:07.910963Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-28390",
-                  "modified": "2026-04-28T20:31:26.585008Z"
+                  "modified": "2026-06-09T11:00:07.932170Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-31789",
@@ -4979,6 +5003,74 @@ interactions:
                 {
                   "id": "DEBIAN-CVE-2026-31790",
                   "modified": "2026-04-28T20:31:34.226749Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-34180",
+                  "modified": "2026-06-09T23:00:10.346220Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-34181",
+                  "modified": "2026-06-09T23:00:10.220454Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-34182",
+                  "modified": "2026-06-09T23:00:10.257774Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-34183",
+                  "modified": "2026-06-09T23:00:08.269341Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-35188",
+                  "modified": "2026-06-09T20:00:24.403101Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-42764",
+                  "modified": "2026-06-09T23:00:08.294624Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-42765",
+                  "modified": "2026-06-09T20:00:26.149453Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-42766",
+                  "modified": "2026-06-09T23:00:08.483583Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-42767",
+                  "modified": "2026-06-09T23:00:08.533364Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-42768",
+                  "modified": "2026-06-09T23:00:08.321053Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-42769",
+                  "modified": "2026-06-09T23:00:08.348331Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-42770",
+                  "modified": "2026-06-09T23:00:08.481375Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-45445",
+                  "modified": "2026-06-09T23:00:08.544024Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-45446",
+                  "modified": "2026-06-09T23:00:08.551576Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-45447",
+                  "modified": "2026-06-09T23:00:10.379510Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-7383",
+                  "modified": "2026-06-09T23:00:10.334285Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-9076",
+                  "modified": "2026-06-09T23:00:11.716139Z"
                 },
                 {
                   "id": "DLA-3008-1",
@@ -5200,6 +5292,10 @@ interactions:
                 {
                   "id": "DEBIAN-CVE-2026-48962",
                   "modified": "2026-05-30T06:00:09.600845Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-7010",
+                  "modified": "2026-06-04T21:00:09.221072Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-8376",
@@ -5463,7 +5559,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "23402"
+          - "24405"
         Content-Type:
           - application/json
       status: 200 OK
