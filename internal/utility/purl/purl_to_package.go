@@ -66,8 +66,7 @@ func getPURLEcosystem(pkgURL packageurl.PackageURL) osvconstants.Ecosystem {
 			if idx := strings.LastIndex(distro, "-"); idx != -1 {
 				versionID = distro[idx+1:]
 			}
-			versionID = strings.TrimPrefix(versionID, "v")
-			versionID = strings.TrimPrefix(versionID, "V")
+			versionID = strings.TrimLeft(versionID, "vV")
 
 			if versionID == "edge" {
 				return osvconstants.Ecosystem("Alpine:edge")
@@ -78,8 +77,6 @@ func getPURLEcosystem(pkgURL packageurl.PackageURL) osvconstants.Ecosystem {
 				if len(parts) >= 2 {
 					return osvconstants.Ecosystem(fmt.Sprintf("Alpine:v%s.%s", parts[0], parts[1]))
 				}
-
-				return osvconstants.Ecosystem("Alpine:v" + parts[0])
 			}
 		}
 	}
