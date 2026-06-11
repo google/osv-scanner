@@ -122,7 +122,7 @@ var ErrVulnerabilitiesFound = errors.New("vulnerabilities found")
 // TODO(v2): Actually use this error
 var ErrAPIFailed = errors.New("API query failed")
 
-func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, error) {
+func initializeExternalAccessors(actions ScannerActions, clientFactories scalibrconfig.ClientFactories) (ExternalAccessors, error) {
 	externalAccessors := ExternalAccessors{}
 	var err error
 
@@ -137,7 +137,7 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 		// --- Vulnerability Matcher ---
 		externalAccessors.VulnMatcher, err =
 			localmatcher.NewLocalMatcher(actions.LocalDBPath,
-				userAgent, actions.DownloadDatabases)
+				clientFactories, actions.DownloadDatabases)
 		if err != nil {
 			return ExternalAccessors{}, err
 		}
@@ -148,14 +148,15 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 	// Online Mode
 	// -----------
 	// --- Vulnerability Matcher ---
-	externalAccessors.VulnMatcher = osvmatcher.New(5*time.Minute, userAgent, actions.HTTPClient)
+	externalAccessors.VulnMatcher = osvmatcher.New(5*time.Minute, userAgent, clientFactories)
 
 	// --- License Matcher ---
 	if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
-		depsDevAPIClient, err := datasource.NewCachedInsightsClient(depsdev.DepsdevAPI, userAgent)
+		conn, err := clientFactories.GRPCClientConn(depsdev.DepsdevAPI)
 		if err != nil {
 			return ExternalAccessors{}, err
 		}
+		depsDevAPIClient := datasource.NewCachedInsightsClientWithConn(conn)
 
 		externalAccessors.LicenseMatcher = &licensematcher.DepsDevLicenseMatcher{
 			Client: depsDevAPIClient,
@@ -164,8 +165,14 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 
 	// --- OSV.dev Client ---
 	// We create a separate client from VulnMatcher to keep things clean.
-	externalAccessors.OSVDevClient = osvdev.DefaultClient()
-	externalAccessors.OSVDevClient.Config.UserAgent = userAgent
+	httpClient := clientFactories.HTTPClient()
+	cfg := osvdev.DefaultConfig()
+	cfg.UserAgent = userAgent
+	externalAccessors.OSVDevClient = &osvdev.OSVClient{
+		HTTPClient:  httpClient,
+		Config:      cfg,
+		BaseHostURL: osvdev.DefaultBaseURL,
+	}
 
 	return externalAccessors, nil
 }
@@ -201,13 +208,26 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 	}
 
 	// --- Setup Accessors/Clients ---
-	accessors, err := initializeExternalAccessors(actions)
+	var clientFactories scalibrconfig.ClientFactories
+	if actions.ClientFactories != nil {
+		clientFactories = actions.ClientFactories
+	} else {
+		cf := localscalibr.NewClientFactories(actions.HTTPClient, actions.RequestUserAgent)
+		clientFactories = cf
+		defer func() {
+			if err := cf.Close(); err != nil {
+				cmdlogger.Errorf("Failed to close scalibr client factories: %v", err)
+			}
+		}()
+	}
+
+	accessors, err := initializeExternalAccessors(actions, clientFactories)
 	if err != nil {
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to initialize accessors: %w", err)
 	}
 
 	// ----- Perform Scanning -----
-	packagesAndFindings, err := scan(accessors, actions)
+	packagesAndFindings, err := scan(accessors, actions, clientFactories)
 	if err != nil {
 		return models.VulnerabilityResults{}, err
 	}
@@ -261,12 +281,6 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		}
 	}
 
-	// --- Setup Accessors/Clients ---
-	accessors, err := initializeExternalAccessors(actions)
-	if err != nil {
-		return models.VulnerabilityResults{}, fmt.Errorf("failed to initialize accessors: %w", err)
-	}
-
 	var clientFactories scalibrconfig.ClientFactories
 	if actions.ClientFactories != nil {
 		clientFactories = actions.ClientFactories
@@ -278,6 +292,11 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 				cmdlogger.Errorf("Failed to close scalibr client factories: %v", err)
 			}
 		}()
+	}
+
+	accessors, err := initializeExternalAccessors(actions, clientFactories)
+	if err != nil {
+		return models.VulnerabilityResults{}, fmt.Errorf("failed to initialize accessors: %w", err)
 	}
 
 	plugins := getPlugins(

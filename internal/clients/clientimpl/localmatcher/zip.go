@@ -35,8 +35,8 @@ type ZipDB struct {
 	StoredAt string
 	// the vulnerabilities that are loaded into this database
 	Vulnerabilities []*osvschema.Vulnerability
-	// User agent to query with
-	UserAgent string
+	// HTTPClient is used to download database zip archives
+	HTTPClient *http.Client
 
 	// whether this database only has some of the advisories
 	// loaded from the underlying zip file
@@ -48,14 +48,14 @@ type ZipDB struct {
 
 var ErrOfflineDatabaseNotFound = errors.New("no offline version of the OSV database is available")
 
-func fetchRemoteArchiveCRC32CHash(ctx context.Context, url string) (uint32, error) {
+func fetchRemoteArchiveCRC32CHash(ctx context.Context, client *http.Client, url string) (uint32, error) {
 	req, err := http.NewRequestWithContext(ctx, http.MethodHead, url, nil)
 
 	if err != nil {
 		return 0, err
 	}
 
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := client.Do(req)
 	if err != nil {
 		return 0, err
 	}
@@ -104,7 +104,7 @@ func (db *ZipDB) fetchZip(ctx context.Context) (*os.File, error) {
 	}
 
 	if err == nil {
-		remoteHash, err := fetchRemoteArchiveCRC32CHash(ctx, db.ArchiveURL)
+		remoteHash, err := fetchRemoteArchiveCRC32CHash(ctx, db.HTTPClient, db.ArchiveURL)
 
 		if err != nil {
 			return nil, err
@@ -127,11 +127,7 @@ func (db *ZipDB) fetchZip(ctx context.Context) (*os.File, error) {
 		return nil, fmt.Errorf("could not retrieve OSV database archive: %w", err)
 	}
 
-	if db.UserAgent != "" {
-		req.Header.Set("User-Agent", db.UserAgent)
-	}
-
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := db.HTTPClient.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("could not retrieve OSV database archive: %w", err)
 	}
@@ -267,14 +263,14 @@ func (db *ZipDB) load(ctx context.Context, names []string) error {
 	return nil
 }
 
-func NewZippedDB(ctx context.Context, dbRoot *os.Root, name, url, userAgent string, offline bool, pkgs []*extractor.Package) (*ZipDB, error) {
+func NewZippedDB(ctx context.Context, dbRoot *os.Root, name, url string, httpClient *http.Client, offline bool, pkgs []*extractor.Package) (*ZipDB, error) {
 	db := &ZipDB{
 		dbRoot:     dbRoot,
 		Name:       name,
 		ArchiveURL: url,
 		Offline:    offline,
 		StoredAt:   path.Join(name, "all.zip"),
-		UserAgent:  userAgent,
+		HTTPClient: httpClient,
 
 		// we only fully load the database if we're not provided a list of packages
 		Partial: len(pkgs) != 0,

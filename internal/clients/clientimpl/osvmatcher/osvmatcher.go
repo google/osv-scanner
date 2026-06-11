@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scalibr/purl"
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
@@ -45,18 +46,19 @@ type OSVMatcher struct {
 	InitialQueryTimeout time.Duration
 }
 
-func New(initialQueryTimeout time.Duration, userAgent string, httpClient *http.Client) *OSVMatcher {
-	if httpClient == nil {
-		httpClient = http.DefaultClient
+func New(initialQueryTimeout time.Duration, userAgent string, clientFactories config.ClientFactories) *OSVMatcher {
+	httpClient := http.DefaultClient
+	if clientFactories != nil {
+		httpClient = clientFactories.HTTPClient()
 	}
 
-	config := osvdev.DefaultConfig()
-	config.UserAgent = userAgent
+	cfg := osvdev.DefaultConfig()
+	cfg.UserAgent = userAgent
 
 	return &OSVMatcher{
 		Client: osvdev.OSVClient{
 			HTTPClient:  httpClient,
-			Config:      config,
+			Config:      cfg,
 			BaseHostURL: osvdev.DefaultBaseURL,
 		},
 		InitialQueryTimeout: initialQueryTimeout,

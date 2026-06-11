@@ -24,7 +24,6 @@ import (
 	"github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/output"
-	localscalibr "github.com/google/osv-scanner/v2/internal/scalibr"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitcommitdirect"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
@@ -120,21 +119,8 @@ func countNotEnrichers(plugins []plugin.Plugin) int {
 }
 
 // scan essentially converts ScannerActions into imodels.ScanResult by performing the extractions
-func scan(accessors ExternalAccessors, actions ScannerActions) (*inventory.Inventory, error) {
+func scan(accessors ExternalAccessors, actions ScannerActions, clientFactories config.ClientFactories) (*inventory.Inventory, error) {
 	var inv inventory.Inventory
-
-	var clientFactories config.ClientFactories
-	if actions.ClientFactories != nil {
-		clientFactories = actions.ClientFactories
-	} else {
-		cf := localscalibr.NewClientFactories(actions.HTTPClient, actions.RequestUserAgent)
-		clientFactories = cf
-		defer func() {
-			if err := cf.Close(); err != nil {
-				cmdlogger.Errorf("Failed to close scalibr client factories: %v", err)
-			}
-		}()
-	}
 
 	plugins := getPlugins(
 		[]string{"lockfile", "sbom", "directory"},

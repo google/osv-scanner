@@ -6,11 +6,13 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"net/http"
 	"os"
 	"path"
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/inventory/osvecosystem"
+	"github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/utility/pathfilter"
@@ -29,21 +31,26 @@ type LocalMatcher struct {
 	downloadDB bool
 	// failedDBs keeps track of the errors when getting databases for each ecosystem
 	failedDBs map[osvconstants.Ecosystem]error
-	// userAgent sets the user agent requests for db zips are made with
-	userAgent string
+	// httpClient is used to download database zip archives
+	httpClient *http.Client
 }
 
-func NewLocalMatcher(localDBPath string, userAgent string, downloadDB bool) (*LocalMatcher, error) {
+func NewLocalMatcher(localDBPath string, clientFactories config.ClientFactories, downloadDB bool) (*LocalMatcher, error) {
 	dbBasePath, err := setupLocalDBDirectory(localDBPath)
 	if err != nil {
 		return nil, fmt.Errorf("could not create %s: %w", dbBasePath, err)
+	}
+
+	httpClient := http.DefaultClient
+	if clientFactories != nil {
+		httpClient = clientFactories.HTTPClient()
 	}
 
 	return &LocalMatcher{
 		dbBasePath: dbBasePath,
 		dbs:        make(map[osvconstants.Ecosystem]*ZipDB),
 		downloadDB: downloadDB,
-		userAgent:  userAgent,
+		httpClient: httpClient,
 		failedDBs:  make(map[osvconstants.Ecosystem]error),
 	}, nil
 }
@@ -133,7 +140,7 @@ func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, eco osvconstan
 		dbRoot,
 		safeEco,
 		fmt.Sprintf("%s/%s/all.zip", zippedDBRemoteHost, safeEco),
-		matcher.userAgent,
+		matcher.httpClient,
 		!matcher.downloadDB,
 		invs,
 	)
