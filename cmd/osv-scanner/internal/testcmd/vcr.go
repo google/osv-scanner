@@ -121,7 +121,14 @@ func InsertCassette(t *testing.T) *http.Client {
 			// exclude requests for info on a specific vuln since they can be quite large
 			// and their changes should be less impactful to our snapshots than the query
 			// endpoint, as those reqs are what results in specific vulns being looked up
-			return strings.HasPrefix(req.URL.Path, "/v1/vulns/")
+			if strings.HasPrefix(req.URL.Path, "/v1/vulns/") {
+				return true
+			}
+			// exclude requests for binary file downloads from cassettes (e.g. zip databases, jar files)
+			ext := strings.ToLower(filepath.Ext(req.URL.Path))
+			binaryExts := []string{".zip", ".gz", ".bin", ".db", ".tar", ".tgz", ".jar", ".aar"}
+
+			return slices.Contains(binaryExts, ext)
 		}),
 		recorder.WithMatcher(matcher),
 		recorder.WithHook(func(i *cassette.Interaction) error {

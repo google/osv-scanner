@@ -17,10 +17,10 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 )
 
-func resolveFromName(name string, cfg *cpb.PluginConfig) (plugin.Plugin, error) {
+func resolveFromName(name string, cfg *cpb.PluginConfig, clientFactories config.ClientFactories) (plugin.Plugin, error) {
 	pluginCfg := &config.PluginConfig{
 		ProtoConfig:     cfg,
-		ClientFactories: config.NewDefaultClientFactories(),
+		ClientFactories: clientFactories,
 	}
 	plug, err := list.FromName(name, pluginCfg)
 
@@ -44,7 +44,7 @@ func resolveFromName(name string, cfg *cpb.PluginConfig) (plugin.Plugin, error) 
 	}
 }
 
-func Resolve(enabledPlugins []string, disabledPlugins []string, cfg *cpb.PluginConfig) []plugin.Plugin {
+func Resolve(enabledPlugins []string, disabledPlugins []string, cfg *cpb.PluginConfig, clientFactories config.ClientFactories) []plugin.Plugin {
 	plugins := make(map[string]bool)
 
 	for i, exts := range [][]string{enabledPlugins, disabledPlugins} {
@@ -90,7 +90,7 @@ func Resolve(enabledPlugins []string, disabledPlugins []string, cfg *cpb.PluginC
 
 	for name, value := range plugins {
 		if name != "" && value {
-			plug, err := resolveFromName(name, cfg)
+			plug, err := resolveFromName(name, cfg, clientFactories)
 
 			if err != nil {
 				cmdlogger.Errorf("%s", err)

@@ -295,7 +295,7 @@ func action(ctx context.Context, cmd *cli.Command, stdout io.Writer, httpClient 
 		}
 		pluginCfg := &config.PluginConfig{
 			ProtoConfig:     cfg,
-			ClientFactories: config.NewDefaultClientFactories(),
+			ClientFactories: config.NewDefaultClientFactories(userAgent),
 		}
 		enricher, err := osvlocal.New(pluginCfg)
 		if err != nil {

@@ -21,8 +21,10 @@ import (
 	"github.com/google/osv-scalibr/fs"
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
+	"github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/output"
+	localscalibr "github.com/google/osv-scanner/v2/internal/scalibr"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitcommitdirect"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
@@ -43,7 +45,7 @@ func configurePlugins(plugins []plugin.Plugin, accessors ExternalAccessors, acti
 	}
 }
 
-func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions ScannerActions) []plugin.Plugin {
+func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions ScannerActions, clientFactories config.ClientFactories) []plugin.Plugin {
 	cfg := &cpb.PluginConfig{
 		UserAgent: actions.RequestUserAgent,
 		PluginSpecific: []*cpb.PluginSpecificConfig{
@@ -89,7 +91,7 @@ func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions Sc
 		actions.PluginsEnabled = append(actions.PluginsEnabled, packagedeprecation.Name)
 	}
 
-	plugins := scalibrplugin.Resolve(actions.PluginsEnabled, actions.PluginsDisabled, cfg)
+	plugins := scalibrplugin.Resolve(actions.PluginsEnabled, actions.PluginsDisabled, cfg, clientFactories)
 
 	configurePlugins(plugins, accessors, actions)
 
@@ -121,10 +123,24 @@ func countNotEnrichers(plugins []plugin.Plugin) int {
 func scan(accessors ExternalAccessors, actions ScannerActions) (*inventory.Inventory, error) {
 	var inv inventory.Inventory
 
+	var clientFactories config.ClientFactories
+	if actions.ClientFactories != nil {
+		clientFactories = actions.ClientFactories
+	} else {
+		cf := localscalibr.NewClientFactories(actions.HTTPClient, actions.RequestUserAgent)
+		clientFactories = cf
+		defer func() {
+			if err := cf.Close(); err != nil {
+				cmdlogger.Errorf("Failed to close scalibr client factories: %v", err)
+			}
+		}()
+	}
+
 	plugins := getPlugins(
 		[]string{"lockfile", "sbom", "directory"},
 		accessors,
 		actions,
+		clientFactories,
 	)
 
 	// technically having one detector enabled would also be sufficient, but we're
@@ -182,7 +198,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*inventory.Inven
 
 	// --- SBOMs (Deprecated) ---
 	// none of the SBOM extractors need configuring
-	sbomExtractors := scalibrplugin.Resolve([]string{"sbom"}, []string{}, &cpb.PluginConfig{})
+	sbomExtractors := scalibrplugin.Resolve([]string{"sbom"}, []string{}, &cpb.PluginConfig{}, config.NewDefaultClientFactories(""))
 
 SBOMLoop:
 	for _, sbomPath := range actions.SBOMPaths {

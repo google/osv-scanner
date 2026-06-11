@@ -21,6 +21,7 @@ import (
 	"github.com/google/osv-scalibr/inventory"
 	scalibrlog "github.com/google/osv-scalibr/log"
 	"github.com/google/osv-scalibr/plugin"
+	scalibrconfig "github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scalibr/stats"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/licensematcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/localmatcher"
@@ -32,6 +33,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/imodels/results"
 	"github.com/google/osv-scanner/v2/internal/output"
+	localscalibr "github.com/google/osv-scanner/v2/internal/scalibr"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/imagehelpers"
 	"github.com/ossf/osv-schema/bindings/go/osvconstants"
@@ -83,6 +85,9 @@ type ExperimentalScannerActions struct {
 	StatsCollector stats.Collector
 
 	HTTPClient *http.Client
+
+	// Custom ClientFactories to use instead of constructing default ones
+	ClientFactories scalibrconfig.ClientFactories
 
 	// Report deprecated packages as findings
 	FlagDeprecatedPackages bool
@@ -262,10 +267,24 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to initialize accessors: %w", err)
 	}
 
+	var clientFactories scalibrconfig.ClientFactories
+	if actions.ClientFactories != nil {
+		clientFactories = actions.ClientFactories
+	} else {
+		cf := localscalibr.NewClientFactories(actions.HTTPClient, actions.RequestUserAgent)
+		clientFactories = cf
+		defer func() {
+			if err := cf.Close(); err != nil {
+				cmdlogger.Errorf("Failed to close scalibr client factories: %v", err)
+			}
+		}()
+	}
+
 	plugins := getPlugins(
 		[]string{"artifact"},
 		accessors,
 		actions,
+		clientFactories,
 	)
 
 	// technically having one detector enabled would also be sufficient, but we're

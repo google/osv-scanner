@@ -221,4 +221,4 @@ require (
 // Temporarily commented out by downgrading containerd.
 // replace github.com/opencontainers/runtime-spec => github.com/opencontainers/runtime-spec v1.2.1
 
-replace github.com/google/osv-scalibr => github.com/google/osv-scalibr v0.4.6-0.20260605044922-fc3983a83405
+replace github.com/google/osv-scalibr => github.com/google/osv-scalibr v0.4.6-0.20260611011019-3e163173e5c5

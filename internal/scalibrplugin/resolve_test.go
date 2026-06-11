@@ -34,6 +34,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/os/homebrew"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
+	"github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
@@ -169,7 +170,7 @@ func TestResolve(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			got := scalibrplugin.Resolve(tt.args.enabled, tt.args.disabled, &cpb.PluginConfig{})
+			got := scalibrplugin.Resolve(tt.args.enabled, tt.args.disabled, &cpb.PluginConfig{}, config.NewDefaultClientFactories(""))
 
 			slices.Sort(tt.want)
 
@@ -339,7 +340,7 @@ func TestResolve_Detectors(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			got := scalibrplugin.Resolve(tt.args.enabled, tt.args.disabled, &cpb.PluginConfig{})
+			got := scalibrplugin.Resolve(tt.args.enabled, tt.args.disabled, &cpb.PluginConfig{}, config.NewDefaultClientFactories(""))
 
 			slices.Sort(tt.want)
 
@@ -424,7 +425,7 @@ func TestResolve_RequiredPlugins(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			got := scalibrplugin.Resolve(tt.args.enabled, tt.args.disabled, &cpb.PluginConfig{})
+			got := scalibrplugin.Resolve(tt.args.enabled, tt.args.disabled, &cpb.PluginConfig{}, config.NewDefaultClientFactories(""))
 
 			slices.Sort(tt.want)
 
@@ -457,7 +458,7 @@ func TestResolve_AllPresets(t *testing.T) {
 		"vulns",
 		"licenses",
 		"transitive",
-	}, []string{}, &cpb.PluginConfig{})
+	}, []string{}, &cpb.PluginConfig{}, config.NewDefaultClientFactories(""))
 
 	gotNames := make([]string, 0, len(got))
 	for _, detector := range got {
@@ -648,7 +649,7 @@ func TestResolve_Extractors(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			got := scalibrplugin.Resolve(tt.args.enabled, tt.args.disabled, &cpb.PluginConfig{})
+			got := scalibrplugin.Resolve(tt.args.enabled, tt.args.disabled, &cpb.PluginConfig{}, config.NewDefaultClientFactories(""))
 
 			slices.Sort(tt.want)
 
@@ -673,7 +674,7 @@ func TestResolve_Detectors_Presets(t *testing.T) {
 		t.Run(preset, func(t *testing.T) {
 			t.Parallel()
 
-			got := scalibrplugin.Resolve([]string{preset}, []string{}, &cpb.PluginConfig{})
+			got := scalibrplugin.Resolve([]string{preset}, []string{}, &cpb.PluginConfig{}, config.NewDefaultClientFactories(""))
 
 			gotNames := make([]string, 0, len(got))
 			for _, detector := range got {
@@ -694,7 +695,7 @@ func TestResolve_Extractors_Presets(t *testing.T) {
 		t.Run(preset, func(t *testing.T) {
 			t.Parallel()
 
-			got := scalibrplugin.Resolve([]string{preset}, []string{}, &cpb.PluginConfig{})
+			got := scalibrplugin.Resolve([]string{preset}, []string{}, &cpb.PluginConfig{}, config.NewDefaultClientFactories(""))
 
 			gotNames := make([]string, 0, len(got))
 			for _, extractor := range got {
@@ -715,7 +716,7 @@ func TestResolve_Enrichers_Presets(t *testing.T) {
 		t.Run(preset, func(t *testing.T) {
 			t.Parallel()
 
-			got := scalibrplugin.Resolve([]string{preset}, []string{}, &cpb.PluginConfig{})
+			got := scalibrplugin.Resolve([]string{preset}, []string{}, &cpb.PluginConfig{}, config.NewDefaultClientFactories(""))
 
 			gotNames := make([]string, 0, len(got))
 			for _, detector := range got {
@@ -736,7 +737,7 @@ func TestResolve_Annotators_Presets(t *testing.T) {
 		t.Run(preset, func(t *testing.T) {
 			t.Parallel()
 
-			got := scalibrplugin.Resolve([]string{preset}, []string{}, &cpb.PluginConfig{})
+			got := scalibrplugin.Resolve([]string{preset}, []string{}, &cpb.PluginConfig{}, config.NewDefaultClientFactories(""))
 
 			gotNames := make([]string, 0, len(got))
 			for _, detector := range got {
