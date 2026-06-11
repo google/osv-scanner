@@ -17,12 +17,12 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 1 Medium,
 
 Go
 
-lockfile:<rootdir>/testdata/go-project/go.mod: found 1 package with issues
+lockfile:<workspace>/testdata/go-project/go.mod: found 1 package with issues
 
   github.com/ipfs/go-bitfield@1.0.0 has the following known vulnerabilities:
     GO-2023-1558: Denial of service via malformed size parameters in github.com/ipfs/go-bitfield
       Severity: '5.9'; Minimal Fix Version: '1.1.0';
 
-  1 known vulnerability found in lockfile:<rootdir>/testdata/go-project/go.mod
+  1 known vulnerability found in lockfile:<workspace>/testdata/go-project/go.mod
 
 ---
