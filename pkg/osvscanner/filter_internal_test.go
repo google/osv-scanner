@@ -7,6 +7,7 @@ import (
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scanner/v2/internal/config"
+	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/imodels/results"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 	"github.com/google/osv-scanner/v2/pkg/models"
@@ -59,7 +60,7 @@ func Test_filterUnscannablePackages_shortCommitHash(t *testing.T) {
 				},
 			}
 
-			filtered := filterUnscannablePackages(scanResults, ScannerActions{})
+			filtered := filterUnscannablePackages(scanResults, ScannerActions{}, imodels.NewPackageResolver())
 
 			if len(scanResults.Inventory.Packages) != tt.wantKept {
 				t.Errorf("packages kept = %d, want %d", len(scanResults.Inventory.Packages), tt.wantKept)

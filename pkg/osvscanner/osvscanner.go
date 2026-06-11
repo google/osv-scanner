@@ -208,13 +208,14 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 	}
 
 	scanResults.Inventory = *packagesAndFindings
+	packageResolver := imodels.NewPackageResolver()
 
 	// ----- Filtering -----
-	unscannablePackages := filterUnscannablePackages(&scanResults, actions)
+	unscannablePackages := filterUnscannablePackages(&scanResults, actions, packageResolver)
 	filterIgnoredPackages(&scanResults)
 
 	// ----- Custom Overrides -----
-	filterAndOverrideGoVersion(&scanResults)
+	filterAndOverrideGoVersion(&scanResults, packageResolver)
 
 	// --- Make Vulnerability Requests ---
 	if accessors.VulnMatcher != nil {
@@ -237,7 +238,7 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 		scanResults.Inventory.Packages = slices.Concat(scanResults.Inventory.Packages, unscannablePackages)
 	}
 
-	return finalizeScanResult(scanResults, actions)
+	return finalizeScanResult(scanResults, actions, packageResolver)
 }
 
 func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error) {
@@ -334,6 +335,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 
 	// --- Save Scalibr Scan Results ---
 	scanResults.Inventory = scalibrSR.Inventory
+	packageResolver := imodels.NewPackageResolver()
 
 	// --- Fill Image Metadata ---
 	pssr, err := proto.ScanResultToProto(scalibrSR)
@@ -348,10 +350,10 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	}
 
 	// ----- Filtering -----
-	unscannablePackages := filterUnscannablePackages(&scanResults, actions)
+	unscannablePackages := filterUnscannablePackages(&scanResults, actions, packageResolver)
 	filterIgnoredPackages(&scanResults)
 
-	filterNonContainerRelevantPackages(&scanResults)
+	filterNonContainerRelevantPackages(&scanResults, packageResolver)
 
 	// --- Make Vulnerability Requests ---
 	if accessors.VulnMatcher != nil {
@@ -374,11 +376,11 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		scanResults.Inventory.Packages = slices.Concat(scanResults.Inventory.Packages, unscannablePackages)
 	}
 
-	return finalizeScanResult(scanResults, actions)
+	return finalizeScanResult(scanResults, actions, packageResolver)
 }
 
-func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) (models.VulnerabilityResults, error) {
-	vulnerabilityResults := buildVulnerabilityResults(actions, &scanResult)
+func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions, packageResolver *imodels.PackageResolver) (models.VulnerabilityResults, error) {
+	vulnerabilityResults := buildVulnerabilityResults(actions, &scanResult, packageResolver)
 
 	if actions.ScanLicensesSummary {
 		vulnerabilityResults.LicenseSummary = buildLicenseSummary(&scanResult)
@@ -520,10 +522,10 @@ func makeVulnRequestWithMatcher(
 }
 
 // Filters out Go version or Overrides it using osv-scanner.toml
-func filterAndOverrideGoVersion(scanResults *results.ScanResults) {
+func filterAndOverrideGoVersion(scanResults *results.ScanResults, packageResolver *imodels.PackageResolver) {
 	// Filter inventory packages
 	scanResults.Inventory.Packages = slices.DeleteFunc(scanResults.Inventory.Packages, func(pkg *extractor.Package) bool {
-		if imodels.Name(pkg) == "stdlib" && imodels.Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo {
+		if packageResolver.Name(pkg) == "stdlib" && packageResolver.Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo {
 			// Only apply the filter if it's from a go.mod file.
 			// The 'go' directive in go.mod specifies the minimum required language version,
 			// not the actual toolchain version used to build/run, which can lead to false positives.
@@ -540,7 +542,7 @@ func filterAndOverrideGoVersion(scanResults *results.ScanResults) {
 
 	// Override versions for remaining inventory packages
 	for i, pkg := range scanResults.Inventory.Packages {
-		if imodels.Name(pkg) == "stdlib" && imodels.Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo {
+		if packageResolver.Name(pkg) == "stdlib" && packageResolver.Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo {
 			configToUse := scanResults.ConfigManager.Get(imodels.Location(pkg))
 			if configToUse.GoVersionOverride != "" {
 				scanResults.Inventory.Packages[i].Version = configToUse.GoVersionOverride

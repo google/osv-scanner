@@ -17,13 +17,13 @@ import (
 // filterUnscannablePackages removes packages that don't have enough information to be scanned or
 // are not a supported ecosystem, and returns the list of removed packages (if --all-packages flag is passed in)
 // e,g, local packages that specified by path
-func filterUnscannablePackages(scanResults *results.ScanResults, actions ScannerActions) []*extractor.Package {
+func filterUnscannablePackages(scanResults *results.ScanResults, actions ScannerActions, packageResolver *imodels.PackageResolver) []*extractor.Package {
 	packageResults := make([]*extractor.Package, 0, len(scanResults.Inventory.Packages))
 	filteredPsr := make([]*extractor.Package, 0, len(scanResults.Inventory.Packages))
 	for _, psr := range scanResults.Inventory.Packages {
 		switch {
 		// If **none** of the cases match, skip this package since it's not scannable
-		case !imodels.Ecosystem(psr).IsEmpty() && imodels.Name(psr) != "" && imodels.Version(psr) != "":
+		case !packageResolver.Ecosystem(psr).IsEmpty() && packageResolver.Name(psr) != "" && packageResolver.Version(psr) != "":
 		case imodels.Commit(psr) != "":
 		default:
 			if actions.ShowAllPackages {
@@ -35,8 +35,8 @@ func filterUnscannablePackages(scanResults *results.ScanResults, actions Scanner
 
 		switch {
 		// If **any** of the following cases are true, skip this package
-		case imodels.Ecosystem(psr).Ecosystem == osvconstants.EcosystemMaven && imodels.Name(psr) == "unknown", // Is Maven with package name unknown
-			imodels.Ecosystem(psr).GetValidity() != nil && !imodels.Ecosystem(psr).IsEmpty(): // Is invalid and not empty
+		case packageResolver.Ecosystem(psr).Ecosystem == osvconstants.EcosystemMaven && packageResolver.Name(psr) == "unknown", // Is Maven with package name unknown
+			packageResolver.Ecosystem(psr).GetValidity() != nil && !packageResolver.Ecosystem(psr).IsEmpty(): // Is invalid and not empty
 			if actions.ShowAllPackages {
 				filteredPsr = append(filteredPsr, psr)
 			}
@@ -45,7 +45,7 @@ func filterUnscannablePackages(scanResults *results.ScanResults, actions Scanner
 		// Short commit hashes (< 40 hex chars) are rejected by the OSV API with
 		// "Invalid hash". Skip them with a warning rather than aborting the scan.
 		case imodels.Commit(psr) != "" && len(imodels.Commit(psr)) < 40:
-			cmdlogger.Warnf("Skipping %s: short commit hash %q cannot be queried; OSV API requires a full 40-character SHA.", imodels.Name(psr), imodels.Commit(psr))
+			cmdlogger.Warnf("Skipping %s: short commit hash %q cannot be queried; OSV API requires a full 40-character SHA.", packageResolver.Name(psr), imodels.Commit(psr))
 
 			if actions.ShowAllPackages {
 				filteredPsr = append(filteredPsr, psr)
@@ -67,12 +67,12 @@ func filterUnscannablePackages(scanResults *results.ScanResults, actions Scanner
 }
 
 // filterNonContainerRelevantPackages removes packages that are not relevant when doing container scanning
-func filterNonContainerRelevantPackages(scanResults *results.ScanResults) {
+func filterNonContainerRelevantPackages(scanResults *results.ScanResults, packageResolver *imodels.PackageResolver) {
 	packageResults := make([]*extractor.Package, 0, len(scanResults.Inventory.Packages))
 	for _, psr := range scanResults.Inventory.Packages {
 		// Almost all packages with linux as a SourceName are kernel packages
 		// which does not apply within a container, as containers use the host's kernel
-		if imodels.Name(psr) == "linux" {
+		if packageResolver.Name(psr) == "linux" {
 			continue
 		}
 

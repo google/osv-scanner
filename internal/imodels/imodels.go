@@ -30,27 +30,54 @@ var gitExtractors = map[string]struct{}{
 	gitrepo.Name: {},
 }
 
-// todo: SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-var cache = sync.Map{} // map[*extractor.Package]*models.PackageInfo
+type PackageResolver struct {
+	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete.
+	cache sync.Map // map[*extractor.Package]*models.PackageInfo
+}
 
-func toCachedPackageInfo(pkg *extractor.Package) *models.PackageInfo {
+func NewPackageResolver() *PackageResolver {
+	return &PackageResolver{}
+}
+
+func packageInfoFromPURL(pkg *extractor.Package) *models.PackageInfo {
 	if SourceType(pkg) != models.SourceTypeSBOM {
 		return nil
 	}
 
-	v, ok := cache.Load(pkg)
+	purlStruct := converter.ToPURL(pkg)
+
+	if purlStruct == nil {
+		return nil
+	}
+
+	purlCache, _ := purl.ToPackage(purlStruct.String())
+
+	return &purlCache
+}
+
+func toCachedPackageInfo(pkg *extractor.Package) *models.PackageInfo {
+	return packageInfoFromPURL(pkg)
+}
+
+func (r *PackageResolver) toCachedPackageInfo(pkg *extractor.Package) *models.PackageInfo {
+	if r == nil {
+		return toCachedPackageInfo(pkg)
+	}
+
+	if SourceType(pkg) != models.SourceTypeSBOM {
+		return nil
+	}
+
+	v, ok := r.cache.Load(pkg)
 
 	if !ok {
-		purlStruct := converter.ToPURL(pkg)
-
-		if purlStruct == nil {
+		purlCache := packageInfoFromPURL(pkg)
+		if purlCache == nil {
 			return nil
 		}
+		r.cache.Store(pkg, purlCache)
 
-		purlCache, _ := purl.ToPackage(purlStruct.String())
-		cache.Store(pkg, &purlCache)
-
-		return &purlCache
+		return purlCache
 	}
 
 	if v == nil {
@@ -61,20 +88,28 @@ func toCachedPackageInfo(pkg *extractor.Package) *models.PackageInfo {
 }
 
 func Name(pkg *extractor.Package) string {
+	return name(pkg, nil)
+}
+
+func (r *PackageResolver) Name(pkg *extractor.Package) string {
+	return name(pkg, r)
+}
+
+func name(pkg *extractor.Package, resolver *PackageResolver) string {
 	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-	if purlCache := toCachedPackageInfo(pkg); purlCache != nil {
+	if purlCache := resolver.toCachedPackageInfo(pkg); purlCache != nil {
 		return purlCache.Name
 	}
 
 	// --- Make specific patches to names as necessary ---
 	// Patch Go package to stdlib
-	if Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo && pkg.Name == "go" {
+	if ecosystem(pkg, resolver).Ecosystem == osvconstants.EcosystemGo && pkg.Name == "go" {
 		return "stdlib"
 	}
 
 	// TODO: Move the normalization to another place where matching logic happens.
 	// Patch python package names to be normalized
-	if Ecosystem(pkg).Ecosystem == osvconstants.EcosystemPyPI {
+	if ecosystem(pkg, resolver).Ecosystem == osvconstants.EcosystemPyPI {
 		// per https://peps.python.org/pep-0503/#normalized-names
 		return strings.ToLower(cachedregexp.MustCompile(`[-_.]+`).ReplaceAllLiteralString(pkg.Name, "-"))
 	}
@@ -101,7 +136,7 @@ func Name(pkg *extractor.Package) string {
 		}
 	}
 
-	if Ecosystem(pkg).String() == "GIT" && pkg.SourceCode != nil && pkg.SourceCode.Repo != "" {
+	if ecosystem(pkg, resolver).String() == "GIT" && pkg.SourceCode != nil && pkg.SourceCode.Repo != "" {
 		return pkg.SourceCode.Repo
 	}
 
@@ -109,6 +144,14 @@ func Name(pkg *extractor.Package) string {
 }
 
 func Ecosystem(pkg *extractor.Package) osvecosystem.Parsed {
+	return ecosystem(pkg, nil)
+}
+
+func (r *PackageResolver) Ecosystem(pkg *extractor.Package) osvecosystem.Parsed {
+	return ecosystem(pkg, r)
+}
+
+func ecosystem(pkg *extractor.Package, resolver *PackageResolver) osvecosystem.Parsed {
 	eco := pkg.Ecosystem()
 
 	if metadata, ok := pkg.Metadata.(*osvscannerjson.Metadata); ok {
@@ -128,7 +171,7 @@ func Ecosystem(pkg *extractor.Package) osvecosystem.Parsed {
 	}
 
 	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-	if purlCache := toCachedPackageInfo(pkg); purlCache != nil {
+	if purlCache := resolver.toCachedPackageInfo(pkg); purlCache != nil {
 		newEco, err := osvecosystem.Parse(purlCache.Ecosystem)
 		if err != nil {
 			cmdlogger.Warnf("Warning: error parsing osvscanner.json ecosystem: %s", err.Error())
@@ -142,8 +185,16 @@ func Ecosystem(pkg *extractor.Package) osvecosystem.Parsed {
 }
 
 func Version(pkg *extractor.Package) string {
+	return version(pkg, nil)
+}
+
+func (r *PackageResolver) Version(pkg *extractor.Package) string {
+	return version(pkg, r)
+}
+
+func version(pkg *extractor.Package, resolver *PackageResolver) string {
 	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-	if purlCache := toCachedPackageInfo(pkg); purlCache != nil {
+	if purlCache := resolver.toCachedPackageInfo(pkg); purlCache != nil {
 		return purlCache.Version
 	}
 
@@ -155,7 +206,7 @@ func Version(pkg *extractor.Package) string {
 	// However, if we assume patch version as .0, this will cause a lot of
 	// false positives. This compromise still allows osv-scanner to pick up
 	// when the user is using a minor version that is out-of-support.
-	if Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo && Name(pkg) == "stdlib" {
+	if ecosystem(pkg, resolver).Ecosystem == osvconstants.EcosystemGo && name(pkg, resolver) == "stdlib" {
 		v := semverlike.ParseSemverLikeVersion(pkg.Version, 3)
 		if len(v.Components) == 2 {
 			return fmt.Sprintf(
