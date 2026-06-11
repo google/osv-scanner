@@ -34,9 +34,18 @@ var gitExtractors = map[string]struct{}{
 // todo: SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
 var cache atomic.Pointer[sync.Map]
 
-// ClearCache clears the package-level cache.
-func ClearCache() {
-	cache.Store(&sync.Map{})
+var activeScans atomic.Int32
+
+// StartScan registers the start of a scan run.
+func StartScan() {
+	activeScans.Add(1)
+}
+
+// EndScan registers the end of a scan run, clearing the cache if there are no ongoing scans.
+func EndScan() {
+	if activeScans.Add(-1) == 0 {
+		cache.Store(&sync.Map{})
+	}
 }
 
 func toCachedPackageInfo(pkg *extractor.Package) *models.PackageInfo {

@@ -62,6 +62,10 @@ func Test_Name(t *testing.T) {
 
 func Test_ClearCache(t *testing.T) {
 	t.Parallel()
+
+	// Start the first scan
+	StartScan()
+
 	pkg := &extractor.Package{
 		Name:     "pkg",
 		Version:  "1.0",
@@ -77,16 +81,28 @@ func Test_ClearCache(t *testing.T) {
 	// Modify package name, but keep same pointer
 	pkg.Name = "pkg-modified"
 
-	// Calling Name(pkg) again without clearing cache should return cached name "pkg"
+	// Calling Name(pkg) again without ending the scan should return cached name "pkg"
 	if name := Name(pkg); name != "pkg" {
 		t.Errorf("expected Name(pkg) = %q (cached), got %q", "pkg", name)
 	}
 
-	// Clear the cache
-	ClearCache()
+	// Start a second concurrent scan
+	StartScan()
 
-	// Calling Name(pkg) after clearing cache should return new name "pkg-modified"
+	// End the first scan
+	EndScan()
+
+	// Cache should NOT be cleared because the second scan is still active.
+	// So calling Name(pkg) should still return cached name "pkg".
+	if name := Name(pkg); name != "pkg" {
+		t.Errorf("expected Name(pkg) = %q (cached, active scan remaining), got %q", "pkg", name)
+	}
+
+	// End the second scan (no scans remaining)
+	EndScan()
+
+	// Calling Name(pkg) after all scans ended should return new name "pkg-modified"
 	if name := Name(pkg); name != "pkg-modified" {
-		t.Errorf("expected Name(pkg) = %q (recached), got %q", "pkg-modified", name)
+		t.Errorf("expected Name(pkg) = %q (recached, all scans ended), got %q", "pkg-modified", name)
 	}
 }
