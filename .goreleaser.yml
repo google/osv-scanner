@@ -151,6 +151,18 @@ archives:
     name_template: "{{ .Binary }}_{{ .Os }}_{{ .Arch }}"
     ids:
       - osv-scanner
+nfpms:
+  - id: osv-scanner-rpm
+    package_name: osv-scanner
+    ids:
+      - osv-scanner
+    formats:
+      - rpm
+    vendor: Google
+    homepage: https://github.com/google/osv-scanner
+    maintainer: OSV Scanner maintainers
+    description: Vulnerability scanner written in Go which uses the data provided by https://osv.dev
+    license: Apache-2.0
 checksum:
   name_template: "{{ .ProjectName }}_SHA256SUMS"
   algorithm: sha256
