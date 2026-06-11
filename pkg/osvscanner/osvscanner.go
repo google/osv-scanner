@@ -34,6 +34,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/imodels/results"
 	"github.com/google/osv-scanner/v2/internal/output"
 	localscalibr "github.com/google/osv-scanner/v2/internal/scalibr"
+	"github.com/google/osv-scanner/v2/internal/scalibrannotator/filter"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/imagehelpers"
 	"github.com/ossf/osv-schema/bindings/go/osvconstants"
@@ -227,16 +228,12 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 	}
 
 	// ----- Perform Scanning -----
-	packagesAndFindings, err := scan(accessors, actions, clientFactories)
+	packagesAndFindings, filterAnno, err := scan(accessors, actions, clientFactories, &scanResults.ConfigManager)
 	if err != nil {
 		return models.VulnerabilityResults{}, err
 	}
 
 	scanResults.Inventory = *packagesAndFindings
-
-	// ----- Filtering -----
-	unscannablePackages := filterUnscannablePackages(&scanResults, actions)
-	filterIgnoredPackages(&scanResults)
 
 	// ----- Custom Overrides -----
 	filterAndOverrideGoVersion(&scanResults)
@@ -257,9 +254,13 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 		}
 	}
 
-	// todo: this previously wasn't being applied to Inventory - did we have a bug...?
-	if len(unscannablePackages) > 0 {
-		scanResults.Inventory.Packages = slices.Concat(scanResults.Inventory.Packages, unscannablePackages)
+	// Retrieve the unscannable packages that were filtered out during annotation
+	// and add them back to the output if ShowAllPackages is enabled.
+	if filterAnno != nil {
+		unscannablePackages := filterAnno.FilteredPackages()
+		if len(unscannablePackages) > 0 {
+			scanResults.Inventory.Packages = slices.Concat(scanResults.Inventory.Packages, unscannablePackages)
+		}
 	}
 
 	return finalizeScanResult(scanResults, actions)
@@ -304,11 +305,13 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		accessors,
 		actions,
 		clientFactories,
+		&scanResults.ConfigManager,
+		/* isContainerScan = */ true,
 	)
 
 	// technically having one detector enabled would also be sufficient, but we're
 	// not mentioning them to avoid confusion since they're still in their infancy
-	if countNotEnrichers(plugins) == 0 {
+	if countNotEnrichersOrAnnotators(plugins) == 0 {
 		return models.VulnerabilityResults{}, errors.New("at least one extractor must be enabled")
 	}
 
@@ -385,12 +388,6 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		cmdlogger.Warnf("No container image metadata found in scan results")
 	}
 
-	// ----- Filtering -----
-	unscannablePackages := filterUnscannablePackages(&scanResults, actions)
-	filterIgnoredPackages(&scanResults)
-
-	filterNonContainerRelevantPackages(&scanResults)
-
 	// --- Make Vulnerability Requests ---
 	if accessors.VulnMatcher != nil {
 		err = makeVulnRequestWithMatcher(&scanResults, accessors.VulnMatcher)
@@ -407,9 +404,21 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		}
 	}
 
-	// todo: this previously wasn't being applied to Inventory - did we have a bug...?
-	if len(unscannablePackages) > 0 {
-		scanResults.Inventory.Packages = slices.Concat(scanResults.Inventory.Packages, unscannablePackages)
+	// Retrieve the unscannable packages that were filtered out during annotation
+	// and add them back to the output if ShowAllPackages is enabled.
+	var filterAnno *filter.Annotator
+	for _, p := range plugins {
+		if fa, ok := p.(*filter.Annotator); ok {
+			filterAnno = fa
+			break
+		}
+	}
+
+	if filterAnno != nil {
+		unscannablePackages := filterAnno.FilteredPackages()
+		if len(unscannablePackages) > 0 {
+			scanResults.Inventory.Packages = slices.Concat(scanResults.Inventory.Packages, unscannablePackages)
+		}
 	}
 
 	return finalizeScanResult(scanResults, actions)

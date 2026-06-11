@@ -11,6 +11,7 @@ import (
 	"strings"
 
 	scalibr "github.com/google/osv-scalibr"
+	"github.com/google/osv-scalibr/annotator"
 	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
 	"github.com/google/osv-scalibr/enricher"
 	"github.com/google/osv-scalibr/enricher/packagedeprecation"
@@ -23,7 +24,9 @@ import (
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
+	scanconfig "github.com/google/osv-scanner/v2/internal/config"
 	"github.com/google/osv-scanner/v2/internal/output"
+	"github.com/google/osv-scanner/v2/internal/scalibrannotator/filter"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitcommitdirect"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
@@ -44,7 +47,14 @@ func configurePlugins(plugins []plugin.Plugin, accessors ExternalAccessors, acti
 	}
 }
 
-func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions ScannerActions, clientFactories config.ClientFactories) []plugin.Plugin {
+func getPlugins(
+	defaultPlugins []string,
+	accessors ExternalAccessors,
+	actions ScannerActions,
+	clientFactories config.ClientFactories,
+	configManager *scanconfig.Manager,
+	isContainerScan bool,
+) []plugin.Plugin {
 	cfg := &cpb.PluginConfig{
 		UserAgent: actions.RequestUserAgent,
 		PluginSpecific: []*cpb.PluginSpecificConfig{
@@ -92,6 +102,10 @@ func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions Sc
 
 	plugins := scalibrplugin.Resolve(actions.PluginsEnabled, actions.PluginsDisabled, cfg, clientFactories)
 
+	// Append the pre-matching filter annotator so it always runs.
+	filterAnnotator := filter.NewAnnotator(configManager, isContainerScan, actions.ShowAllPackages)
+	plugins = append(plugins, filterAnnotator)
+
 	configurePlugins(plugins, accessors, actions)
 
 	return plugins
@@ -106,11 +120,12 @@ func networkCapability(actions ScannerActions) plugin.Network {
 }
 
 // countNotEnrichers counts the number of plugins that are not enricher.Enricher plugins
-func countNotEnrichers(plugins []plugin.Plugin) int {
+func countNotEnrichersOrAnnotators(plugins []plugin.Plugin) int {
 	count := 0
 	for _, plug := range plugins {
-		_, ok := plug.(enricher.Enricher)
-		if !ok {
+		_, enricherOk := plug.(enricher.Enricher)
+		_, annotatorOk := plug.(annotator.Annotator)
+		if !enricherOk && !annotatorOk {
 			count++
 		}
 	}
@@ -119,7 +134,12 @@ func countNotEnrichers(plugins []plugin.Plugin) int {
 }
 
 // scan essentially converts ScannerActions into imodels.ScanResult by performing the extractions
-func scan(accessors ExternalAccessors, actions ScannerActions, clientFactories config.ClientFactories) (*inventory.Inventory, error) {
+func scan(
+	accessors ExternalAccessors,
+	actions ScannerActions,
+	clientFactories config.ClientFactories,
+	configManager *scanconfig.Manager,
+) (*inventory.Inventory, *filter.Annotator, error) {
 	var inv inventory.Inventory
 
 	plugins := getPlugins(
@@ -127,12 +147,14 @@ func scan(accessors ExternalAccessors, actions ScannerActions, clientFactories c
 		accessors,
 		actions,
 		clientFactories,
+		configManager,
+		/* isContainerScan = */ false,
 	)
 
 	// technically having one detector enabled would also be sufficient, but we're
 	// not mentioning them to avoid confusion since they're still in their infancy
-	if countNotEnrichers(plugins) == 0 {
-		return nil, errors.New("at least one extractor must be enabled")
+	if countNotEnrichersOrAnnotators(plugins) == 0 {
+		return nil, nil, errors.New("at least one extractor must be enabled")
 	}
 
 	scanner := scalibr.New()
@@ -159,7 +181,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions, clientFactories c
 		// workflow commands.
 		cmdlogger.Infof("Scanning dir %s", output.SanitizeForWorkflowCommand(path))
 		if _, err := pathToRootMap(rootMap, path, actions.Recursive); err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 	}
 
@@ -168,7 +190,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions, clientFactories c
 		parseAs, path := scanners.ParseLockfilePath(lockfileElem)
 		absPath, err := pathToRootMap(rootMap, path, actions.Recursive)
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 
 		specificPaths = append(specificPaths, absPath)
@@ -176,7 +198,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions, clientFactories c
 		if parseAs != "" {
 			plug, err := scanners.ParseAsToPlugin(parseAs, plugins)
 			if err != nil {
-				return nil, err
+				return nil, nil, err
 			}
 			overrideMap[absPath] = plug
 		}
@@ -190,7 +212,7 @@ SBOMLoop:
 	for _, sbomPath := range actions.SBOMPaths {
 		absPath, err := pathToRootMap(rootMap, sbomPath, actions.Recursive)
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 		specificPaths = append(specificPaths, absPath)
 
@@ -205,7 +227,7 @@ SBOMLoop:
 		cmdlogger.Errorf("Failed to parse SBOM %q: Invalid SBOM filename.", sbomPath)
 		cmdlogger.Errorf("If you believe this is a valid SBOM, make sure the filename follows format per your SBOMs specification.")
 
-		return nil, fmt.Errorf("invalid SBOM filename: %s", sbomPath)
+		return nil, nil, fmt.Errorf("invalid SBOM filename: %s", sbomPath)
 	}
 
 	// --- Add git commits directly ---
@@ -224,7 +246,7 @@ SBOMLoop:
 	// Parse exclude patterns (supports exact names, glob, and regex)
 	excludePatterns, err := parseExcludePatterns(actions.ExcludePatterns)
 	if err != nil {
-		return nil, fmt.Errorf("failed to parse exclude patterns: %w", err)
+		return nil, nil, fmt.Errorf("failed to parse exclude patterns: %w", err)
 	}
 
 	capabilities := plugin.Capabilities{
@@ -268,7 +290,7 @@ SBOMLoop:
 
 		// --- Check status of the run ---
 		if sr.Status.Status == plugin.ScanStatusFailed {
-			return nil, errors.New(sr.Status.FailureReason)
+			return nil, nil, errors.New(sr.Status.FailureReason)
 		}
 
 		for _, status := range sr.PluginStatus {
@@ -296,7 +318,7 @@ SBOMLoop:
 
 				cmdlogger.Errorf("Error during extraction: (extracting as %s) %s", status.Name, msg)
 				if criticalError {
-					return nil, errors.New("extraction failed on specified lockfile")
+					return nil, nil, errors.New("extraction failed on specified lockfile")
 				}
 			}
 		}
@@ -317,15 +339,23 @@ SBOMLoop:
 	// This allows us to error if a specific file provided by the user failed to extract, and return an error for them.
 	for _, path := range specificPaths {
 		if _, ok := statsCollector.filesExtracted[path]; !ok {
-			return nil, fmt.Errorf("%w: %q", ErrExtractorNotFound, path)
+			return nil, nil, fmt.Errorf("%w: %q", ErrExtractorNotFound, path)
 		}
 	}
 
 	if len(inv.Packages) == 0 {
-		return nil, ErrNoPackagesFound
+		return nil, nil, ErrNoPackagesFound
 	}
 
-	return &inv, nil
+	var filterAnno *filter.Annotator
+	for _, p := range plugins {
+		if fa, ok := p.(*filter.Annotator); ok {
+			filterAnno = fa
+			break
+		}
+	}
+
+	return &inv, filterAnno, nil
 }
 
 // pathToRootMap saves the absolute path into the root map, and returns the absolute path.
