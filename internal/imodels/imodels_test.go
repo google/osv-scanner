@@ -60,9 +60,8 @@ func Test_Name(t *testing.T) {
 	}
 }
 
+//nolint:paralleltest // Test_ClearCache edits package-level global variables and cannot run in parallel.
 func Test_ClearCache(t *testing.T) {
-	t.Parallel()
-
 	// Start the first scan
 	StartScan()
 
