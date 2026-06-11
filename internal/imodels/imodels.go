@@ -34,17 +34,28 @@ var gitExtractors = map[string]struct{}{
 // todo: SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
 var cache atomic.Pointer[sync.Map]
 
-var activeScans atomic.Int32
+var (
+	activeScans int
+	cacheMu     sync.Mutex
+)
 
 // StartScan registers the start of a scan run.
 func StartScan() {
-	activeScans.Add(1)
+	cacheMu.Lock()
+	defer cacheMu.Unlock()
+	if activeScans == 0 {
+		cache.Store(&sync.Map{})
+	}
+	activeScans++
 }
 
 // EndScan registers the end of a scan run, clearing the cache if there are no ongoing scans.
 func EndScan() {
-	if activeScans.Add(-1) == 0 {
-		cache.Store(&sync.Map{})
+	cacheMu.Lock()
+	defer cacheMu.Unlock()
+	activeScans--
+	if activeScans == 0 {
+		cache.Store(nil)
 	}
 }
 
@@ -55,12 +66,7 @@ func toCachedPackageInfo(pkg *extractor.Package) *models.PackageInfo {
 
 	m := cache.Load()
 	if m == nil {
-		newMap := &sync.Map{}
-		if cache.CompareAndSwap(nil, newMap) {
-			m = newMap
-		} else {
-			m = cache.Load()
-		}
+		return nil
 	}
 	v, ok := m.Load(pkg)
 
