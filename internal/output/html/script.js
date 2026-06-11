@@ -1,5 +1,6 @@
 const selectedTypeFilterValue = new Set(["all"]);
 let selectedLayer = "all";
+const tabScrollPositions = {};
 
 function toggleDetails(summaryID) {
   const detailsElementID = `${summaryID}-details`;
@@ -38,6 +39,19 @@ function showPackageDetails(detailsId) {
 
   const hidBlock = detailsElement.classList.toggle("hide-block");
   icon.classList.toggle("expanded", !hidBlock);
+}
+
+function handleVulnClick(event, vulnId) {
+  if (
+    event.button === 0 &&
+    !event.ctrlKey &&
+    !event.metaKey &&
+    !event.shiftKey &&
+    !event.altKey
+  ) {
+    event.preventDefault();
+    openVulnInNewTab(vulnId);
+  }
 }
 
 function openVulnInNewTab(inputString) {
@@ -122,6 +136,7 @@ function closeVulnTab(inputString) {
 
     tabs.removeChild(tabToRemove);
     tabSwitches.removeChild(buttonToRemove);
+    delete tabScrollPositions[inputString];
 
     if (nextTabButton) {
       const nextTabId = nextTabButton.id.replace("-button", "");
@@ -133,12 +148,30 @@ function closeVulnTab(inputString) {
 function openTab(activeTabId) {
   const tabs = document.getElementsByClassName("tab");
   const tabButtons = document.getElementsByClassName("tab-switch-button");
+
+  let currentActiveTabId = null;
+  for (let i = 0; i < tabs.length; i += 1) {
+    if (!tabs[i].classList.contains("hide-block")) {
+      currentActiveTabId = tabs[i].id;
+      break;
+    }
+  }
+  if (currentActiveTabId) {
+    tabScrollPositions[currentActiveTabId] = window.scrollY;
+  }
+
   for (let i = 0; i < tabs.length; i += 1) {
     tabs[i].classList.toggle("hide-block", tabs[i].id !== activeTabId);
     tabButtons[i].classList.toggle(
       "tab-switch-button-selected",
       tabs[i].id === activeTabId
     );
+  }
+
+  if (tabScrollPositions[activeTabId] !== undefined) {
+    window.scrollTo(0, tabScrollPositions[activeTabId]);
+  } else {
+    window.scrollTo(0, 0);
   }
 }
 
