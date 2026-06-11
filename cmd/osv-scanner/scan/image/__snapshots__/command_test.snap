@@ -2214,7 +2214,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
               "index": 0
             }
           },
-          "groups": 19,
+          "groups": 34,
           "vulnerabilities": [
             "ALPINE-CVE-2025-11187",
             "ALPINE-CVE-2025-15467",
@@ -2234,7 +2234,22 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "ALPINE-CVE-2026-28389",
             "ALPINE-CVE-2026-28390",
             "ALPINE-CVE-2026-31789",
-            "ALPINE-CVE-2026-31790"
+            "ALPINE-CVE-2026-31790",
+            "ALPINE-CVE-2026-34180",
+            "ALPINE-CVE-2026-34181",
+            "ALPINE-CVE-2026-34182",
+            "ALPINE-CVE-2026-34183",
+            "ALPINE-CVE-2026-42764",
+            "ALPINE-CVE-2026-42766",
+            "ALPINE-CVE-2026-42767",
+            "ALPINE-CVE-2026-42768",
+            "ALPINE-CVE-2026-42769",
+            "ALPINE-CVE-2026-42770",
+            "ALPINE-CVE-2026-45445",
+            "ALPINE-CVE-2026-45446",
+            "ALPINE-CVE-2026-45447",
+            "ALPINE-CVE-2026-7383",
+            "ALPINE-CVE-2026-9076"
           ]
         },
         {
@@ -2248,7 +2263,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
               "index": 0
             }
           },
-          "groups": 19,
+          "groups": 34,
           "vulnerabilities": [
             "ALPINE-CVE-2025-11187",
             "ALPINE-CVE-2025-15467",
@@ -2268,7 +2283,22 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "ALPINE-CVE-2026-28389",
             "ALPINE-CVE-2026-28390",
             "ALPINE-CVE-2026-31789",
-            "ALPINE-CVE-2026-31790"
+            "ALPINE-CVE-2026-31790",
+            "ALPINE-CVE-2026-34180",
+            "ALPINE-CVE-2026-34181",
+            "ALPINE-CVE-2026-34182",
+            "ALPINE-CVE-2026-34183",
+            "ALPINE-CVE-2026-42764",
+            "ALPINE-CVE-2026-42766",
+            "ALPINE-CVE-2026-42767",
+            "ALPINE-CVE-2026-42768",
+            "ALPINE-CVE-2026-42769",
+            "ALPINE-CVE-2026-42770",
+            "ALPINE-CVE-2026-45445",
+            "ALPINE-CVE-2026-45446",
+            "ALPINE-CVE-2026-45447",
+            "ALPINE-CVE-2026-7383",
+            "ALPINE-CVE-2026-9076"
           ]
         },
         {
