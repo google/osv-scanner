@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"strings"
 	"sync"
+	"sync/atomic"
 
 	"github.com/google/osv-scalibr/converter"
 	"github.com/google/osv-scalibr/extractor"
@@ -31,14 +32,28 @@ var gitExtractors = map[string]struct{}{
 }
 
 // todo: SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-var cache = sync.Map{} // map[*extractor.Package]*models.PackageInfo
+var cache atomic.Pointer[sync.Map]
+
+// ClearCache clears the package-level cache.
+func ClearCache() {
+	cache.Store(&sync.Map{})
+}
 
 func toCachedPackageInfo(pkg *extractor.Package) *models.PackageInfo {
 	if SourceType(pkg) != models.SourceTypeSBOM {
 		return nil
 	}
 
-	v, ok := cache.Load(pkg)
+	m := cache.Load()
+	if m == nil {
+		newMap := &sync.Map{}
+		if cache.CompareAndSwap(nil, newMap) {
+			m = newMap
+		} else {
+			m = cache.Load()
+		}
+	}
+	v, ok := m.Load(pkg)
 
 	if !ok {
 		purlStruct := converter.ToPURL(pkg)
@@ -48,7 +63,7 @@ func toCachedPackageInfo(pkg *extractor.Package) *models.PackageInfo {
 		}
 
 		purlCache, _ := purl.ToPackage(purlStruct.String())
-		cache.Store(pkg, &purlCache)
+		m.Store(pkg, &purlCache)
 
 		return &purlCache
 	}

@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
 )
 
@@ -56,5 +57,36 @@ func Test_Name(t *testing.T) {
 				t.Errorf("Name(*extractor.Package) = %v, want %v", got, tt.want)
 			}
 		})
+	}
+}
+
+func Test_ClearCache(t *testing.T) {
+	t.Parallel()
+	pkg := &extractor.Package{
+		Name:     "pkg",
+		Version:  "1.0",
+		PURLType: "npm",
+		Plugins:  []string{cdx.Name},
+	}
+
+	// First call should populate the cache
+	if name := Name(pkg); name != "pkg" {
+		t.Errorf("expected Name(pkg) = %q, got %q", "pkg", name)
+	}
+
+	// Modify package name, but keep same pointer
+	pkg.Name = "pkg-modified"
+
+	// Calling Name(pkg) again without clearing cache should return cached name "pkg"
+	if name := Name(pkg); name != "pkg" {
+		t.Errorf("expected Name(pkg) = %q (cached), got %q", "pkg", name)
+	}
+
+	// Clear the cache
+	ClearCache()
+
+	// Calling Name(pkg) after clearing cache should return new name "pkg-modified"
+	if name := Name(pkg); name != "pkg-modified" {
+		t.Errorf("expected Name(pkg) = %q (recached), got %q", "pkg-modified", name)
 	}
 }

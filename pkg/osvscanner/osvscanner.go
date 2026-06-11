@@ -167,6 +167,8 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 
 // DoScan performs the osv scanner action, with optional reporter to output information
 func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
+	defer imodels.ClearCache()
+
 	// --- Sanity check flags ----
 	// TODO(v2): Move the logic of the offline flag changing other flags into here from the main.go/scan.go
 	if actions.CompareOffline {
@@ -241,6 +243,8 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 }
 
 func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error) {
+	defer imodels.ClearCache()
+
 	scanResults := results.ScanResults{
 		ConfigManager: config.Manager{
 			DefaultConfig: config.Config{},
