@@ -113,6 +113,7 @@ dockers:
   # GitHub Action
   - image_templates:
       - "ghcr.io/google/osv-scanner-action:{{ .Tag }}"
+      - "ghcr.io/google/osv-scanner-action:v{{ .Major }}"
     dockerfile: goreleaser-action.dockerfile
     use: buildx
     extra_files:
@@ -133,6 +134,10 @@ dockers:
 
 docker_manifests:
   - name_template: "ghcr.io/google/osv-scanner:{{ .Tag }}"
+    image_templates:
+      - "ghcr.io/google/osv-scanner:{{ .Tag }}-amd64"
+      - "ghcr.io/google/osv-scanner:{{ .Tag }}-arm64"
+  - name_template: "ghcr.io/google/osv-scanner:v{{ .Major }}"
     image_templates:
       - "ghcr.io/google/osv-scanner:{{ .Tag }}-amd64"
       - "ghcr.io/google/osv-scanner:{{ .Tag }}-arm64"
