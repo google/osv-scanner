@@ -1377,6 +1377,11 @@ func TestCommand_Transitive(t *testing.T) {
 			Exit: 1,
 		},
 		{
+			Name: "pom.xml_ignore_direct_prevents_transitive",
+			Args: []string{"", "source", "--config", "./testdata/osv-scanner-ignore-log4j-web.toml", "./testdata/maven-transitive/pom.xml"},
+			Exit: 0,
+		},
+		{
 			Name: "pom.xml_enricher_requires_extractor",
 			Args: []string{"", "source", "--experimental-disable-plugins=java/pomxml", "./testdata/maven-transitive/abc.xml"},
 			Exit: 128,

@@ -6520,3 +6520,17 @@ No issues found
 [TestCommand_WithDetector_OnLinux/ssh_version_is_before_first_vuln_version - 2]
 
 ---
+
+[TestCommand_Transitive/pom.xml_ignore_direct_prevents_transitive - 1]
+Scanning dir ./testdata/maven-transitive/pom.xml
+Scanned <rootdir>/testdata/maven-transitive/pom.xml file and found 1 package
+Package Maven/org.apache.logging.log4j:log4j-web/2.14.1 has been filtered out because: testing transitive bypass
+Filtered 1 ignored package/s from the scan.
+
+No issues found
+
+---
+
+[TestCommand_Transitive/pom.xml_ignore_direct_prevents_transitive - 2]
+
+---
