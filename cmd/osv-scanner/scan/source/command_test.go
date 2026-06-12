@@ -1894,6 +1894,7 @@ func TestCommand_Transitive_IgnoredTransitiveBypass(t *testing.T) {
 							Header:     make(http.Header),
 						}, nil
 					}
+
 					return nil, fmt.Errorf("unexpected request: %s", url)
 				}
 			},

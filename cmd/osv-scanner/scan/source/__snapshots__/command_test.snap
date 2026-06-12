@@ -479,11 +479,11 @@ Scanned <rootdir>/testdata/locks-many-with-insecure/composer.lock file and found
 Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many-with-insecure/yarn.lock file and found 1 package
 Scanned <rootdir>/testdata/maven-transitive/pom.xml file and found 1 package
-Package npm/balanced-match/1.0.2 has been filtered out because: (no reason given)
-Package npm/ansi-html/0.0.1 has been filtered out because: (no reason given)
-Package npm/wrappy/1.0.2 has been filtered out because: (no reason given)
-Package npm/has-flag/4.0.0 has been filtered out because: (no reason given)
 Package Maven/org.apache.logging.log4j:log4j-web/2.14.1 has been filtered out because: it makes the table output really really long
+Package npm/ansi-html/0.0.1 has been filtered out because: (no reason given)
+Package npm/balanced-match/1.0.2 has been filtered out because: (no reason given)
+Package npm/has-flag/4.0.0 has been filtered out because: (no reason given)
+Package npm/wrappy/1.0.2 has been filtered out because: (no reason given)
 Filtered 1 local/unscannable package/s from the scan.
 Filtered 5 ignored package/s from the scan.
 overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
@@ -4435,8 +4435,8 @@ Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
-Package npm/balanced-match/1.0.2 has been filtered out because: (no reason given)
 Package npm/ansi-html/0.0.8 has been filtered out because: (no reason given)
+Package npm/balanced-match/1.0.2 has been filtered out because: (no reason given)
 Package npm/has-flag/4.0.0 has been filtered out because: (no reason given)
 Package npm/wrappy/1.0.2 has been filtered out because: (no reason given)
 Filtered 4 ignored package/s from the scan.

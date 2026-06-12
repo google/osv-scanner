@@ -5,6 +5,7 @@ package filter
 import (
 	"context"
 	"fmt"
+	"slices"
 	"sync"
 
 	"github.com/google/osv-scalibr/annotator"
@@ -74,6 +75,9 @@ func (a *Annotator) Annotate(_ context.Context, _ *annotator.ScanInput, results 
 	nonContainerRelevantCount := 0
 	ignoredCount := 0
 
+	var warnings []string
+	var infos []string
+
 	for _, psr := range results.Packages {
 		// 1. Filter Unscannable Packages
 		isScannable := false
@@ -106,7 +110,7 @@ func (a *Annotator) Annotate(_ context.Context, _ *annotator.ScanInput, results 
 
 		// Short commit hashes warning
 		if imodels.Commit(psr) != "" && len(imodels.Commit(psr)) < 40 {
-			cmdlogger.Warnf("Skipping %s: short commit hash %q cannot be queried; OSV API requires a full 40-character SHA.", imodels.Name(psr), imodels.Commit(psr))
+			warnings = append(warnings, fmt.Sprintf("Skipping %s: short commit hash %q cannot be queried; OSV API requires a full 40-character SHA.", imodels.Name(psr), imodels.Commit(psr)))
 			unscannableCount++
 			if a.showAllPackages {
 				filteredPsr = append(filteredPsr, psr)
@@ -132,13 +136,25 @@ func (a *Annotator) Annotate(_ context.Context, _ *annotator.ScanInput, results 
 				if reason == "" {
 					reason = "(no reason given)"
 				}
-				cmdlogger.Infof("Package %s has been filtered out because: %s", pkgString, reason)
+				infos = append(infos, fmt.Sprintf("Package %s has been filtered out because: %s", pkgString, reason))
 
 				continue
 			}
 		}
 
 		packageResults = append(packageResults, psr)
+	}
+
+	// Sort the logs before printing to ensure deterministic output in test snapshots
+	// (as package extraction order can be non-deterministic).
+	slices.Sort(warnings)
+	for _, warn := range warnings {
+		cmdlogger.Warnf("%s", warn)
+	}
+
+	slices.Sort(infos)
+	for _, info := range infos {
+		cmdlogger.Infof("%s", info)
 	}
 
 	if unscannableCount > 0 {
