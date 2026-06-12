@@ -343,16 +343,23 @@ SBOMLoop:
 		}
 	}
 
-	if len(inv.Packages) == 0 {
-		return nil, nil, ErrNoPackagesFound
-	}
-
+	// Find the filter annotator instance in the plugins list so we can retrieve
+	// any packages that were filtered out during the scan.
 	var filterAnno *filter.Annotator
 	for _, p := range plugins {
 		if fa, ok := p.(*filter.Annotator); ok {
 			filterAnno = fa
 			break
 		}
+	}
+
+	packagesExtracted := len(inv.Packages)
+	if filterAnno != nil {
+		packagesExtracted = filterAnno.PreFilteredPackageCount()
+	}
+
+	if packagesExtracted == 0 {
+		return nil, nil, ErrNoPackagesFound
 	}
 
 	return &inv, filterAnno, nil

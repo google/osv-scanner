@@ -26,11 +26,12 @@ const (
 
 // Annotator implements annotator.Annotator to filter packages.
 type Annotator struct {
-	mu               sync.Mutex
-	configManager    *config.Manager
-	isContainerScan  bool
-	showAllPackages  bool
-	filteredPackages []*extractor.Package
+	mu                      sync.Mutex
+	configManager           *config.Manager
+	isContainerScan         bool
+	showAllPackages         bool
+	filteredPackages        []*extractor.Package
+	preFilteredPackageCount int
 }
 
 var _ annotator.Annotator = (*Annotator)(nil)
@@ -63,6 +64,8 @@ func (a *Annotator) Requirements() *plugin.Capabilities {
 func (a *Annotator) Annotate(_ context.Context, _ *annotator.ScanInput, results *inventory.Inventory) error {
 	a.mu.Lock()
 	defer a.mu.Unlock()
+
+	a.preFilteredPackageCount += len(results.Packages)
 
 	packageResults := make([]*extractor.Package, 0, len(results.Packages))
 	var filteredPsr []*extractor.Package
@@ -160,4 +163,12 @@ func (a *Annotator) FilteredPackages() []*extractor.Package {
 	defer a.mu.Unlock()
 
 	return a.filteredPackages
+}
+
+// PreFilteredPackageCount returns the number of packages found before filtering.
+func (a *Annotator) PreFilteredPackageCount() int {
+	a.mu.Lock()
+	defer a.mu.Unlock()
+
+	return a.preFilteredPackageCount
 }

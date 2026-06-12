@@ -479,16 +479,13 @@ Scanned <rootdir>/testdata/locks-many-with-insecure/composer.lock file and found
 Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many-with-insecure/yarn.lock file and found 1 package
 Scanned <rootdir>/testdata/maven-transitive/pom.xml file and found 1 package
-Warning: enricher transitivedependency/pomxml may be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts.
-Filtered 1 local/unscannable package/s from the scan.
+Package npm/balanced-match/1.0.2 has been filtered out because: (no reason given)
+Package npm/ansi-html/0.0.1 has been filtered out because: (no reason given)
 Package npm/has-flag/4.0.0 has been filtered out because: (no reason given)
 Package npm/wrappy/1.0.2 has been filtered out because: (no reason given)
-Package npm/ansi-html/0.0.1 has been filtered out because: (no reason given)
-Package npm/balanced-match/1.0.2 has been filtered out because: (no reason given)
-Package Maven/org.apache.logging.log4j:log4j-api/2.14.1 has been filtered out because: it makes the table output really really long
-Package Maven/org.apache.logging.log4j:log4j-core/2.14.1 has been filtered out because: it makes the table output really really long
 Package Maven/org.apache.logging.log4j:log4j-web/2.14.1 has been filtered out because: it makes the table output really really long
-Filtered 7 ignored package/s from the scan.
+Filtered 1 local/unscannable package/s from the scan.
+Filtered 5 ignored package/s from the scan.
 overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
 overriding license for package Alpine:v3.17/alpine-baselayout/3.4.0-r0 with MIT
 overriding license for package Alpine:v3.17/alpine-baselayout-data/3.4.0-r0 with MIT
@@ -3202,7 +3199,15 @@ could not determine extractor, requested package-lock.json
             "version": "1.999.1",
             "ecosystem": "Go"
           }
-        },
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "<rootdir>/testdata/locks-insecure/osv-scanner-with-unscannables.json",
+        "type": "lockfile"
+      },
+      "packages": [
         {
           "package": {
             "name": "toolchain",
@@ -3833,9 +3838,9 @@ HTML output available at: <tempdir>/report.html
 
 [TestCommand_JavareachArchive/jars_can_be_scanned_with_call_analysis - 1]
 Scanning dir ./testdata/artifact/javareach_test.jar
-Java reachability enricher marked 14 packages as unreachable
 Scanned <rootdir>/testdata/artifact/javareach_test.jar file and found 21 packages
 failed to download package err jar not found: https://repo1.maven.org/maven2/com/example/hello-tester/1.0-SNAPSHOT/hello-tester-1.0-SNAPSHOT.jar
+Java reachability enricher marked 14 packages as unreachable
 
 Total 4 packages affected by 56 known vulnerabilities (18 Critical, 30 High, 6 Medium, 2 Low, 0 Unknown) from 1 ecosystem.
 56 vulnerabilities can be fixed.
@@ -4430,10 +4435,10 @@ Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
+Package npm/balanced-match/1.0.2 has been filtered out because: (no reason given)
+Package npm/ansi-html/0.0.8 has been filtered out because: (no reason given)
 Package npm/has-flag/4.0.0 has been filtered out because: (no reason given)
 Package npm/wrappy/1.0.2 has been filtered out because: (no reason given)
-Package npm/ansi-html/0.0.8 has been filtered out because: (no reason given)
-Package npm/balanced-match/1.0.2 has been filtered out because: (no reason given)
 Filtered 4 ignored package/s from the scan.
 overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
 overriding license for package Packagist/sentry/sdk/2.0.4 with 0BSD
@@ -4965,8 +4970,8 @@ No issues found
 [TestCommand_LocalDatabases/one_specific_supported_lockfile - 1]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 No issues found
 
@@ -4979,8 +4984,8 @@ No issues found
 [TestCommand_LocalDatabases/one_specific_supported_lockfile - 3]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 No issues found
 
@@ -5559,8 +5564,8 @@ No issues found
 [TestCommand_LocalDatabases/output_format:_markdown_table - 1]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 No issues found
 
@@ -5573,8 +5578,8 @@ No issues found
 [TestCommand_LocalDatabases/output_format:_markdown_table - 3]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 No issues found
 
@@ -5600,8 +5605,8 @@ No issues found
 [TestCommand_LocalDatabases/output_with_json - 2]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 ---
 
@@ -5621,8 +5626,8 @@ Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 [TestCommand_LocalDatabases/output_with_json - 4]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 ---
 
@@ -6402,9 +6407,9 @@ Total 5 packages affected by 24 known vulnerabilities (1 Critical, 10 High, 12 M
 
 [TestCommand_Transitive/requirements.txt_transitive_native_source - 1]
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
-failed resolution for <rootdir>/testdata/locks-requirements/requirements.txt: no file can be used for parsing requirements for package flask version 1.0
 failed to parse metadata for file Flask-1.0-py2.py3-none-any.whl: zip: not a valid zip file
 failed to parse metadata for file Flask-1.0.tar.gz: sdist: dependencies in setup.py, not in PKG-INFO
+failed resolution for <rootdir>/testdata/locks-requirements/requirements.txt: no file can be used for parsing requirements for package flask version 1.0
 
 Total 3 packages affected by 13 known vulnerabilities (1 Critical, 4 High, 7 Medium, 1 Low, 0 Unknown) from 1 ecosystem.
 13 vulnerabilities can be fixed.
@@ -6478,8 +6483,8 @@ No issues found
 
 [TestCommand_WithDetector_OnLinux/ssh_version_errors - 1]
 Scanning dir <tempdir>/composer.lock
-Command "ssh -V": exit status 1
 Scanned <tempdir>/composer.lock file and found 1 package
+Command "ssh -V": exit status 1
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 
 No issues found
