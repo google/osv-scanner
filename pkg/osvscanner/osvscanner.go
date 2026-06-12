@@ -15,7 +15,6 @@ import (
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
 	"github.com/google/osv-scalibr/binary/proto"
-	"github.com/google/osv-scalibr/clients/datasource"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gomod"
 	"github.com/google/osv-scalibr/inventory"
@@ -23,13 +22,11 @@ import (
 	"github.com/google/osv-scalibr/plugin"
 	scalibrconfig "github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scalibr/stats"
-	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/licensematcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/localmatcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/osvmatcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientinterfaces"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/config"
-	"github.com/google/osv-scanner/v2/internal/depsdev"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/imodels/results"
 	"github.com/google/osv-scanner/v2/internal/output"
@@ -105,8 +102,7 @@ type TransitiveScanningActions struct {
 
 type ExternalAccessors struct {
 	// Matchers
-	VulnMatcher    clientinterfaces.VulnerabilityMatcher
-	LicenseMatcher clientinterfaces.LicenseMatcher
+	VulnMatcher clientinterfaces.VulnerabilityMatcher
 
 	// Required for vendored Extractor
 	OSVDevClient *osvdev.OSVClient
@@ -148,21 +144,7 @@ func initializeExternalAccessors(actions ScannerActions, clientFactories scalibr
 
 	// Online Mode
 	// -----------
-	// --- Vulnerability Matcher ---
 	externalAccessors.VulnMatcher = osvmatcher.New(5*time.Minute, userAgent, clientFactories)
-
-	// --- License Matcher ---
-	if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
-		conn, err := clientFactories.GRPCClientConn(depsdev.DepsdevAPI)
-		if err != nil {
-			return ExternalAccessors{}, err
-		}
-		depsDevAPIClient := datasource.NewCachedInsightsClientWithConn(conn)
-
-		externalAccessors.LicenseMatcher = &licensematcher.DepsDevLicenseMatcher{
-			Client: depsDevAPIClient,
-		}
-	}
 
 	// --- OSV.dev Client ---
 	// We create a separate client from VulnMatcher to keep things clean.
@@ -241,14 +223,6 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 	// --- Make Vulnerability Requests ---
 	if accessors.VulnMatcher != nil {
 		err = makeVulnRequestWithMatcher(&scanResults, accessors.VulnMatcher)
-		if err != nil {
-			return models.VulnerabilityResults{}, err
-		}
-	}
-
-	// --- Make License Requests ---
-	if accessors.LicenseMatcher != nil {
-		err = accessors.LicenseMatcher.MatchLicenses(context.Background(), scanResults.Inventory.Packages)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
@@ -391,14 +365,6 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	// --- Make Vulnerability Requests ---
 	if accessors.VulnMatcher != nil {
 		err = makeVulnRequestWithMatcher(&scanResults, accessors.VulnMatcher)
-		if err != nil {
-			return models.VulnerabilityResults{}, err
-		}
-	}
-
-	// --- Make License Requests ---
-	if accessors.LicenseMatcher != nil {
-		err = accessors.LicenseMatcher.MatchLicenses(context.Background(), scanResults.Inventory.Packages)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}

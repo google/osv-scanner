@@ -100,6 +100,10 @@ func getPlugins(
 		actions.PluginsEnabled = append(actions.PluginsEnabled, packagedeprecation.Name)
 	}
 
+	if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
+		actions.PluginsEnabled = append(actions.PluginsEnabled, "licenses")
+	}
+
 	plugins := scalibrplugin.Resolve(actions.PluginsEnabled, actions.PluginsDisabled, cfg, clientFactories)
 
 	// Append the pre-matching filter annotator so it always runs.
