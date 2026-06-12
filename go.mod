@@ -13,7 +13,7 @@ require (
 	github.com/go-git/go-git/v5 v5.19.1
 	github.com/gobwas/glob v0.2.3
 	github.com/google/go-cmp v0.7.0
-	github.com/google/osv-scalibr v0.4.6-0.20260528054050-7bf4ca1f5741
+	github.com/google/osv-scalibr v0.4.6-0.20260612031204-164402d9140e
 	github.com/ianlancetaylor/demangle v0.0.0-20260505044615-1ff4bf46051f
 	github.com/jedib0t/go-pretty/v6 v6.7.10
 	github.com/modelcontextprotocol/go-sdk v1.6.1
@@ -43,7 +43,7 @@ require (
 	deps.dev/util/maven v0.0.0-20260528042559-b92437de09fd // indirect
 	deps.dev/util/pypi v0.0.0-20260422013440-90c27f84dd6f // indirect
 	deps.dev/util/resolve v0.0.0-20260422013440-90c27f84dd6f // indirect
-	deps.dev/util/semver v0.0.0-20260422013440-90c27f84dd6f // indirect
+	deps.dev/util/semver v0.0.0-20260529052642-cf1e78d92744 // indirect
 	github.com/Azure/go-ansiterm v0.0.0-20250102033503-faa5f7b0171c // indirect
 	github.com/GehirnInc/crypt v0.0.0-20230320061759-8cc1b52080c5 // indirect
 	github.com/Microsoft/go-winio v0.6.2 // indirect
@@ -215,8 +215,3 @@ require (
 	www.velocidex.com/golang/regparser v0.0.0-20250203141505-31e704a67ef7 // indirect
 )
 
-// github.com/containerd/containerd v1.7.x is incompatible with runtime-spec v1.3.0.
-// https://github.com/google/osv-scanner/pull/2705#issuecomment-4212012410
-// So this needs to be kept at v1.2.1
-// Temporarily commented out by downgrading containerd.
-// replace github.com/opencontainers/runtime-spec => github.com/opencontainers/runtime-spec v1.2.1
