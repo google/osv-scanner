@@ -1447,86 +1447,6 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 0
-      host: files.pythonhosted.org
-      headers:
-        X-Test-Name:
-          - TestCommand_Transitive/requirements.txt_transitive_native_source
-      url: https://files.pythonhosted.org/packages/55/b1/4365193655df97227ace49311365cc296e74b60c7f5c63d23cd30175e2f6/Flask-1.0-py2.py3-none-any.whl
-      method: GET
-    response:
-      proto: HTTP/2.0
-      proto_major: 2
-      proto_minor: 0
-      content_length: 97791
-      body: |
-        false
-      headers:
-        Accept-Ranges:
-          - bytes
-        Access-Control-Allow-Headers:
-          - Range
-        Access-Control-Allow-Methods:
-          - GET, OPTIONS
-        Access-Control-Allow-Origin:
-          - '*'
-        Access-Control-Expose-Headers:
-          - Content-Length, Content-Range, Accept-Ranges
-        Age:
-          - "775731"
-        Cache-Control:
-          - max-age=365000000, immutable, public
-        Content-Length:
-          - "97791"
-        Content-Type:
-          - binary/octet-stream
-        Etag:
-          - '"4c0757a5a489d4db8260c6d722c5e6b0"'
-        Last-Modified:
-          - Mon, 10 Apr 2023 14:10:02 GMT
-        Strict-Transport-Security:
-          - max-age=31536000; includeSubDomains; preload
-        X-Amz-Id-2:
-          - aN0FjrjE+NrZmWTFKMIBk92YcYwQwEjhl
-        X-Amz-Meta-Btime:
-          - "2020-02-26T17:50:37.09Z"
-        X-Amz-Meta-Mtime:
-          - "1582739437.09"
-        X-Amz-Request-Id:
-          - 912e57dcdfd81ff8
-        X-Amz-Version-Id:
-          - 4_z179c51e67f11a0ad8f6c0018_f114d94ce52c5357d_d20230410_m141002_c005_v0501001_t0057_u01681135802304
-        X-Cache:
-          - HIT, HIT
-        X-Cache-Hits:
-          - 1154, 0
-        X-Content-Type-Options:
-          - nosniff
-        X-Frame-Options:
-          - deny
-        X-Pypi-File-Package-Type:
-          - bdist_wheel
-        X-Pypi-File-Project:
-          - flask
-        X-Pypi-File-Python-Version:
-          - py2.py3
-        X-Pypi-File-Version:
-          - "1.0"
-        X-Robots-Header:
-          - noindex
-        X-Served-By:
-          - cache-iad-kjyo7100069-IAD, cache-wsi-ysbk1060043-WSI
-        X-Timer:
-          - S1781159049.075920,VS0,VE1
-        X-Xss-Protection:
-          - 1; mode=block
-      status: 200 OK
-      code: 200
-      duration: 0s
-  - request:
-      proto: HTTP/1.1
-      proto_major: 1
-      proto_minor: 1
       content_length: 386
       host: api.osv.dev
       body: |
@@ -3511,7 +3431,7 @@ interactions:
         X-Cache:
           - MISS, HIT, HIT
         X-Cache-Hits:
-          - 0, 128, 1
+          - 0, 128, 2
         X-Content-Type-Options:
           - nosniff
         X-Frame-Options:
@@ -3521,9 +3441,89 @@ interactions:
         X-Pypi-Last-Serial:
           - "34432672"
         X-Served-By:
-          - cache-iad-kcgs7200128-IAD, cache-iad-kcgs7200128-IAD, cache-wsi-ysbk1060035-WSI
+          - cache-iad-kcgs7200128-IAD, cache-iad-kcgs7200128-IAD, cache-wsi-ysbk1060098-WSI
         X-Timer:
-          - S1781159049.929034,VS0,VE2
+          - S1781230050.020744,VS0,VE0
+        X-Xss-Protection:
+          - 1; mode=block
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 0
+      host: files.pythonhosted.org
+      headers:
+        X-Test-Name:
+          - TestCommand_Transitive/requirements.txt_transitive_native_source
+      url: https://files.pythonhosted.org/packages/55/b1/4365193655df97227ace49311365cc296e74b60c7f5c63d23cd30175e2f6/Flask-1.0-py2.py3-none-any.whl
+      method: GET
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 97791
+      body: |
+        false
+      headers:
+        Accept-Ranges:
+          - bytes
+        Access-Control-Allow-Headers:
+          - Range
+        Access-Control-Allow-Methods:
+          - GET, OPTIONS
+        Access-Control-Allow-Origin:
+          - '*'
+        Access-Control-Expose-Headers:
+          - Content-Length, Content-Range, Accept-Ranges
+        Age:
+          - "846732"
+        Cache-Control:
+          - max-age=365000000, immutable, public
+        Content-Length:
+          - "97791"
+        Content-Type:
+          - binary/octet-stream
+        Etag:
+          - '"4c0757a5a489d4db8260c6d722c5e6b0"'
+        Last-Modified:
+          - Mon, 10 Apr 2023 14:10:02 GMT
+        Strict-Transport-Security:
+          - max-age=31536000; includeSubDomains; preload
+        X-Amz-Id-2:
+          - aN0FjrjE+NrZmWTFKMIBk92YcYwQwEjhl
+        X-Amz-Meta-Btime:
+          - "2020-02-26T17:50:37.09Z"
+        X-Amz-Meta-Mtime:
+          - "1582739437.09"
+        X-Amz-Request-Id:
+          - 912e57dcdfd81ff8
+        X-Amz-Version-Id:
+          - 4_z179c51e67f11a0ad8f6c0018_f114d94ce52c5357d_d20230410_m141002_c005_v0501001_t0057_u01681135802304
+        X-Cache:
+          - HIT, HIT
+        X-Cache-Hits:
+          - 1154, 0
+        X-Content-Type-Options:
+          - nosniff
+        X-Frame-Options:
+          - deny
+        X-Pypi-File-Package-Type:
+          - bdist_wheel
+        X-Pypi-File-Project:
+          - flask
+        X-Pypi-File-Python-Version:
+          - py2.py3
+        X-Pypi-File-Version:
+          - "1.0"
+        X-Robots-Header:
+          - noindex
+        X-Served-By:
+          - cache-iad-kjyo7100069-IAD, cache-wsi-ysbk1060024-WSI
+        X-Timer:
+          - S1781230050.164573,VS0,VE1
         X-Xss-Protection:
           - 1; mode=block
       status: 200 OK
@@ -7504,7 +7504,7 @@ interactions:
         X-Cache:
           - MISS, HIT, HIT
         X-Cache-Hits:
-          - 0, 223, 4
+          - 0, 223, 11
         X-Content-Type-Options:
           - nosniff
         X-Frame-Options:
@@ -7514,9 +7514,9 @@ interactions:
         X-Pypi-Last-Serial:
           - "37059094"
         X-Served-By:
-          - cache-iad-kiad7000021-IAD, cache-iad-kiad7000055-IAD, cache-wsi-ysbk1060035-WSI
+          - cache-iad-kiad7000021-IAD, cache-iad-kiad7000055-IAD, cache-wsi-ysbk1060098-WSI
         X-Timer:
-          - S1781159049.954042,VS0,VE0
+          - S1781230050.042880,VS0,VE0
         X-Xss-Protection:
           - 1; mode=block
       status: 200 OK
@@ -20534,7 +20534,7 @@ interactions:
         X-Cache:
           - MISS, HIT, HIT
         X-Cache-Hits:
-          - 0, 157, 1
+          - 0, 157, 3
         X-Content-Type-Options:
           - nosniff
         X-Frame-Options:
@@ -20544,9 +20544,9 @@ interactions:
         X-Pypi-Last-Serial:
           - "37677816"
         X-Served-By:
-          - cache-iad-kiad7000154-IAD, cache-iad-kiad7000154-IAD, cache-iad-kiad7000082-IAD, cache-wsi-ysbk1060035-WSI
+          - cache-iad-kiad7000154-IAD, cache-iad-kiad7000154-IAD, cache-iad-kiad7000082-IAD, cache-wsi-ysbk1060098-WSI
         X-Timer:
-          - S1781159049.935238,VS0,VE1
+          - S1781230050.025620,VS0,VE0
         X-Xss-Protection:
           - 1; mode=block
       status: 200 OK

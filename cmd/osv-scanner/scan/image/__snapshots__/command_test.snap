@@ -313,24 +313,23 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 [TestCommand_OCIImage/Empty_Ubuntu_20.04_image_tar_with_no_vulns_shown - 1]
 Scanning local image tarball "./testdata/test-ubuntu-20-04.tar"
-Package Ubuntu:20.04/util-linux/1:2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/bzip2/1.0.8-2 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/bzip2/1.0.8-2 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/coreutils/8.30-3ubuntu2 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/dpkg/1.19.7ubuntu3.2 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/gcc-10/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/gcc-10/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/gcc-10/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/glibc/2.31-0ubuntu9.17 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/glibc/2.31-0ubuntu9.17 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/gnupg2/2.2.19-3ubuntu2.4 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/bzip2/1.0.8-2 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/glibc/2.31-0ubuntu9.17 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/glibc/2.31-0ubuntu9.17 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/gcc-10/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/libgcrypt20/1.8.5-5ubuntu1.1 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/gnutls28/3.6.13-2ubuntu1.12 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libgcrypt20/1.8.5-5ubuntu1.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libtasn1-6/4.16.0-2ubuntu0.1 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/lz4/1.9.2-2ubuntu0.20.04.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/xz-utils/5.2.4-1ubuntu1.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/pam/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
@@ -338,22 +337,23 @@ Package Ubuntu:20.04/pam/1.3.1-5ubuntu4.7 has been filtered out because: Just wa
 Package Ubuntu:20.04/pam/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/pam/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/pcre2/10.34-7ubuntu0.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/gcc-10/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/systemd/245.4-4ubuntu3.24 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/libtasn1-6/4.16.0-2ubuntu0.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/systemd/245.4-4ubuntu3.24 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/shadow/1:4.8.1-1ubuntu5.20.04.5 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/shadow/1:4.8.1-1ubuntu5.20.04.5 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/perl/5.30.0-9ubuntu0.5 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/sed/4.7-1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/shadow/1:4.8.1-1ubuntu5.20.04.5 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/shadow/1:4.8.1-1ubuntu5.20.04.5 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/systemd/245.4-4ubuntu3.24 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/systemd/245.4-4ubuntu3.24 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/tar/1.30+dfsg-7ubuntu0.20.04.4 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/util-linux/1:2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/xz-utils/5.2.4-1ubuntu1.1 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/zlib/1:1.2.11.dfsg-2ubuntu1.5 has been filtered out because: Just want to test only unimportant vulns
 Filtered 42 ignored package/s from the scan.
 
@@ -376,24 +376,23 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 [TestCommand_OCIImage/Empty_Ubuntu_20.04_image_tar_with_only_unimportant_vulns_shown - 1]
 Scanning local image tarball "./testdata/test-ubuntu-20-04.tar"
-Package Ubuntu:20.04/util-linux/1:2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/bzip2/1.0.8-2 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/bzip2/1.0.8-2 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/coreutils/8.30-3ubuntu2 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/dpkg/1.19.7ubuntu3.2 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/gcc-10/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/gcc-10/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/gcc-10/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/glibc/2.31-0ubuntu9.17 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/glibc/2.31-0ubuntu9.17 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/gnupg2/2.2.19-3ubuntu2.4 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/bzip2/1.0.8-2 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/glibc/2.31-0ubuntu9.17 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/glibc/2.31-0ubuntu9.17 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/gcc-10/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/libgcrypt20/1.8.5-5ubuntu1.1 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/gnutls28/3.6.13-2ubuntu1.12 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libgcrypt20/1.8.5-5ubuntu1.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libtasn1-6/4.16.0-2ubuntu0.1 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/lz4/1.9.2-2ubuntu0.20.04.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/xz-utils/5.2.4-1ubuntu1.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/pam/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
@@ -401,22 +400,23 @@ Package Ubuntu:20.04/pam/1.3.1-5ubuntu4.7 has been filtered out because: Just wa
 Package Ubuntu:20.04/pam/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/pam/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/pcre2/10.34-7ubuntu0.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/gcc-10/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/systemd/245.4-4ubuntu3.24 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/libtasn1-6/4.16.0-2ubuntu0.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/systemd/245.4-4ubuntu3.24 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/shadow/1:4.8.1-1ubuntu5.20.04.5 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/shadow/1:4.8.1-1ubuntu5.20.04.5 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/perl/5.30.0-9ubuntu0.5 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/sed/4.7-1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/shadow/1:4.8.1-1ubuntu5.20.04.5 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/shadow/1:4.8.1-1ubuntu5.20.04.5 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/systemd/245.4-4ubuntu3.24 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/systemd/245.4-4ubuntu3.24 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/tar/1.30+dfsg-7ubuntu0.20.04.4 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/util-linux/1:2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/xz-utils/5.2.4-1ubuntu1.1 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/zlib/1:1.2.11.dfsg-2ubuntu1.5 has been filtered out because: Just want to test only unimportant vulns
 Filtered 42 ignored package/s from the scan.
 
@@ -448,7 +448,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 26 packages affected by 72 known vulnerabilities (8 Critical, 22 High, 34 Medium, 5 Low, 3 Unknown) from 1 ecosystem.
+Total 26 packages affected by 72 known vulnerabilities (9 Critical, 22 High, 34 Medium, 5 Low, 2 Unknown) from 1 ecosystem.
 33 vulnerabilities can be fixed.
 
 
@@ -501,7 +501,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 26 packages affected by 72 known vulnerabilities (8 Critical, 22 High, 34 Medium, 5 Low, 3 Unknown) from 1 ecosystem.
+Total 26 packages affected by 72 known vulnerabilities (9 Critical, 22 High, 34 Medium, 5 Low, 2 Unknown) from 1 ecosystem.
 33 vulnerabilities can be fixed.
 
 
@@ -573,7 +573,7 @@ Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 26 packages affected by 72 known vulnerabilities (8 Critical, 22 High, 34 Medium, 5 Low, 3 Unknown) from 1 ecosystem.
+Total 26 packages affected by 72 known vulnerabilities (9 Critical, 22 High, 34 Medium, 5 Low, 2 Unknown) from 1 ecosystem.
 33 vulnerabilities can be fixed.
 
 
@@ -626,8 +626,8 @@ Scanning local image tarball "./testdata/test-java-full.tar"
 
 
 Container Scanning Result (Alpine Linux v3.21) (Based on "eclipse-temurin" image):
-Total 35 packages affected by 128 known vulnerabilities (6 Critical, 62 High, 52 Medium, 7 Low, 1 Unknown) from 2 ecosystems.
-128 vulnerabilities can be fixed.
+Total 35 packages affected by 131 known vulnerabilities (6 Critical, 64 High, 53 Medium, 7 Low, 1 Unknown) from 2 ecosystems.
+131 vulnerabilities can be fixed.
 
 
 Maven
@@ -643,11 +643,11 @@ Maven
 | dnsjava:dnsjava                           | 3.4.0             | Fix Available |          1 | # 12 Layer       | --            |
 | io.netty:netty-codec                      | 4.1.100.Final     | Fix Available |          2 | # 12 Layer       | --            |
 | io.netty:netty-codec-dns                  | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
-| io.netty:netty-codec-haproxy              | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
+| io.netty:netty-codec-haproxy              | 4.1.100.Final     | Fix Available |          2 | # 12 Layer       | --            |
 | io.netty:netty-codec-http                 | 4.1.100.Final     | Fix Available |         10 | # 12 Layer       | --            |
-| io.netty:netty-codec-http2                | 4.1.100.Final     | Fix Available |          4 | # 12 Layer       | --            |
+| io.netty:netty-codec-http2                | 4.1.100.Final     | Fix Available |          5 | # 12 Layer       | --            |
 | io.netty:netty-codec-mqtt                 | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
-| io.netty:netty-codec-redis                | 4.1.100.Final     | Fix Available |          3 | # 12 Layer       | --            |
+| io.netty:netty-codec-redis                | 4.1.100.Final     | Fix Available |          4 | # 12 Layer       | --            |
 | io.netty:netty-codec-smtp                 | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
 | io.netty:netty-common                     | 4.1.100.Final     | Fix Available |          2 | # 12 Layer       | --            |
 | io.netty:netty-handler                    | 4.1.100.Final     | Fix Available |          3 | # 12 Layer       | --            |
@@ -4212,8 +4212,8 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
           },
           "groups": 7,
           "vulnerabilities": [
-            "USN-8414-1",
             "USN-7980-1",
+            "USN-8414-1",
             "USN-8155-1",
             "USN-7786-1",
             "USN-7278-1",
@@ -5332,8 +5332,8 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           },
           "groups": 7,
           "vulnerabilities": [
-            "USN-8414-1",
             "USN-7980-1",
+            "USN-8414-1",
             "USN-8155-1",
             "USN-7786-1",
             "USN-7278-1",
