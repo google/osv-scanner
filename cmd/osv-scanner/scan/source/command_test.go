@@ -1,10 +1,13 @@
 package source_test
 
 import (
+	"fmt"
+	"io"
 	"net/http"
 	"os"
 	"path/filepath"
 	"runtime"
+	"strings"
 	"testing"
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/testcmd"
@@ -1827,5 +1830,100 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 			t.Parallel()
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
+	}
+}
+
+type mockRoundTripper struct {
+	roundTrip func(req *http.Request) (*http.Response, error)
+}
+
+func (m *mockRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
+	return m.roundTrip(req)
+}
+
+func TestCommand_Transitive_IgnoredTransitiveBypass(t *testing.T) {
+	t.Parallel()
+
+	// 1. Create mock POMs
+	mockPOMDirect := `<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.apache.logging.log4j</groupId>
+  <artifactId>log4j-web</artifactId>
+  <version>2.14.1</version>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.14.1</version>
+    </dependency>
+  </dependencies>
+</project>`
+
+	mockPOMTransitive := `<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.apache.logging.log4j</groupId>
+  <artifactId>log4j-core</artifactId>
+  <version>2.14.1</version>
+</project>`
+
+	transitiveCalled := false
+
+	mockClient := &http.Client{
+		Transport: &mockRoundTripper{
+			roundTrip: func(req *http.Request) (*http.Response, error) {
+				url := req.URL.String()
+				switch url {
+				case "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-web/2.14.1/log4j-web-2.14.1.pom":
+					return &http.Response{
+						StatusCode: http.StatusOK,
+						Body:       io.NopCloser(strings.NewReader(mockPOMDirect)),
+						Header:     make(http.Header),
+					}, nil
+				case "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-core/2.14.1/log4j-core-2.14.1.pom":
+					transitiveCalled = true
+					return &http.Response{
+						StatusCode: http.StatusOK,
+						Body:       io.NopCloser(strings.NewReader(mockPOMTransitive)),
+						Header:     make(http.Header),
+					}, nil
+				default:
+					if strings.Contains(url, "osv.dev") {
+						return &http.Response{
+							StatusCode: http.StatusOK,
+							Body:       io.NopCloser(strings.NewReader(`{"results":[]}`)),
+							Header:     make(http.Header),
+						}, nil
+					}
+					return nil, fmt.Errorf("unexpected request: %s", url)
+				}
+			},
+		},
+	}
+
+	// 2. Define the test case
+	tc := testcmd.Case{
+		Name: "pom.xml_ignore_direct_prevents_transitive_mocked",
+		Args: []string{
+			"", "source",
+			"--experimental-no-default-plugins",
+			"--experimental-plugins=java/pomxml,transitive",
+			"--config", "./testdata/osv-scanner-ignore-log4j-web.toml",
+			"./testdata/maven-transitive/pom.xml",
+		},
+		Exit:       0,
+		HTTPClient: mockClient,
+	}
+
+	// 3. Run the test
+	stdout, _ := testcmd.RunAndNormalize(t, tc)
+
+	// Verify the output matches what we expect
+	if !strings.Contains(stdout, "No issues found") {
+		t.Errorf("expected output to contain 'No issues found', got:\n%s", stdout)
+	}
+
+	// 4. Assert that the mock client was NOT called for the transitive dependency!
+	if transitiveCalled {
+		t.Error("expected transitive dependency log4j-core POM to NOT be requested, but it was requested!")
 	}
 }

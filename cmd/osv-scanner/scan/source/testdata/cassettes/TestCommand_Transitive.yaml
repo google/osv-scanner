@@ -5,6 +5,36 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
+      content_length: 3
+      host: api.osv.dev
+      body: |
+        {}
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_Transitive/pom.xml_ignore_direct_prevents_transitive
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 2
+      body: |
+        {}
+      headers:
+        Content-Length:
+          - "2"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
       content_length: 9305
       host: api.osv.dev
       body: |
