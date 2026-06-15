@@ -27,7 +27,6 @@ require (
 	github.com/tidwall/sjson v1.2.5
 	github.com/urfave/cli/v3 v3.9.0
 	go.yaml.in/yaml/v4 v4.0.0-rc.4
-	golang.org/x/sync v0.20.0
 	golang.org/x/term v0.43.0
 	golang.org/x/vuln v1.3.0
 	google.golang.org/grpc v1.81.1
@@ -196,6 +195,7 @@ require (
 	golang.org/x/mod v0.36.0 // indirect
 	golang.org/x/net v0.55.0 // indirect
 	golang.org/x/oauth2 v0.36.0 // indirect
+	golang.org/x/sync v0.20.0 // indirect
 	golang.org/x/sys v0.45.0 // indirect
 	golang.org/x/telemetry v0.0.0-20260508192327-42602be52be6 // indirect
 	golang.org/x/text v0.37.0 // indirect
@@ -221,4 +221,4 @@ require (
 // Temporarily commented out by downgrading containerd.
 // replace github.com/opencontainers/runtime-spec => github.com/opencontainers/runtime-spec v1.2.1
 
-replace github.com/google/osv-scalibr => github.com/google/osv-scalibr v0.4.6-0.20260611011019-3e163173e5c5
+replace github.com/google/osv-scalibr => ./osv-scalibr-portal

@@ -10,7 +10,6 @@ import (
 	"os"
 	"slices"
 	"sort"
-	"time"
 
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
@@ -22,9 +21,6 @@ import (
 	"github.com/google/osv-scalibr/plugin"
 	scalibrconfig "github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scalibr/stats"
-	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/localmatcher"
-	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/osvmatcher"
-	"github.com/google/osv-scanner/v2/internal/clients/clientinterfaces"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/config"
 	"github.com/google/osv-scanner/v2/internal/imodels"
@@ -101,9 +97,6 @@ type TransitiveScanningActions struct {
 }
 
 type ExternalAccessors struct {
-	// Matchers
-	VulnMatcher clientinterfaces.VulnerabilityMatcher
-
 	// Required for vendored Extractor
 	OSVDevClient *osvdev.OSVClient
 }
@@ -121,30 +114,15 @@ var ErrAPIFailed = errors.New("API query failed")
 
 func initializeExternalAccessors(actions ScannerActions, clientFactories scalibrconfig.ClientFactories) (ExternalAccessors, error) {
 	externalAccessors := ExternalAccessors{}
-	var err error
+
+	if actions.CompareOffline {
+		return externalAccessors, nil
+	}
 
 	userAgent := "osv-scanner-api"
 	if actions.RequestUserAgent != "" {
 		userAgent = actions.RequestUserAgent
 	}
-
-	// Offline Mode
-	// ------------
-	if actions.CompareOffline {
-		// --- Vulnerability Matcher ---
-		externalAccessors.VulnMatcher, err =
-			localmatcher.NewLocalMatcher(actions.LocalDBPath,
-				clientFactories, actions.DownloadDatabases)
-		if err != nil {
-			return ExternalAccessors{}, err
-		}
-
-		return externalAccessors, nil
-	}
-
-	// Online Mode
-	// -----------
-	externalAccessors.VulnMatcher = osvmatcher.New(5*time.Minute, userAgent, clientFactories)
 
 	// --- OSV.dev Client ---
 	// We create a separate client from VulnMatcher to keep things clean.
@@ -219,14 +197,6 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 
 	// ----- Custom Overrides -----
 	filterAndOverrideGoVersion(&scanResults)
-
-	// --- Make Vulnerability Requests ---
-	if accessors.VulnMatcher != nil {
-		err = makeVulnRequestWithMatcher(&scanResults, accessors.VulnMatcher)
-		if err != nil {
-			return models.VulnerabilityResults{}, err
-		}
-	}
 
 	// Retrieve the unscannable packages that were filtered out during annotation
 	// and add them back to the output if ShowAllPackages is enabled.
@@ -360,14 +330,6 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		scanResults.ImageMetadata = pssr.GetInventory().GetContainerImageMetadata()[0]
 	} else {
 		cmdlogger.Warnf("No container image metadata found in scan results")
-	}
-
-	// --- Make Vulnerability Requests ---
-	if accessors.VulnMatcher != nil {
-		err = makeVulnRequestWithMatcher(&scanResults, accessors.VulnMatcher)
-		if err != nil {
-			return models.VulnerabilityResults{}, err
-		}
 	}
 
 	// Retrieve the unscannable packages that were filtered out during annotation
@@ -508,29 +470,6 @@ func determineReturnErr(vulnResults models.VulnerabilityResults, showAllVulns bo
 }
 
 // TODO(V2): Add context
-func makeVulnRequestWithMatcher(
-	scanResults *results.ScanResults,
-	matcher clientinterfaces.VulnerabilityMatcher,
-) error {
-	res, err := matcher.MatchVulnerabilities(context.Background(), scanResults.Inventory.Packages)
-	if err != nil {
-		cmdlogger.Errorf("error when retrieving vulns: %v", err)
-		if res == nil {
-			return err
-		}
-	}
-
-	for i, vulns := range res {
-		for _, vuln := range vulns {
-			scanResults.Inventory.PackageVulns = append(scanResults.Inventory.PackageVulns, &inventory.PackageVuln{
-				Vulnerability: vuln,
-				Package:       scanResults.Inventory.Packages[i],
-			})
-		}
-	}
-
-	return nil
-}
 
 // Filters out Go version or Overrides it using osv-scanner.toml
 func filterAndOverrideGoVersion(scanResults *results.ScanResults) {

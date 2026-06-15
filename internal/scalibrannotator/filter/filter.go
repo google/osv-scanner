@@ -8,6 +8,7 @@ import (
 	"slices"
 	"sync"
 
+	"github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/annotator"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/inventory"
@@ -167,6 +168,7 @@ func (a *Annotator) Annotate(_ context.Context, _ *annotator.ScanInput, results 
 		cmdlogger.Infof("Filtered %d ignored package/s from the scan.", ignoredCount)
 	}
 
+	slices.SortFunc(packageResults, scalibr.CmpPackages)
 	a.filteredPackages = append(a.filteredPackages, filteredPsr...)
 	results.Packages = packageResults
 
