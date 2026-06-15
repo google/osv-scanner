@@ -1,6 +1,7 @@
 package osvscanner
 
 import (
+	"cmp"
 	"context"
 	"errors"
 	"fmt"
@@ -55,25 +56,44 @@ func getPlugins(
 	configManager *scanconfig.Manager,
 	isContainerScan bool,
 ) []plugin.Plugin {
-	cfg := &cpb.PluginConfig{
-		UserAgent: actions.RequestUserAgent,
-		PluginSpecific: []*cpb.PluginSpecificConfig{
-			{
-				Config: &cpb.PluginSpecificConfig_PomXmlNet{
-					PomXmlNet: &cpb.POMXMLNetConfig{
-						UpstreamRegistry:    actions.TransitiveScanning.MavenRegistry,
-						DepsDevRequirements: !actions.TransitiveScanning.NativeDataSource,
-					},
-				},
-			},
-			{
-				Config: &cpb.PluginSpecificConfig_PythonRequirementsTransitive{
-					PythonRequirementsTransitive: &cpb.PythonRequirementsTransitiveConfig{
-						DepsDevRequirements: !actions.TransitiveScanning.NativeDataSource,
-					},
+	pluginSpecific := []*cpb.PluginSpecificConfig{
+		{
+			Config: &cpb.PluginSpecificConfig_PomXmlNet{
+				PomXmlNet: &cpb.POMXMLNetConfig{
+					UpstreamRegistry:    actions.TransitiveScanning.MavenRegistry,
+					DepsDevRequirements: !actions.TransitiveScanning.NativeDataSource,
 				},
 			},
 		},
+		{
+			Config: &cpb.PluginSpecificConfig_PythonRequirementsTransitive{
+				PythonRequirementsTransitive: &cpb.PythonRequirementsTransitiveConfig{
+					DepsDevRequirements: !actions.TransitiveScanning.NativeDataSource,
+				},
+			},
+		},
+	}
+
+	pluginSpecific = append(pluginSpecific, &cpb.PluginSpecificConfig{
+		Config: &cpb.PluginSpecificConfig_Osvlocal{
+			Osvlocal: &cpb.OSVLocalConfig{
+				Download:   actions.DownloadDatabases,
+				LocalPath:  actions.LocalDBPath,
+				RemoteHost: "https://osv-vulnerabilities.storage.googleapis.com",
+			},
+		},
+	})
+	pluginSpecific = append(pluginSpecific, &cpb.PluginSpecificConfig{
+		Config: &cpb.PluginSpecificConfig_Osvdev{
+			Osvdev: &cpb.OSVDevConfig{
+				InitialQueryTimeoutSeconds: 300, // 5 minutes
+			},
+		},
+	})
+
+	cfg := &cpb.PluginConfig{
+		UserAgent:      actions.RequestUserAgent,
+		PluginSpecific: pluginSpecific,
 	}
 
 	if !actions.PluginsNoDefaults {
@@ -104,6 +124,12 @@ func getPlugins(
 		actions.PluginsEnabled = append(actions.PluginsEnabled, "licenses")
 	}
 
+	if actions.CompareOffline {
+		actions.PluginsEnabled = append(actions.PluginsEnabled, "vulnmatch/osvlocal")
+	} else {
+		actions.PluginsEnabled = append(actions.PluginsEnabled, "vulnmatch/osvdev")
+	}
+
 	plugins := scalibrplugin.Resolve(actions.PluginsEnabled, actions.PluginsDisabled, cfg, clientFactories)
 
 	// Append the pre-matching filter annotator so it always runs.
@@ -116,7 +142,7 @@ func getPlugins(
 }
 
 func networkCapability(actions ScannerActions) plugin.Network {
-	if actions.PluginNetworkDisabled {
+	if actions.PluginNetworkDisabled && !actions.DownloadDatabases {
 		return plugin.NetworkOffline
 	}
 
@@ -328,13 +354,33 @@ SBOMLoop:
 		}
 
 		slices.SortFunc(sr.Inventory.Packages, inventorySort)
-		invsCompact := slices.CompactFunc(sr.Inventory.Packages, func(a, b *extractor.Package) bool {
-			return inventorySort(a, b) == 0
-		})
-		sr.Inventory.Packages = invsCompact
+		pkgMap := make(map[*extractor.Package]*extractor.Package)
+		var uniquePkgs []*extractor.Package
+		if len(sr.Inventory.Packages) > 0 {
+			kept := sr.Inventory.Packages[0]
+			uniquePkgs = append(uniquePkgs, kept)
+			for i := 1; i < len(sr.Inventory.Packages); i++ {
+				current := sr.Inventory.Packages[i]
+				if inventorySort(kept, current) == 0 {
+					pkgMap[current] = kept
+				} else {
+					kept = current
+					uniquePkgs = append(uniquePkgs, kept)
+				}
+			}
+		}
+		sr.Inventory.Packages = uniquePkgs
+
+		for _, vuln := range sr.Inventory.PackageVulns {
+			if kept, ok := pkgMap[vuln.Package]; ok {
+				vuln.Package = kept
+			}
+		}
+		sr.Inventory.PackageVulns = dedupPackageVulns(sr.Inventory.PackageVulns)
 
 		inv.GenericFindings = append(inv.GenericFindings, sr.Inventory.GenericFindings...)
 		inv.Packages = append(inv.Packages, sr.Inventory.Packages...)
+		inv.PackageVulns = append(inv.PackageVulns, sr.Inventory.PackageVulns...)
 	}
 
 	testlogger.EndDirScanMarker()
@@ -462,4 +508,45 @@ func determineOS() plugin.OS {
 
 		return plugin.OSAny
 	}
+}
+
+type vulnKey struct {
+	pkg    *extractor.Package
+	vulnID string
+}
+
+func dedupPackageVulns(vulns []*inventory.PackageVuln) []*inventory.PackageVuln {
+	if len(vulns) == 0 {
+		return vulns
+	}
+
+	dedupVulns := make(map[vulnKey]*inventory.PackageVuln)
+
+	for _, vv := range vulns {
+		k := vulnKey{vv.Package, vv.Vulnerability.Id}
+		if v, ok := dedupVulns[k]; !ok {
+			dedupVulns[k] = vv
+		} else {
+			// Merge plugins
+			for _, p := range vv.Plugins {
+				if !slices.Contains(v.Plugins, p) {
+					v.Plugins = append(v.Plugins, p)
+				}
+			}
+		}
+	}
+
+	result := make([]*inventory.PackageVuln, 0, len(dedupVulns))
+	for _, v := range dedupVulns {
+		result = append(result, v)
+	}
+
+	slices.SortFunc(result, func(a, b *inventory.PackageVuln) int {
+		if a.Package == b.Package {
+			return cmp.Compare(a.Vulnerability.Id, b.Vulnerability.Id)
+		}
+		return inventorySort(a.Package, b.Package)
+	})
+
+	return result
 }
