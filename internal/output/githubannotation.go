@@ -82,30 +82,23 @@ func PrintGHAnnotationReport(vulnResult *models.VulnerabilityResults, outputWrit
 		// Sanitize artifactPath to prevent GitHub Actions workflow command injection.
 		// \r and \n in the file= parameter can terminate the annotation early and inject
 		// arbitrary workflow commands (e.g. ::warning::, ::add-mask::) into the runner output.
-		artifactPath = strings.ReplaceAll(artifactPath, "\r", "%0D")
-		artifactPath = strings.ReplaceAll(artifactPath, "\n", "%0A")
+		// The file property also needs the standard workflow command property escapes.
+		annotationFile := escapeWorkflowCommandProperty(artifactPath)
+		annotationPath := escapeWorkflowCommandData(artifactPath)
 
 		remediationTable, hasVulnTable := createSourceRemediationTable(source, groupedFixedVersions)
 		if hasVulnTable {
-			renderedTable := remediationTable.Render()
-			// This is required as github action annotations must be on the same terminal line
-			// so we URL encode the new line character
-			renderedTable = strings.ReplaceAll(renderedTable, "\n", "%0A")
-			// Sanitize \r to prevent workflow command injection via carriage return in package names
-			renderedTable = strings.ReplaceAll(renderedTable, "\r", "%0D")
+			renderedTable := escapeWorkflowCommandData(remediationTable.Render())
 
 			// Prepend the table with a new line to look nicer in the output
-			fmt.Fprintf(outputWriter, "::error file=%s::%s%s", artifactPath, artifactPath, "%0A"+renderedTable)
+			fmt.Fprintf(outputWriter, "::error file=%s::%s%s", annotationFile, annotationPath, "%0A"+renderedTable)
 		}
 
 		// Create and render package deprecation table
 		deprecationTable, hasDeprecationTable := createDeprecationTable(source)
 		if hasDeprecationTable {
-			renderedDeprecationTable := deprecationTable.Render()
-			renderedDeprecationTable = strings.ReplaceAll(renderedDeprecationTable, "\n", "%0A")
-			// Sanitize \r to prevent workflow command injection via carriage return in package names
-			renderedDeprecationTable = strings.ReplaceAll(renderedDeprecationTable, "\r", "%0D")
-			fmt.Fprintf(outputWriter, "::error file=%s::%s%s", artifactPath, artifactPath, "%0A"+renderedDeprecationTable)
+			renderedDeprecationTable := escapeWorkflowCommandData(deprecationTable.Render())
+			fmt.Fprintf(outputWriter, "::error file=%s::%s%s", annotationFile, annotationPath, "%0A"+renderedDeprecationTable)
 		}
 	}
 

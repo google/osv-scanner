@@ -15,3 +15,21 @@ var workflowCommandReplacer = strings.NewReplacer("\r", "%0D", "\n", "%0A")
 func SanitizeForWorkflowCommand(s string) string {
 	return workflowCommandReplacer.Replace(s)
 }
+
+var workflowCommandDataReplacer = strings.NewReplacer("%", "%25", "\r", "%0D", "\n", "%0A")
+
+var workflowCommandPropertyReplacer = strings.NewReplacer(
+	"%", "%25",
+	"\r", "%0D",
+	"\n", "%0A",
+	":", "%3A",
+	",", "%2C",
+)
+
+func escapeWorkflowCommandData(s string) string {
+	return workflowCommandDataReplacer.Replace(s)
+}
+
+func escapeWorkflowCommandProperty(s string) string {
+	return workflowCommandPropertyReplacer.Replace(s)
+}

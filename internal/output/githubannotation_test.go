@@ -114,3 +114,50 @@ func TestPrintGHAnnotationReport_CRSanitization(t *testing.T) {
 		t.Errorf("GH annotation output does not contain %%0D encoding for \\r character.\nOutput: %q", result)
 	}
 }
+
+func TestPrintGHAnnotationReport_EscapesWorkflowCommandSpecialChars(t *testing.T) {
+	t.Parallel()
+
+	vulnResult := &models.VulnerabilityResults{
+		Results: []models.PackageSource{
+			{
+				Source: models.SourceInfo{
+					Path: "scan,line=1:title%25/package-lock.json",
+					Type: "lockfile",
+				},
+				Packages: []models.PackageVulns{
+					{
+						Package: models.PackageInfo{
+							Name:      "lodash%0A::warning::INJECTED",
+							Version:   "4.17.20",
+							Ecosystem: "npm",
+						},
+						Groups: []models.GroupInfo{
+							{
+								IDs:         []string{"GHSA-35jh-r3h4-6jhm"},
+								MaxSeverity: "7.2",
+							},
+						},
+					},
+				},
+			},
+		},
+	}
+
+	outputWriter := &bytes.Buffer{}
+	err := output.PrintGHAnnotationReport(vulnResult, outputWriter)
+	if err != nil {
+		t.Errorf("Error writing GH annotation output: %s", err)
+	}
+
+	result := outputWriter.String()
+	if strings.Contains(result, "file=scan,line=1:title%25") {
+		t.Errorf("GH annotation file property contains unescaped workflow command property characters.\nOutput: %q", result)
+	}
+
+	for _, want := range []string{"scan%2Cline=1%3Atitle%2525", "lodash%250A::warning::INJECTED"} {
+		if !strings.Contains(result, want) {
+			t.Errorf("GH annotation output is missing escaped value %q.\nOutput: %q", want, result)
+		}
+	}
+}
