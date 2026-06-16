@@ -137,7 +137,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 760
+      content_length: 1137
       host: api.osv.dev
       body: |
         {
@@ -145,16 +145,30 @@ interactions:
             {
               "package": {
                 "ecosystem": "npm",
-                "name": "has-flag"
+                "name": "ansi-html"
               },
-              "version": "4.0.0"
+              "version": "0.0.8"
+            },
+            {
+              "package": {
+                "ecosystem": "RubyGems",
+                "name": "ast"
+              },
+              "version": "2.4.2"
             },
             {
               "package": {
                 "ecosystem": "npm",
-                "name": "wrappy"
+                "name": "balanced-match"
               },
               "version": "1.0.2"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "has-flag"
+              },
+              "version": "4.0.0"
             },
             {
               "package": {
@@ -165,10 +179,10 @@ interactions:
             },
             {
               "package": {
-                "ecosystem": "npm",
-                "name": "ansi-html"
+                "ecosystem": "Packagist",
+                "name": "sentry/sdk"
               },
-              "version": "0.0.1"
+              "version": "2.0.4"
             },
             {
               "package": {
@@ -183,6 +197,114 @@ interactions:
                 "name": "toolchain"
               },
               "version": "1.99.9"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "wrappy"
+              },
+              "version": "1.0.2"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_LockfileWithExplicitParseAs/files_that_error_on_parsing_stop_parsable_files_from_being_checked
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 119
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-9f46-5r25-5wfm",
+                  "modified": "2026-03-13T22:01:08.982482Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "119"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 882
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "has-flag"
+              },
+              "version": "4.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "league/flysystem"
+              },
+              "version": "1.0.8"
+            },
+            {
+              "package": {
+                "ecosystem": "Go",
+                "name": "stdlib"
+              },
+              "version": "1.99.9"
+            },
+            {
+              "package": {
+                "ecosystem": "Go",
+                "name": "toolchain"
+              },
+              "version": "1.99.9"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "wrappy"
+              },
+              "version": "1.0.2"
             }
           ]
         }
@@ -197,17 +319,15 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 189
+      content_length: 271
       body: |
         {
           "results": [
-            {},
-            {},
             {
               "vulns": [
                 {
-                  "id": "GHSA-9f46-5r25-5wfm",
-                  "modified": "2026-03-13T22:01:08.982482Z"
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
                 }
               ]
             },
@@ -220,12 +340,22 @@ interactions:
               ]
             },
             {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-9f46-5r25-5wfm",
+                  "modified": "2026-03-13T22:01:08.982482Z"
+                }
+              ]
+            },
+            {},
+            {},
             {}
           ]
         }
       headers:
         Content-Length:
-          - "189"
+          - "271"
         Content-Type:
           - application/json
       status: 200 OK
@@ -235,11 +365,25 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 760
+      content_length: 882
       host: api.osv.dev
       body: |
         {
           "queries": [
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            },
             {
               "package": {
                 "ecosystem": "npm",
@@ -249,24 +393,10 @@ interactions:
             },
             {
               "package": {
-                "ecosystem": "npm",
-                "name": "wrappy"
-              },
-              "version": "1.0.2"
-            },
-            {
-              "package": {
                 "ecosystem": "Packagist",
                 "name": "league/flysystem"
               },
               "version": "1.0.8"
-            },
-            {
-              "package": {
-                "ecosystem": "npm",
-                "name": "ansi-html"
-              },
-              "version": "0.0.1"
             },
             {
               "package": {
@@ -281,6 +411,13 @@ interactions:
                 "name": "toolchain"
               },
               "version": "1.99.9"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "wrappy"
+              },
+              "version": "1.0.2"
             }
           ]
         }
@@ -295,17 +432,15 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 189
+      content_length: 271
       body: |
         {
           "results": [
-            {},
-            {},
             {
               "vulns": [
                 {
-                  "id": "GHSA-9f46-5r25-5wfm",
-                  "modified": "2026-03-13T22:01:08.982482Z"
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
                 }
               ]
             },
@@ -318,42 +453,22 @@ interactions:
               ]
             },
             {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-9f46-5r25-5wfm",
+                  "modified": "2026-03-13T22:01:08.982482Z"
+                }
+              ]
+            },
+            {},
+            {},
             {}
           ]
         }
       headers:
         Content-Length:
-          - "189"
-        Content-Type:
-          - application/json
-      status: 200 OK
-      code: 200
-      duration: 0s
-  - request:
-      proto: HTTP/1.1
-      proto_major: 1
-      proto_minor: 1
-      content_length: 3
-      host: api.osv.dev
-      body: |
-        {}
-      headers:
-        Content-Type:
-          - application/json
-        X-Test-Name:
-          - TestCommand_LockfileWithExplicitParseAs/one_lockfile_with_local_path
-      url: https://api.osv.dev/v1/querybatch
-      method: POST
-    response:
-      proto: HTTP/2.0
-      proto_major: 2
-      proto_minor: 0
-      content_length: 2
-      body: |
-        {}
-      headers:
-        Content-Length:
-          - "2"
+          - "271"
         Content-Type:
           - application/json
       status: 200 OK
@@ -371,16 +486,16 @@ interactions:
             {
               "package": {
                 "ecosystem": "npm",
-                "name": "has-flag"
+                "name": "ansi-html"
               },
-              "version": "4.0.0"
+              "version": "0.0.1"
             },
             {
               "package": {
                 "ecosystem": "npm",
-                "name": "wrappy"
+                "name": "has-flag"
               },
-              "version": "1.0.2"
+              "version": "4.0.0"
             },
             {
               "package": {
@@ -388,13 +503,6 @@ interactions:
                 "name": "league/flysystem"
               },
               "version": "1.0.8"
-            },
-            {
-              "package": {
-                "ecosystem": "npm",
-                "name": "ansi-html"
-              },
-              "version": "0.0.1"
             },
             {
               "package": {
@@ -409,6 +517,13 @@ interactions:
                 "name": "toolchain"
               },
               "version": "1.99.9"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "wrappy"
+              },
+              "version": "1.0.2"
             }
           ]
         }
@@ -427,7 +542,14 @@ interactions:
       body: |
         {
           "results": [
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            },
             {},
             {
               "vulns": [
@@ -437,14 +559,7 @@ interactions:
                 }
               ]
             },
-            {
-              "vulns": [
-                {
-                  "id": "GHSA-whgm-jr23-g3j9",
-                  "modified": "2023-11-08T04:05:08.868477Z"
-                }
-              ]
-            },
+            {},
             {},
             {}
           ]
