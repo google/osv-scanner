@@ -24,4 +24,4 @@ jobs:
       - name: Run zizmor 🌈
         uses: zizmorcore/zizmor-action@5f14fd08f7cf1cb1609c1e344975f152c7ee938d # v0.5.6
         with:
-          arguments: "--config .github/zizmor-config.yml"
+          config: .github/zizmor.yml

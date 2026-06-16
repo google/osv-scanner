@@ -13,7 +13,7 @@ require (
 	github.com/go-git/go-git/v5 v5.19.1
 	github.com/gobwas/glob v0.2.3
 	github.com/google/go-cmp v0.7.0
-	github.com/google/osv-scalibr v0.4.6-0.20260605044922-fc3983a83405
+	github.com/google/osv-scalibr v0.4.6-0.20260612031204-164402d9140e
 	github.com/ianlancetaylor/demangle v0.0.0-20260505044615-1ff4bf46051f
 	github.com/jedib0t/go-pretty/v6 v6.7.10
 	github.com/modelcontextprotocol/go-sdk v1.6.1
@@ -214,11 +214,5 @@ require (
 	www.velocidex.com/golang/go-ntfs v0.2.0 // indirect
 	www.velocidex.com/golang/regparser v0.0.0-20250203141505-31e704a67ef7 // indirect
 )
-
-// github.com/containerd/containerd v1.7.x is incompatible with runtime-spec v1.3.0.
-// https://github.com/google/osv-scanner/pull/2705#issuecomment-4212012410
-// So this needs to be kept at v1.2.1
-// Temporarily commented out by downgrading containerd.
-// replace github.com/opencontainers/runtime-spec => github.com/opencontainers/runtime-spec v1.2.1
 
 replace github.com/google/osv-scalibr => ./osv-scalibr-portal
