@@ -8,7 +8,7 @@ import (
 	"slices"
 	"sync"
 
-	"github.com/google/osv-scalibr"
+	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/annotator"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/inventory"

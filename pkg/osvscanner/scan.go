@@ -56,8 +56,9 @@ func getPlugins(
 	configManager *scanconfig.Manager,
 	isContainerScan bool,
 ) []plugin.Plugin {
-	pluginSpecific := []*cpb.PluginSpecificConfig{
-		{
+	pluginSpecific := make([]*cpb.PluginSpecificConfig, 0, 4)
+	pluginSpecific = append(pluginSpecific,
+		&cpb.PluginSpecificConfig{
 			Config: &cpb.PluginSpecificConfig_PomXmlNet{
 				PomXmlNet: &cpb.POMXMLNetConfig{
 					UpstreamRegistry:    actions.TransitiveScanning.MavenRegistry,
@@ -65,14 +66,14 @@ func getPlugins(
 				},
 			},
 		},
-		{
+		&cpb.PluginSpecificConfig{
 			Config: &cpb.PluginSpecificConfig_PythonRequirementsTransitive{
 				PythonRequirementsTransitive: &cpb.PythonRequirementsTransitiveConfig{
 					DepsDevRequirements: !actions.TransitiveScanning.NativeDataSource,
 				},
 			},
 		},
-	}
+	)
 
 	pluginSpecific = append(pluginSpecific, &cpb.PluginSpecificConfig{
 		Config: &cpb.PluginSpecificConfig_Osvlocal{
@@ -523,7 +524,7 @@ func dedupPackageVulns(vulns []*inventory.PackageVuln) []*inventory.PackageVuln 
 	dedupVulns := make(map[vulnKey]*inventory.PackageVuln)
 
 	for _, vv := range vulns {
-		k := vulnKey{vv.Package, vv.Vulnerability.Id}
+		k := vulnKey{vv.Package, vv.Vulnerability.GetId()}
 		if v, ok := dedupVulns[k]; !ok {
 			dedupVulns[k] = vv
 		} else {
@@ -543,8 +544,9 @@ func dedupPackageVulns(vulns []*inventory.PackageVuln) []*inventory.PackageVuln 
 
 	slices.SortFunc(result, func(a, b *inventory.PackageVuln) int {
 		if a.Package == b.Package {
-			return cmp.Compare(a.Vulnerability.Id, b.Vulnerability.Id)
+			return cmp.Compare(a.Vulnerability.GetId(), b.Vulnerability.GetId())
 		}
+
 		return inventorySort(a.Package, b.Package)
 	})
 

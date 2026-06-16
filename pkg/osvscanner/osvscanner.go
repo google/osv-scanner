@@ -112,11 +112,11 @@ var ErrVulnerabilitiesFound = errors.New("vulnerabilities found")
 // TODO(v2): Actually use this error
 var ErrAPIFailed = errors.New("API query failed")
 
-func initializeExternalAccessors(actions ScannerActions, clientFactories scalibrconfig.ClientFactories) (ExternalAccessors, error) {
+func initializeExternalAccessors(actions ScannerActions, clientFactories scalibrconfig.ClientFactories) ExternalAccessors {
 	externalAccessors := ExternalAccessors{}
 
 	if actions.CompareOffline {
-		return externalAccessors, nil
+		return externalAccessors
 	}
 
 	userAgent := "osv-scanner-api"
@@ -135,7 +135,7 @@ func initializeExternalAccessors(actions ScannerActions, clientFactories scalibr
 		BaseHostURL: osvdev.DefaultBaseURL,
 	}
 
-	return externalAccessors, nil
+	return externalAccessors
 }
 
 // DoScan performs the osv scanner action, with optional reporter to output information
@@ -182,10 +182,7 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 		}()
 	}
 
-	accessors, err := initializeExternalAccessors(actions, clientFactories)
-	if err != nil {
-		return models.VulnerabilityResults{}, fmt.Errorf("failed to initialize accessors: %w", err)
-	}
+	accessors := initializeExternalAccessors(actions, clientFactories)
 
 	// ----- Perform Scanning -----
 	packagesAndFindings, filterAnno, err := scan(accessors, actions, clientFactories, &scanResults.ConfigManager)
@@ -239,10 +236,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		}()
 	}
 
-	accessors, err := initializeExternalAccessors(actions, clientFactories)
-	if err != nil {
-		return models.VulnerabilityResults{}, fmt.Errorf("failed to initialize accessors: %w", err)
-	}
+	accessors := initializeExternalAccessors(actions, clientFactories)
 
 	plugins := getPlugins(
 		[]string{"artifact"},
@@ -265,6 +259,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	ctx := context.TODO()
 
 	var img *image.Image
+	var err error
 	if actions.IsImageArchive {
 		cmdlogger.Infof("Scanning local image tarball %q", actions.Image)
 		img, err = image.FromTarball(actions.Image, image.DefaultConfig())

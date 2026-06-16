@@ -126,7 +126,7 @@ func InsertCassette(t *testing.T) *http.Client {
 			}
 			// exclude requests for binary file downloads from cassettes (e.g. zip databases, jar files)
 			ext := strings.ToLower(filepath.Ext(req.URL.Path))
-			binaryExts := []string{".zip", ".gz", ".bin", ".db", ".tar", ".tgz", ".jar", ".aar"}
+			binaryExts := []string{".zip", ".gz", ".bin", ".db", ".tar", ".tgz", ".jar", ".aar", ".whl"}
 
 			return slices.Contains(binaryExts, ext)
 		}),
@@ -159,12 +159,16 @@ func InsertCassette(t *testing.T) *http.Client {
 			prettyOptions := *pretty.DefaultOptions
 			prettyOptions.SortKeys = true
 
-			i.Request.Body = string(pretty.PrettyOptions([]byte(i.Request.Body), &prettyOptions))
-			i.Request.ContentLength = int64(len(i.Request.Body))
+			if strings.Contains(strings.ToLower(i.Request.Headers.Get("Content-Type")), "json") {
+				i.Request.Body = string(pretty.PrettyOptions([]byte(i.Request.Body), &prettyOptions))
+				i.Request.ContentLength = int64(len(i.Request.Body))
+			}
 
 			// use a static duration since we don't care about replicating latency
 			i.Response.Duration = 0
-			i.Response.Body = string(pretty.PrettyOptions([]byte(i.Response.Body), &prettyOptions))
+			if strings.Contains(strings.ToLower(i.Response.Headers.Get("Content-Type")), "json") {
+				i.Response.Body = string(pretty.PrettyOptions([]byte(i.Response.Body), &prettyOptions))
+			}
 
 			return nil
 		}, recorder.AfterCaptureHook),
