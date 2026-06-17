@@ -1243,7 +1243,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 2293
+      content_length: 2358
       body: |
         {
           "results": [
@@ -1306,7 +1306,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-65pc-fj4g-8rjx",
-                  "modified": "2026-06-09T12:00:13.346264Z"
+                  "modified": "2026-06-16T16:26:11.904403Z"
                 },
                 {
                   "id": "GHSA-jjg7-2v4v-x38h",
@@ -1315,6 +1315,10 @@ interactions:
                 {
                   "id": "PYSEC-2024-60",
                   "modified": "2026-06-10T17:01:21.102419Z"
+                },
+                {
+                  "id": "PYSEC-2026-215",
+                  "modified": "2026-06-16T16:15:04.639265Z"
                 }
               ]
             },
@@ -1407,7 +1411,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "2293"
+          - "2358"
         Content-Type:
           - application/json
       status: 200 OK
@@ -1526,7 +1530,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 2293
+      content_length: 2358
       body: |
         {
           "results": [
@@ -1589,7 +1593,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-65pc-fj4g-8rjx",
-                  "modified": "2026-06-09T12:00:13.346264Z"
+                  "modified": "2026-06-16T16:26:11.904403Z"
                 },
                 {
                   "id": "GHSA-jjg7-2v4v-x38h",
@@ -1598,6 +1602,10 @@ interactions:
                 {
                   "id": "PYSEC-2024-60",
                   "modified": "2026-06-10T17:01:21.102419Z"
+                },
+                {
+                  "id": "PYSEC-2026-215",
+                  "modified": "2026-06-16T16:15:04.639265Z"
                 }
               ]
             },
@@ -1690,7 +1698,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "2293"
+          - "2358"
         Content-Type:
           - application/json
       status: 200 OK
