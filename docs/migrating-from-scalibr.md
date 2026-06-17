@@ -49,18 +49,18 @@ https://github.com/google/osv-scalibr/blob/main/docs/supported_inventory_types.m
 scalibr --plugins python/pip,go/gomod --detectors go/govulncheck /path/to/your/project
 ```
 
-In `osv-scanner`, you can achieve the same by using the `--experimental-plugins` flag. This is an experimental feature.
+In `osv-scanner`, you can achieve the same by using the `--x-plugins` flag. This is an experimental feature.
 
 **osv-scanner:**
 
 ```sh
-osv-scanner --experimental-plugins python/pip,go/gomod,go/govulncheck /path/to/your/project
+osv-scanner --x-plugins python/pip,go/gomod,go/govulncheck /path/to/your/project
 ```
 
-`osv-scanner` lets you exclude its default plugins with `--experimental-no-default-plugins`, for when you want to only
+`osv-scanner` lets you exclude its default plugins with `--x-no-default-plugins`, for when you want to only
 run specific plugins.
 
-`osv-scanner` also allows you to disable specific plugins with `--experimental-disable-plugins`.
+`osv-scanner` also allows you to disable specific plugins with `--x-disable-plugins`.
 
 For more details on manual plugin selection in `osv-scanner`, see the [manual plugin selection documentation](manual-plugin-selection.md).
 
@@ -93,10 +93,10 @@ For more details on `osv-scanner` output formats, see the [output documentation]
 | `--root`                          | `[directory]` (argument)  | `osv-scanner scan source [directory]`                                                                      |
 | `--result`                        | `--output`                | `osv-scanner --output <file>`                                                                              |
 | `-o`                              | `--format` and `--output` | e.g. `osv-scalibr -o spdx23-json=r.json` becomes `osv-scanner --format spdx-2.3-json --output-file r.json` |
-| `--plugins`                       | `--experimental-plugins`  |                                                                                                            |
-| `--extractors`                    | `--experimental-plugins`  |                                                                                                            |
-| `--detectors`                     | `--experimental-plugins`  |                                                                                                            |
-| `--annotators`                    | `--experimental-plugins`  |                                                                                                            |
+| `--plugins`                       | `--x-plugins`             |                                                                                                            |
+| `--extractors`                    | `--x-plugins`             |                                                                                                            |
+| `--detectors`                     | `--x-plugins`             |                                                                                                            |
+| `--annotators`                    | `--x-plugins`             |                                                                                                            |
 | `--ignore-sub-dirs`               | (no direct equivalent)    | `osv-scanner` is not recursive by default. Use `--recursive` to enable.                                    |
 | `--skip-dirs`                     | Not yet available         |                                                                                                            |
 | `--skip-dir-regex`                | Not yet available         |                                                                                                            |

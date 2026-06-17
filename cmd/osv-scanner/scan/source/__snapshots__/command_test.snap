@@ -1010,6 +1010,20 @@ No issues found
 
 ---
 
+[TestCommand/exclude_with_exact_directory_name_using_deprecated_flag - 1]
+Warning: --experimental-exclude has been deprecated in favor of --x-exclude
+Scanning dir ./testdata/locks-one-with-nested
+Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
+
+No issues found
+
+---
+
+[TestCommand/exclude_with_exact_directory_name_using_deprecated_flag - 2]
+
+---
+
 [TestCommand/exclude_with_glob_pattern - 1]
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
@@ -1115,7 +1129,7 @@ Scanned <rootdir>/testdata/sbom-insecure/postgres-stretch.cdx.xml file and found
 Scanned <rootdir>/testdata/sbom-insecure/with-duplicates.cdx.xml file and found 17 packages
 Filtered 10 local/unscannable package/s from the scan.
 
-Total 27 packages affected by 220 known vulnerabilities (25 Critical, 96 High, 68 Medium, 6 Low, 25 Unknown) from 5 ecosystems.
+Total 27 packages affected by 220 known vulnerabilities (26 Critical, 96 High, 68 Medium, 6 Low, 24 Unknown) from 5 ecosystems.
 21 vulnerabilities can be fixed.
 
 +---------------------------------------+------+--------------+--------------------------------+------------------------------------+-----------------------------------+---------------------------------------------------------------------+
@@ -1326,7 +1340,7 @@ Total 27 packages affected by 220 known vulnerabilities (25 Critical, 96 High, 6
 | https://osv.dev/DEBIAN-CVE-2023-47038 | 7.8  | Debian       | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2025-15649 | 5.5  | Debian       | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2025-40909 | 5.9  | Debian       | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
-| https://osv.dev/DEBIAN-CVE-2026-12087 |      | Debian       | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-12087 | 9.1  | Debian       | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2026-42496 | 9.1  | Debian       | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2026-42497 | 7.5  | Debian       | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2026-48959 | 7.5  | Debian       | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -1468,7 +1482,8 @@ OPTIONS:
    --recursive, -r                                                                  check subdirectories
    --no-ignore                                                                      also scan files that would be ignored by .gitignore
    --include-git-root                                                               include scanning git root (non-submoduled) repositories
-   --experimental-exclude string [ --experimental-exclude string ]                  exclude directory paths during scanning; use g:pattern for glob, r:pattern for regex, or just dirname for exact match (can be repeated)
+   --experimental-exclude string [ --experimental-exclude string ]                  [DEPRECATED] (use "--x-exclude" instead) exclude directory paths during scanning; use g:pattern for glob, r:pattern for regex, or just dirname for exact match (can be repeated)
+   --x-exclude string [ --x-exclude string ]                                        exclude directory paths during scanning; use g:pattern for glob, r:pattern for regex, or just dirname for exact match (can be repeated)
    --data-source string                                                             source to fetch package information from; value can be: deps.dev, native (default: "deps.dev")
    --maven-registry string                                                          URL of the default registry to fetch Maven metadata
    --config string                                                                  set/override config file
@@ -1488,10 +1503,14 @@ OPTIONS:
    --all-packages                                                                   when json output is selected, prints all packages
    --all-vulns                                                                      show all vulnerabilities including unimportant and uncalled ones
    --licenses value                                                                 report on licenses based on an allowlist
-   --experimental-flag-deprecated-packages                                          report if package versions are deprecated
-   --experimental-plugins string [ --experimental-plugins string ]                  list of specific plugins and presets of plugins to use (default: "lockfile", "sbom", "directory")
-   --experimental-disable-plugins string [ --experimental-disable-plugins string ]  list of specific plugins and presets of plugins to not use
-   --experimental-no-default-plugins                                                disable default plugins, instead using only those enabled by --experimental-plugins
+   --x-flag-deprecated-packages                                                     report if package versions are deprecated
+   --experimental-flag-deprecated-packages                                          [DEPRECATED] (use "--x-flag-deprecated-packages" instead) report if package versions are deprecated
+   --experimental-plugins string [ --experimental-plugins string ]                  [DEPRECATED] (use "--x-plugins" instead) list of specific plugins and presets of plugins to use (default: "lockfile", "sbom", "directory")
+   --x-plugins string [ --x-plugins string ]                                        list of specific plugins and presets of plugins to use (default: "lockfile", "sbom", "directory")
+   --experimental-disable-plugins string [ --experimental-disable-plugins string ]  [DEPRECATED] (use "--x-disable-plugins" instead) list of specific plugins and presets of plugins to not use
+   --x-disable-plugins string [ --x-disable-plugins string ]                        list of specific plugins and presets of plugins to not use
+   --experimental-no-default-plugins                                                [DEPRECATED] (use "--x-no-default-plugins" instead) disable default plugins, instead using only those enabled by --x-plugins
+   --x-no-default-plugins                                                           disable default plugins, instead using only those enabled by --experimental-plugins
    --help, -h                                                                       show help
 
 ---
@@ -2377,7 +2396,7 @@ Filtered 8 vulnerabilities from output
 testdata/osv-scanner-partial-ignores-config.toml has unused ignores:
  - CVE-2019-5188
 
-Total 25 packages affected by 214 known vulnerabilities (25 Critical, 91 High, 67 Medium, 6 Low, 25 Unknown) from 5 ecosystems.
+Total 25 packages affected by 214 known vulnerabilities (26 Critical, 91 High, 67 Medium, 6 Low, 24 Unknown) from 5 ecosystems.
 16 vulnerabilities can be fixed.
 
 +---------------------------------------+------+--------------+--------------------------------+------------------------------------+-----------------------------------+---------------------------------------------------------------------+
@@ -2580,7 +2599,7 @@ Total 25 packages affected by 214 known vulnerabilities (25 Critical, 91 High, 6
 | https://osv.dev/DEBIAN-CVE-2023-47038 | 7.8  | Debian       | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2025-15649 | 5.5  | Debian       | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2025-40909 | 5.9  | Debian       | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
-| https://osv.dev/DEBIAN-CVE-2026-12087 |      | Debian       | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-12087 | 9.1  | Debian       | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2026-42496 | 9.1  | Debian       | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2026-42497 | 7.5  | Debian       | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2026-48959 | 7.5  | Debian       | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -2646,7 +2665,7 @@ Filtered 6 vulnerabilities from output
 testdata/osv-scanner-partial-ignores-config.toml has unused ignores:
  - CVE-2019-5188
 
-Total 23 packages affected by 210 known vulnerabilities (23 Critical, 90 High, 66 Medium, 6 Low, 25 Unknown) from 3 ecosystems.
+Total 23 packages affected by 210 known vulnerabilities (24 Critical, 90 High, 66 Medium, 6 Low, 24 Unknown) from 3 ecosystems.
 12 vulnerabilities can be fixed.
 
 +---------------------------------------+------+--------------+--------------------------------+------------------------------------+-----------------------------------+-------------------------------------------------+
@@ -2845,7 +2864,7 @@ Total 23 packages affected by 210 known vulnerabilities (23 Critical, 90 High, 6
 | https://osv.dev/DEBIAN-CVE-2023-47038 | 7.8  | Debian       | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2025-15649 | 5.5  | Debian       | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2025-40909 | 5.9  | Debian       | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/DEBIAN-CVE-2026-12087 |      | Debian       | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-12087 | 9.1  | Debian       | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2026-42496 | 9.1  | Debian       | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2026-42497 | 7.5  | Debian       | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2026-48959 | 7.5  | Debian       | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2894,6 +2913,27 @@ Total 23 packages affected by 210 known vulnerabilities (23 Critical, 90 High, 6
 ---
 
 [TestCommand_Config_UnusedIgnores/unused_ignores_are_reported_with_specific_config_and_multiple_files - 2]
+
+---
+
+[TestCommand_ExplicitExtractors_WithDefaults/deprecated_empty_plugins_flag_does_nothing - 1]
+Warning: --experimental-plugins has been deprecated in favor of --x-plugins
+
+---
+
+[TestCommand_ExplicitExtractors_WithDefaults/deprecated_empty_plugins_flag_does_nothing - 2]
+No package sources found, --help for usage information.
+
+---
+
+[TestCommand_ExplicitExtractors_WithDefaults/deprecated_extractors_cancelled_out_specified_individually - 1]
+Warning: --experimental-plugins has been deprecated in favor of --x-plugins
+Warning: --experimental-disable-plugins has been deprecated in favor of --x-disable-plugins
+
+---
+
+[TestCommand_ExplicitExtractors_WithDefaults/deprecated_extractors_cancelled_out_specified_individually - 2]
+No package sources found, --help for usage information.
 
 ---
 
@@ -3047,6 +3087,29 @@ No issues found
 
 [TestCommand_ExplicitExtractors_WithDefaults/scanning_file_with_parse_as_but_specific_extractor_disabled - 2]
 could not determine extractor, requested package-lock.json
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/deprecated_empty_plugins_flag_does_nothing - 1]
+Warning: --experimental-plugins has been deprecated in favor of --x-plugins
+Warning: --experimental-no-default-plugins has been deprecated in favor of --x-no-default-plugins
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/deprecated_empty_plugins_flag_does_nothing - 2]
+at least one extractor must be enabled
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/deprecated_extractors_cancelled_out_specified_individually - 1]
+Warning: --experimental-plugins has been deprecated in favor of --x-plugins
+Warning: --experimental-disable-plugins has been deprecated in favor of --x-disable-plugins
+Warning: --experimental-no-default-plugins has been deprecated in favor of --x-no-default-plugins
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/deprecated_extractors_cancelled_out_specified_individually - 2]
+at least one extractor must be enabled
 
 ---
 
@@ -3476,6 +3539,84 @@ Total 1 package deprecated.
 ---
 
 [TestCommand_FlagDeprecatedPackages/package_deprecated_true_with_vuln_table - 2]
+
+---
+
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_with_vuln_table_and_new_flag_false - 1]
+Warning: --experimental-flag-deprecated-packages has been deprecated in favor of --x-flag-deprecated-packages
+Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock
+Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock file and found 7 packages
+
+Total 1 package affected by 2 known vulnerabilities (0 Critical, 0 High, 1 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
++-------------------------------------+------+-----------+---------+---------+---------------+--------------------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE | VERSION | FIXED VERSION | SOURCE                                                       |
++-------------------------------------+------+-----------+---------+---------+---------------+--------------------------------------------------------------+
+| https://osv.dev/RUSTSEC-2020-0016   |      | crates.io | net2    | 0.2.33  | --            | testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock |
+| https://osv.dev/RUSTSEC-2020-0078   | 5.5  | crates.io | net2    | 0.2.33  | 0.2.36        | testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock |
+| https://osv.dev/GHSA-458v-4hrf-g3m4 |      |           |         |         |               |                                                              |
+| https://osv.dev/GHSA-c79c-gwph-gqfm |      |           |         |         |               |                                                              |
++-------------------------------------+------+-----------+---------+---------+---------------+--------------------------------------------------------------+
+
+---
+
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_with_vuln_table_and_new_flag_false - 2]
+
+---
+
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_with_vuln_table_and_old_flag_false - 1]
+Warning: --experimental-flag-deprecated-packages has been deprecated in favor of --x-flag-deprecated-packages
+Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock
+Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock file and found 7 packages
+
+Total 1 package affected by 2 known vulnerabilities (0 Critical, 0 High, 1 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
++-------------------------------------+------+-----------+---------+---------+---------------+--------------------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE | VERSION | FIXED VERSION | SOURCE                                                       |
++-------------------------------------+------+-----------+---------+---------+---------------+--------------------------------------------------------------+
+| https://osv.dev/RUSTSEC-2020-0016   |      | crates.io | net2    | 0.2.33  | --            | testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock |
+| https://osv.dev/RUSTSEC-2020-0078   | 5.5  | crates.io | net2    | 0.2.33  | 0.2.36        | testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock |
+| https://osv.dev/GHSA-458v-4hrf-g3m4 |      |           |         |         |               |                                                              |
+| https://osv.dev/GHSA-c79c-gwph-gqfm |      |           |         |         |               |                                                              |
++-------------------------------------+------+-----------+---------+---------+---------------+--------------------------------------------------------------+
+
+---
+
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_with_vuln_table_and_old_flag_false - 2]
+
+---
+
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_with_vuln_table_using_old_flag - 1]
+Warning: --experimental-flag-deprecated-packages has been deprecated in favor of --x-flag-deprecated-packages
+Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock
+Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock file and found 7 packages
+
+Total 1 package affected by 2 known vulnerabilities (0 Critical, 0 High, 1 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
++-------------------------------------+------+-----------+---------+---------+---------------+--------------------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE | VERSION | FIXED VERSION | SOURCE                                                       |
++-------------------------------------+------+-----------+---------+---------+---------------+--------------------------------------------------------------+
+| https://osv.dev/RUSTSEC-2020-0016   |      | crates.io | net2    | 0.2.33  | --            | testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock |
+| https://osv.dev/RUSTSEC-2020-0078   | 5.5  | crates.io | net2    | 0.2.33  | 0.2.36        | testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock |
+| https://osv.dev/GHSA-458v-4hrf-g3m4 |      |           |         |         |               |                                                              |
+| https://osv.dev/GHSA-c79c-gwph-gqfm |      |           |         |         |               |                                                              |
++-------------------------------------+------+-----------+---------+---------+---------------+--------------------------------------------------------------+
+Total 1 package deprecated.
+
++----------------------------------------------------------------------------------------------+
+| Deprecated packages                                                                          |
++-----------+---------+---------+--------------------------------------------------------------+
+| ECOSYSTEM | PACKAGE | VERSION | SOURCE                                                       |
++-----------+---------+---------+--------------------------------------------------------------+
+| crates.io | net2    | 0.2.33  | testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock |
++-----------+---------+---------+--------------------------------------------------------------+
+
+---
+
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_with_vuln_table_using_old_flag - 2]
 
 ---
 
@@ -5000,7 +5141,7 @@ Filtered 1 local/unscannable package/s from the scan.
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
 
-Total 22 packages affected by 215 known vulnerabilities (22 Critical, 91 High, 67 Medium, 6 Low, 29 Unknown) from 2 ecosystems.
+Total 22 packages affected by 215 known vulnerabilities (23 Critical, 91 High, 67 Medium, 6 Low, 28 Unknown) from 2 ecosystems.
 12 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+-------------------------------------------------+
@@ -5202,7 +5343,7 @@ Total 22 packages affected by 215 known vulnerabilities (22 Critical, 91 High, 6
 | https://osv.dev/DEBIAN-CVE-2023-47038 | 7.8  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2025-15649 | 5.5  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2025-40909 | 5.9  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/DEBIAN-CVE-2026-12087 |      | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-12087 | 9.1  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2026-42496 | 9.1  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2026-42497 | 7.5  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2026-48959 | 7.5  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
@@ -5265,7 +5406,7 @@ Filtered 1 local/unscannable package/s from the scan.
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
 
-Total 22 packages affected by 215 known vulnerabilities (22 Critical, 91 High, 67 Medium, 6 Low, 29 Unknown) from 2 ecosystems.
+Total 22 packages affected by 215 known vulnerabilities (23 Critical, 91 High, 67 Medium, 6 Low, 28 Unknown) from 2 ecosystems.
 12 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+-------------------------------------------------+
@@ -5467,7 +5608,7 @@ Total 22 packages affected by 215 known vulnerabilities (22 Critical, 91 High, 6
 | https://osv.dev/DEBIAN-CVE-2023-47038 | 7.8  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2025-15649 | 5.5  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2025-40909 | 5.9  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/DEBIAN-CVE-2026-12087 |      | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-12087 | 9.1  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2026-42496 | 9.1  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2026-42497 | 7.5  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2026-48959 | 7.5  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
