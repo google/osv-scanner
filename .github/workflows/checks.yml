@@ -63,7 +63,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Run format action
-        uses: ./.github/workflows/format-action
+        uses: ./actions/internal/format-action
   tidy:
     permissions:
       contents: read # to fetch code (actions/checkout)
@@ -96,4 +96,4 @@ jobs:
           go-version-file: "go.mod"
           check-latest: true
       - name: Run lint action
-        uses: ./.github/workflows/lint-action
+        uses: ./actions/internal/lint-action
