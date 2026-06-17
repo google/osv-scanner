@@ -6446,7 +6446,6 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 Loaded filter from: <tempdir>/nested-1/osv-scanner-test.toml
 warning: <tempdir>/nested-2/osv-scanner-test.toml has multiple ignores for GHSA-2g4f-4pwh-qvx6 - only the first will be used!
@@ -6458,20 +6457,24 @@ Filtered 2 ignored package/s from the scan.
 <tempdir>/nested-1/osv-scanner-test.toml has been updated to ignore 3 vulnerabilities
 <tempdir>/nested-2/osv-scanner-test.toml has been updated to ignore 3 vulnerabilities
 <tempdir>/nested-3/osv-scanner-test.toml has been updated to ignore 1 vulnerability
-<tempdir>/osv-scanner-test.toml has been updated to ignore 2 vulnerabilities
+<tempdir>/osv-scanner-test.toml has been updated to ignore 4 vulnerabilities
 
-Total 9 packages affected by 11 known vulnerabilities (0 Critical, 4 High, 7 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-11 vulnerabilities can be fixed.
+Total 9 packages affected by 13 known vulnerabilities (0 Critical, 5 High, 8 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
+13 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
+      Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
+      Severity: '5.3'; Minimal Fix Version: '1.19.3';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+  3 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -6523,7 +6526,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
   1 known vulnerability found in lockfile:<tempdir>/package-lock.json
 
-
 ---
 
 [TestCommand_UpdateConfigIgnores_All/deep - 2 - stderr]
@@ -6531,6 +6533,14 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 ---
 
 [TestCommand_UpdateConfigIgnores_All/deep - 3]
+ScanGoModVersion = false
+
+[[IgnoredVulns]]
+id = "GHSA-c4rq-3m3g-8wgx"
+
+[[IgnoredVulns]]
+id = "GHSA-v2fc-qm4h-8hqv"
+
 [[IgnoredVulns]]
 id = "GHSA-whgm-jr23-g3j9"
 
@@ -6553,6 +6563,8 @@ id = "GHSA-2g4f-4pwh-qvx6"
 ---
 
 [TestCommand_UpdateConfigIgnores_All/deep - 5]
+ScanGoModVersion = false
+
 [[IgnoredVulns]]
 id = "GHSA-2g4f-4pwh-qvx6"
 
@@ -6565,6 +6577,8 @@ id = "GHSA-whgm-jr23-g3j9"
 ---
 
 [TestCommand_UpdateConfigIgnores_All/deep - 6]
+ScanGoModVersion = false
+
 [[IgnoredVulns]]
 id = "GHSA-2g4f-4pwh-qvx6"
 
@@ -6577,8 +6591,11 @@ id = "GHSA-whgm-jr23-g3j9"
 ---
 
 [TestCommand_UpdateConfigIgnores_All/deep - 7]
+ScanGoModVersion = false
+
 [[PackageOverrides]]
 name = "ajv"
+nameIsRegex = false
 ignore = true
 
 [[IgnoredVulns]]
@@ -6594,7 +6611,6 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 Loaded filter from: <tempdir>/nested-1/osv-scanner-test.toml
 Loaded filter from: <tempdir>/nested-2/osv-scanner-test.toml
@@ -6602,6 +6618,8 @@ Loaded filter from: <tempdir>/nested-3/osv-scanner-test.toml
 Package npm/ajv/6.0.0 has been filtered out because: (no reason given)
 Package npm/ajv/8.0.0 has been filtered out because: (no reason given)
 Filtered 2 ignored package/s from the scan.
+GHSA-c4rq-3m3g-8wgx has been filtered out because: (no reason given)
+GHSA-v2fc-qm4h-8hqv has been filtered out because: (no reason given)
 GHSA-wx95-c6cv-8532 has been filtered out because: (no reason given)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-v88g-cgmw-v5xw and 1 alias have been filtered out because: (no reason given)
@@ -6613,7 +6631,8 @@ GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
-Filtered 11 vulnerabilities from output
+Filtered 13 vulnerabilities from output
+
 No issues found
 
 ---
@@ -6630,25 +6649,28 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/nested-3/osv-scanner-test.toml
 Package npm/ajv/6.0.0 has been filtered out because: (no reason given)
 Package npm/ajv/8.0.0 has been filtered out because: (no reason given)
 Filtered 2 ignored package/s from the scan.
 <tempdir>/nested-3/osv-scanner-test.toml has been updated to ignore 1 vulnerability
 
-Total 9 packages affected by 11 known vulnerabilities (0 Critical, 4 High, 7 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-11 vulnerabilities can be fixed.
+Total 9 packages affected by 13 known vulnerabilities (0 Critical, 5 High, 8 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
+13 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
+      Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
+      Severity: '5.3'; Minimal Fix Version: '1.19.3';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+  3 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -6699,7 +6721,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
       Severity: '7.5'; Minimal Fix Version: '0.0.8';
 
   1 known vulnerability found in lockfile:<tempdir>/package-lock.json
-
 
 ---
 
@@ -6733,8 +6754,11 @@ id = "GHSA-2g4f-4pwh-qvx6"
 ---
 
 [TestCommand_UpdateConfigIgnores_All/deep_with_no_configs - 7]
+ScanGoModVersion = false
+
 [[PackageOverrides]]
 name = "ajv"
+nameIsRegex = false
 ignore = true
 
 [[IgnoredVulns]]
@@ -6750,7 +6774,6 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/nested-3/osv-scanner-test.toml
 Package npm/ajv/6.0.0 has been filtered out because: (no reason given)
 Package npm/ajv/8.0.0 has been filtered out because: (no reason given)
@@ -6758,18 +6781,22 @@ Filtered 2 ignored package/s from the scan.
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
 Filtered 1 vulnerability from output
 
-Total 8 packages affected by 10 known vulnerabilities (0 Critical, 3 High, 7 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-10 vulnerabilities can be fixed.
+Total 8 packages affected by 12 known vulnerabilities (0 Critical, 4 High, 8 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
+12 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
+      Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
+      Severity: '5.3'; Minimal Fix Version: '1.19.3';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+  3 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -6813,7 +6840,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
   1 known vulnerability found in lockfile:<tempdir>/package-lock.json
 
-
 ---
 
 [TestCommand_UpdateConfigIgnores_All/deep_with_no_configs - 9 - stderr]
@@ -6828,7 +6854,6 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 warning: <tempdir>/nested-2/osv-scanner-test.toml has multiple ignores for GHSA-2g4f-4pwh-qvx6 - only the first will be used!
 Loaded filter from: <tempdir>/nested-2/osv-scanner-test.toml
@@ -6838,20 +6863,24 @@ Package npm/ajv/8.0.0 has been filtered out because: (no reason given)
 Filtered 2 ignored package/s from the scan.
 <tempdir>/nested-2/osv-scanner-test.toml has been updated to ignore 3 vulnerabilities
 <tempdir>/nested-3/osv-scanner-test.toml has been updated to ignore 1 vulnerability
-<tempdir>/osv-scanner-test.toml has been updated to ignore 2 vulnerabilities
+<tempdir>/osv-scanner-test.toml has been updated to ignore 4 vulnerabilities
 
-Total 9 packages affected by 11 known vulnerabilities (0 Critical, 4 High, 7 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-11 vulnerabilities can be fixed.
+Total 9 packages affected by 13 known vulnerabilities (0 Critical, 5 High, 8 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
+13 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
+      Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
+      Severity: '5.3'; Minimal Fix Version: '1.19.3';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+  3 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -6903,7 +6932,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
   1 known vulnerability found in lockfile:<tempdir>/package-lock.json
 
-
 ---
 
 [TestCommand_UpdateConfigIgnores_All/deep_with_removed_config - 2 - stderr]
@@ -6911,6 +6939,14 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 ---
 
 [TestCommand_UpdateConfigIgnores_All/deep_with_removed_config - 3]
+ScanGoModVersion = false
+
+[[IgnoredVulns]]
+id = "GHSA-c4rq-3m3g-8wgx"
+
+[[IgnoredVulns]]
+id = "GHSA-v2fc-qm4h-8hqv"
+
 [[IgnoredVulns]]
 id = "GHSA-whgm-jr23-g3j9"
 
@@ -6937,6 +6973,8 @@ id = "GHSA-2g4f-4pwh-qvx6"
 ---
 
 [TestCommand_UpdateConfigIgnores_All/deep_with_removed_config - 6]
+ScanGoModVersion = false
+
 [[IgnoredVulns]]
 id = "GHSA-2g4f-4pwh-qvx6"
 
@@ -6949,8 +6987,11 @@ id = "GHSA-whgm-jr23-g3j9"
 ---
 
 [TestCommand_UpdateConfigIgnores_All/deep_with_removed_config - 7]
+ScanGoModVersion = false
+
 [[PackageOverrides]]
 name = "ajv"
+nameIsRegex = false
 ignore = true
 
 [[IgnoredVulns]]
@@ -6966,13 +7007,14 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 Loaded filter from: <tempdir>/nested-2/osv-scanner-test.toml
 Loaded filter from: <tempdir>/nested-3/osv-scanner-test.toml
 Package npm/ajv/6.0.0 has been filtered out because: (no reason given)
 Package npm/ajv/8.0.0 has been filtered out because: (no reason given)
 Filtered 2 ignored package/s from the scan.
+GHSA-c4rq-3m3g-8wgx has been filtered out because: (no reason given)
+GHSA-v2fc-qm4h-8hqv has been filtered out because: (no reason given)
 GHSA-wx95-c6cv-8532 has been filtered out because: (no reason given)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-v88g-cgmw-v5xw and 1 alias have been filtered out because: (no reason given)
@@ -6980,7 +7022,7 @@ GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
-Filtered 7 vulnerabilities from output
+Filtered 9 vulnerabilities from output
 
 Total 3 packages affected by 4 known vulnerabilities (0 Critical, 1 High, 3 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 4 vulnerabilities can be fixed.
@@ -7003,7 +7045,6 @@ lockfile:<tempdir>/nested-1/package-lock.json: found 3 packages with issues
 
   4 known vulnerabilities found in lockfile:<tempdir>/nested-1/package-lock.json
 
-
 ---
 
 [TestCommand_UpdateConfigIgnores_All/deep_with_removed_config - 9 - stderr]
@@ -7018,21 +7059,24 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
-<tempdir>/custom-config.toml has been updated to ignore 4 vulnerabilities
+<tempdir>/custom-config.toml has been updated to ignore 6 vulnerabilities
 
-Total 11 packages affected by 14 known vulnerabilities (0 Critical, 4 High, 10 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-14 vulnerabilities can be fixed.
+Total 11 packages affected by 16 known vulnerabilities (0 Critical, 5 High, 11 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
+16 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
+      Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
+      Severity: '5.3'; Minimal Fix Version: '1.19.3';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+  3 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -7092,7 +7136,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
   1 known vulnerability found in lockfile:<tempdir>/package-lock.json
 
-
 ---
 
 [TestCommand_UpdateConfigIgnores_All/global_config_deep - 2 - stderr]
@@ -7105,9 +7148,16 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
 [TestCommand_UpdateConfigIgnores_All/global_config_deep - 4]
 GoVersionOverride = "1.20.0"
+ScanGoModVersion = false
 
 [[IgnoredVulns]]
 id = "GHSA-2g4f-4pwh-qvx6"
+
+[[IgnoredVulns]]
+id = "GHSA-c4rq-3m3g-8wgx"
+
+[[IgnoredVulns]]
+id = "GHSA-v2fc-qm4h-8hqv"
 
 [[IgnoredVulns]]
 id = "GHSA-v88g-cgmw-v5xw"
@@ -7154,7 +7204,8 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
+GHSA-c4rq-3m3g-8wgx has been filtered out because: (no reason given)
+GHSA-v2fc-qm4h-8hqv has been filtered out because: (no reason given)
 GHSA-wx95-c6cv-8532 has been filtered out because: (no reason given)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-v88g-cgmw-v5xw and 1 alias have been filtered out because: (no reason given)
@@ -7169,7 +7220,8 @@ GHSA-v88g-cgmw-v5xw and 1 alias have been filtered out because: (no reason given
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
-Filtered 14 vulnerabilities from output
+Filtered 16 vulnerabilities from output
+
 No issues found
 
 ---
@@ -7183,7 +7235,6 @@ Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 <tempdir>/custom-config.toml has been updated to ignore 2 vulnerabilities
 
 Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
@@ -7209,7 +7260,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
   1 known vulnerability found in lockfile:<tempdir>/package-lock.json
 
-
 ---
 
 [TestCommand_UpdateConfigIgnores_All/global_config_shallow - 2 - stderr]
@@ -7222,6 +7272,7 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
 [TestCommand_UpdateConfigIgnores_All/global_config_shallow - 4]
 GoVersionOverride = "1.20.0"
+ScanGoModVersion = false
 
 [[IgnoredVulns]]
 id = "GHSA-whgm-jr23-g3j9"
@@ -7262,10 +7313,10 @@ Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 GHSA-wx95-c6cv-8532 has been filtered out because: (no reason given)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
 Filtered 2 vulnerabilities from output
+
 No issues found
 
 ---
@@ -7279,7 +7330,6 @@ Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 <tempdir>/osv-scanner-test.toml has been updated to ignore 2 vulnerabilities
 
@@ -7306,7 +7356,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
   1 known vulnerability found in lockfile:<tempdir>/package-lock.json
 
-
 ---
 
 [TestCommand_UpdateConfigIgnores_All/shallow - 2 - stderr]
@@ -7314,6 +7363,8 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 ---
 
 [TestCommand_UpdateConfigIgnores_All/shallow - 3]
+ScanGoModVersion = false
+
 [[IgnoredVulns]]
 id = "GHSA-whgm-jr23-g3j9"
 
@@ -7366,11 +7417,11 @@ Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 GHSA-wx95-c6cv-8532 has been filtered out because: (no reason given)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
 Filtered 2 vulnerabilities from output
+
 No issues found
 
 ---
@@ -7384,7 +7435,6 @@ Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 2 vulnerabilities can be fixed.
@@ -7408,7 +7458,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
       Severity: '7.5'; Minimal Fix Version: '0.0.8';
 
   1 known vulnerability found in lockfile:<tempdir>/package-lock.json
-
 
 ---
 
@@ -7464,7 +7513,6 @@ Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 2 vulnerabilities can be fixed.
@@ -7489,7 +7537,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
   1 known vulnerability found in lockfile:<tempdir>/package-lock.json
 
-
 ---
 
 [TestCommand_UpdateConfigIgnores_All/shallow_with_removed_config - 9 - stderr]
@@ -7504,7 +7551,6 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 Loaded filter from: <tempdir>/nested-1/osv-scanner-test.toml
 warning: <tempdir>/nested-2/osv-scanner-test.toml has multiple ignores for GHSA-2g4f-4pwh-qvx6 - only the first will be used!
@@ -7522,18 +7568,22 @@ Filtered 3 vulnerabilities from output
 <tempdir>/nested-3/osv-scanner-test.toml had unused ignores that were removed:
  - GHSA-2g4f-4pwh-qvx6
 
-Total 7 packages affected by 8 known vulnerabilities (0 Critical, 3 High, 5 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-8 vulnerabilities can be fixed.
+Total 7 packages affected by 10 known vulnerabilities (0 Critical, 4 High, 6 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
+10 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
+      Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
+      Severity: '5.3'; Minimal Fix Version: '1.19.3';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+  3 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -7576,7 +7626,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
       Severity: '7.5'; Minimal Fix Version: '0.0.8';
 
   1 known vulnerability found in lockfile:<tempdir>/package-lock.json
-
 
 ---
 
@@ -7609,14 +7658,19 @@ reason = "Test manifest file (package-lock.json)"
 ---
 
 [TestCommand_UpdateConfigIgnores_Unused/deep - 6]
+ScanGoModVersion = false
+
 [[IgnoredVulns]]
 id = "GHSA-2g4f-4pwh-qvx6"
 
 ---
 
 [TestCommand_UpdateConfigIgnores_Unused/deep - 7]
+ScanGoModVersion = false
+
 [[PackageOverrides]]
 name = "ajv"
+nameIsRegex = false
 ignore = true
 
 ---
@@ -7629,7 +7683,6 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 Loaded filter from: <tempdir>/nested-1/osv-scanner-test.toml
 Loaded filter from: <tempdir>/nested-2/osv-scanner-test.toml
@@ -7642,18 +7695,22 @@ GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 Filtered 3 vulnerabilities from output
 
-Total 7 packages affected by 8 known vulnerabilities (0 Critical, 3 High, 5 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-8 vulnerabilities can be fixed.
+Total 7 packages affected by 10 known vulnerabilities (0 Critical, 4 High, 6 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
+10 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
+      Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
+      Severity: '5.3'; Minimal Fix Version: '1.19.3';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+  3 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -7697,7 +7754,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
   1 known vulnerability found in lockfile:<tempdir>/package-lock.json
 
-
 ---
 
 [TestCommand_UpdateConfigIgnores_Unused/deep - 9 - stderr]
@@ -7712,7 +7768,6 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/nested-3/osv-scanner-test.toml
 Package npm/ajv/6.0.0 has been filtered out because: (no reason given)
 Package npm/ajv/8.0.0 has been filtered out because: (no reason given)
@@ -7720,18 +7775,22 @@ Filtered 2 ignored package/s from the scan.
 <tempdir>/nested-3/osv-scanner-test.toml had unused ignores that were removed:
  - GHSA-2g4f-4pwh-qvx6
 
-Total 9 packages affected by 11 known vulnerabilities (0 Critical, 4 High, 7 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-11 vulnerabilities can be fixed.
+Total 9 packages affected by 13 known vulnerabilities (0 Critical, 5 High, 8 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
+13 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
+      Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
+      Severity: '5.3'; Minimal Fix Version: '1.19.3';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+  3 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -7782,7 +7841,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
       Severity: '7.5'; Minimal Fix Version: '0.0.8';
 
   1 known vulnerability found in lockfile:<tempdir>/package-lock.json
-
 
 ---
 
@@ -7816,8 +7874,11 @@ id = "GHSA-2g4f-4pwh-qvx6"
 ---
 
 [TestCommand_UpdateConfigIgnores_Unused/deep_with_no_configs - 7]
+ScanGoModVersion = false
+
 [[PackageOverrides]]
 name = "ajv"
+nameIsRegex = false
 ignore = true
 
 ---
@@ -7830,24 +7891,27 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/nested-3/osv-scanner-test.toml
 Package npm/ajv/6.0.0 has been filtered out because: (no reason given)
 Package npm/ajv/8.0.0 has been filtered out because: (no reason given)
 Filtered 2 ignored package/s from the scan.
 
-Total 9 packages affected by 11 known vulnerabilities (0 Critical, 4 High, 7 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-11 vulnerabilities can be fixed.
+Total 9 packages affected by 13 known vulnerabilities (0 Critical, 5 High, 8 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
+13 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
+      Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
+      Severity: '5.3'; Minimal Fix Version: '1.19.3';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+  3 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -7899,7 +7963,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
   1 known vulnerability found in lockfile:<tempdir>/package-lock.json
 
-
 ---
 
 [TestCommand_UpdateConfigIgnores_Unused/deep_with_no_configs - 9 - stderr]
@@ -7914,7 +7977,6 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 warning: <tempdir>/nested-2/osv-scanner-test.toml has multiple ignores for GHSA-2g4f-4pwh-qvx6 - only the first will be used!
 Loaded filter from: <tempdir>/nested-2/osv-scanner-test.toml
@@ -7930,18 +7992,22 @@ Filtered 2 vulnerabilities from output
 <tempdir>/nested-3/osv-scanner-test.toml had unused ignores that were removed:
  - GHSA-2g4f-4pwh-qvx6
 
-Total 8 packages affected by 9 known vulnerabilities (0 Critical, 4 High, 5 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-9 vulnerabilities can be fixed.
+Total 8 packages affected by 11 known vulnerabilities (0 Critical, 5 High, 6 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
+11 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
+      Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
+      Severity: '5.3'; Minimal Fix Version: '1.19.3';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+  3 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -7987,7 +8053,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
       Severity: '7.5'; Minimal Fix Version: '0.0.8';
 
   1 known vulnerability found in lockfile:<tempdir>/package-lock.json
-
 
 ---
 
@@ -8017,14 +8082,19 @@ id = "GHSA-2g4f-4pwh-qvx6"
 ---
 
 [TestCommand_UpdateConfigIgnores_Unused/deep_with_removed_config - 6]
+ScanGoModVersion = false
+
 [[IgnoredVulns]]
 id = "GHSA-2g4f-4pwh-qvx6"
 
 ---
 
 [TestCommand_UpdateConfigIgnores_Unused/deep_with_removed_config - 7]
+ScanGoModVersion = false
+
 [[PackageOverrides]]
 name = "ajv"
+nameIsRegex = false
 ignore = true
 
 ---
@@ -8037,7 +8107,6 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 Loaded filter from: <tempdir>/nested-2/osv-scanner-test.toml
 Loaded filter from: <tempdir>/nested-3/osv-scanner-test.toml
@@ -8048,18 +8117,22 @@ GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 Filtered 2 vulnerabilities from output
 
-Total 8 packages affected by 9 known vulnerabilities (0 Critical, 4 High, 5 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-9 vulnerabilities can be fixed.
+Total 8 packages affected by 11 known vulnerabilities (0 Critical, 5 High, 6 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
+11 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
+      Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
+      Severity: '5.3'; Minimal Fix Version: '1.19.3';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+  3 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -8106,7 +8179,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
   1 known vulnerability found in lockfile:<tempdir>/package-lock.json
 
-
 ---
 
 [TestCommand_UpdateConfigIgnores_Unused/deep_with_removed_config - 9 - stderr]
@@ -8121,7 +8193,6 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
@@ -8132,18 +8203,22 @@ Filtered 6 vulnerabilities from output
 <tempdir>/custom-config.toml had unused ignores that were removed:
  - CVE-123-456-789
 
-Total 8 packages affected by 8 known vulnerabilities (0 Critical, 4 High, 4 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-8 vulnerabilities can be fixed.
+Total 8 packages affected by 10 known vulnerabilities (0 Critical, 5 High, 5 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
+10 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
+      Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
+      Severity: '5.3'; Minimal Fix Version: '1.19.3';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+  3 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -8188,7 +8263,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
   1 known vulnerability found in lockfile:<tempdir>/package-lock.json
 
-
 ---
 
 [TestCommand_UpdateConfigIgnores_Unused/global_config_deep - 2]
@@ -8201,6 +8275,7 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
 [TestCommand_UpdateConfigIgnores_Unused/global_config_deep - 4]
 GoVersionOverride = "1.20.0"
+ScanGoModVersion = false
 
 [[IgnoredVulns]]
 id = "GHSA-2g4f-4pwh-qvx6"
@@ -8241,7 +8316,6 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
@@ -8250,18 +8324,22 @@ GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 Filtered 6 vulnerabilities from output
 
-Total 8 packages affected by 8 known vulnerabilities (0 Critical, 4 High, 4 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-8 vulnerabilities can be fixed.
+Total 8 packages affected by 10 known vulnerabilities (0 Critical, 5 High, 5 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
+10 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
+      Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
+      Severity: '5.3'; Minimal Fix Version: '1.19.3';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+  3 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -8306,7 +8384,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
   1 known vulnerability found in lockfile:<tempdir>/package-lock.json
 
-
 ---
 
 [TestCommand_UpdateConfigIgnores_Unused/global_config_deep - 9]
@@ -8318,7 +8395,6 @@ Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 <tempdir>/custom-config.toml had unused ignores that were removed:
  - CVE-123-456-789
  - GHSA-2g4f-4pwh-qvx6
@@ -8346,7 +8422,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
   1 known vulnerability found in lockfile:<tempdir>/package-lock.json
 
-
 ---
 
 [TestCommand_UpdateConfigIgnores_Unused/global_config_shallow - 2]
@@ -8359,6 +8434,7 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
 [TestCommand_UpdateConfigIgnores_Unused/global_config_shallow - 4]
 GoVersionOverride = "1.20.0"
+ScanGoModVersion = false
 
 ---
 
@@ -8393,7 +8469,6 @@ Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 2 vulnerabilities can be fixed.
@@ -8418,7 +8493,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
   1 known vulnerability found in lockfile:<tempdir>/package-lock.json
 
-
 ---
 
 [TestCommand_UpdateConfigIgnores_Unused/global_config_shallow - 9]
@@ -8430,7 +8504,6 @@ Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 
 Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
@@ -8455,7 +8528,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
       Severity: '7.5'; Minimal Fix Version: '0.0.8';
 
   1 known vulnerability found in lockfile:<tempdir>/package-lock.json
-
 
 ---
 
@@ -8511,7 +8583,6 @@ Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 
 Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
@@ -8537,7 +8608,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
   1 known vulnerability found in lockfile:<tempdir>/package-lock.json
 
-
 ---
 
 [TestCommand_UpdateConfigIgnores_Unused/shallow - 9]
@@ -8549,7 +8619,6 @@ Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 2 vulnerabilities can be fixed.
@@ -8573,7 +8642,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
       Severity: '7.5'; Minimal Fix Version: '0.0.8';
 
   1 known vulnerability found in lockfile:<tempdir>/package-lock.json
-
 
 ---
 
@@ -8629,7 +8697,6 @@ Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 2 vulnerabilities can be fixed.
@@ -8653,7 +8720,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
       Severity: '7.5'; Minimal Fix Version: '0.0.8';
 
   1 known vulnerability found in lockfile:<tempdir>/package-lock.json
-
 
 ---
 
