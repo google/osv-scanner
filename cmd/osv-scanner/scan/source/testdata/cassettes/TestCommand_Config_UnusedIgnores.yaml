@@ -1246,7 +1246,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 24795
+      content_length: 25083
       body: |
         {
           "results": [
@@ -2595,7 +2595,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2026-12087",
-                  "modified": "2026-06-16T08:48:23.476396Z"
+                  "modified": "2026-06-17T18:00:11.750305Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-42496",
@@ -2836,6 +2836,22 @@ interactions:
                   "modified": "2026-06-15T19:06:17.854973Z"
                 },
                 {
+                  "id": "DEBIAN-CVE-2026-53612",
+                  "modified": "2026-06-17T07:00:08.875942Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-53613",
+                  "modified": "2026-06-17T08:00:09.754851Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-53614",
+                  "modified": "2026-06-17T08:00:09.493161Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-53615",
+                  "modified": "2026-06-17T08:00:09.756963Z"
+                },
+                {
                   "id": "DLA-3782-1",
                   "modified": "2026-03-09T01:20:42.573872Z"
                 },
@@ -2883,7 +2899,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "24795"
+          - "25083"
         Content-Type:
           - application/json
       status: 200 OK
@@ -3954,7 +3970,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 24483
+      content_length: 24771
       body: |
         {
           "results": [
@@ -5279,7 +5295,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2026-12087",
-                  "modified": "2026-06-16T08:48:23.476396Z"
+                  "modified": "2026-06-17T18:00:11.750305Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-42496",
@@ -5520,6 +5536,22 @@ interactions:
                   "modified": "2026-06-15T19:06:17.854973Z"
                 },
                 {
+                  "id": "DEBIAN-CVE-2026-53612",
+                  "modified": "2026-06-17T07:00:08.875942Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-53613",
+                  "modified": "2026-06-17T08:00:09.754851Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-53614",
+                  "modified": "2026-06-17T08:00:09.493161Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-53615",
+                  "modified": "2026-06-17T08:00:09.756963Z"
+                },
+                {
                   "id": "DLA-3782-1",
                   "modified": "2026-03-09T01:20:42.573872Z"
                 },
@@ -5567,7 +5599,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "24483"
+          - "24771"
         Content-Type:
           - application/json
       status: 200 OK
