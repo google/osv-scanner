@@ -1,3 +1,29 @@
+# v2.4.0
+
+### Features:
+
+- [Feature #2815](https://github.com/google/osv-scanner/pull/2815) Add support for the CycloneDX 1.7 specification (bumps `cyclonedx-go` to v0.11.0).
+- [Feature #2799](https://github.com/google/osv-scanner/pull/2799) Enable `.csproj` and Central Package Management (`nugetcpm`) source scanning plugins by default.
+- [Feature #2871](https://github.com/google/osv-scanner/pull/2871) Extract and parse Alpine OS distro version (e.g. `Alpine:v3.17`, `Alpine:edge`) from PURL `distro` qualifiers to scan packages under their respective Alpine ecosystems.
+- [Feature #2801](https://github.com/google/osv-scanner/pull/2801) Enable the `swift/packageresolved` plugin by default to support SwiftURL vulnerability scans.
+- [Feature #2666](https://github.com/google/osv-scanner/pull/2666) Add a Docker-based variant of the pre-commit hook in `.pre-commit-hooks.yaml` to avoid local compilation.
+- [Feature #2637](https://github.com/google/osv-scanner/pull/2637) Add a new configuration setting `ScanGoModVersion` (disabled by default) to avoid parsing toolchain version directives directly from `go.mod`, preventing misleading warnings.
+- [Feature #2772](https://github.com/google/osv-scanner/pull/2772) Scan container images built with Canonical Chisel by enabling the `os/chisel` extractor plugin.
+
+### Fixes:
+
+- [Bug #2807](https://github.com/google/osv-scanner/pull/2807) Sanitize package name, source, and version fields in the vertical output format to prevent GitHub Actions workflow command injection vulnerabilities from crafted lock files.
+- [Bug #2876](https://github.com/google/osv-scanner/pull/2876) Improve HTML scan report usability by supporting standard click modifiers (Ctrl/Cmd/middle click) to open vulnerabilities in new tabs, and preserving scroll position when switching tabs.
+- [Bug #2783](https://github.com/google/osv-scanner/pull/2783) Keep transitive dependency scanning enabled when specifying the `--offline-vulnerabilities` flag.
+- [Bug #2808](https://github.com/google/osv-scanner/pull/2808) Deduplicate equivalent OSV matcher requests before executing bulk queries to reduce API overhead.
+- [Bug #2837](https://github.com/google/osv-scanner/pull/2837) Prevent panics during offline matcher scans (e.g. on unsupported `GitHub Actions` ecosystem) by avoiding parsing errors when checking version ranges.
+- [Bug #2836](https://github.com/google/osv-scanner/pull/2836) Ensure the scanner returns an exit code of `0` when `--help` or `-h` is explicitly requested.
+
+### Misc:
+
+- Update `osv-scalibr` to `v0.4.6-0.20260612031204-164402d9140e`.
+- Tag built Docker and GitHub Action images with the major version (e.g. `:v2`) to allow users to pin to a major version (#2857).
+
 # v2.3.7/v2.3.8
 
 ### Fixes:
