@@ -52,6 +52,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/os/chisel"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/homebrew"
+	"github.com/google/osv-scalibr/extractor/filesystem/os/rpm"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
@@ -166,6 +167,8 @@ var ExtractorPresets = map[string]extractors.InitMap{
 		chisel.Name: {chisel.New},
 		// Homebrew
 		homebrew.Name: {homebrew.New},
+		// RPM-based (AlmaLinux, RHEL, Rocky, CentOS, Fedora)
+		rpm.Name: {rpm.New},
 	},
 }
 
