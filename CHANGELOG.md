@@ -21,6 +21,7 @@
 
 ### Misc:
 
+- Update Go version to 1.26.4.
 - Update `osv-scalibr` to `v0.4.6-0.20260612031204-164402d9140e`.
 - Tag built Docker and GitHub Action images with the major version (e.g. `:v2`) to allow users to pin to a major version (#2857).
 
