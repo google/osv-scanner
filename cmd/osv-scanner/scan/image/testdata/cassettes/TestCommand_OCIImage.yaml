@@ -3838,152 +3838,6 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 866
-      host: api.osv.dev
-      body: |
-        {
-          "queries": [
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "pygobject"
-              },
-              "version": "3.44.1"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "gpg"
-              },
-              "version": "1.18.0"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "libcomps"
-              },
-              "version": "0.1.18"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "pip"
-              },
-              "version": "23.0.1"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "rpm"
-              },
-              "version": "4.18.2"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "setuptools"
-              },
-              "version": "65.5.0"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "six"
-              },
-              "version": "1.16.0"
-            }
-          ]
-        }
-      headers:
-        Content-Type:
-          - application/json
-        X-Test-Name:
-          - TestCommand_OCIImage/Scanning_Mageia_9_image
-      url: https://api.osv.dev/v1/querybatch
-      method: POST
-    response:
-      proto: HTTP/2.0
-      proto_major: 2
-      proto_minor: 0
-      content_length: 873
-      body: |
-        {
-          "results": [
-            {},
-            {},
-            {},
-            {
-              "vulns": [
-                {
-                  "id": "GHSA-4xh5-x5gv-qwph",
-                  "modified": "2026-03-24T01:43:53.135277Z"
-                },
-                {
-                  "id": "GHSA-58qw-9mgm-455v",
-                  "modified": "2026-05-20T21:00:09.920997Z"
-                },
-                {
-                  "id": "GHSA-6vgw-5pg2-w6jp",
-                  "modified": "2026-03-24T01:43:46.425088Z"
-                },
-                {
-                  "id": "GHSA-jp4c-xjxw-mgf9",
-                  "modified": "2026-05-07T16:59:14.079020Z"
-                },
-                {
-                  "id": "GHSA-mq26-g339-26xf",
-                  "modified": "2026-03-24T01:43:05.410801Z"
-                },
-                {
-                  "id": "PYSEC-2023-228",
-                  "modified": "2026-03-24T01:42:37.905754Z"
-                },
-                {
-                  "id": "PYSEC-2026-196",
-                  "modified": "2026-06-05T12:45:14.124059Z"
-                }
-              ]
-            },
-            {},
-            {
-              "vulns": [
-                {
-                  "id": "GHSA-5rjg-fvgr-3xxf",
-                  "modified": "2026-05-11T00:26:34.671259Z"
-                },
-                {
-                  "id": "GHSA-cx63-2mw6-8hw5",
-                  "modified": "2026-02-04T03:54:02.259111Z"
-                },
-                {
-                  "id": "GHSA-r9hx-vwmv-q579",
-                  "modified": "2026-02-04T03:03:25.892107Z"
-                },
-                {
-                  "id": "PYSEC-2022-43012",
-                  "modified": "2023-12-06T01:02:35.662444Z"
-                },
-                {
-                  "id": "PYSEC-2025-49",
-                  "modified": "2026-05-11T00:26:34.671259Z"
-                }
-              ]
-            },
-            {}
-          ]
-        }
-      headers:
-        Content-Length:
-          - "873"
-        Content-Type:
-          - application/json
-      status: 200 OK
-      code: 200
-      duration: 0s
-  - request:
-      proto: HTTP/1.1
-      proto_major: 1
-      proto_minor: 1
       content_length: 10123
       host: api.osv.dev
       body: |
@@ -12683,6 +12537,152 @@ interactions:
       headers:
         Content-Length:
           - "220"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 866
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "pygobject"
+              },
+              "version": "3.44.1"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "gpg"
+              },
+              "version": "1.18.0"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "libcomps"
+              },
+              "version": "0.1.18"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "pip"
+              },
+              "version": "23.0.1"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "rpm"
+              },
+              "version": "4.18.2"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "setuptools"
+              },
+              "version": "65.5.0"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "six"
+              },
+              "version": "1.16.0"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_OCIImage/Scanning_Mageia_9_image
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 873
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-4xh5-x5gv-qwph",
+                  "modified": "2026-03-24T01:43:53.135277Z"
+                },
+                {
+                  "id": "GHSA-58qw-9mgm-455v",
+                  "modified": "2026-05-20T21:00:09.920997Z"
+                },
+                {
+                  "id": "GHSA-6vgw-5pg2-w6jp",
+                  "modified": "2026-03-24T01:43:46.425088Z"
+                },
+                {
+                  "id": "GHSA-jp4c-xjxw-mgf9",
+                  "modified": "2026-05-07T16:59:14.079020Z"
+                },
+                {
+                  "id": "GHSA-mq26-g339-26xf",
+                  "modified": "2026-03-24T01:43:05.410801Z"
+                },
+                {
+                  "id": "PYSEC-2023-228",
+                  "modified": "2026-03-24T01:42:37.905754Z"
+                },
+                {
+                  "id": "PYSEC-2026-196",
+                  "modified": "2026-06-05T12:45:14.124059Z"
+                }
+              ]
+            },
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-5rjg-fvgr-3xxf",
+                  "modified": "2026-05-11T00:26:34.671259Z"
+                },
+                {
+                  "id": "GHSA-cx63-2mw6-8hw5",
+                  "modified": "2026-02-04T03:54:02.259111Z"
+                },
+                {
+                  "id": "GHSA-r9hx-vwmv-q579",
+                  "modified": "2026-02-04T03:03:25.892107Z"
+                },
+                {
+                  "id": "PYSEC-2022-43012",
+                  "modified": "2023-12-06T01:02:35.662444Z"
+                },
+                {
+                  "id": "PYSEC-2025-49",
+                  "modified": "2026-05-11T00:26:34.671259Z"
+                }
+              ]
+            },
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "873"
         Content-Type:
           - application/json
       status: 200 OK
