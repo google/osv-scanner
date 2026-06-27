@@ -187,7 +187,6 @@ repos:
           - "--recursive"
           - "." # replace with your chosen directory or lock file
 
-
 # Scan a container image. The `docker` command should be present in your PATH.
 # Using the `osv-scanner-docker` hook for this task is not supported. If you
 # need to do it with containers, use a system hook and run docker directly.
@@ -202,7 +201,6 @@ repos:
           - "--format=vertical"
           - "--verbosity=error"
           - "debian:trixie" # replace with your chosen image (the tag is mandatory)
-
 ```
 
 ## Running in a Docker Container
