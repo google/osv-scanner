@@ -251,6 +251,8 @@ func action(ctx context.Context, cmd *cli.Command, stdout io.Writer) error {
 	}
 	opts.MavenClient = mc
 	userAgent := "osv-scanner_fix/" + version.OSVVersion
+	mc.SetUserAgent(userAgent)
+
 	switch cmd.String("data-source") {
 	case "deps.dev":
 		cl, err := resolution.NewDepsDevClient(depsdev.DepsdevAPI, userAgent)
@@ -270,6 +272,7 @@ func action(ctx context.Context, cmd *cli.Command, stdout io.Writer) error {
 		cl, err := resolution.NewCombinedNativeClient(resolution.CombinedNativeClientOptions{
 			ProjectDir:    workDir,
 			MavenRegistry: cmd.String("maven-registry"),
+			UserAgent:     userAgent,
 		})
 		if err != nil {
 			return err
