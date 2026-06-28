@@ -448,8 +448,8 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 26 packages affected by 83 known vulnerabilities (10 Critical, 21 High, 36 Medium, 5 Low, 11 Unknown) from 1 ecosystem.
-33 vulnerabilities can be fixed.
+Total 25 packages affected by 84 known vulnerabilities (10 Critical, 22 High, 35 Medium, 6 Low, 11 Unknown) from 1 ecosystem.
+36 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -463,7 +463,7 @@ Ubuntu:22.04
 | dpkg           | 1.21.1ubuntu2.3              | Fix Available           |          1 | dpkg                    | # 4 Layer        | ubuntu        |
 | gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
 | glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |          8 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
-| gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          4 | gpgv                    | # 4 Layer        | ubuntu        |
+| gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          5 | gpgv                    | # 4 Layer        | ubuntu        |
 | gnutls28       | 3.7.3-4ubuntu1.5             | Fix Available           |          4 | libgnutls30             | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4            | Partial fixes Available |          5 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          2 | libcap2                 | # 4 Layer        | ubuntu        |
@@ -472,18 +472,17 @@ Ubuntu:22.04
 | libzstd        | 1.4.8+dfsg-3build1           | No fix available        |          1 | libzstd1                | # 4 Layer        | ubuntu        |
 | lz4            | 1.9.3-2build2                | No fix available        |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
 | ncurses        | 6.3-2ubuntu0.1               | No fix available        |          3 | libncurses6... (5)      | # 4 Layer        | ubuntu        |
-| openssl        | 3.0.2-0ubuntu1.18            | Partial fixes Available |          7 | libssl3                 | # 4 Layer        | ubuntu        |
+| openssl        | 3.0.2-0ubuntu1.18            | Partial fixes Available |          8 | libssl3                 | # 4 Layer        | ubuntu        |
 | pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          3 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
 | pcre2          | 10.39-3ubuntu0.1             | No fix available        |          1 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
 | perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |         12 | perl-base               | # 4 Layer        | ubuntu        |
 | sed            | 4.8-1ubuntu2                 | Fix Available           |          1 | sed                     | # 4 Layer        | ubuntu        |
 | shadow         | 1:4.8.1-2ubuntu2.2           | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
 | systemd        | 249.11-0ubuntu3.12           | Partial fixes Available |          4 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
-| tar            | 1.34+dfsg-1ubuntu0.1.22.04.2 | No fix available        |          2 | tar                     | # 4 Layer        | ubuntu        |
+| tar            | 1.34+dfsg-1ubuntu0.1.22.04.2 | Partial fixes Available |          2 | tar                     | # 4 Layer        | ubuntu        |
 | util-linux     | 1:2.37.2-4ubuntu3.4          | No fix available        |          5 | bsdutils                | # 4 Layer        | ubuntu        |
 | util-linux     | 2.37.2-4ubuntu3.4            | Partial fixes Available |          6 | libblkid1... (6)        | # 4 Layer        | ubuntu        |
 | xz-utils       | 5.2.5-2ubuntu1               | Fix Available           |          1 | liblzma5                | # 4 Layer        | ubuntu        |
-| zlib           | 1:1.2.11.dfsg-2ubuntu9.2     | No fix available        |          1 | zlib1g                  | # 4 Layer        | ubuntu        |
 +----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
 
 Hiding 5 number of vulnerabilities deemed unimportant, use --all-vulns to show them.
@@ -501,8 +500,8 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 26 packages affected by 83 known vulnerabilities (10 Critical, 21 High, 36 Medium, 5 Low, 11 Unknown) from 1 ecosystem.
-33 vulnerabilities can be fixed.
+Total 25 packages affected by 84 known vulnerabilities (10 Critical, 22 High, 35 Medium, 6 Low, 11 Unknown) from 1 ecosystem.
+36 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -516,7 +515,7 @@ Ubuntu:22.04
 | dpkg           | 1.21.1ubuntu2.3              | Fix Available           |          1 | dpkg                    | # 4 Layer        | ubuntu        |
 | gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
 | glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |          8 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
-| gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          4 | gpgv                    | # 4 Layer        | ubuntu        |
+| gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          5 | gpgv                    | # 4 Layer        | ubuntu        |
 | gnutls28       | 3.7.3-4ubuntu1.5             | Fix Available           |          4 | libgnutls30             | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4            | Partial fixes Available |          5 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          2 | libcap2                 | # 4 Layer        | ubuntu        |
@@ -525,18 +524,17 @@ Ubuntu:22.04
 | libzstd        | 1.4.8+dfsg-3build1           | No fix available        |          1 | libzstd1                | # 4 Layer        | ubuntu        |
 | lz4            | 1.9.3-2build2                | No fix available        |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
 | ncurses        | 6.3-2ubuntu0.1               | No fix available        |          3 | libncurses6... (5)      | # 4 Layer        | ubuntu        |
-| openssl        | 3.0.2-0ubuntu1.18            | Partial fixes Available |          7 | libssl3                 | # 4 Layer        | ubuntu        |
+| openssl        | 3.0.2-0ubuntu1.18            | Partial fixes Available |          8 | libssl3                 | # 4 Layer        | ubuntu        |
 | pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          3 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
 | pcre2          | 10.39-3ubuntu0.1             | No fix available        |          1 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
 | perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |         12 | perl-base               | # 4 Layer        | ubuntu        |
 | sed            | 4.8-1ubuntu2                 | Fix Available           |          1 | sed                     | # 4 Layer        | ubuntu        |
 | shadow         | 1:4.8.1-2ubuntu2.2           | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
 | systemd        | 249.11-0ubuntu3.12           | Partial fixes Available |          4 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
-| tar            | 1.34+dfsg-1ubuntu0.1.22.04.2 | No fix available        |          2 | tar                     | # 4 Layer        | ubuntu        |
+| tar            | 1.34+dfsg-1ubuntu0.1.22.04.2 | Partial fixes Available |          2 | tar                     | # 4 Layer        | ubuntu        |
 | util-linux     | 1:2.37.2-4ubuntu3.4          | No fix available        |          5 | bsdutils                | # 4 Layer        | ubuntu        |
 | util-linux     | 2.37.2-4ubuntu3.4            | Partial fixes Available |          6 | libblkid1... (6)        | # 4 Layer        | ubuntu        |
 | xz-utils       | 5.2.5-2ubuntu1               | Fix Available           |          1 | liblzma5                | # 4 Layer        | ubuntu        |
-| zlib           | 1:1.2.11.dfsg-2ubuntu9.2     | No fix available        |          1 | zlib1g                  | # 4 Layer        | ubuntu        |
 +----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
 
 Filtered Vulnerabilities:
@@ -573,8 +571,8 @@ Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 26 packages affected by 83 known vulnerabilities (10 Critical, 21 High, 36 Medium, 5 Low, 11 Unknown) from 1 ecosystem.
-33 vulnerabilities can be fixed.
+Total 25 packages affected by 84 known vulnerabilities (10 Critical, 22 High, 35 Medium, 6 Low, 11 Unknown) from 1 ecosystem.
+36 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -588,7 +586,7 @@ Ubuntu:22.04
 | dpkg           | 1.21.1ubuntu2.3              | Fix Available           |          1 | dpkg                    | # 4 Layer        | ubuntu        |
 | gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
 | glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |          8 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
-| gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          4 | gpgv                    | # 4 Layer        | ubuntu        |
+| gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          5 | gpgv                    | # 4 Layer        | ubuntu        |
 | gnutls28       | 3.7.3-4ubuntu1.5             | Fix Available           |          4 | libgnutls30             | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4            | Partial fixes Available |          5 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          2 | libcap2                 | # 4 Layer        | ubuntu        |
@@ -597,18 +595,17 @@ Ubuntu:22.04
 | libzstd        | 1.4.8+dfsg-3build1           | No fix available        |          1 | libzstd1                | # 4 Layer        | ubuntu        |
 | lz4            | 1.9.3-2build2                | No fix available        |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
 | ncurses        | 6.3-2ubuntu0.1               | No fix available        |          3 | libncurses6... (5)      | # 4 Layer        | ubuntu        |
-| openssl        | 3.0.2-0ubuntu1.18            | Partial fixes Available |          7 | libssl3                 | # 4 Layer        | ubuntu        |
+| openssl        | 3.0.2-0ubuntu1.18            | Partial fixes Available |          8 | libssl3                 | # 4 Layer        | ubuntu        |
 | pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          3 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
 | pcre2          | 10.39-3ubuntu0.1             | No fix available        |          1 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
 | perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |         12 | perl-base               | # 4 Layer        | ubuntu        |
 | sed            | 4.8-1ubuntu2                 | Fix Available           |          1 | sed                     | # 4 Layer        | ubuntu        |
 | shadow         | 1:4.8.1-2ubuntu2.2           | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
 | systemd        | 249.11-0ubuntu3.12           | Partial fixes Available |          4 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
-| tar            | 1.34+dfsg-1ubuntu0.1.22.04.2 | No fix available        |          2 | tar                     | # 4 Layer        | ubuntu        |
+| tar            | 1.34+dfsg-1ubuntu0.1.22.04.2 | Partial fixes Available |          2 | tar                     | # 4 Layer        | ubuntu        |
 | util-linux     | 1:2.37.2-4ubuntu3.4          | No fix available        |          5 | bsdutils                | # 4 Layer        | ubuntu        |
 | util-linux     | 2.37.2-4ubuntu3.4            | Partial fixes Available |          6 | libblkid1... (6)        | # 4 Layer        | ubuntu        |
 | xz-utils       | 5.2.5-2ubuntu1               | Fix Available           |          1 | liblzma5                | # 4 Layer        | ubuntu        |
-| zlib           | 1:1.2.11.dfsg-2ubuntu9.2     | No fix available        |          1 | zlib1g                  | # 4 Layer        | ubuntu        |
 +----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
 
 Hiding 5 number of vulnerabilities deemed unimportant, use --all-vulns to show them.
@@ -626,42 +623,44 @@ Scanning local image tarball "./testdata/test-java-full.tar"
 
 
 Container Scanning Result (Alpine Linux v3.21) (Based on "eclipse-temurin" image):
-Total 35 packages affected by 136 known vulnerabilities (6 Critical, 66 High, 56 Medium, 7 Low, 1 Unknown) from 2 ecosystems.
-136 vulnerabilities can be fixed.
+Total 38 packages affected by 146 known vulnerabilities (5 Critical, 73 High, 59 Medium, 8 Low, 1 Unknown) from 2 ecosystems.
+146 vulnerabilities can be fixed.
 
 
 Maven
-+-------------------------------------------------------------------------------------------------------------------------------+
-| Source:artifact:/app/target.jar                                                                                               |
-+-------------------------------------------+-------------------+---------------+------------+------------------+---------------+
-| PACKAGE                                   | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
-+-------------------------------------------+-------------------+---------------+------------+------------------+---------------+
-| com.fasterxml.jackson.core:jackson-core   | 2.10.2            | Fix Available |          3 | # 12 Layer       | --            |
-| com.google.protobuf:protobuf-java         | 3.21.12           | Fix Available |          1 | # 12 Layer       | --            |
-| com.nimbusds:nimbus-jose-jwt              | 9.31              | Fix Available |          2 | # 12 Layer       | --            |
-| commons-beanutils:commons-beanutils       | 1.9.4             | Fix Available |          1 | # 12 Layer       | --            |
-| dnsjava:dnsjava                           | 3.4.0             | Fix Available |          1 | # 12 Layer       | --            |
-| io.netty:netty-codec                      | 4.1.100.Final     | Fix Available |          2 | # 12 Layer       | --            |
-| io.netty:netty-codec-dns                  | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
-| io.netty:netty-codec-haproxy              | 4.1.100.Final     | Fix Available |          2 | # 12 Layer       | --            |
-| io.netty:netty-codec-http                 | 4.1.100.Final     | Fix Available |         11 | # 12 Layer       | --            |
-| io.netty:netty-codec-http2                | 4.1.100.Final     | Fix Available |          6 | # 12 Layer       | --            |
-| io.netty:netty-codec-mqtt                 | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
-| io.netty:netty-codec-redis                | 4.1.100.Final     | Fix Available |          5 | # 12 Layer       | --            |
-| io.netty:netty-codec-smtp                 | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
-| io.netty:netty-common                     | 4.1.100.Final     | Fix Available |          2 | # 12 Layer       | --            |
-| io.netty:netty-handler                    | 4.1.100.Final     | Fix Available |          4 | # 12 Layer       | --            |
-| io.netty:netty-handler-proxy              | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
-| io.netty:netty-resolver-dns               | 4.1.100.Final     | Fix Available |          3 | # 12 Layer       | --            |
-| io.netty:netty-transport-native-epoll     | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
-| io.netty:netty-transport-native-kqueue    | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
-| io.netty:netty-transport-sctp             | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
-| org.apache.avro:avro                      | 1.9.2             | Fix Available |          2 | # 12 Layer       | --            |
-| org.apache.commons:commons-compress       | 1.21              | Fix Available |          2 | # 12 Layer       | --            |
-| org.apache.commons:commons-configuration2 | 2.8.0             | Fix Available |          3 | # 12 Layer       | --            |
-| org.apache.commons:commons-lang3          | 3.12.0            | Fix Available |          1 | # 12 Layer       | --            |
-| org.eclipse.jetty:jetty-http              | 9.4.53.v20231009  | Fix Available |          3 | # 12 Layer       | --            |
-+-------------------------------------------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------------------------------------------+
+| Source:artifact:/app/target.jar                                                                                                 |
++---------------------------------------------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE                                     | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------------------------------------------+-------------------+---------------+------------+------------------+---------------+
+| com.fasterxml.jackson.core:jackson-core     | 2.10.2            | Fix Available |          3 | # 12 Layer       | --            |
+| com.fasterxml.jackson.core:jackson-databind | 2.12.7.1          | Fix Available |          5 | # 12 Layer       | --            |
+| com.google.protobuf:protobuf-java           | 3.21.12           | Fix Available |          1 | # 12 Layer       | --            |
+| com.nimbusds:nimbus-jose-jwt                | 9.31              | Fix Available |          2 | # 12 Layer       | --            |
+| commons-beanutils:commons-beanutils         | 1.9.4             | Fix Available |          1 | # 12 Layer       | --            |
+| dnsjava:dnsjava                             | 3.4.0             | Fix Available |          1 | # 12 Layer       | --            |
+| io.netty:netty-codec                        | 4.1.100.Final     | Fix Available |          2 | # 12 Layer       | --            |
+| io.netty:netty-codec-dns                    | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
+| io.netty:netty-codec-haproxy                | 4.1.100.Final     | Fix Available |          2 | # 12 Layer       | --            |
+| io.netty:netty-codec-http                   | 4.1.100.Final     | Fix Available |         11 | # 12 Layer       | --            |
+| io.netty:netty-codec-http2                  | 4.1.100.Final     | Fix Available |          6 | # 12 Layer       | --            |
+| io.netty:netty-codec-mqtt                   | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
+| io.netty:netty-codec-redis                  | 4.1.100.Final     | Fix Available |          5 | # 12 Layer       | --            |
+| io.netty:netty-codec-smtp                   | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
+| io.netty:netty-common                       | 4.1.100.Final     | Fix Available |          2 | # 12 Layer       | --            |
+| io.netty:netty-handler                      | 4.1.100.Final     | Fix Available |          4 | # 12 Layer       | --            |
+| io.netty:netty-handler-proxy                | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
+| io.netty:netty-resolver-dns                 | 4.1.100.Final     | Fix Available |          3 | # 12 Layer       | --            |
+| io.netty:netty-transport-native-epoll       | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
+| io.netty:netty-transport-native-kqueue      | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
+| io.netty:netty-transport-sctp               | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
+| org.apache.avro:avro                        | 1.9.2             | Fix Available |          2 | # 12 Layer       | --            |
+| org.apache.commons:commons-compress         | 1.21              | Fix Available |          2 | # 12 Layer       | --            |
+| org.apache.commons:commons-configuration2   | 2.8.0             | Fix Available |          3 | # 12 Layer       | --            |
+| org.apache.commons:commons-lang3            | 3.12.0            | Fix Available |          1 | # 12 Layer       | --            |
+| org.eclipse.jetty:jetty-http                | 9.4.53.v20231009  | Fix Available |          3 | # 12 Layer       | --            |
+| org.jline:jline-remote-telnet               | 3.9.0             | Fix Available |          2 | # 12 Layer       | --            |
++---------------------------------------------+-------------------+---------------+------------+------------------+---------------+
 Alpine:v3.21
 +-----------------------------------------------------------------------------------------------------------------------------------+
 | Source:os:/lib/apk/db/installed                                                                                                   |
@@ -669,13 +668,14 @@ Alpine:v3.21
 | SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT)    | INTRODUCED LAYER | IN BASE IMAGE   |
 +----------------+-------------------+---------------+------------+----------------------------+------------------+-----------------+
 | busybox        | 1.37.0-r9         | Fix Available |          2 | busybox... (3)             | # 0 Layer        | alpine          |
-| expat          | 2.6.4-r0          | Fix Available |          7 | libexpat                   | # 5 Layer        | eclipse-temurin |
+| expat          | 2.6.4-r0          | Fix Available |          9 | libexpat                   | # 5 Layer        | eclipse-temurin |
 | gnupg          | 2.4.7-r0          | Fix Available |          2 | gnupg... (11)              | # 5 Layer        | eclipse-temurin |
 | gnutls         | 3.8.8-r0          | Fix Available |         21 | gnutls                     | # 5 Layer        | eclipse-temurin |
 | libpng         | 1.6.44-r0         | Fix Available |         11 | libpng                     | # 5 Layer        | eclipse-temurin |
 | libtasn1       | 4.19.0-r2         | Fix Available |          2 | libtasn1                   | # 5 Layer        | eclipse-temurin |
 | musl           | 1.2.5-r8          | Fix Available |          3 | musl, musl-utils           | # 0 Layer        | alpine          |
 | openssl        | 3.3.2-r4          | Fix Available |         21 | libcrypto3, libssl3... (3) | # 0 Layer        | alpine          |
+| p11-kit        | 0.25.5-r2         | Fix Available |          1 | p11-kit... (2)             | # 5 Layer        | eclipse-temurin |
 | sqlite         | 3.47.1-r0         | Fix Available |          4 | sqlite-libs                | # 5 Layer        | eclipse-temurin |
 | zlib           | 1.3.1-r2          | Fix Available |          2 | zlib                       | # 0 Layer        | alpine          |
 +----------------+-------------------+---------------+------------+----------------------------+------------------+-----------------+
@@ -1061,52 +1061,52 @@ Scanning local image tarball "./testdata/test-chisel.tar"
 
 
 Container Scanning Result (Ubuntu 26.04 LTS):
-Total 7 packages affected by 121 known vulnerabilities (0 Critical, 0 High, 1 Medium, 0 Low, 120 Unknown) from 2 ecosystems.
-120 vulnerabilities can be fixed.
+Total 7 packages affected by 139 known vulnerabilities (0 Critical, 0 High, 1 Medium, 0 Low, 138 Unknown) from 2 ecosystems.
+138 vulnerabilities can be fixed.
 
 
 Go
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:/usr/lib/go-1.25/bin/go                                                     |
+| Source:artifact:/usr/lib/go-1.26/bin/go                                                     |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.25.7            | Fix Available |         20 | # 0 Layer        | --            |
+| stdlib  | 1.26.0            | Fix Available |         23 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:/usr/lib/go-1.25/bin/gofmt                                                  |
+| Source:artifact:/usr/lib/go-1.26/bin/gofmt                                                  |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.25.7            | Fix Available |         20 | # 0 Layer        | --            |
+| stdlib  | 1.26.0            | Fix Available |         23 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:/usr/lib/go-1.25/pkg/tool/linux_amd64/asm                                   |
+| Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/asm                                   |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.25.7            | Fix Available |         20 | # 0 Layer        | --            |
+| stdlib  | 1.26.0            | Fix Available |         23 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:/usr/lib/go-1.25/pkg/tool/linux_amd64/compile                               |
+| Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/compile                               |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.25.7            | Fix Available |         20 | # 0 Layer        | --            |
+| stdlib  | 1.26.0            | Fix Available |         23 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:/usr/lib/go-1.25/pkg/tool/linux_amd64/link                                  |
+| Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/link                                  |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.25.7            | Fix Available |         20 | # 0 Layer        | --            |
+| stdlib  | 1.26.0            | Fix Available |         23 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:/usr/lib/go-1.25/pkg/tool/linux_amd64/vet                                   |
+| Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/vet                                   |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.25.7            | Fix Available |         20 | # 0 Layer        | --            |
+| stdlib  | 1.26.0            | Fix Available |         23 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 Ubuntu:26.04
 +-------------------------------------------------------------------------------------------------------------------------------------------+
@@ -3041,26 +3041,29 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
   "results": [
     {
       "source": {
-        "path": "/usr/lib/go-1.25/bin/go",
+        "path": "/usr/lib/go-1.26/bin/go",
         "type": "artifact"
       },
       "packages": [
         {
           "package": {
             "name": "stdlib",
-            "version": "1.25.7",
+            "version": "1.26.0",
             "ecosystem": "Go",
             "image_origin_details": {
               "index": 0
             }
           },
-          "groups": 20,
+          "groups": 23,
           "vulnerabilities": [
+            "GO-2026-4599",
+            "GO-2026-4600",
             "GO-2026-4601",
             "GO-2026-4602",
             "GO-2026-4603",
             "GO-2026-4864",
             "GO-2026-4865",
+            "GO-2026-4866",
             "GO-2026-4869",
             "GO-2026-4870",
             "GO-2026-4918",
@@ -3082,26 +3085,29 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
     },
     {
       "source": {
-        "path": "/usr/lib/go-1.25/bin/gofmt",
+        "path": "/usr/lib/go-1.26/bin/gofmt",
         "type": "artifact"
       },
       "packages": [
         {
           "package": {
             "name": "stdlib",
-            "version": "1.25.7",
+            "version": "1.26.0",
             "ecosystem": "Go",
             "image_origin_details": {
               "index": 0
             }
           },
-          "groups": 20,
+          "groups": 23,
           "vulnerabilities": [
+            "GO-2026-4599",
+            "GO-2026-4600",
             "GO-2026-4601",
             "GO-2026-4602",
             "GO-2026-4603",
             "GO-2026-4864",
             "GO-2026-4865",
+            "GO-2026-4866",
             "GO-2026-4869",
             "GO-2026-4870",
             "GO-2026-4918",
@@ -3123,26 +3129,29 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
     },
     {
       "source": {
-        "path": "/usr/lib/go-1.25/pkg/tool/linux_amd64/asm",
+        "path": "/usr/lib/go-1.26/pkg/tool/linux_amd64/asm",
         "type": "artifact"
       },
       "packages": [
         {
           "package": {
             "name": "stdlib",
-            "version": "1.25.7",
+            "version": "1.26.0",
             "ecosystem": "Go",
             "image_origin_details": {
               "index": 0
             }
           },
-          "groups": 20,
+          "groups": 23,
           "vulnerabilities": [
+            "GO-2026-4599",
+            "GO-2026-4600",
             "GO-2026-4601",
             "GO-2026-4602",
             "GO-2026-4603",
             "GO-2026-4864",
             "GO-2026-4865",
+            "GO-2026-4866",
             "GO-2026-4869",
             "GO-2026-4870",
             "GO-2026-4918",
@@ -3164,26 +3173,29 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
     },
     {
       "source": {
-        "path": "/usr/lib/go-1.25/pkg/tool/linux_amd64/compile",
+        "path": "/usr/lib/go-1.26/pkg/tool/linux_amd64/compile",
         "type": "artifact"
       },
       "packages": [
         {
           "package": {
             "name": "stdlib",
-            "version": "1.25.7",
+            "version": "1.26.0",
             "ecosystem": "Go",
             "image_origin_details": {
               "index": 0
             }
           },
-          "groups": 20,
+          "groups": 23,
           "vulnerabilities": [
+            "GO-2026-4599",
+            "GO-2026-4600",
             "GO-2026-4601",
             "GO-2026-4602",
             "GO-2026-4603",
             "GO-2026-4864",
             "GO-2026-4865",
+            "GO-2026-4866",
             "GO-2026-4869",
             "GO-2026-4870",
             "GO-2026-4918",
@@ -3205,26 +3217,29 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
     },
     {
       "source": {
-        "path": "/usr/lib/go-1.25/pkg/tool/linux_amd64/link",
+        "path": "/usr/lib/go-1.26/pkg/tool/linux_amd64/link",
         "type": "artifact"
       },
       "packages": [
         {
           "package": {
             "name": "stdlib",
-            "version": "1.25.7",
+            "version": "1.26.0",
             "ecosystem": "Go",
             "image_origin_details": {
               "index": 0
             }
           },
-          "groups": 20,
+          "groups": 23,
           "vulnerabilities": [
+            "GO-2026-4599",
+            "GO-2026-4600",
             "GO-2026-4601",
             "GO-2026-4602",
             "GO-2026-4603",
             "GO-2026-4864",
             "GO-2026-4865",
+            "GO-2026-4866",
             "GO-2026-4869",
             "GO-2026-4870",
             "GO-2026-4918",
@@ -3246,26 +3261,29 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
     },
     {
       "source": {
-        "path": "/usr/lib/go-1.25/pkg/tool/linux_amd64/vet",
+        "path": "/usr/lib/go-1.26/pkg/tool/linux_amd64/vet",
         "type": "artifact"
       },
       "packages": [
         {
           "package": {
             "name": "stdlib",
-            "version": "1.25.7",
+            "version": "1.26.0",
             "ecosystem": "Go",
             "image_origin_details": {
               "index": 0
             }
           },
-          "groups": 20,
+          "groups": 23,
           "vulnerabilities": [
+            "GO-2026-4599",
+            "GO-2026-4600",
             "GO-2026-4601",
             "GO-2026-4602",
             "GO-2026-4603",
             "GO-2026-4864",
             "GO-2026-4865",
+            "GO-2026-4866",
             "GO-2026-4869",
             "GO-2026-4870",
             "GO-2026-4918",
@@ -3720,13 +3738,14 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
               "index": 4
             }
           },
-          "groups": 4,
+          "groups": 5,
           "vulnerabilities": [
             "USN-7412-1",
             "USN-7946-1",
             "UBUNTU-CVE-2022-3219",
             "UBUNTU-CVE-2025-30258",
             "UBUNTU-CVE-2025-68973",
+            "UBUNTU-CVE-2026-57062",
             "USN-7412-2"
           ]
         },
@@ -4235,7 +4254,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
               "index": 4
             }
           },
-          "groups": 7,
+          "groups": 8,
           "vulnerabilities": [
             "USN-8414-1",
             "USN-7980-1",
@@ -4253,6 +4272,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "UBUNTU-CVE-2025-69420",
             "UBUNTU-CVE-2025-69421",
             "UBUNTU-CVE-2025-9230",
+            "UBUNTU-CVE-2026-11999",
             "UBUNTU-CVE-2026-22795",
             "UBUNTU-CVE-2026-22796",
             "UBUNTU-CVE-2026-28387",
@@ -4550,6 +4570,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
           },
           "groups": 2,
           "vulnerabilities": [
+            "USN-8477-1",
             "UBUNTU-CVE-2025-45582",
             "UBUNTU-CVE-2026-5704"
           ]
@@ -4572,21 +4593,6 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "UBUNTU-CVE-2026-53614",
             "UBUNTU-CVE-2026-53615",
             "USN-8091-1"
-          ]
-        },
-        {
-          "package": {
-            "name": "zlib",
-            "os_package_name": "zlib1g",
-            "version": "1:1.2.11.dfsg-2ubuntu9.2",
-            "ecosystem": "Ubuntu:22.04",
-            "image_origin_details": {
-              "index": 4
-            }
-          },
-          "groups": 1,
-          "vulnerabilities": [
-            "UBUNTU-CVE-2026-27171"
           ]
         }
       ]
@@ -4877,13 +4883,14 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 4,
+          "groups": 5,
           "vulnerabilities": [
             "USN-7412-1",
             "USN-7946-1",
             "UBUNTU-CVE-2022-3219",
             "UBUNTU-CVE-2025-30258",
             "UBUNTU-CVE-2025-68973",
+            "UBUNTU-CVE-2026-57062",
             "USN-7412-2"
           ]
         },
@@ -5392,7 +5399,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 7,
+          "groups": 8,
           "vulnerabilities": [
             "USN-8414-1",
             "USN-7980-1",
@@ -5410,6 +5417,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "UBUNTU-CVE-2025-69420",
             "UBUNTU-CVE-2025-69421",
             "UBUNTU-CVE-2025-9230",
+            "UBUNTU-CVE-2026-11999",
             "UBUNTU-CVE-2026-22795",
             "UBUNTU-CVE-2026-22796",
             "UBUNTU-CVE-2026-28387",
@@ -5707,6 +5715,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           },
           "groups": 2,
           "vulnerabilities": [
+            "USN-8477-1",
             "UBUNTU-CVE-2025-45582",
             "UBUNTU-CVE-2026-5704"
           ]
@@ -5729,21 +5738,6 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "UBUNTU-CVE-2026-53614",
             "UBUNTU-CVE-2026-53615",
             "USN-8091-1"
-          ]
-        },
-        {
-          "package": {
-            "name": "zlib",
-            "os_package_name": "zlib1g",
-            "version": "1:1.2.11.dfsg-2ubuntu9.2",
-            "ecosystem": "Ubuntu:22.04",
-            "image_origin_details": {
-              "index": 4
-            }
-          },
-          "groups": 1,
-          "vulnerabilities": [
-            "UBUNTU-CVE-2026-27171"
           ]
         }
       ]
