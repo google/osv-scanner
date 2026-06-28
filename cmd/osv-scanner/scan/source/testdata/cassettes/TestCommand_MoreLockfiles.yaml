@@ -474,7 +474,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 666
+      content_length: 1226
       body: |
         {
           "results": [
@@ -506,8 +506,24 @@ interactions:
                   "modified": "2026-02-04T03:08:45.682451Z"
                 },
                 {
+                  "id": "GHSA-5prr-v3j2-97mh",
+                  "modified": "2026-06-21T00:59:19.679931Z"
+                },
+                {
+                  "id": "GHSA-5v8h-3h3q-446p",
+                  "modified": "2026-06-21T03:59:17.924033Z"
+                },
+                {
                   "id": "GHSA-5w6v-399v-w3cc",
                   "modified": "2026-02-04T02:49:28.572138Z"
+                },
+                {
+                  "id": "GHSA-8678-w3jw-xfc2",
+                  "modified": "2026-06-20T21:59:19.065214Z"
+                },
+                {
+                  "id": "GHSA-9cv2-cfxc-v4v2",
+                  "modified": "2026-06-21T01:59:33.897972Z"
                 },
                 {
                   "id": "GHSA-c4rq-3m3g-8wgx",
@@ -518,12 +534,28 @@ interactions:
                   "modified": "2026-02-04T04:34:58.905946Z"
                 },
                 {
+                  "id": "GHSA-p67v-3w7g-wjg7",
+                  "modified": "2026-06-20T21:59:19.171261Z"
+                },
+                {
+                  "id": "GHSA-phwj-rprq-35pp",
+                  "modified": "2026-06-21T01:59:33.972596Z"
+                },
+                {
                   "id": "GHSA-v2fc-qm4h-8hqv",
                   "modified": "2026-05-09T10:44:28.032980Z"
                 },
                 {
                   "id": "GHSA-vvfq-8hwr-qm4m",
                   "modified": "2026-02-04T03:58:31.466756Z"
+                },
+                {
+                  "id": "GHSA-wfpw-mmfh-qq69",
+                  "modified": "2026-06-21T01:59:34.106167Z"
+                },
+                {
+                  "id": "GHSA-wjv4-x9w8-wm3h",
+                  "modified": "2026-06-21T01:59:34.550548Z"
                 },
                 {
                   "id": "GHSA-wx95-c6cv-8532",
@@ -545,7 +577,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "666"
+          - "1226"
         Content-Type:
           - application/json
       status: 200 OK
