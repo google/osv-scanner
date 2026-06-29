@@ -448,7 +448,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 26 packages affected by 72 known vulnerabilities (9 Critical, 22 High, 34 Medium, 5 Low, 2 Unknown) from 1 ecosystem.
+Total 26 packages affected by 83 known vulnerabilities (10 Critical, 21 High, 36 Medium, 5 Low, 11 Unknown) from 1 ecosystem.
 33 vulnerabilities can be fixed.
 
 
@@ -465,7 +465,7 @@ Ubuntu:22.04
 | glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |          8 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          4 | gpgv                    | # 4 Layer        | ubuntu        |
 | gnutls28       | 3.7.3-4ubuntu1.5             | Fix Available           |          4 | libgnutls30             | # 4 Layer        | ubuntu        |
-| krb5           | 1.19.2-2ubuntu0.4            | Partial fixes Available |          4 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
+| krb5           | 1.19.2-2ubuntu0.4            | Partial fixes Available |          5 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          2 | libcap2                 | # 4 Layer        | ubuntu        |
 | libgcrypt20    | 1.9.4-3ubuntu3               | Partial fixes Available |          2 | libgcrypt20             | # 4 Layer        | ubuntu        |
 | libtasn1-6     | 4.18.0-4build1               | Fix Available           |          2 | libtasn1-6              | # 4 Layer        | ubuntu        |
@@ -473,15 +473,15 @@ Ubuntu:22.04
 | lz4            | 1.9.3-2build2                | No fix available        |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
 | ncurses        | 6.3-2ubuntu0.1               | No fix available        |          3 | libncurses6... (5)      | # 4 Layer        | ubuntu        |
 | openssl        | 3.0.2-0ubuntu1.18            | Partial fixes Available |          7 | libssl3                 | # 4 Layer        | ubuntu        |
-| pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          2 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
+| pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          3 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
 | pcre2          | 10.39-3ubuntu0.1             | No fix available        |          1 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
-| perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |         11 | perl-base               | # 4 Layer        | ubuntu        |
+| perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |         12 | perl-base               | # 4 Layer        | ubuntu        |
 | sed            | 4.8-1ubuntu2                 | Fix Available           |          1 | sed                     | # 4 Layer        | ubuntu        |
 | shadow         | 1:4.8.1-2ubuntu2.2           | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
 | systemd        | 249.11-0ubuntu3.12           | Partial fixes Available |          4 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
 | tar            | 1.34+dfsg-1ubuntu0.1.22.04.2 | No fix available        |          2 | tar                     | # 4 Layer        | ubuntu        |
-| util-linux     | 1:2.37.2-4ubuntu3.4          | No fix available        |          1 | bsdutils                | # 4 Layer        | ubuntu        |
-| util-linux     | 2.37.2-4ubuntu3.4            | Partial fixes Available |          2 | libblkid1... (6)        | # 4 Layer        | ubuntu        |
+| util-linux     | 1:2.37.2-4ubuntu3.4          | No fix available        |          5 | bsdutils                | # 4 Layer        | ubuntu        |
+| util-linux     | 2.37.2-4ubuntu3.4            | Partial fixes Available |          6 | libblkid1... (6)        | # 4 Layer        | ubuntu        |
 | xz-utils       | 5.2.5-2ubuntu1               | Fix Available           |          1 | liblzma5                | # 4 Layer        | ubuntu        |
 | zlib           | 1:1.2.11.dfsg-2ubuntu9.2     | No fix available        |          1 | zlib1g                  | # 4 Layer        | ubuntu        |
 +----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
@@ -501,7 +501,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 26 packages affected by 72 known vulnerabilities (9 Critical, 22 High, 34 Medium, 5 Low, 2 Unknown) from 1 ecosystem.
+Total 26 packages affected by 83 known vulnerabilities (10 Critical, 21 High, 36 Medium, 5 Low, 11 Unknown) from 1 ecosystem.
 33 vulnerabilities can be fixed.
 
 
@@ -518,7 +518,7 @@ Ubuntu:22.04
 | glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |          8 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          4 | gpgv                    | # 4 Layer        | ubuntu        |
 | gnutls28       | 3.7.3-4ubuntu1.5             | Fix Available           |          4 | libgnutls30             | # 4 Layer        | ubuntu        |
-| krb5           | 1.19.2-2ubuntu0.4            | Partial fixes Available |          4 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
+| krb5           | 1.19.2-2ubuntu0.4            | Partial fixes Available |          5 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          2 | libcap2                 | # 4 Layer        | ubuntu        |
 | libgcrypt20    | 1.9.4-3ubuntu3               | Partial fixes Available |          2 | libgcrypt20             | # 4 Layer        | ubuntu        |
 | libtasn1-6     | 4.18.0-4build1               | Fix Available           |          2 | libtasn1-6              | # 4 Layer        | ubuntu        |
@@ -526,15 +526,15 @@ Ubuntu:22.04
 | lz4            | 1.9.3-2build2                | No fix available        |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
 | ncurses        | 6.3-2ubuntu0.1               | No fix available        |          3 | libncurses6... (5)      | # 4 Layer        | ubuntu        |
 | openssl        | 3.0.2-0ubuntu1.18            | Partial fixes Available |          7 | libssl3                 | # 4 Layer        | ubuntu        |
-| pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          2 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
+| pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          3 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
 | pcre2          | 10.39-3ubuntu0.1             | No fix available        |          1 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
-| perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |         11 | perl-base               | # 4 Layer        | ubuntu        |
+| perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |         12 | perl-base               | # 4 Layer        | ubuntu        |
 | sed            | 4.8-1ubuntu2                 | Fix Available           |          1 | sed                     | # 4 Layer        | ubuntu        |
 | shadow         | 1:4.8.1-2ubuntu2.2           | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
 | systemd        | 249.11-0ubuntu3.12           | Partial fixes Available |          4 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
 | tar            | 1.34+dfsg-1ubuntu0.1.22.04.2 | No fix available        |          2 | tar                     | # 4 Layer        | ubuntu        |
-| util-linux     | 1:2.37.2-4ubuntu3.4          | No fix available        |          1 | bsdutils                | # 4 Layer        | ubuntu        |
-| util-linux     | 2.37.2-4ubuntu3.4            | Partial fixes Available |          2 | libblkid1... (6)        | # 4 Layer        | ubuntu        |
+| util-linux     | 1:2.37.2-4ubuntu3.4          | No fix available        |          5 | bsdutils                | # 4 Layer        | ubuntu        |
+| util-linux     | 2.37.2-4ubuntu3.4            | Partial fixes Available |          6 | libblkid1... (6)        | # 4 Layer        | ubuntu        |
 | xz-utils       | 5.2.5-2ubuntu1               | Fix Available           |          1 | liblzma5                | # 4 Layer        | ubuntu        |
 | zlib           | 1:1.2.11.dfsg-2ubuntu9.2     | No fix available        |          1 | zlib1g                  | # 4 Layer        | ubuntu        |
 +----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
@@ -573,7 +573,7 @@ Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 26 packages affected by 72 known vulnerabilities (9 Critical, 22 High, 34 Medium, 5 Low, 2 Unknown) from 1 ecosystem.
+Total 26 packages affected by 83 known vulnerabilities (10 Critical, 21 High, 36 Medium, 5 Low, 11 Unknown) from 1 ecosystem.
 33 vulnerabilities can be fixed.
 
 
@@ -590,7 +590,7 @@ Ubuntu:22.04
 | glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |          8 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          4 | gpgv                    | # 4 Layer        | ubuntu        |
 | gnutls28       | 3.7.3-4ubuntu1.5             | Fix Available           |          4 | libgnutls30             | # 4 Layer        | ubuntu        |
-| krb5           | 1.19.2-2ubuntu0.4            | Partial fixes Available |          4 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
+| krb5           | 1.19.2-2ubuntu0.4            | Partial fixes Available |          5 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          2 | libcap2                 | # 4 Layer        | ubuntu        |
 | libgcrypt20    | 1.9.4-3ubuntu3               | Partial fixes Available |          2 | libgcrypt20             | # 4 Layer        | ubuntu        |
 | libtasn1-6     | 4.18.0-4build1               | Fix Available           |          2 | libtasn1-6              | # 4 Layer        | ubuntu        |
@@ -598,15 +598,15 @@ Ubuntu:22.04
 | lz4            | 1.9.3-2build2                | No fix available        |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
 | ncurses        | 6.3-2ubuntu0.1               | No fix available        |          3 | libncurses6... (5)      | # 4 Layer        | ubuntu        |
 | openssl        | 3.0.2-0ubuntu1.18            | Partial fixes Available |          7 | libssl3                 | # 4 Layer        | ubuntu        |
-| pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          2 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
+| pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          3 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
 | pcre2          | 10.39-3ubuntu0.1             | No fix available        |          1 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
-| perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |         11 | perl-base               | # 4 Layer        | ubuntu        |
+| perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |         12 | perl-base               | # 4 Layer        | ubuntu        |
 | sed            | 4.8-1ubuntu2                 | Fix Available           |          1 | sed                     | # 4 Layer        | ubuntu        |
 | shadow         | 1:4.8.1-2ubuntu2.2           | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
 | systemd        | 249.11-0ubuntu3.12           | Partial fixes Available |          4 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
 | tar            | 1.34+dfsg-1ubuntu0.1.22.04.2 | No fix available        |          2 | tar                     | # 4 Layer        | ubuntu        |
-| util-linux     | 1:2.37.2-4ubuntu3.4          | No fix available        |          1 | bsdutils                | # 4 Layer        | ubuntu        |
-| util-linux     | 2.37.2-4ubuntu3.4            | Partial fixes Available |          2 | libblkid1... (6)        | # 4 Layer        | ubuntu        |
+| util-linux     | 1:2.37.2-4ubuntu3.4          | No fix available        |          5 | bsdutils                | # 4 Layer        | ubuntu        |
+| util-linux     | 2.37.2-4ubuntu3.4            | Partial fixes Available |          6 | libblkid1... (6)        | # 4 Layer        | ubuntu        |
 | xz-utils       | 5.2.5-2ubuntu1               | Fix Available           |          1 | liblzma5                | # 4 Layer        | ubuntu        |
 | zlib           | 1:1.2.11.dfsg-2ubuntu9.2     | No fix available        |          1 | zlib1g                  | # 4 Layer        | ubuntu        |
 +----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
@@ -626,8 +626,8 @@ Scanning local image tarball "./testdata/test-java-full.tar"
 
 
 Container Scanning Result (Alpine Linux v3.21) (Based on "eclipse-temurin" image):
-Total 35 packages affected by 131 known vulnerabilities (6 Critical, 64 High, 53 Medium, 7 Low, 1 Unknown) from 2 ecosystems.
-131 vulnerabilities can be fixed.
+Total 35 packages affected by 136 known vulnerabilities (6 Critical, 66 High, 56 Medium, 7 Low, 1 Unknown) from 2 ecosystems.
+136 vulnerabilities can be fixed.
 
 
 Maven
@@ -644,13 +644,13 @@ Maven
 | io.netty:netty-codec                      | 4.1.100.Final     | Fix Available |          2 | # 12 Layer       | --            |
 | io.netty:netty-codec-dns                  | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
 | io.netty:netty-codec-haproxy              | 4.1.100.Final     | Fix Available |          2 | # 12 Layer       | --            |
-| io.netty:netty-codec-http                 | 4.1.100.Final     | Fix Available |         10 | # 12 Layer       | --            |
-| io.netty:netty-codec-http2                | 4.1.100.Final     | Fix Available |          5 | # 12 Layer       | --            |
+| io.netty:netty-codec-http                 | 4.1.100.Final     | Fix Available |         11 | # 12 Layer       | --            |
+| io.netty:netty-codec-http2                | 4.1.100.Final     | Fix Available |          6 | # 12 Layer       | --            |
 | io.netty:netty-codec-mqtt                 | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
-| io.netty:netty-codec-redis                | 4.1.100.Final     | Fix Available |          4 | # 12 Layer       | --            |
+| io.netty:netty-codec-redis                | 4.1.100.Final     | Fix Available |          5 | # 12 Layer       | --            |
 | io.netty:netty-codec-smtp                 | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
 | io.netty:netty-common                     | 4.1.100.Final     | Fix Available |          2 | # 12 Layer       | --            |
-| io.netty:netty-handler                    | 4.1.100.Final     | Fix Available |          3 | # 12 Layer       | --            |
+| io.netty:netty-handler                    | 4.1.100.Final     | Fix Available |          4 | # 12 Layer       | --            |
 | io.netty:netty-handler-proxy              | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
 | io.netty:netty-resolver-dns               | 4.1.100.Final     | Fix Available |          3 | # 12 Layer       | --            |
 | io.netty:netty-transport-native-epoll     | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
@@ -671,7 +671,7 @@ Alpine:v3.21
 | busybox        | 1.37.0-r9         | Fix Available |          2 | busybox... (3)             | # 0 Layer        | alpine          |
 | expat          | 2.6.4-r0          | Fix Available |          7 | libexpat                   | # 5 Layer        | eclipse-temurin |
 | gnupg          | 2.4.7-r0          | Fix Available |          2 | gnupg... (11)              | # 5 Layer        | eclipse-temurin |
-| gnutls         | 3.8.8-r0          | Fix Available |         20 | gnutls                     | # 5 Layer        | eclipse-temurin |
+| gnutls         | 3.8.8-r0          | Fix Available |         21 | gnutls                     | # 5 Layer        | eclipse-temurin |
 | libpng         | 1.6.44-r0         | Fix Available |         11 | libpng                     | # 5 Layer        | eclipse-temurin |
 | libtasn1       | 4.19.0-r2         | Fix Available |          2 | libtasn1                   | # 5 Layer        | eclipse-temurin |
 | musl           | 1.2.5-r8          | Fix Available |          3 | musl, musl-utils           | # 0 Layer        | alpine          |
@@ -1463,6 +1463,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
           "groups": 2,
           "vulnerabilities": [
             "PYSEC-2024-60",
+            "PYSEC-2026-215",
             "GHSA-65pc-fj4g-8rjx",
             "GHSA-jjg7-2v4v-x38h"
           ]
@@ -3651,9 +3652,13 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
               "index": 4
             }
           },
-          "groups": 1,
+          "groups": 5,
           "vulnerabilities": [
-            "UBUNTU-CVE-2026-27456"
+            "UBUNTU-CVE-2026-27456",
+            "UBUNTU-CVE-2026-53612",
+            "UBUNTU-CVE-2026-53613",
+            "UBUNTU-CVE-2026-53614",
+            "UBUNTU-CVE-2026-53615"
           ]
         },
         {
@@ -3735,9 +3740,13 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
               "index": 4
             }
           },
-          "groups": 2,
+          "groups": 6,
           "vulnerabilities": [
             "UBUNTU-CVE-2026-27456",
+            "UBUNTU-CVE-2026-53612",
+            "UBUNTU-CVE-2026-53613",
+            "UBUNTU-CVE-2026-53614",
+            "UBUNTU-CVE-2026-53615",
             "USN-8091-1"
           ]
         },
@@ -3915,7 +3924,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
               "index": 4
             }
           },
-          "groups": 6,
+          "groups": 7,
           "vulnerabilities": [
             "USN-7314-1",
             "USN-7257-1",
@@ -3926,6 +3935,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "UBUNTU-CVE-2024-3596",
             "UBUNTU-CVE-2025-24528",
             "UBUNTU-CVE-2025-3576",
+            "UBUNTU-CVE-2026-11850",
             "UBUNTU-CVE-2026-40355",
             "UBUNTU-CVE-2026-40356"
           ]
@@ -3940,7 +3950,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
               "index": 4
             }
           },
-          "groups": 6,
+          "groups": 7,
           "vulnerabilities": [
             "USN-7314-1",
             "USN-7257-1",
@@ -3951,6 +3961,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "UBUNTU-CVE-2024-3596",
             "UBUNTU-CVE-2025-24528",
             "UBUNTU-CVE-2025-3576",
+            "UBUNTU-CVE-2026-11850",
             "UBUNTU-CVE-2026-40355",
             "UBUNTU-CVE-2026-40356"
           ]
@@ -3965,7 +3976,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
               "index": 4
             }
           },
-          "groups": 6,
+          "groups": 7,
           "vulnerabilities": [
             "USN-7314-1",
             "USN-7257-1",
@@ -3976,6 +3987,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "UBUNTU-CVE-2024-3596",
             "UBUNTU-CVE-2025-24528",
             "UBUNTU-CVE-2025-3576",
+            "UBUNTU-CVE-2026-11850",
             "UBUNTU-CVE-2026-40355",
             "UBUNTU-CVE-2026-40356"
           ]
@@ -3990,7 +4002,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
               "index": 4
             }
           },
-          "groups": 6,
+          "groups": 7,
           "vulnerabilities": [
             "USN-7314-1",
             "USN-7257-1",
@@ -4001,6 +4013,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "UBUNTU-CVE-2024-3596",
             "UBUNTU-CVE-2025-24528",
             "UBUNTU-CVE-2025-3576",
+            "UBUNTU-CVE-2026-11850",
             "UBUNTU-CVE-2026-40355",
             "UBUNTU-CVE-2026-40356"
           ]
@@ -4046,9 +4059,13 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
               "index": 4
             }
           },
-          "groups": 2,
+          "groups": 6,
           "vulnerabilities": [
             "UBUNTU-CVE-2026-27456",
+            "UBUNTU-CVE-2026-53612",
+            "UBUNTU-CVE-2026-53613",
+            "UBUNTU-CVE-2026-53614",
+            "UBUNTU-CVE-2026-53615",
             "USN-8091-1"
           ]
         },
@@ -4096,11 +4113,12 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
               "index": 4
             }
           },
-          "groups": 2,
+          "groups": 3,
           "vulnerabilities": [
             "USN-7580-1",
             "UBUNTU-CVE-2024-10041",
-            "UBUNTU-CVE-2025-6020"
+            "UBUNTU-CVE-2025-6020",
+            "UBUNTU-CVE-2026-54411"
           ]
         },
         {
@@ -4113,11 +4131,12 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
               "index": 4
             }
           },
-          "groups": 2,
+          "groups": 3,
           "vulnerabilities": [
             "USN-7580-1",
             "UBUNTU-CVE-2024-10041",
-            "UBUNTU-CVE-2025-6020"
+            "UBUNTU-CVE-2025-6020",
+            "UBUNTU-CVE-2026-54411"
           ]
         },
         {
@@ -4130,11 +4149,12 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
               "index": 4
             }
           },
-          "groups": 2,
+          "groups": 3,
           "vulnerabilities": [
             "USN-7580-1",
             "UBUNTU-CVE-2024-10041",
-            "UBUNTU-CVE-2025-6020"
+            "UBUNTU-CVE-2025-6020",
+            "UBUNTU-CVE-2026-54411"
           ]
         },
         {
@@ -4147,11 +4167,12 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
               "index": 4
             }
           },
-          "groups": 2,
+          "groups": 3,
           "vulnerabilities": [
             "USN-7580-1",
             "UBUNTU-CVE-2024-10041",
-            "UBUNTU-CVE-2025-6020"
+            "UBUNTU-CVE-2025-6020",
+            "UBUNTU-CVE-2026-54411"
           ]
         },
         {
@@ -4194,9 +4215,13 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
               "index": 4
             }
           },
-          "groups": 2,
+          "groups": 6,
           "vulnerabilities": [
             "UBUNTU-CVE-2026-27456",
+            "UBUNTU-CVE-2026-53612",
+            "UBUNTU-CVE-2026-53613",
+            "UBUNTU-CVE-2026-53614",
+            "UBUNTU-CVE-2026-53615",
             "USN-8091-1"
           ]
         },
@@ -4212,8 +4237,8 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
           },
           "groups": 7,
           "vulnerabilities": [
-            "USN-7980-1",
             "USN-8414-1",
+            "USN-7980-1",
             "USN-8155-1",
             "USN-7786-1",
             "USN-7278-1",
@@ -4357,9 +4382,13 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
               "index": 4
             }
           },
-          "groups": 2,
+          "groups": 6,
           "vulnerabilities": [
             "UBUNTU-CVE-2026-27456",
+            "UBUNTU-CVE-2026-53612",
+            "UBUNTU-CVE-2026-53613",
+            "UBUNTU-CVE-2026-53614",
+            "UBUNTU-CVE-2026-53615",
             "USN-8091-1"
           ]
         },
@@ -4404,9 +4433,13 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
               "index": 4
             }
           },
-          "groups": 2,
+          "groups": 6,
           "vulnerabilities": [
             "UBUNTU-CVE-2026-27456",
+            "UBUNTU-CVE-2026-53612",
+            "UBUNTU-CVE-2026-53613",
+            "UBUNTU-CVE-2026-53614",
+            "UBUNTU-CVE-2026-53615",
             "USN-8091-1"
           ]
         },
@@ -4470,7 +4503,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
               "index": 4
             }
           },
-          "groups": 12,
+          "groups": 13,
           "vulnerabilities": [
             "USN-7434-1",
             "USN-7678-1",
@@ -4479,6 +4512,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "UBUNTU-CVE-2024-56406",
             "UBUNTU-CVE-2025-15649",
             "UBUNTU-CVE-2025-40909",
+            "UBUNTU-CVE-2026-12087",
             "UBUNTU-CVE-2026-42496",
             "UBUNTU-CVE-2026-42497",
             "UBUNTU-CVE-2026-48959",
@@ -4530,9 +4564,13 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
               "index": 4
             }
           },
-          "groups": 2,
+          "groups": 6,
           "vulnerabilities": [
             "UBUNTU-CVE-2026-27456",
+            "UBUNTU-CVE-2026-53612",
+            "UBUNTU-CVE-2026-53613",
+            "UBUNTU-CVE-2026-53614",
+            "UBUNTU-CVE-2026-53615",
             "USN-8091-1"
           ]
         },
@@ -4771,9 +4809,13 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 1,
+          "groups": 5,
           "vulnerabilities": [
-            "UBUNTU-CVE-2026-27456"
+            "UBUNTU-CVE-2026-27456",
+            "UBUNTU-CVE-2026-53612",
+            "UBUNTU-CVE-2026-53613",
+            "UBUNTU-CVE-2026-53614",
+            "UBUNTU-CVE-2026-53615"
           ]
         },
         {
@@ -4855,9 +4897,13 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 2,
+          "groups": 6,
           "vulnerabilities": [
             "UBUNTU-CVE-2026-27456",
+            "UBUNTU-CVE-2026-53612",
+            "UBUNTU-CVE-2026-53613",
+            "UBUNTU-CVE-2026-53614",
+            "UBUNTU-CVE-2026-53615",
             "USN-8091-1"
           ]
         },
@@ -5035,7 +5081,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 6,
+          "groups": 7,
           "vulnerabilities": [
             "USN-7314-1",
             "USN-7257-1",
@@ -5046,6 +5092,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "UBUNTU-CVE-2024-3596",
             "UBUNTU-CVE-2025-24528",
             "UBUNTU-CVE-2025-3576",
+            "UBUNTU-CVE-2026-11850",
             "UBUNTU-CVE-2026-40355",
             "UBUNTU-CVE-2026-40356"
           ]
@@ -5060,7 +5107,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 6,
+          "groups": 7,
           "vulnerabilities": [
             "USN-7314-1",
             "USN-7257-1",
@@ -5071,6 +5118,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "UBUNTU-CVE-2024-3596",
             "UBUNTU-CVE-2025-24528",
             "UBUNTU-CVE-2025-3576",
+            "UBUNTU-CVE-2026-11850",
             "UBUNTU-CVE-2026-40355",
             "UBUNTU-CVE-2026-40356"
           ]
@@ -5085,7 +5133,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 6,
+          "groups": 7,
           "vulnerabilities": [
             "USN-7314-1",
             "USN-7257-1",
@@ -5096,6 +5144,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "UBUNTU-CVE-2024-3596",
             "UBUNTU-CVE-2025-24528",
             "UBUNTU-CVE-2025-3576",
+            "UBUNTU-CVE-2026-11850",
             "UBUNTU-CVE-2026-40355",
             "UBUNTU-CVE-2026-40356"
           ]
@@ -5110,7 +5159,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 6,
+          "groups": 7,
           "vulnerabilities": [
             "USN-7314-1",
             "USN-7257-1",
@@ -5121,6 +5170,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "UBUNTU-CVE-2024-3596",
             "UBUNTU-CVE-2025-24528",
             "UBUNTU-CVE-2025-3576",
+            "UBUNTU-CVE-2026-11850",
             "UBUNTU-CVE-2026-40355",
             "UBUNTU-CVE-2026-40356"
           ]
@@ -5166,9 +5216,13 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 2,
+          "groups": 6,
           "vulnerabilities": [
             "UBUNTU-CVE-2026-27456",
+            "UBUNTU-CVE-2026-53612",
+            "UBUNTU-CVE-2026-53613",
+            "UBUNTU-CVE-2026-53614",
+            "UBUNTU-CVE-2026-53615",
             "USN-8091-1"
           ]
         },
@@ -5216,11 +5270,12 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 2,
+          "groups": 3,
           "vulnerabilities": [
             "USN-7580-1",
             "UBUNTU-CVE-2024-10041",
-            "UBUNTU-CVE-2025-6020"
+            "UBUNTU-CVE-2025-6020",
+            "UBUNTU-CVE-2026-54411"
           ]
         },
         {
@@ -5233,11 +5288,12 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 2,
+          "groups": 3,
           "vulnerabilities": [
             "USN-7580-1",
             "UBUNTU-CVE-2024-10041",
-            "UBUNTU-CVE-2025-6020"
+            "UBUNTU-CVE-2025-6020",
+            "UBUNTU-CVE-2026-54411"
           ]
         },
         {
@@ -5250,11 +5306,12 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 2,
+          "groups": 3,
           "vulnerabilities": [
             "USN-7580-1",
             "UBUNTU-CVE-2024-10041",
-            "UBUNTU-CVE-2025-6020"
+            "UBUNTU-CVE-2025-6020",
+            "UBUNTU-CVE-2026-54411"
           ]
         },
         {
@@ -5267,11 +5324,12 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 2,
+          "groups": 3,
           "vulnerabilities": [
             "USN-7580-1",
             "UBUNTU-CVE-2024-10041",
-            "UBUNTU-CVE-2025-6020"
+            "UBUNTU-CVE-2025-6020",
+            "UBUNTU-CVE-2026-54411"
           ]
         },
         {
@@ -5314,9 +5372,13 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 2,
+          "groups": 6,
           "vulnerabilities": [
             "UBUNTU-CVE-2026-27456",
+            "UBUNTU-CVE-2026-53612",
+            "UBUNTU-CVE-2026-53613",
+            "UBUNTU-CVE-2026-53614",
+            "UBUNTU-CVE-2026-53615",
             "USN-8091-1"
           ]
         },
@@ -5332,8 +5394,8 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           },
           "groups": 7,
           "vulnerabilities": [
-            "USN-7980-1",
             "USN-8414-1",
+            "USN-7980-1",
             "USN-8155-1",
             "USN-7786-1",
             "USN-7278-1",
@@ -5477,9 +5539,13 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 2,
+          "groups": 6,
           "vulnerabilities": [
             "UBUNTU-CVE-2026-27456",
+            "UBUNTU-CVE-2026-53612",
+            "UBUNTU-CVE-2026-53613",
+            "UBUNTU-CVE-2026-53614",
+            "UBUNTU-CVE-2026-53615",
             "USN-8091-1"
           ]
         },
@@ -5524,9 +5590,13 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 2,
+          "groups": 6,
           "vulnerabilities": [
             "UBUNTU-CVE-2026-27456",
+            "UBUNTU-CVE-2026-53612",
+            "UBUNTU-CVE-2026-53613",
+            "UBUNTU-CVE-2026-53614",
+            "UBUNTU-CVE-2026-53615",
             "USN-8091-1"
           ]
         },
@@ -5590,7 +5660,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 12,
+          "groups": 13,
           "vulnerabilities": [
             "USN-7434-1",
             "USN-7678-1",
@@ -5599,6 +5669,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "UBUNTU-CVE-2024-56406",
             "UBUNTU-CVE-2025-15649",
             "UBUNTU-CVE-2025-40909",
+            "UBUNTU-CVE-2026-12087",
             "UBUNTU-CVE-2026-42496",
             "UBUNTU-CVE-2026-42497",
             "UBUNTU-CVE-2026-48959",
@@ -5650,9 +5721,13 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 2,
+          "groups": 6,
           "vulnerabilities": [
             "UBUNTU-CVE-2026-27456",
+            "UBUNTU-CVE-2026-53612",
+            "UBUNTU-CVE-2026-53613",
+            "UBUNTU-CVE-2026-53614",
+            "UBUNTU-CVE-2026-53615",
             "USN-8091-1"
           ]
         },
