@@ -36,6 +36,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
+	tuxcareelsrepo "github.com/google/osv-scanner/v2/internal/scalibrextract/os/tuxcareelsrepo"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 	"github.com/google/osv-scanner/v2/internal/scalibrplugin"
 	"github.com/google/osv-scanner/v2/internal/testutility"
@@ -527,6 +528,7 @@ func TestResolve_Extractors(t *testing.T) {
 				apkanno.Name,
 				dpkganno.Name,
 				brewsource.Name,
+				tuxcareelsrepo.Name,
 			},
 		},
 		{
@@ -549,6 +551,7 @@ func TestResolve_Extractors(t *testing.T) {
 				apkanno.Name,
 				dpkganno.Name,
 				brewsource.Name,
+				tuxcareelsrepo.Name,
 			},
 		},
 		{
@@ -576,6 +579,7 @@ func TestResolve_Extractors(t *testing.T) {
 				apkanno.Name,
 				dpkganno.Name,
 				brewsource.Name,
+				tuxcareelsrepo.Name,
 			},
 		},
 		//
@@ -601,6 +605,7 @@ func TestResolve_Extractors(t *testing.T) {
 				apkanno.Name,
 				dpkganno.Name,
 				brewsource.Name,
+				tuxcareelsrepo.Name,
 			},
 		},
 		//
