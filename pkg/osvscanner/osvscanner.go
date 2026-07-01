@@ -32,6 +32,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/imodels/results"
 	"github.com/google/osv-scanner/v2/internal/output"
+	"github.com/google/osv-scanner/v2/internal/tuxcare"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/imagehelpers"
 	"github.com/ossf/osv-schema/bindings/go/osvconstants"
@@ -208,6 +209,7 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 	}
 
 	scanResults.Inventory = *packagesAndFindings
+	scanResults.Inventory.Packages = tuxcare.EnrichHostContext(scanResults.Inventory.Packages)
 
 	// ----- Filtering -----
 	unscannablePackages := filterUnscannablePackages(&scanResults, actions)
@@ -333,6 +335,10 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	}
 
 	// --- Save Scalibr Scan Results ---
+	// EnrichHostContext must run on scalibrSR BEFORE ScanResultToProto: the enricher
+	// strips the ChannelMarkerMetadata marker package, whose custom metadata type would
+	// cause ScanResultToProto to return ErrStructNotRegistered otherwise.
+	scalibrSR.Inventory.Packages = tuxcare.EnrichHostContext(scalibrSR.Inventory.Packages)
 	scanResults.Inventory = scalibrSR.Inventory
 
 	// --- Fill Image Metadata ---
