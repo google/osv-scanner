@@ -4,10 +4,12 @@ import (
 	"context"
 	"errors"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 
 	"github.com/google/osv-scalibr/extractor"
+	rpmmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/rpm/metadata"
 	"github.com/google/osv-scalibr/purl"
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
@@ -138,6 +140,43 @@ func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*ext
 	return vulnerabilities, nil
 }
 
+// rhelFamilyEpochEcosystems are the RPM ecosystems whose osv.dev advisory
+// records encode the package epoch (verified against api.osv.dev). Only these
+// receive an epoch-qualified query version. Some RPM ecosystems (e.g. openEuler)
+// store epoch-less records even though their packages carry epochs; sending an
+// epoch there would make every epoch-bearing package look newer than its fix and
+// be reported as unaffected. Leaving such ecosystems epoch-less is the safe
+// default (no regression); entries are added only once epoch-encoding is verified.
+var rhelFamilyEpochEcosystems = map[string]bool{
+	"Red Hat":     true,
+	"AlmaLinux":   true,
+	"Rocky Linux": true,
+}
+
+// ecosystemEncodesEpoch reports whether the ecosystem's OSV records carry the
+// RPM epoch, so a query for it must be epoch-qualified to compare correctly.
+func ecosystemEncodesEpoch(ecosystem string) bool {
+	distro, _, _ := strings.Cut(ecosystem, ":")
+	return rhelFamilyEpochEcosystems[distro]
+}
+
+// queryVersion returns the version string to send to osv.dev for a package.
+// RPM ecosystems order versions with an epoch, but scalibr stores it separately
+// from the version string. For ecosystems whose records encode the epoch, it is
+// prepended when non-zero (e.g. "3.2.2-7.el9_6" -> "1:3.2.2-7.el9_6"); otherwise
+// osv.dev treats the missing epoch as 0, making the installed package look older
+// than every epoch-bearing fix and reporting already-fixed advisories as unfixed.
+// Ecosystems that store epoch-less records, and non-RPM ecosystems (which carry
+// any epoch inline), are returned unchanged.
+func queryVersion(pkg *extractor.Package, ecosystem string) string {
+	version := imodels.Version(pkg)
+	if m, ok := pkg.Metadata.(*rpmmetadata.Metadata); ok && m.Epoch > 0 && ecosystemEncodesEpoch(ecosystem) {
+		return strconv.Itoa(m.Epoch) + ":" + version
+	}
+
+	return version
+}
+
 func pkgToQuery(pkg *extractor.Package) *api.Query {
 	if imodels.Name(pkg) != "" && !imodels.Ecosystem(pkg).IsEmpty() && imodels.Version(pkg) != "" {
 		name := imodels.Name(pkg)
@@ -166,7 +205,7 @@ func pkgToQuery(pkg *extractor.Package) *api.Query {
 				Ecosystem: imodels.Ecosystem(pkg).String(),
 			},
 			Param: &api.Query_Version{
-				Version: imodels.Version(pkg),
+				Version: queryVersion(pkg, imodels.Ecosystem(pkg).String()),
 			},
 		}
 	}
