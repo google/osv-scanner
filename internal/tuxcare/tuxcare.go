@@ -4,6 +4,7 @@
 package tuxcare
 
 import (
+	"strconv"
 	"strings"
 
 	"github.com/google/osv-scalibr/binary/proto/metadata"
@@ -58,6 +59,22 @@ func OverlayPackage(pkg *extractor.Package) *osvschema.Package {
 	}
 
 	return &osvschema.Package{Name: name, Ecosystem: EcosystemPrefix + distro + ":" + version}
+}
+
+// QueryVersion returns the version to send to osv.dev for a TuxCare-routed
+// package. TuxCare ELS advisory records encode the RPM epoch, but scalibr keeps
+// it in rpmmetadata.Metadata.Epoch, separate from the version string; prepend it
+// when non-zero (e.g. "3.2.2-7.el9_6" -> "1:3.2.2-7.el9_6") so osv.dev does not
+// read the missing epoch as 0 and report already-fixed advisories as unfixed.
+// deb packages carry any epoch inline in the version (non-RPM metadata), so they
+// pass through unchanged. Only routing (OverlayPackage) reaches this, so no
+// ecosystem allowlist is needed: every TuxCare ecosystem encodes the epoch.
+func QueryVersion(pkg *extractor.Package) string {
+	if m, ok := pkg.Metadata.(*rpmmetadata.Metadata); ok && m.Epoch > 0 {
+		return strconv.Itoa(m.Epoch) + ":" + pkg.Version
+	}
+
+	return pkg.Version
 }
 
 func distroAndVersion(pkg *extractor.Package) (distro, version string) {

@@ -5,6 +5,7 @@ import (
 
 	"github.com/google/osv-scalibr/binary/proto/metadata"
 	"github.com/google/osv-scalibr/extractor"
+	dpkgmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/dpkg/metadata"
 	rpmmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/rpm/metadata"
 )
 
@@ -13,6 +14,49 @@ func rpmPkg(name, version, osID, osVersionID string) *extractor.Package {
 		Name:     name,
 		Version:  version,
 		Metadata: &rpmmetadata.Metadata{PackageName: name, OSID: osID, OSVersionID: osVersionID},
+	}
+}
+
+// TuxCare ELS feeds encode the RPM epoch, so a routed query must carry it. deb
+// packages keep any epoch inline in the version and must pass through unchanged.
+func TestQueryVersion(t *testing.T) {
+	t.Parallel()
+
+	rpm := func(version string, epoch int) *extractor.Package {
+		return &extractor.Package{Version: version, Metadata: &rpmmetadata.Metadata{Epoch: epoch}}
+	}
+
+	tests := []struct {
+		name string
+		pkg  *extractor.Package
+		want string
+	}{
+		{
+			name: "rpm_epoch_prepended",
+			pkg:  rpm("3.2.2-7.el9_6.tuxcare.els1", 1),
+			want: "1:3.2.2-7.el9_6.tuxcare.els1",
+		},
+		{
+			name: "rpm_epoch_zero_unchanged",
+			pkg:  rpm("2.17-326.el7.tuxcare.els2", 0),
+			want: "2.17-326.el7.tuxcare.els2",
+		},
+		{
+			// deb versions carry the epoch inline; non-RPM metadata must pass through.
+			name: "dpkg_inline_epoch_unchanged",
+			pkg:  &extractor.Package{Version: "2:1.10.6-1ubuntu3.6+tuxcare.els2", Metadata: &dpkgmetadata.Metadata{}},
+			want: "2:1.10.6-1ubuntu3.6+tuxcare.els2",
+		},
+	}
+
+	for i := range tests {
+		tt := tests[i]
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			if got := QueryVersion(tt.pkg); got != tt.want {
+				t.Errorf("QueryVersion() = %q, want %q", got, tt.want)
+			}
+		})
 	}
 }
 
