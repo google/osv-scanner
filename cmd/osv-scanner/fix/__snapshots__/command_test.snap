@@ -5383,8 +5383,8 @@ UNFIXABLE-VULNS: 9
       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.15.tgz",
       "integrity": "sha512-EwOCDEex4quD37XhqM3omwtMoJjr//isUZz1JopUNWms+4Z2ViyM/k1YIRePpoVNnQhENnxtFjLaxNHrT7xIUg==",
       "dependencies": {
-        "balanced-match": "^1.0.0",
-        "concat-map": "0.0.1"
+        "concat-map": "0.0.1",
+        "balanced-match": "^1.0.0"
       }
     },
     "node_modules/caseless": {
@@ -6303,8 +6303,8 @@ UNFIXABLE-VULNS: 9
       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.15.tgz",
       "integrity": "sha512-EwOCDEex4quD37XhqM3omwtMoJjr//isUZz1JopUNWms+4Z2ViyM/k1YIRePpoVNnQhENnxtFjLaxNHrT7xIUg==",
       "requires": {
-        "balanced-match": "^1.0.0",
-        "concat-map": "0.0.1"
+        "concat-map": "0.0.1",
+        "balanced-match": "^1.0.0"
       }
     },
     "caseless": {
@@ -7419,8 +7419,8 @@ Guided remediation (the fix command) can be risky when run on untrusted projects
       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.15.tgz",
       "integrity": "sha512-EwOCDEex4quD37XhqM3omwtMoJjr//isUZz1JopUNWms+4Z2ViyM/k1YIRePpoVNnQhENnxtFjLaxNHrT7xIUg==",
       "dependencies": {
-        "balanced-match": "^1.0.0",
-        "concat-map": "0.0.1"
+        "concat-map": "0.0.1",
+        "balanced-match": "^1.0.0"
       }
     },
     "node_modules/caseless": {
@@ -8339,8 +8339,8 @@ Guided remediation (the fix command) can be risky when run on untrusted projects
       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.15.tgz",
       "integrity": "sha512-EwOCDEex4quD37XhqM3omwtMoJjr//isUZz1JopUNWms+4Z2ViyM/k1YIRePpoVNnQhENnxtFjLaxNHrT7xIUg==",
       "requires": {
-        "balanced-match": "^1.0.0",
-        "concat-map": "0.0.1"
+        "concat-map": "0.0.1",
+        "balanced-match": "^1.0.0"
       }
     },
     "caseless": {
@@ -9771,8 +9771,8 @@ UNFIXABLE-VULNS: 9
       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.15.tgz",
       "integrity": "sha512-EwOCDEex4quD37XhqM3omwtMoJjr//isUZz1JopUNWms+4Z2ViyM/k1YIRePpoVNnQhENnxtFjLaxNHrT7xIUg==",
       "dependencies": {
-        "balanced-match": "^1.0.0",
-        "concat-map": "0.0.1"
+        "concat-map": "0.0.1",
+        "balanced-match": "^1.0.0"
       }
     },
     "node_modules/caseless": {
@@ -10691,8 +10691,8 @@ UNFIXABLE-VULNS: 9
       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.15.tgz",
       "integrity": "sha512-EwOCDEex4quD37XhqM3omwtMoJjr//isUZz1JopUNWms+4Z2ViyM/k1YIRePpoVNnQhENnxtFjLaxNHrT7xIUg==",
       "requires": {
-        "balanced-match": "^1.0.0",
-        "concat-map": "0.0.1"
+        "concat-map": "0.0.1",
+        "balanced-match": "^1.0.0"
       }
     },
     "caseless": {
@@ -11590,8 +11590,8 @@ UNFIXABLE-VULNS: 9
       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.15.tgz",
       "integrity": "sha512-EwOCDEex4quD37XhqM3omwtMoJjr//isUZz1JopUNWms+4Z2ViyM/k1YIRePpoVNnQhENnxtFjLaxNHrT7xIUg==",
       "dependencies": {
-        "balanced-match": "^1.0.0",
-        "concat-map": "0.0.1"
+        "concat-map": "0.0.1",
+        "balanced-match": "^1.0.0"
       }
     },
     "node_modules/caseless": {
@@ -12510,8 +12510,8 @@ UNFIXABLE-VULNS: 9
       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.15.tgz",
       "integrity": "sha512-EwOCDEex4quD37XhqM3omwtMoJjr//isUZz1JopUNWms+4Z2ViyM/k1YIRePpoVNnQhENnxtFjLaxNHrT7xIUg==",
       "requires": {
-        "balanced-match": "^1.0.0",
-        "concat-map": "0.0.1"
+        "concat-map": "0.0.1",
+        "balanced-match": "^1.0.0"
       }
     },
     "caseless": {
