@@ -9,7 +9,6 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/google/osv-scalibr/inventory/vex"
 	"github.com/google/osv-scalibr/semantic"
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/identifiers"
@@ -190,14 +189,7 @@ func BuildResults(vulnResult *models.VulnerabilityResults) Result {
 	var resultCount VulnCount
 	pkgDeprecatedCount := 0
 
-RowLoop:
 	for _, packageSource := range vulnResult.Results {
-		for _, pes := range packageSource.ExperimentalPES {
-			if pes.MatchesAllVulns && pes.Justification == vex.ComponentNotPresent {
-				continue RowLoop
-			}
-		}
-
 		// Process vulnerabilities for each source
 		sourceResults := processSource(packageSource)
 		for ecosystem, source := range sourceResults {
