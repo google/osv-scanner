@@ -38,7 +38,9 @@
   {{ $hasLicenseViolations = true }}
   {{ end }}
   <tr class="table-tr package-tr {{if $element.LayerDetail }}has-layer-info"
-    data-layer="{{ $element.LayerDetail.LayerInfo.LayerMetadata.DiffID }}{{ end }}" id="table-tr-{{ $index }}" onclick="showPackageDetails('{{ $index }}')">
+    data-layer="{{ $element.LayerDetail.LayerInfo.LayerMetadata.DiffID }}{{ end }}"
+    data-has-license-violation="{{ $hasLicenseViolations }}"
+    id="table-tr-{{ $index }}" onclick="showPackageDetails('{{ $index }}')">
     <td class="icon-td">
       <div class="expand-icon">
         <i class="material-icons">play_arrow</i>

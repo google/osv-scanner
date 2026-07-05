@@ -1,5 +1,6 @@
 const selectedTypeFilterValue = new Set(["all"]);
 let selectedLayer = "all";
+let showLicenseViolations = false;
 const tabScrollPositions = {};
 
 function toggleDetails(summaryID) {
@@ -213,11 +214,16 @@ function showAndHideParentSections() {
           `${packageRow.id}-details`
         );
         const vulnRows = packageDetails.querySelectorAll(".vuln-tr");
+        const hasVisibleVuln = Array.from(vulnRows).some(
+          row => !row.classList.contains("hide-block")
+        );
+        const hasLicenseViolation =
+          packageRow.getAttribute("data-has-license-violation") === "true";
+
         if (
-          Array.from(vulnRows).some(
-            row => !row.classList.contains("hide-block")
-          )
-        ) {
+          hasVisibleVuln ||
+          (showLicenseViolations && hasLicenseViolation)
+        ) {  
           sourceHasVisibleRows = true;
           packageRow.classList.remove("hide-block");
           return;
@@ -409,11 +415,29 @@ function resetTypeCheckbox() {
     }
     uncalledTypeCheckbox.checked = false;
   }
+  const licenseViolationCheckbox = document.getElementById(
+    "license-violation-type-checkbox"
+  );
+  if (licenseViolationCheckbox) {
+    licenseViolationCheckbox.checked = false;
+  }
+  showLicenseViolations = false;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   resetFilterText();
   showAndHideParentSections();
+
+    // Implement filter for "show license violations without vulnerabilities"
+  const licenseViolationCheckbox = document.getElementById(
+    "license-violation-type-checkbox"
+  );
+  if (licenseViolationCheckbox) {
+    licenseViolationCheckbox.addEventListener("change", () => {
+      showLicenseViolations = licenseViolationCheckbox.checked;
+      applyFilters(selectedTypeFilterValue, selectedLayer);
+    });
+  }
 
   // Implement filter for vulnerability types
   const typeFilterOptions = document.getElementById(
