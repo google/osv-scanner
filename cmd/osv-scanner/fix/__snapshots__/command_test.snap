@@ -5383,8 +5383,8 @@ UNFIXABLE-VULNS: 9
       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.15.tgz",
       "integrity": "sha512-EwOCDEex4quD37XhqM3omwtMoJjr//isUZz1JopUNWms+4Z2ViyM/k1YIRePpoVNnQhENnxtFjLaxNHrT7xIUg==",
       "dependencies": {
-        "balanced-match": "^1.0.0",
-        "concat-map": "0.0.1"
+        "concat-map": "0.0.1",
+        "balanced-match": "^1.0.0"
       }
     },
     "node_modules/caseless": {
@@ -6303,8 +6303,8 @@ UNFIXABLE-VULNS: 9
       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.15.tgz",
       "integrity": "sha512-EwOCDEex4quD37XhqM3omwtMoJjr//isUZz1JopUNWms+4Z2ViyM/k1YIRePpoVNnQhENnxtFjLaxNHrT7xIUg==",
       "requires": {
-        "balanced-match": "^1.0.0",
-        "concat-map": "0.0.1"
+        "concat-map": "0.0.1",
+        "balanced-match": "^1.0.0"
       }
     },
     "caseless": {
@@ -7419,8 +7419,8 @@ Guided remediation (the fix command) can be risky when run on untrusted projects
       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.15.tgz",
       "integrity": "sha512-EwOCDEex4quD37XhqM3omwtMoJjr//isUZz1JopUNWms+4Z2ViyM/k1YIRePpoVNnQhENnxtFjLaxNHrT7xIUg==",
       "dependencies": {
-        "balanced-match": "^1.0.0",
-        "concat-map": "0.0.1"
+        "concat-map": "0.0.1",
+        "balanced-match": "^1.0.0"
       }
     },
     "node_modules/caseless": {
@@ -8339,8 +8339,8 @@ Guided remediation (the fix command) can be risky when run on untrusted projects
       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.15.tgz",
       "integrity": "sha512-EwOCDEex4quD37XhqM3omwtMoJjr//isUZz1JopUNWms+4Z2ViyM/k1YIRePpoVNnQhENnxtFjLaxNHrT7xIUg==",
       "requires": {
-        "balanced-match": "^1.0.0",
-        "concat-map": "0.0.1"
+        "concat-map": "0.0.1",
+        "balanced-match": "^1.0.0"
       }
     },
     "caseless": {
@@ -9771,8 +9771,8 @@ UNFIXABLE-VULNS: 9
       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.15.tgz",
       "integrity": "sha512-EwOCDEex4quD37XhqM3omwtMoJjr//isUZz1JopUNWms+4Z2ViyM/k1YIRePpoVNnQhENnxtFjLaxNHrT7xIUg==",
       "dependencies": {
-        "balanced-match": "^1.0.0",
-        "concat-map": "0.0.1"
+        "concat-map": "0.0.1",
+        "balanced-match": "^1.0.0"
       }
     },
     "node_modules/caseless": {
@@ -10691,8 +10691,8 @@ UNFIXABLE-VULNS: 9
       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.15.tgz",
       "integrity": "sha512-EwOCDEex4quD37XhqM3omwtMoJjr//isUZz1JopUNWms+4Z2ViyM/k1YIRePpoVNnQhENnxtFjLaxNHrT7xIUg==",
       "requires": {
-        "balanced-match": "^1.0.0",
-        "concat-map": "0.0.1"
+        "concat-map": "0.0.1",
+        "balanced-match": "^1.0.0"
       }
     },
     "caseless": {
@@ -11467,7 +11467,6 @@ manifest or lockfile is required
 
 [TestCommand_OfflineDatabase/fix_non_interactive_in_place_package_lock_json_with_offline_vulns - 1]
 Guided remediation (the fix command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
-Loaded npm local db from <tempdir>/osv-scalibr/npm/all.zip
 Found 17 vulnerabilities matching the filter
 Can fix 8/17 matching vulnerabilities by changing 5 dependencies
 UPGRADED-PACKAGE: minimatch,3.1.2,3.1.5
@@ -11591,8 +11590,8 @@ UNFIXABLE-VULNS: 9
       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.15.tgz",
       "integrity": "sha512-EwOCDEex4quD37XhqM3omwtMoJjr//isUZz1JopUNWms+4Z2ViyM/k1YIRePpoVNnQhENnxtFjLaxNHrT7xIUg==",
       "dependencies": {
-        "balanced-match": "^1.0.0",
-        "concat-map": "0.0.1"
+        "concat-map": "0.0.1",
+        "balanced-match": "^1.0.0"
       }
     },
     "node_modules/caseless": {
@@ -12511,8 +12510,8 @@ UNFIXABLE-VULNS: 9
       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.15.tgz",
       "integrity": "sha512-EwOCDEex4quD37XhqM3omwtMoJjr//isUZz1JopUNWms+4Z2ViyM/k1YIRePpoVNnQhENnxtFjLaxNHrT7xIUg==",
       "requires": {
-        "balanced-match": "^1.0.0",
-        "concat-map": "0.0.1"
+        "concat-map": "0.0.1",
+        "balanced-match": "^1.0.0"
       }
     },
     "caseless": {
@@ -13211,7 +13210,6 @@ UNFIXABLE-VULNS: 9
 
 [TestCommand_OfflineDatabase/fix_non_interactive_relax_package_json_with_offline_vulns - 1]
 Guided remediation (the fix command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
-Loaded npm local db from <tempdir>/osv-scalibr/npm/all.zip
 Found 9 vulnerabilities matching the filter
 Can fix 3/9 matching vulnerabilities by changing 1 dependencies
 UPGRADED-PACKAGE: npm-registry-client,6.2.0,^7.5.0

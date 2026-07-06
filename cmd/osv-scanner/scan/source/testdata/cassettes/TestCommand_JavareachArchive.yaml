@@ -170,7 +170,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 4488
+      content_length: 4558
       body: |
         {
           "results": [
@@ -326,6 +326,10 @@ interactions:
                   "modified": "2026-02-04T02:19:17.186100Z"
                 },
                 {
+                  "id": "GHSA-hgj6-7826-r7m5",
+                  "modified": "2026-06-25T00:29:24.783131Z"
+                },
+                {
                   "id": "GHSA-jjjh-jjxp-wpff",
                   "modified": "2026-02-04T02:23:59.070528Z"
                 },
@@ -471,7 +475,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "4488"
+          - "4558"
         Content-Type:
           - application/json
       status: 200 OK
@@ -646,7 +650,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 4488
+      content_length: 4558
       body: |
         {
           "results": [
@@ -802,6 +806,10 @@ interactions:
                   "modified": "2026-02-04T02:19:17.186100Z"
                 },
                 {
+                  "id": "GHSA-hgj6-7826-r7m5",
+                  "modified": "2026-06-25T00:29:24.783131Z"
+                },
+                {
                   "id": "GHSA-jjjh-jjxp-wpff",
                   "modified": "2026-02-04T02:23:59.070528Z"
                 },
@@ -947,7 +955,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "4488"
+          - "4558"
         Content-Type:
           - application/json
       status: 200 OK
@@ -1122,7 +1130,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 4488
+      content_length: 4558
       body: |
         {
           "results": [
@@ -1278,6 +1286,10 @@ interactions:
                   "modified": "2026-02-04T02:19:17.186100Z"
                 },
                 {
+                  "id": "GHSA-hgj6-7826-r7m5",
+                  "modified": "2026-06-25T00:29:24.783131Z"
+                },
+                {
                   "id": "GHSA-jjjh-jjxp-wpff",
                   "modified": "2026-02-04T02:23:59.070528Z"
                 },
@@ -1423,7 +1435,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "4488"
+          - "4558"
         Content-Type:
           - application/json
       status: 200 OK
