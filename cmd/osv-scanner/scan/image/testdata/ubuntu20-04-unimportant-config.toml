@@ -102,3 +102,24 @@ ignore = true
 name = "bzip2"
 reason = "Just want to test only unimportant vulns"
 ignore = true
+
+[[PackageOverrides]]
+name = "acl"
+reason = "Just want to test only unimportant vulns"
+ignore = true
+
+[[PackageOverrides]]
+name = "attr"
+reason = "Just want to test only unimportant vulns"
+ignore = true
+
+[[PackageOverrides]]
+name = "gzip"
+reason = "Just want to test only unimportant vulns"
+ignore = true
+
+[[PackageOverrides]]
+name = "p11-kit"
+reason = "Just want to test only unimportant vulns"
+ignore = true
+

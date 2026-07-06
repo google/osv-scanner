@@ -1046,7 +1046,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 1754
+      content_length: 1824
       body: |
         {
           "results": [
@@ -1124,11 +1124,11 @@ interactions:
                 },
                 {
                   "id": "DRUPAL-CORE-2026-004",
-                  "modified": "2026-05-29T09:26:01.201397Z"
+                  "modified": "2026-06-18T20:26:07.761498Z"
                 },
                 {
                   "id": "DRUPAL-CORE-2026-005",
-                  "modified": "2026-06-17T19:41:28.882665Z"
+                  "modified": "2026-06-19T19:15:05.088567Z"
                 },
                 {
                   "id": "DRUPAL-CORE-2026-006",
@@ -1153,6 +1153,10 @@ interactions:
                 {
                   "id": "GHSA-f3cj-mjqm-fhvj",
                   "modified": "2026-06-05T18:42:12.797816Z"
+                },
+                {
+                  "id": "GHSA-ghwc-95x2-682j",
+                  "modified": "2026-06-18T20:26:07.761498Z"
                 },
                 {
                   "id": "GHSA-h89p-5896-f4q8",
@@ -1187,7 +1191,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "1754"
+          - "1824"
         Content-Type:
           - application/json
       status: 200 OK
@@ -3070,7 +3074,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 25083
+      content_length: 25512
       body: |
         {
           "results": [
@@ -3301,6 +3305,10 @@ interactions:
                   "modified": "2026-02-04T02:53:37.613379Z"
                 },
                 {
+                  "id": "GHSA-xjvp-4fhw-gc47",
+                  "modified": "2026-06-23T18:29:29.325196Z"
+                },
+                {
                   "id": "GHSA-xr7r-f8xq-vfvv",
                   "modified": "2026-02-04T03:18:48.377509Z"
                 },
@@ -3372,6 +3380,14 @@ interactions:
                 {
                   "id": "DEBIAN-CVE-2022-1271",
                   "modified": "2026-06-15T19:04:00.779834Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-41991",
+                  "modified": "2026-07-02T10:03:18.347139Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-41992",
+                  "modified": "2026-07-02T10:03:18.483652Z"
                 },
                 {
                   "id": "DSA-5122-1",
@@ -3750,8 +3766,16 @@ interactions:
                   "modified": "2026-06-15T19:06:02.509422Z"
                 },
                 {
+                  "id": "DEBIAN-CVE-2026-11979",
+                  "modified": "2026-07-01T18:00:10.769750Z"
+                },
+                {
                   "id": "DEBIAN-CVE-2026-1757",
                   "modified": "2026-06-15T19:06:07.689307Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-6653",
+                  "modified": "2026-06-23T05:00:15.700358Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-6732",
@@ -4652,24 +4676,28 @@ interactions:
                   "modified": "2026-06-15T19:05:39.770160Z"
                 },
                 {
+                  "id": "DEBIAN-CVE-2026-13595",
+                  "modified": "2026-06-30T23:00:08.327257Z"
+                },
+                {
                   "id": "DEBIAN-CVE-2026-27456",
                   "modified": "2026-06-15T19:06:13.644847Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-3184",
-                  "modified": "2026-06-15T19:06:17.854973Z"
+                  "modified": "2026-07-03T23:00:09.066270Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-53612",
-                  "modified": "2026-06-17T07:00:08.875942Z"
+                  "modified": "2026-06-26T22:00:12.721900Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-53613",
-                  "modified": "2026-06-17T08:00:09.754851Z"
+                  "modified": "2026-06-26T22:00:13.040059Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-53614",
-                  "modified": "2026-06-17T08:00:09.493161Z"
+                  "modified": "2026-06-26T22:00:12.733790Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-53615",
@@ -4723,7 +4751,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "25083"
+          - "25512"
         Content-Type:
           - application/json
       status: 200 OK
@@ -4864,7 +4892,7 @@ interactions:
                 },
                 {
                   "id": "GO-2025-4014",
-                  "modified": "2026-06-04T10:29:16.617520Z"
+                  "modified": "2026-06-26T12:29:46.364453Z"
                 },
                 {
                   "id": "GO-2025-4015",
@@ -4872,7 +4900,7 @@ interactions:
                 },
                 {
                   "id": "GO-2025-4155",
-                  "modified": "2026-06-12T10:29:15.211985Z"
+                  "modified": "2026-07-02T10:44:29.157044Z"
                 },
                 {
                   "id": "GO-2025-4175",
@@ -4880,7 +4908,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4337",
-                  "modified": "2026-06-12T10:29:15.605437Z"
+                  "modified": "2026-07-02T10:44:29.615354Z"
                 },
                 {
                   "id": "GO-2026-4340",
@@ -4888,15 +4916,15 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4341",
-                  "modified": "2026-06-12T10:29:15.035295Z"
+                  "modified": "2026-07-02T10:44:28.883793Z"
                 },
                 {
                   "id": "GO-2026-4342",
-                  "modified": "2026-06-12T10:29:15.283039Z"
+                  "modified": "2026-07-02T10:44:29.686144Z"
                 },
                 {
                   "id": "GO-2026-4601",
-                  "modified": "2026-06-17T10:29:19.633057Z"
+                  "modified": "2026-07-02T10:44:29.302406Z"
                 },
                 {
                   "id": "GO-2026-4602",
@@ -4908,7 +4936,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4864",
-                  "modified": "2026-06-16T10:29:15.527117Z"
+                  "modified": "2026-07-02T10:44:29.832862Z"
                 },
                 {
                   "id": "GO-2026-4865",
@@ -4920,19 +4948,19 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4870",
-                  "modified": "2026-06-17T10:29:19.204036Z"
+                  "modified": "2026-07-02T10:44:28.519843Z"
                 },
                 {
                   "id": "GO-2026-4918",
-                  "modified": "2026-05-11T08:11:05.383192Z"
+                  "modified": "2026-06-27T10:44:20.771417Z"
                 },
                 {
                   "id": "GO-2026-4946",
-                  "modified": "2026-06-17T10:29:19.549582Z"
+                  "modified": "2026-07-02T10:44:30.139201Z"
                 },
                 {
                   "id": "GO-2026-4947",
-                  "modified": "2026-06-17T10:29:19.948808Z"
+                  "modified": "2026-07-02T10:44:28.594682Z"
                 },
                 {
                   "id": "GO-2026-4971",
@@ -4940,7 +4968,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4976",
-                  "modified": "2026-05-11T08:11:26.883618Z"
+                  "modified": "2026-06-27T10:44:21.221469Z"
                 },
                 {
                   "id": "GO-2026-4977",
@@ -4952,11 +4980,11 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4981",
-                  "modified": "2026-06-09T10:29:17.671297Z"
+                  "modified": "2026-07-02T10:44:28.743717Z"
                 },
                 {
                   "id": "GO-2026-4982",
-                  "modified": "2026-05-11T08:11:21.041304Z"
+                  "modified": "2026-06-27T10:44:21.066171Z"
                 },
                 {
                   "id": "GO-2026-4986",
@@ -4964,7 +4992,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-5037",
-                  "modified": "2026-06-05T07:56:06.303534Z"
+                  "modified": "2026-07-02T10:44:29.235322Z"
                 },
                 {
                   "id": "GO-2026-5038",
@@ -4972,7 +5000,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-5039",
-                  "modified": "2026-06-05T07:56:26.571479Z"
+                  "modified": "2026-06-27T10:44:21.143168Z"
                 }
               ]
             },
