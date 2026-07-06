@@ -52,7 +52,7 @@ func getPlugins(
 	defaultPlugins []string,
 	accessors ExternalAccessors,
 	actions ScannerActions,
-	clientFactories config.ClientFactories,
+	scalibrConfig *config.PluginConfig,
 	configManager *scanconfig.Manager,
 	isContainerScan bool,
 ) []plugin.Plugin {
@@ -92,9 +92,22 @@ func getPlugins(
 		},
 	})
 
-	cfg := &cpb.PluginConfig{
-		UserAgent:      actions.RequestUserAgent,
-		PluginSpecific: pluginSpecific,
+	var finalScalibrConfig *config.PluginConfig
+	if scalibrConfig != nil {
+		finalScalibrConfig = scalibrConfig
+		if finalScalibrConfig.ProtoConfig == nil {
+			finalScalibrConfig.ProtoConfig = &cpb.PluginConfig{
+				UserAgent:      actions.RequestUserAgent,
+				PluginSpecific: pluginSpecific,
+			}
+		}
+	} else {
+		finalScalibrConfig = &config.PluginConfig{
+			ProtoConfig: &cpb.PluginConfig{
+				UserAgent:      actions.RequestUserAgent,
+				PluginSpecific: pluginSpecific,
+			},
+		}
 	}
 
 	if !actions.PluginsNoDefaults {
@@ -131,7 +144,7 @@ func getPlugins(
 		actions.PluginsEnabled = append(actions.PluginsEnabled, "vulnmatch/osvdev")
 	}
 
-	plugins := scalibrplugin.Resolve(actions.PluginsEnabled, actions.PluginsDisabled, cfg, clientFactories)
+	plugins := scalibrplugin.Resolve(actions.PluginsEnabled, actions.PluginsDisabled, finalScalibrConfig)
 
 	// Append the pre-matching filter annotator so it always runs.
 	filterAnnotator := filter.NewAnnotator(configManager, isContainerScan, actions.ShowAllPackages)
@@ -168,7 +181,7 @@ func countNotEnrichersOrAnnotators(plugins []plugin.Plugin) int {
 func scan(
 	accessors ExternalAccessors,
 	actions ScannerActions,
-	clientFactories config.ClientFactories,
+	scalibrConfig *config.PluginConfig,
 	configManager *scanconfig.Manager,
 ) (*inventory.Inventory, *filter.Annotator, error) {
 	var inv inventory.Inventory
@@ -177,7 +190,7 @@ func scan(
 		[]string{"lockfile", "sbom", "directory"},
 		accessors,
 		actions,
-		clientFactories,
+		scalibrConfig,
 		configManager,
 		/* isContainerScan = */ false,
 	)
@@ -237,7 +250,10 @@ func scan(
 
 	// --- SBOMs (Deprecated) ---
 	// none of the SBOM extractors need configuring
-	sbomExtractors := scalibrplugin.Resolve([]string{"sbom"}, []string{}, &cpb.PluginConfig{}, config.NewDefaultClientFactories(""))
+	sbomExtractors := scalibrplugin.Resolve([]string{"sbom"}, []string{}, &config.PluginConfig{
+		ProtoConfig:     &cpb.PluginConfig{},
+		ClientFactories: config.NewDefaultClientFactories(""),
+	})
 
 SBOMLoop:
 	for _, sbomPath := range actions.SBOMPaths {

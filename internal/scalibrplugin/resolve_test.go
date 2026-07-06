@@ -170,7 +170,10 @@ func TestResolve(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			got := scalibrplugin.Resolve(tt.args.enabled, tt.args.disabled, &cpb.PluginConfig{}, config.NewDefaultClientFactories(""))
+			got := scalibrplugin.Resolve(tt.args.enabled, tt.args.disabled, &config.PluginConfig{
+				ProtoConfig:     &cpb.PluginConfig{},
+				ClientFactories: config.NewDefaultClientFactories(""),
+			})
 
 			slices.Sort(tt.want)
 
@@ -340,7 +343,10 @@ func TestResolve_Detectors(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			got := scalibrplugin.Resolve(tt.args.enabled, tt.args.disabled, &cpb.PluginConfig{}, config.NewDefaultClientFactories(""))
+			got := scalibrplugin.Resolve(tt.args.enabled, tt.args.disabled, &config.PluginConfig{
+				ProtoConfig:     &cpb.PluginConfig{},
+				ClientFactories: config.NewDefaultClientFactories(""),
+			})
 
 			slices.Sort(tt.want)
 
@@ -425,7 +431,10 @@ func TestResolve_RequiredPlugins(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			got := scalibrplugin.Resolve(tt.args.enabled, tt.args.disabled, &cpb.PluginConfig{}, config.NewDefaultClientFactories(""))
+			got := scalibrplugin.Resolve(tt.args.enabled, tt.args.disabled, &config.PluginConfig{
+				ProtoConfig:     &cpb.PluginConfig{},
+				ClientFactories: config.NewDefaultClientFactories(""),
+			})
 
 			slices.Sort(tt.want)
 
@@ -458,7 +467,10 @@ func TestResolve_AllPresets(t *testing.T) {
 		"vulns",
 		"licenses",
 		"transitive",
-	}, []string{}, &cpb.PluginConfig{}, config.NewDefaultClientFactories(""))
+	}, []string{}, &config.PluginConfig{
+		ProtoConfig:     &cpb.PluginConfig{},
+		ClientFactories: config.NewDefaultClientFactories(""),
+	})
 
 	gotNames := make([]string, 0, len(got))
 	for _, detector := range got {
@@ -649,7 +661,10 @@ func TestResolve_Extractors(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			got := scalibrplugin.Resolve(tt.args.enabled, tt.args.disabled, &cpb.PluginConfig{}, config.NewDefaultClientFactories(""))
+			got := scalibrplugin.Resolve(tt.args.enabled, tt.args.disabled, &config.PluginConfig{
+				ProtoConfig:     &cpb.PluginConfig{},
+				ClientFactories: config.NewDefaultClientFactories(""),
+			})
 
 			slices.Sort(tt.want)
 
@@ -674,7 +689,10 @@ func TestResolve_Detectors_Presets(t *testing.T) {
 		t.Run(preset, func(t *testing.T) {
 			t.Parallel()
 
-			got := scalibrplugin.Resolve([]string{preset}, []string{}, &cpb.PluginConfig{}, config.NewDefaultClientFactories(""))
+			got := scalibrplugin.Resolve([]string{preset}, []string{}, &config.PluginConfig{
+				ProtoConfig:     &cpb.PluginConfig{},
+				ClientFactories: config.NewDefaultClientFactories(""),
+			})
 
 			gotNames := make([]string, 0, len(got))
 			for _, detector := range got {
@@ -695,7 +713,10 @@ func TestResolve_Extractors_Presets(t *testing.T) {
 		t.Run(preset, func(t *testing.T) {
 			t.Parallel()
 
-			got := scalibrplugin.Resolve([]string{preset}, []string{}, &cpb.PluginConfig{}, config.NewDefaultClientFactories(""))
+			got := scalibrplugin.Resolve([]string{preset}, []string{}, &config.PluginConfig{
+				ProtoConfig:     &cpb.PluginConfig{},
+				ClientFactories: config.NewDefaultClientFactories(""),
+			})
 
 			gotNames := make([]string, 0, len(got))
 			for _, extractor := range got {
@@ -716,7 +737,10 @@ func TestResolve_Enrichers_Presets(t *testing.T) {
 		t.Run(preset, func(t *testing.T) {
 			t.Parallel()
 
-			got := scalibrplugin.Resolve([]string{preset}, []string{}, &cpb.PluginConfig{}, config.NewDefaultClientFactories(""))
+			got := scalibrplugin.Resolve([]string{preset}, []string{}, &config.PluginConfig{
+				ProtoConfig:     &cpb.PluginConfig{},
+				ClientFactories: config.NewDefaultClientFactories(""),
+			})
 
 			gotNames := make([]string, 0, len(got))
 			for _, detector := range got {
@@ -737,7 +761,10 @@ func TestResolve_Annotators_Presets(t *testing.T) {
 		t.Run(preset, func(t *testing.T) {
 			t.Parallel()
 
-			got := scalibrplugin.Resolve([]string{preset}, []string{}, &cpb.PluginConfig{}, config.NewDefaultClientFactories(""))
+			got := scalibrplugin.Resolve([]string{preset}, []string{}, &config.PluginConfig{
+				ProtoConfig:     &cpb.PluginConfig{},
+				ClientFactories: config.NewDefaultClientFactories(""),
+			})
 
 			gotNames := make([]string, 0, len(got))
 			for _, detector := range got {

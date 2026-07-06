@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"io"
 	"log/slog"
 	"maps"
 	"net/http"
@@ -80,8 +81,8 @@ type ExperimentalScannerActions struct {
 
 	HTTPClient *http.Client
 
-	// Custom ClientFactories to use instead of constructing default ones
-	ClientFactories scalibrconfig.ClientFactories
+	// Custom ScalibrConfig to use instead of constructing default ones
+	ScalibrConfig *scalibrconfig.PluginConfig
 
 	// Report deprecated packages as findings
 	FlagDeprecatedPackages bool
@@ -169,23 +170,30 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 	}
 
 	// --- Setup Accessors/Clients ---
-	var clientFactories scalibrconfig.ClientFactories
-	if actions.ClientFactories != nil {
-		clientFactories = actions.ClientFactories
+	var scalibrConfig *scalibrconfig.PluginConfig
+	var toClose io.Closer
+
+	if actions.ScalibrConfig != nil {
+		scalibrConfig = actions.ScalibrConfig
 	} else {
 		cf := localscalibr.NewClientFactories(actions.HTTPClient, actions.RequestUserAgent)
-		clientFactories = cf
+		scalibrConfig = &scalibrconfig.PluginConfig{
+			ClientFactories: cf,
+		}
+		toClose = cf
+	}
+	if toClose != nil {
 		defer func() {
-			if err := cf.Close(); err != nil {
+			if err := toClose.Close(); err != nil {
 				cmdlogger.Errorf("Failed to close scalibr client factories: %v", err)
 			}
 		}()
 	}
 
-	accessors := initializeExternalAccessors(actions, clientFactories)
+	accessors := initializeExternalAccessors(actions, scalibrConfig.ClientFactories)
 
 	// ----- Perform Scanning -----
-	packagesAndFindings, filterAnno, err := scan(accessors, actions, clientFactories, &scanResults.ConfigManager)
+	packagesAndFindings, filterAnno, err := scan(accessors, actions, scalibrConfig, &scanResults.ConfigManager)
 	if err != nil {
 		return models.VulnerabilityResults{}, err
 	}
@@ -223,26 +231,32 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		}
 	}
 
-	var clientFactories scalibrconfig.ClientFactories
-	if actions.ClientFactories != nil {
-		clientFactories = actions.ClientFactories
+	var scalibrConfig *scalibrconfig.PluginConfig
+	var toClose io.Closer
+	if actions.ScalibrConfig != nil {
+		scalibrConfig = actions.ScalibrConfig
 	} else {
 		cf := localscalibr.NewClientFactories(actions.HTTPClient, actions.RequestUserAgent)
-		clientFactories = cf
+		scalibrConfig = &scalibrconfig.PluginConfig{
+			ClientFactories: cf,
+		}
+		toClose = cf
+	}
+	if toClose != nil {
 		defer func() {
-			if err := cf.Close(); err != nil {
+			if err := toClose.Close(); err != nil {
 				cmdlogger.Errorf("Failed to close scalibr client factories: %v", err)
 			}
 		}()
 	}
 
-	accessors := initializeExternalAccessors(actions, clientFactories)
+	accessors := initializeExternalAccessors(actions, scalibrConfig.ClientFactories)
 
 	plugins := getPlugins(
 		[]string{"artifact"},
 		accessors,
 		actions,
-		clientFactories,
+		scalibrConfig,
 		&scanResults.ConfigManager,
 		/* isContainerScan = */ true,
 	)
@@ -520,4 +534,20 @@ func inventoryIsEmpty(i inventory.Inventory) bool {
 	}
 
 	return true
+}
+
+// SetupClientFactories returns the client factories to use, and a cleanup function
+// that the caller must defer. If clientFactories is not nil, it is returned as is and the cleanup is a no-op.
+func SetupClientFactories(clientFactories scalibrconfig.ClientFactories, httpClient *http.Client, userAgent string) (scalibrconfig.ClientFactories, func()) {
+	if clientFactories != nil {
+		return clientFactories, func() {}
+	}
+
+	cf := localscalibr.NewClientFactories(httpClient, userAgent)
+
+	return cf, func() {
+		if err := cf.Close(); err != nil {
+			cmdlogger.Errorf("Failed to close scalibr client factories: %v", err)
+		}
+	}
 }
