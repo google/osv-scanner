@@ -449,12 +449,13 @@ A significant new feature is a rewritten, layer-aware container scanning support
 - OS/Distro the container is running on
 
 This layer analysis leverages [OSV-Scalibr](https://github.com/google/osv-scalibr), and supports the following OSes and languages:
+
 | Distro Support | Language Artifacts Support |
 | -------------- | -------------------------- |
-| Alpine OS | Go |
-| Debian | Java |
-| Ubuntu | Node |
-| | Python |
+| Alpine OS      | Go                         |
+| Debian         | Java                       |
+| Ubuntu         | Node                       |
+|                | Python                     |
 
 Base image identification also leverages a new experimental API provided by https://deps.dev.
 
