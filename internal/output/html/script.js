@@ -220,10 +220,7 @@ function showAndHideParentSections() {
         const hasLicenseViolation =
           packageRow.getAttribute("data-has-license-violation") === "true";
 
-        if (
-          hasVisibleVuln ||
-          (showLicenseViolations && hasLicenseViolation)
-        ) {  
+        if (hasVisibleVuln || (showLicenseViolations && hasLicenseViolation)) {
           sourceHasVisibleRows = true;
           packageRow.classList.remove("hide-block");
           return;
@@ -428,7 +425,7 @@ document.addEventListener("DOMContentLoaded", () => {
   resetFilterText();
   showAndHideParentSections();
 
-    // Implement filter for "show license violations without vulnerabilities"
+  // Implement filter for "show license violations without vulnerabilities"
   const licenseViolationCheckbox = document.getElementById(
     "license-violation-type-checkbox"
   );
