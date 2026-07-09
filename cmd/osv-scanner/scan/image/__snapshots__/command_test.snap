@@ -457,7 +457,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 29 packages affected by 90 known vulnerabilities (11 Critical, 25 High, 38 Medium, 6 Low, 10 Unknown) from 1 ecosystem.
+Total 29 packages affected by 91 known vulnerabilities (11 Critical, 28 High, 36 Medium, 6 Low, 10 Unknown) from 1 ecosystem.
 39 vulnerabilities can be fixed.
 
 
@@ -488,7 +488,7 @@ Ubuntu:22.04
 | p11-kit        | 0.24.0-6build1               | No fix available        |          1 | libp11-kit0             | # 4 Layer        | ubuntu        |
 | pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          3 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
 | pcre2          | 10.39-3ubuntu0.1             | No fix available        |          1 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
-| perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |         12 | perl-base               | # 4 Layer        | ubuntu        |
+| perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |         13 | perl-base               | # 4 Layer        | ubuntu        |
 | sed            | 4.8-1ubuntu2                 | Fix Available           |          1 | sed                     | # 4 Layer        | ubuntu        |
 | shadow         | 1:4.8.1-2ubuntu2.2           | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
 | systemd        | 249.11-0ubuntu3.12           | Partial fixes Available |          4 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
@@ -513,7 +513,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 29 packages affected by 90 known vulnerabilities (11 Critical, 25 High, 38 Medium, 6 Low, 10 Unknown) from 1 ecosystem.
+Total 29 packages affected by 91 known vulnerabilities (11 Critical, 28 High, 36 Medium, 6 Low, 10 Unknown) from 1 ecosystem.
 39 vulnerabilities can be fixed.
 
 
@@ -544,7 +544,7 @@ Ubuntu:22.04
 | p11-kit        | 0.24.0-6build1               | No fix available        |          1 | libp11-kit0             | # 4 Layer        | ubuntu        |
 | pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          3 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
 | pcre2          | 10.39-3ubuntu0.1             | No fix available        |          1 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
-| perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |         12 | perl-base               | # 4 Layer        | ubuntu        |
+| perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |         13 | perl-base               | # 4 Layer        | ubuntu        |
 | sed            | 4.8-1ubuntu2                 | Fix Available           |          1 | sed                     | # 4 Layer        | ubuntu        |
 | shadow         | 1:4.8.1-2ubuntu2.2           | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
 | systemd        | 249.11-0ubuntu3.12           | Partial fixes Available |          4 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
@@ -588,7 +588,7 @@ Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 30 packages affected by 92 known vulnerabilities (11 Critical, 27 High, 38 Medium, 6 Low, 10 Unknown) from 1 ecosystem.
+Total 30 packages affected by 93 known vulnerabilities (11 Critical, 30 High, 36 Medium, 6 Low, 10 Unknown) from 1 ecosystem.
 39 vulnerabilities can be fixed.
 
 
@@ -620,7 +620,7 @@ Ubuntu:22.04
 | p11-kit        | 0.24.0-6build1               | No fix available        |          1 | libp11-kit0             | # 4 Layer        | ubuntu        |
 | pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          3 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
 | pcre2          | 10.39-3ubuntu0.1             | No fix available        |          1 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
-| perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |         12 | perl-base               | # 4 Layer        | ubuntu        |
+| perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |         13 | perl-base               | # 4 Layer        | ubuntu        |
 | sed            | 4.8-1ubuntu2                 | Fix Available           |          1 | sed                     | # 4 Layer        | ubuntu        |
 | shadow         | 1:4.8.1-2ubuntu2.2           | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
 | systemd        | 249.11-0ubuntu3.12           | Partial fixes Available |          4 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
@@ -4660,7 +4660,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
               "index": 4
             }
           },
-          "groups": 13,
+          "groups": 14,
           "vulnerabilities": [
             "USN-7434-1",
             "USN-7678-1",
@@ -4675,6 +4675,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "UBUNTU-CVE-2026-48959",
             "UBUNTU-CVE-2026-48961",
             "UBUNTU-CVE-2026-48962",
+            "UBUNTU-CVE-2026-7017",
             "UBUNTU-CVE-2026-8376",
             "UBUNTU-CVE-2026-9538"
           ]
@@ -5893,7 +5894,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 13,
+          "groups": 14,
           "vulnerabilities": [
             "USN-7434-1",
             "USN-7678-1",
@@ -5908,6 +5909,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "UBUNTU-CVE-2026-48959",
             "UBUNTU-CVE-2026-48961",
             "UBUNTU-CVE-2026-48962",
+            "UBUNTU-CVE-2026-7017",
             "UBUNTU-CVE-2026-8376",
             "UBUNTU-CVE-2026-9538"
           ]

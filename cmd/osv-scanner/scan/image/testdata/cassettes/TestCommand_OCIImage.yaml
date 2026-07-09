@@ -1541,7 +1541,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 12713
+      content_length: 12798
       body: |
         {
           "results": [
@@ -1554,7 +1554,7 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2026-13595",
-                  "modified": "2026-07-01T21:19:39Z"
+                  "modified": "2026-07-09T17:15:27.672147Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2026-27456",
@@ -1700,7 +1700,7 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2026-13595",
-                  "modified": "2026-07-01T21:19:39Z"
+                  "modified": "2026-07-09T17:15:27.672147Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2026-27456",
@@ -1975,11 +1975,11 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2026-40355",
-                  "modified": "2026-05-29T10:45:29.205811Z"
+                  "modified": "2026-07-09T21:30:58.285031Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2026-40356",
-                  "modified": "2026-05-29T10:45:29.281566Z"
+                  "modified": "2026-07-09T21:30:58.537034Z"
                 },
                 {
                   "id": "USN-7257-1",
@@ -2360,6 +2360,10 @@ interactions:
                   "modified": "2026-07-01T13:53:13.252080Z"
                 },
                 {
+                  "id": "UBUNTU-CVE-2026-7017",
+                  "modified": "2026-07-09T17:15:52.841661Z"
+                },
+                {
                   "id": "UBUNTU-CVE-2026-8376",
                   "modified": "2026-07-01T18:57:39.513466Z"
                 },
@@ -2418,7 +2422,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "12713"
+          - "12798"
         Content-Type:
           - application/json
       status: 200 OK
@@ -2943,7 +2947,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 12713
+      content_length: 12798
       body: |
         {
           "results": [
@@ -2956,7 +2960,7 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2026-13595",
-                  "modified": "2026-07-01T21:19:39Z"
+                  "modified": "2026-07-09T17:15:27.672147Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2026-27456",
@@ -3102,7 +3106,7 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2026-13595",
-                  "modified": "2026-07-01T21:19:39Z"
+                  "modified": "2026-07-09T17:15:27.672147Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2026-27456",
@@ -3377,11 +3381,11 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2026-40355",
-                  "modified": "2026-05-29T10:45:29.205811Z"
+                  "modified": "2026-07-09T21:30:58.285031Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2026-40356",
-                  "modified": "2026-05-29T10:45:29.281566Z"
+                  "modified": "2026-07-09T21:30:58.537034Z"
                 },
                 {
                   "id": "USN-7257-1",
@@ -3762,6 +3766,10 @@ interactions:
                   "modified": "2026-07-01T13:53:13.252080Z"
                 },
                 {
+                  "id": "UBUNTU-CVE-2026-7017",
+                  "modified": "2026-07-09T17:15:52.841661Z"
+                },
+                {
                   "id": "UBUNTU-CVE-2026-8376",
                   "modified": "2026-07-01T18:57:39.513466Z"
                 },
@@ -3820,7 +3828,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "12713"
+          - "12798"
         Content-Type:
           - application/json
       status: 200 OK
@@ -4359,7 +4367,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 19314
+      content_length: 19399
       body: |
         {
           "results": [
@@ -4372,7 +4380,7 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2026-13595",
-                  "modified": "2026-07-01T21:19:39Z"
+                  "modified": "2026-07-09T17:15:27.672147Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2026-27456",
@@ -4758,7 +4766,7 @@ interactions:
                 },
                 {
                   "id": "GO-2025-4155",
-                  "modified": "2026-07-07T10:29:22.857295Z"
+                  "modified": "2026-07-09T10:44:32.536665Z"
                 },
                 {
                   "id": "GO-2025-4175",
@@ -4786,7 +4794,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4601",
-                  "modified": "2026-07-08T10:44:26.859718Z"
+                  "modified": "2026-07-09T10:44:32.269952Z"
                 },
                 {
                   "id": "GO-2026-4602",
@@ -4798,7 +4806,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4864",
-                  "modified": "2026-07-02T10:44:29.832862Z"
+                  "modified": "2026-07-09T10:44:33.381720Z"
                 },
                 {
                   "id": "GO-2026-4865",
@@ -4810,7 +4818,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4870",
-                  "modified": "2026-07-02T10:44:28.519843Z"
+                  "modified": "2026-07-09T10:44:33.055212Z"
                 },
                 {
                   "id": "GO-2026-4918",
@@ -4818,11 +4826,11 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4946",
-                  "modified": "2026-07-02T10:44:30.139201Z"
+                  "modified": "2026-07-09T10:44:33.129570Z"
                 },
                 {
                   "id": "GO-2026-4947",
-                  "modified": "2026-07-07T10:29:23.054699Z"
+                  "modified": "2026-07-09T10:44:33.192298Z"
                 },
                 {
                   "id": "GO-2026-4970",
@@ -4846,7 +4854,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4981",
-                  "modified": "2026-07-08T10:44:27.306326Z"
+                  "modified": "2026-07-09T10:44:32.677126Z"
                 },
                 {
                   "id": "GO-2026-4982",
@@ -4858,7 +4866,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-5037",
-                  "modified": "2026-07-08T10:44:27.149814Z"
+                  "modified": "2026-07-09T10:44:33.680614Z"
                 },
                 {
                   "id": "GO-2026-5038",
@@ -4950,7 +4958,7 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2026-13595",
-                  "modified": "2026-07-01T21:19:39Z"
+                  "modified": "2026-07-09T17:15:27.672147Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2026-27456",
@@ -5225,11 +5233,11 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2026-40355",
-                  "modified": "2026-05-29T10:45:29.205811Z"
+                  "modified": "2026-07-09T21:30:58.285031Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2026-40356",
-                  "modified": "2026-05-29T10:45:29.281566Z"
+                  "modified": "2026-07-09T21:30:58.537034Z"
                 },
                 {
                   "id": "USN-7257-1",
@@ -5610,6 +5618,10 @@ interactions:
                   "modified": "2026-07-01T13:53:13.252080Z"
                 },
                 {
+                  "id": "UBUNTU-CVE-2026-7017",
+                  "modified": "2026-07-09T17:15:52.841661Z"
+                },
+                {
                   "id": "UBUNTU-CVE-2026-8376",
                   "modified": "2026-07-01T18:57:39.513466Z"
                 },
@@ -5668,7 +5680,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "19314"
+          - "19399"
         Content-Type:
           - application/json
       status: 200 OK
@@ -7228,7 +7240,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-h2qv-fj59-j46j",
-                  "modified": "2026-07-07T13:15:14.378637Z"
+                  "modified": "2026-07-09T15:45:32.592357Z"
                 }
               ]
             },
@@ -7292,7 +7304,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-c2gf-v879-257j",
-                  "modified": "2026-07-07T13:15:14.372374Z"
+                  "modified": "2026-07-09T15:45:32.546754Z"
                 },
                 {
                   "id": "GHSA-f6hv-jmp6-3vwv",
@@ -10011,7 +10023,7 @@ interactions:
                 },
                 {
                   "id": "GO-2025-4155",
-                  "modified": "2026-07-07T10:29:22.857295Z"
+                  "modified": "2026-07-09T10:44:32.536665Z"
                 },
                 {
                   "id": "GO-2025-4175",
@@ -10039,7 +10051,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4601",
-                  "modified": "2026-07-08T10:44:26.859718Z"
+                  "modified": "2026-07-09T10:44:32.269952Z"
                 },
                 {
                   "id": "GO-2026-4602",
@@ -10051,7 +10063,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4864",
-                  "modified": "2026-07-02T10:44:29.832862Z"
+                  "modified": "2026-07-09T10:44:33.381720Z"
                 },
                 {
                   "id": "GO-2026-4865",
@@ -10063,7 +10075,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4870",
-                  "modified": "2026-07-02T10:44:28.519843Z"
+                  "modified": "2026-07-09T10:44:33.055212Z"
                 },
                 {
                   "id": "GO-2026-4918",
@@ -10071,11 +10083,11 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4946",
-                  "modified": "2026-07-02T10:44:30.139201Z"
+                  "modified": "2026-07-09T10:44:33.129570Z"
                 },
                 {
                   "id": "GO-2026-4947",
-                  "modified": "2026-07-07T10:29:23.054699Z"
+                  "modified": "2026-07-09T10:44:33.192298Z"
                 },
                 {
                   "id": "GO-2026-4970",
@@ -10099,7 +10111,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4981",
-                  "modified": "2026-07-08T10:44:27.306326Z"
+                  "modified": "2026-07-09T10:44:32.677126Z"
                 },
                 {
                   "id": "GO-2026-4982",
@@ -10111,7 +10123,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-5037",
-                  "modified": "2026-07-08T10:44:27.149814Z"
+                  "modified": "2026-07-09T10:44:33.680614Z"
                 },
                 {
                   "id": "GO-2026-5038",
@@ -11039,7 +11051,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GO-2026-4601",
-                  "modified": "2026-07-08T10:44:26.859718Z"
+                  "modified": "2026-07-09T10:44:32.269952Z"
                 },
                 {
                   "id": "GO-2026-4602",
@@ -11051,7 +11063,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4864",
-                  "modified": "2026-07-02T10:44:29.832862Z"
+                  "modified": "2026-07-09T10:44:33.381720Z"
                 },
                 {
                   "id": "GO-2026-4865",
@@ -11063,7 +11075,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4870",
-                  "modified": "2026-07-02T10:44:28.519843Z"
+                  "modified": "2026-07-09T10:44:33.055212Z"
                 },
                 {
                   "id": "GO-2026-4918",
@@ -11071,11 +11083,11 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4946",
-                  "modified": "2026-07-02T10:44:30.139201Z"
+                  "modified": "2026-07-09T10:44:33.129570Z"
                 },
                 {
                   "id": "GO-2026-4947",
-                  "modified": "2026-07-07T10:29:23.054699Z"
+                  "modified": "2026-07-09T10:44:33.192298Z"
                 },
                 {
                   "id": "GO-2026-4970",
@@ -11099,7 +11111,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4981",
-                  "modified": "2026-07-08T10:44:27.306326Z"
+                  "modified": "2026-07-09T10:44:32.677126Z"
                 },
                 {
                   "id": "GO-2026-4982",
@@ -11111,7 +11123,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-5037",
-                  "modified": "2026-07-08T10:44:27.149814Z"
+                  "modified": "2026-07-09T10:44:33.680614Z"
                 },
                 {
                   "id": "GO-2026-5038",

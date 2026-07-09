@@ -4908,7 +4908,7 @@ interactions:
                 },
                 {
                   "id": "GO-2025-4155",
-                  "modified": "2026-07-07T10:29:22.857295Z"
+                  "modified": "2026-07-09T10:44:32.536665Z"
                 },
                 {
                   "id": "GO-2025-4175",
@@ -4932,7 +4932,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4601",
-                  "modified": "2026-07-08T10:44:26.859718Z"
+                  "modified": "2026-07-09T10:44:32.269952Z"
                 },
                 {
                   "id": "GO-2026-4602",
@@ -4944,7 +4944,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4864",
-                  "modified": "2026-07-02T10:44:29.832862Z"
+                  "modified": "2026-07-09T10:44:33.381720Z"
                 },
                 {
                   "id": "GO-2026-4865",
@@ -4956,7 +4956,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4870",
-                  "modified": "2026-07-02T10:44:28.519843Z"
+                  "modified": "2026-07-09T10:44:33.055212Z"
                 },
                 {
                   "id": "GO-2026-4918",
@@ -4964,11 +4964,11 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4946",
-                  "modified": "2026-07-02T10:44:30.139201Z"
+                  "modified": "2026-07-09T10:44:33.129570Z"
                 },
                 {
                   "id": "GO-2026-4947",
-                  "modified": "2026-07-07T10:29:23.054699Z"
+                  "modified": "2026-07-09T10:44:33.192298Z"
                 },
                 {
                   "id": "GO-2026-4970",
@@ -4992,7 +4992,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4981",
-                  "modified": "2026-07-08T10:44:27.306326Z"
+                  "modified": "2026-07-09T10:44:32.677126Z"
                 },
                 {
                   "id": "GO-2026-4982",
@@ -5004,7 +5004,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-5037",
-                  "modified": "2026-07-08T10:44:27.149814Z"
+                  "modified": "2026-07-09T10:44:33.680614Z"
                 },
                 {
                   "id": "GO-2026-5038",
@@ -6541,7 +6541,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 3961
+      content_length: 3903
       body: |
         {
           "results": [
@@ -6758,7 +6758,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-hxwh-jpp2-84pm",
-                  "modified": "2026-06-08T20:17:50Z"
+                  "modified": "2026-07-09T16:56:25.795378Z"
                 },
                 {
                   "id": "GHSA-xc3p-ff3m-f46v",
@@ -6769,16 +6769,12 @@ interactions:
                   "modified": "2025-10-09T07:22:50.566622Z"
                 },
                 {
-                  "id": "PYSEC-2024-260",
-                  "modified": "2026-05-21T15:00:12.457440Z"
-                },
-                {
                   "id": "PYSEC-2024-271",
                   "modified": "2026-06-10T17:01:16.365143Z"
                 },
                 {
                   "id": "PYSEC-2024-71",
-                  "modified": "2026-06-10T17:01:16.604565Z"
+                  "modified": "2026-07-09T16:56:25.795378Z"
                 },
                 {
                   "id": "PYSEC-2026-1383",
@@ -6806,7 +6802,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "3961"
+          - "3903"
         Content-Type:
           - application/json
       status: 200 OK

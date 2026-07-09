@@ -981,18 +981,11 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 997
+      content_length: 386
       host: api.osv.dev
       body: |
         {
           "queries": [
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "click"
-              },
-              "version": "8.4.2"
-            },
             {
               "package": {
                 "ecosystem": "PyPI",
@@ -1010,37 +1003,9 @@ interactions:
             {
               "package": {
                 "ecosystem": "PyPI",
-                "name": "itsdangerous"
-              },
-              "version": "2.2.0"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "jinja2"
-              },
-              "version": "3.1.6"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "markupsafe"
-              },
-              "version": "3.0.3"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
                 "name": "pandas"
               },
               "version": "0.23.4"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "werkzeug"
-              },
-              "version": "3.1.8"
             }
           ]
         }
@@ -1055,11 +1020,10 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 1201
+      content_length: 1128
       body: |
         {
           "results": [
-            {},
             {
               "vulns": [
                 {
@@ -1096,7 +1060,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-hxwh-jpp2-84pm",
-                  "modified": "2026-06-08T20:17:50Z"
+                  "modified": "2026-07-09T16:56:25.795378Z"
                 },
                 {
                   "id": "GHSA-xc3p-ff3m-f46v",
@@ -1107,16 +1071,12 @@ interactions:
                   "modified": "2025-10-09T07:22:50.566622Z"
                 },
                 {
-                  "id": "PYSEC-2024-260",
-                  "modified": "2026-05-21T15:00:12.457440Z"
-                },
-                {
                   "id": "PYSEC-2024-271",
                   "modified": "2026-06-10T17:01:16.365143Z"
                 },
                 {
                   "id": "PYSEC-2024-71",
-                  "modified": "2026-06-10T17:01:16.604565Z"
+                  "modified": "2026-07-09T16:56:25.795378Z"
                 },
                 {
                   "id": "PYSEC-2026-1383",
@@ -1132,9 +1092,6 @@ interactions:
                 }
               ]
             },
-            {},
-            {},
-            {},
             {
               "vulns": [
                 {
@@ -1142,13 +1099,12 @@ interactions:
                   "modified": "2023-11-08T04:02:12.263851Z"
                 }
               ]
-            },
-            {}
+            }
           ]
         }
       headers:
         Content-Length:
-          - "1201"
+          - "1128"
         Content-Type:
           - application/json
       status: 200 OK
