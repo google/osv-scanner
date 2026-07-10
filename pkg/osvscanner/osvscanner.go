@@ -113,32 +113,6 @@ var ErrVulnerabilitiesFound = errors.New("vulnerabilities found")
 // TODO(v2): Actually use this error
 var ErrAPIFailed = errors.New("API query failed")
 
-func initializeExternalAccessors(actions ScannerActions, clientFactories scalibrconfig.ClientFactories) ExternalAccessors {
-	externalAccessors := ExternalAccessors{}
-
-	if actions.CompareOffline {
-		return externalAccessors
-	}
-
-	userAgent := "osv-scanner-api"
-	if actions.RequestUserAgent != "" {
-		userAgent = actions.RequestUserAgent
-	}
-
-	// --- OSV.dev Client ---
-	// We create a separate client from VulnMatcher to keep things clean.
-	httpClient := clientFactories.HTTPClient()
-	cfg := osvdev.DefaultConfig()
-	cfg.UserAgent = userAgent
-	externalAccessors.OSVDevClient = &osvdev.OSVClient{
-		HTTPClient:  httpClient,
-		Config:      cfg,
-		BaseHostURL: osvdev.DefaultBaseURL,
-	}
-
-	return externalAccessors
-}
-
 // DoScan performs the osv scanner action, with optional reporter to output information
 func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 	// --- Sanity check flags ----
@@ -170,27 +144,8 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 	}
 
 	// --- Setup Accessors/Clients ---
-	var scalibrConfig *scalibrconfig.PluginConfig
-	var toClose io.Closer
-
-	if actions.ScalibrConfig != nil {
-		scalibrConfig = actions.ScalibrConfig
-	} else {
-		cf := localscalibr.NewClientFactories(actions.HTTPClient, actions.RequestUserAgent)
-		scalibrConfig = &scalibrconfig.PluginConfig{
-			ClientFactories: cf,
-		}
-		toClose = cf
-	}
-	if toClose != nil {
-		defer func() {
-			if err := toClose.Close(); err != nil {
-				cmdlogger.Errorf("Failed to close scalibr client factories: %v", err)
-			}
-		}()
-	}
-
-	accessors := initializeExternalAccessors(actions, scalibrConfig.ClientFactories)
+	scalibrConfig, accessors, cleanup := setupAccessors(actions)
+	defer cleanup()
 
 	// ----- Perform Scanning -----
 	packagesAndFindings, filterAnno, err := scan(accessors, actions, scalibrConfig, &scanResults.ConfigManager)
@@ -205,12 +160,7 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 
 	// Retrieve the unscannable packages that were filtered out during annotation
 	// and add them back to the output if ShowAllPackages is enabled.
-	if filterAnno != nil {
-		unscannablePackages := filterAnno.FilteredPackages()
-		if len(unscannablePackages) > 0 {
-			scanResults.Inventory.Packages = slices.Concat(scanResults.Inventory.Packages, unscannablePackages)
-		}
-	}
+	reattachUnscannablePackages(filterAnno, &scanResults.Inventory)
 
 	return finalizeScanResult(scanResults, actions)
 }
@@ -231,26 +181,8 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		}
 	}
 
-	var scalibrConfig *scalibrconfig.PluginConfig
-	var toClose io.Closer
-	if actions.ScalibrConfig != nil {
-		scalibrConfig = actions.ScalibrConfig
-	} else {
-		cf := localscalibr.NewClientFactories(actions.HTTPClient, actions.RequestUserAgent)
-		scalibrConfig = &scalibrconfig.PluginConfig{
-			ClientFactories: cf,
-		}
-		toClose = cf
-	}
-	if toClose != nil {
-		defer func() {
-			if err := toClose.Close(); err != nil {
-				cmdlogger.Errorf("Failed to close scalibr client factories: %v", err)
-			}
-		}()
-	}
-
-	accessors := initializeExternalAccessors(actions, scalibrConfig.ClientFactories)
+	scalibrConfig, accessors, cleanup := setupAccessors(actions)
+	defer cleanup()
 
 	plugins := getPlugins(
 		[]string{"artifact"},
@@ -343,20 +275,8 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 
 	// Retrieve the unscannable packages that were filtered out during annotation
 	// and add them back to the output if ShowAllPackages is enabled.
-	var filterAnno *filter.Annotator
-	for _, p := range plugins {
-		if fa, ok := p.(*filter.Annotator); ok {
-			filterAnno = fa
-			break
-		}
-	}
-
-	if filterAnno != nil {
-		unscannablePackages := filterAnno.FilteredPackages()
-		if len(unscannablePackages) > 0 {
-			scanResults.Inventory.Packages = slices.Concat(scanResults.Inventory.Packages, unscannablePackages)
-		}
-	}
+	filterAnno := findFilterAnnotator(plugins)
+	reattachUnscannablePackages(filterAnno, &scanResults.Inventory)
 
 	return finalizeScanResult(scanResults, actions)
 }
@@ -549,5 +469,71 @@ func SetupClientFactories(clientFactories scalibrconfig.ClientFactories, httpCli
 		if err := cf.Close(); err != nil {
 			cmdlogger.Errorf("Failed to close scalibr client factories: %v", err)
 		}
+	}
+}
+
+// setupAccessors initializes client factories and external accessors.
+// It returns a cleanup function that the caller must defer to close the client factories.
+func setupAccessors(actions ScannerActions) (*scalibrconfig.PluginConfig, ExternalAccessors, func()) {
+	var scalibrConfig *scalibrconfig.PluginConfig
+	var toClose io.Closer
+
+	if actions.ScalibrConfig != nil {
+		scalibrConfig = actions.ScalibrConfig
+	} else {
+		cf := localscalibr.NewClientFactories(actions.HTTPClient, actions.RequestUserAgent)
+		scalibrConfig = &scalibrconfig.PluginConfig{
+			ClientFactories: cf,
+		}
+		toClose = cf
+	}
+
+	cleanup := func() {
+		if toClose != nil {
+			if err := toClose.Close(); err != nil {
+				cmdlogger.Errorf("Failed to close scalibr client factories: %v", err)
+			}
+		}
+	}
+
+	accessors := ExternalAccessors{}
+	if !actions.CompareOffline {
+		userAgent := "osv-scanner-api"
+		if actions.RequestUserAgent != "" {
+			userAgent = actions.RequestUserAgent
+		}
+
+		// --- OSV.dev Client ---
+		// We create a separate client to keep things clean.
+		httpClient := scalibrConfig.ClientFactories.HTTPClient()
+		cfg := osvdev.DefaultConfig()
+		cfg.UserAgent = userAgent
+		accessors.OSVDevClient = &osvdev.OSVClient{
+			HTTPClient:  httpClient,
+			Config:      cfg,
+			BaseHostURL: osvdev.DefaultBaseURL,
+		}
+	}
+
+	return scalibrConfig, accessors, cleanup
+}
+
+func findFilterAnnotator(plugins []plugin.Plugin) *filter.Annotator {
+	for _, p := range plugins {
+		if fa, ok := p.(*filter.Annotator); ok {
+			return fa
+		}
+	}
+
+	return nil
+}
+
+func reattachUnscannablePackages(filterAnno *filter.Annotator, inv *inventory.Inventory) {
+	if filterAnno == nil {
+		return
+	}
+	unscannablePackages := filterAnno.FilteredPackages()
+	if len(unscannablePackages) > 0 {
+		inv.Packages = slices.Concat(inv.Packages, unscannablePackages)
 	}
 }

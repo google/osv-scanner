@@ -15,6 +15,8 @@ import (
 	"testing"
 
 	gocmp "github.com/google/go-cmp/cmp"
+	scalibrconfig "github.com/google/osv-scalibr/plugin/config"
+	localscalibr "github.com/google/osv-scanner/v2/internal/scalibr"
 	"github.com/tidwall/pretty"
 	"go.yaml.in/yaml/v4"
 	"gopkg.in/dnaeon/go-vcr.v4/pkg/cassette"
@@ -423,4 +425,27 @@ func (t *vcrErrorWrappingTransport) logRequestMismatch(req *http.Request) {
 	sb.WriteString("=====================================================================\n")
 
 	t.t.Errorf("%s", sb.String())
+}
+
+// SharedClientFactories is a package-level ClientFactories used by tests to reuse connections.
+var SharedClientFactories scalibrconfig.ClientFactories
+
+// TestClientFactories wraps a shared ClientFactories but overrides the HTTPClient.
+type TestClientFactories struct {
+	scalibrconfig.ClientFactories
+
+	HTTPClientOverride *http.Client
+}
+
+func (t *TestClientFactories) HTTPClient() *http.Client {
+	if t.HTTPClientOverride != nil {
+		return t.HTTPClientOverride
+	}
+
+	return t.ClientFactories.HTTPClient()
+}
+
+// NewClientFactories returns a new ClientFactories instance for testing.
+func NewClientFactories(client *http.Client) *localscalibr.ClientFactories {
+	return localscalibr.NewClientFactories(client, "")
 }

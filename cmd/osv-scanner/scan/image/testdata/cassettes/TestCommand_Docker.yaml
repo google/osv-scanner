@@ -128,10 +128,11 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 641
+      content_length: 1335
       body: |
         {
           "results": [
+            {},
             {},
             {},
             {},
@@ -143,8 +144,14 @@ interactions:
                 }
               ]
             },
-            {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "ALPINE-CVE-2021-42376",
+                  "modified": "2026-07-08T04:32:12.032317Z"
+                }
+              ]
+            },
             {},
             {},
             {
@@ -178,6 +185,22 @@ interactions:
             {
               "vulns": [
                 {
+                  "id": "ALPINE-CVE-2022-1292",
+                  "modified": "2026-07-08T04:31:47.244657Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2022-2068",
+                  "modified": "2026-07-08T04:31:47.874039Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2023-0466",
+                  "modified": "2026-07-08T04:31:25.432482Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2023-4807",
+                  "modified": "2026-07-08T04:32:27.043928Z"
+                },
+                {
                   "id": "ALPINE-CVE-2024-13176",
                   "modified": "2026-06-15T18:18:10.257313Z"
                 },
@@ -191,7 +214,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2025-26519",
-                  "modified": "2026-06-15T18:18:10.600004Z"
+                  "modified": "2026-07-08T04:32:24.548042Z"
                 }
               ]
             },
@@ -204,13 +227,20 @@ interactions:
               ]
             },
             {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "ALPINE-CVE-2021-42376",
+                  "modified": "2026-07-08T04:32:12.032317Z"
+                }
+              ]
+            },
             {}
           ]
         }
       headers:
         Content-Length:
-          - "641"
+          - "1335"
         Content-Type:
           - application/json
       status: 200 OK

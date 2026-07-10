@@ -1164,20 +1164,6 @@ interactions:
             {
               "package": {
                 "ecosystem": "PyPI",
-                "name": "django"
-              },
-              "version": "1.11.29"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "flask"
-              },
-              "version": "1.0.0"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
                 "name": "idna"
               },
               "version": "2.7.0"
@@ -1300,30 +1286,6 @@ interactions:
             {
               "vulns": [
                 {
-                  "id": "GHSA-65pc-fj4g-8rjx",
-                  "modified": "2026-07-08T17:45:15.021597Z"
-                },
-                {
-                  "id": "GHSA-jjg7-2v4v-x38h",
-                  "modified": "2026-02-04T03:49:45.087439Z"
-                },
-                {
-                  "id": "PYSEC-2024-60",
-                  "modified": "2026-06-10T17:01:21.102419Z"
-                },
-                {
-                  "id": "PYSEC-2026-215",
-                  "modified": "2026-06-16T16:15:04.639265Z"
-                }
-              ]
-            },
-            {},
-            {},
-            {},
-            {},
-            {
-              "vulns": [
-                {
                   "id": "GHSA-9hjg-9r4m-mvj7",
                   "modified": "2026-07-07T17:56:56.234172Z"
                 },
@@ -1360,7 +1322,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-65pc-fj4g-8rjx",
-                  "modified": "2026-06-16T16:26:11.904403Z"
+                  "modified": "2026-07-08T17:45:15.021597Z"
                 },
                 {
                   "id": "GHSA-jjg7-2v4v-x38h",
@@ -24549,6 +24511,38 @@ interactions:
             },
             {
               "core-metadata": {
+                "sha256": "a7cd5efa42a22c2e8447ad8076f4c663e838cb2d219f60c8e0e5ca8f3d8e71b7"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "a7cd5efa42a22c2e8447ad8076f4c663e838cb2d219f60c8e0e5ca8f3d8e71b7"
+              },
+              "filename": "django-5.2.16-py3-none-any.whl",
+              "hashes": {
+                "sha256": "04f354bf9d807a86ad1a8392fe3808d362358a8eafc322848e0e43e59b24371d"
+              },
+              "provenance": null,
+              "requires-python": ">=3.10",
+              "size": 8311943,
+              "upload-time": "2026-07-07T13:52:11.223969Z",
+              "url": "https://files.pythonhosted.org/packages/4e/13/1e5e3e4c15dcecb04281b3cb2a46a4670e1cef131068e202f6040df19224/django-5.2.16-py3-none-any.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": false,
+              "data-dist-info-metadata": false,
+              "filename": "django-5.2.16.tar.gz",
+              "hashes": {
+                "sha256": "59ea02020c3136fce14bef0bbece21a10a4febef5eed1c51c22ae468efa22200"
+              },
+              "provenance": null,
+              "requires-python": ">=3.10",
+              "size": 10890894,
+              "upload-time": "2026-07-07T13:52:17.005153Z",
+              "url": "https://files.pythonhosted.org/packages/a9/26/889449d521ae508b26de715954faecd8bcf3f740affb81b2d146a83b42a5/django-5.2.16.tar.gz",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
                 "sha256": "26347a3a91a455307c61a74b30d70a33c8cff80a64e9ea8bdf9c08766a36fb18"
               },
               "data-dist-info-metadata": {
@@ -24869,6 +24863,38 @@ interactions:
             },
             {
               "core-metadata": {
+                "sha256": "4eb4607c6f54a6941f11d41c6826eec4179438cc8b6b080582244dbb5dbde53d"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "4eb4607c6f54a6941f11d41c6826eec4179438cc8b6b080582244dbb5dbde53d"
+              },
+              "filename": "django-6.0.7-py3-none-any.whl",
+              "hashes": {
+                "sha256": "a037427c2288443a8c02a1b02295a31c239663aa682bc50b1976afb7cf6a769e"
+              },
+              "provenance": null,
+              "requires-python": ">=3.12",
+              "size": 8373344,
+              "upload-time": "2026-07-07T13:51:20.007807Z",
+              "url": "https://files.pythonhosted.org/packages/ba/ec/1ce5334b6a2c52ce619c23a0be8d366a57a0e080ebb2d88266e5c849157c/django-6.0.7-py3-none-any.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": false,
+              "data-dist-info-metadata": false,
+              "filename": "django-6.0.7.tar.gz",
+              "hashes": {
+                "sha256": "2998503fc083124fb58037084bfa00de323c7c743f05f1b4284e77bff0ab8890"
+              },
+              "provenance": null,
+              "requires-python": ">=3.12",
+              "size": 10921299,
+              "upload-time": "2026-07-07T13:51:26.485004Z",
+              "url": "https://files.pythonhosted.org/packages/89/55/664f24ff81c9ea19cb7dfc851afeae1f3c2390c7aee01d4ded68b5c1580d/django-6.0.7.tar.gz",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
                 "sha256": "62b3a7e06a1708afd23f595ef3c47aad04c38ca9768a906681af9406034d0676"
               },
               "data-dist-info-metadata": {
@@ -24933,7 +24959,7 @@ interactions:
             }
           ],
           "meta": {
-            "_last-serial": 38356031,
+            "_last-serial": 38747352,
             "api-version": "1.4"
           },
           "name": "django",
@@ -25357,6 +25383,7 @@ interactions:
             "5.2.13",
             "5.2.14",
             "5.2.15",
+            "5.2.16",
             "6.0a1",
             "6.0b1",
             "6.0rc1",
@@ -25367,6 +25394,7 @@ interactions:
             "6.0.4",
             "6.0.5",
             "6.0.6",
+            "6.0.7",
             "6.1a1",
             "6.1b1"
           ]
@@ -25397,7 +25425,7 @@ interactions:
         Strict-Transport-Security:
           - max-age=31536000; includeSubDomains; preload
         Vary:
-          - Accept, Accept-Encoding
+          - Accept-Encoding, Accept
         X-Content-Type-Options:
           - nosniff
         X-Frame-Options:
@@ -67639,20 +67667,6 @@ interactions:
             {
               "package": {
                 "ecosystem": "PyPI",
-                "name": "django"
-              },
-              "version": "1.11.29"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "flask"
-              },
-              "version": "1.0"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
                 "name": "idna"
               },
               "version": "2.7"
@@ -67775,30 +67789,6 @@ interactions:
             {
               "vulns": [
                 {
-                  "id": "GHSA-65pc-fj4g-8rjx",
-                  "modified": "2026-07-08T17:45:15.021597Z"
-                },
-                {
-                  "id": "GHSA-jjg7-2v4v-x38h",
-                  "modified": "2026-02-04T03:49:45.087439Z"
-                },
-                {
-                  "id": "PYSEC-2024-60",
-                  "modified": "2026-06-10T17:01:21.102419Z"
-                },
-                {
-                  "id": "PYSEC-2026-215",
-                  "modified": "2026-06-16T16:15:04.639265Z"
-                }
-              ]
-            },
-            {},
-            {},
-            {},
-            {},
-            {
-              "vulns": [
-                {
                   "id": "GHSA-9hjg-9r4m-mvj7",
                   "modified": "2026-07-07T17:56:56.234172Z"
                 },
@@ -67835,7 +67825,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-65pc-fj4g-8rjx",
-                  "modified": "2026-06-16T16:26:11.904403Z"
+                  "modified": "2026-07-08T17:45:15.021597Z"
                 },
                 {
                   "id": "GHSA-jjg7-2v4v-x38h",

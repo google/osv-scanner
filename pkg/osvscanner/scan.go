@@ -412,13 +412,7 @@ SBOMLoop:
 
 	// Find the filter annotator instance in the plugins list so we can retrieve
 	// any packages that were filtered out during the scan.
-	var filterAnno *filter.Annotator
-	for _, p := range plugins {
-		if fa, ok := p.(*filter.Annotator); ok {
-			filterAnno = fa
-			break
-		}
-	}
+	filterAnno := findFilterAnnotator(plugins)
 
 	packagesExtracted := len(inv.Packages)
 	if filterAnno != nil {
