@@ -1,4 +1,3 @@
-// Package osvscanner provides the main logic for the OSV-Scanner.
 package osvscanner
 
 import (
