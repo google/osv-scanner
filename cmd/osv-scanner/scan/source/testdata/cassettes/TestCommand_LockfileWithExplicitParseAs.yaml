@@ -326,8 +326,8 @@ interactions:
             {
               "vulns": [
                 {
-                  "id": "GHSA-whgm-jr23-g3j9",
-                  "modified": "2023-11-08T04:05:08.868477Z"
+                  "id": "GHSA-9f46-5r25-5wfm",
+                  "modified": "2026-07-08T06:28:00.604230Z"
                 }
               ]
             },
@@ -439,8 +439,8 @@ interactions:
             {
               "vulns": [
                 {
-                  "id": "GHSA-whgm-jr23-g3j9",
-                  "modified": "2023-11-08T04:05:08.868477Z"
+                  "id": "GHSA-9f46-5r25-5wfm",
+                  "modified": "2026-07-08T06:28:00.604230Z"
                 }
               ]
             },
@@ -555,7 +555,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-9f46-5r25-5wfm",
-                  "modified": "2026-03-13T22:01:08.982482Z"
+                  "modified": "2026-07-08T06:28:00.604230Z"
                 }
               ]
             },
