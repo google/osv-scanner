@@ -22,9 +22,10 @@
               ],
               "aliases": [
                 "CVE-2025-63675",
-                "GHSA-97w9-v595-3h5q"
+                "GHSA-97w9-v595-3h5q",
+                "PYSEC-2026-1282"
               ],
-              "max_severity": "8.8"
+              "max_severity": "6.9"
             }
           ],
           "vulnerabilities": [
@@ -37,13 +38,18 @@
                   "ranges": [
                     {
                       "database_specific": {
-                        "versions": [
+                        "cpe": "cpe:2.3:a:netinvent:cryptidy:*:*:*:*:*:python:*:*",
+                        "extracted_events": [
                           {
                             "introduced": "0"
                           },
                           {
                             "last_affected": "1.2.4"
                           }
+                        ],
+                        "source": [
+                          "AFFECTED_FIELD",
+                          "CPE_RANGE"
                         ]
                       },
                       "events": [
@@ -59,39 +65,55 @@
                     }
                   ],
                   "versions": [
-                    "v1.0.4",
-                    "v1.0.5",
-                    "v1.0.7",
-                    "v1.1.0",
-                    "v1.2.0",
-                    "v1.2.1",
-                    "v1.2.2",
+                    "v1.2.4",
                     "v1.2.3",
-                    "v1.2.4"
+                    "v1.2.2",
+                    "v1.2.1",
+                    "v1.2.0",
+                    "v1.1.0",
+                    "v1.0.7",
+                    "v1.0.5",
+                    "v1.0.4"
                   ]
                 }
               ],
               "aliases": [
-                "GHSA-97w9-v595-3h5q"
+                "GHSA-97w9-v595-3h5q",
+                "PYSEC-2026-1282"
               ],
+              "database_specific": {
+                "cna_assigner": "mitre",
+                "cwe_ids": [
+                  "CWE-502"
+                ],
+                "osv_generated_from": "https://github.com/CVEProject/cvelistV5/tree/main/cves/2025/63xxx/CVE-2025-63675.json"
+              },
               "details": "cryptidy through 1.2.4 allows code execution via untrusted data because pickle.loads is used. This occurs in aes_decrypt_message in symmetric_encryption.py.",
               "id": "CVE-2025-63675",
-              "modified": "2026-03-14T12:45:39.021698Z",
-              "published": "2025-10-31T07:15:38.283Z",
+              "modified": "2026-07-08T07:32:10.770698370Z",
+              "published": "2025-10-31T00:00:00Z",
               "references": [
                 {
                   "type": "WEB",
                   "url": "https://github.com/netinvent/cryptidy/blob/cebc9ffd54cc20679d15a1a43ca9a5da645b0c58/cryptidy/symmetric_encryption.py#L220-L238"
                 },
                 {
-                  "type": "EVIDENCE",
+                  "type": "ADVISORY",
+                  "url": "https://github.com/CVEProject/cvelistV5/tree/main/cves/2025/63xxx/CVE-2025-63675.json"
+                },
+                {
+                  "type": "ADVISORY",
+                  "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-63675"
+                },
+                {
+                  "type": "PACKAGE",
                   "url": "https://github.com/javiermorales36/cryptidy-analysis"
                 }
               ],
               "schema_version": "1.7.5",
               "severity": [
                 {
-                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+                  "score": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:L",
                   "type": "CVSS_V3"
                 }
               ]
