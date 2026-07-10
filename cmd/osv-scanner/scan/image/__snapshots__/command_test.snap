@@ -1083,52 +1083,52 @@ Scanning local image tarball "./testdata/test-chisel.tar"
 
 
 Container Scanning Result (Ubuntu 26.04 LTS):
-Total 7 packages affected by 133 known vulnerabilities (0 Critical, 0 High, 1 Medium, 0 Low, 132 Unknown) from 2 ecosystems.
-132 vulnerabilities can be fixed.
+Total 7 packages affected by 151 known vulnerabilities (0 Critical, 0 High, 1 Medium, 0 Low, 150 Unknown) from 2 ecosystems.
+150 vulnerabilities can be fixed.
 
 
 Go
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:/usr/lib/go-1.25/bin/go                                                     |
+| Source:artifact:/usr/lib/go-1.26/bin/go                                                     |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.25.7            | Fix Available |         22 | # 0 Layer        | --            |
+| stdlib  | 1.26.0            | Fix Available |         25 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:/usr/lib/go-1.25/bin/gofmt                                                  |
+| Source:artifact:/usr/lib/go-1.26/bin/gofmt                                                  |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.25.7            | Fix Available |         22 | # 0 Layer        | --            |
+| stdlib  | 1.26.0            | Fix Available |         25 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:/usr/lib/go-1.25/pkg/tool/linux_amd64/asm                                   |
+| Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/asm                                   |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.25.7            | Fix Available |         22 | # 0 Layer        | --            |
+| stdlib  | 1.26.0            | Fix Available |         25 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:/usr/lib/go-1.25/pkg/tool/linux_amd64/compile                               |
+| Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/compile                               |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.25.7            | Fix Available |         22 | # 0 Layer        | --            |
+| stdlib  | 1.26.0            | Fix Available |         25 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:/usr/lib/go-1.25/pkg/tool/linux_amd64/link                                  |
+| Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/link                                  |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.25.7            | Fix Available |         22 | # 0 Layer        | --            |
+| stdlib  | 1.26.0            | Fix Available |         25 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:/usr/lib/go-1.25/pkg/tool/linux_amd64/vet                                   |
+| Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/vet                                   |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.25.7            | Fix Available |         22 | # 0 Layer        | --            |
+| stdlib  | 1.26.0            | Fix Available |         25 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 Ubuntu:26.04
 +-------------------------------------------------------------------------------------------------------------------------------------------+
@@ -3105,26 +3105,29 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
   "results": [
     {
       "source": {
-        "path": "/usr/lib/go-1.25/bin/go",
+        "path": "/usr/lib/go-1.26/bin/go",
         "type": "artifact"
       },
       "packages": [
         {
           "package": {
             "name": "stdlib",
-            "version": "1.25.7",
+            "version": "1.26.0",
             "ecosystem": "Go",
             "image_origin_details": {
               "index": 0
             }
           },
-          "groups": 22,
+          "groups": 25,
           "vulnerabilities": [
+            "GO-2026-4599",
+            "GO-2026-4600",
             "GO-2026-4601",
             "GO-2026-4602",
             "GO-2026-4603",
             "GO-2026-4864",
             "GO-2026-4865",
+            "GO-2026-4866",
             "GO-2026-4869",
             "GO-2026-4870",
             "GO-2026-4918",
@@ -3148,26 +3151,29 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
     },
     {
       "source": {
-        "path": "/usr/lib/go-1.25/bin/gofmt",
+        "path": "/usr/lib/go-1.26/bin/gofmt",
         "type": "artifact"
       },
       "packages": [
         {
           "package": {
             "name": "stdlib",
-            "version": "1.25.7",
+            "version": "1.26.0",
             "ecosystem": "Go",
             "image_origin_details": {
               "index": 0
             }
           },
-          "groups": 22,
+          "groups": 25,
           "vulnerabilities": [
+            "GO-2026-4599",
+            "GO-2026-4600",
             "GO-2026-4601",
             "GO-2026-4602",
             "GO-2026-4603",
             "GO-2026-4864",
             "GO-2026-4865",
+            "GO-2026-4866",
             "GO-2026-4869",
             "GO-2026-4870",
             "GO-2026-4918",
@@ -3191,26 +3197,29 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
     },
     {
       "source": {
-        "path": "/usr/lib/go-1.25/pkg/tool/linux_amd64/asm",
+        "path": "/usr/lib/go-1.26/pkg/tool/linux_amd64/asm",
         "type": "artifact"
       },
       "packages": [
         {
           "package": {
             "name": "stdlib",
-            "version": "1.25.7",
+            "version": "1.26.0",
             "ecosystem": "Go",
             "image_origin_details": {
               "index": 0
             }
           },
-          "groups": 22,
+          "groups": 25,
           "vulnerabilities": [
+            "GO-2026-4599",
+            "GO-2026-4600",
             "GO-2026-4601",
             "GO-2026-4602",
             "GO-2026-4603",
             "GO-2026-4864",
             "GO-2026-4865",
+            "GO-2026-4866",
             "GO-2026-4869",
             "GO-2026-4870",
             "GO-2026-4918",
@@ -3234,26 +3243,29 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
     },
     {
       "source": {
-        "path": "/usr/lib/go-1.25/pkg/tool/linux_amd64/compile",
+        "path": "/usr/lib/go-1.26/pkg/tool/linux_amd64/compile",
         "type": "artifact"
       },
       "packages": [
         {
           "package": {
             "name": "stdlib",
-            "version": "1.25.7",
+            "version": "1.26.0",
             "ecosystem": "Go",
             "image_origin_details": {
               "index": 0
             }
           },
-          "groups": 22,
+          "groups": 25,
           "vulnerabilities": [
+            "GO-2026-4599",
+            "GO-2026-4600",
             "GO-2026-4601",
             "GO-2026-4602",
             "GO-2026-4603",
             "GO-2026-4864",
             "GO-2026-4865",
+            "GO-2026-4866",
             "GO-2026-4869",
             "GO-2026-4870",
             "GO-2026-4918",
@@ -3277,26 +3289,29 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
     },
     {
       "source": {
-        "path": "/usr/lib/go-1.25/pkg/tool/linux_amd64/link",
+        "path": "/usr/lib/go-1.26/pkg/tool/linux_amd64/link",
         "type": "artifact"
       },
       "packages": [
         {
           "package": {
             "name": "stdlib",
-            "version": "1.25.7",
+            "version": "1.26.0",
             "ecosystem": "Go",
             "image_origin_details": {
               "index": 0
             }
           },
-          "groups": 22,
+          "groups": 25,
           "vulnerabilities": [
+            "GO-2026-4599",
+            "GO-2026-4600",
             "GO-2026-4601",
             "GO-2026-4602",
             "GO-2026-4603",
             "GO-2026-4864",
             "GO-2026-4865",
+            "GO-2026-4866",
             "GO-2026-4869",
             "GO-2026-4870",
             "GO-2026-4918",
@@ -3320,26 +3335,29 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
     },
     {
       "source": {
-        "path": "/usr/lib/go-1.25/pkg/tool/linux_amd64/vet",
+        "path": "/usr/lib/go-1.26/pkg/tool/linux_amd64/vet",
         "type": "artifact"
       },
       "packages": [
         {
           "package": {
             "name": "stdlib",
-            "version": "1.25.7",
+            "version": "1.26.0",
             "ecosystem": "Go",
             "image_origin_details": {
               "index": 0
             }
           },
-          "groups": 22,
+          "groups": 25,
           "vulnerabilities": [
+            "GO-2026-4599",
+            "GO-2026-4600",
             "GO-2026-4601",
             "GO-2026-4602",
             "GO-2026-4603",
             "GO-2026-4864",
             "GO-2026-4865",
+            "GO-2026-4866",
             "GO-2026-4869",
             "GO-2026-4870",
             "GO-2026-4918",

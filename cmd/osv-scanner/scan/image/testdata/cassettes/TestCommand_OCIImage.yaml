@@ -10875,7 +10875,7 @@ interactions:
                 "ecosystem": "Go",
                 "name": "stdlib"
               },
-              "version": "1.25.7"
+              "version": "1.26.0"
             },
             {
               "package": {
@@ -10887,16 +10887,16 @@ interactions:
             {
               "package": {
                 "ecosystem": "Ubuntu:26.04",
-                "name": "golang-1.25-go"
+                "name": "golang-1.26-go"
               },
-              "version": "1.25.7-2"
+              "version": "1.26.0-1"
             },
             {
               "package": {
                 "ecosystem": "Ubuntu:26.04",
-                "name": "golang-1.25-src"
+                "name": "golang-1.26-src"
               },
-              "version": "1.25.7-2"
+              "version": "1.26.0-1"
             },
             {
               "package": {
@@ -11030,7 +11030,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 1569
+      content_length: 1758
       body: |
         {
           "results": [
@@ -11050,6 +11050,14 @@ interactions:
             {
               "vulns": [
                 {
+                  "id": "GO-2026-4599",
+                  "modified": "2026-07-09T10:44:32.987177Z"
+                },
+                {
+                  "id": "GO-2026-4600",
+                  "modified": "2026-05-15T10:59:23.758905Z"
+                },
+                {
                   "id": "GO-2026-4601",
                   "modified": "2026-07-09T10:44:32.269952Z"
                 },
@@ -11068,6 +11076,10 @@ interactions:
                 {
                   "id": "GO-2026-4865",
                   "modified": "2026-05-15T10:59:24.648972Z"
+                },
+                {
+                  "id": "GO-2026-4866",
+                  "modified": "2026-07-09T10:44:32.922860Z"
                 },
                 {
                   "id": "GO-2026-4869",
@@ -11163,7 +11175,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "1569"
+          - "1758"
         Content-Type:
           - application/json
       status: 200 OK
