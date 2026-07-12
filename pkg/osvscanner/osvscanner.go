@@ -97,6 +97,13 @@ type TransitiveScanningActions struct {
 	MavenRegistry    string
 }
 
+// defaultMaxFileSize caps per-file memory allocation for extractors.
+// Rationale: 20+ lockfile extractors call io.ReadAll(input.Reader) with no
+// per-parser limit; without a cap, a repository or container-image layer
+// entry can allocate arbitrary memory during extraction. 512 MiB matches
+// the image-layer scanner's MaxFileBytes default in osv-scalibr.
+const defaultMaxFileSize = 512 * 1024 * 1024
+
 type ExternalAccessors struct {
 	// Matchers
 	VulnMatcher    clientinterfaces.VulnerabilityMatcher
@@ -323,6 +330,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		Capabilities:      capabilities,
 		StoreAbsolutePath: true,
 		ExplicitPlugins:   true,
+		MaxFileSize:       defaultMaxFileSize,
 	})
 	if err != nil {
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to scan container image: %w", err)
