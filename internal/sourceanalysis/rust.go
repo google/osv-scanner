@@ -19,6 +19,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/thirdparty/ar"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ianlancetaylor/demangle"
+	"github.com/google/osv-scanner/v2/internal/output"
 )
 
 const (
@@ -52,14 +53,14 @@ func rustAnalysis(pkgs []models.PackageVulns, source models.SourceInfo) {
 			// Is a library, so need an extra step to extract the object binary file before passing to parseDWARFData
 			buf, err := extractRlibArchive(path)
 			if err != nil {
-				cmdlogger.Errorf("failed to analyse '%s': %s", path, err)
+				cmdlogger.Errorf("failed to analyse '%s': %s", output.SanitizeForWorkflowCommand(path), err)
 				continue
 			}
 			readAt = bytes.NewReader(buf.Bytes())
 		} else {
 			f, err := os.Open(path)
 			if err != nil {
-				cmdlogger.Errorf("failed to read binary '%s': %s", path, err)
+				cmdlogger.Errorf("failed to read binary '%s': %s", output.SanitizeForWorkflowCommand(path), err)
 				continue
 			}
 			// This is fine to defer til the end of the function as there's
@@ -70,7 +71,7 @@ func rustAnalysis(pkgs []models.PackageVulns, source models.SourceInfo) {
 
 		calls, err := functionsFromDWARF(readAt)
 		if err != nil {
-			cmdlogger.Errorf("failed to analyse '%s': %s", path, err)
+			cmdlogger.Errorf("failed to analyse '%s': %s", output.SanitizeForWorkflowCommand(path), err)
 			continue
 		}
 

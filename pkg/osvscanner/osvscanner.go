@@ -398,7 +398,7 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 		slices.Sort(configFiles)
 
 		for _, configFile := range configFiles {
-			cmdlogger.Warnf("%s has unused ignores:", configFile)
+			cmdlogger.Warnf("%s has unused ignores:", output.SanitizeForWorkflowCommand(configFile))
 
 			for _, iv := range unusedIgnoredEntries[configFile] {
 				cmdlogger.Warnf(" - %s", iv.ID)
