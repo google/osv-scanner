@@ -3532,17 +3532,21 @@ Scanning local image tarball "./testdata/test-chisel.tar"
         "diff_id": "sha256:...",
         "command": "ADD rootfs.tar.xz / # buildkit",
         "is_empty": false,
-        "base_image_index": 0
+        "base_image_index": 1
       },
       {
         "diff_id": "",
         "command": "CMD [/"/bin/bash/"]",
         "is_empty": true,
-        "base_image_index": 0
+        "base_image_index": 1
       }
     ],
     "base_images": [
-      {}
+      {},
+      {
+        "name": "mageia",
+        "tags": null
+      }
     ]
   }
 }
