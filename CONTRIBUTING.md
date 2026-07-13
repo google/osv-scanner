@@ -126,7 +126,7 @@ Note that some long-running tests may be skipped and their snapshots will not be
 
 ```shell
 make update-snapshots
-# Equivalent to: make test SNAPS=true SHORT=false
+# Equivalent to: make test SNAPS=true ACC=true SHORT=false
 ```
 
 To update all snapshots for all tests, matching the CI test environment, use:
