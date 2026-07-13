@@ -43,7 +43,7 @@ for dockerfile in cmd/osv-scanner/scan/image/testdata/*.Dockerfile; do
 
   if [ "$force" = true ]; then
     echo "Removing existing tar file for $image_name..."
-    rm "cmd/osv-scanner/scan/image/testdata/$image_name.tar"
+    rm "cmd/osv-scanner/scan/image/testdata/$image_name.tar" || true
   fi
 
   build_docker_image_fixture "$image_name"
