@@ -1,3 +1,6 @@
+{{ if and (eq (len .RegularVulns) 0) (eq (len .HiddenVulns) 0) }}
+<p class="package-detail-title">No known vulnerabilities for this package.</p>
+{{ else }}
 <table class="inner-table">
   <tr>
     <th>Vulnerability ID</th>
@@ -17,3 +20,4 @@
     {{template "vuln_table_entry_template.gohtml" $args}}
   {{ end }}
 </table>
++{{ end }}

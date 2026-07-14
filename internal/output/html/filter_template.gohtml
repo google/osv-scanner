@@ -76,6 +76,12 @@
           <input type="checkbox" id="uncalled-type-checkbox" data-type-uncalled-count="{{ .VulnTypeSummary.Hidden }}">
           Uncalled/Unimportant ({{ .VulnTypeSummary.Hidden }})
         </label>
+        {{ if .LicenseSummary.Summary }}
+        <label class="filter-option" for="license-violation-type-checkbox">
+          <input type="checkbox" id="license-violation-type-checkbox">
+          Show license violations without vulnerabilities
+        </label>
+        {{ end }}
       </div>
     </div>
   </div>
