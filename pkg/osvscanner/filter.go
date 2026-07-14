@@ -9,6 +9,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/config"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/imodels/results"
+	"github.com/google/osv-scanner/v2/internal/output"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvconstants"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
@@ -45,7 +46,7 @@ func filterUnscannablePackages(scanResults *results.ScanResults, actions Scanner
 		// Short commit hashes (< 40 hex chars) are rejected by the OSV API with
 		// "Invalid hash". Skip them with a warning rather than aborting the scan.
 		case imodels.Commit(psr) != "" && len(imodels.Commit(psr)) < 40:
-			cmdlogger.Warnf("Skipping %s: short commit hash %q cannot be queried; OSV API requires a full 40-character SHA.", imodels.Name(psr), imodels.Commit(psr))
+			cmdlogger.Warnf("Skipping %s: short commit hash %q cannot be queried; OSV API requires a full 40-character SHA.", output.SanitizeForWorkflowCommand(imodels.Name(psr)), imodels.Commit(psr))
 
 			if actions.ShowAllPackages {
 				filteredPsr = append(filteredPsr, psr)
@@ -101,7 +102,7 @@ func filterIgnoredPackages(scanResults *results.ScanResults) {
 			if reason == "" {
 				reason = "(no reason given)"
 			}
-			cmdlogger.Infof("Package %s has been filtered out because: %s", pkgString, reason)
+			cmdlogger.Infof("Package %s has been filtered out because: %s", output.SanitizeForWorkflowCommand(pkgString), output.SanitizeForWorkflowCommand(reason))
 
 			continue
 		}
