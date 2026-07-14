@@ -1,0 +1,37 @@
+interactions:
+    - method: /deps_dev.v3alpha.Insights/QueryContainerImages
+      request: |-
+        {
+          "chainId": "sha256:8733fcf6becc20a9edd1d6f7ab1cc70a082b419e5f1162ae88a7fd776348d1d4"
+        }
+      response: |-
+        {
+          "results": [
+            {
+              "registry": "hub.docker.com/",
+              "repository": "alpine"
+            },
+            {
+              "registry": "hub.docker.com/",
+              "repository": "amd64/alpine"
+            }
+          ]
+        }
+    - method: /deps_dev.v3alpha.Insights/QueryContainerImages
+      request: |-
+        {
+          "chainId": "sha256:f9fc769d335082905a3e43c83f2a6d11b413556f9d156ab0fbe3166d256c0d99"
+        }
+      response: |-
+        {
+          "results": [
+            {
+              "registry": "hub.docker.com/",
+              "repository": "alpine"
+            },
+            {
+              "registry": "hub.docker.com/",
+              "repository": "amd64/alpine"
+            }
+          ]
+        }

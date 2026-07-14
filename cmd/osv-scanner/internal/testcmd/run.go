@@ -50,20 +50,26 @@ func run(t *testing.T, tc Case) (string, string) {
 	stdout := &bytes.Buffer{}
 	stderr := &bytes.Buffer{}
 
-	cf := tc.ClientFactories
-	if cf == nil {
-		if SharedClientFactories != nil {
-			cf = &TestClientFactories{
-				ClientFactories:    SharedClientFactories,
-				HTTPClientOverride: tc.HTTPClient,
-			}
-		} else if tc.HTTPClient != nil {
-			localCF := NewClientFactories(tc.HTTPClient)
-			cf = localCF
-			defer func() {
-				_ = localCF.Close()
-			}()
+	if SharedClientFactories == nil {
+		t.Fatalf("testcmd.SharedClientFactories is not initialized. Please initialize it in TestMain using testcmd.NewClientFactories(nil).")
+	}
+
+	httpClient := tc.HTTPClient
+	grpcRecorder := tc.GRPCRecorder
+
+	if !tc.NoVCR {
+		if httpClient == nil {
+			httpClient = InsertCassette(t)
 		}
+		if grpcRecorder == nil {
+			grpcRecorder = InsertGRPCRecorder(t)
+		}
+	}
+
+	cf := &TestClientFactories{
+		ClientFactories:      SharedClientFactories,
+		HTTPClientOverride:   httpClient,
+		GRPCRecorderOverride: grpcRecorder,
 	}
 
 	ec := cmd.Run(tc.Args, stdout, stderr, cf, fetchCommandsToTest())

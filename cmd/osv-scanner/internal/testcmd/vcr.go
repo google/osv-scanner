@@ -16,9 +16,13 @@ import (
 
 	gocmp "github.com/google/go-cmp/cmp"
 	scalibrconfig "github.com/google/osv-scalibr/plugin/config"
+	"github.com/google/osv-scanner/v2/internal/grpcvcr"
 	localscalibr "github.com/google/osv-scanner/v2/internal/scalibr"
 	"github.com/tidwall/pretty"
 	"go.yaml.in/yaml/v4"
+	"google.golang.org/grpc"
+	"google.golang.org/protobuf/encoding/protojson"
+	"google.golang.org/protobuf/proto"
 	"gopkg.in/dnaeon/go-vcr.v4/pkg/cassette"
 	"gopkg.in/dnaeon/go-vcr.v4/pkg/recorder"
 )
@@ -106,6 +110,41 @@ func marshalCassettes(in any) (out []byte, err error) {
 	}
 
 	return buf.Bytes(), nil
+}
+
+// determineGRPCRecorderMode maps the HTTP recorder mode to grpcvcr mode.
+func determineGRPCRecorderMode() grpcvcr.Mode {
+	// Re-use determineRecorderMode which reads TEST_VCR_MODE env var
+	switch determineRecorderMode() {
+	case recorder.ModeRecordOnly:
+		return grpcvcr.ModeRecordOnly
+	case recorder.ModeReplayOnly:
+		return grpcvcr.ModeReplayOnly
+	case recorder.ModeReplayWithNewEpisodes:
+		return grpcvcr.ModeReplayWithNewEpisodes
+	case recorder.ModePassthrough:
+		return grpcvcr.ModePassthrough
+	default:
+		return grpcvcr.ModeReplayWithNewEpisodes
+	}
+}
+
+// InsertGRPCRecorder returns a grpcvcr.Recorder which will record and replay gRPC responses.
+func InsertGRPCRecorder(t *testing.T) *grpcvcr.Recorder {
+	t.Helper()
+
+	path := filepath.Join("testdata/cassettes", strings.ReplaceAll(t.Name(), "/", "_")+"_grpc.yaml")
+
+	rec, err := grpcvcr.NewRecorder(path, determineGRPCRecorderMode(), t.Name())
+	if err != nil {
+		t.Fatalf("failed to initialize gRPC recorder: %v", err)
+	}
+
+	rec.OnMiss = func(method string, req proto.Message, cassette *grpcvcr.Cassette) {
+		logGRPCRequestMismatch(t, path, method, req, cassette)
+	}
+
+	return rec
 }
 
 // InsertCassette returns an http.Client backed by a [recorder.Recorder] which
@@ -430,11 +469,12 @@ func (t *vcrErrorWrappingTransport) logRequestMismatch(req *http.Request) {
 // SharedClientFactories is a package-level ClientFactories used by tests to reuse connections.
 var SharedClientFactories scalibrconfig.ClientFactories
 
-// TestClientFactories wraps a shared ClientFactories but overrides the HTTPClient.
+// TestClientFactories wraps a shared ClientFactories but overrides the HTTPClient and GRPC connection.
 type TestClientFactories struct {
 	scalibrconfig.ClientFactories
 
-	HTTPClientOverride *http.Client
+	HTTPClientOverride   *http.Client
+	GRPCRecorderOverride *grpcvcr.Recorder
 }
 
 func (t *TestClientFactories) HTTPClient() *http.Client {
@@ -445,7 +485,76 @@ func (t *TestClientFactories) HTTPClient() *http.Client {
 	return t.ClientFactories.HTTPClient()
 }
 
+func (t *TestClientFactories) GRPCClientConn(url string, dialOpts ...grpc.DialOption) (grpc.ClientConnInterface, error) {
+	conn, err := t.ClientFactories.GRPCClientConn(url, dialOpts...)
+	if err != nil {
+		return nil, err
+	}
+	if t.GRPCRecorderOverride != nil {
+		return grpcvcr.NewClientConn(conn, t.GRPCRecorderOverride), nil
+	}
+
+	return conn, nil
+}
+
 // NewClientFactories returns a new ClientFactories instance for testing.
 func NewClientFactories(client *http.Client) *localscalibr.ClientFactories {
 	return localscalibr.NewClientFactories(client, "")
+}
+
+func logGRPCRequestMismatch(t *testing.T, cassettePath string, method string, req proto.Message, cass *grpcvcr.Cassette) {
+	t.Helper()
+
+	marshalOptions := protojson.MarshalOptions{
+		Multiline: true,
+		Indent:    "  ",
+	}
+	actualJSON, err := marshalOptions.Marshal(req)
+	if err != nil {
+		t.Logf("gRPC VCR Miss: failed to marshal incoming request: %v", err)
+		return
+	}
+
+	var candidates []grpcvcr.Interaction
+	if cass != nil {
+		for _, inter := range cass.Interactions {
+			if inter.Method == method {
+				candidates = append(candidates, inter)
+			}
+		}
+	}
+
+	var sb strings.Builder
+	sb.WriteString("\n=================== gRPC VCR CASSETTE REQUEST MISMATCH ===================\n")
+	fmt.Fprintf(&sb, "Incoming gRPC request did not match any stored cassette interaction in %s\n", cassettePath)
+	fmt.Fprintf(&sb, "Incoming Method: %s\n", method)
+	fmt.Fprintf(&sb, "Incoming Request JSON:\n%s\n", string(actualJSON))
+
+	if len(candidates) > 0 {
+		fmt.Fprintf(&sb, "\nFound %d candidate(s) in the cassette matching this method:\n", len(candidates))
+		for i, cand := range candidates {
+			fmt.Fprintf(&sb, "\n--- Candidate %d ---\n", i+1)
+			diff := gocmp.Diff(cand.Request, string(actualJSON))
+			sb.WriteString("Diff (-recorded +actual):\n")
+			sb.WriteString(diff)
+		}
+	} else {
+		fmt.Fprintf(&sb, "\nNo candidate requests found matching the method: %s\n", method)
+		if cass != nil && len(cass.Interactions) > 0 {
+			sb.WriteString("Recorded interactions in this cassette:\n")
+			seen := make(map[string]bool)
+			for _, inter := range cass.Interactions {
+				key := inter.Method
+				if !seen[key] {
+					seen[key] = true
+					fmt.Fprintf(&sb, "  - %s\n", key)
+				}
+			}
+		} else {
+			sb.WriteString("Cassette is empty.\n")
+		}
+	}
+	sb.WriteString("==========================================================================\n")
+
+	t.Errorf("%s", sb.String())
 }

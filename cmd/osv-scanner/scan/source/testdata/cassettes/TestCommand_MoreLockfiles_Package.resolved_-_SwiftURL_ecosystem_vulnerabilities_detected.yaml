@@ -1,0 +1,111 @@
+---
+version: 2
+interactions:
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 320
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "SwiftURL",
+                "name": "github.com/apple/swift-nio-http2"
+              },
+              "version": "1.19.1"
+            },
+            {
+              "package": {
+                "ecosystem": "SwiftURL",
+                "name": "github.com/pytorch/executorch"
+              },
+              "version": "0.6.0"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 940
+      body: |
+        {
+          "results": [
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-4px2-pw77-vc85",
+                  "modified": "2026-06-12T15:15:20.821466Z"
+                },
+                {
+                  "id": "GHSA-ccw9-q5h2-8c2w",
+                  "modified": "2026-07-08T06:29:25.820719Z"
+                },
+                {
+                  "id": "GHSA-pgfx-g6rc-8cjv",
+                  "modified": "2026-07-08T06:28:19.107048Z"
+                },
+                {
+                  "id": "GHSA-q36x-r5x4-h4q6",
+                  "modified": "2026-07-08T06:29:12.319445Z"
+                },
+                {
+                  "id": "GHSA-qppj-fm5r-hxr3",
+                  "modified": "2026-05-20T08:11:02.423329Z"
+                },
+                {
+                  "id": "GHSA-w3f6-pc54-gfw7",
+                  "modified": "2026-07-08T06:29:31.732565Z"
+                },
+                {
+                  "id": "GHSA-xvr7-p2c6-j83w",
+                  "modified": "2025-08-13T23:54:02Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-84m3-f99p-cqx5",
+                  "modified": "2026-06-29T12:26:32.919067Z"
+                },
+                {
+                  "id": "GHSA-9m39-3mf3-xwch",
+                  "modified": "2026-06-29T12:26:17.882155Z"
+                },
+                {
+                  "id": "GHSA-f9hx-c6jf-3qxm",
+                  "modified": "2026-06-29T12:26:29.765857Z"
+                },
+                {
+                  "id": "GHSA-h952-963h-rv99",
+                  "modified": "2026-07-07T17:57:10.238565Z"
+                },
+                {
+                  "id": "GHSA-hj95-mhgf-jxc4",
+                  "modified": "2026-06-29T12:26:26.721719Z"
+                },
+                {
+                  "id": "GHSA-xc7w-r669-48pf",
+                  "modified": "2026-06-29T12:26:16.176986Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "940"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s

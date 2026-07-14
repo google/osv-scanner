@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strings"
 
-	scalibrconfig "github.com/google/osv-scalibr/plugin/config"
+	"github.com/google/osv-scanner/v2/internal/grpcvcr"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
@@ -20,8 +20,11 @@ type Case struct {
 	// ReplaceRules are only used for JSON output
 	ReplaceRules []testutility.JSONReplaceRule
 
-	HTTPClient      *http.Client
-	ClientFactories scalibrconfig.ClientFactories
+	// NoVCR disables automatic VCR recording/replaying for this test case.
+	NoVCR bool
+
+	HTTPClient   *http.Client
+	GRPCRecorder *grpcvcr.Recorder
 }
 
 // findFirstValueOfFlag returns the value of the first instance of the given flag

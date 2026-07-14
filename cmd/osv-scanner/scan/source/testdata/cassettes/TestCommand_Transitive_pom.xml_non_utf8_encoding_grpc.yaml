@@ -1,0 +1,198 @@
+interactions:
+    - method: /deps_dev.v3.Insights/GetRequirements
+      request: |-
+        {
+          "versionKey": {
+            "name": "junit:junit",
+            "system": "MAVEN",
+            "version": "4.12"
+          }
+        }
+      response: |-
+        {
+          "maven": {
+            "dependencies": [
+              {
+                "name": "org.hamcrest:hamcrest-core",
+                "optional": "false",
+                "version": "1.3"
+              }
+            ],
+            "profiles": [
+              {
+                "activation": {},
+                "id": "junit-release"
+              },
+              {
+                "activation": {},
+                "id": "generate-docs"
+              },
+              {
+                "activation": {
+                  "jdk": {
+                    "jdk": "[1.8,)"
+                  }
+                },
+                "id": "restrict-doclint"
+              },
+              {
+                "activation": {},
+                "id": "fast-tests"
+              }
+            ],
+            "properties": [
+              {
+                "name": "jdkVersion",
+                "value": "1.5"
+              },
+              {
+                "name": "project.build.sourceEncoding",
+                "value": "ISO-8859-1"
+              },
+              {
+                "name": "arguments"
+              },
+              {
+                "name": "gpg.keyname",
+                "value": "67893CC4"
+              }
+            ]
+          }
+        }
+    - method: /deps_dev.v3.Insights/GetRequirements
+      request: |-
+        {
+          "versionKey": {
+            "name": "org.hamcrest:hamcrest-core",
+            "system": "MAVEN",
+            "version": "1.3"
+          }
+        }
+      response: |-
+        {
+          "maven": {
+            "dependencies": [
+              {}
+            ],
+            "parent": {
+              "name": "org.hamcrest:hamcrest-parent",
+              "system": "MAVEN",
+              "version": "1.3"
+            }
+          }
+        }
+    - method: /deps_dev.v3.Insights/GetRequirements
+      request: |-
+        {
+          "versionKey": {
+            "name": "org.hamcrest:hamcrest-parent",
+            "system": "MAVEN",
+            "version": "1.3"
+          }
+        }
+      response: |-
+        {
+          "maven": {}
+        }
+    - method: /deps_dev.v3.Insights/GetVersion
+      request: |-
+        {
+          "versionKey": {
+            "name": "junit:junit",
+            "system": "MAVEN",
+            "version": "4.12"
+          }
+        }
+      response: |-
+        {
+          "advisoryKeys": [
+            {
+              "id": "GHSA-269g-pwp5-87pp"
+            }
+          ],
+          "licenses": [
+            "non-standard"
+          ],
+          "links": [
+            {
+              "label": "SOURCE_REPO",
+              "url": "http://github.com/junit-team/junit/tree/master"
+            },
+            {
+              "label": "ISSUE_TRACKER",
+              "url": "https://github.com/junit-team/junit/issues"
+            },
+            {
+              "label": "HOMEPAGE",
+              "url": "http://junit.org"
+            }
+          ],
+          "publishedAt": "2014-12-04T16:17:43Z",
+          "registries": [
+            "https://repo.maven.apache.org/maven2/"
+          ],
+          "relatedProjects": [
+            {
+              "projectKey": {
+                "id": "github.com/junit-team/junit"
+              },
+              "relationProvenance": "UNVERIFIED_METADATA",
+              "relationType": "SOURCE_REPO"
+            },
+            {
+              "projectKey": {
+                "id": "github.com/junit-team/junit"
+              },
+              "relationProvenance": "UNVERIFIED_METADATA",
+              "relationType": "ISSUE_TRACKER"
+            }
+          ],
+          "versionKey": {
+            "name": "junit:junit",
+            "system": "MAVEN",
+            "version": "4.12"
+          }
+        }
+    - method: /deps_dev.v3.Insights/GetVersion
+      request: |-
+        {
+          "versionKey": {
+            "name": "org.hamcrest:hamcrest-core",
+            "system": "MAVEN",
+            "version": "1.3"
+          }
+        }
+      response: |-
+        {
+          "licenses": [
+            "non-standard"
+          ],
+          "links": [
+            {
+              "label": "SOURCE_REPO",
+              "url": "https://github.com/hamcrest/JavaHamcrest"
+            },
+            {
+              "label": "HOMEPAGE",
+              "url": "https://github.com/hamcrest/JavaHamcrest"
+            }
+          ],
+          "publishedAt": "2012-07-09T21:08:02Z",
+          "registries": [
+            "https://repo.maven.apache.org/maven2/"
+          ],
+          "relatedProjects": [
+            {
+              "projectKey": {
+                "id": "github.com/hamcrest/javahamcrest"
+              },
+              "relationProvenance": "UNVERIFIED_METADATA",
+              "relationType": "SOURCE_REPO"
+            }
+          ],
+          "versionKey": {
+            "name": "org.hamcrest:hamcrest-core",
+            "system": "MAVEN",
+            "version": "1.3"
+          }
+        }

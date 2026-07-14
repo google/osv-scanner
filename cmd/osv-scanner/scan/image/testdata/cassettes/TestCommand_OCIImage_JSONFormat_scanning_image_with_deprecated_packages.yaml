@@ -1,0 +1,773 @@
+---
+version: 2
+interactions:
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 6488
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.22",
+                "name": "alpine-baselayout"
+              },
+              "version": "3.7.0-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.22",
+                "name": "alpine-baselayout"
+              },
+              "version": "3.7.0-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.22",
+                "name": "alpine-keys"
+              },
+              "version": "2.5-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.22",
+                "name": "alpine-base"
+              },
+              "version": "3.22.2-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.22",
+                "name": "apk-tools"
+              },
+              "version": "2.14.9-r3"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.22",
+                "name": "busybox"
+              },
+              "version": "1.37.0-r19"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.22",
+                "name": "busybox"
+              },
+              "version": "1.37.0-r19"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.22",
+                "name": "ca-certificates"
+              },
+              "version": "20250911-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "displaydoc"
+              },
+              "version": "0.2.5"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "form_urlencoded"
+              },
+              "version": "1.2.2"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "icu_collections"
+              },
+              "version": "2.1.1"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "icu_locale_core"
+              },
+              "version": "2.1.1"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "icu_normalizer"
+              },
+              "version": "2.1.1"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "icu_normalizer_data"
+              },
+              "version": "2.1.1"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "icu_properties"
+              },
+              "version": "2.1.1"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "icu_properties_data"
+              },
+              "version": "2.1.1"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "icu_provider"
+              },
+              "version": "2.1.1"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "idna"
+              },
+              "version": "1.1.0"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "idna_adapter"
+              },
+              "version": "1.2.1"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.22",
+                "name": "apk-tools"
+              },
+              "version": "2.14.9-r3"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.22",
+                "name": "openssl"
+              },
+              "version": "3.5.4-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.22",
+                "name": "openssl"
+              },
+              "version": "3.5.4-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "litemap"
+              },
+              "version": "0.8.1"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.22",
+                "name": "musl"
+              },
+              "version": "1.2.5-r10"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.22",
+                "name": "musl"
+              },
+              "version": "1.2.5-r10"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "percent-encoding"
+              },
+              "version": "2.3.2"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "potential_utf"
+              },
+              "version": "0.1.4"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "proc-macro2"
+              },
+              "version": "1.0.103"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "quote"
+              },
+              "version": "1.0.42"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "rust_novuln_deprecated"
+              },
+              "version": "0.1.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.22",
+                "name": "pax-utils"
+              },
+              "version": "1.3.8-r1"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "smallvec"
+              },
+              "version": "1.15.1"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.22",
+                "name": "busybox"
+              },
+              "version": "1.37.0-r19"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "stable_deref_trait"
+              },
+              "version": "1.2.1"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "syn"
+              },
+              "version": "2.0.111"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "synstructure"
+              },
+              "version": "0.13.2"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "tinystr"
+              },
+              "version": "0.8.2"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "unicode-ident"
+              },
+              "version": "1.0.22"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "url"
+              },
+              "version": "2.5.3"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "utf8_iter"
+              },
+              "version": "1.0.4"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "writeable"
+              },
+              "version": "0.6.2"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "yoke"
+              },
+              "version": "0.8.1"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "yoke-derive"
+              },
+              "version": "0.8.1"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "zerofrom"
+              },
+              "version": "0.1.6"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "zerofrom-derive"
+              },
+              "version": "0.1.6"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "zerotrie"
+              },
+              "version": "0.2.3"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "zerovec"
+              },
+              "version": "0.11.5"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "zerovec-derive"
+              },
+              "version": "0.11.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.22",
+                "name": "zlib"
+              },
+              "version": "1.3.1-r2"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 5978
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "ALPINE-CVE-2024-58251",
+                  "modified": "2026-06-15T18:18:10.508036Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-46394",
+                  "modified": "2026-06-15T18:18:10.748793Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "ALPINE-CVE-2024-58251",
+                  "modified": "2026-06-15T18:18:10.508036Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-46394",
+                  "modified": "2026-06-15T18:18:10.748793Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "ALPINE-CVE-2025-11187",
+                  "modified": "2026-07-08T04:31:53.261562Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-15467",
+                  "modified": "2026-07-08T04:31:54.237773Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-15468",
+                  "modified": "2026-07-08T04:31:54.236044Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-15469",
+                  "modified": "2026-07-08T04:32:08.712108Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-66199",
+                  "modified": "2026-07-08T04:30:11.899340Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-68160",
+                  "modified": "2026-07-08T04:32:27.950152Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-69418",
+                  "modified": "2026-07-08T04:31:55.406338Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-69419",
+                  "modified": "2026-07-08T04:31:54.597659Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-69420",
+                  "modified": "2026-07-08T04:31:55.393Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-69421",
+                  "modified": "2026-07-08T04:30:11.908070Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-22795",
+                  "modified": "2026-07-08T04:32:28.331714Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-22796",
+                  "modified": "2026-07-08T04:32:29.030190Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-2673",
+                  "modified": "2026-07-08T04:32:29.111590Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-28387",
+                  "modified": "2026-07-08T04:32:29.167238Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-28388",
+                  "modified": "2026-07-08T04:32:29.169509Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-28389",
+                  "modified": "2026-07-08T04:31:56.091480Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-28390",
+                  "modified": "2026-07-08T04:31:57.860412Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-31789",
+                  "modified": "2026-07-08T04:30:12.004739Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-31790",
+                  "modified": "2026-07-08T04:32:29.132271Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-34180",
+                  "modified": "2026-07-08T04:32:29.175969Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-34181",
+                  "modified": "2026-07-08T04:31:58.001122Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-34182",
+                  "modified": "2026-07-08T04:32:29.280914Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-34183",
+                  "modified": "2026-07-08T04:31:57.993761Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-42764",
+                  "modified": "2026-07-08T04:32:29.286493Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-42766",
+                  "modified": "2026-07-08T04:32:29.327470Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-42767",
+                  "modified": "2026-07-08T04:32:29.346222Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-42768",
+                  "modified": "2026-07-08T04:32:29.461252Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-42769",
+                  "modified": "2026-07-08T04:32:29.392779Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-42770",
+                  "modified": "2026-07-08T04:32:29.279599Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-45445",
+                  "modified": "2026-07-08T04:32:30.281894Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-45446",
+                  "modified": "2026-07-08T04:32:30.441149Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-45447",
+                  "modified": "2026-07-08T04:32:30.331733Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-7383",
+                  "modified": "2026-07-08T04:32:25.409598Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-9076",
+                  "modified": "2026-07-08T04:32:25.454329Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "ALPINE-CVE-2025-11187",
+                  "modified": "2026-07-08T04:31:53.261562Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-15467",
+                  "modified": "2026-07-08T04:31:54.237773Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-15468",
+                  "modified": "2026-07-08T04:31:54.236044Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-15469",
+                  "modified": "2026-07-08T04:32:08.712108Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-66199",
+                  "modified": "2026-07-08T04:30:11.899340Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-68160",
+                  "modified": "2026-07-08T04:32:27.950152Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-69418",
+                  "modified": "2026-07-08T04:31:55.406338Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-69419",
+                  "modified": "2026-07-08T04:31:54.597659Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-69420",
+                  "modified": "2026-07-08T04:31:55.393Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-69421",
+                  "modified": "2026-07-08T04:30:11.908070Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-22795",
+                  "modified": "2026-07-08T04:32:28.331714Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-22796",
+                  "modified": "2026-07-08T04:32:29.030190Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-2673",
+                  "modified": "2026-07-08T04:32:29.111590Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-28387",
+                  "modified": "2026-07-08T04:32:29.167238Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-28388",
+                  "modified": "2026-07-08T04:32:29.169509Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-28389",
+                  "modified": "2026-07-08T04:31:56.091480Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-28390",
+                  "modified": "2026-07-08T04:31:57.860412Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-31789",
+                  "modified": "2026-07-08T04:30:12.004739Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-31790",
+                  "modified": "2026-07-08T04:32:29.132271Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-34180",
+                  "modified": "2026-07-08T04:32:29.175969Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-34181",
+                  "modified": "2026-07-08T04:31:58.001122Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-34182",
+                  "modified": "2026-07-08T04:32:29.280914Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-34183",
+                  "modified": "2026-07-08T04:31:57.993761Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-42764",
+                  "modified": "2026-07-08T04:32:29.286493Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-42766",
+                  "modified": "2026-07-08T04:32:29.327470Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-42767",
+                  "modified": "2026-07-08T04:32:29.346222Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-42768",
+                  "modified": "2026-07-08T04:32:29.461252Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-42769",
+                  "modified": "2026-07-08T04:32:29.392779Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-42770",
+                  "modified": "2026-07-08T04:32:29.279599Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-45445",
+                  "modified": "2026-07-08T04:32:30.281894Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-45446",
+                  "modified": "2026-07-08T04:32:30.441149Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-45447",
+                  "modified": "2026-07-08T04:32:30.331733Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-7383",
+                  "modified": "2026-07-08T04:32:25.409598Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-9076",
+                  "modified": "2026-07-08T04:32:25.454329Z"
+                }
+              ]
+            },
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "ALPINE-CVE-2026-40200",
+                  "modified": "2026-06-15T18:18:11.215742Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-6042",
+                  "modified": "2026-06-15T18:18:11.283180Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "ALPINE-CVE-2026-40200",
+                  "modified": "2026-06-15T18:18:11.215742Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-6042",
+                  "modified": "2026-06-15T18:18:11.283180Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "ALPINE-CVE-2024-58251",
+                  "modified": "2026-06-15T18:18:10.508036Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-46394",
+                  "modified": "2026-06-15T18:18:10.748793Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "ALPINE-CVE-2026-22184",
+                  "modified": "2026-07-14T05:30:07.069428Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-27171",
+                  "modified": "2026-07-08T04:31:57.846862Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "5978"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s

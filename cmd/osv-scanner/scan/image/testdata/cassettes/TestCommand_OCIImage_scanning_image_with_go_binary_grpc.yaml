@@ -1,0 +1,113 @@
+interactions:
+    - method: /deps_dev.v3alpha.Insights/QueryContainerImages
+      request: |-
+        {
+          "chainId": "sha256:01f23bf772cbbde78c79ecb05132e667da0e91d5840a6f036cdaa06860733020"
+        }
+      error:
+        code: 5
+        message: chain ID not found
+    - method: /deps_dev.v3alpha.Insights/QueryContainerImages
+      request: |-
+        {
+          "chainId": "sha256:11316d62a3cb074daf31826c883f1544bc386df1fb94fe316bc14dc37d08062c"
+        }
+      error:
+        code: 5
+        message: chain ID not found
+    - method: /deps_dev.v3alpha.Insights/QueryContainerImages
+      request: |-
+        {
+          "chainId": "sha256:479c8c89c0e0864640efb097523a74c77928b98d282159eaeada3e2edc4d797b"
+        }
+      error:
+        code: 5
+        message: chain ID not found
+    - method: /deps_dev.v3alpha.Insights/QueryContainerImages
+      request: |-
+        {
+          "chainId": "sha256:7bc7fb42458e359cc43666f19505a3df7088fa128ff61b0994ceb1cbec9491f0"
+        }
+      error:
+        code: 5
+        message: chain ID not found
+    - method: /deps_dev.v3alpha.Insights/QueryContainerImages
+      request: |-
+        {
+          "chainId": "sha256:889ec4bf319753569b1b8184a986edadb27b88b12654cc9fd972f06cb7e7cf28"
+        }
+      error:
+        code: 5
+        message: chain ID not found
+    - method: /deps_dev.v3alpha.Insights/QueryContainerImages
+      request: |-
+        {
+          "chainId": "sha256:9491e1f039109a4a92da4db05da8e239ed98aaa4560fba2df3278d01238886e5"
+        }
+      error:
+        code: 5
+        message: chain ID not found
+    - method: /deps_dev.v3alpha.Insights/QueryContainerImages
+      request: |-
+        {
+          "chainId": "sha256:94e5f06ff8e3d4441dc3cd8b090ff38dc911bfa8ebdb0dc28395bc98f82f983f"
+        }
+      response: |-
+        {
+          "results": [
+            {
+              "registry": "hub.docker.com/",
+              "repository": "alpine"
+            },
+            {
+              "registry": "hub.docker.com/",
+              "repository": "openebs/alpine-sh"
+            },
+            {
+              "registry": "hub.docker.com/",
+              "repository": "poneding/infinity"
+            },
+            {
+              "registry": "hub.docker.com/",
+              "repository": "cddockeruser/test-image"
+            }
+          ]
+        }
+    - method: /deps_dev.v3alpha.Insights/QueryContainerImages
+      request: |-
+        {
+          "chainId": "sha256:a950999db4110e8724ef7f033a1f5b8598a8d3fcc644ed7bfe229d0a57aac5b2"
+        }
+      error:
+        code: 5
+        message: chain ID not found
+    - method: /deps_dev.v3alpha.Insights/QueryContainerImages
+      request: |-
+        {
+          "chainId": "sha256:bada8cc7924de38f7d375126bc5c4d6a72187acc61a6534bc86833db57b4ce7c"
+        }
+      response: |-
+        {
+          "results": [
+            {
+              "registry": "hub.docker.com/",
+              "repository": "alpine"
+            }
+          ]
+        }
+    - method: /deps_dev.v3alpha.Insights/QueryContainerImages
+      request: |-
+        {
+          "chainId": "sha256:ea795bbc1a141ff841fc20cdfc2daa81d3e2d57ac38a647b98a3b48d01a3495e"
+        }
+      error:
+        code: 5
+        message: chain ID not found
+    - method: /deps_dev.v3alpha.Insights/QueryContainerImages
+      request: |-
+        {
+          "chainId": "sha256:f96590b5a6f4277ebbd4eac5c8bf015010aefce78bb0cd9613e29feaa133b975"
+        }
+      error:
+        code: 5
+        message: chain ID not found

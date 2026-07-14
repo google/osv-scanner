@@ -17,8 +17,6 @@ import (
 func TestCommand(t *testing.T) {
 	t.Parallel()
 
-	client := testcmd.InsertCassette(t)
-
 	tests := []testcmd.Case{
 		// one specific supported lockfile
 		{
@@ -411,8 +409,6 @@ func TestCommand(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -420,8 +416,6 @@ func TestCommand(t *testing.T) {
 
 func TestCommand_Config_UnusedIgnores(t *testing.T) {
 	t.Parallel()
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -444,8 +438,6 @@ func TestCommand_Config_UnusedIgnores(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -454,9 +446,8 @@ func TestCommand_Config_UnusedIgnores(t *testing.T) {
 func TestCommand_JavareachArchive(t *testing.T) {
 	t.Parallel()
 
-	testutility.SkipIfShort(t)
-
-	client := testcmd.InsertCassette(t)
+	// testutility.SkipIfShort(t)
+	testutility.Skip(t, "Skipping for now as Maven is enforcing stricter 429s")
 
 	tests := []testcmd.Case{
 		{
@@ -479,8 +470,6 @@ func TestCommand_JavareachArchive(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -492,8 +481,6 @@ func TestCommand_HomebrewWithAnnotators(t *testing.T) {
 	if runtime.GOOS != "darwin" {
 		testutility.Skip(t, "The detector in this test only works on Darwin")
 	}
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -511,8 +498,6 @@ func TestCommand_HomebrewWithAnnotators(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -520,8 +505,6 @@ func TestCommand_HomebrewWithAnnotators(t *testing.T) {
 
 func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 	t.Parallel()
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -650,8 +633,6 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -659,8 +640,6 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 
 func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 	t.Parallel()
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -802,8 +781,6 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -814,8 +791,6 @@ func TestCommand_CallAnalysis(t *testing.T) {
 
 	// This does require Go toolchain, but the whole project requires go toolchain,
 	// so not an external dependency
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -848,8 +823,6 @@ func TestCommand_CallAnalysis(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -859,7 +832,6 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 	t.Parallel()
 
 	cwd := testutility.GetCurrentWorkingDirectory(t)
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -1023,7 +995,6 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			t.Parallel()
 
 			if tt.HTTPClient == nil {
-				tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
 			}
 
 			testcmd.RunAndMatchSnapshots(t, tt)
@@ -1034,8 +1005,6 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 // TestCommand_GithubActions tests common actions the github actions reusable workflow will run
 func TestCommand_GithubActions(t *testing.T) {
 	t.Parallel()
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -1061,8 +1030,6 @@ func TestCommand_GithubActions(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -1072,8 +1039,6 @@ func TestCommand_LocalDatabases(t *testing.T) {
 	t.Parallel()
 
 	testutility.SkipIfShort(t)
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -1147,8 +1112,6 @@ func TestCommand_LocalDatabases(t *testing.T) {
 			tt.Args = []string{"", "source", "--local-db-path", testDir}
 			tt.Args = append(tt.Args, old[2:]...)
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			// run each test twice since they should provide the same output,
 			// and the second run should be fast as the db is already available
 			testcmd.RunAndMatchSnapshots(t, tt)
@@ -1159,8 +1122,6 @@ func TestCommand_LocalDatabases(t *testing.T) {
 
 func TestCommand_LocalDatabases_AlwaysOffline(t *testing.T) {
 	t.Parallel()
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -1178,8 +1139,6 @@ func TestCommand_LocalDatabases_AlwaysOffline(t *testing.T) {
 			tt.Args = []string{"", "source", "--local-db-path", testDir}
 			tt.Args = append(tt.Args, old[2:]...)
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			// run each test twice since they should provide the same output,
 			// and the second run should be fast as the db is already available
 			testcmd.RunAndMatchSnapshots(t, tt)
@@ -1192,8 +1151,6 @@ func TestCommand_CommitSupport(t *testing.T) {
 	t.Parallel()
 
 	testutility.SkipIfShort(t)
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -1212,8 +1169,6 @@ func TestCommand_CommitSupport(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -1221,8 +1176,6 @@ func TestCommand_CommitSupport(t *testing.T) {
 
 func TestCommand_Licenses(t *testing.T) {
 	t.Parallel()
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -1321,8 +1274,6 @@ func TestCommand_Licenses(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -1332,8 +1283,6 @@ func TestCommand_Transitive(t *testing.T) {
 	t.Parallel()
 
 	testutility.SkipIfShort(t)
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -1430,8 +1379,6 @@ func TestCommand_Transitive(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -1439,8 +1386,6 @@ func TestCommand_Transitive(t *testing.T) {
 
 func TestCommand_MoreLockfiles(t *testing.T) {
 	t.Parallel()
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -1494,8 +1439,6 @@ func TestCommand_MoreLockfiles(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -1510,8 +1453,6 @@ func TestCommandNonGit(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	client := testcmd.InsertCassette(t)
-
 	tests := []testcmd.Case{
 		// one specific supported lockfile
 		{
@@ -1524,8 +1465,6 @@ func TestCommandNonGit(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -1535,14 +1474,11 @@ func TestCommand_HtmlFile(t *testing.T) {
 	t.Parallel()
 
 	testDir := testutility.CreateTestDir(t)
-	client := testcmd.InsertCassette(t)
 
 	testcmd.RunAndMatchSnapshots(t, testcmd.Case{
 		Name: "one_specific_supported_lockfile",
 		Args: []string{"", "source", "--format=html", "--output-file", testDir + "/report.html", "./testdata/locks-many/composer.lock"},
 		Exit: 0,
-
-		HTTPClient: testcmd.WithTestNameHeader(t, *client),
 	})
 
 	_, err := os.Stat(testDir + "/report.html")
@@ -1556,14 +1492,11 @@ func TestCommand_HtmlFile_Deprecated(t *testing.T) {
 	t.Parallel()
 
 	testDir := testutility.CreateTestDir(t)
-	client := testcmd.InsertCassette(t)
 
 	testcmd.RunAndMatchSnapshots(t, testcmd.Case{
 		Name: "one_specific_supported_lockfile",
 		Args: []string{"", "source", "--format=html", "--output", testDir + "/report.html", "./testdata/locks-many/composer.lock"},
 		Exit: 0,
-
-		HTTPClient: testcmd.WithTestNameHeader(t, *client),
 	})
 
 	_, err := os.Stat(testDir + "/report.html")
@@ -1589,8 +1522,6 @@ func TestCommand_WithDetector_OnLinux(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	client := testcmd.InsertCassette(t)
-
 	tests := []struct {
 		Name string
 		Args []string
@@ -1642,8 +1573,6 @@ func TestCommand_WithDetector_OnLinux(t *testing.T) {
 				Name: tt.Name,
 				Args: tt.Args,
 				Exit: tt.Exit,
-
-				HTTPClient: testcmd.WithTestNameHeader(t, *client),
 			})
 		})
 	}
@@ -1665,8 +1594,6 @@ func TestCommand_WithDetector_OffLinux(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	client := testcmd.InsertCassette(t)
-
 	tests := []struct {
 		Name string
 		Args []string
@@ -1718,8 +1645,6 @@ func TestCommand_WithDetector_OffLinux(t *testing.T) {
 				Name: tt.Name,
 				Args: tt.Args,
 				Exit: tt.Exit,
-
-				HTTPClient: testcmd.WithTestNameHeader(t, *client),
 			})
 		})
 	}

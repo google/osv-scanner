@@ -1,0 +1,52 @@
+---
+version: 2
+interactions:
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 156
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Ubuntu",
+                "name": "pcre3"
+              },
+              "version": "2:8.39-12ubuntu0.1"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 97
+      body: |
+        {
+          "results": [
+            {
+              "vulns": [
+                {
+                  "id": "UBUNTU-CVE-2017-11164",
+                  "modified": "2026-04-22T11:10:44.262299Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "97"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s

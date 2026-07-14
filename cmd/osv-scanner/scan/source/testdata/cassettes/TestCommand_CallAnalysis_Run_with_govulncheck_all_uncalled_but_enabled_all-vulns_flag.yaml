@@ -1,0 +1,56 @@
+---
+version: 2
+interactions:
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 158
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Go",
+                "name": "github.com/gogo/protobuf"
+              },
+              "version": "1.3.1"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 158
+      body: |
+        {
+          "results": [
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-c3h9-896r-86jm",
+                  "modified": "2026-02-04T02:43:17.273837Z"
+                },
+                {
+                  "id": "GO-2021-0053",
+                  "modified": "2026-02-04T03:28:45.369468Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "158"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s

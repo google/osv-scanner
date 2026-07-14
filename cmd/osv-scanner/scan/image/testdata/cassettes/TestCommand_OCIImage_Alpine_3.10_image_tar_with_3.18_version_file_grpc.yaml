@@ -1,0 +1,53 @@
+interactions:
+    - method: /deps_dev.v3alpha.Insights/QueryContainerImages
+      request: |-
+        {
+          "chainId": "sha256:3faaa992edf3dd0c73f8972475d2a120bff0b01283f0881455db2d55455d787a"
+        }
+      error:
+        code: 5
+        message: chain ID not found
+    - method: /deps_dev.v3alpha.Insights/QueryContainerImages
+      request: |-
+        {
+          "chainId": "sha256:428956b294a20d53e4cb6509af4a0a4d179b53bf99c16987d9668c87aa41a04a"
+        }
+      response: |-
+        {
+          "results": [
+            {
+              "registry": "hub.docker.com/",
+              "repository": "alpine"
+            }
+          ]
+        }
+    - method: /deps_dev.v3alpha.Insights/QueryContainerImages
+      request: |-
+        {
+          "chainId": "sha256:8d05db82521a667acd39f4951448aa829cb8975f326fc62e38ee791ded2f73fe"
+        }
+      error:
+        code: 5
+        message: chain ID not found
+    - method: /deps_dev.v3alpha.Insights/QueryContainerImages
+      request: |-
+        {
+          "chainId": "sha256:9fb3aa2f8b8023a4bebbf92aa567caf88e38e969ada9f0ac12643b2847391635"
+        }
+      response: |-
+        {
+          "results": [
+            {
+              "registry": "hub.docker.com/",
+              "repository": "alpine"
+            },
+            {
+              "registry": "hub.docker.com/",
+              "repository": "flowquest/test-sample"
+            },
+            {
+              "registry": "hub.docker.com/",
+              "repository": "shinminge/tlsalsrl98"
+            }
+          ]
+        }

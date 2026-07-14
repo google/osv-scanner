@@ -1,0 +1,97 @@
+interactions:
+    - method: /deps_dev.v3alpha.Insights/QueryContainerImages
+      request: |-
+        {
+          "chainId": "sha256:170b376f64fb30995c140276be3d71dfb256b308d86183ca3b22aa93a79ad548"
+        }
+      response: |-
+        {
+          "results": [
+            {
+              "registry": "hub.docker.com/",
+              "repository": "zontak/agirunner-sdk-typescript"
+            },
+            {
+              "registry": "hub.docker.com/",
+              "repository": "laurentsogeti/pod_showname_formation_ckad"
+            },
+            {
+              "registry": "hub.docker.com/",
+              "repository": "settel/render-html"
+            }
+          ]
+        }
+    - method: /deps_dev.v3alpha.Insights/QueryContainerImages
+      request: |-
+        {
+          "chainId": "sha256:29591e5e2bfe9e423a8ba665fc2c98984b63496a2dca584468203d3406d3b116"
+        }
+      error:
+        code: 5
+        message: chain ID not found
+    - method: /deps_dev.v3alpha.Insights/QueryContainerImages
+      request: |-
+        {
+          "chainId": "sha256:4017eeba317389a738c0affbb6aed06ec730c81d07f020e3e5cd5f9b84715cb4"
+        }
+      error:
+        code: 5
+        message: chain ID not found
+    - method: /deps_dev.v3alpha.Insights/QueryContainerImages
+      request: |-
+        {
+          "chainId": "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
+        }
+      error:
+        code: 5
+        message: chain ID not found
+    - method: /deps_dev.v3alpha.Insights/QueryContainerImages
+      request: |-
+        {
+          "chainId": "sha256:7800f80a93336d416612f372faa5f69eb67b353ce6ae9535fa0848f8784c74b1"
+        }
+      error:
+        code: 5
+        message: chain ID not found
+    - method: /deps_dev.v3alpha.Insights/QueryContainerImages
+      request: |-
+        {
+          "chainId": "sha256:cc7f3e7dd2099bc0c32ac71225c06166a854160ee25ab0ed5b8b0a3d4415f4b7"
+        }
+      error:
+        code: 5
+        message: chain ID not found
+    - method: /deps_dev.v3alpha.Insights/QueryContainerImages
+      request: |-
+        {
+          "chainId": "sha256:d31c5be7f74658ce06b043746f6ebb362d30c2c6e512dcab74d7c5f7893b2654"
+        }
+      error:
+        code: 5
+        message: chain ID not found
+    - method: /deps_dev.v3alpha.Insights/QueryContainerImages
+      request: |-
+        {
+          "chainId": "sha256:e0c94e007274af5f2aa37e8e45fe9c4764f29c1790d8c2860903dee320326092"
+        }
+      response: |-
+        {
+          "results": [
+            {
+              "registry": "hub.docker.com/",
+              "repository": "ubuntu"
+            },
+            {
+              "registry": "hub.docker.com/",
+              "repository": "amd64/ubuntu"
+            },
+            {
+              "registry": "hub.docker.com/",
+              "repository": "onoue1/ubuntu"
+            },
+            {
+              "registry": "hub.docker.com/",
+              "repository": "bbash41/my_learning_repo_ubuntu"
+            }
+          ]
+        }
