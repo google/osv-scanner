@@ -170,7 +170,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 4488
+      content_length: 4558
       body: |
         {
           "results": [
@@ -326,6 +326,10 @@ interactions:
                   "modified": "2026-02-04T02:19:17.186100Z"
                 },
                 {
+                  "id": "GHSA-hgj6-7826-r7m5",
+                  "modified": "2026-06-25T00:29:24.783131Z"
+                },
+                {
                   "id": "GHSA-jjjh-jjxp-wpff",
                   "modified": "2026-02-04T02:23:59.070528Z"
                 },
@@ -375,7 +379,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-rpr3-cw39-3pxh",
-                  "modified": "2026-03-13T22:01:03.241551Z"
+                  "modified": "2026-07-08T06:00:01.572650Z"
                 },
                 {
                   "id": "GHSA-v585-23hc-c647",
@@ -425,7 +429,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-cj7v-27pg-wf7q",
-                  "modified": "2026-03-13T22:01:09.359414Z"
+                  "modified": "2026-07-08T06:27:18.289164Z"
                 },
                 {
                   "id": "GHSA-hmr7-m48g-48f6",
@@ -471,7 +475,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "4488"
+          - "4558"
         Content-Type:
           - application/json
       status: 200 OK
@@ -646,7 +650,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 4488
+      content_length: 4558
       body: |
         {
           "results": [
@@ -802,6 +806,10 @@ interactions:
                   "modified": "2026-02-04T02:19:17.186100Z"
                 },
                 {
+                  "id": "GHSA-hgj6-7826-r7m5",
+                  "modified": "2026-06-25T00:29:24.783131Z"
+                },
+                {
                   "id": "GHSA-jjjh-jjxp-wpff",
                   "modified": "2026-02-04T02:23:59.070528Z"
                 },
@@ -851,7 +859,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-rpr3-cw39-3pxh",
-                  "modified": "2026-03-13T22:01:03.241551Z"
+                  "modified": "2026-07-08T06:00:01.572650Z"
                 },
                 {
                   "id": "GHSA-v585-23hc-c647",
@@ -901,7 +909,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-cj7v-27pg-wf7q",
-                  "modified": "2026-03-13T22:01:09.359414Z"
+                  "modified": "2026-07-08T06:27:18.289164Z"
                 },
                 {
                   "id": "GHSA-hmr7-m48g-48f6",
@@ -947,7 +955,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "4488"
+          - "4558"
         Content-Type:
           - application/json
       status: 200 OK
@@ -1122,7 +1130,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 4488
+      content_length: 4558
       body: |
         {
           "results": [
@@ -1278,6 +1286,10 @@ interactions:
                   "modified": "2026-02-04T02:19:17.186100Z"
                 },
                 {
+                  "id": "GHSA-hgj6-7826-r7m5",
+                  "modified": "2026-06-25T00:29:24.783131Z"
+                },
+                {
                   "id": "GHSA-jjjh-jjxp-wpff",
                   "modified": "2026-02-04T02:23:59.070528Z"
                 },
@@ -1327,7 +1339,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-rpr3-cw39-3pxh",
-                  "modified": "2026-03-13T22:01:03.241551Z"
+                  "modified": "2026-07-08T06:00:01.572650Z"
                 },
                 {
                   "id": "GHSA-v585-23hc-c647",
@@ -1377,7 +1389,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-cj7v-27pg-wf7q",
-                  "modified": "2026-03-13T22:01:09.359414Z"
+                  "modified": "2026-07-08T06:27:18.289164Z"
                 },
                 {
                   "id": "GHSA-hmr7-m48g-48f6",
@@ -1423,7 +1435,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "4488"
+          - "4558"
         Content-Type:
           - application/json
       status: 200 OK
