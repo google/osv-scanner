@@ -60,12 +60,9 @@ func toCachedPackageInfo(pkg *extractor.Package) *models.PackageInfo {
 	return v.(*models.PackageInfo)
 }
 
+// Name patches the SCALIBR package name to something used by OSV.
+// This does not affect matching. It is only used for reporting and filtering.
 func Name(pkg *extractor.Package) string {
-	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-	if purlCache := toCachedPackageInfo(pkg); purlCache != nil {
-		return purlCache.Name
-	}
-
 	// --- Make specific patches to names as necessary ---
 	// Patch Go package to stdlib
 	if Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo && pkg.Name == "go" {
@@ -124,6 +121,7 @@ func Ecosystem(pkg *extractor.Package) osvecosystem.Parsed {
 	// If ecosystem is empty and the source code repo is set we set the ecosystem to GIT
 	// since it's likely that the vulnerabilities will be associated with the source code repo
 	if eco.Ecosystem == "" && pkg.SourceCode != nil {
+		// panic("ASFJOISDJGOISJOISJDGOI")
 		eco = osvecosystem.MustParse("GIT")
 	}
 

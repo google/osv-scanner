@@ -5,7 +5,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 29312
+      content_length: 29320
       host: api.osv.dev
       body: |
         {
@@ -1420,7 +1420,7 @@ interactions:
             {
               "package": {
                 "ecosystem": "Maven",
-                "name": "unknown"
+                "name": "unknown:unknown"
               },
               "version": "unknown"
             },

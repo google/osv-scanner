@@ -13,35 +13,35 @@ interactions:
             {
               "package": {
                 "ecosystem": "PyPI",
-                "name": "Django"
+                "name": "django"
               },
               "version": "1.11.29"
             },
             {
               "package": {
                 "ecosystem": "PyPI",
-                "name": "Flask"
+                "name": "flask"
               },
               "version": "0.12.2"
             },
             {
               "package": {
                 "ecosystem": "PyPI",
-                "name": "Jinja2"
+                "name": "jinja2"
               },
               "version": "3.1.6"
             },
             {
               "package": {
                 "ecosystem": "PyPI",
-                "name": "MarkupSafe"
+                "name": "markupsafe"
               },
               "version": "3.0.3"
             },
             {
               "package": {
                 "ecosystem": "PyPI",
-                "name": "Werkzeug"
+                "name": "werkzeug"
               },
               "version": "3.1.4"
             },
