@@ -127,17 +127,6 @@ func Ecosystem(pkg *extractor.Package) osvecosystem.Parsed {
 		eco = osvecosystem.MustParse("GIT")
 	}
 
-	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-	if purlCache := toCachedPackageInfo(pkg); purlCache != nil {
-		newEco, err := osvecosystem.Parse(purlCache.Ecosystem)
-		if err != nil {
-			cmdlogger.Warnf("Warning: error parsing osvscanner.json ecosystem: %s", err.Error())
-			return eco
-		}
-
-		eco = newEco
-	}
-
 	return eco
 }
 

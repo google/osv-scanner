@@ -13,27 +13,6 @@ interactions:
             {
               "package": {
                 "ecosystem": "PyPI",
-                "name": "django"
-              },
-              "version": "1.11.29"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "flask"
-              },
-              "version": "1.0.0"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "requests"
-              },
-              "version": "2.20.0"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
                 "name": "certifi"
               },
               "version": "2026.6.17"
@@ -51,6 +30,20 @@ interactions:
                 "name": "click"
               },
               "version": "8.4.2"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "django"
+              },
+              "version": "1.11.29"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "flask"
+              },
+              "version": "1.0.0"
             },
             {
               "package": {
@@ -90,6 +83,13 @@ interactions:
             {
               "package": {
                 "ecosystem": "PyPI",
+                "name": "requests"
+              },
+              "version": "2.20.0"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
                 "name": "urllib3"
               },
               "version": "1.24.3"
@@ -116,6 +116,9 @@ interactions:
       body: |
         {
           "results": [
+            {},
+            {},
+            {},
             {
               "vulns": [
                 {
@@ -179,6 +182,30 @@ interactions:
             {
               "vulns": [
                 {
+                  "id": "GHSA-65pc-fj4g-8rjx",
+                  "modified": "2026-07-08T17:45:15.021597Z"
+                },
+                {
+                  "id": "GHSA-jjg7-2v4v-x38h",
+                  "modified": "2026-02-04T03:49:45.087439Z"
+                },
+                {
+                  "id": "PYSEC-2024-60",
+                  "modified": "2026-06-10T17:01:21.102419Z"
+                },
+                {
+                  "id": "PYSEC-2026-215",
+                  "modified": "2026-06-16T16:15:04.639265Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
                   "id": "GHSA-9hjg-9r4m-mvj7",
                   "modified": "2026-07-07T17:56:56.234172Z"
                 },
@@ -212,33 +239,6 @@ interactions:
                 }
               ]
             },
-            {},
-            {},
-            {},
-            {
-              "vulns": [
-                {
-                  "id": "GHSA-65pc-fj4g-8rjx",
-                  "modified": "2026-07-08T17:45:15.021597Z"
-                },
-                {
-                  "id": "GHSA-jjg7-2v4v-x38h",
-                  "modified": "2026-02-04T03:49:45.087439Z"
-                },
-                {
-                  "id": "PYSEC-2024-60",
-                  "modified": "2026-06-10T17:01:21.102419Z"
-                },
-                {
-                  "id": "PYSEC-2026-215",
-                  "modified": "2026-06-16T16:15:04.639265Z"
-                }
-              ]
-            },
-            {},
-            {},
-            {},
-            {},
             {
               "vulns": [
                 {

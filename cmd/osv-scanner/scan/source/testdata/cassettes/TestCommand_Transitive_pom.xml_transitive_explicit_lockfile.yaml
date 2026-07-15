@@ -13,13 +13,6 @@ interactions:
             {
               "package": {
                 "ecosystem": "Maven",
-                "name": "org.apache.logging.log4j:log4j-web"
-              },
-              "version": "2.14.1"
-            },
-            {
-              "package": {
-                "ecosystem": "Maven",
                 "name": "org.apache.logging.log4j:log4j-api"
               },
               "version": "2.14.1"
@@ -28,6 +21,13 @@ interactions:
               "package": {
                 "ecosystem": "Maven",
                 "name": "org.apache.logging.log4j:log4j-core"
+              },
+              "version": "2.14.1"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.logging.log4j:log4j-web"
               },
               "version": "2.14.1"
             }
@@ -46,7 +46,6 @@ interactions:
       body: |
         {
           "results": [
-            {},
             {},
             {
               "vulns": [
@@ -79,7 +78,8 @@ interactions:
                   "modified": "2026-02-04T03:10:00.616806Z"
                 }
               ]
-            }
+            },
+            {}
           ]
         }
       headers:
