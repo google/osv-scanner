@@ -3,19 +3,19 @@ module github.com/google/osv-scanner/v2
 go 1.26.4
 
 require (
-	charm.land/glamour/v2 v2.0.0
-	charm.land/lipgloss/v2 v2.0.3
-	deps.dev/api/v3 v3.0.0-20260422013440-90c27f84dd6f
-	deps.dev/api/v3alpha v0.0.0-20260422013440-90c27f84dd6f
+	charm.land/glamour/v2 v2.0.1
+	charm.land/lipgloss/v2 v2.0.5
+	deps.dev/api/v3 v3.0.0-20260708003622-ba1304923509
+	deps.dev/api/v3alpha v0.0.0-20260708003622-ba1304923509
 	github.com/BurntSushi/toml v1.6.0
 	github.com/CycloneDX/cyclonedx-go v0.11.0
-	github.com/gkampitakis/go-snaps v0.5.22
+	github.com/gkampitakis/go-snaps v0.5.23
 	github.com/go-git/go-git/v5 v5.19.1
 	github.com/gobwas/glob v0.2.3
 	github.com/google/go-cmp v0.7.0
 	github.com/google/osv-scalibr v0.4.6-0.20260612031204-164402d9140e
 	github.com/ianlancetaylor/demangle v0.0.0-20260505044615-1ff4bf46051f
-	github.com/jedib0t/go-pretty/v6 v6.7.10
+	github.com/jedib0t/go-pretty/v6 v6.8.2
 	github.com/modelcontextprotocol/go-sdk v1.6.1
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/ossf/osv-schema/bindings/go v0.0.0-20260424063704-83285ce2a866
@@ -25,14 +25,14 @@ require (
 	github.com/tidwall/gjson v1.19.0
 	github.com/tidwall/pretty v1.2.1
 	github.com/tidwall/sjson v1.2.5
-	github.com/urfave/cli/v3 v3.9.0
-	go.yaml.in/yaml/v4 v4.0.0-rc.4
-	golang.org/x/sync v0.20.0
-	golang.org/x/term v0.43.0
+	github.com/urfave/cli/v3 v3.10.1
+	go.yaml.in/yaml/v4 v4.0.0-rc.6
+	golang.org/x/sync v0.22.0
+	golang.org/x/term v0.45.0
 	golang.org/x/vuln v1.3.0
-	google.golang.org/grpc v1.81.1
+	google.golang.org/grpc v1.82.0
 	google.golang.org/protobuf v1.36.11
-	gopkg.in/dnaeon/go-vcr.v4 v4.0.6
+	gopkg.in/dnaeon/go-vcr.v4 v4.0.7
 	osv.dev/bindings/go v0.0.0-20260512064147-daa692bbd4ed
 )
 
@@ -196,7 +196,7 @@ require (
 	golang.org/x/mod v0.36.0 // indirect
 	golang.org/x/net v0.55.0 // indirect
 	golang.org/x/oauth2 v0.36.0 // indirect
-	golang.org/x/sys v0.45.0 // indirect
+	golang.org/x/sys v0.47.0 // indirect
 	golang.org/x/telemetry v0.0.0-20260508192327-42602be52be6 // indirect
 	golang.org/x/text v0.37.0 // indirect
 	golang.org/x/tools v0.45.0 // indirect
@@ -214,4 +214,3 @@ require (
 	www.velocidex.com/golang/go-ntfs v0.2.0 // indirect
 	www.velocidex.com/golang/regparser v0.0.0-20250203141505-31e704a67ef7 // indirect
 )
-
