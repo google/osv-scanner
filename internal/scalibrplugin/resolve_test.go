@@ -32,6 +32,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/os/chisel"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/homebrew"
+	"github.com/google/osv-scalibr/extractor/filesystem/os/rpm"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
@@ -521,6 +522,7 @@ func TestResolve_Extractors(t *testing.T) {
 				dpkg.Name,
 				chisel.Name,
 				homebrew.Name,
+				rpm.Name,
 				gobinary.Name,
 				nodemodules.Name,
 				wheelegg.Name,
@@ -543,6 +545,7 @@ func TestResolve_Extractors(t *testing.T) {
 				dpkg.Name,
 				chisel.Name,
 				homebrew.Name,
+				rpm.Name,
 				gobinary.Name,
 				nodemodules.Name,
 				wheelegg.Name,
@@ -572,6 +575,7 @@ func TestResolve_Extractors(t *testing.T) {
 				chisel.Name,
 				gobinary.Name,
 				homebrew.Name,
+				rpm.Name,
 				nodemodules.Name,
 				apkanno.Name,
 				dpkganno.Name,
@@ -593,6 +597,7 @@ func TestResolve_Extractors(t *testing.T) {
 				dpkg.Name,
 				chisel.Name,
 				homebrew.Name,
+				rpm.Name,
 				gitrepo.Name,
 				gobinary.Name,
 				nodemodules.Name,
