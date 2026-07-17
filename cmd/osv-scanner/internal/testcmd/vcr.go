@@ -18,7 +18,9 @@ import (
 	scalibrconfig "github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scanner/v2/internal/grpcvcr"
 	localscalibr "github.com/google/osv-scanner/v2/internal/scalibr"
+	"github.com/tidwall/gjson"
 	"github.com/tidwall/pretty"
+	"github.com/tidwall/sjson"
 	"go.yaml.in/yaml/v4"
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/encoding/protojson"
@@ -159,6 +161,10 @@ func InsertCassette(t *testing.T) *http.Client {
 		recorder.WithMarshalFunc(marshalCassettes),
 		recorder.WithSkipRequestLatency(true),
 		recorder.WithMode(determineRecorderMode()),
+		recorder.WithRealTransport(&vcrResponseNormalizingTransport{
+			underlying:   http.DefaultTransport,
+			cassettePath: path + ".yaml",
+		}),
 		recorder.WithPassthrough(func(req *http.Request) bool {
 			// exclude requests for info on a specific vuln since they can be quite large
 			// and their changes should be less impactful to our snapshots than the query
@@ -557,4 +563,142 @@ func logGRPCRequestMismatch(t *testing.T, cassettePath string, method string, re
 	sb.WriteString("==========================================================================\n")
 
 	t.Errorf("%s", sb.String())
+}
+
+type vcrResponseNormalizingTransport struct {
+	underlying   http.RoundTripper
+	cassettePath string
+}
+
+func (t *vcrResponseNormalizingTransport) RoundTrip(req *http.Request) (*http.Response, error) {
+	var reqBodyBytes []byte
+	var err error
+	if req.Body != nil && req.Body != http.NoBody {
+		reqBodyBytes, err = io.ReadAll(req.Body)
+		if err != nil {
+			return nil, err
+		}
+		// Restore body
+		req.Body = io.NopCloser(bytes.NewBuffer(reqBodyBytes))
+	}
+
+	resp, err := t.underlying.RoundTrip(req)
+	if err != nil {
+		return nil, err
+	}
+
+	if resp.StatusCode == http.StatusOK {
+		path := req.URL.Path
+		if path == "/v1/querybatch" {
+			resp, err = t.normalizeQueryBatchResponse(req, reqBodyBytes, resp)
+		}
+	}
+
+	return resp, err
+}
+
+type minimalVcrCassette struct {
+	Interactions []struct {
+		Request struct {
+			Method string `yaml:"method"`
+			URL    string `yaml:"url"`
+			Body   string `yaml:"body"`
+		} `yaml:"request"`
+		Response struct {
+			Body string `yaml:"body"`
+		} `yaml:"response"`
+	} `yaml:"interactions"`
+}
+
+func (t *vcrResponseNormalizingTransport) normalizeQueryBatchResponse(req *http.Request, reqBodyBytes []byte, resp *http.Response) (*http.Response, error) {
+	if os.Getenv("VCR_UPDATE_MODIFIED") == "true" {
+		return resp, nil
+	}
+
+	// Read new response body
+	bodyBytes, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+	resp.Body.Close()
+
+	// Load existing cassette
+	cassetteBytes, err := os.ReadFile(t.cassettePath)
+	if err != nil {
+		// Cassette doesn't exist yet, just return original
+		resp.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
+		return resp, nil
+	}
+
+	var cass minimalVcrCassette
+	if err := yaml.Unmarshal(cassetteBytes, &cass); err != nil {
+		// Failed to parse cassette, return original
+		resp.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
+		return resp, nil
+	}
+
+	// Canonicalize new request JSON using the same pretty-printing options (SortKeys: true)
+	// so we can compare it directly with the already formatted cassette request body.
+	prettyOptions := *pretty.DefaultOptions
+	prettyOptions.SortKeys = true
+	newReqPretty := string(pretty.PrettyOptions(reqBodyBytes, &prettyOptions))
+
+	// Find matching interaction in existing cassette
+	var matchedResponseStr string
+	for _, inter := range cass.Interactions {
+		if inter.Request.Method == req.Method && inter.Request.URL == req.URL.String() {
+			if inter.Request.Body == newReqPretty {
+				matchedResponseStr = inter.Response.Body
+				break
+			}
+		}
+	}
+
+	if matchedResponseStr == "" {
+		// No matching interaction found, return original
+		resp.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
+		return resp, nil
+	}
+
+	// Parse recorded response to extract original modified dates
+	recordedModified := make(map[string]string)
+	for _, resVal := range gjson.Get(matchedResponseStr, "results").Array() {
+		for _, vulnVal := range resVal.Get("vulns").Array() {
+			id := vulnVal.Get("id").String()
+			mod := vulnVal.Get("modified").String()
+			if id != "" && mod != "" {
+				recordedModified[id] = mod
+			}
+		}
+	}
+
+	// Parse new response and replace modified dates in-place using sjson
+	finalRespBytes := bodyBytes
+	var setErr error
+	for resIdx, resVal := range gjson.ParseBytes(bodyBytes).Get("results").Array() {
+		for vulnIdx, vulnVal := range resVal.Get("vulns").Array() {
+			id := vulnVal.Get("id").String()
+			if oldMod, exists := recordedModified[id]; exists {
+				path := fmt.Sprintf("results.%d.vulns.%d.modified", resIdx, vulnIdx)
+				finalRespBytes, setErr = sjson.SetBytes(finalRespBytes, path, oldMod)
+				if setErr != nil {
+					break
+				}
+			}
+		}
+		if setErr != nil {
+			break
+		}
+	}
+
+	if setErr != nil {
+		resp.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
+		return resp, nil
+	}
+
+	resp.Body = io.NopCloser(bytes.NewBuffer(finalRespBytes))
+	resp.ContentLength = int64(len(finalRespBytes))
+	resp.Header.Set("Content-Length", fmt.Sprintf("%d", len(finalRespBytes)))
+
+	return resp, nil
 }

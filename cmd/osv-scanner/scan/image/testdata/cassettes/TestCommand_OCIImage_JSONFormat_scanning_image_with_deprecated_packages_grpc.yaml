@@ -2063,11 +2063,11 @@ interactions:
             },
             {
               "registry": "hub.docker.com/",
-              "repository": "srilucky/devops-practice"
+              "repository": "colheen/mon-app"
             },
             {
               "registry": "hub.docker.com/",
-              "repository": "colheen/mon-app"
+              "repository": "srilucky/devops-practice"
             }
           ]
         }

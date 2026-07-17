@@ -45,11 +45,11 @@ interactions:
             },
             {
               "registry": "hub.docker.com/",
-              "repository": "clouddirecly/test"
+              "repository": "pes1ug21cs340/hello-world"
             },
             {
               "registry": "hub.docker.com/",
-              "repository": "pes1ug21cs340/hello-world"
+              "repository": "clouddirecly/test"
             },
             {
               "registry": "hub.docker.com/",
@@ -119,11 +119,11 @@ interactions:
             },
             {
               "registry": "hub.docker.com/",
-              "repository": "clouddirecly/test"
+              "repository": "pes1ug21cs340/hello-world"
             },
             {
               "registry": "hub.docker.com/",
-              "repository": "pes1ug21cs340/hello-world"
+              "repository": "clouddirecly/test"
             },
             {
               "registry": "hub.docker.com/",

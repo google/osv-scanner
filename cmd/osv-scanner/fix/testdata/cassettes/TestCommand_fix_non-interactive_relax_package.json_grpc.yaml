@@ -26559,12 +26559,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2023-11-21T19:39:43Z",
               "versionKey": {
                 "name": "spdx-expression-parse",
                 "system": "NPM",
                 "version": "4.0.0"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-07-16T01:01:41Z",
+              "versionKey": {
+                "name": "spdx-expression-parse",
+                "system": "NPM",
+                "version": "5.0.0"
               }
             }
           ]

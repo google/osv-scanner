@@ -508,8 +508,8 @@ overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
 overriding license for package Packagist/sentry/sdk/2.0.4 with 0BSD
 overriding license for package Packagist/theseer/tokenizer/1.1.3 with 0BSD
 
-Total 5 packages affected by 16 known vulnerabilities (3 Critical, 1 High, 3 Medium, 3 Low, 6 Unknown) from 4 ecosystems.
-15 vulnerabilities can be fixed.
+Total 5 packages affected by 18 known vulnerabilities (3 Critical, 1 High, 3 Medium, 3 Low, 8 Unknown) from 4 ecosystems.
+17 vulnerabilities can be fixed.
 
 +-----------------------------------------+------+--------------+-----------------------+----------+---------------+--------------------------------------------------+
 | OSV URL                                 | CVSS | ECOSYSTEM    | PACKAGE               | VERSION  | FIXED VERSION | SOURCE                                           |
@@ -534,6 +534,8 @@ Total 5 packages affected by 16 known vulnerabilities (3 Critical, 1 High, 3 Med
 | https://osv.dev/DRUPAL-CORE-2026-007    |      | Packagist    | drupal/core           | 10.4.5   | 10.5.12       | testdata/locks-many-with-insecure/composer.lock  |
 | https://osv.dev/DRUPAL-CORE-2026-008    |      | Packagist    | drupal/core           | 10.4.5   | 10.5.12       | testdata/locks-many-with-insecure/composer.lock  |
 | https://osv.dev/DRUPAL-CORE-2026-009    |      | Packagist    | drupal/core           | 10.4.5   | 10.5.12       | testdata/locks-many-with-insecure/composer.lock  |
+| https://osv.dev/DRUPAL-CORE-2026-010    |      | Packagist    | drupal/core           | 10.4.5   | 10.6.13       | testdata/locks-many-with-insecure/composer.lock  |
+| https://osv.dev/DRUPAL-CORE-2026-012    |      | Packagist    | drupal/core           | 10.4.5   | 10.6.13       | testdata/locks-many-with-insecure/composer.lock  |
 | https://osv.dev/DRUPAL-CONTRIB-2025-083 |      | Packagist    | drupal/simple_sitemap | 4.2.1    | --            | testdata/locks-many-with-insecure/composer.lock  |
 | https://osv.dev/GHSA-9f46-5r25-5wfm     | 9.8  | Packagist    | league/flysystem      | 1.0.8    | 1.1.4         | testdata/locks-many-with-insecure/composer.lock  |
 | https://osv.dev/ALPINE-CVE-2025-26519   | 7.0  | Alpine:v3.17 | musl                  | 1.2.3-r4 | 1.2.3-r6      | testdata/locks-many-with-insecure/alpine.cdx.xml |
@@ -4229,8 +4231,8 @@ Loaded npm local db from <tempdir>/osv-scalibr/npm/all.zip
 Loaded RubyGems local db from <tempdir>/osv-scalibr/RubyGems/all.zip
 Loaded Packagist local db from <tempdir>/osv-scalibr/Packagist/all.zip
 
-Total 5 packages affected by 16 known vulnerabilities (2 Critical, 2 High, 3 Medium, 3 Low, 6 Unknown) from 3 ecosystems.
-15 vulnerabilities can be fixed.
+Total 5 packages affected by 18 known vulnerabilities (2 Critical, 2 High, 3 Medium, 3 Low, 8 Unknown) from 3 ecosystems.
+17 vulnerabilities can be fixed.
 
 +-----------------------------------------+------+--------------+-----------------------+----------+---------------+-----------------------------------------------------+
 | OSV URL                                 | CVSS | ECOSYSTEM    | PACKAGE               | VERSION  | FIXED VERSION | SOURCE                                              |
@@ -4254,6 +4256,8 @@ Total 5 packages affected by 16 known vulnerabilities (2 Critical, 2 High, 3 Med
 | https://osv.dev/DRUPAL-CORE-2026-007    |      | Packagist    | drupal/core           | 10.4.5   | 10.5.12       | testdata/locks-many-with-insecure/composer.lock     |
 | https://osv.dev/DRUPAL-CORE-2026-008    |      | Packagist    | drupal/core           | 10.4.5   | 10.5.12       | testdata/locks-many-with-insecure/composer.lock     |
 | https://osv.dev/DRUPAL-CORE-2026-009    |      | Packagist    | drupal/core           | 10.4.5   | 10.5.12       | testdata/locks-many-with-insecure/composer.lock     |
+| https://osv.dev/DRUPAL-CORE-2026-010    |      | Packagist    | drupal/core           | 10.4.5   | 10.6.13       | testdata/locks-many-with-insecure/composer.lock     |
+| https://osv.dev/DRUPAL-CORE-2026-012    |      | Packagist    | drupal/core           | 10.4.5   | 10.6.13       | testdata/locks-many-with-insecure/composer.lock     |
 | https://osv.dev/DRUPAL-CONTRIB-2025-083 |      | Packagist    | drupal/simple_sitemap | 4.2.1    | --            | testdata/locks-many-with-insecure/composer.lock     |
 | https://osv.dev/GHSA-9f46-5r25-5wfm     | 9.8  | Packagist    | league/flysystem      | 1.0.8    | 1.1.4         | testdata/locks-many-with-insecure/composer.lock     |
 | https://osv.dev/GHSA-whgm-jr23-g3j9     | 7.5  | npm          | ansi-html             | 0.0.1    | 0.0.8         | testdata/locks-many-with-insecure/package-lock.json |
@@ -4279,8 +4283,8 @@ Loaded npm local db from <tempdir>/osv-scalibr/npm/all.zip
 Loaded RubyGems local db from <tempdir>/osv-scalibr/RubyGems/all.zip
 Loaded Packagist local db from <tempdir>/osv-scalibr/Packagist/all.zip
 
-Total 5 packages affected by 16 known vulnerabilities (2 Critical, 2 High, 3 Medium, 3 Low, 6 Unknown) from 3 ecosystems.
-15 vulnerabilities can be fixed.
+Total 5 packages affected by 18 known vulnerabilities (2 Critical, 2 High, 3 Medium, 3 Low, 8 Unknown) from 3 ecosystems.
+17 vulnerabilities can be fixed.
 
 +-----------------------------------------+------+--------------+-----------------------+----------+---------------+-----------------------------------------------------+
 | OSV URL                                 | CVSS | ECOSYSTEM    | PACKAGE               | VERSION  | FIXED VERSION | SOURCE                                              |
@@ -4304,6 +4308,8 @@ Total 5 packages affected by 16 known vulnerabilities (2 Critical, 2 High, 3 Med
 | https://osv.dev/DRUPAL-CORE-2026-007    |      | Packagist    | drupal/core           | 10.4.5   | 10.5.12       | testdata/locks-many-with-insecure/composer.lock     |
 | https://osv.dev/DRUPAL-CORE-2026-008    |      | Packagist    | drupal/core           | 10.4.5   | 10.5.12       | testdata/locks-many-with-insecure/composer.lock     |
 | https://osv.dev/DRUPAL-CORE-2026-009    |      | Packagist    | drupal/core           | 10.4.5   | 10.5.12       | testdata/locks-many-with-insecure/composer.lock     |
+| https://osv.dev/DRUPAL-CORE-2026-010    |      | Packagist    | drupal/core           | 10.4.5   | 10.6.13       | testdata/locks-many-with-insecure/composer.lock     |
+| https://osv.dev/DRUPAL-CORE-2026-012    |      | Packagist    | drupal/core           | 10.4.5   | 10.6.13       | testdata/locks-many-with-insecure/composer.lock     |
 | https://osv.dev/DRUPAL-CONTRIB-2025-083 |      | Packagist    | drupal/simple_sitemap | 4.2.1    | --            | testdata/locks-many-with-insecure/composer.lock     |
 | https://osv.dev/GHSA-9f46-5r25-5wfm     | 9.8  | Packagist    | league/flysystem      | 1.0.8    | 1.1.4         | testdata/locks-many-with-insecure/composer.lock     |
 | https://osv.dev/GHSA-whgm-jr23-g3j9     | 7.5  | npm          | ansi-html             | 0.0.1    | 0.0.8         | testdata/locks-many-with-insecure/package-lock.json |
@@ -4952,13 +4958,13 @@ Total 2 packages affected by 2 known vulnerabilities (1 Critical, 1 High, 0 Medi
 [TestCommand_MoreLockfiles/Package.resolved_-_SwiftURL_ecosystem_vulnerabilities_detected - 1]
 Scanned <rootdir>/testdata/locks-scalibr/Package.resolved file and found 2 packages
 
-Total 2 packages affected by 13 known vulnerabilities (5 Critical, 5 High, 2 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+Total 2 packages affected by 13 known vulnerabilities (5 Critical, 5 High, 3 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 13 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+----------------------------------+---------+---------------+-----------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                          | VERSION | FIXED VERSION | SOURCE                                  |
 +-------------------------------------+------+-----------+----------------------------------+---------+---------------+-----------------------------------------+
-| https://osv.dev/GHSA-4px2-pw77-vc85 |      | SwiftURL  | github.com/apple/swift-nio-http2 | 1.19.1  | 1.44.1        | testdata/locks-scalibr/Package.resolved |
+| https://osv.dev/GHSA-4px2-pw77-vc85 | 5.3  | SwiftURL  | github.com/apple/swift-nio-http2 | 1.19.1  | 1.44.0        | testdata/locks-scalibr/Package.resolved |
 | https://osv.dev/GHSA-ccw9-q5h2-8c2w | 7.5  | SwiftURL  | github.com/apple/swift-nio-http2 | 1.19.1  | 1.19.2        | testdata/locks-scalibr/Package.resolved |
 | https://osv.dev/GHSA-pgfx-g6rc-8cjv | 7.5  | SwiftURL  | github.com/apple/swift-nio-http2 | 1.19.1  | 1.19.2        | testdata/locks-scalibr/Package.resolved |
 | https://osv.dev/GHSA-q36x-r5x4-h4q6 | 7.5  | SwiftURL  | github.com/apple/swift-nio-http2 | 1.19.1  | 1.20          | testdata/locks-scalibr/Package.resolved |
