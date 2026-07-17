@@ -119,6 +119,10 @@ func TestRecorder_RecordAndReplay(t *testing.T) {
 			t.Errorf("unexpected response: %v", resp)
 		}
 
+		if err := conn.Close(); err != nil {
+			t.Fatalf("failed to close connection: %v", err)
+		}
+
 		// Verify cassette was written
 		if _, err := os.Stat(cassettePath); os.IsNotExist(err) {
 			t.Fatal("cassette file was not created")
@@ -196,7 +200,6 @@ func TestRecorder_RecordAndReplay(t *testing.T) {
 			t.Errorf("expected NotFound error, got %v", err)
 		}
 	})
-
 }
 
 func TestRecorder_RecordAndReplay_Error(t *testing.T) {
@@ -323,10 +326,10 @@ func TestDefaultMatcher_SliceOrder(t *testing.T) {
 		t.Fatalf("failed to marshal structpb.ListValue: %v", err)
 	}
 
-	// DefaultMatcher should match val1 against val2JSON because they contain the same elements,
-	// even though the order in the slice is different.
-	if !DefaultMatcher("/test.Service/TestMethod", val1, string(val2JSON)) {
-		t.Error("DefaultMatcher failed to match slice with different element order")
+	// DefaultMatcher should NOT match val1 against val2JSON because they contain the same elements
+	// but in a different order (it is now order-sensitive).
+	if DefaultMatcher("/test.Service/TestMethod", val1, string(val2JSON)) {
+		t.Error("DefaultMatcher matched slice with different element order, but it should be order-sensitive")
 	}
 
 	// Verify it still fails if elements are actually different
@@ -384,6 +387,10 @@ func TestRecorder_Save_Sorted(t *testing.T) {
 		}
 	}
 
+	if err := conn.Close(); err != nil {
+		t.Fatalf("failed to close connection: %v", err)
+	}
+
 	// Read the saved cassette and verify interactions are sorted
 	data, err := os.ReadFile(cassettePath)
 	if err != nil {
@@ -422,8 +429,8 @@ func TestRecorder_Save_Sorted(t *testing.T) {
 		if err := protojson.Unmarshal([]byte(inter.Request), reqMsg); err != nil {
 			t.Fatalf("failed to unmarshal request in interaction %d: %v", i, err)
 		}
-		if reqMsg.ExpiryDate != expected.reqVal {
-			t.Errorf("interaction %d: expected request val %s, got %s", i, expected.reqVal, reqMsg.ExpiryDate)
+		if reqMsg.GetExpiryDate() != expected.reqVal {
+			t.Errorf("interaction %d: expected request val %s, got %s", i, expected.reqVal, reqMsg.GetExpiryDate())
 		}
 	}
 }
@@ -448,6 +455,10 @@ func TestRecorder_Save_CleanJSON(t *testing.T) {
 	err = conn.Invoke(context.Background(), "/test.Service/CleanMethod", req, resp)
 	if err != nil {
 		t.Fatalf("Invoke failed: %v", err)
+	}
+
+	if err := conn.Close(); err != nil {
+		t.Fatalf("failed to close connection: %v", err)
 	}
 
 	// Read the saved cassette

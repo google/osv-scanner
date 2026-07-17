@@ -994,9 +994,6 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			if tt.HTTPClient == nil {
-			}
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}

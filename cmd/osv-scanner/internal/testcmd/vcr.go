@@ -11,6 +11,7 @@ import (
 	"path/filepath"
 	"reflect"
 	"slices"
+	"strconv"
 	"strings"
 	"testing"
 
@@ -145,6 +146,12 @@ func InsertGRPCRecorder(t *testing.T) *grpcvcr.Recorder {
 	rec.OnMiss = func(method string, req proto.Message, cassette *grpcvcr.Cassette) {
 		logGRPCRequestMismatch(t, path, method, req, cassette)
 	}
+
+	t.Cleanup(func() {
+		if err := rec.Close(); err != nil {
+			t.Errorf("failed to close gRPC recorder: %v", err)
+		}
+	})
 
 	return rec
 }
@@ -623,18 +630,18 @@ func (t *vcrResponseNormalizingTransport) normalizeQueryBatchResponse(req *http.
 	resp.Body.Close()
 
 	// Load existing cassette
-	cassetteBytes, err := os.ReadFile(t.cassettePath)
+	cassetteBytes, err := os.ReadFile(t.cassettePath) //nolint:gosec
 	if err != nil {
 		// Cassette doesn't exist yet, just return original
 		resp.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
-		return resp, nil
+		return resp, nil //nolint:nilerr
 	}
 
 	var cass minimalVcrCassette
 	if err := yaml.Unmarshal(cassetteBytes, &cass); err != nil {
 		// Failed to parse cassette, return original
 		resp.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
-		return resp, nil
+		return resp, nil //nolint:nilerr
 	}
 
 	// Canonicalize new request JSON using the same pretty-printing options (SortKeys: true)
@@ -693,12 +700,12 @@ func (t *vcrResponseNormalizingTransport) normalizeQueryBatchResponse(req *http.
 
 	if setErr != nil {
 		resp.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
-		return resp, nil
+		return resp, nil //nolint:nilerr
 	}
 
 	resp.Body = io.NopCloser(bytes.NewBuffer(finalRespBytes))
 	resp.ContentLength = int64(len(finalRespBytes))
-	resp.Header.Set("Content-Length", fmt.Sprintf("%d", len(finalRespBytes)))
+	resp.Header.Set("Content-Length", strconv.Itoa(len(finalRespBytes)))
 
 	return resp, nil
 }

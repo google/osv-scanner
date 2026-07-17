@@ -18,7 +18,6 @@ import (
 	"google.golang.org/protobuf/proto"
 
 	"encoding/json"
-	"github.com/google/go-cmp/cmp"
 	"slices"
 	"strings"
 )
@@ -59,9 +58,7 @@ type Cassette struct {
 // Matcher defines the function signature for matching a request to a recorded interaction.
 type Matcher func(method string, req proto.Message, recordedReqJSON string) bool
 
-// DefaultMatcher matches requests by deserializing them to maps/slices, normalizing them,
-// recursively sorting all slices (arrays) to make comparison order-independent,
-// and finally comparing them using cmp.Equal.
+// DefaultMatcher matches requests by deserializing them to clones and comparing with proto.Equal.
 func DefaultMatcher(_ string, req proto.Message, recordedReqJSON string) bool {
 	clone := proto.Clone(req)
 	proto.Reset(clone)
@@ -69,59 +66,7 @@ func DefaultMatcher(_ string, req proto.Message, recordedReqJSON string) bool {
 		return false
 	}
 
-	reqJSON, err := marshalOptions.Marshal(req)
-	if err != nil {
-		return false
-	}
-	cloneJSON, err := marshalOptions.Marshal(clone)
-	if err != nil {
-		return false
-	}
-
-	var gotVal, wantVal any
-	if err := json.Unmarshal(reqJSON, &gotVal); err != nil {
-		return false
-	}
-	if err := json.Unmarshal(cloneJSON, &wantVal); err != nil {
-		return false
-	}
-
-	return cmp.Equal(sortSlices(gotVal), sortSlices(wantVal))
-}
-
-func sortSlices(val any) any {
-	switch v := val.(type) {
-	case map[string]any:
-		res := make(map[string]any, len(v))
-		for k, val := range v {
-			res[k] = sortSlices(val)
-		}
-		return res
-	case []any:
-		res := make([]any, len(v))
-		for i, val := range v {
-			res[i] = sortSlices(val)
-		}
-		type sortedElem struct {
-			original any
-			jsonStr  string
-		}
-		elems := make([]sortedElem, len(res))
-		for i, el := range res {
-			b, _ := json.Marshal(el)
-			elems[i] = sortedElem{original: el, jsonStr: string(b)}
-		}
-		slices.SortFunc(elems, func(a, b sortedElem) int {
-			return strings.Compare(a.jsonStr, b.jsonStr)
-		})
-		sortedRes := make([]any, len(res))
-		for i, el := range elems {
-			sortedRes[i] = el.original
-		}
-		return sortedRes
-	default:
-		return val
-	}
+	return proto.Equal(req, clone)
 }
 
 var marshalOptions = protojson.MarshalOptions{
@@ -137,6 +82,7 @@ type Recorder struct {
 	cassette     *Cassette
 	matcher      Matcher
 	mu           sync.Mutex
+	dirty        bool
 	// OnMiss is called when an interaction is not found during replay.
 	// This can be used to log detailed mismatches in tests.
 	OnMiss func(method string, req proto.Message, cassette *Cassette)
@@ -194,6 +140,7 @@ func (r *Recorder) saveCassette() error {
 		if c := strings.Compare(a.Request, b.Request); c != 0 {
 			return c
 		}
+
 		return strings.Compare(a.Response, b.Response)
 	})
 
@@ -255,6 +202,7 @@ func (r *Recorder) Intercept(_ context.Context, method string, args, reply any, 
 			if r.OnMiss != nil {
 				r.OnMiss(method, reqProto, r.cassette)
 			}
+
 			return status.Errorf(codes.NotFound, "gRPC VCR: interaction not found for method %s (Test: %s)", method, r.testName)
 		}
 	}
@@ -294,14 +242,27 @@ func (r *Recorder) Intercept(_ context.Context, method string, args, reply any, 
 
 	r.mu.Lock()
 	r.cassette.Interactions = append(r.cassette.Interactions, interaction)
-	saveErr := r.saveCassette()
+	r.dirty = true
 	r.mu.Unlock()
 
-	if saveErr != nil {
-		return fmt.Errorf("failed to save cassette: %w", saveErr)
+	return err
+}
+
+// Close saves the cassette if it is dirty.
+func (r *Recorder) Close() error {
+	r.mu.Lock()
+	defer r.mu.Unlock()
+
+	if !r.dirty {
+		return nil
 	}
 
-	return err
+	if err := r.saveCassette(); err != nil {
+		return err
+	}
+	r.dirty = false
+
+	return nil
 }
 
 // ClientConn wraps a grpc.ClientConnInterface to intercept calls.
@@ -334,17 +295,24 @@ func (c *ClientConn) NewStream(_ context.Context, _ *grpc.StreamDesc, _ string, 
 	return nil, status.Error(codes.Unimplemented, "gRPC VCR: streaming RPCs are not supported")
 }
 
-// Close closes the underlying connection if it implements io.Closer.
+// Close closes the underlying connection if it implements io.Closer, and closes the recorder.
 func (c *ClientConn) Close() error {
-	if c.underlying == nil {
-		return nil
+	var errs []error
+	if c.recorder != nil {
+		if err := c.recorder.Close(); err != nil {
+			errs = append(errs, err)
+		}
 	}
 
-	if closer, ok := c.underlying.(interface{ Close() error }); ok {
-		return closer.Close()
+	if c.underlying != nil {
+		if closer, ok := c.underlying.(interface{ Close() error }); ok {
+			if err := closer.Close(); err != nil {
+				errs = append(errs, err)
+			}
+		}
 	}
 
-	return nil
+	return errors.Join(errs...)
 }
 
 func cleanJSON(jsonStr string) (string, error) {
@@ -356,5 +324,6 @@ func cleanJSON(jsonStr string) (string, error) {
 	if err != nil {
 		return "", err
 	}
+
 	return string(b), nil
 }
