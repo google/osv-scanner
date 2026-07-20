@@ -1121,7 +1121,7 @@ Scanned <rootdir>/testdata/sbom-insecure/postgres-stretch.cdx.xml file and found
 Scanned <rootdir>/testdata/sbom-insecure/with-duplicates.cdx.xml file and found 17 packages
 Filtered 10 local/unscannable package/s from the scan.
 
-Total 27 packages affected by 230 known vulnerabilities (26 Critical, 99 High, 71 Medium, 6 Low, 28 Unknown) from 5 ecosystems.
+Total 27 packages affected by 230 known vulnerabilities (27 Critical, 98 High, 71 Medium, 6 Low, 28 Unknown) from 5 ecosystems.
 22 vulnerabilities can be fixed.
 
 +---------------------------------------+------+--------------+--------------------------------+------------------------------------+-----------------------------------+---------------------------------------------------------------------+
@@ -1231,7 +1231,7 @@ Total 27 packages affected by 230 known vulnerabilities (26 Critical, 99 High, 7
 | https://osv.dev/DEBIAN-CVE-2026-0989  | 3.7  | Debian       | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2026-0990  | 5.9  | Debian       | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2026-0992  | 2.9  | Debian       | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
-| https://osv.dev/DEBIAN-CVE-2026-6653  | 7.0  | Debian       | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-6653  | 9.8  | Debian       | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2026-6732  | 7.5  | Debian       | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-4539-1            | 4.7  | Debian       | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-4539-3            |      | Debian       | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -2442,7 +2442,7 @@ Filtered 8 vulnerabilities from output
 testdata/osv-scanner-partial-ignores-config.toml has unused ignores:
  - CVE-2019-5188
 
-Total 25 packages affected by 224 known vulnerabilities (26 Critical, 94 High, 70 Medium, 6 Low, 28 Unknown) from 5 ecosystems.
+Total 25 packages affected by 224 known vulnerabilities (27 Critical, 93 High, 70 Medium, 6 Low, 28 Unknown) from 5 ecosystems.
 17 vulnerabilities can be fixed.
 
 +---------------------------------------+------+--------------+--------------------------------+------------------------------------+-----------------------------------+---------------------------------------------------------------------+
@@ -2544,7 +2544,7 @@ Total 25 packages affected by 224 known vulnerabilities (26 Critical, 94 High, 7
 | https://osv.dev/DEBIAN-CVE-2026-0989  | 3.7  | Debian       | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2026-0990  | 5.9  | Debian       | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2026-0992  | 2.9  | Debian       | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
-| https://osv.dev/DEBIAN-CVE-2026-6653  | 7.0  | Debian       | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-6653  | 9.8  | Debian       | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2026-6732  | 7.5  | Debian       | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-4539-1            | 4.7  | Debian       | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-4539-3            |      | Debian       | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -2722,7 +2722,7 @@ Filtered 6 vulnerabilities from output
 testdata/osv-scanner-partial-ignores-config.toml has unused ignores:
  - CVE-2019-5188
 
-Total 23 packages affected by 220 known vulnerabilities (24 Critical, 93 High, 69 Medium, 6 Low, 28 Unknown) from 3 ecosystems.
+Total 23 packages affected by 220 known vulnerabilities (25 Critical, 92 High, 69 Medium, 6 Low, 28 Unknown) from 3 ecosystems.
 13 vulnerabilities can be fixed.
 
 +---------------------------------------+------+--------------+--------------------------------+------------------------------------+-----------------------------------+-------------------------------------------------+
@@ -2820,7 +2820,7 @@ Total 23 packages affected by 220 known vulnerabilities (24 Critical, 93 High, 6
 | https://osv.dev/DEBIAN-CVE-2026-0989  | 3.7  | Debian       | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2026-0990  | 5.9  | Debian       | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2026-0992  | 2.9  | Debian       | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/DEBIAN-CVE-2026-6653  | 7.0  | Debian       | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-6653  | 9.8  | Debian       | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2026-6732  | 7.5  | Debian       | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4539-1            | 4.7  | Debian       | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4539-3            |      | Debian       | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
@@ -6033,13 +6033,13 @@ Total 2 packages affected by 2 known vulnerabilities (1 Critical, 1 High, 0 Medi
 [TestCommand_MoreLockfiles/Package.resolved_-_SwiftURL_ecosystem_vulnerabilities_detected - 1]
 Scanned <rootdir>/testdata/locks-scalibr/Package.resolved file and found 2 packages
 
-Total 2 packages affected by 13 known vulnerabilities (5 Critical, 5 High, 2 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+Total 2 packages affected by 13 known vulnerabilities (5 Critical, 5 High, 3 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 13 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+----------------------------------+---------+---------------+-----------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                          | VERSION | FIXED VERSION | SOURCE                                  |
 +-------------------------------------+------+-----------+----------------------------------+---------+---------------+-----------------------------------------+
-| https://osv.dev/GHSA-4px2-pw77-vc85 |      | SwiftURL  | github.com/apple/swift-nio-http2 | 1.19.1  | 1.44.1        | testdata/locks-scalibr/Package.resolved |
+| https://osv.dev/GHSA-4px2-pw77-vc85 | 5.3  | SwiftURL  | github.com/apple/swift-nio-http2 | 1.19.1  | 1.44.0        | testdata/locks-scalibr/Package.resolved |
 | https://osv.dev/GHSA-ccw9-q5h2-8c2w | 7.5  | SwiftURL  | github.com/apple/swift-nio-http2 | 1.19.1  | 1.19.2        | testdata/locks-scalibr/Package.resolved |
 | https://osv.dev/GHSA-pgfx-g6rc-8cjv | 7.5  | SwiftURL  | github.com/apple/swift-nio-http2 | 1.19.1  | 1.19.2        | testdata/locks-scalibr/Package.resolved |
 | https://osv.dev/GHSA-q36x-r5x4-h4q6 | 7.5  | SwiftURL  | github.com/apple/swift-nio-http2 | 1.19.1  | 1.20          | testdata/locks-scalibr/Package.resolved |
