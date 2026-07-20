@@ -236,6 +236,11 @@ func TestCommand_OCIImage(t *testing.T) {
 			Exit: 1,
 		},
 		{
+			Name: "Scanning_AlmaLinux_9_image",
+			Args: []string{"", "image", "--archive", "./testdata/test-almalinux-9.tar"},
+			Exit: 1,
+		},
+		{
 			Name: "Empty_Ubuntu_22.04_image_tar_with_unimportant_vulns",
 			Args: []string{"", "image", "--all-vulns", "--archive", "./testdata/test-ubuntu.tar"},
 			Exit: 1,
@@ -440,6 +445,17 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 		{
 			Name: "scanning_ubuntu_image",
 			Args: []string{"", "image", "--archive", "--format=json", "./testdata/test-ubuntu.tar"},
+			Exit: 1,
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.GroupsAsArrayLen,
+				testutility.OnlyIDVulnsRule,
+				testutility.OnlyFirstBaseImage,
+				testutility.AnyDiffID,
+			},
+		},
+		{
+			Name: "scanning_almalinux_9_image",
+			Args: []string{"", "image", "--archive", "--format=json", "./testdata/test-almalinux-9.tar"},
 			Exit: 1,
 			ReplaceRules: []testutility.JSONReplaceRule{
 				testutility.GroupsAsArrayLen,
