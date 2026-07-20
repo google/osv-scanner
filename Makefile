@@ -8,6 +8,8 @@ SHORT ?= true
 SNAPS ?= false
 ACC ?= false
 VCR ?= ReplayWithNewEpisodes
+UPDATE_DBS ?= false
+UPDATE_MODIFIED ?= false
 
 help: ## Show this help message
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} \
@@ -15,7 +17,7 @@ help: ## Show this help message
 		/^## / { printf "  %-20s %s\n", "", substr($$0, 4) }' $(MAKEFILE_LIST)
 
 ## Prevents make from trying to interpret the targets as files
-.PHONY: build scanner lint lint-fix format clean local-docs test update-snapshots refresh-all help
+.PHONY: build scanner lint lint-fix format clean local-docs test update-snapshots refresh-all update-offline-dbs help
 
 build: ## Build scanner
 	scripts/build.sh
@@ -41,10 +43,12 @@ local-docs: ## Run local docs
 
 test: ## Run tests
 ##  Options:
-##    SNAPS=true   Update snapshots (Default: false)
-##    ACC=true     Run acceptance tests (Default: false)
-##    SHORT=false  Run full tests (Default: true)
-##    VCR=mode     VCR mode (Default: ReplayWithNewEpisodes):
+##    SNAPS=true           Update snapshots (Default: false)
+##    ACC=true             Run acceptance tests (Default: false)
+##    SHORT=false          Run full tests (Default: true)
+##    UPDATE_DBS=true      Update local offline database mocks from live GCS (Default: false)
+##    UPDATE_MODIFIED=true Bypass modified date normalization during cassette updates (Default: false)
+##    VCR=mode             VCR mode (Default: ReplayWithNewEpisodes):
 ##      - 0|RecordOnly:            Record new cassettes
 ##      - 1|ReplayOnly:            Replay cassettes, error if missing
 ##      - 2|ReplayWithNewEpisodes: Replay, record if missing
@@ -53,12 +57,17 @@ test: ## Run tests
 	@export TEST_VCR_MODE=$(VCR); \
 	if [ "$(SNAPS)" = "true" ]; then export UPDATE_SNAPS=true; fi; \
 	if [ "$(ACC)" = "true" ]; then export TEST_ACCEPTANCE=true; fi; \
+	if [ "$(UPDATE_DBS)" = "true" ]; then export VCR_UPDATE_OFFLINE_DBS=true; fi; \
+	if [ "$(UPDATE_MODIFIED)" = "true" ]; then export VCR_UPDATE_MODIFIED=true; fi; \
 	ARGS=""; \
 	if [ "$(SHORT)" = "true" ]; then ARGS="$$ARGS -short"; fi; \
 	scripts/run_tests.sh $$ARGS
 
 update-snapshots: ## Update all snapshots (Equivalent to make test SNAPS=true ACC=true SHORT=false)
 	$(MAKE) test SNAPS=true ACC=true SHORT=false
+
+update-offline-dbs: ## Update local offline database mocks and update snapshots
+	$(MAKE) test UPDATE_DBS=true SNAPS=true SHORT=false
 
 refresh-all: ## Refresh all snaps, matching CI test (Usage: make refresh-all REBUILD_IMAGES=true)
 	@if [ "$(REBUILD_IMAGES)" = "true" ]; then $(MAKE) clean; fi

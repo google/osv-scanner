@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.7.3",
+  "id": "DLA-3008-1",
+  "published": "2022-05-14T00:00:00Z",
+  "modified": "2026-03-09T01:23:33.375630Z",
+  "upstream": [
+    "CVE-2022-1292",
+    "DEBIAN-CVE-2022-1292"
+  ],
+  "summary": "openssl - security update",
+  "affected": [
+    {
+      "package": {
+        "name": "openssl",
+        "ecosystem": "Debian:9",
+        "purl": "pkg:deb/debian/openssl?arch=source"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.1.0l-1~deb9u6"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "1.1.0f-3",
+        "1.1.0f-3+deb9u1",
+        "1.1.0f-3+deb9u2",
+        "1.1.0f-4",
+        "1.1.0f-5",
+        "1.1.0g-1",
+        "1.1.0g-2",
+        "1.1.0g-2+riscv64",
+        "1.1.0h-1",
+        "1.1.0h-2",
+        "1.1.0h-3",
+        "1.1.0h-4",
+        "1.1.0j-1~deb9u1",
+        "1.1.0k-1~deb9u1",
+        "1.1.0l-1~deb9u1",
+        "1.1.0l-1~deb9u2",
+        "1.1.0l-1~deb9u3",
+        "1.1.0l-1~deb9u4",
+        "1.1.0l-1~deb9u5"
+      ],
+      "database_specific": {
+        "source": "https://storage.googleapis.com/debian-osv/dla-osv/DLA-3008-1.json"
+      }
+    }
+  ]
+}

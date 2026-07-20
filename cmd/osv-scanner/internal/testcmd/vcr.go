@@ -1,10 +1,16 @@
 package testcmd
 
 import (
+	"archive/zip"
 	"bytes"
 	"cmp"
+	"context"
+	"encoding/base64"
+	"encoding/binary"
+	"encoding/json"
 	"errors"
 	"fmt"
+	"hash/crc32"
 	"io"
 	"net/http"
 	"os"
@@ -13,6 +19,7 @@ import (
 	"slices"
 	"strconv"
 	"strings"
+	"sync"
 	"testing"
 
 	gocmp "github.com/google/go-cmp/cmp"
@@ -28,6 +35,11 @@ import (
 	"google.golang.org/protobuf/proto"
 	"gopkg.in/dnaeon/go-vcr.v4/pkg/cassette"
 	"gopkg.in/dnaeon/go-vcr.v4/pkg/recorder"
+)
+
+const (
+	gcsBucketHost         = "osv-vulnerabilities.storage.googleapis.com"
+	offlineDBRelativePath = "cmd/osv-scanner/internal/testcmd/testdata/offline-dbs"
 )
 
 func determineRecorderMode() recorder.Mode {
@@ -578,6 +590,14 @@ type vcrResponseNormalizingTransport struct {
 }
 
 func (t *vcrResponseNormalizingTransport) RoundTrip(req *http.Request) (*http.Response, error) {
+	// Intercept OSV database zip downloads
+	if req.Method == http.MethodGet && strings.HasPrefix(req.URL.Host, gcsBucketHost) && strings.HasSuffix(req.URL.Path, "/all.zip") {
+		return t.handleOfflineDBDownload(req)
+	}
+	if req.Method == http.MethodHead && strings.HasPrefix(req.URL.Host, gcsBucketHost) && strings.HasSuffix(req.URL.Path, "/all.zip") {
+		return t.handleOfflineDBHead(req)
+	}
+
 	var reqBodyBytes []byte
 	var err error
 	if req.Body != nil && req.Body != http.NoBody {
@@ -708,4 +728,254 @@ func (t *vcrResponseNormalizingTransport) normalizeQueryBatchResponse(req *http.
 	resp.Header.Set("Content-Length", strconv.Itoa(len(finalRespBytes)))
 
 	return resp, nil
+}
+
+// Find the git repository root by looking for go.mod
+func findRepoRoot() string {
+	dir, err := os.Getwd()
+	if err != nil {
+		return ""
+	}
+	for {
+		if _, err := os.Stat(filepath.Join(dir, "go.mod")); err == nil {
+			return dir
+		}
+		parent := filepath.Dir(dir)
+		if parent == dir {
+			break
+		}
+		dir = parent
+	}
+
+	return ""
+}
+
+func (t *vcrResponseNormalizingTransport) handleOfflineDBDownload(req *http.Request) (*http.Response, error) {
+	repoRoot := findRepoRoot()
+	ecosystem := filepath.Base(filepath.Dir(req.URL.Path)) // e.g. "Alpine", "Packagist"
+	localDBPath := filepath.Join(repoRoot, offlineDBRelativePath, ecosystem)
+
+	if os.Getenv("VCR_UPDATE_OFFLINE_DBS") == "true" {
+		if err := t.updateOfflineDB(req.URL.String(), localDBPath, ecosystem); err != nil {
+			return nil, err
+		}
+	}
+
+	zipBytes, err := buildZipInMemory(ecosystem)
+	if err != nil {
+		return nil, fmt.Errorf("failed to build local offline database zip for %s: %w", ecosystem, err)
+	}
+
+	resp := &http.Response{
+		Status:        "200 OK",
+		StatusCode:    http.StatusOK,
+		Proto:         "HTTP/1.1",
+		ProtoMajor:    1,
+		ProtoMinor:    1,
+		Body:          io.NopCloser(bytes.NewBuffer(zipBytes)),
+		ContentLength: int64(len(zipBytes)),
+		Header:        make(http.Header),
+		Request:       req,
+	}
+	resp.Header.Set("Content-Type", "application/zip")
+	resp.Header.Set("Content-Length", strconv.Itoa(len(zipBytes)))
+
+	return resp, nil
+}
+
+func (t *vcrResponseNormalizingTransport) handleOfflineDBHead(req *http.Request) (*http.Response, error) {
+	ecosystem := filepath.Base(filepath.Dir(req.URL.Path))
+
+	if os.Getenv("VCR_UPDATE_OFFLINE_DBS") == "true" {
+		return t.underlying.RoundTrip(req)
+	}
+
+	zipBytes, err := buildZipInMemory(ecosystem)
+	if err != nil {
+		return nil, fmt.Errorf("local offline database not found for %s: %w", ecosystem, err)
+	}
+
+	checksum := crc32.Checksum(zipBytes, crc32.MakeTable(crc32.Castagnoli))
+	buf := make([]byte, 4)
+	binary.BigEndian.PutUint32(buf, checksum)
+	base64Hash := base64.StdEncoding.EncodeToString(buf)
+
+	resp := &http.Response{
+		Status:        "200 OK",
+		StatusCode:    http.StatusOK,
+		Proto:         "HTTP/1.1",
+		ProtoMajor:    1,
+		ProtoMinor:    1,
+		Body:          http.NoBody,
+		ContentLength: 0,
+		Header:        make(http.Header),
+		Request:       req,
+	}
+	resp.Header.Set("X-Goog-Hash", "crc32c="+base64Hash)
+
+	return resp, nil
+}
+
+var (
+	dbUpdateMutexes   sync.Map
+	updatedEcosystems sync.Map
+)
+
+func getDBUpdateMutex(ecosystem string) *sync.Mutex {
+	val, _ := dbUpdateMutexes.LoadOrStore(ecosystem, &sync.Mutex{})
+	return val.(*sync.Mutex)
+}
+
+func (t *vcrResponseNormalizingTransport) updateOfflineDB(url string, localDBPath string, ecosystem string) error {
+	mu := getDBUpdateMutex(ecosystem)
+	mu.Lock()
+	defer mu.Unlock()
+
+	if _, alreadyUpdated := updatedEcosystems.Load(ecosystem); alreadyUpdated {
+		return nil
+	}
+
+	println("Updating offline database for:", ecosystem)
+
+	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, url, nil) //nolint:gosec
+	if err != nil {
+		return err
+	}
+	resp, err := t.underlying.RoundTrip(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("failed to download live db from %s: %s", url, resp.Status)
+	}
+
+	fullZipBytes, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return err
+	}
+
+	zipReader, err := zip.NewReader(bytes.NewReader(fullZipBytes), int64(len(fullZipBytes)))
+	if err != nil {
+		return err
+	}
+
+	// Delete existing directory to start clean
+	if err := os.RemoveAll(localDBPath); err != nil {
+		return err
+	}
+	if err := os.MkdirAll(localDBPath, 0750); err != nil {
+		return err
+	}
+
+	for _, file := range zipReader.File {
+		if !strings.HasSuffix(file.Name, ".json") {
+			continue
+		}
+
+		vulnID := strings.TrimSuffix(file.Name, ".json")
+		if !shouldKeepVuln(vulnID) {
+			continue
+		}
+
+		f, err := file.Open()
+		if err != nil {
+			return err
+		}
+		content, err := io.ReadAll(f)
+		f.Close()
+		if err != nil {
+			return err
+		}
+
+		var prettyJSON bytes.Buffer
+		if err := json.Indent(&prettyJSON, content, "", "  "); err != nil {
+			return err
+		}
+
+		targetFilePath := filepath.Join(localDBPath, vulnID+".json")
+		if err := os.WriteFile(targetFilePath, prettyJSON.Bytes(), 0644); err != nil { //nolint:gosec
+			return err
+		}
+	}
+
+	updatedEcosystems.Store(ecosystem, true)
+
+	return nil
+}
+
+func buildZipInMemory(ecosystem string) ([]byte, error) {
+	repoRoot := findRepoRoot()
+	localDBPath := filepath.Join(repoRoot, offlineDBRelativePath, ecosystem)
+
+	files, err := os.ReadDir(localDBPath)
+	if err != nil {
+		return nil, err
+	}
+
+	var buf bytes.Buffer
+	zipWriter := zip.NewWriter(&buf)
+
+	for _, file := range files {
+		if !strings.HasSuffix(file.Name(), ".json") {
+			continue
+		}
+
+		filePath := filepath.Join(localDBPath, file.Name())
+		content, err := os.ReadFile(filePath)
+		if err != nil {
+			zipWriter.Close()
+			return nil, err
+		}
+
+		w, err := zipWriter.Create(file.Name())
+		if err != nil {
+			zipWriter.Close()
+			return nil, err
+		}
+		if _, err := w.Write(content); err != nil {
+			zipWriter.Close()
+			return nil, err
+		}
+	}
+
+	if err := zipWriter.Close(); err != nil {
+		return nil, err
+	}
+
+	return buf.Bytes(), nil
+}
+
+// allowedVulnIDs defines a small subset of vulnerabilities we want to match in offline local database tests.
+var allowedVulnIDs = map[string]bool{
+	"ALPINE-CVE-2025-26519":   true, // Alpine - musl @ 1.2.3-r4 in testdata/locks-many-with-insecure/alpine.cdx.xml
+	"CVE-2024-51757":          true, // GIT - github.com/capricorn86/happy-dom @ v11.1.0 in testdata/locks-git/osv-scanner.json
+	"CVE-2025-11187":          true, // GIT - github.com/openssl/openssl @ openssl-3.5.0 in testdata/locks-git/osv-scanner.json
+	"DLA-3008-1":              true, // Debian - openssl @ 1.1.0l-1~deb9u5 in testdata/sbom-insecure/postgres-stretch.cdx.xml
+	"DLA-3012-1":              true, // Debian - libxml2 @ 2.9.4+dfsg1-2.2+deb9u6 in testdata/sbom-insecure/postgres-stretch.cdx.xml
+	"DLA-3022-1":              true, // Debian - dpkg @ 1.18.25 in testdata/sbom-insecure/postgres-stretch.cdx.xml
+	"DLA-3051-1":              true, // Debian - tzdata @ 2021a-0+deb9u3 in testdata/sbom-insecure/postgres-stretch.cdx.xml
+	"DRUPAL-CONTRIB-2025-083": true, // Packagist - drupal/simple_sitemap @ 4.2.1 in testdata/locks-many-with-insecure/composer.lock
+	"DRUPAL-CORE-2025-005":    true, // Packagist - drupal/core @ 10.4.5 in testdata/locks-many-with-insecure/composer.lock
+	"DRUPAL-CORE-2026-001":    true, // Packagist - drupal/core @ 10.4.5 in testdata/locks-many-with-insecure/composer.lock
+	"GHSA-269g-pwp5-87pp":     true, // Maven - junit:junit @ 4.12 in testdata/maven-transitive/encoding.xml
+	"GHSA-3pxv-7cmr-fjr4":     true, // Maven - org.apache.logging.log4j:log4j-core @ 2.14.1 in testdata/maven-transitive/registry.xml
+	"GHSA-9f46-5r25-5wfm":     true, // Packagist - league/flysystem @ 1.0.8 in testdata/locks-many-with-insecure/composer.lock
+	"GHSA-cm6r-892j-jv2g":     true, // Maven - com.google.android.gms:play-services-basement @ 10.0.0 in testdata/maven-transitive/registry.xml
+	"GHSA-whgm-jr23-g3j9":     true, // npm - ansi-html @ 0.0.1 in testdata/locks-many-with-insecure/package-lock.json
+	"GO-2022-0274":            true, // Go - github.com/opencontainers/runc @ v1.0.1 in testdata/sbom-insecure/postgres-stretch.cdx.xml
+	"GO-2022-0493":            true, // Go - golang.org/x/sys @ v0.0.0-20210817142637-7d9622a276b7 in testdata/sbom-insecure/postgres-stretch.cdx.xml
+	"OSV-2018-389":            true, // GIT - github.com/boostorg/boost @ boost-1.67.0 in testdata/locks-git/osv-scanner.json
+	"OSV-2023-1161":           true, // GIT - github.com/Exiv2/exiv2 @ v0.28.0 in testdata/locks-git/osv-scanner.json
+	"PYSEC-2020-148":          true, // PyPI - urllib3 @ 1.24.3 in testdata/locks-requirements/requirements.txt
+	"PYSEC-2020-43":           true, // PyPI - flask-cors @ 1.0.0 in testdata/locks-requirements/unresolvable-requirements.txt
+	"PYSEC-2020-73":           true, // PyPI - pandas @ 0.23.4 in testdata/locks-requirements/unresolvable-requirements.txt
+	"PYSEC-2021-98":           true, // PyPI - django @ 1.11.29 in testdata/locks-requirements/requirements.txt
+	"PYSEC-2023-62":           true, // PyPI - flask @ 1.0.0 in testdata/locks-requirements/requirements.txt
+	"PYSEC-2023-74":           true, // PyPI - requests @ 2.20.0 in testdata/locks-requirements/requirements.txt
+}
+
+func shouldKeepVuln(vulnID string) bool {
+	return allowedVulnIDs[vulnID]
 }

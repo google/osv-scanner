@@ -1166,6 +1166,11 @@ func TestCommand_CommitSupport(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
+			testDir := testutility.CreateTestDir(t)
+			old := tt.Args
+			tt.Args = []string{"", "source", "--local-db-path", testDir}
+			tt.Args = append(tt.Args, old[2:]...)
+
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -1375,6 +1380,11 @@ func TestCommand_Transitive(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
+
+			testDir := testutility.CreateTestDir(t)
+			old := tt.Args
+			tt.Args = []string{"", "source", "--local-db-path", testDir}
+			tt.Args = append(tt.Args, old[2:]...)
 
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})

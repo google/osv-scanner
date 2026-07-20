@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.7.3",
+  "id": "DLA-3022-1",
+  "published": "2022-05-25T00:00:00Z",
+  "modified": "2026-03-09T01:23:37.553205Z",
+  "upstream": [
+    "CVE-2022-1664",
+    "DEBIAN-CVE-2022-1664"
+  ],
+  "summary": "dpkg - security update",
+  "affected": [
+    {
+      "package": {
+        "name": "dpkg",
+        "ecosystem": "Debian:9",
+        "purl": "pkg:deb/debian/dpkg?arch=source"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.18.26"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "1.18.24",
+        "1.18.25"
+      ],
+      "database_specific": {
+        "source": "https://storage.googleapis.com/debian-osv/dla-osv/DLA-3022-1.json"
+      }
+    }
+  ]
+}
