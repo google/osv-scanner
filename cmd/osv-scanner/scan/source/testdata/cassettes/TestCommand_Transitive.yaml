@@ -875,7 +875,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 1349
+      content_length: 1481
       body: |
         {
           "results": [
@@ -923,7 +923,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-68rp-wp8r-4726",
-                  "modified": "2026-02-23T23:43:45.778179Z"
+                  "modified": "2026-07-13T07:26:21.445447Z"
                 },
                 {
                   "id": "GHSA-m2qf-hxjv-5gpq",
@@ -932,6 +932,10 @@ interactions:
                 {
                   "id": "PYSEC-2023-62",
                   "modified": "2023-11-08T04:12:28.231927Z"
+                },
+                {
+                  "id": "PYSEC-2026-2151",
+                  "modified": "2026-07-13T07:15:25.033843Z"
                 }
               ]
             },
@@ -947,7 +951,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-gc5v-m9x4-r6x2",
-                  "modified": "2026-03-27T22:17:33.595885Z"
+                  "modified": "2026-07-13T07:26:34.091663Z"
                 },
                 {
                   "id": "GHSA-j8r2-6x86-q33q",
@@ -964,6 +968,10 @@ interactions:
                 {
                   "id": "PYSEC-2026-1873",
                   "modified": "2026-07-07T17:46:36.762141Z"
+                },
+                {
+                  "id": "PYSEC-2026-2275",
+                  "modified": "2026-07-13T07:15:43.964902Z"
                 }
               ]
             }
@@ -971,7 +979,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "1349"
+          - "1481"
         Content-Type:
           - application/json
       status: 200 OK
@@ -1020,7 +1028,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 1128
+      content_length: 1194
       body: |
         {
           "results": [
@@ -1028,7 +1036,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-68rp-wp8r-4726",
-                  "modified": "2026-02-23T23:43:45.778179Z"
+                  "modified": "2026-07-13T07:26:21.445447Z"
                 },
                 {
                   "id": "GHSA-m2qf-hxjv-5gpq",
@@ -1037,6 +1045,10 @@ interactions:
                 {
                   "id": "PYSEC-2023-62",
                   "modified": "2023-11-08T04:12:28.231927Z"
+                },
+                {
+                  "id": "PYSEC-2026-2151",
+                  "modified": "2026-07-13T07:15:25.033843Z"
                 }
               ]
             },
@@ -1104,7 +1116,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "1128"
+          - "1194"
         Content-Type:
           - application/json
       status: 200 OK
@@ -1223,7 +1235,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 2886
+      content_length: 3018
       body: |
         {
           "results": [
@@ -1274,7 +1286,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-68rp-wp8r-4726",
-                  "modified": "2026-02-23T23:43:45.778179Z"
+                  "modified": "2026-07-13T07:26:21.445447Z"
                 },
                 {
                   "id": "GHSA-m2qf-hxjv-5gpq",
@@ -1283,6 +1295,10 @@ interactions:
                 {
                   "id": "PYSEC-2023-62",
                   "modified": "2023-11-08T04:12:28.231927Z"
+                },
+                {
+                  "id": "PYSEC-2026-2151",
+                  "modified": "2026-07-13T07:15:25.033843Z"
                 }
               ]
             },
@@ -1322,7 +1338,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-gc5v-m9x4-r6x2",
-                  "modified": "2026-03-27T22:17:33.595885Z"
+                  "modified": "2026-07-13T07:26:34.091663Z"
                 },
                 {
                   "id": "GHSA-j8r2-6x86-q33q",
@@ -1339,6 +1355,10 @@ interactions:
                 {
                   "id": "PYSEC-2026-1873",
                   "modified": "2026-07-07T17:46:36.762141Z"
+                },
+                {
+                  "id": "PYSEC-2026-2275",
+                  "modified": "2026-07-13T07:15:43.964902Z"
                 }
               ]
             },
@@ -1423,7 +1443,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "2886"
+          - "3018"
         Content-Type:
           - application/json
       status: 200 OK
@@ -1542,7 +1562,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 2886
+      content_length: 3018
       body: |
         {
           "results": [
@@ -1593,7 +1613,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-68rp-wp8r-4726",
-                  "modified": "2026-02-23T23:43:45.778179Z"
+                  "modified": "2026-07-13T07:26:21.445447Z"
                 },
                 {
                   "id": "GHSA-m2qf-hxjv-5gpq",
@@ -1602,6 +1622,10 @@ interactions:
                 {
                   "id": "PYSEC-2023-62",
                   "modified": "2023-11-08T04:12:28.231927Z"
+                },
+                {
+                  "id": "PYSEC-2026-2151",
+                  "modified": "2026-07-13T07:15:25.033843Z"
                 }
               ]
             },
@@ -1641,7 +1665,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-gc5v-m9x4-r6x2",
-                  "modified": "2026-03-27T22:17:33.595885Z"
+                  "modified": "2026-07-13T07:26:34.091663Z"
                 },
                 {
                   "id": "GHSA-j8r2-6x86-q33q",
@@ -1658,6 +1682,10 @@ interactions:
                 {
                   "id": "PYSEC-2026-1873",
                   "modified": "2026-07-07T17:46:36.762141Z"
+                },
+                {
+                  "id": "PYSEC-2026-2275",
+                  "modified": "2026-07-13T07:15:43.964902Z"
                 }
               ]
             },
@@ -1742,7 +1770,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "2886"
+          - "3018"
         Content-Type:
           - application/json
       status: 200 OK

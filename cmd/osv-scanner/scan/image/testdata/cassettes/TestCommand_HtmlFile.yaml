@@ -100,7 +100,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 3738
+      content_length: 3382
       body: |
         {
           "results": [
@@ -122,11 +122,7 @@ interactions:
                 },
                 {
                   "id": "ALPINE-CVE-2021-42375",
-                  "modified": "2026-06-15T18:18:08.840395Z"
-                },
-                {
-                  "id": "ALPINE-CVE-2021-42376",
-                  "modified": "2026-07-08T04:32:12.032317Z"
+                  "modified": "2026-07-14T05:30:05.614378Z"
                 },
                 {
                   "id": "ALPINE-CVE-2021-42378",
@@ -215,14 +211,6 @@ interactions:
                   "modified": "2026-07-08T04:31:46.947012Z"
                 },
                 {
-                  "id": "ALPINE-CVE-2022-1292",
-                  "modified": "2026-07-08T04:31:47.244657Z"
-                },
-                {
-                  "id": "ALPINE-CVE-2022-2068",
-                  "modified": "2026-07-08T04:31:47.874039Z"
-                },
-                {
                   "id": "ALPINE-CVE-2022-2097",
                   "modified": "2026-07-08T04:32:01.661758Z"
                 },
@@ -251,20 +239,12 @@ interactions:
                   "modified": "2026-07-08T04:31:25.554087Z"
                 },
                 {
-                  "id": "ALPINE-CVE-2023-0466",
-                  "modified": "2026-07-08T04:31:25.432482Z"
-                },
-                {
                   "id": "ALPINE-CVE-2023-2650",
                   "modified": "2026-07-08T04:32:01.995144Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-3446",
                   "modified": "2026-06-15T18:18:09.921734Z"
-                },
-                {
-                  "id": "ALPINE-CVE-2023-4807",
-                  "modified": "2026-07-08T04:32:27.043928Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-5678",
@@ -338,7 +318,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "3738"
+          - "3382"
         Content-Type:
           - application/json
       status: 200 OK
