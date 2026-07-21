@@ -159,7 +159,7 @@ func TestCommand_Docker(t *testing.T) {
 			Exit: 127,
 		},
 		{
-			Name: "Real_empty_image_with_no_tag,_invalid_scan_target",
+			Name: "Real_empty_image_with_no_tag_invalid_scan_target",
 			Args: []string{"", "image", "hello-world"},
 			Exit: 127, // Invalid scan target
 		},

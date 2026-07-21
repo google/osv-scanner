@@ -7,7 +7,6 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/google/osv-scanner/v2/internal/scalibrannotator/osvconfigloader/osvconfig_go_proto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -41,8 +40,10 @@ func TestRecorder_Passthrough(t *testing.T) {
 
 	mock := &mockClientConn{
 		invokeFn: func(_ context.Context, _ string, _, reply any, _ ...grpc.CallOption) error {
-			resp := reply.(*osvconfig_go_proto.OSVConfig)
-			resp.Reason = "passthrough_called"
+			resp := reply.(*structpb.Struct)
+			resp.Fields = map[string]*structpb.Value{
+				"reason": structpb.NewStringValue("passthrough_called"),
+			}
 
 			return nil
 		},
@@ -57,8 +58,8 @@ func TestRecorder_Passthrough(t *testing.T) {
 	}
 
 	conn := NewClientConn(mock, rec)
-	req := &osvconfig_go_proto.OSVConfig{ExpiryDate: "2026-01-01"}
-	resp := &osvconfig_go_proto.OSVConfig{}
+	req, _ := structpb.NewStruct(map[string]any{"expiry_date": "2026-01-01"})
+	resp := &structpb.Struct{}
 
 	err = conn.Invoke(context.Background(), "test_method", req, resp)
 	if err != nil {
@@ -69,7 +70,7 @@ func TestRecorder_Passthrough(t *testing.T) {
 		t.Error("underlying connection was not called in Passthrough mode")
 	}
 
-	if resp.GetReason() != "passthrough_called" {
+	if resp.GetFields()["reason"].GetStringValue() != "passthrough_called" {
 		t.Errorf("unexpected response: %v", resp)
 	}
 
@@ -90,8 +91,10 @@ func TestRecorder_RecordAndReplay(t *testing.T) {
 		cassettePath := filepath.Join(t.TempDir(), "test.yaml")
 		mock := &mockClientConn{
 			invokeFn: func(_ context.Context, _ string, _, reply any, _ ...grpc.CallOption) error {
-				resp := reply.(*osvconfig_go_proto.OSVConfig)
-				resp.Reason = "recorded_reason"
+				resp := reply.(*structpb.Struct)
+				resp.Fields = map[string]*structpb.Value{
+					"reason": structpb.NewStringValue("recorded_reason"),
+				}
 
 				return nil
 			},
@@ -103,8 +106,8 @@ func TestRecorder_RecordAndReplay(t *testing.T) {
 		}
 
 		conn := NewClientConn(mock, rec)
-		req := &osvconfig_go_proto.OSVConfig{ExpiryDate: "2026-01-01"}
-		resp := &osvconfig_go_proto.OSVConfig{}
+		req, _ := structpb.NewStruct(map[string]any{"expiry_date": "2026-01-01"})
+		resp := &structpb.Struct{}
 
 		err = conn.Invoke(context.Background(), methodName, req, resp)
 		if err != nil {
@@ -115,7 +118,7 @@ func TestRecorder_RecordAndReplay(t *testing.T) {
 			t.Error("underlying connection was not called")
 		}
 
-		if resp.GetReason() != "recorded_reason" {
+		if resp.GetFields()["reason"].GetStringValue() != "recorded_reason" {
 			t.Errorf("unexpected response: %v", resp)
 		}
 
@@ -153,8 +156,8 @@ func TestRecorder_RecordAndReplay(t *testing.T) {
 		}
 
 		conn := NewClientConn(mock, rec)
-		req := &osvconfig_go_proto.OSVConfig{ExpiryDate: "2026-01-01"}
-		resp := &osvconfig_go_proto.OSVConfig{}
+		req, _ := structpb.NewStruct(map[string]any{"expiry_date": "2026-01-01"})
+		resp := &structpb.Struct{}
 
 		err = conn.Invoke(context.Background(), methodName, req, resp)
 		if err != nil {
@@ -165,7 +168,7 @@ func TestRecorder_RecordAndReplay(t *testing.T) {
 			t.Error("underlying connection was called during replay")
 		}
 
-		expectedResp := &osvconfig_go_proto.OSVConfig{Reason: "recorded_reason"}
+		expectedResp, _ := structpb.NewStruct(map[string]any{"reason": "recorded_reason"})
 		if diff := cmp.Diff(expectedResp, resp, protocmp.Transform()); diff != "" {
 			t.Errorf("unexpected response diff (-want +got):\n%s", diff)
 		}
@@ -188,8 +191,8 @@ func TestRecorder_RecordAndReplay(t *testing.T) {
 
 		conn := NewClientConn(mock, rec)
 		// Different request value -> should miss
-		req := &osvconfig_go_proto.OSVConfig{ExpiryDate: "2027-01-01"}
-		resp := &osvconfig_go_proto.OSVConfig{}
+		req, _ := structpb.NewStruct(map[string]any{"expiry_date": "2027-01-01"})
+		resp := &structpb.Struct{}
 
 		err = conn.Invoke(context.Background(), methodName, req, resp)
 		if err == nil {
@@ -224,8 +227,8 @@ func TestRecorder_RecordAndReplay_Error(t *testing.T) {
 		}
 
 		conn := NewClientConn(mock, rec)
-		req := &osvconfig_go_proto.OSVConfig{ExpiryDate: "invalid"}
-		resp := &osvconfig_go_proto.OSVConfig{}
+		req, _ := structpb.NewStruct(map[string]any{"expiry_date": "invalid"})
+		resp := &structpb.Struct{}
 
 		err = conn.Invoke(context.Background(), methodName, req, resp)
 		if err == nil {
@@ -262,8 +265,8 @@ func TestRecorder_RecordAndReplay_Error(t *testing.T) {
 		}
 
 		conn := NewClientConn(mock, rec)
-		req := &osvconfig_go_proto.OSVConfig{ExpiryDate: "invalid"}
-		resp := &osvconfig_go_proto.OSVConfig{}
+		req, _ := structpb.NewStruct(map[string]any{"expiry_date": "invalid"})
+		resp := &structpb.Struct{}
 
 		err = conn.Invoke(context.Background(), methodName, req, resp)
 		if err == nil {
@@ -379,8 +382,8 @@ func TestRecorder_Save_Sorted(t *testing.T) {
 	}
 
 	for _, call := range calls {
-		req := &osvconfig_go_proto.OSVConfig{ExpiryDate: call.reqVal}
-		resp := &osvconfig_go_proto.OSVConfig{}
+		req, _ := structpb.NewStruct(map[string]any{"expiry_date": call.reqVal})
+		resp := &structpb.Struct{}
 		err = conn.Invoke(context.Background(), call.method, req, resp)
 		if err != nil {
 			t.Fatalf("Invoke failed for %s (%s): %v", call.method, call.reqVal, err)
@@ -425,12 +428,12 @@ func TestRecorder_Save_Sorted(t *testing.T) {
 			t.Errorf("interaction %d: expected method %s, got %s", i, expected.method, inter.Method)
 		}
 		// Deserialise request to check the value
-		reqMsg := &osvconfig_go_proto.OSVConfig{}
+		reqMsg := &structpb.Struct{}
 		if err := protojson.Unmarshal([]byte(inter.Request), reqMsg); err != nil {
 			t.Fatalf("failed to unmarshal request in interaction %d: %v", i, err)
 		}
-		if reqMsg.GetExpiryDate() != expected.reqVal {
-			t.Errorf("interaction %d: expected request val %s, got %s", i, expected.reqVal, reqMsg.GetExpiryDate())
+		if reqMsg.GetFields()["expiry_date"].GetStringValue() != expected.reqVal {
+			t.Errorf("interaction %d: expected request val %s, got %s", i, expected.reqVal, reqMsg.GetFields()["expiry_date"].GetStringValue())
 		}
 	}
 }
@@ -449,8 +452,8 @@ func TestRecorder_Save_CleanJSON(t *testing.T) {
 	mock := &mockClientConn{}
 	conn := NewClientConn(mock, rec)
 
-	req := &osvconfig_go_proto.OSVConfig{ExpiryDate: "clean-me"}
-	resp := &osvconfig_go_proto.OSVConfig{}
+	req, _ := structpb.NewStruct(map[string]any{"expiry_date": "clean-me"})
+	resp := &structpb.Struct{}
 
 	err = conn.Invoke(context.Background(), "/test.Service/CleanMethod", req, resp)
 	if err != nil {
@@ -484,10 +487,10 @@ func TestRecorder_Save_CleanJSON(t *testing.T) {
 	// 3. No non-deterministic double spaces (which protojson sometimes generates)
 	// Standard JSON output from json.MarshalIndent for our OSVConfig:
 	// {
-	//   "expiryDate": "clean-me"
+	//   "expiry_date": "clean-me"
 	// }
 	// Notice single space after colon!
-	expectedJSON := "{\n  \"expiryDate\": \"clean-me\"\n}"
+	expectedJSON := "{\n  \"expiry_date\": \"clean-me\"\n}"
 	if reqJSON != expectedJSON {
 		t.Errorf("expected request JSON to be formatted as:\n%s\nbut got:\n%s", expectedJSON, reqJSON)
 	}

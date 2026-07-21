@@ -138,13 +138,13 @@ func TestCommand(t *testing.T) {
 		},
 		// only the files in the given directories are checked by default (no recursion)
 		{
-			Name: "only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion)",
+			Name: "only_the_files_in_the_given_directories_are_checked_by_default_no_recursion",
 			Args: []string{"", "source", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
 		// nested directories are checked when `--recursive` is passed
 		{
-			Name: "nested_directories_are_checked_when_`--recursive`_is_passed",
+			Name: "nested_directories_are_checked_when_--recursive_is_passed",
 			Args: []string{"", "source", "--recursive", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
@@ -226,7 +226,7 @@ func TestCommand(t *testing.T) {
 		},
 		// output format: markdown table
 		{
-			Name: "output_format:_markdown_table",
+			Name: "output_format_markdown_table",
 			Args: []string{"", "source", "--format", "markdown", "./testdata/locks-many-with-insecure/package-lock.json"},
 			Exit: 1,
 		},
@@ -293,7 +293,7 @@ func TestCommand(t *testing.T) {
 		},
 		// output format: unsupported
 		{
-			Name: "output_format:_unsupported",
+			Name: "output_format_unsupported",
 			Args: []string{"", "source", "--format", "unknown", "./testdata/locks-many/composer.lock"},
 			Exit: 127,
 		},
@@ -309,22 +309,22 @@ func TestCommand(t *testing.T) {
 			Exit: 127,
 		},
 		{
-			Name: "verbosity_level_=_error",
+			Name: "verbosity_level_error",
 			Args: []string{"", "source", "--verbosity", "error", "--format", "table", "./testdata/locks-many/composer.lock"},
 			Exit: 0,
 		},
 		{
-			Name: "verbosity_level_=_info",
+			Name: "verbosity_level_info",
 			Args: []string{"", "source", "--verbosity", "info", "--format", "table", "./testdata/locks-many/composer.lock"},
 			Exit: 0,
 		},
 		{
-			Name: "PURL_SBOM_case_sensitivity_(api)",
+			Name: "PURL_SBOM_case_sensitivity_api",
 			Args: []string{"", "source", "--format", "table", "./testdata/sbom-insecure/alpine.cdx.xml"},
 			Exit: 1,
 		},
 		{
-			Name: "PURL_SBOM_case_sensitivity_(local)",
+			Name: "PURL_SBOM_case_sensitivity_local",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "--format", "table", "./testdata/sbom-insecure/alpine.cdx.xml"},
 			Exit: 1,
 		},
@@ -342,7 +342,7 @@ func TestCommand(t *testing.T) {
 		},
 		// Go project with an overridden go version, recursive
 		{
-			Name: "Go_project_with_an_overridden_go_version,_recursive",
+			Name: "Go_project_with_an_overridden_go_version_recursive",
 			Args: []string{"", "source", "--config=./testdata/go-project/go-version-config.toml", "-r", "./testdata/go-project"},
 			Exit: 0,
 		},
@@ -850,7 +850,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			Exit: 0,
 		},
 		{
-			Name: "empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows)",
+			Name: "empty_works_as_an_escape_no_fixture_because_its_not_valid_on_Windows",
 			Args: []string{
 				"",
 				"source",
@@ -860,7 +860,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			Exit: 127,
 		},
 		{
-			Name: "empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows)",
+			Name: "empty_works_as_an_escape_no_fixture_because_its_not_valid_on_Windows",
 			Args: []string{
 				"",
 				"source",
@@ -875,7 +875,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			Exit: 0,
 		},
 		{
-			Name: "when_an_explicit_parse-as_is_given,_it's_applied_to_that_file",
+			Name: "when_an_explicit_parse-as_is_given_its_applied_to_that_file",
 			Args: []string{
 				"",
 				"source",
@@ -886,7 +886,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			Exit: 1,
 		},
 		{
-			Name: "multiple,_+_output_order_is_deterministic",
+			Name: "multiple_output_order_is_deterministic",
 			Args: []string{
 				"",
 				"source",
@@ -897,7 +897,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			Exit: 1,
 		},
 		{
-			Name: "multiple,_+_output_order_is_deterministic_2",
+			Name: "multiple_output_order_is_deterministic_2",
 			Args: []string{
 				"",
 				"source",
@@ -920,7 +920,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			Exit: 127,
 		},
 		{
-			Name: "parse-as_takes_priority,_even_if_it's_wrong",
+			Name: "parse-as_takes_priority_even_if_its_wrong",
 			Args: []string{
 				"",
 				"source",
@@ -1064,12 +1064,12 @@ func TestCommand_LocalDatabases(t *testing.T) {
 			Exit: 127,
 		},
 		{
-			Name: "only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion)",
+			Name: "only_the_files_in_the_given_directories_are_checked_by_default_no_recursion",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
 		{
-			Name: "nested_directories_are_checked_when_`--recursive`_is_passed",
+			Name: "nested_directories_are_checked_when_--recursive_is_passed",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "--recursive", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
@@ -1089,7 +1089,7 @@ func TestCommand_LocalDatabases(t *testing.T) {
 			Exit: 0,
 		},
 		{
-			Name: "output_format:_markdown_table",
+			Name: "output_format_markdown_table",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "--format", "markdown", "./testdata/locks-many/composer.lock"},
 			Exit: 0,
 		},
@@ -1431,7 +1431,7 @@ func TestCommand_MoreLockfiles(t *testing.T) {
 			Exit: 1,
 		},
 		{
-			Name: "Podfile.lock_-_Unsupported_ecosystem,_should_not_be_scanned",
+			Name: "Podfile.lock_-_Unsupported_ecosystem_should_not_be_scanned",
 			Args: []string{"", "source", "-L", "./testdata/locks-scalibr/Podfile.lock"},
 			Exit: 127,
 		},

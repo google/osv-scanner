@@ -55,11 +55,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_Docker/Real_empty_image_with_no_tag,_invalid_scan_target - 1]
+[TestCommand_Docker/Real_empty_image_with_no_tag_invalid_scan_target - 1]
 
 ---
 
-[TestCommand_Docker/Real_empty_image_with_no_tag,_invalid_scan_target - 2]
+[TestCommand_Docker/Real_empty_image_with_no_tag_invalid_scan_target - 2]
 "hello-world" is not a tagged image name
 
 ---

@@ -210,19 +210,6 @@ No issues found
 
 ---
 
-[TestCommand/Go_project_with_an_overridden_go_version,_recursive - 1]
-Scanning dir ./testdata/go-project
-Scanned <rootdir>/testdata/go-project/go.mod file and found 1 package
-Scanned <rootdir>/testdata/go-project/nested/go.mod file and found 1 package
-
-No issues found
-
----
-
-[TestCommand/Go_project_with_an_overridden_go_version,_recursive - 2]
-
----
-
 [TestCommand/Go_project_with_an_overridden_go_version_and_licences - 1]
 Scanning dir ./testdata/go-project
 Scanned <rootdir>/testdata/go-project/go.mod file and found 1 package
@@ -237,7 +224,20 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
-[TestCommand/PURL_SBOM_case_sensitivity_(api) - 1]
+[TestCommand/Go_project_with_an_overridden_go_version_recursive - 1]
+Scanning dir ./testdata/go-project
+Scanned <rootdir>/testdata/go-project/go.mod file and found 1 package
+Scanned <rootdir>/testdata/go-project/nested/go.mod file and found 1 package
+
+No issues found
+
+---
+
+[TestCommand/Go_project_with_an_overridden_go_version_recursive - 2]
+
+---
+
+[TestCommand/PURL_SBOM_case_sensitivity_api - 1]
 Scanning dir ./testdata/sbom-insecure/alpine.cdx.xml
 Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packages
 Filtered 1 local/unscannable package/s from the scan.
@@ -255,11 +255,11 @@ Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medi
 
 ---
 
-[TestCommand/PURL_SBOM_case_sensitivity_(api) - 2]
+[TestCommand/PURL_SBOM_case_sensitivity_api - 2]
 
 ---
 
-[TestCommand/PURL_SBOM_case_sensitivity_(local) - 1]
+[TestCommand/PURL_SBOM_case_sensitivity_local - 1]
 Scanning dir ./testdata/sbom-insecure/alpine.cdx.xml
 Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packages
 Filtered 1 local/unscannable package/s from the scan.
@@ -276,7 +276,7 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium,
 
 ---
 
-[TestCommand/PURL_SBOM_case_sensitivity_(local) - 2]
+[TestCommand/PURL_SBOM_case_sensitivity_local - 2]
 
 ---
 
@@ -1360,7 +1360,7 @@ Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 ---
 
-[TestCommand/nested_directories_are_checked_when_`--recursive`_is_passed - 1]
+[TestCommand/nested_directories_are_checked_when_--recursive_is_passed - 1]
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
@@ -1369,7 +1369,7 @@ No issues found
 
 ---
 
-[TestCommand/nested_directories_are_checked_when_`--recursive`_is_passed - 2]
+[TestCommand/nested_directories_are_checked_when_--recursive_is_passed - 2]
 
 ---
 
@@ -1612,7 +1612,7 @@ No package sources found, --help for usage information.
 
 ---
 
-[TestCommand/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 1]
+[TestCommand/only_the_files_in_the_given_directories_are_checked_by_default_no_recursion - 1]
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
 
@@ -1620,11 +1620,11 @@ No issues found
 
 ---
 
-[TestCommand/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 2]
+[TestCommand/only_the_files_in_the_given_directories_are_checked_by_default_no_recursion - 2]
 
 ---
 
-[TestCommand/output_format:_markdown_table - 1]
+[TestCommand/output_format_markdown_table - 1]
 Scanning dir ./testdata/locks-many-with-insecure/package-lock.json
 Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
 
@@ -1637,15 +1637,15 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium,
 
 ---
 
-[TestCommand/output_format:_markdown_table - 2]
+[TestCommand/output_format_markdown_table - 2]
 
 ---
 
-[TestCommand/output_format:_unsupported - 1]
+[TestCommand/output_format_unsupported - 1]
 
 ---
 
-[TestCommand/output_format:_unsupported - 2]
+[TestCommand/output_format_unsupported - 2]
 unsupported output format "unknown" - must be one of: table, html, vertical, json, markdown, sarif, gh-annotations, cyclonedx-1-4, cyclonedx-1-5, cyclonedx-1-6, cyclonedx-1-7, spdx-2-3
 
 ---
@@ -1945,17 +1945,17 @@ Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found
 
 ---
 
-[TestCommand/verbosity_level_=_error - 1]
+[TestCommand/verbosity_level_error - 1]
 
 No issues found
 
 ---
 
-[TestCommand/verbosity_level_=_error - 2]
+[TestCommand/verbosity_level_error - 2]
 
 ---
 
-[TestCommand/verbosity_level_=_info - 1]
+[TestCommand/verbosity_level_info - 1]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
@@ -1964,7 +1964,7 @@ No issues found
 
 ---
 
-[TestCommand/verbosity_level_=_info - 2]
+[TestCommand/verbosity_level_info - 2]
 
 ---
 
@@ -4339,7 +4339,7 @@ No issues found
 
 ---
 
-[TestCommand_LocalDatabases/nested_directories_are_checked_when_`--recursive`_is_passed - 1]
+[TestCommand_LocalDatabases/nested_directories_are_checked_when_--recursive_is_passed - 1]
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
@@ -4350,11 +4350,11 @@ No issues found
 
 ---
 
-[TestCommand_LocalDatabases/nested_directories_are_checked_when_`--recursive`_is_passed - 2]
+[TestCommand_LocalDatabases/nested_directories_are_checked_when_--recursive_is_passed - 2]
 
 ---
 
-[TestCommand_LocalDatabases/nested_directories_are_checked_when_`--recursive`_is_passed - 3]
+[TestCommand_LocalDatabases/nested_directories_are_checked_when_--recursive_is_passed - 3]
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
@@ -4365,7 +4365,7 @@ No issues found
 
 ---
 
-[TestCommand_LocalDatabases/nested_directories_are_checked_when_`--recursive`_is_passed - 4]
+[TestCommand_LocalDatabases/nested_directories_are_checked_when_--recursive_is_passed - 4]
 
 ---
 
@@ -4471,7 +4471,7 @@ No package sources found, --help for usage information.
 
 ---
 
-[TestCommand_LocalDatabases/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 1]
+[TestCommand_LocalDatabases/only_the_files_in_the_given_directories_are_checked_by_default_no_recursion - 1]
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
 Loaded npm local db from <tempdir>/osv-scalibr/npm/all.zip
@@ -4480,11 +4480,11 @@ No issues found
 
 ---
 
-[TestCommand_LocalDatabases/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 2]
+[TestCommand_LocalDatabases/only_the_files_in_the_given_directories_are_checked_by_default_no_recursion - 2]
 
 ---
 
-[TestCommand_LocalDatabases/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 3]
+[TestCommand_LocalDatabases/only_the_files_in_the_given_directories_are_checked_by_default_no_recursion - 3]
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
 Loaded npm local db from <tempdir>/osv-scalibr/npm/all.zip
@@ -4493,11 +4493,11 @@ No issues found
 
 ---
 
-[TestCommand_LocalDatabases/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 4]
+[TestCommand_LocalDatabases/only_the_files_in_the_given_directories_are_checked_by_default_no_recursion - 4]
 
 ---
 
-[TestCommand_LocalDatabases/output_format:_markdown_table - 1]
+[TestCommand_LocalDatabases/output_format_markdown_table - 1]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Loaded Packagist local db from <tempdir>/osv-scalibr/Packagist/all.zip
@@ -4507,11 +4507,11 @@ No issues found
 
 ---
 
-[TestCommand_LocalDatabases/output_format:_markdown_table - 2]
+[TestCommand_LocalDatabases/output_format_markdown_table - 2]
 
 ---
 
-[TestCommand_LocalDatabases/output_format:_markdown_table - 3]
+[TestCommand_LocalDatabases/output_format_markdown_table - 3]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Loaded Packagist local db from <tempdir>/osv-scalibr/Packagist/all.zip
@@ -4521,7 +4521,7 @@ No issues found
 
 ---
 
-[TestCommand_LocalDatabases/output_format:_markdown_table - 4]
+[TestCommand_LocalDatabases/output_format_markdown_table - 4]
 
 ---
 
@@ -4695,20 +4695,20 @@ No issues found
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows) - 1]
+[TestCommand_LockfileWithExplicitParseAs/empty_works_as_an_escape_no_fixture_because_its_not_valid_on_Windows - 1]
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows) - 2]
+[TestCommand_LockfileWithExplicitParseAs/empty_works_as_an_escape_no_fixture_because_its_not_valid_on_Windows - 2]
 failed to resolve path: stat <rootdir>/path/to/my:file: no such file or directory
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows)#01 - 1]
+[TestCommand_LockfileWithExplicitParseAs/empty_works_as_an_escape_no_fixture_because_its_not_valid_on_Windows#01 - 1]
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows)#01 - 2]
+[TestCommand_LockfileWithExplicitParseAs/empty_works_as_an_escape_no_fixture_because_its_not_valid_on_Windows#01 - 2]
 failed to resolve path: stat <rootdir>/path/to/my:project/package-lock.json: no such file or directory
 
 ---
@@ -4724,7 +4724,7 @@ extraction failed on specified lockfile
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/multiple,_+_output_order_is_deterministic - 1]
+[TestCommand_LockfileWithExplicitParseAs/multiple_output_order_is_deterministic - 1]
 Scanning dir ./testdata/locks-insecure
 Scanned <rootdir>/testdata/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/testdata/locks-insecure/composer.lock file and found 1 package
@@ -4745,11 +4745,11 @@ Total 3 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medi
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/multiple,_+_output_order_is_deterministic - 2]
+[TestCommand_LockfileWithExplicitParseAs/multiple_output_order_is_deterministic - 2]
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/multiple,_+_output_order_is_deterministic_2 - 1]
+[TestCommand_LockfileWithExplicitParseAs/multiple_output_order_is_deterministic_2 - 1]
 Scanning dir ./testdata/locks-insecure
 Scanned <rootdir>/testdata/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/testdata/locks-insecure/composer.lock file and found 1 package
@@ -4770,7 +4770,7 @@ Total 3 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medi
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/multiple,_+_output_order_is_deterministic_2 - 2]
+[TestCommand_LockfileWithExplicitParseAs/multiple_output_order_is_deterministic_2 - 2]
 
 ---
 
@@ -4786,11 +4786,11 @@ No issues found
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/parse-as_takes_priority,_even_if_it's_wrong - 1]
+[TestCommand_LockfileWithExplicitParseAs/parse-as_takes_priority_even_if_its_wrong - 1]
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/parse-as_takes_priority,_even_if_it's_wrong - 2]
+[TestCommand_LockfileWithExplicitParseAs/parse-as_takes_priority_even_if_its_wrong - 2]
 Error during extraction: (extracting as javascript/packagelockjson) <rootdir>/testdata/locks-many/yarn.lock: could not extract: invalid character '#' looking for beginning of value
 extraction failed on specified lockfile
 
@@ -4805,7 +4805,7 @@ could not determine extractor, requested my-file
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/when_an_explicit_parse-as_is_given,_it's_applied_to_that_file - 1]
+[TestCommand_LockfileWithExplicitParseAs/when_an_explicit_parse-as_is_given_its_applied_to_that_file - 1]
 Scanning dir ./testdata/locks-insecure
 Scanned <rootdir>/testdata/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/testdata/locks-insecure/composer.lock file and found 1 package
@@ -4824,7 +4824,7 @@ Total 2 packages affected by 2 known vulnerabilities (1 Critical, 1 High, 0 Medi
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/when_an_explicit_parse-as_is_given,_it's_applied_to_that_file - 2]
+[TestCommand_LockfileWithExplicitParseAs/when_an_explicit_parse-as_is_given_its_applied_to_that_file - 2]
 
 ---
 
@@ -4858,11 +4858,11 @@ Total 2 packages affected by 13 known vulnerabilities (5 Critical, 5 High, 3 Med
 
 ---
 
-[TestCommand_MoreLockfiles/Podfile.lock_-_Unsupported_ecosystem,_should_not_be_scanned - 1]
+[TestCommand_MoreLockfiles/Podfile.lock_-_Unsupported_ecosystem_should_not_be_scanned - 1]
 
 ---
 
-[TestCommand_MoreLockfiles/Podfile.lock_-_Unsupported_ecosystem,_should_not_be_scanned - 2]
+[TestCommand_MoreLockfiles/Podfile.lock_-_Unsupported_ecosystem_should_not_be_scanned - 2]
 could not determine extractor suitable to this file: "<rootdir>/testdata/locks-scalibr/Podfile.lock"
 
 ---
