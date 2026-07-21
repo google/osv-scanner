@@ -214,5 +214,3 @@ require (
 	www.velocidex.com/golang/go-ntfs v0.2.0 // indirect
 	www.velocidex.com/golang/regparser v0.0.0-20250203141505-31e704a67ef7 // indirect
 )
-
-replace github.com/google/osv-scalibr => ./osv-scalibr-portal
