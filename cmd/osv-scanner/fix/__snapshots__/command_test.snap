@@ -5260,14 +5260,14 @@ unsupported strategy "force" - must be one of: in-place, relax, override
 
 [TestCommand/fix_non-interactive_in-place_package-lock.json - 1]
 Guided remediation (the fix command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
-Found 17 vulnerabilities matching the filter
-Can fix 8/17 matching vulnerabilities by changing 5 dependencies
-UPGRADED-PACKAGE: minimatch,3.1.2,3.1.5
+Found 18 vulnerabilities matching the filter
+Can fix 9/18 matching vulnerabilities by changing 5 dependencies
 UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.16
+UPGRADED-PACKAGE: minimatch,3.1.2,3.1.5
 UPGRADED-PACKAGE: ajv,6.12.6,6.15.0
 UPGRADED-PACKAGE: concat-stream,1.5.0,1.6.1
 UPGRADED-PACKAGE: hosted-git-info,2.1.4,2.8.9
-FIXED-VULN-IDS: GHSA-23c5-xmqv-rm74,GHSA-2g4f-4pwh-qvx6,GHSA-3ppc-4f35-3m26,GHSA-43f8-2h32-f4cj,GHSA-7r86-cg39-jmmj,GHSA-f886-m6hf-6m8v,GHSA-g74r-ffvr-5q9f,GHSA-v6h2-p8h4-qcjw
+FIXED-VULN-IDS: GHSA-23c5-xmqv-rm74,GHSA-2g4f-4pwh-qvx6,GHSA-3jxr-9vmj-r5cp,GHSA-3ppc-4f35-3m26,GHSA-43f8-2h32-f4cj,GHSA-7r86-cg39-jmmj,GHSA-f886-m6hf-6m8v,GHSA-g74r-ffvr-5q9f,GHSA-v6h2-p8h4-qcjw
 REMAINING-VULNS: 9
 UNFIXABLE-VULNS: 9
 
@@ -7026,6 +7026,15 @@ UNFIXABLE-VULNS: 9
       ]
     },
     {
+      "id": "GHSA-3jxr-9vmj-r5cp",
+      "packages": [
+        {
+          "name": "brace-expansion",
+          "version": "1.1.11"
+        }
+      ]
+    },
+    {
       "id": "GHSA-3ppc-4f35-3m26",
       "packages": [
         {
@@ -7174,6 +7183,45 @@ UNFIXABLE-VULNS: 9
     {
       "packageUpdates": [
         {
+          "name": "brace-expansion",
+          "versionFrom": "1.1.11",
+          "versionTo": "1.1.16",
+          "transitive": true
+        }
+      ],
+      "fixed": [
+        {
+          "id": "GHSA-3jxr-9vmj-r5cp",
+          "packages": [
+            {
+              "name": "brace-expansion",
+              "version": "1.1.11"
+            }
+          ]
+        },
+        {
+          "id": "GHSA-f886-m6hf-6m8v",
+          "packages": [
+            {
+              "name": "brace-expansion",
+              "version": "1.1.11"
+            }
+          ]
+        },
+        {
+          "id": "GHSA-v6h2-p8h4-qcjw",
+          "packages": [
+            {
+              "name": "brace-expansion",
+              "version": "1.1.11"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "packageUpdates": [
+        {
           "name": "minimatch",
           "versionFrom": "3.1.2",
           "versionTo": "3.1.5",
@@ -7205,36 +7253,6 @@ UNFIXABLE-VULNS: 9
             {
               "name": "minimatch",
               "version": "3.1.2"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "packageUpdates": [
-        {
-          "name": "brace-expansion",
-          "versionFrom": "1.1.11",
-          "versionTo": "1.1.16",
-          "transitive": true
-        }
-      ],
-      "fixed": [
-        {
-          "id": "GHSA-f886-m6hf-6m8v",
-          "packages": [
-            {
-              "name": "brace-expansion",
-              "version": "1.1.11"
-            }
-          ]
-        },
-        {
-          "id": "GHSA-v6h2-p8h4-qcjw",
-          "packages": [
-            {
-              "name": "brace-expansion",
-              "version": "1.1.11"
             }
           ]
         }
@@ -9648,14 +9666,14 @@ UNFIXABLE-VULNS: 6
 
 [TestCommand/fix_non_interactive_in_place_package_lock_json_with_native_data_source - 1]
 Guided remediation (the fix command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
-Found 17 vulnerabilities matching the filter
-Can fix 8/17 matching vulnerabilities by changing 5 dependencies
-UPGRADED-PACKAGE: minimatch,3.1.2,3.1.5
+Found 18 vulnerabilities matching the filter
+Can fix 9/18 matching vulnerabilities by changing 5 dependencies
 UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.16
+UPGRADED-PACKAGE: minimatch,3.1.2,3.1.5
 UPGRADED-PACKAGE: ajv,6.12.6,6.15.0
 UPGRADED-PACKAGE: concat-stream,1.5.0,1.6.1
 UPGRADED-PACKAGE: hosted-git-info,2.1.4,2.8.9
-FIXED-VULN-IDS: GHSA-23c5-xmqv-rm74,GHSA-2g4f-4pwh-qvx6,GHSA-3ppc-4f35-3m26,GHSA-43f8-2h32-f4cj,GHSA-7r86-cg39-jmmj,GHSA-f886-m6hf-6m8v,GHSA-g74r-ffvr-5q9f,GHSA-v6h2-p8h4-qcjw
+FIXED-VULN-IDS: GHSA-23c5-xmqv-rm74,GHSA-2g4f-4pwh-qvx6,GHSA-3jxr-9vmj-r5cp,GHSA-3ppc-4f35-3m26,GHSA-43f8-2h32-f4cj,GHSA-7r86-cg39-jmmj,GHSA-f886-m6hf-6m8v,GHSA-g74r-ffvr-5q9f,GHSA-v6h2-p8h4-qcjw
 REMAINING-VULNS: 9
 UNFIXABLE-VULNS: 9
 
@@ -11468,16 +11486,10 @@ manifest or lockfile is required
 [TestCommand_OfflineDatabase/fix_non_interactive_in_place_package_lock_json_with_offline_vulns - 1]
 Guided remediation (the fix command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
 Loaded npm local db from <tempdir>/osv-scalibr/npm/all.zip
-Found 17 vulnerabilities matching the filter
-Can fix 8/17 matching vulnerabilities by changing 5 dependencies
-UPGRADED-PACKAGE: minimatch,3.1.2,3.1.5
-UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.16
-UPGRADED-PACKAGE: ajv,6.12.6,6.15.0
-UPGRADED-PACKAGE: concat-stream,1.5.0,1.6.1
-UPGRADED-PACKAGE: hosted-git-info,2.1.4,2.8.9
-FIXED-VULN-IDS: GHSA-23c5-xmqv-rm74,GHSA-2g4f-4pwh-qvx6,GHSA-3ppc-4f35-3m26,GHSA-43f8-2h32-f4cj,GHSA-7r86-cg39-jmmj,GHSA-f886-m6hf-6m8v,GHSA-g74r-ffvr-5q9f,GHSA-v6h2-p8h4-qcjw
-REMAINING-VULNS: 9
-UNFIXABLE-VULNS: 9
+Found 0 vulnerabilities matching the filter
+No dependency patches are possible
+REMAINING-VULNS: 0
+UNFIXABLE-VULNS: 0
 
 ---
 
@@ -11501,18 +11513,18 @@ UNFIXABLE-VULNS: 9
       }
     },
     "node_modules/ajv": {
-      "version": "6.15.0",
-      "resolved": "https://registry.npmjs.org/ajv/-/ajv-6.15.0.tgz",
-      "integrity": "sha512-fgFx7Hfoq60ytK2c7DhnF8jIvzYgOMxfugjLOSMHjLIPgenqa7S7oaagATUq99mV6IYvN2tRmC0wnTYX6iPbMw==",
+      "version": "6.12.6",
+      "resolved": "https://registry.npmjs.org/ajv/-/ajv-6.12.6.tgz",
+      "integrity": "sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==",
       "dependencies": {
-        "uri-js": "^4.2.2",
         "fast-deep-equal": "^3.1.1",
+        "fast-json-stable-stringify": "^2.0.0",
         "json-schema-traverse": "^0.4.1",
-        "fast-json-stable-stringify": "^2.0.0"
+        "uri-js": "^4.2.2"
       },
       "funding": {
-        "url": "https://github.com/sponsors/epoberezkin",
-        "type": "github"
+        "type": "github",
+        "url": "https://github.com/sponsors/epoberezkin"
       }
     },
     "node_modules/ansi-regex": {
@@ -11587,12 +11599,12 @@ UNFIXABLE-VULNS: 9
       }
     },
     "node_modules/brace-expansion": {
-      "version": "1.1.16",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.16.tgz",
-      "integrity": "sha512-IDw48K2/2kRkg9LdJxurvq3lV3aBgq0REY89duEqFRthjlPdXHKMj7EnQOXVckxzgisinf3nHfrcE2FufFLXMw==",
+      "version": "1.1.11",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz",
+      "integrity": "sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==",
       "dependencies": {
-        "concat-map": "0.0.1",
-        "balanced-match": "^1.0.0"
+        "balanced-match": "^1.0.0",
+        "concat-map": "0.0.1"
       }
     },
     "node_modules/caseless": {
@@ -11631,14 +11643,16 @@ UNFIXABLE-VULNS: 9
       "integrity": "sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg=="
     },
     "node_modules/concat-stream": {
-      "version": "1.6.1",
-      "resolved": "https://registry.npmjs.org/concat-stream/-/concat-stream-1.6.1.tgz",
-      "integrity": "sha512-gslSSJx03QKa59cIKqeJO9HQ/WZMotvYJCuaUULrLpjj8oG40kV2Z+gz82pVxlTkOADi4PJxQPPfhl1ELYrrXw==",
-      "engines": ["node >= 0.8"],
+      "version": "1.5.0",
+      "resolved": "https://registry.npmjs.org/concat-stream/-/concat-stream-1.5.0.tgz",
+      "integrity": "sha512-litEocitzYgqQ0IPaoLw+tCHcVcJJYW05+SAhH+LS9qutSC7iuejvawts3cUYQycZbRbLsjG8mCJLQi2KX5kEw==",
+      "engines": [
+        "node >= 0.8"
+      ],
       "dependencies": {
-        "inherits": "^2.0.3",
-        "typedarray": "^0.0.6",
-        "readable-stream": "^2.2.2"
+        "inherits": "~2.0.1",
+        "readable-stream": "~2.0.0",
+        "typedarray": "~0.0.5"
       }
     },
     "node_modules/console-control-strings": {
@@ -11839,9 +11853,9 @@ UNFIXABLE-VULNS: 9
       }
     },
     "node_modules/hosted-git-info": {
-      "version": "2.8.9",
-      "resolved": "https://registry.npmjs.org/hosted-git-info/-/hosted-git-info-2.8.9.tgz",
-      "integrity": "sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw=="
+      "version": "2.1.4",
+      "resolved": "https://registry.npmjs.org/hosted-git-info/-/hosted-git-info-2.1.4.tgz",
+      "integrity": "sha512-4R9eDu2ytsDMdo7nQXHrpK1347y3nu/ThXZ4tjpkUTsZnzoIIQprnPOM65c20oInjmocLuEGBIbPsesYCqibag=="
     },
     "node_modules/http-signature": {
       "version": "1.2.0",
@@ -11960,9 +11974,9 @@ UNFIXABLE-VULNS: 9
       }
     },
     "node_modules/minimatch": {
-      "version": "3.1.5",
-      "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-3.1.5.tgz",
-      "integrity": "sha512-VgjWUsnnT6n+NUk6eZq77zeFdpW2LWDzP6zFGrCbHXiYNul5Dzqk2HHQ5uFH2DNW5Xbp8+jVzaeNt94ssEEl4w==",
+      "version": "3.1.2",
+      "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-3.1.2.tgz",
+      "integrity": "sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==",
       "dependencies": {
         "brace-expansion": "^1.1.7"
       },
@@ -12437,14 +12451,14 @@ UNFIXABLE-VULNS: 9
   },
   "dependencies": {
     "ajv": {
-      "version": "6.15.0",
-      "resolved": "https://registry.npmjs.org/ajv/-/ajv-6.15.0.tgz",
-      "integrity": "sha512-fgFx7Hfoq60ytK2c7DhnF8jIvzYgOMxfugjLOSMHjLIPgenqa7S7oaagATUq99mV6IYvN2tRmC0wnTYX6iPbMw==",
+      "version": "6.12.6",
+      "resolved": "https://registry.npmjs.org/ajv/-/ajv-6.12.6.tgz",
+      "integrity": "sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==",
       "requires": {
-        "uri-js": "^4.2.2",
         "fast-deep-equal": "^3.1.1",
+        "fast-json-stable-stringify": "^2.0.0",
         "json-schema-traverse": "^0.4.1",
-        "fast-json-stable-stringify": "^2.0.0"
+        "uri-js": "^4.2.2"
       }
     },
     "ansi-regex": {
@@ -12507,12 +12521,12 @@ UNFIXABLE-VULNS: 9
       }
     },
     "brace-expansion": {
-      "version": "1.1.16",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.16.tgz",
-      "integrity": "sha512-IDw48K2/2kRkg9LdJxurvq3lV3aBgq0REY89duEqFRthjlPdXHKMj7EnQOXVckxzgisinf3nHfrcE2FufFLXMw==",
+      "version": "1.1.11",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz",
+      "integrity": "sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==",
       "requires": {
-        "concat-map": "0.0.1",
-        "balanced-match": "^1.0.0"
+        "balanced-match": "^1.0.0",
+        "concat-map": "0.0.1"
       }
     },
     "caseless": {
@@ -12545,13 +12559,13 @@ UNFIXABLE-VULNS: 9
       "integrity": "sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg=="
     },
     "concat-stream": {
-      "version": "1.6.1",
-      "resolved": "https://registry.npmjs.org/concat-stream/-/concat-stream-1.6.1.tgz",
-      "integrity": "sha512-gslSSJx03QKa59cIKqeJO9HQ/WZMotvYJCuaUULrLpjj8oG40kV2Z+gz82pVxlTkOADi4PJxQPPfhl1ELYrrXw==",
+      "version": "1.5.0",
+      "resolved": "https://registry.npmjs.org/concat-stream/-/concat-stream-1.5.0.tgz",
+      "integrity": "sha512-litEocitzYgqQ0IPaoLw+tCHcVcJJYW05+SAhH+LS9qutSC7iuejvawts3cUYQycZbRbLsjG8mCJLQi2KX5kEw==",
       "requires": {
-        "inherits": "^2.0.3",
-        "typedarray": "^0.0.6",
-        "readable-stream": "^2.2.2"
+        "inherits": "~2.0.1",
+        "readable-stream": "~2.0.0",
+        "typedarray": "~0.0.5"
       }
     },
     "console-control-strings": {
@@ -12712,9 +12726,9 @@ UNFIXABLE-VULNS: 9
       }
     },
     "hosted-git-info": {
-      "version": "2.8.9",
-      "resolved": "https://registry.npmjs.org/hosted-git-info/-/hosted-git-info-2.8.9.tgz",
-      "integrity": "sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw=="
+      "version": "2.1.4",
+      "resolved": "https://registry.npmjs.org/hosted-git-info/-/hosted-git-info-2.1.4.tgz",
+      "integrity": "sha512-4R9eDu2ytsDMdo7nQXHrpK1347y3nu/ThXZ4tjpkUTsZnzoIIQprnPOM65c20oInjmocLuEGBIbPsesYCqibag=="
     },
     "http-signature": {
       "version": "1.2.0",
@@ -12814,9 +12828,9 @@ UNFIXABLE-VULNS: 9
       }
     },
     "minimatch": {
-      "version": "3.1.5",
-      "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-3.1.5.tgz",
-      "integrity": "sha512-VgjWUsnnT6n+NUk6eZq77zeFdpW2LWDzP6zFGrCbHXiYNul5Dzqk2HHQ5uFH2DNW5Xbp8+jVzaeNt94ssEEl4w==",
+      "version": "3.1.2",
+      "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-3.1.2.tgz",
+      "integrity": "sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==",
       "requires": {
         "brace-expansion": "^1.1.7"
       }
@@ -13212,12 +13226,10 @@ UNFIXABLE-VULNS: 9
 [TestCommand_OfflineDatabase/fix_non_interactive_relax_package_json_with_offline_vulns - 1]
 Guided remediation (the fix command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
 Loaded npm local db from <tempdir>/osv-scalibr/npm/all.zip
-Found 9 vulnerabilities matching the filter
-Can fix 3/9 matching vulnerabilities by changing 1 dependencies
-UPGRADED-PACKAGE: npm-registry-client,6.2.0,^7.5.0
-FIXED-VULN-IDS: GHSA-43f8-2h32-f4cj,GHSA-c2qf-rxjj-qqgw,GHSA-c6rq-rjc2-86v2
-REMAINING-VULNS: 6
-UNFIXABLE-VULNS: 6
+Found 0 vulnerabilities matching the filter
+No dependency patches are possible
+REMAINING-VULNS: 0
+UNFIXABLE-VULNS: 0
 
 ---
 
@@ -13237,7 +13249,7 @@ UNFIXABLE-VULNS: 6
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "npm-registry-client": "^7.5.0"
+    "npm-registry-client": "6.2.0"
   }
 }
 

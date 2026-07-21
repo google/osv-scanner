@@ -10,13 +10,11 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-	"time"
 
 	"charm.land/glamour/v2"
 	"charm.land/glamour/v2/ansi"
 	"charm.land/glamour/v2/styles"
 	"charm.land/lipgloss/v2"
-	"osv.dev/bindings/go/osvdev"
 
 	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
 	"github.com/google/osv-scalibr/clients/datasource"
@@ -246,13 +244,11 @@ func action(ctx context.Context, cmd *cli.Command, stdout io.Writer, clientFacto
 	cf, cleanup := osvscanner.SetupClientFactories(clientFactories, nil, userAgent)
 	defer cleanup()
 
-	httpClient := cf.HTTPClient()
-
 	// MavenClient is required for Maven projects
 	mc, err := datasource.NewMavenRegistryAPIClient(ctx, datasource.MavenRegistry{
 		URL:             cmd.String("maven-registry"),
 		ReleasesEnabled: true,
-	}, "", false, httpClient, nil)
+	}, "", false, cf.HTTPClient(), nil)
 	if err != nil {
 		return err
 	}
@@ -275,8 +271,10 @@ func action(ctx context.Context, cmd *cli.Command, stdout io.Writer, clientFacto
 			workDir = filepath.Dir(opts.Lockfile)
 		}
 		cl, err := resolution.NewCombinedNativeClient(resolution.CombinedNativeClientOptions{
-			ProjectDir:    workDir,
-			MavenRegistry: cmd.String("maven-registry"),
+			HTTPClient:        cf.HTTPClient(),
+			DisableGoogleAuth: true,
+			ProjectDir:        workDir,
+			MavenRegistry:     cmd.String("maven-registry"),
 		})
 		if err != nil {
 			return err
@@ -284,30 +282,31 @@ func action(ctx context.Context, cmd *cli.Command, stdout io.Writer, clientFacto
 		opts.ResolveClient = cl
 	}
 
+	cfg := &cpb.PluginConfig{
+		UserAgent: userAgent,
+		PluginSpecific: []*cpb.PluginSpecificConfig{
+			{Config: &cpb.PluginSpecificConfig_Osvlocal{Osvlocal: &cpb.OSVLocalConfig{
+				Download:   cmd.Bool("download-offline-databases"),
+				LocalPath:  cmd.String("local-db-path"),
+				RemoteHost: "https://osv-vulnerabilities.storage.googleapis.com",
+			}}},
+		},
+	}
+	pluginCfg := &config.PluginConfig{
+		ProtoConfig:     cfg,
+		ClientFactories: cf,
+	}
 	if cmd.Bool("offline-vulnerabilities") {
-		cfg := &cpb.PluginConfig{
-			UserAgent: userAgent,
-			PluginSpecific: []*cpb.PluginSpecificConfig{
-				{Config: &cpb.PluginSpecificConfig_Osvlocal{Osvlocal: &cpb.OSVLocalConfig{
-					Download:   cmd.Bool("download-offline-databases"),
-					LocalPath:  cmd.String("local-db-path"),
-					RemoteHost: "https://osv-vulnerabilities.storage.googleapis.com",
-				}}},
-			},
-		}
-		pluginCfg := &config.PluginConfig{
-			ProtoConfig:     cfg,
-			ClientFactories: config.NewDefaultClientFactories(userAgent),
-		}
 		enricher, err := osvlocal.New(pluginCfg)
 		if err != nil {
 			return err
 		}
 		opts.VulnEnricher = enricher
 	} else {
-		osvdevCl := osvdev.DefaultClient()
-		osvdevCl.Config.UserAgent = userAgent
-		opts.VulnEnricher = scalibrosvdev.NewWithClient(osvdevCl, 5*time.Minute)
+		opts.VulnEnricher, err = scalibrosvdev.New(pluginCfg)
+		if err != nil {
+			return err
+		}
 	}
 
 	if cmd.Bool("interactive") {

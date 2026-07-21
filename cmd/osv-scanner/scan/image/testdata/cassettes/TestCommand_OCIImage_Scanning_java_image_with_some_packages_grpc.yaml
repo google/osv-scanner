@@ -67,11 +67,11 @@ interactions:
           "results": [
             {
               "registry": "hub.docker.com/",
-              "repository": "amitnimbus2004/alpine-amsobit-git"
+              "repository": "kushvanth7/alpine"
             },
             {
               "registry": "hub.docker.com/",
-              "repository": "kushvanth7/alpine"
+              "repository": "amitnimbus2004/alpine-amsobit-git"
             }
           ]
         }
@@ -113,11 +113,11 @@ interactions:
             },
             {
               "registry": "hub.docker.com/",
-              "repository": "amitnimbus2004/alpine-amsobit-git"
+              "repository": "kushvanth7/alpine"
             },
             {
               "registry": "hub.docker.com/",
-              "repository": "kushvanth7/alpine"
+              "repository": "amitnimbus2004/alpine-amsobit-git"
             },
             {
               "registry": "hub.docker.com/",

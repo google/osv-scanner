@@ -1173,7 +1173,6 @@ interactions:
                 }
               },
               "version": {
-                "isDefault": true,
                 "licenseDetails": [
                   {
                     "license": "Apache-2.0 OR MIT",
@@ -1234,7 +1233,6 @@ interactions:
                 }
               },
               "version": {
-                "isDefault": true,
                 "licenseDetails": [
                   {
                     "license": "Apache-2.0 OR MIT",
@@ -1295,7 +1293,6 @@ interactions:
                 }
               },
               "version": {
-                "isDefault": true,
                 "licenseDetails": [
                   {
                     "license": "Apache-2.0 OR MIT",

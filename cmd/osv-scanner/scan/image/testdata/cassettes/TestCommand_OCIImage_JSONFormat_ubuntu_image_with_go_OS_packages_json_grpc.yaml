@@ -87,11 +87,11 @@ interactions:
             },
             {
               "registry": "hub.docker.com/",
-              "repository": "onoue1/ubuntu"
+              "repository": "bbash41/my_learning_repo_ubuntu"
             },
             {
               "registry": "hub.docker.com/",
-              "repository": "bbash41/my_learning_repo_ubuntu"
+              "repository": "onoue1/ubuntu"
             }
           ]
         }

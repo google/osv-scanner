@@ -728,7 +728,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 22135
+      content_length: 22196
       body: |
         {
           "results": [
@@ -2179,6 +2179,10 @@ interactions:
                   "modified": "2026-06-26T14:59:24.298942Z"
                 },
                 {
+                  "id": "USN-8477-2",
+                  "modified": "2026-07-17T05:19:51.333549Z"
+                },
+                {
                   "id": "USN-8510-1",
                   "modified": "2026-07-06T20:34:34.654931Z"
                 }
@@ -2223,7 +2227,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "22135"
+          - "22196"
         Content-Type:
           - application/json
       status: 200 OK

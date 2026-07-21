@@ -17,11 +17,15 @@ interactions:
             },
             {
               "registry": "hub.docker.com/",
+              "repository": "c3969863/c3969863-final-2024"
+            },
+            {
+              "registry": "hub.docker.com/",
               "repository": "osamaalgendy/hello-docker"
             },
             {
               "registry": "hub.docker.com/",
-              "repository": "c3969863/c3969863-final-2024"
+              "repository": "sshashini/mhw"
             },
             {
               "registry": "hub.docker.com/",
@@ -34,10 +38,6 @@ interactions:
             {
               "registry": "hub.docker.com/",
               "repository": "devopsdockerhub123/dk2506b01"
-            },
-            {
-              "registry": "hub.docker.com/",
-              "repository": "sshashini/mhw"
             },
             {
               "registry": "hub.docker.com/",
@@ -91,11 +91,15 @@ interactions:
             },
             {
               "registry": "hub.docker.com/",
+              "repository": "c3969863/c3969863-final-2024"
+            },
+            {
+              "registry": "hub.docker.com/",
               "repository": "osamaalgendy/hello-docker"
             },
             {
               "registry": "hub.docker.com/",
-              "repository": "c3969863/c3969863-final-2024"
+              "repository": "sshashini/mhw"
             },
             {
               "registry": "hub.docker.com/",
@@ -108,10 +112,6 @@ interactions:
             {
               "registry": "hub.docker.com/",
               "repository": "devopsdockerhub123/dk2506b01"
-            },
-            {
-              "registry": "hub.docker.com/",
-              "repository": "sshashini/mhw"
             },
             {
               "registry": "hub.docker.com/",
