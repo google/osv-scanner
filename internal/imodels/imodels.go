@@ -3,6 +3,7 @@ package imodels
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 	"sync"
 
@@ -148,7 +149,32 @@ func Version(pkg *extractor.Package) string {
 		}
 	}
 
+	// scalibr stores the RPM epoch separately from the version string. For
+	// ecosystems whose OSV records encode it, prepend the epoch when non-zero
+	// (e.g. "3.2.2-7.el9_6" -> "1:3.2.2-7.el9_6"); otherwise a missing epoch is
+	// read as 0 and already-fixed advisories are reported as unfixed.
+	if m, ok := pkg.Metadata.(*rpmmetadata.Metadata); ok && m.Epoch > 0 && ecosystemEncodesEpoch(Ecosystem(pkg).String()) {
+		return strconv.Itoa(m.Epoch) + ":" + pkg.Version
+	}
+
 	return pkg.Version
+}
+
+// rhelFamilyEpochEcosystems lists the RPM ecosystems whose OSV records encode
+// the package epoch (verified against api.osv.dev). Others (e.g. openEuler)
+// store epoch-less records, so prepending an epoch there would hide real
+// vulnerabilities; add entries only once epoch-encoding is confirmed.
+var rhelFamilyEpochEcosystems = map[string]bool{
+	"Red Hat":     true,
+	"AlmaLinux":   true,
+	"Rocky Linux": true,
+}
+
+// ecosystemEncodesEpoch reports whether the ecosystem's OSV records carry the
+// RPM epoch, so its version must be epoch-qualified to compare correctly.
+func ecosystemEncodesEpoch(ecosystem string) bool {
+	distro, _, _ := strings.Cut(ecosystem, ":")
+	return rhelFamilyEpochEcosystems[distro]
 }
 
 func Location(pkg *extractor.Package) string {
