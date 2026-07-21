@@ -14,6 +14,7 @@ import (
 	"strings"
 	"testing"
 
+	gocmp "github.com/google/go-cmp/cmp"
 	"github.com/tidwall/pretty"
 	"go.yaml.in/yaml/v4"
 	"gopkg.in/dnaeon/go-vcr.v4/pkg/cassette"
@@ -175,7 +176,11 @@ func InsertCassette(t *testing.T) *http.Client {
 	})
 
 	client := r.GetDefaultClient()
-	client.Transport = &vcrErrorWrappingTransport{wrapper: client.Transport}
+	client.Transport = &vcrErrorWrappingTransport{
+		t:            t,
+		wrapper:      client.Transport,
+		cassettePath: path,
+	}
 
 	return client
 }
@@ -261,12 +266,16 @@ func matchBody(r *http.Request, i cassette.Request) bool {
 }
 
 type vcrErrorWrappingTransport struct {
-	wrapper http.RoundTripper
+	t            *testing.T
+	wrapper      http.RoundTripper
+	cassettePath string
 }
 
 func (t *vcrErrorWrappingTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 	resp, err := t.wrapper.RoundTrip(req)
 	if err != nil && errors.Is(err, cassette.ErrInteractionNotFound) {
+		t.logRequestMismatch(req)
+
 		// Convert VCR error to a 404 response to avoid retries by the client
 		return &http.Response{
 			StatusCode: http.StatusNotFound,
@@ -278,4 +287,112 @@ func (t *vcrErrorWrappingTransport) RoundTrip(req *http.Request) (*http.Response
 	}
 
 	return resp, err
+}
+
+type comparableRequest struct {
+	Method  string      `yaml:"method"`
+	URL     string      `yaml:"url"`
+	Headers http.Header `yaml:"headers"`
+	Body    string      `yaml:"body"`
+}
+
+func toComparableRequest(r *http.Request) (comparableRequest, error) {
+	var body string
+	if r.Body != nil {
+		var buffer bytes.Buffer
+		if _, err := buffer.ReadFrom(r.Body); err != nil {
+			return comparableRequest{}, err
+		}
+		r.Body = io.NopCloser(bytes.NewBuffer(buffer.Bytes()))
+		prettyOptions := *pretty.DefaultOptions
+		prettyOptions.SortKeys = true
+		body = string(pretty.PrettyOptions(buffer.Bytes(), &prettyOptions))
+	}
+
+	headers := r.Header.Clone()
+	for _, header := range []string{"User-Agent", "Content-Length"} {
+		headers.Del(header)
+	}
+
+	return comparableRequest{
+		Method:  r.Method,
+		URL:     r.URL.String(),
+		Headers: headers,
+		Body:    body,
+	}, nil
+}
+
+func cassetteToComparableRequest(i cassette.Request) comparableRequest {
+	headers := i.Headers.Clone()
+	for _, header := range []string{"User-Agent", "Content-Length"} {
+		headers.Del(header)
+	}
+	prettyOptions := *pretty.DefaultOptions
+	prettyOptions.SortKeys = true
+	body := string(pretty.PrettyOptions([]byte(i.Body), &prettyOptions))
+
+	return comparableRequest{
+		Method:  i.Method,
+		URL:     i.URL,
+		Headers: headers,
+		Body:    body,
+	}
+}
+
+func (t *vcrErrorWrappingTransport) logRequestMismatch(req *http.Request) {
+	t.t.Helper()
+
+	cass, err := cassette.Load(strings.TrimSuffix(t.cassettePath, ".yaml"))
+	if err != nil {
+		t.t.Logf("VCR Miss: failed to load cassette %s: %v", t.cassettePath, err)
+		return
+	}
+
+	actual, err := toComparableRequest(req)
+	if err != nil {
+		t.t.Logf("VCR Miss: failed to parse incoming request: %v", err)
+		return
+	}
+
+	testName := req.Header.Get("X-Test-Name")
+	var candidates []*cassette.Interaction
+	for _, inter := range cass.Interactions {
+		if inter.Request.Headers.Get("X-Test-Name") == testName {
+			candidates = append(candidates, inter)
+		}
+	}
+
+	var sb strings.Builder
+	sb.WriteString("\n=================== VCR CASSETTE REQUEST MISMATCH ===================\n")
+	fmt.Fprintf(&sb, "Incoming request did not match any stored cassette interaction in %s.yaml\n", t.cassettePath)
+	fmt.Fprintf(&sb, "Incoming Request URL:    %s %s\n", actual.Method, actual.URL)
+	fmt.Fprintf(&sb, "Incoming Test Name:      %s\n", testName)
+
+	if len(candidates) > 0 {
+		fmt.Fprintf(&sb, "\nFound %d candidate(s) in the cassette matching this test name:\n", len(candidates))
+		for i, cand := range candidates {
+			fmt.Fprintf(&sb, "\n--- Candidate %d ---\n", i+1)
+			fmt.Fprintf(&sb, "Recorded URL:       %s %s\n", cand.Request.Method, cand.Request.URL)
+
+			candComparable := cassetteToComparableRequest(cand.Request)
+			diff := gocmp.Diff(candComparable, actual)
+			sb.WriteString("Diff (-recorded +actual):\n")
+			sb.WriteString(diff)
+		}
+	} else {
+		fmt.Fprintf(&sb, "\nNo candidate requests found matching the test name: %s\n", testName)
+		sb.WriteString("Recorded interactions in this cassette:\n")
+		seen := make(map[string]bool)
+		for _, inter := range cass.Interactions {
+			name := inter.Request.Headers.Get("X-Test-Name")
+			key := fmt.Sprintf("%s %s (Test: %s)", inter.Request.Method, inter.Request.URL, name)
+			if !seen[key] {
+				seen[key] = true
+				fmt.Fprintf(&sb, "  - %s\n", key)
+			}
+		}
+	}
+	sb.WriteString("=====================================================================\n")
+
+	t.t.Errorf("%s", sb.String())
 }
