@@ -93,41 +93,18 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 641
+      content_length: 276
       body: |
         {
           "results": [
             {},
             {},
             {},
-            {
-              "vulns": [
-                {
-                  "id": "ALPINE-CVE-2021-42376",
-                  "modified": "2026-07-08T04:32:12.032317Z"
-                }
-              ]
-            },
+            {},
             {},
             {},
             {
               "vulns": [
-                {
-                  "id": "ALPINE-CVE-2022-1292",
-                  "modified": "2026-07-08T04:31:47.244657Z"
-                },
-                {
-                  "id": "ALPINE-CVE-2022-2068",
-                  "modified": "2026-07-08T04:31:47.874039Z"
-                },
-                {
-                  "id": "ALPINE-CVE-2023-0466",
-                  "modified": "2026-07-08T04:31:25.432482Z"
-                },
-                {
-                  "id": "ALPINE-CVE-2023-4807",
-                  "modified": "2026-07-08T04:32:27.043928Z"
-                },
                 {
                   "id": "ALPINE-CVE-2024-13176",
                   "modified": "2026-06-15T18:18:10.257313Z"
@@ -152,7 +129,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "641"
+          - "276"
         Content-Type:
           - application/json
       status: 200 OK
