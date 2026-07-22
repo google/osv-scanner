@@ -20,8 +20,8 @@ deps.dev/util/pypi v0.0.0-20260422013440-90c27f84dd6f h1:hOkMV3kN25Ya1KQt8wAjCXB
 deps.dev/util/pypi v0.0.0-20260422013440-90c27f84dd6f/go.mod h1:qmA0z/Lsfa1FMtuLd9JmVZLMHR3GBX/EmbM6z1X3EDU=
 deps.dev/util/resolve v0.0.0-20260422013440-90c27f84dd6f h1:oO5wqRVaL9YgyTs4ChzkuUMoJF9YVRpoOWMFzEzVOTA=
 deps.dev/util/resolve v0.0.0-20260422013440-90c27f84dd6f/go.mod h1:MMwkZv3AU9PKySjbDQrmWWoycQCDLJmvixgzYNkxkrA=
-deps.dev/util/semver v0.0.0-20260422013440-90c27f84dd6f h1:XFitlaLTdEpbpqSTfjbZtUH2l3I3qWV1QzP8/oVRqvQ=
-deps.dev/util/semver v0.0.0-20260422013440-90c27f84dd6f/go.mod h1:jjJweVqtuMQ7Q4zlTQ/kCHpboojkRvpMYlhy/c93DVU=
+deps.dev/util/semver v0.0.0-20260529052642-cf1e78d92744 h1:Yg6n3A1/2vjSzdCm3Dz66FzwW+InVa6oWfpHs6ACZj0=
+deps.dev/util/semver v0.0.0-20260529052642-cf1e78d92744/go.mod h1:jjJweVqtuMQ7Q4zlTQ/kCHpboojkRvpMYlhy/c93DVU=
 github.com/Azure/go-ansiterm v0.0.0-20250102033503-faa5f7b0171c h1:udKWzYgxTojEKWjV8V+WSxDXJ4NFATAsZjh8iIbsQIg=
 github.com/Azure/go-ansiterm v0.0.0-20250102033503-faa5f7b0171c/go.mod h1:xomTg63KZ2rFqZQzSB4Vz2SUXa1BpHTVz9L5PTmPC4E=
 github.com/BurntSushi/toml v1.6.0 h1:dRaEfpa2VI55EwlIW72hMRHdWouJeRF7TPYhI+AUQjk=
@@ -247,8 +247,8 @@ github.com/google/go-cpy v0.0.0-20211218193943-a9c933c06932 h1:5/4TSDzpDnHQ8rKEE
 github.com/google/go-cpy v0.0.0-20211218193943-a9c933c06932/go.mod h1:cC6EdPbj/17GFCPDK39NRarlMI+kt+O60S12cNB5J9Y=
 github.com/google/jsonschema-go v0.4.3 h1:/DBOLZTfDow7pe2GmaJNhltueGTtDKICi8V8p+DQPd0=
 github.com/google/jsonschema-go v0.4.3/go.mod h1:r5quNTdLOYEz95Ru18zA0ydNbBuYoo9tgaYcxEYhJVE=
-github.com/google/osv-scalibr v0.4.6-0.20260528054050-7bf4ca1f5741 h1:XMOYIHmucl0wO7LD+OX5brOjDeOSSP6Sw6gtRgn/kJY=
-github.com/google/osv-scalibr v0.4.6-0.20260528054050-7bf4ca1f5741/go.mod h1:LMxs43EyIMi3TeiUkMeO8I9+uKnJV7QrQySEaCL2Io0=
+github.com/google/osv-scalibr v0.4.6-0.20260612031204-164402d9140e h1:cQTtydMwNMniteU1xth8JECOBS6vtw0FIjZVZUAqAJo=
+github.com/google/osv-scalibr v0.4.6-0.20260612031204-164402d9140e/go.mod h1:7NVYCBa6Uu7S2GvVj/kacQ8Bib8KhdIxU6+cf3aIIVI=
 github.com/google/pprof v0.0.0-20250820193118-f64d9cf942d6 h1:EEHtgt9IwisQ2AZ4pIsMjahcegHh6rmhqxzIRQIyepY=
 github.com/google/pprof v0.0.0-20250820193118-f64d9cf942d6/go.mod h1:I6V7YzU0XDpsHqbsyrghnFZLO1gwK6NPTNvmetQIk9U=
 github.com/google/uuid v1.6.0 h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=
