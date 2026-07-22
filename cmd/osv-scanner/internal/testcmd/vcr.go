@@ -540,6 +540,12 @@ func logGRPCRequestMismatch(t *testing.T, cassettePath string, method string, re
 		return
 	}
 
+	cleanJSON, err := grpcvcr.CleanJSON(string(actualJSON))
+	if err != nil {
+		t.Logf("gRPC VCR Miss: failed to clean incoming request: %v", err)
+		return
+	}
+
 	var candidates []grpcvcr.Interaction
 	if cass != nil {
 		for _, inter := range cass.Interactions {
@@ -553,13 +559,13 @@ func logGRPCRequestMismatch(t *testing.T, cassettePath string, method string, re
 	sb.WriteString("\n=================== gRPC VCR CASSETTE REQUEST MISMATCH ===================\n")
 	fmt.Fprintf(&sb, "Incoming gRPC request did not match any stored cassette interaction in %s\n", cassettePath)
 	fmt.Fprintf(&sb, "Incoming Method: %s\n", method)
-	fmt.Fprintf(&sb, "Incoming Request JSON:\n%s\n", string(actualJSON))
+	fmt.Fprintf(&sb, "Incoming Request JSON:\n%s\n", string(cleanJSON))
 
 	if len(candidates) > 0 {
 		fmt.Fprintf(&sb, "\nFound %d candidate(s) in the cassette matching this method:\n", len(candidates))
 		for i, cand := range candidates {
 			fmt.Fprintf(&sb, "\n--- Candidate %d ---\n", i+1)
-			diff := gocmp.Diff(cand.Request, string(actualJSON))
+			diff := gocmp.Diff(cand.Request, string(cleanJSON))
 			sb.WriteString("Diff (-recorded +actual):\n")
 			sb.WriteString(diff)
 		}

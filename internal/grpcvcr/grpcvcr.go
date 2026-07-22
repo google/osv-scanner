@@ -315,7 +315,8 @@ func (c *ClientConn) Close() error {
 	return errors.Join(errs...)
 }
 
-func cleanJSON(jsonStr string) (string, error) {
+// CleanJSON formats the JSON the same way it's formatted in the cassettes
+func CleanJSON(jsonStr string) (string, error) {
 	var val any
 	if err := json.Unmarshal([]byte(jsonStr), &val); err != nil {
 		return "", err
