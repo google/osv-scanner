@@ -7955,6 +7955,1148 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
+      content_length: 20518
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "aaa_base"
+              },
+              "version": "84.87+git20180409.04c9dae-150300.10.20.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "bash"
+              },
+              "version": "4.4-150400.25.22"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "bash-sh"
+              },
+              "version": "4.4-150400.25.22"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "boost-license1_66_0"
+              },
+              "version": "1.66.0-12.3.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "ca-certificates"
+              },
+              "version": "2+git20240416.98ae794-150300.4.3.3"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "ca-certificates-mozilla"
+              },
+              "version": "2.68-150200.33.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "coreutils"
+              },
+              "version": "8.32-150400.9.6.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "cpio"
+              },
+              "version": "2.13-150400.3.6.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "cracklib"
+              },
+              "version": "2.9.7-11.6.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "cracklib-dict-small"
+              },
+              "version": "2.9.7-11.6.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "crypto-policies"
+              },
+              "version": "20210917.c9d86d1-150400.3.6.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "curl"
+              },
+              "version": "8.0.1-150400.5.50.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "diffutils"
+              },
+              "version": "3.6-4.3.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "file-magic"
+              },
+              "version": "5.32-7.14.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "filesystem"
+              },
+              "version": "15.0-11.8.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "fillup"
+              },
+              "version": "1.42-2.18"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "findutils"
+              },
+              "version": "4.8.0-1.20"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "gawk"
+              },
+              "version": "4.2.1-150000.3.3.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "glibc"
+              },
+              "version": "2.31-150300.86.3"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "gpg-pubkey"
+              },
+              "version": "25db7ae0-645bae34"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "gpg-pubkey"
+              },
+              "version": "29b700a4-62b07e22"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "gpg-pubkey"
+              },
+              "version": "39db7c82-5f68629b"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "gpg-pubkey"
+              },
+              "version": "3dbdc284-53674dd4"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "gpg-pubkey"
+              },
+              "version": "3fa1d6ce-63c9481c"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "gpg-pubkey"
+              },
+              "version": "65176565-61a0ee8f"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "gpg2"
+              },
+              "version": "2.2.27-150300.3.8.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "grep"
+              },
+              "version": "3.1-150000.4.6.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "info"
+              },
+              "version": "6.5-4.17"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "krb5"
+              },
+              "version": "1.20.1-150500.3.9.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "kubic-locale-archive"
+              },
+              "version": "2.31-10.36"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libacl1"
+              },
+              "version": "2.2.52-4.3.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libassuan0"
+              },
+              "version": "2.5.5-150000.4.7.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libattr1"
+              },
+              "version": "2.4.47-2.19"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libaudit1"
+              },
+              "version": "3.0.6-150400.4.16.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libaugeas0"
+              },
+              "version": "1.12.0-150400.3.3.6"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libblkid1"
+              },
+              "version": "2.37.4-150500.9.17.2"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libboost_system1_66_0"
+              },
+              "version": "1.66.0-12.3.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libboost_thread1_66_0"
+              },
+              "version": "1.66.0-12.3.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libbrotlicommon1"
+              },
+              "version": "1.0.7-3.3.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libbrotlidec1"
+              },
+              "version": "1.0.7-3.3.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libbz2-1"
+              },
+              "version": "1.0.8-150400.1.122"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libcap-ng0"
+              },
+              "version": "0.7.9-4.37"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libcap2"
+              },
+              "version": "2.63-150400.3.3.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libcom_err2"
+              },
+              "version": "1.46.4-150400.3.6.2"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libcrack2"
+              },
+              "version": "2.9.7-11.6.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libcrypt1"
+              },
+              "version": "4.4.15-150300.4.7.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libcurl4"
+              },
+              "version": "8.0.1-150400.5.50.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libdw1"
+              },
+              "version": "0.185-150400.5.3.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libeconf0"
+              },
+              "version": "0.5.2-150400.3.6.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libelf1"
+              },
+              "version": "0.185-150400.5.3.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libfdisk1"
+              },
+              "version": "2.37.4-150500.9.17.2"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libffi7"
+              },
+              "version": "3.2.1.git259-10.8"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libgcc_s1"
+              },
+              "version": "13.3.0+git8781-150000.1.12.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libgcrypt20"
+              },
+              "version": "1.9.4-150500.10.19"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libgcrypt20-hmac"
+              },
+              "version": "1.9.4-150500.10.19"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libglib-2_0-0"
+              },
+              "version": "2.70.5-150400.3.14.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libgmp10"
+              },
+              "version": "6.1.2-4.9.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libgpg-error0"
+              },
+              "version": "1.42-150400.1.101"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libgpgme11"
+              },
+              "version": "1.16.0-150400.1.80"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libidn2-0"
+              },
+              "version": "2.2.0-3.6.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libjitterentropy3"
+              },
+              "version": "3.4.1-150000.1.12.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libkeyutils1"
+              },
+              "version": "1.6.3-5.6.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libksba8"
+              },
+              "version": "1.3.5-150000.4.6.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libldap-2_4-2"
+              },
+              "version": "2.4.46-150200.14.17.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libldap-data"
+              },
+              "version": "2.4.46-150200.14.17.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "liblua5_3-5"
+              },
+              "version": "5.3.6-3.6.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "liblzma5"
+              },
+              "version": "5.2.3-150000.4.7.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libmagic1"
+              },
+              "version": "5.32-7.14.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libmount1"
+              },
+              "version": "2.37.4-150500.9.17.2"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libncurses6"
+              },
+              "version": "6.1-150000.5.27.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libnghttp2-14"
+              },
+              "version": "1.40.0-150200.17.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libnpth0"
+              },
+              "version": "1.5-2.11"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libnsl2"
+              },
+              "version": "1.2.0-2.44"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libopenssl1_1"
+              },
+              "version": "1.1.1l-150500.17.34.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libopenssl1_1-hmac"
+              },
+              "version": "1.1.1l-150500.17.34.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libp11-kit0"
+              },
+              "version": "0.23.22-150500.8.3.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libpcre1"
+              },
+              "version": "8.45-150000.20.13.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libpopt0"
+              },
+              "version": "1.16-3.22"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libproxy1"
+              },
+              "version": "0.4.17-150400.1.8"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libpsl5"
+              },
+              "version": "0.20.1-150000.3.3.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libreadline7"
+              },
+              "version": "7.0-150400.25.22"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libsasl2-3"
+              },
+              "version": "2.1.28-150500.1.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libselinux1"
+              },
+              "version": "3.1-150400.1.69"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libsemanage1"
+              },
+              "version": "3.1-150400.3.4.2"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libsepol1"
+              },
+              "version": "3.1-150400.1.70"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libsigc-2_0-0"
+              },
+              "version": "2.10.7-150400.3.3.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libsmartcols1"
+              },
+              "version": "2.37.4-150500.9.17.2"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libsolv-tools"
+              },
+              "version": "0.7.30-150400.3.27.2"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libsolv-tools-base"
+              },
+              "version": "0.7.30-150400.3.27.2"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libsqlite3-0"
+              },
+              "version": "3.44.0-150000.3.23.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libssh-config"
+              },
+              "version": "0.9.8-150400.3.6.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libssh4"
+              },
+              "version": "0.9.8-150400.3.6.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libstdc++6"
+              },
+              "version": "13.3.0+git8781-150000.1.12.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libtasn1"
+              },
+              "version": "4.13-150000.4.8.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libtasn1-6"
+              },
+              "version": "4.13-150000.4.8.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libtirpc-netconfig"
+              },
+              "version": "1.3.4-150300.3.23.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libtirpc3"
+              },
+              "version": "1.3.4-150300.3.23.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libudev1"
+              },
+              "version": "249.17-150400.8.43.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libunistring2"
+              },
+              "version": "0.9.10-1.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libusb-1_0-0"
+              },
+              "version": "1.0.24-150400.3.3.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libutempter0"
+              },
+              "version": "1.1.6-3.42"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libuuid1"
+              },
+              "version": "2.37.4-150500.9.17.2"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libverto1"
+              },
+              "version": "0.2.6-3.20"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libxml2-2"
+              },
+              "version": "2.10.3-150500.5.17.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libyaml-cpp0_6"
+              },
+              "version": "0.6.3-150400.4.3.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libz1"
+              },
+              "version": "1.2.13-150500.4.3.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libzck1"
+              },
+              "version": "1.1.16-150400.3.7.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libzio1"
+              },
+              "version": "1.06-2.20"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libzstd1"
+              },
+              "version": "1.5.0-150400.3.3.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "libzypp"
+              },
+              "version": "17.35.8-150500.6.13.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "login_defs"
+              },
+              "version": "4.8.1-150400.10.21.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "ncurses-utils"
+              },
+              "version": "6.1-150000.5.27.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "netcfg"
+              },
+              "version": "11.6-150000.3.6.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "openSUSE-build-key"
+              },
+              "version": "1.0-lp155.7.3.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "openSUSE-release"
+              },
+              "version": "15.5-lp155.288.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "openSUSE-release-appliance-docker"
+              },
+              "version": "15.5-lp155.288.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "openssl-1_1"
+              },
+              "version": "1.1.1l-150500.17.34.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "p11-kit"
+              },
+              "version": "0.23.22-150500.8.3.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "p11-kit-tools"
+              },
+              "version": "0.23.22-150500.8.3.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "pam"
+              },
+              "version": "1.3.0-150000.6.71.2"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "patterns-base-fips"
+              },
+              "version": "20200505-lp155.11.3.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "perl-base"
+              },
+              "version": "5.26.1-150300.17.17.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "permissions"
+              },
+              "version": "20201225-150400.5.16.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "pinentry"
+              },
+              "version": "1.1.0-4.3.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "rpm-config-SUSE"
+              },
+              "version": "1-150400.14.3.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "rpm-ndb"
+              },
+              "version": "4.14.3-150400.59.16.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "sed"
+              },
+              "version": "4.4-150300.13.3.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "shadow"
+              },
+              "version": "4.8.1-150400.10.21.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "system-group-hardware"
+              },
+              "version": "20170617-150400.24.2.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "system-user-root"
+              },
+              "version": "20190513-3.3.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "sysuser-shadow"
+              },
+              "version": "3.2-150400.3.5.3"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "terminfo-base"
+              },
+              "version": "6.1-150000.5.27.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "timezone"
+              },
+              "version": "2024a-150000.75.28.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "update-alternatives"
+              },
+              "version": "1.19.0.4-150000.4.4.1"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "util-linux"
+              },
+              "version": "2.37.4-150500.9.17.2"
+            },
+            {
+              "package": {
+                "ecosystem": "openSUSE:Leap 15.5",
+                "name": "zypper"
+              },
+              "version": "1.14.76-150500.6.6.15"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_OCIImage/Scanning_openSUSE_Leap_15.5_image
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 649
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "SUSE-SU-2024:3926-1",
+                  "modified": "2026-02-04T03:13:33.777985Z"
+                },
+                {
+                  "id": "SUSE-SU-2024:4359-1",
+                  "modified": "2026-02-04T02:37:39.968201Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "SUSE-SU-2024:3765-1",
+                  "modified": "2026-02-04T02:58:21.218670Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "649"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
       content_length: 9254
       host: api.osv.dev
       body: |
@@ -11210,6 +12352,356 @@ interactions:
       headers:
         Content-Length:
           - "1758"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 3786
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Ubuntu:26.04",
+                "name": "base-files"
+              },
+              "version": "14ubuntu6"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:26.04",
+                "name": "bash"
+              },
+              "version": "5.3-2ubuntu1"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:26.04",
+                "name": "coreutils"
+              },
+              "version": "9.5-1ubuntu2+0.0.0~ubuntu25"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:26.04",
+                "name": "coreutils-from-gnu"
+              },
+              "version": "0.0.0~ubuntu25"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:26.04",
+                "name": "gcc-14-base"
+              },
+              "version": "14.3.0-14ubuntu1"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:26.04",
+                "name": "gnu-coreutils"
+              },
+              "version": "9.7-3ubuntu2"
+            },
+            {
+              "package": {
+                "ecosystem": "Go",
+                "name": "stdlib"
+              },
+              "version": "1.25.7"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:26.04",
+                "name": "golang"
+              },
+              "version": "2:1.26~1"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:26.04",
+                "name": "golang-1.25-go"
+              },
+              "version": "1.25.7-2"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:26.04",
+                "name": "golang-1.25-src"
+              },
+              "version": "1.25.7-2"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:26.04",
+                "name": "golang-go"
+              },
+              "version": "2:1.26~1"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:26.04",
+                "name": "golang-src"
+              },
+              "version": "2:1.26~1"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:26.04",
+                "name": "libacl1"
+              },
+              "version": "2.3.2-2"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:26.04",
+                "name": "libattr1"
+              },
+              "version": "1:2.5.2-4"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:26.04",
+                "name": "libc6"
+              },
+              "version": "2.43-2ubuntu2"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:26.04",
+                "name": "libcap2"
+              },
+              "version": "1:2.75-10ubuntu2"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:26.04",
+                "name": "libgcc-s1"
+              },
+              "version": "16-20260322-1ubuntu1"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:26.04",
+                "name": "libgmp10"
+              },
+              "version": "2:6.3.0+dfsg-5ubuntu2"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:26.04",
+                "name": "libpcre2-8-0"
+              },
+              "version": "10.46-1build1"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:26.04",
+                "name": "libselinux1"
+              },
+              "version": "3.9-4build1"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:26.04",
+                "name": "libssl3t64"
+              },
+              "version": "3.5.5-1ubuntu3"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:26.04",
+                "name": "libsystemd0"
+              },
+              "version": "259.5-0ubuntu3"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:26.04",
+                "name": "libtinfo6"
+              },
+              "version": "6.6+20251231-1"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:26.04",
+                "name": "libzstd1"
+              },
+              "version": "1.5.7+dfsg-3"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:26.04",
+                "name": "make"
+              },
+              "version": "4.4.1-3"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:26.04",
+                "name": "openssl-provider-legacy"
+              },
+              "version": "3.5.5-1ubuntu3"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:26.04",
+                "name": "zlib1g"
+              },
+              "version": "1:1.3.dfsg+really1.3.1-1ubuntu3"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_OCIImage/scanning_insecure_chiseled_ubuntu_image
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 1569
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "UBUNTU-CVE-2025-5278",
+                  "modified": "2026-05-20T16:23:34.282155Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GO-2026-4601",
+                  "modified": "2026-07-17T10:29:28.643038Z"
+                },
+                {
+                  "id": "GO-2026-4602",
+                  "modified": "2026-05-15T10:59:23.640277Z"
+                },
+                {
+                  "id": "GO-2026-4603",
+                  "modified": "2026-05-15T10:59:23.946663Z"
+                },
+                {
+                  "id": "GO-2026-4864",
+                  "modified": "2026-07-17T10:29:28.219429Z"
+                },
+                {
+                  "id": "GO-2026-4865",
+                  "modified": "2026-07-10T10:44:23.724783Z"
+                },
+                {
+                  "id": "GO-2026-4869",
+                  "modified": "2026-05-15T10:59:23.054049Z"
+                },
+                {
+                  "id": "GO-2026-4870",
+                  "modified": "2026-07-17T10:29:28.506946Z"
+                },
+                {
+                  "id": "GO-2026-4918",
+                  "modified": "2026-06-27T10:44:20.771417Z"
+                },
+                {
+                  "id": "GO-2026-4946",
+                  "modified": "2026-07-17T10:29:27.777936Z"
+                },
+                {
+                  "id": "GO-2026-4947",
+                  "modified": "2026-07-17T10:29:28.439607Z"
+                },
+                {
+                  "id": "GO-2026-4970",
+                  "modified": "2026-07-16T10:29:37.935192Z"
+                },
+                {
+                  "id": "GO-2026-4971",
+                  "modified": "2026-05-11T08:11:03.964539Z"
+                },
+                {
+                  "id": "GO-2026-4976",
+                  "modified": "2026-06-27T10:44:21.221469Z"
+                },
+                {
+                  "id": "GO-2026-4977",
+                  "modified": "2026-07-16T10:29:36.746311Z"
+                },
+                {
+                  "id": "GO-2026-4980",
+                  "modified": "2026-06-10T10:29:24.850854Z"
+                },
+                {
+                  "id": "GO-2026-4981",
+                  "modified": "2026-07-17T10:29:28.049309Z"
+                },
+                {
+                  "id": "GO-2026-4982",
+                  "modified": "2026-06-27T10:44:21.066171Z"
+                },
+                {
+                  "id": "GO-2026-4986",
+                  "modified": "2026-07-16T10:29:37.872339Z"
+                },
+                {
+                  "id": "GO-2026-5037",
+                  "modified": "2026-07-16T10:29:37.326923Z"
+                },
+                {
+                  "id": "GO-2026-5038",
+                  "modified": "2026-07-16T10:29:36.819917Z"
+                },
+                {
+                  "id": "GO-2026-5039",
+                  "modified": "2026-06-27T10:44:21.143168Z"
+                },
+                {
+                  "id": "GO-2026-5856",
+                  "modified": "2026-07-16T10:29:38.079216Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "1569"
         Content-Type:
           - application/json
       status: 200 OK

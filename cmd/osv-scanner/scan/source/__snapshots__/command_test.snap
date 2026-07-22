@@ -2052,8 +2052,8 @@ Total 12 packages affected by 53 known vulnerabilities (6 Critical, 20 High, 26 
       ]
     },
     {
-      "name": "league/flysystem",
-      "SPDXID": "SPDXRef-Package-league-flysystem-uuid-placeholder-4",
+      "name": "flysystem",
+      "SPDXID": "SPDXRef-Package-flysystem-uuid-placeholder-4",
       "versionInfo": "1.0.8",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -2065,7 +2065,7 @@ Total 12 packages affected by 53 known vulnerabilities (6 Critical, 20 High, 26 
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:composer/league%2Fflysystem@1.0.8"
+          "referenceLocator": "pkg:composer/league/flysystem@1.0.8"
         }
       ]
     },
@@ -2134,11 +2134,11 @@ Total 12 packages affected by 53 known vulnerabilities (6 Critical, 20 High, 26 
     },
     {
       "spdxElementId": "SPDXRef-Package-main-uuid-placeholder-1",
-      "relatedSpdxElement": "SPDXRef-Package-league-flysystem-uuid-placeholder-4",
+      "relatedSpdxElement": "SPDXRef-Package-flysystem-uuid-placeholder-4",
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-Package-league-flysystem-uuid-placeholder-4",
+      "spdxElementId": "SPDXRef-Package-flysystem-uuid-placeholder-4",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
     },
