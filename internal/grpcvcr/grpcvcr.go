@@ -83,6 +83,9 @@ type Recorder struct {
 	matcher      Matcher
 	mu           sync.Mutex
 	dirty        bool
+	// Passthrough determines if a given gRPC call should bypass VCR cassetting
+	// and invoke the real service directly.
+	Passthrough func(method string, req proto.Message) bool
 	// OnMiss is called when an interaction is not found during replay.
 	// This can be used to log detailed mismatches in tests.
 	OnMiss func(method string, req proto.Message, cassette *Cassette)
@@ -176,6 +179,10 @@ func (r *Recorder) Intercept(_ context.Context, method string, args, reply any, 
 	reqProto, ok := args.(proto.Message)
 	if !ok {
 		return errors.New("args does not implement proto.Message")
+	}
+
+	if r.Passthrough != nil && r.Passthrough(method, reqProto) {
+		return invokeReal()
 	}
 
 	respProto, ok := reply.(proto.Message)

@@ -13,6 +13,7 @@ import (
 
 	"go.yaml.in/yaml/v4"
 	"google.golang.org/protobuf/encoding/protojson"
+	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/testing/protocmp"
 	"google.golang.org/protobuf/types/known/structpb"
 )
@@ -493,5 +494,78 @@ func TestRecorder_Save_CleanJSON(t *testing.T) {
 	expectedJSON := "{\n  \"expiry_date\": \"clean-me\"\n}"
 	if reqJSON != expectedJSON {
 		t.Errorf("expected request JSON to be formatted as:\n%s\nbut got:\n%s", expectedJSON, reqJSON)
+	}
+}
+
+func TestRecorder_PassthroughFilter(t *testing.T) {
+	t.Parallel()
+
+	tmpDir := t.TempDir()
+	cassettePath := filepath.Join(tmpDir, "passthrough_filter_test.yaml")
+
+	rec, err := NewRecorder(cassettePath, ModeRecordOnly, t.Name())
+	if err != nil {
+		t.Fatalf("failed to create recorder: %v", err)
+	}
+
+	// Configure Passthrough filter to bypass "/test.Service/BypassMethod"
+	rec.Passthrough = func(method string, _ proto.Message) bool {
+		return method == "/test.Service/BypassMethod"
+	}
+
+	mockCalledMethod := ""
+	mock := &mockClientConn{
+		invokeFn: func(_ context.Context, method string, _, reply any, _ ...grpc.CallOption) error {
+			mockCalledMethod = method
+			resp := reply.(*structpb.Struct)
+			resp.Fields = map[string]*structpb.Value{
+				"reason": structpb.NewStringValue("live_call"),
+			}
+
+			return nil
+		},
+	}
+
+	conn := NewClientConn(mock, rec)
+
+	// Call 1: BypassMethod (should call mock and NOT record to cassette)
+	req1, _ := structpb.NewStruct(map[string]any{"key": "val1"})
+	resp1 := &structpb.Struct{}
+	if err := conn.Invoke(context.Background(), "/test.Service/BypassMethod", req1, resp1); err != nil {
+		t.Fatalf("Invoke failed: %v", err)
+	}
+
+	if mockCalledMethod != "/test.Service/BypassMethod" {
+		t.Errorf("expected mock to be called for BypassMethod, got %s", mockCalledMethod)
+	}
+
+	// Call 2: NormalMethod (should call mock AND record to cassette)
+	req2, _ := structpb.NewStruct(map[string]any{"key": "val2"})
+	resp2 := &structpb.Struct{}
+	if err := conn.Invoke(context.Background(), "/test.Service/NormalMethod", req2, resp2); err != nil {
+		t.Fatalf("Invoke failed: %v", err)
+	}
+
+	if err := conn.Close(); err != nil {
+		t.Fatalf("Close failed: %v", err)
+	}
+
+	// Read saved cassette
+	data, err := os.ReadFile(cassettePath)
+	if err != nil {
+		t.Fatalf("failed to read cassette: %v", err)
+	}
+
+	var cass Cassette
+	if err := yaml.Unmarshal(data, &cass); err != nil {
+		t.Fatalf("failed to unmarshal cassette: %v", err)
+	}
+
+	// Verify ONLY NormalMethod is present in the cassette
+	if len(cass.Interactions) != 1 {
+		t.Fatalf("expected 1 recorded interaction, got %d", len(cass.Interactions))
+	}
+	if cass.Interactions[0].Method != "/test.Service/NormalMethod" {
+		t.Errorf("expected recorded method to be /test.Service/NormalMethod, got %s", cass.Interactions[0].Method)
 	}
 }

@@ -42,6 +42,10 @@ const (
 	offlineDBRelativePath = "cmd/osv-scanner/internal/testcmd/testdata/offline-dbs"
 )
 
+var globalPassthroughGRPCMethods = []string{
+	"/QueryContainerImages",
+}
+
 func determineRecorderMode() recorder.Mode {
 	switch strings.ToLower(os.Getenv("TEST_VCR_MODE")) {
 	case "recordonly", "0":
@@ -153,6 +157,16 @@ func InsertGRPCRecorder(t *testing.T) *grpcvcr.Recorder {
 	rec, err := grpcvcr.NewRecorder(path, determineGRPCRecorderMode(), t.Name())
 	if err != nil {
 		t.Fatalf("failed to initialize gRPC recorder: %v", err)
+	}
+
+	rec.Passthrough = func(method string, _ proto.Message) bool {
+		for _, passthroughMethod := range globalPassthroughGRPCMethods {
+			if strings.HasSuffix(method, passthroughMethod) {
+				return true
+			}
+		}
+
+		return false
 	}
 
 	rec.OnMiss = func(method string, req proto.Message, cassette *grpcvcr.Cassette) {
@@ -559,13 +573,13 @@ func logGRPCRequestMismatch(t *testing.T, cassettePath string, method string, re
 	sb.WriteString("\n=================== gRPC VCR CASSETTE REQUEST MISMATCH ===================\n")
 	fmt.Fprintf(&sb, "Incoming gRPC request did not match any stored cassette interaction in %s\n", cassettePath)
 	fmt.Fprintf(&sb, "Incoming Method: %s\n", method)
-	fmt.Fprintf(&sb, "Incoming Request JSON:\n%s\n", string(cleanJSON))
+	fmt.Fprintf(&sb, "Incoming Request JSON:\n%s\n", cleanJSON)
 
 	if len(candidates) > 0 {
 		fmt.Fprintf(&sb, "\nFound %d candidate(s) in the cassette matching this method:\n", len(candidates))
 		for i, cand := range candidates {
 			fmt.Fprintf(&sb, "\n--- Candidate %d ---\n", i+1)
-			diff := gocmp.Diff(cand.Request, string(cleanJSON))
+			diff := gocmp.Diff(cand.Request, cleanJSON)
 			sb.WriteString("Diff (-recorded +actual):\n")
 			sb.WriteString(diff)
 		}
