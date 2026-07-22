@@ -2,7 +2,7 @@ interactions:
     - method: /deps_dev.v3alpha.Insights/QueryContainerImages
       request: |-
         {
-          "chainId": "sha256:0b45acf37a5ffe206746e84c3b95f8f71aa586fbadc779ab22807d2b3d422d98"
+          "chainId": "sha256:3c154ad1d2fe17cc025598d597f7537ac84a898725587f544a4efe37dfd5c6d1"
         }
       error:
         code: 5
@@ -24,7 +24,7 @@ interactions:
     - method: /deps_dev.v3alpha.Insights/QueryContainerImages
       request: |-
         {
-          "chainId": "sha256:59faf8a3c9319dd7ab108c7f12efa71601056f0c4f130a8addd6a5bc02a6cb88"
+          "chainId": "sha256:91f5c8d0ed0e4fb69d82ea6b1bce16e8b0c9e98d141f2bbd4a364efc76cf52a2"
         }
       error:
         code: 5

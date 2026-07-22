@@ -8,6 +8,7 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/testcmd"
+	"github.com/google/osv-scanner/v2/internal/grpcvcr"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
@@ -204,6 +205,7 @@ func TestCommand_Docker(t *testing.T) {
 func TestCommand_OCIImage(t *testing.T) {
 	t.Parallel()
 	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker to build the images")
+	passthroughRecorder, _ := grpcvcr.NewRecorder("", grpcvcr.ModePassthrough, t.Name())
 
 	tests := []testcmd.Case{
 		{
@@ -355,7 +357,8 @@ func TestCommand_OCIImage(t *testing.T) {
 				"", "image",
 				"--archive", "./testdata/test-chisel.tar",
 			},
-			Exit: 1,
+			GRPCRecorder: passthroughRecorder,
+			Exit:         1,
 		},
 	}
 	for _, tt := range tests {

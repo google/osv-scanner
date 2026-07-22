@@ -2020,6 +2020,14 @@ interactions:
     - method: /deps_dev.v3alpha.Insights/QueryContainerImages
       request: |-
         {
+          "chainId": "sha256:17344f6823bdd88df10f90ec8faacb0054026088d9b7db30829380aa4a6a06a4"
+        }
+      error:
+        code: 5
+        message: chain ID not found
+    - method: /deps_dev.v3alpha.Insights/QueryContainerImages
+      request: |-
+        {
           "chainId": "sha256:256f393e029fa2063d8c93720da36a74a032bed3355a2bc3e313ad12f8bde9d1"
         }
       response: |-
@@ -2071,14 +2079,6 @@ interactions:
             }
           ]
         }
-    - method: /deps_dev.v3alpha.Insights/QueryContainerImages
-      request: |-
-        {
-          "chainId": "sha256:565ff2e47db800d7171a00aa5fa7a1f2a78e4966eb3c17147019cc9aad1f9211"
-        }
-      error:
-        code: 5
-        message: chain ID not found
     - method: /deps_dev.v3alpha.Insights/QueryContainerImages
       request: |-
         {

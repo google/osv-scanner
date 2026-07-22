@@ -2,7 +2,7 @@ interactions:
     - method: /deps_dev.v3alpha.Insights/QueryContainerImages
       request: |-
         {
-          "chainId": "sha256:f807795a15bfcc040bc664605d53fe82c814a34af36e638c7c692d13f8f36eda"
+          "chainId": "sha256:5c7d9ae1a5bda75b0e580edfe6e9e66e03f04f4e3a207565221361e8c1aee78c"
         }
       error:
         code: 5

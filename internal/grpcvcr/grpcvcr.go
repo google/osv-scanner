@@ -210,7 +210,7 @@ func (r *Recorder) Intercept(_ context.Context, method string, args, reply any, 
 	// Record Mode / Miss in ReplayWithNewEpisodes
 	err = invokeReal()
 
-	cleanedReq, cleanErr := cleanJSON(string(reqJSON))
+	cleanedReq, cleanErr := CleanJSON(string(reqJSON))
 	if cleanErr != nil {
 		return fmt.Errorf("failed to clean request JSON: %w", cleanErr)
 	}
@@ -233,7 +233,7 @@ func (r *Recorder) Intercept(_ context.Context, method string, args, reply any, 
 		if err != nil {
 			return fmt.Errorf("failed to marshal response: %w", err)
 		}
-		cleanedResp, cleanErr := cleanJSON(string(respJSON))
+		cleanedResp, cleanErr := CleanJSON(string(respJSON))
 		if cleanErr != nil {
 			return fmt.Errorf("failed to clean response JSON: %w", cleanErr)
 		}

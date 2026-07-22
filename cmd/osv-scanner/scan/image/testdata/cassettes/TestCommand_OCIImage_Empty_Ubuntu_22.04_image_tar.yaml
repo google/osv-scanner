@@ -728,7 +728,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 22196
+      content_length: 22052
       body: |
         {
           "results": [
@@ -1665,20 +1665,12 @@ interactions:
                   "modified": "2026-06-16T13:30:37.035462Z"
                 },
                 {
-                  "id": "UBUNTU-CVE-2024-41996",
-                  "modified": "2026-07-08T22:45:14.910732Z"
-                },
-                {
                   "id": "UBUNTU-CVE-2024-9143",
                   "modified": "2026-06-16T13:30:42.533862Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-15467",
                   "modified": "2026-07-08T22:45:12.561148Z"
-                },
-                {
-                  "id": "UBUNTU-CVE-2025-27587",
-                  "modified": "2026-06-16T13:30:42.231385Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-68160",
@@ -2227,7 +2219,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "22196"
+          - "22052"
         Content-Type:
           - application/json
       status: 200 OK
