@@ -457,7 +457,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 29 packages affected by 90 known vulnerabilities (13 Critical, 27 High, 34 Medium, 6 Low, 10 Unknown) from 1 ecosystem.
-40 vulnerabilities can be fixed.
+41 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -513,7 +513,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 29 packages affected by 90 known vulnerabilities (13 Critical, 27 High, 34 Medium, 6 Low, 10 Unknown) from 1 ecosystem.
-40 vulnerabilities can be fixed.
+41 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -588,7 +588,7 @@ Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 30 packages affected by 92 known vulnerabilities (13 Critical, 29 High, 34 Medium, 6 Low, 10 Unknown) from 1 ecosystem.
-40 vulnerabilities can be fixed.
+41 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04

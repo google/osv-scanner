@@ -481,7 +481,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 2288
+      content_length: 2358
       body: |
         {
           "results": [
@@ -502,6 +502,10 @@ interactions:
                 {
                   "id": "GHSA-9m3q-rhmv-5q44",
                   "modified": "2026-02-04T03:22:18.343631Z"
+                },
+                {
+                  "id": "GHSA-x2f5-4prf-w687",
+                  "modified": "2026-07-23T20:00:25.148390Z"
                 }
               ]
             },
@@ -648,7 +652,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "2288"
+          - "2358"
         Content-Type:
           - application/json
       status: 200 OK

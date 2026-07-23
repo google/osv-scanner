@@ -5036,13 +5036,14 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 [TestCommand_MoreLockfiles/gems.locked - 1]
 Scanned <rootdir>/testdata/locks-scalibr/gems.locked file and found 26 packages
 
-Total 2 packages affected by 16 known vulnerabilities (0 Critical, 3 High, 3 Medium, 6 Low, 4 Unknown) from 1 ecosystem.
-16 vulnerabilities can be fixed.
+Total 2 packages affected by 17 known vulnerabilities (0 Critical, 3 High, 3 Medium, 7 Low, 4 Unknown) from 1 ecosystem.
+17 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+----------+---------+---------------+------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | FIXED VERSION | SOURCE                             |
 +-------------------------------------+------+-----------+----------+---------+---------------+------------------------------------+
 | https://osv.dev/GHSA-9m3q-rhmv-5q44 | 7.5  | RubyGems  | json     | 2.10.1  | 2.10.2        | testdata/locks-scalibr/gems.locked |
+| https://osv.dev/GHSA-x2f5-4prf-w687 | 3.7  | RubyGems  | json     | 2.10.1  | 2.19.9        | testdata/locks-scalibr/gems.locked |
 | https://osv.dev/GHSA-353f-x4gh-cqq8 |      | RubyGems  | nokogiri | 1.18.2  | 1.18.9        | testdata/locks-scalibr/gems.locked |
 | https://osv.dev/GHSA-5prr-v3j2-97mh | 6.3  | RubyGems  | nokogiri | 1.18.2  | 1.19.4        | testdata/locks-scalibr/gems.locked |
 | https://osv.dev/GHSA-5v8h-3h3q-446p | 1.7  | RubyGems  | nokogiri | 1.18.2  | 1.19.4        | testdata/locks-scalibr/gems.locked |
