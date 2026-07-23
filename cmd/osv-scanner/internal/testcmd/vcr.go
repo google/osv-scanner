@@ -217,7 +217,17 @@ func sortCassetteInteractions(t *testing.T, path string) {
 
 	// we don't need to worry about the interaction ids as they get updated as part of saving
 	slices.SortFunc(cass.Interactions, func(a, b *cassette.Interaction) int {
-		return cmp.Compare(a.Request.Headers.Get("X-Test-Name"), b.Request.Headers.Get("X-Test-Name"))
+		if c := cmp.Compare(a.Request.Headers.Get("X-Test-Name"), b.Request.Headers.Get("X-Test-Name")); c != 0 {
+			return c
+		}
+		if c := cmp.Compare(a.Request.Method, b.Request.Method); c != 0 {
+			return c
+		}
+		if c := cmp.Compare(a.Request.URL, b.Request.URL); c != 0 {
+			return c
+		}
+
+		return cmp.Compare(a.Request.Body, b.Request.Body)
 	})
 
 	if err = cass.Save(); err != nil {
