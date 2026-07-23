@@ -281,7 +281,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 3215
+      content_length: 3342
       host: api.osv.dev
       body: |
         {
@@ -394,6 +394,13 @@ interactions:
             {
               "package": {
                 "ecosystem": "RubyGems",
+                "name": "nokogiri"
+              },
+              "version": "1.18.2"
+            },
+            {
+              "package": {
+                "ecosystem": "RubyGems",
                 "name": "process-daemon"
               },
               "version": "1.0.1"
@@ -474,7 +481,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 1226
+      content_length: 2288
       body: |
         {
           "results": [
@@ -563,6 +570,70 @@ interactions:
                 }
               ]
             },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-353f-x4gh-cqq8",
+                  "modified": "2026-02-04T03:08:45.682451Z"
+                },
+                {
+                  "id": "GHSA-5prr-v3j2-97mh",
+                  "modified": "2026-07-08T08:26:44.766889Z"
+                },
+                {
+                  "id": "GHSA-5v8h-3h3q-446p",
+                  "modified": "2026-07-08T08:27:00.360401Z"
+                },
+                {
+                  "id": "GHSA-5w6v-399v-w3cc",
+                  "modified": "2026-02-04T02:49:28.572138Z"
+                },
+                {
+                  "id": "GHSA-8678-w3jw-xfc2",
+                  "modified": "2026-07-08T08:27:04.834739Z"
+                },
+                {
+                  "id": "GHSA-9cv2-cfxc-v4v2",
+                  "modified": "2026-07-08T08:27:16.983005Z"
+                },
+                {
+                  "id": "GHSA-c4rq-3m3g-8wgx",
+                  "modified": "2026-05-09T10:44:28.215577Z"
+                },
+                {
+                  "id": "GHSA-mrxw-mxhj-p664",
+                  "modified": "2026-02-04T04:34:58.905946Z"
+                },
+                {
+                  "id": "GHSA-p67v-3w7g-wjg7",
+                  "modified": "2026-07-08T08:26:56.127788Z"
+                },
+                {
+                  "id": "GHSA-phwj-rprq-35pp",
+                  "modified": "2026-07-08T08:27:03.953113Z"
+                },
+                {
+                  "id": "GHSA-v2fc-qm4h-8hqv",
+                  "modified": "2026-05-09T10:44:28.032980Z"
+                },
+                {
+                  "id": "GHSA-vvfq-8hwr-qm4m",
+                  "modified": "2026-02-04T03:58:31.466756Z"
+                },
+                {
+                  "id": "GHSA-wfpw-mmfh-qq69",
+                  "modified": "2026-07-08T08:27:03.524442Z"
+                },
+                {
+                  "id": "GHSA-wjv4-x9w8-wm3h",
+                  "modified": "2026-07-08T08:27:17.612665Z"
+                },
+                {
+                  "id": "GHSA-wx95-c6cv-8532",
+                  "modified": "2026-02-25T10:44:01.279701Z"
+                }
+              ]
+            },
             {},
             {},
             {},
@@ -577,7 +648,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "1226"
+          - "2288"
         Content-Type:
           - application/json
       status: 200 OK
