@@ -122,7 +122,14 @@ func InsertCassette(t *testing.T) *http.Client {
 			// exclude requests for info on a specific vuln since they can be quite large
 			// and their changes should be less impactful to our snapshots than the query
 			// endpoint, as those reqs are what results in specific vulns being looked up
-			return strings.HasPrefix(req.URL.Path, "/v1/vulns/")
+			if strings.HasPrefix(req.URL.Path, "/v1/vulns/") {
+				return true
+			}
+			// exclude requests for binary file downloads from cassettes (e.g. zip databases, jar files)
+			ext := strings.ToLower(filepath.Ext(req.URL.Path))
+			binaryExts := []string{".zip", ".gz", ".bin", ".db", ".tar", ".tgz", ".jar", ".aar", ".whl"}
+
+			return slices.Contains(binaryExts, ext)
 		}),
 		recorder.WithMatcher(matcher),
 		recorder.WithHook(func(i *cassette.Interaction) error {
@@ -137,6 +144,13 @@ func InsertCassette(t *testing.T) *http.Client {
 				"X-Cloud-Trace-Context",
 				"X-Envoy-Decorator-Operation",
 				"Date",
+				"Etag",
+				"X-Cache",
+				"X-Cache-Hits",
+				"X-Served-By",
+				"X-Timer",
+				"X-Pypi-Last-Serial",
+				"Age",
 			} {
 				delete(i.Response.Headers, header)
 			}
@@ -153,12 +167,16 @@ func InsertCassette(t *testing.T) *http.Client {
 			prettyOptions := *pretty.DefaultOptions
 			prettyOptions.SortKeys = true
 
-			i.Request.Body = string(pretty.PrettyOptions([]byte(i.Request.Body), &prettyOptions))
-			i.Request.ContentLength = int64(len(i.Request.Body))
+			if strings.Contains(strings.ToLower(i.Request.Headers.Get("Content-Type")), "json") {
+				i.Request.Body = string(pretty.PrettyOptions([]byte(i.Request.Body), &prettyOptions))
+				i.Request.ContentLength = int64(len(i.Request.Body))
+			}
 
 			// use a static duration since we don't care about replicating latency
 			i.Response.Duration = 0
-			i.Response.Body = string(pretty.PrettyOptions([]byte(i.Response.Body), &prettyOptions))
+			if strings.Contains(strings.ToLower(i.Response.Headers.Get("Content-Type")), "json") {
+				i.Response.Body = string(pretty.PrettyOptions([]byte(i.Response.Body), &prettyOptions))
+			}
 
 			return nil
 		}, recorder.AfterCaptureHook),
