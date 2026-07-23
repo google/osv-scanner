@@ -1136,7 +1136,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "certifi"
               },
-              "version": "2026.6.17"
+              "version": "2026.7.22"
             },
             {
               "package": {
@@ -1463,7 +1463,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "certifi"
               },
-              "version": "2026.6.17"
+              "version": "2026.7.22"
             },
             {
               "package": {
