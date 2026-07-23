@@ -1246,7 +1246,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 25862
+      content_length: 25943
       body: |
         {
           "results": [
@@ -1302,7 +1302,7 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2017-11164",
-                  "modified": "2026-04-22T11:10:44.262299Z"
+                  "modified": "2026-07-21T18:18:16.477212Z"
                 }
               ]
             },
@@ -1385,7 +1385,14 @@ interactions:
               ]
             },
             {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "DEBIAN-CVE-2026-53910",
+                  "modified": "2026-07-23T10:00:15.236919Z"
+                }
+              ]
+            },
             {},
             {
               "vulns": [
@@ -1482,7 +1489,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-xr7r-f8xq-vfvv",
-                  "modified": "2026-02-04T03:18:48.377509Z"
+                  "modified": "2026-07-21T15:00:40.929093Z"
                 },
                 {
                   "id": "GO-2022-0274",
@@ -2394,7 +2401,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2026-42770",
-                  "modified": "2026-06-16T05:00:12.124374Z"
+                  "modified": "2026-07-21T05:00:16.807014Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-45445",
@@ -2925,7 +2932,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2026-34743",
-                  "modified": "2026-07-13T12:00:11.362674Z"
+                  "modified": "2026-07-21T23:00:14.683048Z"
                 },
                 {
                   "id": "DSA-5123-1",
@@ -2943,7 +2950,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "25862"
+          - "25943"
         Content-Type:
           - application/json
       status: 200 OK
@@ -4014,7 +4021,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 25550
+      content_length: 25631
       body: |
         {
           "results": [
@@ -4129,7 +4136,14 @@ interactions:
               ]
             },
             {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "DEBIAN-CVE-2026-53910",
+                  "modified": "2026-07-23T10:00:15.236919Z"
+                }
+              ]
+            },
             {},
             {
               "vulns": [
@@ -4226,7 +4240,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-xr7r-f8xq-vfvv",
-                  "modified": "2026-02-04T03:18:48.377509Z"
+                  "modified": "2026-07-21T15:00:40.929093Z"
                 },
                 {
                   "id": "GO-2022-0274",
@@ -5138,7 +5152,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2026-42770",
-                  "modified": "2026-06-16T05:00:12.124374Z"
+                  "modified": "2026-07-21T05:00:16.807014Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-45445",
@@ -5669,7 +5683,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2026-34743",
-                  "modified": "2026-07-13T12:00:11.362674Z"
+                  "modified": "2026-07-21T23:00:14.683048Z"
                 },
                 {
                   "id": "DSA-5123-1",
@@ -5687,7 +5701,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "25550"
+          - "25631"
         Content-Type:
           - application/json
       status: 200 OK
