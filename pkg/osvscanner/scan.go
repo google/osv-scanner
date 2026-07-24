@@ -238,6 +238,7 @@ SBOMLoop:
 	// For each root, run scalibr's scan() once.
 	for root, paths := range rootMap {
 		sr := scanner.Scan(context.Background(), &scalibr.ScanConfig{
+		MaxFileSize:           defaultMaxFileSize,
 			Plugins:               filteredPlugins,
 			Capabilities:          &capabilities,
 			ScanRoots:             fs.RealFSScanRoots(root),
