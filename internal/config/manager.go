@@ -10,6 +10,7 @@ import (
 	"github.com/BurntSushi/toml"
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
+	"github.com/google/osv-scanner/v2/internal/output"
 )
 
 type Manager struct {
@@ -54,11 +55,11 @@ func (m *Manager) Get(targetPath string) Config {
 
 	config, configErr := tryLoadConfig(configPath)
 	if configErr == nil {
-		cmdlogger.Infof("Loaded filter from: %s", config.LoadPath)
+		cmdlogger.Infof("Loaded filter from: %s", output.SanitizeForWorkflowCommand(config.LoadPath))
 	} else {
 		// anything other than the config file not existing is most likely due to an invalid config file
 		if !errors.Is(configErr, os.ErrNotExist) {
-			cmdlogger.Errorf("Ignored invalid config file at %s because: %v", configPath, configErr)
+			cmdlogger.Errorf("Ignored invalid config file at %s because: %v", output.SanitizeForWorkflowCommand(configPath), configErr)
 		}
 		// If config doesn't exist, use the default config
 		config = m.DefaultConfig

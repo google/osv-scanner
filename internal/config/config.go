@@ -9,6 +9,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels"
+	"github.com/google/osv-scanner/v2/internal/output"
 )
 
 var OSVScannerConfigName = "osv-scanner.toml"
@@ -161,7 +162,7 @@ func (c *Config) warnAboutDuplicates() {
 
 	for _, vuln := range c.IgnoredVulns {
 		if _, ok := seen[vuln.ID]; ok {
-			cmdlogger.Warnf("warning: %s has multiple ignores for %s - only the first will be used!", c.LoadPath, vuln.ID)
+			cmdlogger.Warnf("warning: %s has multiple ignores for %s - only the first will be used!", output.SanitizeForWorkflowCommand(c.LoadPath), vuln.ID)
 		}
 		seen[vuln.ID] = struct{}{}
 	}
