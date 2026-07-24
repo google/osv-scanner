@@ -1380,6 +1380,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "name": "pip",
             "version": "23.0.1",
             "ecosystem": "PyPI",
+            "purl": "pkg:pypi/pip@23.0.1",
             "image_origin_details": {
               "index": 7
             }
@@ -1413,6 +1414,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "name": "setuptools",
             "version": "58.1.0",
             "ecosystem": "PyPI",
+            "purl": "pkg:pypi/setuptools@58.1.0",
             "image_origin_details": {
               "index": 7
             }
@@ -1441,6 +1443,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "name": "django",
             "version": "1.11.29",
             "ecosystem": "PyPI",
+            "purl": "pkg:pypi/django@1.11.29",
             "image_origin_details": {
               "index": 17
             }
@@ -1471,6 +1474,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "name": "flask",
             "version": "0.12.2",
             "ecosystem": "PyPI",
+            "purl": "pkg:pypi/flask@0.12.2",
             "image_origin_details": {
               "index": 17
             }
@@ -1500,6 +1504,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "name": "click",
             "version": "8.1.8",
             "ecosystem": "PyPI",
+            "purl": "pkg:pypi/click@8.1.8",
             "image_origin_details": {
               "index": 17
             }
@@ -1522,6 +1527,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "name": "idna",
             "version": "2.7",
             "ecosystem": "PyPI",
+            "purl": "pkg:pypi/idna@2.7",
             "image_origin_details": {
               "index": 17
             }
@@ -1547,6 +1553,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "name": "pip",
             "version": "23.0.1",
             "ecosystem": "PyPI",
+            "purl": "pkg:pypi/pip@23.0.1",
             "image_origin_details": {
               "index": 13
             }
@@ -1580,6 +1587,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "name": "requests",
             "version": "2.20.0",
             "ecosystem": "PyPI",
+            "purl": "pkg:pypi/requests@2.20.0",
             "image_origin_details": {
               "index": 17
             }
@@ -1609,6 +1617,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "name": "setuptools",
             "version": "58.1.0",
             "ecosystem": "PyPI",
+            "purl": "pkg:pypi/setuptools@58.1.0",
             "image_origin_details": {
               "index": 13
             }
@@ -1637,6 +1646,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "name": "urllib3",
             "version": "1.24.3",
             "ecosystem": "PyPI",
+            "purl": "pkg:pypi/urllib3@1.24.3",
             "image_origin_details": {
               "index": 17
             }
@@ -1676,6 +1686,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "name": "werkzeug",
             "version": "3.1.4",
             "ecosystem": "PyPI",
+            "purl": "pkg:pypi/werkzeug@3.1.4",
             "image_origin_details": {
               "index": 17
             }
@@ -1701,6 +1712,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "name": "wheel",
             "version": "0.40.0",
             "ecosystem": "PyPI",
+            "purl": "pkg:pypi/wheel@0.40.0",
             "image_origin_details": {
               "index": 13
             }
@@ -1725,6 +1737,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "os_package_name": "debian-archive-keyring",
             "version": "2019.1+deb10u1",
             "ecosystem": "Debian:10",
+            "purl": "pkg:deb/debian/debian-archive-keyring@2019.1%2Bdeb10u1?arch=all/u0026distro=buster",
             "image_origin_details": {
               "index": 0
             }
@@ -1740,6 +1753,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "os_package_name": "fdisk",
             "version": "2.33.1-0.1",
             "ecosystem": "Debian:10",
+            "purl": "pkg:deb/debian/fdisk@2.33.1-0.1?arch=amd64/u0026distro=buster/u0026source=util-linux",
             "image_origin_details": {
               "index": 0
             }
@@ -1755,6 +1769,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "os_package_name": "libblkid1",
             "version": "2.33.1-0.1",
             "ecosystem": "Debian:10",
+            "purl": "pkg:deb/debian/libblkid1@2.33.1-0.1?arch=amd64/u0026distro=buster/u0026source=util-linux",
             "image_origin_details": {
               "index": 0
             }
@@ -1770,6 +1785,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "os_package_name": "libc-bin",
             "version": "2.28-10+deb10u2",
             "ecosystem": "Debian:10",
+            "purl": "pkg:deb/debian/libc-bin@2.28-10%2Bdeb10u2?arch=amd64/u0026distro=buster/u0026source=glibc",
             "image_origin_details": {
               "index": 0
             }
@@ -1786,6 +1802,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "os_package_name": "libc6",
             "version": "2.28-10+deb10u2",
             "ecosystem": "Debian:10",
+            "purl": "pkg:deb/debian/libc6@2.28-10%2Bdeb10u2?arch=amd64/u0026distro=buster/u0026source=glibc",
             "image_origin_details": {
               "index": 0
             }
@@ -1802,6 +1819,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "os_package_name": "libexpat1",
             "version": "2.2.6-2+deb10u6",
             "ecosystem": "Debian:10",
+            "purl": "pkg:deb/debian/libexpat1@2.2.6-2%2Bdeb10u6?arch=amd64/u0026distro=buster/u0026source=expat",
             "image_origin_details": {
               "index": 7
             }
@@ -1817,6 +1835,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "os_package_name": "libfdisk1",
             "version": "2.33.1-0.1",
             "ecosystem": "Debian:10",
+            "purl": "pkg:deb/debian/libfdisk1@2.33.1-0.1?arch=amd64/u0026distro=buster/u0026source=util-linux",
             "image_origin_details": {
               "index": 0
             }
@@ -1832,6 +1851,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "os_package_name": "libgnutls30",
             "version": "3.6.7-4+deb10u10",
             "ecosystem": "Debian:10",
+            "purl": "pkg:deb/debian/libgnutls30@3.6.7-4%2Bdeb10u10?arch=amd64/u0026distro=buster/u0026source=gnutls28",
             "image_origin_details": {
               "index": 0
             }
@@ -1848,6 +1868,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "os_package_name": "libmount1",
             "version": "2.33.1-0.1",
             "ecosystem": "Debian:10",
+            "purl": "pkg:deb/debian/libmount1@2.33.1-0.1?arch=amd64/u0026distro=buster/u0026source=util-linux",
             "image_origin_details": {
               "index": 0
             }
@@ -1863,6 +1884,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "os_package_name": "libncursesw6",
             "version": "6.1+20181013-2+deb10u3",
             "ecosystem": "Debian:10",
+            "purl": "pkg:deb/debian/libncursesw6@6.1%2B20181013-2%2Bdeb10u3?arch=amd64/u0026distro=buster/u0026source=ncurses",
             "image_origin_details": {
               "index": 0
             }
@@ -1879,6 +1901,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "os_package_name": "libsmartcols1",
             "version": "2.33.1-0.1",
             "ecosystem": "Debian:10",
+            "purl": "pkg:deb/debian/libsmartcols1@2.33.1-0.1?arch=amd64/u0026distro=buster/u0026source=util-linux",
             "image_origin_details": {
               "index": 0
             }
@@ -1894,6 +1917,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "os_package_name": "libssl1.1",
             "version": "1.1.1n-0+deb10u5",
             "ecosystem": "Debian:10",
+            "purl": "pkg:deb/debian/libssl1.1@1.1.1n-0%2Bdeb10u5?arch=amd64/u0026distro=buster/u0026source=openssl",
             "image_origin_details": {
               "index": 4
             }
@@ -1909,6 +1933,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "os_package_name": "libsystemd0",
             "version": "241-7~deb10u9",
             "ecosystem": "Debian:10",
+            "purl": "pkg:deb/debian/libsystemd0@241-7~deb10u9?arch=amd64/u0026distro=buster/u0026source=systemd",
             "image_origin_details": {
               "index": 0
             }
@@ -1924,6 +1949,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "os_package_name": "libtinfo6",
             "version": "6.1+20181013-2+deb10u3",
             "ecosystem": "Debian:10",
+            "purl": "pkg:deb/debian/libtinfo6@6.1%2B20181013-2%2Bdeb10u3?arch=amd64/u0026distro=buster/u0026source=ncurses",
             "image_origin_details": {
               "index": 0
             }
@@ -1940,6 +1966,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "os_package_name": "libudev1",
             "version": "241-7~deb10u9",
             "ecosystem": "Debian:10",
+            "purl": "pkg:deb/debian/libudev1@241-7~deb10u9?arch=amd64/u0026distro=buster/u0026source=systemd",
             "image_origin_details": {
               "index": 0
             }
@@ -1955,6 +1982,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "os_package_name": "libuuid1",
             "version": "2.33.1-0.1",
             "ecosystem": "Debian:10",
+            "purl": "pkg:deb/debian/libuuid1@2.33.1-0.1?arch=amd64/u0026distro=buster/u0026source=util-linux",
             "image_origin_details": {
               "index": 0
             }
@@ -1970,6 +1998,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "os_package_name": "mount",
             "version": "2.33.1-0.1",
             "ecosystem": "Debian:10",
+            "purl": "pkg:deb/debian/mount@2.33.1-0.1?arch=amd64/u0026distro=buster/u0026source=util-linux",
             "image_origin_details": {
               "index": 0
             }
@@ -1985,6 +2014,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "os_package_name": "ncurses-base",
             "version": "6.1+20181013-2+deb10u3",
             "ecosystem": "Debian:10",
+            "purl": "pkg:deb/debian/ncurses-base@6.1%2B20181013-2%2Bdeb10u3?arch=all/u0026distro=buster/u0026source=ncurses",
             "image_origin_details": {
               "index": 0
             }
@@ -2001,6 +2031,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "os_package_name": "ncurses-bin",
             "version": "6.1+20181013-2+deb10u3",
             "ecosystem": "Debian:10",
+            "purl": "pkg:deb/debian/ncurses-bin@6.1%2B20181013-2%2Bdeb10u3?arch=amd64/u0026distro=buster/u0026source=ncurses",
             "image_origin_details": {
               "index": 0
             }
@@ -2017,6 +2048,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "os_package_name": "openssl",
             "version": "1.1.1n-0+deb10u5",
             "ecosystem": "Debian:10",
+            "purl": "pkg:deb/debian/openssl@1.1.1n-0%2Bdeb10u5?arch=amd64/u0026distro=buster",
             "image_origin_details": {
               "index": 4
             }
@@ -2032,6 +2064,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "os_package_name": "tar",
             "version": "1.30+dfsg-6",
             "ecosystem": "Debian:10",
+            "purl": "pkg:deb/debian/tar@1.30%2Bdfsg-6?arch=amd64/u0026distro=buster",
             "image_origin_details": {
               "index": 0
             }
@@ -2047,6 +2080,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "os_package_name": "tzdata",
             "version": "2021a-0+deb10u11",
             "ecosystem": "Debian:10",
+            "purl": "pkg:deb/debian/tzdata@2021a-0%2Bdeb10u11?arch=all/u0026distro=buster",
             "image_origin_details": {
               "index": 0
             }
@@ -2063,6 +2097,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "os_package_name": "util-linux",
             "version": "2.33.1-0.1",
             "ecosystem": "Debian:10",
+            "purl": "pkg:deb/debian/util-linux@2.33.1-0.1?arch=amd64/u0026distro=buster",
             "image_origin_details": {
               "index": 0
             }
@@ -2240,6 +2275,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "name": "url",
             "version": "2.5.3",
             "ecosystem": "crates.io",
+            "purl": "pkg:cargo/url@2.5.3",
             "deprecated": true,
             "image_origin_details": {
               "index": 2
@@ -2260,6 +2296,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "busybox",
             "version": "1.37.0-r19",
             "ecosystem": "Alpine:v3.22",
+            "purl": "pkg:apk/alpine/busybox@1.37.0-r19?arch=x86_64/u0026distro=3.22.2/u0026origin=busybox",
             "commit": "bd8ab811155a6087ba7480103d89e2500e3cb0eb",
             "image_origin_details": {
               "index": 0
@@ -2277,6 +2314,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "busybox-binsh",
             "version": "1.37.0-r19",
             "ecosystem": "Alpine:v3.22",
+            "purl": "pkg:apk/alpine/busybox-binsh@1.37.0-r19?arch=x86_64/u0026distro=3.22.2/u0026origin=busybox",
             "commit": "bd8ab811155a6087ba7480103d89e2500e3cb0eb",
             "image_origin_details": {
               "index": 0
@@ -2294,6 +2332,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "libcrypto3",
             "version": "3.5.4-r0",
             "ecosystem": "Alpine:v3.22",
+            "purl": "pkg:apk/alpine/libcrypto3@3.5.4-r0?arch=x86_64/u0026distro=3.22.2/u0026origin=openssl",
             "commit": "8f330e62bd41c2ac23dbd866fea36fb8e22f8422",
             "image_origin_details": {
               "index": 0
@@ -2343,6 +2382,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "libssl3",
             "version": "3.5.4-r0",
             "ecosystem": "Alpine:v3.22",
+            "purl": "pkg:apk/alpine/libssl3@3.5.4-r0?arch=x86_64/u0026distro=3.22.2/u0026origin=openssl",
             "commit": "8f330e62bd41c2ac23dbd866fea36fb8e22f8422",
             "image_origin_details": {
               "index": 0
@@ -2392,6 +2432,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "musl",
             "version": "1.2.5-r10",
             "ecosystem": "Alpine:v3.22",
+            "purl": "pkg:apk/alpine/musl@1.2.5-r10?arch=x86_64/u0026distro=3.22.2/u0026origin=musl",
             "commit": "1a5f5e699b2eae883e73c93a789f87bd89a2a190",
             "image_origin_details": {
               "index": 0
@@ -2409,6 +2450,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "musl-utils",
             "version": "1.2.5-r10",
             "ecosystem": "Alpine:v3.22",
+            "purl": "pkg:apk/alpine/musl-utils@1.2.5-r10?arch=x86_64/u0026distro=3.22.2/u0026origin=musl",
             "commit": "1a5f5e699b2eae883e73c93a789f87bd89a2a190",
             "image_origin_details": {
               "index": 0
@@ -2426,6 +2468,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "ssl_client",
             "version": "1.37.0-r19",
             "ecosystem": "Alpine:v3.22",
+            "purl": "pkg:apk/alpine/ssl_client@1.37.0-r19?arch=x86_64/u0026distro=3.22.2/u0026origin=busybox",
             "commit": "bd8ab811155a6087ba7480103d89e2500e3cb0eb",
             "image_origin_details": {
               "index": 0
@@ -2443,6 +2486,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "zlib",
             "version": "1.3.1-r2",
             "ecosystem": "Alpine:v3.22",
+            "purl": "pkg:apk/alpine/zlib@1.3.1-r2?arch=x86_64/u0026distro=3.22.2/u0026origin=zlib",
             "commit": "4c2722e7ecc1c5e3ba882429044a101497121223",
             "image_origin_details": {
               "index": 0
@@ -2520,6 +2564,7 @@ Scanning local image tarball "./testdata/test-image-with-deprecated.tar"
             "name": "github.com/BurntSushi/toml",
             "version": "1.4.0",
             "ecosystem": "Go",
+            "purl": "pkg:golang/github.com/burntsushi/toml@1.4.0",
             "image_origin_details": {
               "index": 2
             }
@@ -2530,6 +2575,7 @@ Scanning local image tarball "./testdata/test-image-with-deprecated.tar"
             "name": "stdlib",
             "version": "1.22.4",
             "ecosystem": "Go",
+            "purl": "pkg:golang/go@1.22.4",
             "image_origin_details": {
               "index": 2
             }
@@ -2595,6 +2641,7 @@ Scanning local image tarball "./testdata/test-image-with-deprecated.tar"
             "name": "ptf",
             "version": "(devel)",
             "ecosystem": "Go",
+            "purl": "pkg:golang/ptf@(devel)",
             "image_origin_details": {
               "index": 2
             }
@@ -2614,6 +2661,7 @@ Scanning local image tarball "./testdata/test-image-with-deprecated.tar"
             "os_package_name": "alpine-baselayout",
             "version": "3.6.5-r0",
             "ecosystem": "Alpine:v3.20",
+            "purl": "pkg:apk/alpine/alpine-baselayout@3.6.5-r0?arch=x86_64/u0026distro=3.20.1/u0026origin=alpine-baselayout",
             "commit": "66187892e05b03a41d08e9acabd19b7576a1c875",
             "image_origin_details": {
               "index": 0
@@ -2626,6 +2674,7 @@ Scanning local image tarball "./testdata/test-image-with-deprecated.tar"
             "os_package_name": "alpine-baselayout-data",
             "version": "3.6.5-r0",
             "ecosystem": "Alpine:v3.20",
+            "purl": "pkg:apk/alpine/alpine-baselayout-data@3.6.5-r0?arch=x86_64/u0026distro=3.20.1/u0026origin=alpine-baselayout",
             "commit": "66187892e05b03a41d08e9acabd19b7576a1c875",
             "image_origin_details": {
               "index": 0
@@ -2638,6 +2687,7 @@ Scanning local image tarball "./testdata/test-image-with-deprecated.tar"
             "os_package_name": "alpine-keys",
             "version": "2.4-r1",
             "ecosystem": "Alpine:v3.20",
+            "purl": "pkg:apk/alpine/alpine-keys@2.4-r1?arch=x86_64/u0026distro=3.20.1/u0026origin=alpine-keys",
             "commit": "aab68f8c9ab434a46710de8e12fb3206e2930a59",
             "image_origin_details": {
               "index": 0
@@ -2650,6 +2700,7 @@ Scanning local image tarball "./testdata/test-image-with-deprecated.tar"
             "os_package_name": "apk-tools",
             "version": "2.14.4-r0",
             "ecosystem": "Alpine:v3.20",
+            "purl": "pkg:apk/alpine/apk-tools@2.14.4-r0?arch=x86_64/u0026distro=3.20.1/u0026origin=apk-tools",
             "commit": "d435c805af8af4171438da3ec3429c094aac4c6e",
             "image_origin_details": {
               "index": 0
@@ -2662,6 +2713,7 @@ Scanning local image tarball "./testdata/test-image-with-deprecated.tar"
             "os_package_name": "busybox",
             "version": "1.36.1-r29",
             "ecosystem": "Alpine:v3.20",
+            "purl": "pkg:apk/alpine/busybox@1.36.1-r29?arch=x86_64/u0026distro=3.20.1/u0026origin=busybox",
             "commit": "1747c01fb96905f101c25609011589d28e01cbb8",
             "image_origin_details": {
               "index": 0
@@ -2679,6 +2731,7 @@ Scanning local image tarball "./testdata/test-image-with-deprecated.tar"
             "os_package_name": "busybox-binsh",
             "version": "1.36.1-r29",
             "ecosystem": "Alpine:v3.20",
+            "purl": "pkg:apk/alpine/busybox-binsh@1.36.1-r29?arch=x86_64/u0026distro=3.20.1/u0026origin=busybox",
             "commit": "1747c01fb96905f101c25609011589d28e01cbb8",
             "image_origin_details": {
               "index": 0
@@ -2696,6 +2749,7 @@ Scanning local image tarball "./testdata/test-image-with-deprecated.tar"
             "os_package_name": "ca-certificates-bundle",
             "version": "20240226-r0",
             "ecosystem": "Alpine:v3.20",
+            "purl": "pkg:apk/alpine/ca-certificates-bundle@20240226-r0?arch=x86_64/u0026distro=3.20.1/u0026origin=ca-certificates",
             "commit": "56fb003da0adcea3b59373ef6a633d0c5bfef3ac",
             "image_origin_details": {
               "index": 0
@@ -2708,6 +2762,7 @@ Scanning local image tarball "./testdata/test-image-with-deprecated.tar"
             "os_package_name": "libcrypto3",
             "version": "3.3.1-r0",
             "ecosystem": "Alpine:v3.20",
+            "purl": "pkg:apk/alpine/libcrypto3@3.3.1-r0?arch=x86_64/u0026distro=3.20.1/u0026origin=openssl",
             "commit": "15cc530882e1e6f3dc8a77200ee8bd01cb98f53c",
             "image_origin_details": {
               "index": 0
@@ -2747,6 +2802,7 @@ Scanning local image tarball "./testdata/test-image-with-deprecated.tar"
             "os_package_name": "libssl3",
             "version": "3.3.1-r0",
             "ecosystem": "Alpine:v3.20",
+            "purl": "pkg:apk/alpine/libssl3@3.3.1-r0?arch=x86_64/u0026distro=3.20.1/u0026origin=openssl",
             "commit": "15cc530882e1e6f3dc8a77200ee8bd01cb98f53c",
             "image_origin_details": {
               "index": 0
@@ -2786,6 +2842,7 @@ Scanning local image tarball "./testdata/test-image-with-deprecated.tar"
             "os_package_name": "musl",
             "version": "1.2.5-r0",
             "ecosystem": "Alpine:v3.20",
+            "purl": "pkg:apk/alpine/musl@1.2.5-r0?arch=x86_64/u0026distro=3.20.1/u0026origin=musl",
             "commit": "4fe5bdbe47b100daa6380f81c4c8ea3f99b61362",
             "image_origin_details": {
               "index": 0
@@ -2804,6 +2861,7 @@ Scanning local image tarball "./testdata/test-image-with-deprecated.tar"
             "os_package_name": "musl-utils",
             "version": "1.2.5-r0",
             "ecosystem": "Alpine:v3.20",
+            "purl": "pkg:apk/alpine/musl-utils@1.2.5-r0?arch=x86_64/u0026distro=3.20.1/u0026origin=musl",
             "commit": "4fe5bdbe47b100daa6380f81c4c8ea3f99b61362",
             "image_origin_details": {
               "index": 0
@@ -2822,6 +2880,7 @@ Scanning local image tarball "./testdata/test-image-with-deprecated.tar"
             "os_package_name": "scanelf",
             "version": "1.3.7-r2",
             "ecosystem": "Alpine:v3.20",
+            "purl": "pkg:apk/alpine/scanelf@1.3.7-r2?arch=x86_64/u0026distro=3.20.1/u0026origin=pax-utils",
             "commit": "e65a4f2d0470e70d862ef2b5c412ecf2cb9ad0a6",
             "image_origin_details": {
               "index": 0
@@ -2834,6 +2893,7 @@ Scanning local image tarball "./testdata/test-image-with-deprecated.tar"
             "os_package_name": "ssl_client",
             "version": "1.36.1-r29",
             "ecosystem": "Alpine:v3.20",
+            "purl": "pkg:apk/alpine/ssl_client@1.36.1-r29?arch=x86_64/u0026distro=3.20.1/u0026origin=busybox",
             "commit": "1747c01fb96905f101c25609011589d28e01cbb8",
             "image_origin_details": {
               "index": 0
@@ -2851,6 +2911,7 @@ Scanning local image tarball "./testdata/test-image-with-deprecated.tar"
             "os_package_name": "zlib",
             "version": "1.3.1-r1",
             "ecosystem": "Alpine:v3.20",
+            "purl": "pkg:apk/alpine/zlib@1.3.1-r1?arch=x86_64/u0026distro=3.20.1/u0026origin=zlib",
             "commit": "fad2d175bd85eb4c5566765375392a7394dfbcf2",
             "image_origin_details": {
               "index": 0
@@ -2929,6 +2990,7 @@ Scanning local image tarball "./testdata/test-go-binary.tar"
             "os_package_name": "apk-tools",
             "version": "2.10.6-r0",
             "ecosystem": "Alpine:v3.10",
+            "purl": "pkg:apk/alpine/apk-tools@2.10.6-r0?arch=x86_64/u0026distro=3.10.9/u0026origin=apk-tools",
             "commit": "ee458ccae264321745e9622c759baf110130eb2f",
             "image_origin_details": {
               "index": 0
@@ -3033,6 +3095,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             "os_package_name": "apk-tools",
             "version": "2.10.6-r0",
             "ecosystem": "Alpine:v3.10",
+            "purl": "pkg:apk/alpine/apk-tools@2.10.6-r0?arch=x86_64/u0026distro=3.10.9/u0026origin=apk-tools",
             "commit": "ee458ccae264321745e9622c759baf110130eb2f",
             "image_origin_details": {
               "index": 0
@@ -3136,6 +3199,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             "name": "stdlib",
             "version": "1.26.0",
             "ecosystem": "Go",
+            "purl": "pkg:golang/go@1.26.0",
             "image_origin_details": {
               "index": 0
             }
@@ -3182,6 +3246,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             "name": "stdlib",
             "version": "1.26.0",
             "ecosystem": "Go",
+            "purl": "pkg:golang/go@1.26.0",
             "image_origin_details": {
               "index": 0
             }
@@ -3228,6 +3293,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             "name": "stdlib",
             "version": "1.26.0",
             "ecosystem": "Go",
+            "purl": "pkg:golang/go@1.26.0",
             "image_origin_details": {
               "index": 0
             }
@@ -3274,6 +3340,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             "name": "stdlib",
             "version": "1.26.0",
             "ecosystem": "Go",
+            "purl": "pkg:golang/go@1.26.0",
             "image_origin_details": {
               "index": 0
             }
@@ -3320,6 +3387,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             "name": "stdlib",
             "version": "1.26.0",
             "ecosystem": "Go",
+            "purl": "pkg:golang/go@1.26.0",
             "image_origin_details": {
               "index": 0
             }
@@ -3366,6 +3434,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             "name": "stdlib",
             "version": "1.26.0",
             "ecosystem": "Go",
+            "purl": "pkg:golang/go@1.26.0",
             "image_origin_details": {
               "index": 0
             }
@@ -3413,6 +3482,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             "os_package_name": "coreutils",
             "version": "9.5-1ubuntu2+0.0.0~ubuntu25",
             "ecosystem": "Ubuntu:26.04",
+            "purl": "pkg:deb/ubuntu/coreutils@9.5-1ubuntu2%2B0.0.0~ubuntu25?arch=all/u0026distro=resolute",
             "image_origin_details": {
               "index": 0
             }
@@ -3469,6 +3539,7 @@ Scanning local image tarball "./testdata/test-chisel.tar"
             "os_package_name": "busybox",
             "version": "1.36.1-r15",
             "ecosystem": "Alpine:v3.19",
+            "purl": "pkg:apk/alpine/busybox@1.36.1-r15?arch=x86_64/u0026distro=3.19.1/u0026origin=busybox",
             "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
             "image_origin_details": {
               "index": 0
@@ -3490,6 +3561,7 @@ Scanning local image tarball "./testdata/test-chisel.tar"
             "os_package_name": "busybox-binsh",
             "version": "1.36.1-r15",
             "ecosystem": "Alpine:v3.19",
+            "purl": "pkg:apk/alpine/busybox-binsh@1.36.1-r15?arch=x86_64/u0026distro=3.19.1/u0026origin=busybox",
             "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
             "image_origin_details": {
               "index": 0
@@ -3511,6 +3583,7 @@ Scanning local image tarball "./testdata/test-chisel.tar"
             "os_package_name": "libcrypto3",
             "version": "3.1.4-r5",
             "ecosystem": "Alpine:v3.19",
+            "purl": "pkg:apk/alpine/libcrypto3@3.1.4-r5?arch=x86_64/u0026distro=3.19.1/u0026origin=openssl",
             "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
             "image_origin_details": {
               "index": 0
@@ -3535,6 +3608,7 @@ Scanning local image tarball "./testdata/test-chisel.tar"
             "os_package_name": "libssl3",
             "version": "3.1.4-r5",
             "ecosystem": "Alpine:v3.19",
+            "purl": "pkg:apk/alpine/libssl3@3.1.4-r5?arch=x86_64/u0026distro=3.19.1/u0026origin=openssl",
             "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
             "image_origin_details": {
               "index": 0
@@ -3559,6 +3633,7 @@ Scanning local image tarball "./testdata/test-chisel.tar"
             "os_package_name": "musl",
             "version": "1.2.4_git20230717-r4",
             "ecosystem": "Alpine:v3.19",
+            "purl": "pkg:apk/alpine/musl@1.2.4_git20230717-r4?arch=x86_64/u0026distro=3.19.1/u0026origin=musl",
             "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
             "image_origin_details": {
               "index": 0
@@ -3577,6 +3652,7 @@ Scanning local image tarball "./testdata/test-chisel.tar"
             "os_package_name": "musl-utils",
             "version": "1.2.4_git20230717-r4",
             "ecosystem": "Alpine:v3.19",
+            "purl": "pkg:apk/alpine/musl-utils@1.2.4_git20230717-r4?arch=x86_64/u0026distro=3.19.1/u0026origin=musl",
             "commit": "ca7f2ab5e88794e4e654b40776f8a92256f50639",
             "image_origin_details": {
               "index": 0
@@ -3595,6 +3671,7 @@ Scanning local image tarball "./testdata/test-chisel.tar"
             "os_package_name": "ssl_client",
             "version": "1.36.1-r15",
             "ecosystem": "Alpine:v3.19",
+            "purl": "pkg:apk/alpine/ssl_client@1.36.1-r15?arch=x86_64/u0026distro=3.19.1/u0026origin=busybox",
             "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
             "image_origin_details": {
               "index": 0
@@ -3623,6 +3700,7 @@ Scanning local image tarball "./testdata/test-chisel.tar"
             "name": "cryo",
             "version": "0.0.6",
             "ecosystem": "npm",
+            "purl": "pkg:npm/cryo@0.0.6",
             "image_origin_details": {
               "index": 14
             }
@@ -3637,6 +3715,7 @@ Scanning local image tarball "./testdata/test-chisel.tar"
             "name": "minimist",
             "version": "0.0.8",
             "ecosystem": "npm",
+            "purl": "pkg:npm/minimist@0.0.8",
             "image_origin_details": {
               "index": 13
             }
@@ -3800,6 +3879,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "bsdutils",
             "version": "1:2.37.2-4ubuntu3.4",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/bsdutils@1:2.37.2-4ubuntu3.4?arch=amd64/u0026distro=jammy/u0026source=util-linux/u0026sourceversion=2.37.2-4ubuntu3.4",
             "image_origin_details": {
               "index": 4
             }
@@ -3820,6 +3900,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "coreutils",
             "version": "8.32-4.1ubuntu1.2",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/coreutils@8.32-4.1ubuntu1.2?arch=amd64/u0026distro=jammy",
             "image_origin_details": {
               "index": 4
             }
@@ -3836,6 +3917,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "dpkg",
             "version": "1.21.1ubuntu2.3",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/dpkg@1.21.1ubuntu2.3?arch=amd64/u0026distro=jammy",
             "image_origin_details": {
               "index": 4
             }
@@ -3852,6 +3934,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "gcc-12-base",
             "version": "12.3.0-1ubuntu1~22.04",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/gcc-12-base@12.3.0-1ubuntu1~22.04?arch=amd64/u0026distro=jammy/u0026source=gcc-12",
             "image_origin_details": {
               "index": 4
             }
@@ -3869,6 +3952,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "gpgv",
             "version": "2.2.27-3ubuntu2.1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/gpgv@2.2.27-3ubuntu2.1?arch=amd64/u0026distro=jammy/u0026source=gnupg2",
             "image_origin_details": {
               "index": 4
             }
@@ -3890,6 +3974,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "gzip",
             "version": "1.10-4ubuntu4.1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/gzip@1.10-4ubuntu4.1?arch=amd64/u0026distro=jammy",
             "image_origin_details": {
               "index": 4
             }
@@ -3907,6 +3992,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libacl1",
             "version": "2.3.1-1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libacl1@2.3.1-1?arch=amd64/u0026distro=jammy/u0026source=acl",
             "image_origin_details": {
               "index": 4
             }
@@ -3923,6 +4009,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libattr1",
             "version": "1:2.5.1-1build1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libattr1@1:2.5.1-1build1?arch=amd64/u0026distro=jammy/u0026source=attr",
             "image_origin_details": {
               "index": 4
             }
@@ -3938,6 +4025,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libblkid1",
             "version": "2.37.2-4ubuntu3.4",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libblkid1@2.37.2-4ubuntu3.4?arch=amd64/u0026distro=jammy/u0026source=util-linux",
             "image_origin_details": {
               "index": 4
             }
@@ -3959,6 +4047,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libbz2-1.0",
             "version": "1.0.8-5build1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libbz2-1.0@1.0.8-5build1?arch=amd64/u0026distro=jammy/u0026source=bzip2",
             "image_origin_details": {
               "index": 4
             }
@@ -3974,6 +4063,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libc-bin",
             "version": "2.35-0ubuntu3.8",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libc-bin@2.35-0ubuntu3.8?arch=amd64/u0026distro=jammy/u0026source=glibc",
             "image_origin_details": {
               "index": 4
             }
@@ -4004,6 +4094,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libc6",
             "version": "2.35-0ubuntu3.8",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libc6@2.35-0ubuntu3.8?arch=amd64/u0026distro=jammy/u0026source=glibc",
             "image_origin_details": {
               "index": 4
             }
@@ -4034,6 +4125,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libcap2",
             "version": "1:2.44-1ubuntu0.22.04.1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libcap2@1:2.44-1ubuntu0.22.04.1?arch=amd64/u0026distro=jammy",
             "image_origin_details": {
               "index": 4
             }
@@ -4052,6 +4144,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libgcc-s1",
             "version": "12.3.0-1ubuntu1~22.04",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libgcc-s1@12.3.0-1ubuntu1~22.04?arch=amd64/u0026distro=jammy/u0026source=gcc-12",
             "image_origin_details": {
               "index": 4
             }
@@ -4069,6 +4162,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libgcrypt20",
             "version": "1.9.4-3ubuntu3",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libgcrypt20@1.9.4-3ubuntu3?arch=amd64/u0026distro=jammy",
             "image_origin_details": {
               "index": 4
             }
@@ -4086,6 +4180,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libgnutls30",
             "version": "3.7.3-4ubuntu1.5",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libgnutls30@3.7.3-4ubuntu1.5?arch=amd64/u0026distro=jammy/u0026source=gnutls28",
             "image_origin_details": {
               "index": 4
             }
@@ -4123,6 +4218,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libgssapi-krb5-2",
             "version": "1.19.2-2ubuntu0.4",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libgssapi-krb5-2@1.19.2-2ubuntu0.4?arch=amd64/u0026distro=jammy/u0026source=krb5",
             "image_origin_details": {
               "index": 4
             }
@@ -4149,6 +4245,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libk5crypto3",
             "version": "1.19.2-2ubuntu0.4",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libk5crypto3@1.19.2-2ubuntu0.4?arch=amd64/u0026distro=jammy/u0026source=krb5",
             "image_origin_details": {
               "index": 4
             }
@@ -4175,6 +4272,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libkrb5-3",
             "version": "1.19.2-2ubuntu0.4",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libkrb5-3@1.19.2-2ubuntu0.4?arch=amd64/u0026distro=jammy/u0026source=krb5",
             "image_origin_details": {
               "index": 4
             }
@@ -4201,6 +4299,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libkrb5support0",
             "version": "1.19.2-2ubuntu0.4",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libkrb5support0@1.19.2-2ubuntu0.4?arch=amd64/u0026distro=jammy/u0026source=krb5",
             "image_origin_details": {
               "index": 4
             }
@@ -4227,6 +4326,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "liblz4-1",
             "version": "1.9.3-2build2",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/liblz4-1@1.9.3-2build2?arch=amd64/u0026distro=jammy/u0026source=lz4",
             "image_origin_details": {
               "index": 4
             }
@@ -4242,6 +4342,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "liblzma5",
             "version": "5.2.5-2ubuntu1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/liblzma5@5.2.5-2ubuntu1?arch=amd64/u0026distro=jammy/u0026source=xz-utils",
             "image_origin_details": {
               "index": 4
             }
@@ -4258,6 +4359,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libmount1",
             "version": "2.37.2-4ubuntu3.4",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libmount1@2.37.2-4ubuntu3.4?arch=amd64/u0026distro=jammy/u0026source=util-linux",
             "image_origin_details": {
               "index": 4
             }
@@ -4279,6 +4381,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libncurses6",
             "version": "6.3-2ubuntu0.1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libncurses6@6.3-2ubuntu0.1?arch=amd64/u0026distro=jammy/u0026source=ncurses",
             "image_origin_details": {
               "index": 4
             }
@@ -4296,6 +4399,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libncursesw6",
             "version": "6.3-2ubuntu0.1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libncursesw6@6.3-2ubuntu0.1?arch=amd64/u0026distro=jammy/u0026source=ncurses",
             "image_origin_details": {
               "index": 4
             }
@@ -4313,6 +4417,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libp11-kit0",
             "version": "0.24.0-6build1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libp11-kit0@0.24.0-6build1?arch=amd64/u0026distro=jammy/u0026source=p11-kit",
             "image_origin_details": {
               "index": 4
             }
@@ -4328,6 +4433,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libpam-modules",
             "version": "1.4.0-11ubuntu2.5",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libpam-modules@1.4.0-11ubuntu2.5?arch=amd64/u0026distro=jammy/u0026source=pam",
             "image_origin_details": {
               "index": 4
             }
@@ -4346,6 +4452,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libpam-modules-bin",
             "version": "1.4.0-11ubuntu2.5",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libpam-modules-bin@1.4.0-11ubuntu2.5?arch=amd64/u0026distro=jammy/u0026source=pam",
             "image_origin_details": {
               "index": 4
             }
@@ -4364,6 +4471,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libpam-runtime",
             "version": "1.4.0-11ubuntu2.5",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libpam-runtime@1.4.0-11ubuntu2.5?arch=all/u0026distro=jammy/u0026source=pam",
             "image_origin_details": {
               "index": 4
             }
@@ -4382,6 +4490,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libpam0g",
             "version": "1.4.0-11ubuntu2.5",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libpam0g@1.4.0-11ubuntu2.5?arch=amd64/u0026distro=jammy/u0026source=pam",
             "image_origin_details": {
               "index": 4
             }
@@ -4400,6 +4509,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libpcre2-8-0",
             "version": "10.39-3ubuntu0.1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libpcre2-8-0@10.39-3ubuntu0.1?arch=amd64/u0026distro=jammy/u0026source=pcre2",
             "image_origin_details": {
               "index": 4
             }
@@ -4415,6 +4525,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libpcre3",
             "version": "2:8.39-13ubuntu0.22.04.1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libpcre3@2:8.39-13ubuntu0.22.04.1?arch=amd64/u0026distro=jammy/u0026source=pcre3",
             "image_origin_details": {
               "index": 4
             }
@@ -4430,6 +4541,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libsmartcols1",
             "version": "2.37.2-4ubuntu3.4",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libsmartcols1@2.37.2-4ubuntu3.4?arch=amd64/u0026distro=jammy/u0026source=util-linux",
             "image_origin_details": {
               "index": 4
             }
@@ -4451,6 +4563,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libssl3",
             "version": "3.0.2-0ubuntu1.18",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libssl3@3.0.2-0ubuntu1.18?arch=amd64/u0026distro=jammy/u0026source=openssl",
             "image_origin_details": {
               "index": 4
             }
@@ -4499,6 +4612,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libstdc++6",
             "version": "12.3.0-1ubuntu1~22.04",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libstdc%2B%2B6@12.3.0-1ubuntu1~22.04?arch=amd64/u0026distro=jammy/u0026source=gcc-12",
             "image_origin_details": {
               "index": 4
             }
@@ -4516,6 +4630,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libsystemd0",
             "version": "249.11-0ubuntu3.12",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libsystemd0@249.11-0ubuntu3.12?arch=amd64/u0026distro=jammy/u0026source=systemd",
             "image_origin_details": {
               "index": 4
             }
@@ -4539,6 +4654,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libtasn1-6",
             "version": "4.18.0-4build1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libtasn1-6@4.18.0-4build1?arch=amd64/u0026distro=jammy",
             "image_origin_details": {
               "index": 4
             }
@@ -4558,6 +4674,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libtinfo6",
             "version": "6.3-2ubuntu0.1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libtinfo6@6.3-2ubuntu0.1?arch=amd64/u0026distro=jammy/u0026source=ncurses",
             "image_origin_details": {
               "index": 4
             }
@@ -4575,6 +4692,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libudev1",
             "version": "249.11-0ubuntu3.12",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libudev1@249.11-0ubuntu3.12?arch=amd64/u0026distro=jammy/u0026source=systemd",
             "image_origin_details": {
               "index": 4
             }
@@ -4598,6 +4716,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libuuid1",
             "version": "2.37.2-4ubuntu3.4",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libuuid1@2.37.2-4ubuntu3.4?arch=amd64/u0026distro=jammy/u0026source=util-linux",
             "image_origin_details": {
               "index": 4
             }
@@ -4619,6 +4738,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "libzstd1",
             "version": "1.4.8+dfsg-3build1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libzstd1@1.4.8%2Bdfsg-3build1?arch=amd64/u0026distro=jammy/u0026source=libzstd",
             "image_origin_details": {
               "index": 4
             }
@@ -4634,6 +4754,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "login",
             "version": "1:4.8.1-2ubuntu2.2",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/login@1:4.8.1-2ubuntu2.2?arch=amd64/u0026distro=jammy/u0026source=shadow",
             "image_origin_details": {
               "index": 4
             }
@@ -4650,6 +4771,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "mount",
             "version": "2.37.2-4ubuntu3.4",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/mount@2.37.2-4ubuntu3.4?arch=amd64/u0026distro=jammy/u0026source=util-linux",
             "image_origin_details": {
               "index": 4
             }
@@ -4671,6 +4793,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "ncurses-base",
             "version": "6.3-2ubuntu0.1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/ncurses-base@6.3-2ubuntu0.1?arch=all/u0026distro=jammy/u0026source=ncurses",
             "image_origin_details": {
               "index": 4
             }
@@ -4688,6 +4811,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "ncurses-bin",
             "version": "6.3-2ubuntu0.1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/ncurses-bin@6.3-2ubuntu0.1?arch=amd64/u0026distro=jammy/u0026source=ncurses",
             "image_origin_details": {
               "index": 4
             }
@@ -4705,6 +4829,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "passwd",
             "version": "1:4.8.1-2ubuntu2.2",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/passwd@1:4.8.1-2ubuntu2.2?arch=amd64/u0026distro=jammy/u0026source=shadow",
             "image_origin_details": {
               "index": 4
             }
@@ -4721,6 +4846,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "perl-base",
             "version": "5.34.0-3ubuntu1.3",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/perl-base@5.34.0-3ubuntu1.3?arch=amd64/u0026distro=jammy/u0026source=perl",
             "image_origin_details": {
               "index": 4
             }
@@ -4754,6 +4880,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "sed",
             "version": "4.8-1ubuntu2",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/sed@4.8-1ubuntu2?arch=amd64/u0026distro=jammy",
             "image_origin_details": {
               "index": 4
             }
@@ -4770,6 +4897,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "tar",
             "version": "1.34+dfsg-1ubuntu0.1.22.04.2",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/tar@1.34%2Bdfsg-1ubuntu0.1.22.04.2?arch=amd64/u0026distro=jammy",
             "image_origin_details": {
               "index": 4
             }
@@ -4789,6 +4917,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "os_package_name": "util-linux",
             "version": "2.37.2-4ubuntu3.4",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/util-linux@2.37.2-4ubuntu3.4?arch=amd64/u0026distro=jammy",
             "image_origin_details": {
               "index": 4
             }
@@ -4896,6 +5025,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "name": "stdlib",
             "version": "1.18.1",
             "ecosystem": "Go",
+            "purl": "pkg:golang/go@1.18.1",
             "image_origin_details": {
               "index": 7
             }
@@ -5022,6 +5152,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "bsdutils",
             "version": "1:2.37.2-4ubuntu3.4",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/bsdutils@1:2.37.2-4ubuntu3.4?arch=amd64/u0026distro=jammy/u0026source=util-linux/u0026sourceversion=2.37.2-4ubuntu3.4",
             "image_origin_details": {
               "index": 4
             }
@@ -5042,6 +5173,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "coreutils",
             "version": "8.32-4.1ubuntu1.2",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/coreutils@8.32-4.1ubuntu1.2?arch=amd64/u0026distro=jammy",
             "image_origin_details": {
               "index": 4
             }
@@ -5058,6 +5190,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "dpkg",
             "version": "1.21.1ubuntu2.3",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/dpkg@1.21.1ubuntu2.3?arch=amd64/u0026distro=jammy",
             "image_origin_details": {
               "index": 4
             }
@@ -5074,6 +5207,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "fzf",
             "version": "0.29.0-1ubuntu0.1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/fzf@0.29.0-1ubuntu0.1?arch=amd64/u0026distro=jammy",
             "image_origin_details": {
               "index": 7
             }
@@ -5090,6 +5224,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "gcc-12-base",
             "version": "12.3.0-1ubuntu1~22.04",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/gcc-12-base@12.3.0-1ubuntu1~22.04?arch=amd64/u0026distro=jammy/u0026source=gcc-12",
             "image_origin_details": {
               "index": 4
             }
@@ -5107,6 +5242,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "gpgv",
             "version": "2.2.27-3ubuntu2.1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/gpgv@2.2.27-3ubuntu2.1?arch=amd64/u0026distro=jammy/u0026source=gnupg2",
             "image_origin_details": {
               "index": 4
             }
@@ -5128,6 +5264,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "gzip",
             "version": "1.10-4ubuntu4.1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/gzip@1.10-4ubuntu4.1?arch=amd64/u0026distro=jammy",
             "image_origin_details": {
               "index": 4
             }
@@ -5145,6 +5282,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libacl1",
             "version": "2.3.1-1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libacl1@2.3.1-1?arch=amd64/u0026distro=jammy/u0026source=acl",
             "image_origin_details": {
               "index": 4
             }
@@ -5161,6 +5299,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libattr1",
             "version": "1:2.5.1-1build1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libattr1@1:2.5.1-1build1?arch=amd64/u0026distro=jammy/u0026source=attr",
             "image_origin_details": {
               "index": 4
             }
@@ -5176,6 +5315,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libblkid1",
             "version": "2.37.2-4ubuntu3.4",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libblkid1@2.37.2-4ubuntu3.4?arch=amd64/u0026distro=jammy/u0026source=util-linux",
             "image_origin_details": {
               "index": 4
             }
@@ -5197,6 +5337,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libbz2-1.0",
             "version": "1.0.8-5build1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libbz2-1.0@1.0.8-5build1?arch=amd64/u0026distro=jammy/u0026source=bzip2",
             "image_origin_details": {
               "index": 4
             }
@@ -5212,6 +5353,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libc-bin",
             "version": "2.35-0ubuntu3.8",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libc-bin@2.35-0ubuntu3.8?arch=amd64/u0026distro=jammy/u0026source=glibc",
             "image_origin_details": {
               "index": 4
             }
@@ -5242,6 +5384,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libc6",
             "version": "2.35-0ubuntu3.8",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libc6@2.35-0ubuntu3.8?arch=amd64/u0026distro=jammy/u0026source=glibc",
             "image_origin_details": {
               "index": 4
             }
@@ -5272,6 +5415,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libcap2",
             "version": "1:2.44-1ubuntu0.22.04.1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libcap2@1:2.44-1ubuntu0.22.04.1?arch=amd64/u0026distro=jammy",
             "image_origin_details": {
               "index": 4
             }
@@ -5290,6 +5434,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libgcc-s1",
             "version": "12.3.0-1ubuntu1~22.04",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libgcc-s1@12.3.0-1ubuntu1~22.04?arch=amd64/u0026distro=jammy/u0026source=gcc-12",
             "image_origin_details": {
               "index": 4
             }
@@ -5307,6 +5452,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libgcrypt20",
             "version": "1.9.4-3ubuntu3",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libgcrypt20@1.9.4-3ubuntu3?arch=amd64/u0026distro=jammy",
             "image_origin_details": {
               "index": 4
             }
@@ -5324,6 +5470,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libgnutls30",
             "version": "3.7.3-4ubuntu1.5",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libgnutls30@3.7.3-4ubuntu1.5?arch=amd64/u0026distro=jammy/u0026source=gnutls28",
             "image_origin_details": {
               "index": 4
             }
@@ -5361,6 +5508,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libgssapi-krb5-2",
             "version": "1.19.2-2ubuntu0.4",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libgssapi-krb5-2@1.19.2-2ubuntu0.4?arch=amd64/u0026distro=jammy/u0026source=krb5",
             "image_origin_details": {
               "index": 4
             }
@@ -5387,6 +5535,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libk5crypto3",
             "version": "1.19.2-2ubuntu0.4",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libk5crypto3@1.19.2-2ubuntu0.4?arch=amd64/u0026distro=jammy/u0026source=krb5",
             "image_origin_details": {
               "index": 4
             }
@@ -5413,6 +5562,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libkrb5-3",
             "version": "1.19.2-2ubuntu0.4",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libkrb5-3@1.19.2-2ubuntu0.4?arch=amd64/u0026distro=jammy/u0026source=krb5",
             "image_origin_details": {
               "index": 4
             }
@@ -5439,6 +5589,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libkrb5support0",
             "version": "1.19.2-2ubuntu0.4",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libkrb5support0@1.19.2-2ubuntu0.4?arch=amd64/u0026distro=jammy/u0026source=krb5",
             "image_origin_details": {
               "index": 4
             }
@@ -5465,6 +5616,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "liblz4-1",
             "version": "1.9.3-2build2",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/liblz4-1@1.9.3-2build2?arch=amd64/u0026distro=jammy/u0026source=lz4",
             "image_origin_details": {
               "index": 4
             }
@@ -5480,6 +5632,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "liblzma5",
             "version": "5.2.5-2ubuntu1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/liblzma5@5.2.5-2ubuntu1?arch=amd64/u0026distro=jammy/u0026source=xz-utils",
             "image_origin_details": {
               "index": 4
             }
@@ -5496,6 +5649,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libmount1",
             "version": "2.37.2-4ubuntu3.4",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libmount1@2.37.2-4ubuntu3.4?arch=amd64/u0026distro=jammy/u0026source=util-linux",
             "image_origin_details": {
               "index": 4
             }
@@ -5517,6 +5671,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libncurses6",
             "version": "6.3-2ubuntu0.1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libncurses6@6.3-2ubuntu0.1?arch=amd64/u0026distro=jammy/u0026source=ncurses",
             "image_origin_details": {
               "index": 4
             }
@@ -5534,6 +5689,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libncursesw6",
             "version": "6.3-2ubuntu0.1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libncursesw6@6.3-2ubuntu0.1?arch=amd64/u0026distro=jammy/u0026source=ncurses",
             "image_origin_details": {
               "index": 4
             }
@@ -5551,6 +5707,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libp11-kit0",
             "version": "0.24.0-6build1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libp11-kit0@0.24.0-6build1?arch=amd64/u0026distro=jammy/u0026source=p11-kit",
             "image_origin_details": {
               "index": 4
             }
@@ -5566,6 +5723,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libpam-modules",
             "version": "1.4.0-11ubuntu2.5",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libpam-modules@1.4.0-11ubuntu2.5?arch=amd64/u0026distro=jammy/u0026source=pam",
             "image_origin_details": {
               "index": 4
             }
@@ -5584,6 +5742,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libpam-modules-bin",
             "version": "1.4.0-11ubuntu2.5",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libpam-modules-bin@1.4.0-11ubuntu2.5?arch=amd64/u0026distro=jammy/u0026source=pam",
             "image_origin_details": {
               "index": 4
             }
@@ -5602,6 +5761,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libpam-runtime",
             "version": "1.4.0-11ubuntu2.5",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libpam-runtime@1.4.0-11ubuntu2.5?arch=all/u0026distro=jammy/u0026source=pam",
             "image_origin_details": {
               "index": 4
             }
@@ -5620,6 +5780,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libpam0g",
             "version": "1.4.0-11ubuntu2.5",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libpam0g@1.4.0-11ubuntu2.5?arch=amd64/u0026distro=jammy/u0026source=pam",
             "image_origin_details": {
               "index": 4
             }
@@ -5638,6 +5799,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libpcre2-8-0",
             "version": "10.39-3ubuntu0.1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libpcre2-8-0@10.39-3ubuntu0.1?arch=amd64/u0026distro=jammy/u0026source=pcre2",
             "image_origin_details": {
               "index": 4
             }
@@ -5653,6 +5815,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libpcre3",
             "version": "2:8.39-13ubuntu0.22.04.1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libpcre3@2:8.39-13ubuntu0.22.04.1?arch=amd64/u0026distro=jammy/u0026source=pcre3",
             "image_origin_details": {
               "index": 4
             }
@@ -5668,6 +5831,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libsmartcols1",
             "version": "2.37.2-4ubuntu3.4",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libsmartcols1@2.37.2-4ubuntu3.4?arch=amd64/u0026distro=jammy/u0026source=util-linux",
             "image_origin_details": {
               "index": 4
             }
@@ -5689,6 +5853,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libssl3",
             "version": "3.0.2-0ubuntu1.18",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libssl3@3.0.2-0ubuntu1.18?arch=amd64/u0026distro=jammy/u0026source=openssl",
             "image_origin_details": {
               "index": 4
             }
@@ -5737,6 +5902,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libstdc++6",
             "version": "12.3.0-1ubuntu1~22.04",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libstdc%2B%2B6@12.3.0-1ubuntu1~22.04?arch=amd64/u0026distro=jammy/u0026source=gcc-12",
             "image_origin_details": {
               "index": 4
             }
@@ -5754,6 +5920,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libsystemd0",
             "version": "249.11-0ubuntu3.12",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libsystemd0@249.11-0ubuntu3.12?arch=amd64/u0026distro=jammy/u0026source=systemd",
             "image_origin_details": {
               "index": 4
             }
@@ -5777,6 +5944,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libtasn1-6",
             "version": "4.18.0-4build1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libtasn1-6@4.18.0-4build1?arch=amd64/u0026distro=jammy",
             "image_origin_details": {
               "index": 4
             }
@@ -5796,6 +5964,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libtinfo6",
             "version": "6.3-2ubuntu0.1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libtinfo6@6.3-2ubuntu0.1?arch=amd64/u0026distro=jammy/u0026source=ncurses",
             "image_origin_details": {
               "index": 4
             }
@@ -5813,6 +5982,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libudev1",
             "version": "249.11-0ubuntu3.12",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libudev1@249.11-0ubuntu3.12?arch=amd64/u0026distro=jammy/u0026source=systemd",
             "image_origin_details": {
               "index": 4
             }
@@ -5836,6 +6006,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libuuid1",
             "version": "2.37.2-4ubuntu3.4",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libuuid1@2.37.2-4ubuntu3.4?arch=amd64/u0026distro=jammy/u0026source=util-linux",
             "image_origin_details": {
               "index": 4
             }
@@ -5857,6 +6028,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "libzstd1",
             "version": "1.4.8+dfsg-3build1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/libzstd1@1.4.8%2Bdfsg-3build1?arch=amd64/u0026distro=jammy/u0026source=libzstd",
             "image_origin_details": {
               "index": 4
             }
@@ -5872,6 +6044,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "login",
             "version": "1:4.8.1-2ubuntu2.2",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/login@1:4.8.1-2ubuntu2.2?arch=amd64/u0026distro=jammy/u0026source=shadow",
             "image_origin_details": {
               "index": 4
             }
@@ -5888,6 +6061,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "mount",
             "version": "2.37.2-4ubuntu3.4",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/mount@2.37.2-4ubuntu3.4?arch=amd64/u0026distro=jammy/u0026source=util-linux",
             "image_origin_details": {
               "index": 4
             }
@@ -5909,6 +6083,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "ncurses-base",
             "version": "6.3-2ubuntu0.1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/ncurses-base@6.3-2ubuntu0.1?arch=all/u0026distro=jammy/u0026source=ncurses",
             "image_origin_details": {
               "index": 4
             }
@@ -5926,6 +6101,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "ncurses-bin",
             "version": "6.3-2ubuntu0.1",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/ncurses-bin@6.3-2ubuntu0.1?arch=amd64/u0026distro=jammy/u0026source=ncurses",
             "image_origin_details": {
               "index": 4
             }
@@ -5943,6 +6119,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "passwd",
             "version": "1:4.8.1-2ubuntu2.2",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/passwd@1:4.8.1-2ubuntu2.2?arch=amd64/u0026distro=jammy/u0026source=shadow",
             "image_origin_details": {
               "index": 4
             }
@@ -5959,6 +6136,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "perl-base",
             "version": "5.34.0-3ubuntu1.3",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/perl-base@5.34.0-3ubuntu1.3?arch=amd64/u0026distro=jammy/u0026source=perl",
             "image_origin_details": {
               "index": 4
             }
@@ -5992,6 +6170,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "sed",
             "version": "4.8-1ubuntu2",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/sed@4.8-1ubuntu2?arch=amd64/u0026distro=jammy",
             "image_origin_details": {
               "index": 4
             }
@@ -6008,6 +6187,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "tar",
             "version": "1.34+dfsg-1ubuntu0.1.22.04.2",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/tar@1.34%2Bdfsg-1ubuntu0.1.22.04.2?arch=amd64/u0026distro=jammy",
             "image_origin_details": {
               "index": 4
             }
@@ -6027,6 +6207,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "util-linux",
             "version": "2.37.2-4ubuntu3.4",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/util-linux@2.37.2-4ubuntu3.4?arch=amd64/u0026distro=jammy",
             "image_origin_details": {
               "index": 4
             }
