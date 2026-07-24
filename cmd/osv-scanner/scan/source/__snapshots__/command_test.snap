@@ -2198,6 +2198,18 @@ No issues found
 
 ---
 
+[TestCommand/yarn_lock_with_git_pinned_dep_no_false_positive - 1]
+Scanning dir ./testdata/locks-yarn-git-dep/yarn.lock
+Scanned <rootdir>/testdata/locks-yarn-git-dep/yarn.lock file and found 1 package
+
+No issues found
+
+---
+
+[TestCommand/yarn_lock_with_git_pinned_dep_no_false_positive - 2]
+
+---
+
 [TestCommandNonGit/one_specific_supported_lockfile - 1]
 Scanning dir <tempdir>/composer.lock
 Scanned <tempdir>/composer.lock file and found 1 package

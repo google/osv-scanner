@@ -7015,3 +7015,43 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 94
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "commit": "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand/yarn_lock_with_git_pinned_dep_no_false_positive
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 16
+      body: |
+        {
+          "results": [
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "16"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
