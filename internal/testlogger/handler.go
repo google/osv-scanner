@@ -87,6 +87,9 @@ func (tl *Handler) Handle(ctx context.Context, record slog.Record) error {
 		"VERSION_CODENAME and VERSION_ID not set in os-release",
 		"VERSION_CODENAME not set in os-release, fallback to VERSION_ID",
 		"osrelease.ParseOsRelease(): file does not exist",
+		// This error log will show up on dpkg file tests on windows and macos.
+		// (TODO(another-rex): we should abstract away the os-release file to something the user passes in)
+		"osrelease.ParseOsRelease(): does not have expected distro os-release file",
 		"Status: new inodes:",
 		"Created image content file:",
 		"interpreting as regex/glob and not absolute path",
