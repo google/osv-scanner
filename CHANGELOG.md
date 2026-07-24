@@ -1,3 +1,9 @@
+# v2.4.1
+
+### Fixes:
+
+- [Bug #2915](https://github.com/google/osv-scanner/pull/2915) Fix issue where osv-scanner reported already-fixed advisories as unfixed for RHEL-family RPM packages (Red Hat, AlmaLinux, Rocky Linux) with epochs by sending epoch-qualified versions.
+
 # v2.4.0
 
 ### Features:
