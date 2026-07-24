@@ -711,6 +711,34 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
+[TestCommand_OCIImage/Scanning_openSUSE_Leap_15.5_image - 1]
+Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
+
+
+Container Scanning Result (openSUSE Leap 15.5) (Based on "opensuse/leap" image):
+Total 2 packages affected by 3 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 3 Unknown) from 1 ecosystem.
+3 vulnerabilities can be fixed.
+
+
+openSUSE:Leap 15.5
++----------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/usr/lib/sysimage/rpm/Packages.db                                                                                      |
++----------------+-----------------------+---------------+------------+-------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION     | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+-----------------------+---------------+------------+-------------------------+------------------+---------------+
+| curl           | 8.0.1-150400.5.50.1   | Fix Available |          2 | curl                    | # 0 Layer        | opensuse/leap |
+| openssl-1_1    | 1.1.1l-150500.17.34.1 | Fix Available |          1 | openssl-1_1             | # 0 Layer        | opensuse/leap |
++----------------+-----------------------+---------------+------------+-------------------------+------------------+---------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
+
+---
+
+[TestCommand_OCIImage/Scanning_openSUSE_Leap_15.5_image - 2]
+
+---
+
 [TestCommand_OCIImage/Scanning_python_image_with_no_packages - 1]
 Scanning local image tarball "./testdata/test-python-empty.tar"
 
@@ -1090,52 +1118,52 @@ Scanning local image tarball "./testdata/test-chisel.tar"
 
 
 Container Scanning Result (Ubuntu 26.04 LTS):
-Total 7 packages affected by 151 known vulnerabilities (0 Critical, 0 High, 1 Medium, 0 Low, 150 Unknown) from 2 ecosystems.
-150 vulnerabilities can be fixed.
+Total 7 packages affected by 133 known vulnerabilities (0 Critical, 0 High, 1 Medium, 0 Low, 132 Unknown) from 2 ecosystems.
+132 vulnerabilities can be fixed.
 
 
 Go
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:/usr/lib/go-1.26/bin/go                                                     |
+| Source:artifact:/usr/lib/go-1.25/bin/go                                                     |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.26.0            | Fix Available |         25 | # 0 Layer        | --            |
+| stdlib  | 1.25.7            | Fix Available |         22 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:/usr/lib/go-1.26/bin/gofmt                                                  |
+| Source:artifact:/usr/lib/go-1.25/bin/gofmt                                                  |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.26.0            | Fix Available |         25 | # 0 Layer        | --            |
+| stdlib  | 1.25.7            | Fix Available |         22 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/asm                                   |
+| Source:artifact:/usr/lib/go-1.25/pkg/tool/linux_amd64/asm                                   |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.26.0            | Fix Available |         25 | # 0 Layer        | --            |
+| stdlib  | 1.25.7            | Fix Available |         22 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/compile                               |
+| Source:artifact:/usr/lib/go-1.25/pkg/tool/linux_amd64/compile                               |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.26.0            | Fix Available |         25 | # 0 Layer        | --            |
+| stdlib  | 1.25.7            | Fix Available |         22 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/link                                  |
+| Source:artifact:/usr/lib/go-1.25/pkg/tool/linux_amd64/link                                  |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.26.0            | Fix Available |         25 | # 0 Layer        | --            |
+| stdlib  | 1.25.7            | Fix Available |         22 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/vet                                   |
+| Source:artifact:/usr/lib/go-1.25/pkg/tool/linux_amd64/vet                                   |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.26.0            | Fix Available |         25 | # 0 Layer        | --            |
+| stdlib  | 1.25.7            | Fix Available |         22 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 Ubuntu:26.04
 +-------------------------------------------------------------------------------------------------------------------------------------------+
@@ -2182,19 +2210,19 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
       },
       {
         "diff_id": "sha256:...",
-        "command": "COPY ./python-fixture/req...",
+        "command": "COPY file:ac7d7ae19a2bef3...",
         "is_empty": false,
         "base_image_index": 0
       },
       {
         "diff_id": "sha256:...",
-        "command": "RUN /bin/sh -c pip instal...",
+        "command": "RUN /0pip install --no-ca...",
         "is_empty": false,
         "base_image_index": 0
       },
       {
         "diff_id": "sha256:...",
-        "command": "COPY python-fixture/main....",
+        "command": "COPY file:0f8c0400baa4c00...",
         "is_empty": false,
         "base_image_index": 0
       },
@@ -2480,7 +2508,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
       },
       {
         "diff_id": "sha256:...",
-        "command": "COPY /app/target/release/rust_novuln_deprecated /app/rust_novuln_deprecated # buildkit",
+        "command": "/bin/sh -c #(nop) COPY file:e0bac7c4525c896bfb37d9b34630a6644b68ef9ccc3e05a4d00efc9e596e37ef in /app/rust_novuln_deprecated ",
         "is_empty": false,
         "base_image_index": 0
       }
@@ -2888,7 +2916,7 @@ Scanning local image tarball "./testdata/test-image-with-deprecated.tar"
       },
       {
         "diff_id": "sha256:...",
-        "command": "COPY /work/ptf-1.4.0 /go/bin/ # buildkit",
+        "command": "COPY file:ebcf25e0dd60192f650632ee1757c00542fcea8440c0114b434811029d21d791 in /go/bin/ ",
         "is_empty": false,
         "base_image_index": 0
       }
@@ -2986,13 +3014,13 @@ Scanning local image tarball "./testdata/test-go-binary.tar"
       },
       {
         "diff_id": "sha256:...",
-        "command": "RUN /bin/sh -c echo 'user-bcrypt:$2b$05$IYDlXvHmeORyyiUwu8KKuek2LE8VrxIYZ2skPvRDDNngpXJHRq7sG' /u003e/u003e /etc/shadow # buildkit",
+        "command": "/bin/sh -c echo 'user-bcrypt:$2b$05$IYDlXvHmeORyyiUwu8KKuek2LE8VrxIYZ2skPvRDDNngpXJHRq7sG' /u003e/u003e /etc/shadow",
         "is_empty": false,
         "base_image_index": 0
       },
       {
         "diff_id": "sha256:...",
-        "command": "RUN /bin/sh -c echo 'user-descrypt:chERDiI95PGCQ' /u003e/u003e /etc/shadow # buildkit",
+        "command": "/bin/sh -c echo 'user-descrypt:chERDiI95PGCQ' /u003e/u003e /etc/shadow",
         "is_empty": false,
         "base_image_index": 0
       }
@@ -3090,13 +3118,13 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
       },
       {
         "diff_id": "sha256:...",
-        "command": "RUN /bin/sh -c echo 'user-bcrypt:$2b$05$IYDlXvHmeORyyiUwu8KKuek2LE8VrxIYZ2skPvRDDNngpXJHRq7sG' /u003e/u003e /etc/shadow # buildkit",
+        "command": "/bin/sh -c echo 'user-bcrypt:$2b$05$IYDlXvHmeORyyiUwu8KKuek2LE8VrxIYZ2skPvRDDNngpXJHRq7sG' /u003e/u003e /etc/shadow",
         "is_empty": false,
         "base_image_index": 0
       },
       {
         "diff_id": "sha256:...",
-        "command": "RUN /bin/sh -c echo 'user-descrypt:chERDiI95PGCQ' /u003e/u003e /etc/shadow # buildkit",
+        "command": "/bin/sh -c echo 'user-descrypt:chERDiI95PGCQ' /u003e/u003e /etc/shadow",
         "is_empty": false,
         "base_image_index": 0
       }
@@ -3127,29 +3155,26 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
   "results": [
     {
       "source": {
-        "path": "/usr/lib/go-1.26/bin/go",
+        "path": "/usr/lib/go-1.25/bin/go",
         "type": "artifact"
       },
       "packages": [
         {
           "package": {
             "name": "stdlib",
-            "version": "1.26.0",
+            "version": "1.25.7",
             "ecosystem": "Go",
             "image_origin_details": {
               "index": 0
             }
           },
-          "groups": 25,
+          "groups": 22,
           "vulnerabilities": [
-            "GO-2026-4599",
-            "GO-2026-4600",
             "GO-2026-4601",
             "GO-2026-4602",
             "GO-2026-4603",
             "GO-2026-4864",
             "GO-2026-4865",
-            "GO-2026-4866",
             "GO-2026-4869",
             "GO-2026-4870",
             "GO-2026-4918",
@@ -3173,29 +3198,26 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
     },
     {
       "source": {
-        "path": "/usr/lib/go-1.26/bin/gofmt",
+        "path": "/usr/lib/go-1.25/bin/gofmt",
         "type": "artifact"
       },
       "packages": [
         {
           "package": {
             "name": "stdlib",
-            "version": "1.26.0",
+            "version": "1.25.7",
             "ecosystem": "Go",
             "image_origin_details": {
               "index": 0
             }
           },
-          "groups": 25,
+          "groups": 22,
           "vulnerabilities": [
-            "GO-2026-4599",
-            "GO-2026-4600",
             "GO-2026-4601",
             "GO-2026-4602",
             "GO-2026-4603",
             "GO-2026-4864",
             "GO-2026-4865",
-            "GO-2026-4866",
             "GO-2026-4869",
             "GO-2026-4870",
             "GO-2026-4918",
@@ -3219,29 +3241,26 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
     },
     {
       "source": {
-        "path": "/usr/lib/go-1.26/pkg/tool/linux_amd64/asm",
+        "path": "/usr/lib/go-1.25/pkg/tool/linux_amd64/asm",
         "type": "artifact"
       },
       "packages": [
         {
           "package": {
             "name": "stdlib",
-            "version": "1.26.0",
+            "version": "1.25.7",
             "ecosystem": "Go",
             "image_origin_details": {
               "index": 0
             }
           },
-          "groups": 25,
+          "groups": 22,
           "vulnerabilities": [
-            "GO-2026-4599",
-            "GO-2026-4600",
             "GO-2026-4601",
             "GO-2026-4602",
             "GO-2026-4603",
             "GO-2026-4864",
             "GO-2026-4865",
-            "GO-2026-4866",
             "GO-2026-4869",
             "GO-2026-4870",
             "GO-2026-4918",
@@ -3265,29 +3284,26 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
     },
     {
       "source": {
-        "path": "/usr/lib/go-1.26/pkg/tool/linux_amd64/compile",
+        "path": "/usr/lib/go-1.25/pkg/tool/linux_amd64/compile",
         "type": "artifact"
       },
       "packages": [
         {
           "package": {
             "name": "stdlib",
-            "version": "1.26.0",
+            "version": "1.25.7",
             "ecosystem": "Go",
             "image_origin_details": {
               "index": 0
             }
           },
-          "groups": 25,
+          "groups": 22,
           "vulnerabilities": [
-            "GO-2026-4599",
-            "GO-2026-4600",
             "GO-2026-4601",
             "GO-2026-4602",
             "GO-2026-4603",
             "GO-2026-4864",
             "GO-2026-4865",
-            "GO-2026-4866",
             "GO-2026-4869",
             "GO-2026-4870",
             "GO-2026-4918",
@@ -3311,29 +3327,26 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
     },
     {
       "source": {
-        "path": "/usr/lib/go-1.26/pkg/tool/linux_amd64/link",
+        "path": "/usr/lib/go-1.25/pkg/tool/linux_amd64/link",
         "type": "artifact"
       },
       "packages": [
         {
           "package": {
             "name": "stdlib",
-            "version": "1.26.0",
+            "version": "1.25.7",
             "ecosystem": "Go",
             "image_origin_details": {
               "index": 0
             }
           },
-          "groups": 25,
+          "groups": 22,
           "vulnerabilities": [
-            "GO-2026-4599",
-            "GO-2026-4600",
             "GO-2026-4601",
             "GO-2026-4602",
             "GO-2026-4603",
             "GO-2026-4864",
             "GO-2026-4865",
-            "GO-2026-4866",
             "GO-2026-4869",
             "GO-2026-4870",
             "GO-2026-4918",
@@ -3357,29 +3370,26 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
     },
     {
       "source": {
-        "path": "/usr/lib/go-1.26/pkg/tool/linux_amd64/vet",
+        "path": "/usr/lib/go-1.25/pkg/tool/linux_amd64/vet",
         "type": "artifact"
       },
       "packages": [
         {
           "package": {
             "name": "stdlib",
-            "version": "1.26.0",
+            "version": "1.25.7",
             "ecosystem": "Go",
             "image_origin_details": {
               "index": 0
             }
           },
-          "groups": 25,
+          "groups": 22,
           "vulnerabilities": [
-            "GO-2026-4599",
-            "GO-2026-4600",
             "GO-2026-4601",
             "GO-2026-4602",
             "GO-2026-4603",
             "GO-2026-4864",
             "GO-2026-4865",
-            "GO-2026-4866",
             "GO-2026-4869",
             "GO-2026-4870",
             "GO-2026-4918",
@@ -3436,7 +3446,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
     "layer_metadata": [
       {
         "diff_id": "sha256:...",
-        "command": "COPY /rootfs/ / # buildkit",
+        "command": "/bin/sh -c #(nop) COPY dir:c2f4f486fb49c0774de4f288fa27db790d3b127343c62f8580ea9799ec3f2c01 in / ",
         "is_empty": false,
         "base_image_index": 0
       }
@@ -3727,31 +3737,31 @@ Scanning local image tarball "./testdata/test-chisel.tar"
       },
       {
         "diff_id": "sha256:...",
-        "command": "RUN |1 MANAGER_VERSION=10...",
+        "command": "|1 MANAGER_VERSION=10.2.4...",
         "is_empty": false,
         "base_image_index": 0
       },
       {
         "diff_id": "sha256:...",
-        "command": "RUN |1 MANAGER_VERSION=10...",
+        "command": "|1 MANAGER_VERSION=10.2.4...",
         "is_empty": false,
         "base_image_index": 0
       },
       {
         "diff_id": "sha256:...",
-        "command": "RUN |1 MANAGER_VERSION=10...",
+        "command": "|1 MANAGER_VERSION=10.2.4...",
         "is_empty": false,
         "base_image_index": 0
       },
       {
         "diff_id": "sha256:...",
-        "command": "RUN |1 MANAGER_VERSION=10...",
+        "command": "|1 MANAGER_VERSION=10.2.4...",
         "is_empty": false,
         "base_image_index": 0
       },
       {
         "diff_id": "sha256:...",
-        "command": "RUN |1 MANAGER_VERSION=10...",
+        "command": "|1 MANAGER_VERSION=10.2.4...",
         "is_empty": false,
         "base_image_index": 0
       }
@@ -3782,6 +3792,82 @@ Scanning local image tarball "./testdata/test-chisel.tar"
 
 [TestCommand_OCIImage_JSONFormat/scanning_node_modules_using_npm_with_some_packages - 2]
 Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
+
+---
+
+[TestCommand_OCIImage_JSONFormat/scanning_opensuse_leap_15.5_image - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "/usr/lib/sysimage/rpm/Packages.db",
+        "type": "os"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "curl",
+            "os_package_name": "curl",
+            "version": "8.0.1-150400.5.50.1",
+            "ecosystem": "openSUSE:Leap 15.5",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "SUSE-SU-2024:3926-1",
+            "SUSE-SU-2024:4359-1"
+          ]
+        },
+        {
+          "package": {
+            "name": "openssl-1_1",
+            "os_package_name": "openssl-1_1",
+            "version": "1.1.1l-150500.17.34.1",
+            "ecosystem": "openSUSE:Leap 15.5",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "SUSE-SU-2024:3765-1"
+          ]
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  },
+  "image_metadata": {
+    "os": "openSUSE Leap 15.5",
+    "layer_metadata": [
+      {
+        "diff_id": "sha256:...",
+        "command": "KIWI 9.24.43",
+        "is_empty": false,
+        "base_image_index": 1
+      }
+    ],
+    "base_images": [
+      {},
+      {
+        "name": "opensuse/leap",
+        "tags": null
+      }
+    ]
+  }
+}
+
+---
+
+[TestCommand_OCIImage_JSONFormat/scanning_opensuse_leap_15.5_image - 2]
+Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
 
 ---
 
@@ -6092,13 +6178,13 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
       },
       {
         "diff_id": "sha256:...",
-        "command": "COPY ./sample-pkgs/fzf_0.29.0-1ubuntu0.1_amd64.deb /tmp/fzf_0.29.0-1ubuntu0.1_amd64.deb # buildkit",
+        "command": "/bin/sh -c #(nop) COPY file:e099eb298fe3dfbad8c2324167a33e9e74588d4638b7c6563cc931c288ff04b7 in /tmp/fzf_0.29.0-1ubuntu0.1_amd64.deb ",
         "is_empty": false,
         "base_image_index": 0
       },
       {
         "diff_id": "sha256:...",
-        "command": "RUN /bin/sh -c dpkg -i /tmp/fzf_0.29.0-1ubuntu0.1_amd64.deb /u0026/u0026 rm /tmp/fzf_0.29.0-1ubuntu0.1_amd64.deb # buildkit",
+        "command": "/bin/sh -c dpkg -i /tmp/fzf_0.29.0-1ubuntu0.1_amd64.deb /u0026/u0026 rm /tmp/fzf_0.29.0-1ubuntu0.1_amd64.deb",
         "is_empty": false,
         "base_image_index": 0
       }

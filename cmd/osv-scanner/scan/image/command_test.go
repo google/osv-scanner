@@ -371,6 +371,11 @@ func TestCommand_OCIImage(t *testing.T) {
 			},
 			Exit: 1,
 		},
+		{
+			Name: "Scanning_openSUSE_Leap_15.5_image",
+			Args: []string{"", "image", "--archive", "./testdata/test-opensuse-leap-15.5.tar"},
+			Exit: 1,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
@@ -513,6 +518,17 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 				"", "image", "--format=json",
 				"--archive", "./testdata/test-chisel.tar",
 			},
+			Exit: 1,
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.GroupsAsArrayLen,
+				testutility.OnlyIDVulnsRule,
+				testutility.OnlyFirstBaseImage,
+				testutility.AnyDiffID,
+			},
+		},
+		{
+			Name: "scanning_opensuse_leap_15.5_image",
+			Args: []string{"", "image", "--archive", "--format=json", "./testdata/test-opensuse-leap-15.5.tar"},
 			Exit: 1,
 			ReplaceRules: []testutility.JSONReplaceRule{
 				testutility.GroupsAsArrayLen,
