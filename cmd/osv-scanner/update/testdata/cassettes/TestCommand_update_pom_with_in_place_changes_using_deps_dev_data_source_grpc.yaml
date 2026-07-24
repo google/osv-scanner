@@ -1,0 +1,3177 @@
+interactions:
+    - method: /deps_dev.v3.Insights/GetPackage
+      request: |-
+        {
+          "packageKey": {
+            "name": "com.fasterxml.jackson.core:jackson-core",
+            "system": "MAVEN"
+          }
+        }
+      response: |-
+        {
+          "packageKey": {
+            "name": "com.fasterxml.jackson.core:jackson-core",
+            "system": "MAVEN"
+          },
+          "versions": [
+            {
+              "publishedAt": "2012-03-25T18:56:26Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.0.0"
+              }
+            },
+            {
+              "publishedAt": "2012-02-19T07:19:13Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.0.0-RC1"
+              }
+            },
+            {
+              "publishedAt": "2012-03-06T06:47:51Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.0.0-RC2"
+              }
+            },
+            {
+              "publishedAt": "2012-03-23T00:00:56Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.0.0-RC3"
+              }
+            },
+            {
+              "publishedAt": "2012-04-22T17:38:43Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.0.1"
+              }
+            },
+            {
+              "publishedAt": "2012-05-15T01:50:40Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.0.2"
+              }
+            },
+            {
+              "publishedAt": "2012-06-27T05:02:07Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.0.4"
+              }
+            },
+            {
+              "publishedAt": "2012-07-27T22:49:39Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.0.5"
+              }
+            },
+            {
+              "publishedAt": "2012-09-06T03:11:37Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.0.6"
+              }
+            },
+            {
+              "publishedAt": "2012-10-09T02:46:45Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.1.0"
+              }
+            },
+            {
+              "publishedAt": "2012-11-11T23:47:11Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.1.1"
+              }
+            },
+            {
+              "publishedAt": "2012-12-04T06:02:19Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.1.2"
+              }
+            },
+            {
+              "publishedAt": "2013-01-19T21:06:22Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.1.3"
+              }
+            },
+            {
+              "publishedAt": "2013-02-26T23:08:22Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.1.4"
+              }
+            },
+            {
+              "publishedAt": "2013-05-03T03:01:41Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.1.5"
+              }
+            },
+            {
+              "publishedAt": "2019-09-26T03:02:36Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.10.0"
+              }
+            },
+            {
+              "publishedAt": "2019-07-19T03:06:21Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.10.0.pr1"
+              }
+            },
+            {
+              "publishedAt": "2019-08-31T00:18:46Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.10.0.pr2"
+              }
+            },
+            {
+              "publishedAt": "2019-09-17T02:36:10Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.10.0.pr3"
+              }
+            },
+            {
+              "publishedAt": "2019-11-09T23:09:22Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.10.1"
+              }
+            },
+            {
+              "publishedAt": "2020-01-05T02:05:54Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.10.2"
+              }
+            },
+            {
+              "publishedAt": "2020-03-03T03:12:41Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.10.3"
+              }
+            },
+            {
+              "publishedAt": "2020-05-02T22:20:26Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.10.4"
+              }
+            },
+            {
+              "publishedAt": "2020-07-21T01:42:42Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.10.5"
+              }
+            },
+            {
+              "publishedAt": "2020-04-25T23:58:27Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.11.0"
+              }
+            },
+            {
+              "publishedAt": "2020-03-24T18:11:21Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.11.0.rc1"
+              }
+            },
+            {
+              "publishedAt": "2020-06-25T02:35:31Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.11.1"
+              }
+            },
+            {
+              "publishedAt": "2020-08-02T18:17:31Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.11.2"
+              }
+            },
+            {
+              "publishedAt": "2020-10-01T22:25:35Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.11.3"
+              }
+            },
+            {
+              "publishedAt": "2020-12-12T00:11:09Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.11.4"
+              }
+            },
+            {
+              "publishedAt": "2020-11-29T00:56:40Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.12.0"
+              }
+            },
+            {
+              "publishedAt": "2020-10-12T00:22:59Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.12.0-rc1"
+              }
+            },
+            {
+              "publishedAt": "2020-11-15T03:07:16Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.12.0-rc2"
+              }
+            },
+            {
+              "publishedAt": "2021-01-09T01:13:17Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.12.1"
+              }
+            },
+            {
+              "publishedAt": "2021-03-03T20:56:52Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.12.2"
+              }
+            },
+            {
+              "publishedAt": "2021-04-12T17:30:18Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.12.3"
+              }
+            },
+            {
+              "publishedAt": "2021-07-06T19:51:42Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.12.4"
+              }
+            },
+            {
+              "publishedAt": "2021-08-26T23:58:25Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.12.5"
+              }
+            },
+            {
+              "publishedAt": "2021-12-15T02:21:04Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.12.6"
+              }
+            },
+            {
+              "publishedAt": "2022-05-26T17:28:35Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.12.7"
+              }
+            },
+            {
+              "publishedAt": "2021-09-30T20:16:57Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.13.0"
+              }
+            },
+            {
+              "publishedAt": "2021-07-14T00:49:39Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.13.0-rc1"
+              }
+            },
+            {
+              "publishedAt": "2021-08-27T03:32:59Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.13.0-rc2"
+              }
+            },
+            {
+              "publishedAt": "2021-12-19T00:43:43Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.13.1"
+              }
+            },
+            {
+              "publishedAt": "2022-03-06T19:27:55Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.13.2"
+              }
+            },
+            {
+              "publishedAt": "2022-05-14T14:39:09Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.13.3"
+              }
+            },
+            {
+              "publishedAt": "2022-09-03T22:06:42Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.13.4"
+              }
+            },
+            {
+              "publishedAt": "2023-01-23T00:24:37Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.13.5"
+              }
+            },
+            {
+              "publishedAt": "2022-11-05T20:38:10Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.14.0"
+              }
+            },
+            {
+              "publishedAt": "2022-09-25T20:56:15Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.14.0-rc1"
+              }
+            },
+            {
+              "publishedAt": "2022-10-10T23:27:17Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.14.0-rc2"
+              }
+            },
+            {
+              "publishedAt": "2022-10-28T21:39:31Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.14.0-rc3"
+              }
+            },
+            {
+              "publishedAt": "2022-11-21T23:38:17Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.14.1"
+              }
+            },
+            {
+              "publishedAt": "2023-01-29T00:54:47Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.14.2"
+              }
+            },
+            {
+              "publishedAt": "2023-05-05T16:03:54Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.14.3"
+              }
+            },
+            {
+              "publishedAt": "2023-04-23T21:21:11Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.15.0"
+              }
+            },
+            {
+              "publishedAt": "2023-03-18T20:13:47Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.15.0-rc1"
+              }
+            },
+            {
+              "publishedAt": "2023-03-28T22:32:49Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.15.0-rc2"
+              }
+            },
+            {
+              "publishedAt": "2023-04-14T19:45:43Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.15.0-rc3"
+              }
+            },
+            {
+              "publishedAt": "2023-05-16T21:28:15Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.15.1"
+              }
+            },
+            {
+              "publishedAt": "2023-05-30T22:17:34Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.15.2"
+              }
+            },
+            {
+              "publishedAt": "2023-10-12T22:51:04Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.15.3"
+              }
+            },
+            {
+              "publishedAt": "2024-02-15T17:09:49Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.15.4"
+              }
+            },
+            {
+              "publishedAt": "2023-11-15T22:10:45Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.16.0"
+              }
+            },
+            {
+              "publishedAt": "2023-10-20T22:19:17Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.16.0-rc1"
+              }
+            },
+            {
+              "publishedAt": "2023-12-24T04:14:02Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.16.1"
+              }
+            },
+            {
+              "publishedAt": "2024-03-09T18:43:22Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.16.2"
+              }
+            },
+            {
+              "publishedAt": "2024-03-12T21:38:37Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.17.0"
+              }
+            },
+            {
+              "publishedAt": "2024-02-27T01:35:54Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.17.0-rc1"
+              }
+            },
+            {
+              "publishedAt": "2024-05-05T01:54:35Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.17.1"
+              }
+            },
+            {
+              "publishedAt": "2024-07-05T17:03:39Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.17.2"
+              }
+            },
+            {
+              "publishedAt": "2024-11-01T20:19:10Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.17.3"
+              }
+            },
+            {
+              "publishedAt": "2024-09-27T01:43:29Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.18.0"
+              }
+            },
+            {
+              "publishedAt": "2024-08-30T17:33:52Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.18.0-rc1"
+              }
+            },
+            {
+              "publishedAt": "2024-10-28T23:13:13Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.18.1"
+              }
+            },
+            {
+              "publishedAt": "2024-11-28T00:56:42Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.18.2"
+              }
+            },
+            {
+              "publishedAt": "2025-02-28T23:29:12Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.18.3"
+              }
+            },
+            {
+              "publishedAt": "2025-05-07T00:14:05Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.18.4"
+              }
+            },
+            {
+              "publishedAt": "2025-06-11T01:14:00Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.18.4.1"
+              }
+            },
+            {
+              "publishedAt": "2025-10-28T01:01:33Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.18.5"
+              }
+            },
+            {
+              "publishedAt": "2026-02-22T23:18:08Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.18.6"
+              }
+            },
+            {
+              "publishedAt": "2026-04-24T20:23:19Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.18.7"
+              }
+            },
+            {
+              "publishedAt": "2026-05-29T00:28:51Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.18.8"
+              }
+            },
+            {
+              "publishedAt": "2026-07-07T23:50:30Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.18.9"
+              }
+            },
+            {
+              "publishedAt": "2025-04-24T23:28:44Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.19.0"
+              }
+            },
+            {
+              "publishedAt": "2025-04-08T00:44:58Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.19.0-rc1"
+              }
+            },
+            {
+              "publishedAt": "2025-04-08T01:09:41Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.19.0-rc2"
+              }
+            },
+            {
+              "publishedAt": "2025-06-14T01:07:49Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.19.1"
+              }
+            },
+            {
+              "publishedAt": "2025-07-18T17:41:18Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.19.2"
+              }
+            },
+            {
+              "publishedAt": "2025-10-29T18:18:06Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.19.3"
+              }
+            },
+            {
+              "publishedAt": "2025-10-29T23:23:26Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.19.4"
+              }
+            },
+            {
+              "publishedAt": "2013-04-23T02:48:35Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.2.0"
+              }
+            },
+            {
+              "publishedAt": "2013-04-18T01:50:12Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.2.0-rc1"
+              }
+            },
+            {
+              "publishedAt": "2013-05-04T01:12:02Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.2.1"
+              }
+            },
+            {
+              "publishedAt": "2013-05-27T05:19:58Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.2.2"
+              }
+            },
+            {
+              "publishedAt": "2013-08-23T03:20:07Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.2.3"
+              }
+            },
+            {
+              "publishedAt": "2014-06-11T00:24:19Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.2.4"
+              }
+            },
+            {
+              "publishedAt": "2025-08-28T22:55:50Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.20.0"
+              }
+            },
+            {
+              "publishedAt": "2025-08-05T00:54:39Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.20.0-rc1"
+              }
+            },
+            {
+              "publishedAt": "2025-10-30T23:33:19Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.20.1"
+              }
+            },
+            {
+              "publishedAt": "2026-01-19T20:43:00Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.20.2"
+              }
+            },
+            {
+              "publishedAt": "2026-01-18T22:54:53Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.21.0"
+              }
+            },
+            {
+              "publishedAt": "2026-02-23T01:20:13Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.21.1"
+              }
+            },
+            {
+              "publishedAt": "2026-03-20T16:30:07Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.21.2"
+              }
+            },
+            {
+              "publishedAt": "2026-04-28T19:59:44Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.21.3"
+              }
+            },
+            {
+              "publishedAt": "2026-05-29T04:13:38Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.21.4"
+              }
+            },
+            {
+              "publishedAt": "2026-07-07T02:02:05Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.21.5"
+              }
+            },
+            {
+              "publishedAt": "2026-05-31T23:57:06Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.22.0"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-07-07T21:30:06Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.22.1"
+              }
+            },
+            {
+              "publishedAt": "2013-11-14T05:05:19Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.3.0"
+              }
+            },
+            {
+              "publishedAt": "2013-10-26T02:56:39Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.3.0-rc1"
+              }
+            },
+            {
+              "publishedAt": "2013-12-28T01:01:23Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.3.1"
+              }
+            },
+            {
+              "publishedAt": "2014-03-01T01:38:27Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.3.2"
+              }
+            },
+            {
+              "publishedAt": "2014-04-10T16:47:06Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.3.3"
+              }
+            },
+            {
+              "publishedAt": "2014-07-17T22:44:41Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.3.4"
+              }
+            },
+            {
+              "publishedAt": "2015-01-14T06:23:38Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.3.5"
+              }
+            },
+            {
+              "publishedAt": "2014-05-29T18:40:10Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.4.0"
+              }
+            },
+            {
+              "publishedAt": "2014-04-26T19:17:08Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.4.0-rc1"
+              }
+            },
+            {
+              "publishedAt": "2014-04-30T15:27:48Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.4.0-rc2"
+              }
+            },
+            {
+              "publishedAt": "2014-05-08T21:15:40Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.4.0-rc3"
+              }
+            },
+            {
+              "publishedAt": "2014-06-15T22:21:01Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.4.1"
+              }
+            },
+            {
+              "publishedAt": "2014-07-09T15:05:13Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.4.1.1"
+              }
+            },
+            {
+              "publishedAt": "2014-08-14T03:55:03Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.4.2"
+              }
+            },
+            {
+              "publishedAt": "2014-10-03T02:01:40Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.4.3"
+              }
+            },
+            {
+              "publishedAt": "2014-11-25T02:17:26Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.4.4"
+              }
+            },
+            {
+              "publishedAt": "2015-01-14T04:23:00Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.4.5"
+              }
+            },
+            {
+              "publishedAt": "2015-04-24T01:39:04Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.4.6"
+              }
+            },
+            {
+              "publishedAt": "2015-01-01T23:39:04Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.5.0"
+              }
+            },
+            {
+              "publishedAt": "2014-12-19T16:09:43Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.5.0-rc1"
+              }
+            },
+            {
+              "publishedAt": "2015-02-07T00:06:00Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.5.1"
+              }
+            },
+            {
+              "publishedAt": "2015-03-29T23:50:12Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.5.2"
+              }
+            },
+            {
+              "publishedAt": "2015-04-24T17:16:54Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.5.3"
+              }
+            },
+            {
+              "publishedAt": "2015-06-10T01:28:29Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.5.4"
+              }
+            },
+            {
+              "publishedAt": "2015-12-08T02:38:17Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.5.5"
+              }
+            },
+            {
+              "publishedAt": "2015-07-17T00:14:00Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.6.0"
+              }
+            },
+            {
+              "publishedAt": "2015-05-19T03:12:23Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.6.0-rc1"
+              }
+            },
+            {
+              "publishedAt": "2015-06-09T01:39:26Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.6.0-rc2"
+              }
+            },
+            {
+              "publishedAt": "2015-06-25T02:50:40Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.6.0-rc3"
+              }
+            },
+            {
+              "publishedAt": "2015-07-11T03:33:33Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.6.0-rc4"
+              }
+            },
+            {
+              "publishedAt": "2015-08-10T05:24:23Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.6.1"
+              }
+            },
+            {
+              "publishedAt": "2015-09-15T02:45:19Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.6.2"
+              }
+            },
+            {
+              "publishedAt": "2015-10-12T17:07:58Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.6.3"
+              }
+            },
+            {
+              "publishedAt": "2015-12-08T02:28:58Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.6.4"
+              }
+            },
+            {
+              "publishedAt": "2016-01-19T04:51:52Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.6.5"
+              }
+            },
+            {
+              "publishedAt": "2016-04-05T01:17:31Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.6.6"
+              }
+            },
+            {
+              "publishedAt": "2016-06-05T21:06:56Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.6.7"
+              }
+            },
+            {
+              "publishedAt": "2016-01-10T05:53:46Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.7.0"
+              }
+            },
+            {
+              "publishedAt": "2015-11-26T18:39:14Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.7.0-rc1"
+              }
+            },
+            {
+              "publishedAt": "2015-12-12T01:53:08Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.7.0-rc2"
+              }
+            },
+            {
+              "publishedAt": "2016-01-06T06:19:30Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.7.0-rc3"
+              }
+            },
+            {
+              "publishedAt": "2016-02-02T06:10:18Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.7.1"
+              }
+            },
+            {
+              "publishedAt": "2016-02-27T02:11:22Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.7.2"
+              }
+            },
+            {
+              "publishedAt": "2016-03-16T01:20:53Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.7.3"
+              }
+            },
+            {
+              "publishedAt": "2016-04-29T00:27:15Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.7.4"
+              }
+            },
+            {
+              "publishedAt": "2016-06-11T02:05:10Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.7.5"
+              }
+            },
+            {
+              "publishedAt": "2016-07-23T02:29:10Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.7.6"
+              }
+            },
+            {
+              "publishedAt": "2016-08-26T21:50:26Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.7.7"
+              }
+            },
+            {
+              "publishedAt": "2016-09-26T14:49:03Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.7.8"
+              }
+            },
+            {
+              "publishedAt": "2017-02-04T19:18:44Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.7.9"
+              }
+            },
+            {
+              "publishedAt": "2016-07-04T05:21:38Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.8.0"
+              }
+            },
+            {
+              "publishedAt": "2016-06-07T03:46:24Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.8.0.rc1"
+              }
+            },
+            {
+              "publishedAt": "2016-06-16T22:49:53Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.8.0.rc2"
+              }
+            },
+            {
+              "publishedAt": "2016-07-19T23:01:42Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.8.1"
+              }
+            },
+            {
+              "publishedAt": "2017-08-24T04:24:48Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.8.10"
+              }
+            },
+            {
+              "publishedAt": "2017-12-24T02:13:03Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.8.11"
+              }
+            },
+            {
+              "publishedAt": "2016-08-30T00:39:53Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.8.2"
+              }
+            },
+            {
+              "publishedAt": "2016-09-18T01:26:53Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.8.3"
+              }
+            },
+            {
+              "publishedAt": "2016-10-14T03:48:20Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.8.4"
+              }
+            },
+            {
+              "publishedAt": "2016-11-14T06:07:52Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.8.5"
+              }
+            },
+            {
+              "publishedAt": "2017-01-12T04:35:26Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.8.6"
+              }
+            },
+            {
+              "publishedAt": "2017-02-21T01:02:01Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.8.7"
+              }
+            },
+            {
+              "publishedAt": "2017-04-05T03:23:28Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.8.8"
+              }
+            },
+            {
+              "publishedAt": "2017-06-12T00:43:40Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.8.9"
+              }
+            },
+            {
+              "publishedAt": "2017-07-30T04:03:34Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.9.0"
+              }
+            },
+            {
+              "publishedAt": "2017-03-02T18:00:43Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.9.0.pr1"
+              }
+            },
+            {
+              "publishedAt": "2017-03-22T03:25:01Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.9.0.pr2"
+              }
+            },
+            {
+              "publishedAt": "2017-04-25T05:37:47Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.9.0.pr3"
+              }
+            },
+            {
+              "publishedAt": "2017-06-17T01:16:48Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.9.0.pr4"
+              }
+            },
+            {
+              "publishedAt": "2017-09-08T00:48:31Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.9.1"
+              }
+            },
+            {
+              "publishedAt": "2019-09-21T17:52:53Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.9.10"
+              }
+            },
+            {
+              "publishedAt": "2017-10-14T03:26:10Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.9.2"
+              }
+            },
+            {
+              "publishedAt": "2017-12-09T03:00:21Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.9.3"
+              }
+            },
+            {
+              "publishedAt": "2018-01-24T03:14:13Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.9.4"
+              }
+            },
+            {
+              "publishedAt": "2018-03-26T15:05:15Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.9.5"
+              }
+            },
+            {
+              "publishedAt": "2018-06-12T00:54:32Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.9.6"
+              }
+            },
+            {
+              "publishedAt": "2018-09-19T02:42:29Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.9.7"
+              }
+            },
+            {
+              "publishedAt": "2018-12-15T21:19:33Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.9.8"
+              }
+            },
+            {
+              "publishedAt": "2019-05-16T02:59:08Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.9.9"
+              }
+            }
+          ]
+        }
+    - method: /deps_dev.v3.Insights/GetPackage
+      request: |-
+        {
+          "packageKey": {
+            "name": "junit:junit",
+            "system": "MAVEN"
+          }
+        }
+      response: |-
+        {
+          "packageKey": {
+            "name": "junit:junit",
+            "system": "MAVEN"
+          },
+          "versions": [
+            {
+              "publishedAt": "2005-08-01T09:42:48Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "3.7"
+              }
+            },
+            {
+              "publishedAt": "2005-08-01T09:42:49Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "3.8"
+              }
+            },
+            {
+              "publishedAt": "2005-08-01T09:42:48Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "3.8.1"
+              }
+            },
+            {
+              "publishedAt": "2006-03-03T23:22:26Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "3.8.2"
+              }
+            },
+            {
+              "publishedAt": "2006-02-16T08:34:50Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "4.0"
+              }
+            },
+            {
+              "publishedAt": "2006-05-02T18:54:02Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "4.1"
+              }
+            },
+            {
+              "publishedAt": "2011-09-29T19:12:15Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "4.10"
+              }
+            },
+            {
+              "publishedAt": "2012-11-14T19:21:20Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "4.11"
+              }
+            },
+            {
+              "publishedAt": "2012-10-15T19:45:12Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "4.11-beta-1"
+              }
+            },
+            {
+              "publishedAt": "2014-12-04T16:17:43Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "4.12"
+              }
+            },
+            {
+              "publishedAt": "2014-07-27T20:41:26Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "4.12-beta-1"
+              }
+            },
+            {
+              "publishedAt": "2014-09-25T05:54:40Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "4.12-beta-2"
+              }
+            },
+            {
+              "publishedAt": "2014-11-09T15:53:31Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "4.12-beta-3"
+              }
+            },
+            {
+              "publishedAt": "2020-01-01T15:44:45Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "4.13"
+              }
+            },
+            {
+              "publishedAt": "2018-11-25T15:09:14Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "4.13-beta-1"
+              }
+            },
+            {
+              "publishedAt": "2019-02-02T13:59:18Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "4.13-beta-2"
+              }
+            },
+            {
+              "publishedAt": "2019-05-05T12:51:25Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "4.13-beta-3"
+              }
+            },
+            {
+              "publishedAt": "2019-10-26T12:17:07Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "4.13-rc-1"
+              }
+            },
+            {
+              "publishedAt": "2019-12-01T10:01:55Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "4.13-rc-2"
+              }
+            },
+            {
+              "publishedAt": "2020-10-11T15:19:47Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "4.13.1"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2021-02-13T16:31:52Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "4.13.2"
+              }
+            },
+            {
+              "publishedAt": "2006-11-16T22:25:14Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "4.2"
+              }
+            },
+            {
+              "publishedAt": "2007-03-20T15:13:18Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "4.3"
+              }
+            },
+            {
+              "publishedAt": "2007-03-29T20:46:54Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "4.3.1"
+              }
+            },
+            {
+              "publishedAt": "2007-07-19T14:13:36Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "4.4"
+              }
+            },
+            {
+              "publishedAt": "2008-08-08T19:30:10Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "4.5"
+              }
+            },
+            {
+              "publishedAt": "2009-05-09T19:38:32Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "4.6"
+              }
+            },
+            {
+              "publishedAt": "2009-08-12T15:54:07Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "4.7"
+              }
+            },
+            {
+              "publishedAt": "2010-10-05T08:50:56Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "4.8"
+              }
+            },
+            {
+              "publishedAt": "2010-02-25T12:21:58Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "4.8.1"
+              }
+            },
+            {
+              "publishedAt": "2010-10-05T08:51:28Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "4.8.2"
+              }
+            },
+            {
+              "publishedAt": "2011-08-22T18:15:37Z",
+              "versionKey": {
+                "name": "junit:junit",
+                "system": "MAVEN",
+                "version": "4.9"
+              }
+            }
+          ]
+        }
+    - method: /deps_dev.v3.Insights/GetPackage
+      request: |-
+        {
+          "packageKey": {
+            "name": "org.apache.logging.log4j:log4j-api",
+            "system": "MAVEN"
+          }
+        }
+      response: |-
+        {
+          "packageKey": {
+            "name": "org.apache.logging.log4j:log4j-api",
+            "system": "MAVEN"
+          },
+          "versions": [
+            {
+              "publishedAt": "2014-07-12T23:26:22Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.0"
+              }
+            },
+            {
+              "publishedAt": "2012-07-29T19:11:52Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.0-alpha1"
+              }
+            },
+            {
+              "publishedAt": "2012-08-24T20:40:13Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.0-alpha2"
+              }
+            },
+            {
+              "publishedAt": "2012-09-18T13:58:11Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.0-beta1"
+              }
+            },
+            {
+              "publishedAt": "2012-10-07T19:09:16Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.0-beta2"
+              }
+            },
+            {
+              "publishedAt": "2012-11-11T16:22:19Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.0-beta3"
+              }
+            },
+            {
+              "publishedAt": "2013-01-28T07:45:27Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.0-beta4"
+              }
+            },
+            {
+              "publishedAt": "2013-04-20T21:21:05Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.0-beta5"
+              }
+            },
+            {
+              "publishedAt": "2013-05-07T01:58:34Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.0-beta6"
+              }
+            },
+            {
+              "publishedAt": "2013-06-04T16:12:34Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.0-beta7"
+              }
+            },
+            {
+              "publishedAt": "2013-07-10T21:14:50Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.0-beta8"
+              }
+            },
+            {
+              "publishedAt": "2013-09-14T14:16:57Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.0-beta9"
+              }
+            },
+            {
+              "publishedAt": "2014-02-09T19:04:10Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.0-rc1"
+              }
+            },
+            {
+              "publishedAt": "2014-06-21T23:30:56Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.0-rc2"
+              }
+            },
+            {
+              "publishedAt": "2014-07-30T00:53:25Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.0.1"
+              }
+            },
+            {
+              "publishedAt": "2014-08-17T05:24:03Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.0.2"
+              }
+            },
+            {
+              "publishedAt": "2014-10-20T01:38:54Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.1"
+              }
+            },
+            {
+              "publishedAt": "2017-11-19T07:49:08Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.10.0"
+              }
+            },
+            {
+              "publishedAt": "2018-03-11T22:43:38Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.11.0"
+              }
+            },
+            {
+              "publishedAt": "2018-07-23T03:44:52Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.11.1"
+              }
+            },
+            {
+              "publishedAt": "2019-02-06T01:11:43Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.11.2"
+              }
+            },
+            {
+              "publishedAt": "2019-06-26T03:36:26Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.12.0"
+              }
+            },
+            {
+              "publishedAt": "2019-08-07T03:44:21Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.12.1"
+              }
+            },
+            {
+              "publishedAt": "2021-12-14T05:35:07Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.12.2"
+              }
+            },
+            {
+              "publishedAt": "2021-12-20T23:13:56Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.12.3"
+              }
+            },
+            {
+              "publishedAt": "2021-12-28T21:17:23Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.12.4"
+              }
+            },
+            {
+              "publishedAt": "2019-12-12T02:41:10Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.13.0"
+              }
+            },
+            {
+              "publishedAt": "2020-02-26T02:53:13Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.13.1"
+              }
+            },
+            {
+              "publishedAt": "2020-04-21T04:37:28Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.13.2"
+              }
+            },
+            {
+              "publishedAt": "2020-05-10T19:08:23Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.13.3"
+              }
+            },
+            {
+              "publishedAt": "2020-11-06T21:02:51Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.14.0"
+              }
+            },
+            {
+              "publishedAt": "2021-03-07T05:11:48Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.14.1"
+              }
+            },
+            {
+              "publishedAt": "2021-12-09T18:25:26Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.15.0"
+              }
+            },
+            {
+              "publishedAt": "2021-12-13T05:40:59Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.16.0"
+              }
+            },
+            {
+              "publishedAt": "2021-12-18T01:57:18Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.17.0"
+              }
+            },
+            {
+              "publishedAt": "2021-12-27T23:30:20Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.17.1"
+              }
+            },
+            {
+              "publishedAt": "2022-02-23T20:28:31Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.17.2"
+              }
+            },
+            {
+              "publishedAt": "2022-06-28T22:03:50Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.18.0"
+              }
+            },
+            {
+              "publishedAt": "2022-09-13T17:17:03Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.19.0"
+              }
+            },
+            {
+              "publishedAt": "2015-02-22T22:17:11Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.2"
+              }
+            },
+            {
+              "publishedAt": "2023-02-18T05:20:22Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.20.0"
+              }
+            },
+            {
+              "publishedAt": "2023-10-12T15:37:42Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.21.0"
+              }
+            },
+            {
+              "publishedAt": "2023-10-20T19:49:40Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.21.1"
+              }
+            },
+            {
+              "publishedAt": "2023-11-17T09:39:25Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.22.0"
+              }
+            },
+            {
+              "publishedAt": "2023-12-22T15:26:55Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.22.1"
+              }
+            },
+            {
+              "publishedAt": "2024-02-17T09:42:36Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.23.0"
+              }
+            },
+            {
+              "publishedAt": "2024-03-06T12:32:45Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.23.1"
+              }
+            },
+            {
+              "publishedAt": "2024-09-03T16:35:40Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.24.0"
+              }
+            },
+            {
+              "publishedAt": "2024-09-24T14:08:28Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.24.1"
+              }
+            },
+            {
+              "publishedAt": "2024-11-18T21:07:39Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.24.2"
+              }
+            },
+            {
+              "publishedAt": "2024-12-10T10:51:47Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.24.3"
+              }
+            },
+            {
+              "publishedAt": "2025-06-13T17:46:21Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.25.0"
+              }
+            },
+            {
+              "publishedAt": "2025-07-05T20:24:04Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.25.1"
+              }
+            },
+            {
+              "publishedAt": "2025-09-18T18:41:58Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.25.2"
+              }
+            },
+            {
+              "publishedAt": "2025-12-15T12:48:06Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.25.3"
+              }
+            },
+            {
+              "publishedAt": "2026-03-25T08:30:15Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.25.4"
+              }
+            },
+            {
+              "publishedAt": "2026-07-07T02:17:42Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.25.5"
+              }
+            },
+            {
+              "publishedAt": "2026-05-02T20:02:34Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.26.0"
+              }
+            },
+            {
+              "publishedAt": "2026-07-03T02:16:54Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.26.1"
+              }
+            },
+            {
+              "publishedAt": "2015-05-10T21:12:55Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.3"
+              }
+            },
+            {
+              "publishedAt": "2021-12-21T04:39:29Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.3.1"
+              }
+            },
+            {
+              "publishedAt": "2021-12-29T01:25:15Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.3.2"
+              }
+            },
+            {
+              "publishedAt": "2015-09-20T16:58:49Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.4"
+              }
+            },
+            {
+              "publishedAt": "2015-10-09T00:50:13Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.4.1"
+              }
+            },
+            {
+              "publishedAt": "2015-12-07T00:19:02Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.5"
+              }
+            },
+            {
+              "publishedAt": "2016-05-25T14:54:14Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.6"
+              }
+            },
+            {
+              "publishedAt": "2016-06-06T00:32:50Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.6.1"
+              }
+            },
+            {
+              "publishedAt": "2016-07-06T02:36:44Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.6.2"
+              }
+            },
+            {
+              "publishedAt": "2016-10-02T18:14:32Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.7"
+              }
+            },
+            {
+              "publishedAt": "2017-01-22T05:08:37Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.8"
+              }
+            },
+            {
+              "publishedAt": "2017-02-26T23:54:07Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.8.1"
+              }
+            },
+            {
+              "publishedAt": "2017-04-02T20:24:10Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.8.2"
+              }
+            },
+            {
+              "publishedAt": "2017-08-26T20:37:07Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.9.0"
+              }
+            },
+            {
+              "publishedAt": "2017-09-18T05:51:27Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "2.9.1"
+              }
+            },
+            {
+              "publishedAt": "2023-06-18T00:23:56Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "3.0.0-alpha1"
+              }
+            },
+            {
+              "publishedAt": "2023-12-19T20:11:31Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "3.0.0-beta1"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2024-02-17T18:49:57Z",
+              "versionKey": {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "system": "MAVEN",
+                "version": "3.0.0-beta2"
+              }
+            }
+          ]
+        }
+    - method: /deps_dev.v3.Insights/GetPackage
+      request: |-
+        {
+          "packageKey": {
+            "name": "org.slf4j:slf4j-migrator",
+            "system": "MAVEN"
+          }
+        }
+      response: |-
+        {
+          "packageKey": {
+            "name": "org.slf4j:slf4j-migrator",
+            "system": "MAVEN"
+          },
+          "versions": [
+            {
+              "publishedAt": "2008-02-26T20:20:59Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.5.0"
+              }
+            },
+            {
+              "publishedAt": "2009-12-02T23:38:56Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.5.10"
+              }
+            },
+            {
+              "publishedAt": "2010-02-25T11:52:13Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.5.11"
+              }
+            },
+            {
+              "publishedAt": "2008-06-09T15:47:42Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.5.2"
+              }
+            },
+            {
+              "publishedAt": "2008-09-12T15:37:08Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.5.3"
+              }
+            },
+            {
+              "publishedAt": "2008-10-16T17:19:59Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.5.4"
+              }
+            },
+            {
+              "publishedAt": "2008-10-17T15:55:31Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.5.5"
+              }
+            },
+            {
+              "publishedAt": "2008-11-21T13:58:07Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.5.6"
+              }
+            },
+            {
+              "publishedAt": "2009-06-10T19:39:31Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.5.7"
+              }
+            },
+            {
+              "publishedAt": "2009-06-11T11:58:41Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.5.8"
+              }
+            },
+            {
+              "publishedAt": "2009-09-04T18:25:37Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.5.9-RC0"
+              }
+            },
+            {
+              "publishedAt": "2009-10-29T18:37:42Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.5.9.RC1"
+              }
+            },
+            {
+              "publishedAt": "2010-05-08T10:47:11Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.6.0"
+              }
+            },
+            {
+              "publishedAt": "2010-04-21T21:03:44Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.6.0-RC0"
+              }
+            },
+            {
+              "publishedAt": "2010-04-26T05:20:03Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.6.0-alpha2"
+              }
+            },
+            {
+              "publishedAt": "2010-07-05T20:31:13Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.6.1"
+              }
+            },
+            {
+              "publishedAt": "2011-08-18T22:15:35Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.6.2"
+              }
+            },
+            {
+              "publishedAt": "2011-10-17T19:57:23Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.6.3"
+              }
+            },
+            {
+              "publishedAt": "2011-10-31T22:47:20Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.6.4"
+              }
+            },
+            {
+              "publishedAt": "2012-06-04T06:21:56Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.6.5"
+              }
+            },
+            {
+              "publishedAt": "2012-06-11T14:43:48Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.6.6"
+              }
+            },
+            {
+              "publishedAt": "2012-09-06T21:56:55Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.0"
+              }
+            },
+            {
+              "publishedAt": "2012-09-14T21:13:27Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.1"
+              }
+            },
+            {
+              "publishedAt": "2015-01-06T20:14:59Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.10"
+              }
+            },
+            {
+              "publishedAt": "2015-03-26T14:12:42Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.11"
+              }
+            },
+            {
+              "publishedAt": "2015-03-26T20:52:23Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.12"
+              }
+            },
+            {
+              "publishedAt": "2015-11-10T20:21:06Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.13"
+              }
+            },
+            {
+              "publishedAt": "2016-01-24T20:49:19Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.14"
+              }
+            },
+            {
+              "publishedAt": "2016-02-09T16:32:15Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.15"
+              }
+            },
+            {
+              "publishedAt": "2016-02-11T20:27:49Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.16"
+              }
+            },
+            {
+              "publishedAt": "2016-02-26T18:54:11Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.18"
+              }
+            },
+            {
+              "publishedAt": "2016-03-14T21:35:49Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.19"
+              }
+            },
+            {
+              "publishedAt": "2012-10-11T18:57:47Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.2"
+              }
+            },
+            {
+              "publishedAt": "2016-03-29T15:14:01Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.20"
+              }
+            },
+            {
+              "publishedAt": "2016-04-04T18:39:51Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.21"
+              }
+            },
+            {
+              "publishedAt": "2016-12-13T17:06:59Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.22"
+              }
+            },
+            {
+              "publishedAt": "2017-02-14T22:33:11Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.23"
+              }
+            },
+            {
+              "publishedAt": "2017-02-24T11:06:50Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.24"
+              }
+            },
+            {
+              "publishedAt": "2017-03-16T16:38:11Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.25"
+              }
+            },
+            {
+              "publishedAt": "2019-02-18T23:21:56Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.26"
+              }
+            },
+            {
+              "publishedAt": "2019-08-06T09:23:12Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.27"
+              }
+            },
+            {
+              "publishedAt": "2019-08-10T08:29:51Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.28"
+              }
+            },
+            {
+              "publishedAt": "2019-10-31T12:26:45Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.29"
+              }
+            },
+            {
+              "publishedAt": "2013-03-15T10:26:28Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.3"
+              }
+            },
+            {
+              "publishedAt": "2019-12-16T21:06:08Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.30"
+              }
+            },
+            {
+              "publishedAt": "2021-06-17T21:37:06Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.31"
+              }
+            },
+            {
+              "publishedAt": "2021-07-20T11:59:40Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.32"
+              }
+            },
+            {
+              "publishedAt": "2022-01-13T14:38:50Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.33"
+              }
+            },
+            {
+              "publishedAt": "2022-01-25T08:12:55Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.34"
+              }
+            },
+            {
+              "publishedAt": "2022-01-25T10:41:39Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.35"
+              }
+            },
+            {
+              "publishedAt": "2022-02-08T13:36:14Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.36"
+              }
+            },
+            {
+              "publishedAt": "2013-03-18T14:53:30Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.4"
+              }
+            },
+            {
+              "publishedAt": "2013-03-25T20:54:12Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.5"
+              }
+            },
+            {
+              "publishedAt": "2014-02-05T22:41:12Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.6"
+              }
+            },
+            {
+              "publishedAt": "2014-04-04T11:14:56Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.7"
+              }
+            },
+            {
+              "publishedAt": "2014-12-14T16:57:57Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.8"
+              }
+            },
+            {
+              "publishedAt": "2014-12-16T22:04:12Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.7.9"
+              }
+            },
+            {
+              "publishedAt": "2017-04-07T09:50:25Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.8.0-alpha0"
+              }
+            },
+            {
+              "publishedAt": "2017-04-13T13:45:12Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.8.0-alpha1"
+              }
+            },
+            {
+              "publishedAt": "2017-04-25T22:13:51Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.8.0-alpha2"
+              }
+            },
+            {
+              "publishedAt": "2017-10-20T13:01:20Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.8.0-beta0"
+              }
+            },
+            {
+              "publishedAt": "2018-01-30T12:26:04Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.8.0-beta1"
+              }
+            },
+            {
+              "publishedAt": "2018-03-21T22:07:23Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.8.0-beta2"
+              }
+            },
+            {
+              "publishedAt": "2019-02-19T17:31:46Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "1.8.0-beta4"
+              }
+            },
+            {
+              "publishedAt": "2022-08-20T19:10:54Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "2.0.0"
+              }
+            },
+            {
+              "publishedAt": "2021-08-12T21:33:58Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "2.0.0-alpha4"
+              }
+            },
+            {
+              "publishedAt": "2021-08-30T16:07:45Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "2.0.0-alpha5"
+              }
+            },
+            {
+              "publishedAt": "2022-01-13T15:42:36Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "2.0.0-alpha6"
+              }
+            },
+            {
+              "publishedAt": "2022-03-17T18:39:09Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "2.0.0-alpha7"
+              }
+            },
+            {
+              "publishedAt": "2022-08-05T20:55:09Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "2.0.0-beta0"
+              }
+            },
+            {
+              "publishedAt": "2022-08-06T21:36:37Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "2.0.0-beta1"
+              }
+            },
+            {
+              "publishedAt": "2022-09-14T14:32:45Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "2.0.1"
+              }
+            },
+            {
+              "publishedAt": "2023-12-28T20:53:14Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "2.0.10"
+              }
+            },
+            {
+              "publishedAt": "2024-01-08T18:04:47Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "2.0.11"
+              }
+            },
+            {
+              "publishedAt": "2024-02-05T21:35:47Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "2.0.12"
+              }
+            },
+            {
+              "publishedAt": "2024-04-12T14:26:39Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "2.0.13"
+              }
+            },
+            {
+              "publishedAt": "2024-08-06T20:36:17Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "2.0.14"
+              }
+            },
+            {
+              "publishedAt": "2024-08-08T13:02:20Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "2.0.15"
+              }
+            },
+            {
+              "publishedAt": "2024-08-10T09:17:17Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "2.0.16"
+              }
+            },
+            {
+              "publishedAt": "2025-02-25T16:46:31Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "2.0.17"
+              }
+            },
+            {
+              "publishedAt": "2026-05-13T00:13:53Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "2.0.18"
+              }
+            },
+            {
+              "publishedAt": "2022-09-20T19:42:05Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "2.0.2"
+              }
+            },
+            {
+              "publishedAt": "2022-09-28T10:20:07Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "2.0.3"
+              }
+            },
+            {
+              "publishedAt": "2022-11-17T20:28:46Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "2.0.4"
+              }
+            },
+            {
+              "publishedAt": "2022-11-25T11:45:17Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "2.0.5"
+              }
+            },
+            {
+              "publishedAt": "2022-12-12T19:16:13Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "2.0.6"
+              }
+            },
+            {
+              "publishedAt": "2023-03-17T19:39:10Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "2.0.7"
+              }
+            },
+            {
+              "publishedAt": "2023-09-03T15:26:20Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "2.0.8"
+              }
+            },
+            {
+              "publishedAt": "2023-09-03T16:16:43Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "2.0.9"
+              }
+            },
+            {
+              "publishedAt": "2023-12-28T19:44:07Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "2.1.0-alpha0"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2024-01-02T19:27:08Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "2.1.0-alpha1"
+              }
+            }
+          ]
+        }

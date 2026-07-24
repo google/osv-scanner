@@ -1,10 +1,13 @@
 package source_test
 
 import (
+	"fmt"
+	"io"
 	"net/http"
 	"os"
 	"path/filepath"
 	"runtime"
+	"strings"
 	"testing"
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/testcmd"
@@ -13,8 +16,6 @@ import (
 
 func TestCommand(t *testing.T) {
 	t.Parallel()
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		// one specific supported lockfile
@@ -137,13 +138,13 @@ func TestCommand(t *testing.T) {
 		},
 		// only the files in the given directories are checked by default (no recursion)
 		{
-			Name: "only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion)",
+			Name: "only_the_files_in_the_given_directories_are_checked_by_default_no_recursion",
 			Args: []string{"", "source", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
 		// nested directories are checked when `--recursive` is passed
 		{
-			Name: "nested_directories_are_checked_when_`--recursive`_is_passed",
+			Name: "nested_directories_are_checked_when_--recursive_is_passed",
 			Args: []string{"", "source", "--recursive", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
@@ -225,7 +226,7 @@ func TestCommand(t *testing.T) {
 		},
 		// output format: markdown table
 		{
-			Name: "output_format:_markdown_table",
+			Name: "output_format_markdown_table",
 			Args: []string{"", "source", "--format", "markdown", "./testdata/locks-many-with-insecure/package-lock.json"},
 			Exit: 1,
 		},
@@ -292,7 +293,7 @@ func TestCommand(t *testing.T) {
 		},
 		// output format: unsupported
 		{
-			Name: "output_format:_unsupported",
+			Name: "output_format_unsupported",
 			Args: []string{"", "source", "--format", "unknown", "./testdata/locks-many/composer.lock"},
 			Exit: 127,
 		},
@@ -308,22 +309,22 @@ func TestCommand(t *testing.T) {
 			Exit: 127,
 		},
 		{
-			Name: "verbosity_level_=_error",
+			Name: "verbosity_level_error",
 			Args: []string{"", "source", "--verbosity", "error", "--format", "table", "./testdata/locks-many/composer.lock"},
 			Exit: 0,
 		},
 		{
-			Name: "verbosity_level_=_info",
+			Name: "verbosity_level_info",
 			Args: []string{"", "source", "--verbosity", "info", "--format", "table", "./testdata/locks-many/composer.lock"},
 			Exit: 0,
 		},
 		{
-			Name: "PURL_SBOM_case_sensitivity_(api)",
+			Name: "PURL_SBOM_case_sensitivity_api",
 			Args: []string{"", "source", "--format", "table", "./testdata/sbom-insecure/alpine.cdx.xml"},
 			Exit: 1,
 		},
 		{
-			Name: "PURL_SBOM_case_sensitivity_(local)",
+			Name: "PURL_SBOM_case_sensitivity_local",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "--format", "table", "./testdata/sbom-insecure/alpine.cdx.xml"},
 			Exit: 1,
 		},
@@ -341,7 +342,7 @@ func TestCommand(t *testing.T) {
 		},
 		// Go project with an overridden go version, recursive
 		{
-			Name: "Go_project_with_an_overridden_go_version,_recursive",
+			Name: "Go_project_with_an_overridden_go_version_recursive",
 			Args: []string{"", "source", "--config=./testdata/go-project/go-version-config.toml", "-r", "./testdata/go-project"},
 			Exit: 0,
 		},
@@ -408,8 +409,6 @@ func TestCommand(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -417,8 +416,6 @@ func TestCommand(t *testing.T) {
 
 func TestCommand_Config_UnusedIgnores(t *testing.T) {
 	t.Parallel()
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -441,8 +438,6 @@ func TestCommand_Config_UnusedIgnores(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -451,9 +446,8 @@ func TestCommand_Config_UnusedIgnores(t *testing.T) {
 func TestCommand_JavareachArchive(t *testing.T) {
 	t.Parallel()
 
-	testutility.SkipIfShort(t)
-
-	client := testcmd.InsertCassette(t)
+	// testutility.SkipIfShort(t)
+	testutility.Skip(t, "Skipping for now as Maven is enforcing stricter 429s")
 
 	tests := []testcmd.Case{
 		{
@@ -476,8 +470,6 @@ func TestCommand_JavareachArchive(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -489,8 +481,6 @@ func TestCommand_HomebrewWithAnnotators(t *testing.T) {
 	if runtime.GOOS != "darwin" {
 		testutility.Skip(t, "The detector in this test only works on Darwin")
 	}
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -508,8 +498,6 @@ func TestCommand_HomebrewWithAnnotators(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -517,8 +505,6 @@ func TestCommand_HomebrewWithAnnotators(t *testing.T) {
 
 func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 	t.Parallel()
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -647,8 +633,6 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -656,8 +640,6 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 
 func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 	t.Parallel()
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -799,8 +781,6 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -811,8 +791,6 @@ func TestCommand_CallAnalysis(t *testing.T) {
 
 	// This does require Go toolchain, but the whole project requires go toolchain,
 	// so not an external dependency
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -845,8 +823,6 @@ func TestCommand_CallAnalysis(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -856,7 +832,6 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 	t.Parallel()
 
 	cwd := testutility.GetCurrentWorkingDirectory(t)
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -875,7 +850,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			Exit: 0,
 		},
 		{
-			Name: "empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows)",
+			Name: "empty_works_as_an_escape_no_fixture_because_its_not_valid_on_Windows",
 			Args: []string{
 				"",
 				"source",
@@ -885,7 +860,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			Exit: 127,
 		},
 		{
-			Name: "empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows)",
+			Name: "empty_works_as_an_escape_no_fixture_because_its_not_valid_on_Windows",
 			Args: []string{
 				"",
 				"source",
@@ -900,7 +875,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			Exit: 0,
 		},
 		{
-			Name: "when_an_explicit_parse-as_is_given,_it's_applied_to_that_file",
+			Name: "when_an_explicit_parse-as_is_given_its_applied_to_that_file",
 			Args: []string{
 				"",
 				"source",
@@ -911,7 +886,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			Exit: 1,
 		},
 		{
-			Name: "multiple,_+_output_order_is_deterministic",
+			Name: "multiple_output_order_is_deterministic",
 			Args: []string{
 				"",
 				"source",
@@ -922,7 +897,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			Exit: 1,
 		},
 		{
-			Name: "multiple,_+_output_order_is_deterministic_2",
+			Name: "multiple_output_order_is_deterministic_2",
 			Args: []string{
 				"",
 				"source",
@@ -945,7 +920,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			Exit: 127,
 		},
 		{
-			Name: "parse-as_takes_priority,_even_if_it's_wrong",
+			Name: "parse-as_takes_priority_even_if_its_wrong",
 			Args: []string{
 				"",
 				"source",
@@ -1019,10 +994,6 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			if tt.HTTPClient == nil {
-				tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-			}
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -1031,8 +1002,6 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 // TestCommand_GithubActions tests common actions the github actions reusable workflow will run
 func TestCommand_GithubActions(t *testing.T) {
 	t.Parallel()
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -1058,8 +1027,6 @@ func TestCommand_GithubActions(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -1069,8 +1036,6 @@ func TestCommand_LocalDatabases(t *testing.T) {
 	t.Parallel()
 
 	testutility.SkipIfShort(t)
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -1099,12 +1064,12 @@ func TestCommand_LocalDatabases(t *testing.T) {
 			Exit: 127,
 		},
 		{
-			Name: "only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion)",
+			Name: "only_the_files_in_the_given_directories_are_checked_by_default_no_recursion",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
 		{
-			Name: "nested_directories_are_checked_when_`--recursive`_is_passed",
+			Name: "nested_directories_are_checked_when_--recursive_is_passed",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "--recursive", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
@@ -1124,7 +1089,7 @@ func TestCommand_LocalDatabases(t *testing.T) {
 			Exit: 0,
 		},
 		{
-			Name: "output_format:_markdown_table",
+			Name: "output_format_markdown_table",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "--format", "markdown", "./testdata/locks-many/composer.lock"},
 			Exit: 0,
 		},
@@ -1144,8 +1109,6 @@ func TestCommand_LocalDatabases(t *testing.T) {
 			tt.Args = []string{"", "source", "--local-db-path", testDir}
 			tt.Args = append(tt.Args, old[2:]...)
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			// run each test twice since they should provide the same output,
 			// and the second run should be fast as the db is already available
 			testcmd.RunAndMatchSnapshots(t, tt)
@@ -1156,8 +1119,6 @@ func TestCommand_LocalDatabases(t *testing.T) {
 
 func TestCommand_LocalDatabases_AlwaysOffline(t *testing.T) {
 	t.Parallel()
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -1175,8 +1136,6 @@ func TestCommand_LocalDatabases_AlwaysOffline(t *testing.T) {
 			tt.Args = []string{"", "source", "--local-db-path", testDir}
 			tt.Args = append(tt.Args, old[2:]...)
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			// run each test twice since they should provide the same output,
 			// and the second run should be fast as the db is already available
 			testcmd.RunAndMatchSnapshots(t, tt)
@@ -1189,8 +1148,6 @@ func TestCommand_CommitSupport(t *testing.T) {
 	t.Parallel()
 
 	testutility.SkipIfShort(t)
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -1209,7 +1166,10 @@ func TestCommand_CommitSupport(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
+			testDir := testutility.CreateTestDir(t)
+			old := tt.Args
+			tt.Args = []string{"", "source", "--local-db-path", testDir}
+			tt.Args = append(tt.Args, old[2:]...)
 
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
@@ -1218,8 +1178,6 @@ func TestCommand_CommitSupport(t *testing.T) {
 
 func TestCommand_Licenses(t *testing.T) {
 	t.Parallel()
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -1318,8 +1276,6 @@ func TestCommand_Licenses(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -1329,8 +1285,6 @@ func TestCommand_Transitive(t *testing.T) {
 	t.Parallel()
 
 	testutility.SkipIfShort(t)
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -1375,6 +1329,11 @@ func TestCommand_Transitive(t *testing.T) {
 			Name: "pom.xml_offline_vulnerabilities_keeps_transitive",
 			Args: []string{"", "source", "--offline-vulnerabilities", "--download-offline-databases", "./testdata/maven-transitive/pom.xml"},
 			Exit: 1,
+		},
+		{
+			Name: "pom.xml_ignore_direct_prevents_transitive",
+			Args: []string{"", "source", "--config", "./testdata/osv-scanner-ignore-log4j-web.toml", "./testdata/maven-transitive/pom.xml"},
+			Exit: 0,
 		},
 		{
 			Name: "pom.xml_enricher_requires_extractor",
@@ -1422,7 +1381,10 @@ func TestCommand_Transitive(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
+			testDir := testutility.CreateTestDir(t)
+			old := tt.Args
+			tt.Args = []string{"", "source", "--local-db-path", testDir}
+			tt.Args = append(tt.Args, old[2:]...)
 
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
@@ -1431,8 +1393,6 @@ func TestCommand_Transitive(t *testing.T) {
 
 func TestCommand_MoreLockfiles(t *testing.T) {
 	t.Parallel()
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -1471,7 +1431,7 @@ func TestCommand_MoreLockfiles(t *testing.T) {
 			Exit: 1,
 		},
 		{
-			Name: "Podfile.lock_-_Unsupported_ecosystem,_should_not_be_scanned",
+			Name: "Podfile.lock_-_Unsupported_ecosystem_should_not_be_scanned",
 			Args: []string{"", "source", "-L", "./testdata/locks-scalibr/Podfile.lock"},
 			Exit: 127,
 		},
@@ -1485,8 +1445,6 @@ func TestCommand_MoreLockfiles(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
-
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
 
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
@@ -1502,8 +1460,6 @@ func TestCommandNonGit(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	client := testcmd.InsertCassette(t)
-
 	tests := []testcmd.Case{
 		// one specific supported lockfile
 		{
@@ -1516,8 +1472,6 @@ func TestCommandNonGit(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -1527,14 +1481,11 @@ func TestCommand_HtmlFile(t *testing.T) {
 	t.Parallel()
 
 	testDir := testutility.CreateTestDir(t)
-	client := testcmd.InsertCassette(t)
 
 	testcmd.RunAndMatchSnapshots(t, testcmd.Case{
 		Name: "one_specific_supported_lockfile",
 		Args: []string{"", "source", "--format=html", "--output-file", testDir + "/report.html", "./testdata/locks-many/composer.lock"},
 		Exit: 0,
-
-		HTTPClient: testcmd.WithTestNameHeader(t, *client),
 	})
 
 	_, err := os.Stat(testDir + "/report.html")
@@ -1548,14 +1499,11 @@ func TestCommand_HtmlFile_Deprecated(t *testing.T) {
 	t.Parallel()
 
 	testDir := testutility.CreateTestDir(t)
-	client := testcmd.InsertCassette(t)
 
 	testcmd.RunAndMatchSnapshots(t, testcmd.Case{
 		Name: "one_specific_supported_lockfile",
 		Args: []string{"", "source", "--format=html", "--output", testDir + "/report.html", "./testdata/locks-many/composer.lock"},
 		Exit: 0,
-
-		HTTPClient: testcmd.WithTestNameHeader(t, *client),
 	})
 
 	_, err := os.Stat(testDir + "/report.html")
@@ -1581,8 +1529,6 @@ func TestCommand_WithDetector_OnLinux(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	client := testcmd.InsertCassette(t)
-
 	tests := []struct {
 		Name string
 		Args []string
@@ -1634,8 +1580,6 @@ func TestCommand_WithDetector_OnLinux(t *testing.T) {
 				Name: tt.Name,
 				Args: tt.Args,
 				Exit: tt.Exit,
-
-				HTTPClient: testcmd.WithTestNameHeader(t, *client),
 			})
 		})
 	}
@@ -1657,8 +1601,6 @@ func TestCommand_WithDetector_OffLinux(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	client := testcmd.InsertCassette(t)
-
 	tests := []struct {
 		Name string
 		Args []string
@@ -1710,8 +1652,6 @@ func TestCommand_WithDetector_OffLinux(t *testing.T) {
 				Name: tt.Name,
 				Args: tt.Args,
 				Exit: tt.Exit,
-
-				HTTPClient: testcmd.WithTestNameHeader(t, *client),
 			})
 		})
 	}
@@ -1822,5 +1762,101 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 			t.Parallel()
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
+	}
+}
+
+type mockRoundTripper struct {
+	roundTrip func(req *http.Request) (*http.Response, error)
+}
+
+func (m *mockRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
+	return m.roundTrip(req)
+}
+
+func TestCommand_Transitive_IgnoredTransitiveBypass(t *testing.T) {
+	t.Parallel()
+
+	// 1. Create mock POMs
+	mockPOMDirect := `<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.apache.logging.log4j</groupId>
+  <artifactId>log4j-web</artifactId>
+  <version>2.14.1</version>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.14.1</version>
+    </dependency>
+  </dependencies>
+</project>`
+
+	mockPOMTransitive := `<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.apache.logging.log4j</groupId>
+  <artifactId>log4j-core</artifactId>
+  <version>2.14.1</version>
+</project>`
+
+	transitiveCalled := false
+
+	mockClient := &http.Client{
+		Transport: &mockRoundTripper{
+			roundTrip: func(req *http.Request) (*http.Response, error) {
+				url := req.URL.String()
+				switch url {
+				case "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-web/2.14.1/log4j-web-2.14.1.pom":
+					return &http.Response{
+						StatusCode: http.StatusOK,
+						Body:       io.NopCloser(strings.NewReader(mockPOMDirect)),
+						Header:     make(http.Header),
+					}, nil
+				case "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-core/2.14.1/log4j-core-2.14.1.pom":
+					transitiveCalled = true
+					return &http.Response{
+						StatusCode: http.StatusOK,
+						Body:       io.NopCloser(strings.NewReader(mockPOMTransitive)),
+						Header:     make(http.Header),
+					}, nil
+				default:
+					if strings.Contains(url, "osv.dev") {
+						return &http.Response{
+							StatusCode: http.StatusOK,
+							Body:       io.NopCloser(strings.NewReader(`{"results":[]}`)),
+							Header:     make(http.Header),
+						}, nil
+					}
+
+					return nil, fmt.Errorf("unexpected request: %s", url)
+				}
+			},
+		},
+	}
+
+	// 2. Define the test case
+	tc := testcmd.Case{
+		Name: "pom.xml_ignore_direct_prevents_transitive_mocked",
+		Args: []string{
+			"", "source",
+			"--experimental-no-default-plugins",
+			"--experimental-plugins=java/pomxml,transitive",
+			"--config", "./testdata/osv-scanner-ignore-log4j-web.toml",
+			"./testdata/maven-transitive/pom.xml",
+		},
+		Exit:       0,
+		HTTPClient: mockClient,
+	}
+
+	// 3. Run the test
+	stdout, _ := testcmd.RunAndNormalize(t, tc)
+
+	// Verify the output matches what we expect
+	if !strings.Contains(stdout, "No issues found") {
+		t.Errorf("expected output to contain 'No issues found', got:\n%s", stdout)
+	}
+
+	// 4. Assert that the mock client was NOT called for the transitive dependency!
+	if transitiveCalled {
+		t.Error("expected transitive dependency log4j-core POM to NOT be requested, but it was requested!")
 	}
 }

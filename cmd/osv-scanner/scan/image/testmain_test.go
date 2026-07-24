@@ -15,9 +15,13 @@ import (
 func TestMain(m *testing.M) {
 	config.OSVScannerConfigName = "osv-scanner-test.toml"
 
+	cf := testcmd.NewClientFactories(nil)
+	testcmd.SharedClientFactories = cf
+
 	slog.SetDefault(slog.New(testlogger.New()))
 	testcmd.CommandsUnderTest = []cmd.CommandBuilder{image.Command}
 	m.Run()
 
+	_ = cf.Close()
 	testutility.CleanSnapshots(m)
 }

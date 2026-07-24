@@ -1,0 +1,189 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-3pxv-7cmr-fjr4",
+  "published": "2026-04-10T18:31:17Z",
+  "modified": "2026-04-16T11:29:10.536806482Z",
+  "aliases": [
+    "CVE-2026-34480"
+  ],
+  "related": [
+    "CGA-wqhw-vh22-jwgm"
+  ],
+  "summary": "Apache Log4j Core: Silent log event loss in XmlLayout due to unescaped XML 1.0 forbidden characters",
+  "details": "Apache Log4j Core's [`XmlLayout`](https://logging.apache.org/log4j/2.x/manual/layouts.html#XmlLayout), in versions up to and including 2.25.3, fails to sanitize characters forbidden by the [XML 1.0 specification](https://www.w3.org/TR/xml/#charsets), producing invalid XML output whenever a log message or MDC value contains such characters.\n\nThe impact depends on the StAX implementation in use:\n\n  *  **JRE built-in StAX**: Forbidden characters are silently written to the output, producing malformed XML. Conforming parsers must reject such documents with a fatal error, which may cause downstream log-processing systems to drop the affected records.\n  *  **Alternative StAX implementations** (e.g., [Woodstox](https://github.com/FasterXML/woodstox), a transitive dependency of the Jackson XML Dataformat module): An exception is thrown during the logging call, and the log event is never delivered to its intended appender, only to Log4j's internal status logger.\n\nUsers are advised to upgrade to Apache Log4j Core 2.25.4, which corrects this issue by sanitizing forbidden characters before XML output.",
+  "affected": [
+    {
+      "package": {
+        "name": "org.apache.logging.log4j:log4j-core",
+        "ecosystem": "Maven",
+        "purl": "pkg:maven/org.apache.logging.log4j/log4j-core"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "2.0-alpha1"
+            },
+            {
+              "fixed": "2.25.4"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "2.0",
+        "2.0-alpha1",
+        "2.0-alpha2",
+        "2.0-beta1",
+        "2.0-beta2",
+        "2.0-beta3",
+        "2.0-beta4",
+        "2.0-beta5",
+        "2.0-beta6",
+        "2.0-beta7",
+        "2.0-beta8",
+        "2.0-beta9",
+        "2.0-rc1",
+        "2.0-rc2",
+        "2.0.1",
+        "2.0.2",
+        "2.1",
+        "2.10.0",
+        "2.11.0",
+        "2.11.1",
+        "2.11.2",
+        "2.12.0",
+        "2.12.1",
+        "2.12.2",
+        "2.12.3",
+        "2.12.4",
+        "2.13.0",
+        "2.13.1",
+        "2.13.2",
+        "2.13.3",
+        "2.14.0",
+        "2.14.1",
+        "2.15.0",
+        "2.16.0",
+        "2.17.0",
+        "2.17.1",
+        "2.17.2",
+        "2.18.0",
+        "2.19.0",
+        "2.2",
+        "2.20.0",
+        "2.21.0",
+        "2.21.1",
+        "2.22.0",
+        "2.22.1",
+        "2.23.0",
+        "2.23.1",
+        "2.24.0",
+        "2.24.1",
+        "2.24.2",
+        "2.24.3",
+        "2.25.0",
+        "2.25.1",
+        "2.25.2",
+        "2.25.3",
+        "2.3",
+        "2.3.1",
+        "2.3.2",
+        "2.4",
+        "2.4.1",
+        "2.5",
+        "2.6",
+        "2.6.1",
+        "2.6.2",
+        "2.7",
+        "2.8",
+        "2.8.1",
+        "2.8.2",
+        "2.9.0",
+        "2.9.1"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-3pxv-7cmr-fjr4/GHSA-3pxv-7cmr-fjr4.json"
+      }
+    },
+    {
+      "package": {
+        "name": "org.apache.logging.log4j:log4j-core",
+        "ecosystem": "Maven",
+        "purl": "pkg:maven/org.apache.logging.log4j/log4j-core"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "3.0.0-alpha1"
+            },
+            {
+              "last_affected": "3.0.0-beta3"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "3.0.0-alpha1",
+        "3.0.0-beta1",
+        "3.0.0-beta2",
+        "3.0.0-beta3"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-3pxv-7cmr-fjr4/GHSA-3pxv-7cmr-fjr4.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34480"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/apache/logging-log4j2/pull/4077"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/apache/logging-log4j2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://lists.apache.org/thread/5x0hcnng0chhghp6jgjdp3qmbbhfjzhb"
+    },
+    {
+      "type": "WEB",
+      "url": "https://logging.apache.org/cyclonedx/vdr.xml"
+    },
+    {
+      "type": "WEB",
+      "url": "https://logging.apache.org/log4j/2.x/manual/layouts.html#XmlLayout"
+    },
+    {
+      "type": "WEB",
+      "url": "https://logging.apache.org/security.html#CVE-2026-34480"
+    },
+    {
+      "type": "WEB",
+      "url": "http://www.openwall.com/lists/oss-security/2026/04/10/9"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-116"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-04-10T21:16:41Z",
+    "nvd_published_at": "2026-04-10T16:16:31Z",
+    "severity": "MODERATE"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V4",
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:N/SC:N/SI:L/SA:N"
+    }
+  ]
+}

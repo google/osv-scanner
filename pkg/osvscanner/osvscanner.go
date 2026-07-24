@@ -1,37 +1,35 @@
+// Package osvscanner provides the main logic for the OSV-Scanner.
 package osvscanner
 
 import (
 	"context"
 	"errors"
 	"fmt"
+	"io"
 	"log/slog"
 	"maps"
 	"net/http"
 	"os"
 	"slices"
 	"sort"
-	"time"
 
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
 	"github.com/google/osv-scalibr/binary/proto"
-	"github.com/google/osv-scalibr/clients/datasource"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gomod"
 	"github.com/google/osv-scalibr/inventory"
 	scalibrlog "github.com/google/osv-scalibr/log"
 	"github.com/google/osv-scalibr/plugin"
+	scalibrconfig "github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scalibr/stats"
-	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/licensematcher"
-	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/localmatcher"
-	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/osvmatcher"
-	"github.com/google/osv-scanner/v2/internal/clients/clientinterfaces"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/config"
-	"github.com/google/osv-scanner/v2/internal/depsdev"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/imodels/results"
 	"github.com/google/osv-scanner/v2/internal/output"
+	localscalibr "github.com/google/osv-scanner/v2/internal/scalibr"
+	"github.com/google/osv-scanner/v2/internal/scalibrannotator/filter"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/imagehelpers"
 	"github.com/ossf/osv-schema/bindings/go/osvconstants"
@@ -84,6 +82,9 @@ type ExperimentalScannerActions struct {
 
 	HTTPClient *http.Client
 
+	// Custom ScalibrConfig to use instead of constructing default ones
+	ScalibrConfig *scalibrconfig.PluginConfig
+
 	// Report deprecated packages as findings
 	FlagDeprecatedPackages bool
 
@@ -98,10 +99,6 @@ type TransitiveScanningActions struct {
 }
 
 type ExternalAccessors struct {
-	// Matchers
-	VulnMatcher    clientinterfaces.VulnerabilityMatcher
-	LicenseMatcher clientinterfaces.LicenseMatcher
-
 	// Required for vendored Extractor
 	OSVDevClient *osvdev.OSVClient
 }
@@ -116,54 +113,6 @@ var ErrVulnerabilitiesFound = errors.New("vulnerabilities found")
 // ErrAPIFailed describes errors related to querying API endpoints.
 // TODO(v2): Actually use this error
 var ErrAPIFailed = errors.New("API query failed")
-
-func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, error) {
-	externalAccessors := ExternalAccessors{}
-	var err error
-
-	userAgent := "osv-scanner-api"
-	if actions.RequestUserAgent != "" {
-		userAgent = actions.RequestUserAgent
-	}
-
-	// Offline Mode
-	// ------------
-	if actions.CompareOffline {
-		// --- Vulnerability Matcher ---
-		externalAccessors.VulnMatcher, err =
-			localmatcher.NewLocalMatcher(actions.LocalDBPath,
-				userAgent, actions.DownloadDatabases)
-		if err != nil {
-			return ExternalAccessors{}, err
-		}
-
-		return externalAccessors, nil
-	}
-
-	// Online Mode
-	// -----------
-	// --- Vulnerability Matcher ---
-	externalAccessors.VulnMatcher = osvmatcher.New(5*time.Minute, userAgent, actions.HTTPClient)
-
-	// --- License Matcher ---
-	if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
-		depsDevAPIClient, err := datasource.NewCachedInsightsClient(depsdev.DepsdevAPI, userAgent)
-		if err != nil {
-			return ExternalAccessors{}, err
-		}
-
-		externalAccessors.LicenseMatcher = &licensematcher.DepsDevLicenseMatcher{
-			Client: depsDevAPIClient,
-		}
-	}
-
-	// --- OSV.dev Client ---
-	// We create a separate client from VulnMatcher to keep things clean.
-	externalAccessors.OSVDevClient = osvdev.DefaultClient()
-	externalAccessors.OSVDevClient.Config.UserAgent = userAgent
-
-	return externalAccessors, nil
-}
 
 // DoScan performs the osv scanner action, with optional reporter to output information
 func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
@@ -196,46 +145,23 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 	}
 
 	// --- Setup Accessors/Clients ---
-	accessors, err := initializeExternalAccessors(actions)
-	if err != nil {
-		return models.VulnerabilityResults{}, fmt.Errorf("failed to initialize accessors: %w", err)
-	}
+	scalibrConfig, accessors, cleanup := setupAccessors(actions)
+	defer cleanup()
 
 	// ----- Perform Scanning -----
-	packagesAndFindings, err := scan(accessors, actions)
+	packagesAndFindings, filterAnno, err := scan(accessors, actions, scalibrConfig, &scanResults.ConfigManager)
 	if err != nil {
 		return models.VulnerabilityResults{}, err
 	}
 
 	scanResults.Inventory = *packagesAndFindings
 
-	// ----- Filtering -----
-	unscannablePackages := filterUnscannablePackages(&scanResults, actions)
-	filterIgnoredPackages(&scanResults)
-
 	// ----- Custom Overrides -----
 	filterAndOverrideGoVersion(&scanResults)
 
-	// --- Make Vulnerability Requests ---
-	if accessors.VulnMatcher != nil {
-		err = makeVulnRequestWithMatcher(&scanResults, accessors.VulnMatcher)
-		if err != nil {
-			return models.VulnerabilityResults{}, err
-		}
-	}
-
-	// --- Make License Requests ---
-	if accessors.LicenseMatcher != nil {
-		err = accessors.LicenseMatcher.MatchLicenses(context.Background(), scanResults.Inventory.Packages)
-		if err != nil {
-			return models.VulnerabilityResults{}, err
-		}
-	}
-
-	// todo: this previously wasn't being applied to Inventory - did we have a bug...?
-	if len(unscannablePackages) > 0 {
-		scanResults.Inventory.Packages = slices.Concat(scanResults.Inventory.Packages, unscannablePackages)
-	}
+	// Retrieve the unscannable packages that were filtered out during annotation
+	// and add them back to the output if ShowAllPackages is enabled.
+	reattachUnscannablePackages(filterAnno, &scanResults.Inventory)
 
 	return finalizeScanResult(scanResults, actions)
 }
@@ -256,21 +182,21 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		}
 	}
 
-	// --- Setup Accessors/Clients ---
-	accessors, err := initializeExternalAccessors(actions)
-	if err != nil {
-		return models.VulnerabilityResults{}, fmt.Errorf("failed to initialize accessors: %w", err)
-	}
+	scalibrConfig, accessors, cleanup := setupAccessors(actions)
+	defer cleanup()
 
 	plugins := getPlugins(
 		[]string{"artifact"},
 		accessors,
 		actions,
+		scalibrConfig,
+		&scanResults.ConfigManager,
+		/* isContainerScan = */ true,
 	)
 
 	// technically having one detector enabled would also be sufficient, but we're
 	// not mentioning them to avoid confusion since they're still in their infancy
-	if countNotEnrichers(plugins) == 0 {
+	if countNotEnrichersOrAnnotators(plugins) == 0 {
 		return models.VulnerabilityResults{}, errors.New("at least one extractor must be enabled")
 	}
 
@@ -280,6 +206,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	ctx := context.TODO()
 
 	var img *image.Image
+	var err error
 	if actions.IsImageArchive {
 		cmdlogger.Infof("Scanning local image tarball %q", actions.Image)
 		img, err = image.FromTarball(actions.Image, image.DefaultConfig())
@@ -347,32 +274,10 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		cmdlogger.Warnf("No container image metadata found in scan results")
 	}
 
-	// ----- Filtering -----
-	unscannablePackages := filterUnscannablePackages(&scanResults, actions)
-	filterIgnoredPackages(&scanResults)
-
-	filterNonContainerRelevantPackages(&scanResults)
-
-	// --- Make Vulnerability Requests ---
-	if accessors.VulnMatcher != nil {
-		err = makeVulnRequestWithMatcher(&scanResults, accessors.VulnMatcher)
-		if err != nil {
-			return models.VulnerabilityResults{}, err
-		}
-	}
-
-	// --- Make License Requests ---
-	if accessors.LicenseMatcher != nil {
-		err = accessors.LicenseMatcher.MatchLicenses(context.Background(), scanResults.Inventory.Packages)
-		if err != nil {
-			return models.VulnerabilityResults{}, err
-		}
-	}
-
-	// todo: this previously wasn't being applied to Inventory - did we have a bug...?
-	if len(unscannablePackages) > 0 {
-		scanResults.Inventory.Packages = slices.Concat(scanResults.Inventory.Packages, unscannablePackages)
-	}
+	// Retrieve the unscannable packages that were filtered out during annotation
+	// and add them back to the output if ShowAllPackages is enabled.
+	filterAnno := findFilterAnnotator(plugins)
+	reattachUnscannablePackages(filterAnno, &scanResults.Inventory)
 
 	return finalizeScanResult(scanResults, actions)
 }
@@ -495,29 +400,6 @@ func determineReturnErr(vulnResults models.VulnerabilityResults, showAllVulns bo
 }
 
 // TODO(V2): Add context
-func makeVulnRequestWithMatcher(
-	scanResults *results.ScanResults,
-	matcher clientinterfaces.VulnerabilityMatcher,
-) error {
-	res, err := matcher.MatchVulnerabilities(context.Background(), scanResults.Inventory.Packages)
-	if err != nil {
-		cmdlogger.Errorf("error when retrieving vulns: %v", err)
-		if res == nil {
-			return err
-		}
-	}
-
-	for i, vulns := range res {
-		for _, vuln := range vulns {
-			scanResults.Inventory.PackageVulns = append(scanResults.Inventory.PackageVulns, &inventory.PackageVuln{
-				Vulnerability: vuln,
-				Package:       scanResults.Inventory.Packages[i],
-			})
-		}
-	}
-
-	return nil
-}
 
 // Filters out Go version or Overrides it using osv-scanner.toml
 func filterAndOverrideGoVersion(scanResults *results.ScanResults) {
@@ -573,4 +455,86 @@ func inventoryIsEmpty(i inventory.Inventory) bool {
 	}
 
 	return true
+}
+
+// SetupClientFactories returns the client factories to use, and a cleanup function
+// that the caller must defer. If clientFactories is not nil, it is returned as is and the cleanup is a no-op.
+func SetupClientFactories(clientFactories scalibrconfig.ClientFactories, httpClient *http.Client, userAgent string) (scalibrconfig.ClientFactories, func()) {
+	if clientFactories != nil {
+		return clientFactories, func() {}
+	}
+
+	cf := localscalibr.NewClientFactories(httpClient, userAgent)
+
+	return cf, func() {
+		if err := cf.Close(); err != nil {
+			cmdlogger.Errorf("Failed to close scalibr client factories: %v", err)
+		}
+	}
+}
+
+// setupAccessors initializes client factories and external accessors.
+// It returns a cleanup function that the caller must defer to close the client factories.
+func setupAccessors(actions ScannerActions) (*scalibrconfig.PluginConfig, ExternalAccessors, func()) {
+	var scalibrConfig *scalibrconfig.PluginConfig
+	var toClose io.Closer
+
+	if actions.ScalibrConfig != nil {
+		scalibrConfig = actions.ScalibrConfig
+	} else {
+		cf := localscalibr.NewClientFactories(actions.HTTPClient, actions.RequestUserAgent)
+		scalibrConfig = &scalibrconfig.PluginConfig{
+			ClientFactories: cf,
+		}
+		toClose = cf
+	}
+
+	cleanup := func() {
+		if toClose != nil {
+			if err := toClose.Close(); err != nil {
+				cmdlogger.Errorf("Failed to close scalibr client factories: %v", err)
+			}
+		}
+	}
+
+	accessors := ExternalAccessors{}
+	if !actions.CompareOffline {
+		userAgent := "osv-scanner-api"
+		if actions.RequestUserAgent != "" {
+			userAgent = actions.RequestUserAgent
+		}
+
+		// --- OSV.dev Client ---
+		// We create a separate client to keep things clean.
+		httpClient := scalibrConfig.ClientFactories.HTTPClient()
+		cfg := osvdev.DefaultConfig()
+		cfg.UserAgent = userAgent
+		accessors.OSVDevClient = &osvdev.OSVClient{
+			HTTPClient:  httpClient,
+			Config:      cfg,
+			BaseHostURL: osvdev.DefaultBaseURL,
+		}
+	}
+
+	return scalibrConfig, accessors, cleanup
+}
+
+func findFilterAnnotator(plugins []plugin.Plugin) *filter.Annotator {
+	for _, p := range plugins {
+		if fa, ok := p.(*filter.Annotator); ok {
+			return fa
+		}
+	}
+
+	return nil
+}
+
+func reattachUnscannablePackages(filterAnno *filter.Annotator, inv *inventory.Inventory) {
+	if filterAnno == nil {
+		return
+	}
+	unscannablePackages := filterAnno.FilteredPackages()
+	if len(unscannablePackages) > 0 {
+		inv.Packages = slices.Concat(inv.Packages, unscannablePackages)
+	}
 }

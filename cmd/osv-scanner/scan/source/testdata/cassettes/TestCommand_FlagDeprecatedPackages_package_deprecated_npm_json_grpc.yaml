@@ -1,0 +1,92 @@
+interactions:
+    - method: /deps_dev.v3alpha.Insights/GetVersionBatch
+      request: |-
+        {
+          "requests": [
+            {
+              "versionKey": {
+                "name": "left-pad",
+                "system": "NPM",
+                "version": "1.3.0"
+              }
+            }
+          ]
+        }
+      response: |-
+        {
+          "responses": [
+            {
+              "request": {
+                "versionKey": {
+                  "name": "left-pad",
+                  "system": "NPM",
+                  "version": "1.3.0"
+                }
+              },
+              "version": {
+                "isDefault": true,
+                "isDeprecated": true,
+                "licenseDetails": [
+                  {
+                    "license": "WTFPL",
+                    "spdx": "WTFPL"
+                  }
+                ],
+                "licenses": [
+                  "WTFPL"
+                ],
+                "links": [
+                  {
+                    "label": "HOMEPAGE",
+                    "url": "https://github.com/stevemao/left-pad#readme"
+                  },
+                  {
+                    "label": "ISSUE_TRACKER",
+                    "url": "https://github.com/stevemao/left-pad/issues"
+                  },
+                  {
+                    "label": "ORIGIN",
+                    "url": "https://registry.npmjs.org/left-pad/1.3.0"
+                  },
+                  {
+                    "label": "SOURCE_REPO",
+                    "url": "git+ssh://git@github.com/stevemao/left-pad.git"
+                  }
+                ],
+                "publishedAt": "2018-04-09T01:10:45Z",
+                "purl": "pkg:npm/left-pad@1.3.0",
+                "registries": [
+                  "https://registry.npmjs.org/"
+                ],
+                "relatedProjects": [
+                  {
+                    "projectKey": {
+                      "id": "github.com/stevemao/left-pad"
+                    },
+                    "relationProvenance": "UNVERIFIED_METADATA",
+                    "relationType": "ISSUE_TRACKER"
+                  },
+                  {
+                    "projectKey": {
+                      "id": "github.com/stevemao/left-pad"
+                    },
+                    "relationProvenance": "UNVERIFIED_METADATA",
+                    "relationType": "SOURCE_REPO"
+                  }
+                ],
+                "upstreamIdentifiers": [
+                  {
+                    "packageName": "left-pad",
+                    "source": "NPM_NPMJS_ORG",
+                    "versionString": "1.3.0"
+                  }
+                ],
+                "versionKey": {
+                  "name": "left-pad",
+                  "system": "NPM",
+                  "version": "1.3.0"
+                }
+              }
+            }
+          ]
+        }

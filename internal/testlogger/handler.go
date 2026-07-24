@@ -99,9 +99,21 @@ func (tl *Handler) Handle(ctx context.Context, record slog.Record) error {
 
 	l := tl.getLogger()
 	if l == stdLogger {
-		// This is to be safe as we currently do not have any non muffled goroutine logs
-		// When we do, this makes sure that we are aware and can add exceptions to them.
-		panic("noop logger found when logging non-muffled messages")
+		// If it's a known log that can happen in goroutines, we can ignore it (muffle it)
+		// instead of panicking.
+		// For example, local database loading logs ("Loaded ...", "could not load db for ...")
+		// can be triggered within goroutines spawned by guided remediation (e.g. in osv-scalibr's
+		// ComputePatches).
+		for _, prefix := range []string{
+			"Loaded ",
+			"could not load db for ",
+		} {
+			if strings.HasPrefix(record.Message, prefix) {
+				return nil
+			}
+		}
+		// Include the message in the panic to make debugging easier
+		panic("noop logger found when logging non-muffled messages: " + record.Message)
 	}
 
 	return l.Handle(ctx, record)
