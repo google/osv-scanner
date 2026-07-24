@@ -457,7 +457,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 29 packages affected by 94 known vulnerabilities (13 Critical, 29 High, 36 Medium, 6 Low, 10 Unknown) from 1 ecosystem.
-39 vulnerabilities can be fixed.
+42 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -476,7 +476,7 @@ Ubuntu:22.04
 | gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          5 | gpgv                    | # 4 Layer        | ubuntu        |
 | gnutls28       | 3.7.3-4ubuntu1.5             | Fix Available           |          4 | libgnutls30             | # 4 Layer        | ubuntu        |
 | gzip           | 1.10-4ubuntu4.1              | Fix Available           |          1 | gzip                    | # 4 Layer        | ubuntu        |
-| krb5           | 1.19.2-2ubuntu0.4            | Partial fixes Available |          5 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
+| krb5           | 1.19.2-2ubuntu0.4            | Fix Available           |          5 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          2 | libcap2                 | # 4 Layer        | ubuntu        |
 | libgcrypt20    | 1.9.4-3ubuntu3               | Partial fixes Available |          2 | libgcrypt20             | # 4 Layer        | ubuntu        |
 | libtasn1-6     | 4.18.0-4build1               | Fix Available           |          2 | libtasn1-6              | # 4 Layer        | ubuntu        |
@@ -513,7 +513,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 29 packages affected by 94 known vulnerabilities (13 Critical, 29 High, 36 Medium, 6 Low, 10 Unknown) from 1 ecosystem.
-39 vulnerabilities can be fixed.
+42 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -532,7 +532,7 @@ Ubuntu:22.04
 | gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          5 | gpgv                    | # 4 Layer        | ubuntu        |
 | gnutls28       | 3.7.3-4ubuntu1.5             | Fix Available           |          4 | libgnutls30             | # 4 Layer        | ubuntu        |
 | gzip           | 1.10-4ubuntu4.1              | Fix Available           |          1 | gzip                    | # 4 Layer        | ubuntu        |
-| krb5           | 1.19.2-2ubuntu0.4            | Partial fixes Available |          5 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
+| krb5           | 1.19.2-2ubuntu0.4            | Fix Available           |          5 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          2 | libcap2                 | # 4 Layer        | ubuntu        |
 | libgcrypt20    | 1.9.4-3ubuntu3               | Partial fixes Available |          2 | libgcrypt20             | # 4 Layer        | ubuntu        |
 | libtasn1-6     | 4.18.0-4build1               | Fix Available           |          2 | libtasn1-6              | # 4 Layer        | ubuntu        |
@@ -588,7 +588,7 @@ Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 30 packages affected by 96 known vulnerabilities (13 Critical, 31 High, 36 Medium, 6 Low, 10 Unknown) from 1 ecosystem.
-39 vulnerabilities can be fixed.
+42 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -608,7 +608,7 @@ Ubuntu:22.04
 | gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          5 | gpgv                    | # 4 Layer        | ubuntu        |
 | gnutls28       | 3.7.3-4ubuntu1.5             | Fix Available           |          4 | libgnutls30             | # 4 Layer        | ubuntu        |
 | gzip           | 1.10-4ubuntu4.1              | Fix Available           |          1 | gzip                    | # 4 Layer        | ubuntu        |
-| krb5           | 1.19.2-2ubuntu0.4            | Partial fixes Available |          5 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
+| krb5           | 1.19.2-2ubuntu0.4            | Fix Available           |          5 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          2 | libcap2                 | # 4 Layer        | ubuntu        |
 | libgcrypt20    | 1.9.4-3ubuntu3               | Partial fixes Available |          2 | libgcrypt20             | # 4 Layer        | ubuntu        |
 | libtasn1-6     | 4.18.0-4build1               | Fix Available           |          2 | libtasn1-6              | # 4 Layer        | ubuntu        |

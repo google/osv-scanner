@@ -5133,7 +5133,7 @@ Filtered 1 local/unscannable package/s from the scan.
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
 
-Total 22 packages affected by 224 known vulnerabilities (26 Critical, 94 High, 70 Medium, 6 Low, 28 Unknown) from 2 ecosystems.
+Total 23 packages affected by 225 known vulnerabilities (26 Critical, 94 High, 70 Medium, 7 Low, 28 Unknown) from 2 ecosystems.
 13 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+-------------------------------------------------+
@@ -5172,6 +5172,7 @@ Total 22 packages affected by 224 known vulnerabilities (26 Critical, 94 High, 7
 | https://osv.dev/DEBIAN-CVE-2016-2781  | 6.5  | Debian    | coreutils                      | 8.26-3                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2024-0684  | 5.5  | Debian    | coreutils                      | 8.26-3                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3482-1            |      | Debian    | debian-archive-keyring         | 2017.5+deb9u2                      | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-53910 | 2.1  | Debian    | diffutils                      | 1:3.5-3                            | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5147-1            | 9.8  | Debian    | dpkg                           | 1.18.25                            | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2025-6297  | 8.2  | Debian    | dpkg                           | 1.18.25                            | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2026-2219  | 7.5  | Debian    | dpkg                           | 1.18.25                            | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
@@ -5408,7 +5409,7 @@ Filtered 1 local/unscannable package/s from the scan.
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
 
-Total 22 packages affected by 224 known vulnerabilities (26 Critical, 94 High, 70 Medium, 6 Low, 28 Unknown) from 2 ecosystems.
+Total 23 packages affected by 225 known vulnerabilities (26 Critical, 94 High, 70 Medium, 7 Low, 28 Unknown) from 2 ecosystems.
 13 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+-------------------------------------------------+
@@ -5447,6 +5448,7 @@ Total 22 packages affected by 224 known vulnerabilities (26 Critical, 94 High, 7
 | https://osv.dev/DEBIAN-CVE-2016-2781  | 6.5  | Debian    | coreutils                      | 8.26-3                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2024-0684  | 5.5  | Debian    | coreutils                      | 8.26-3                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3482-1            |      | Debian    | debian-archive-keyring         | 2017.5+deb9u2                      | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-53910 | 2.1  | Debian    | diffutils                      | 1:3.5-3                            | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5147-1            | 9.8  | Debian    | dpkg                           | 1.18.25                            | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2025-6297  | 8.2  | Debian    | dpkg                           | 1.18.25                            | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2026-2219  | 7.5  | Debian    | dpkg                           | 1.18.25                            | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
