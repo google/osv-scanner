@@ -87,6 +87,9 @@ func (tl *Handler) Handle(ctx context.Context, record slog.Record) error {
 		"VERSION_CODENAME and VERSION_ID not set in os-release",
 		"VERSION_CODENAME not set in os-release, fallback to VERSION_ID",
 		"osrelease.ParseOsRelease(): file does not exist",
+		// This error log will show up on dpkg file tests on windows and macos.
+		// (TODO(another-rex): we should abstract away the os-release file to something the user passes in)
+		"osrelease.ParseOsRelease(): does not have expected distro os-release file",
 		"Status: new inodes:",
 		"Created image content file:",
 		"interpreting as regex/glob and not absolute path",
@@ -99,9 +102,21 @@ func (tl *Handler) Handle(ctx context.Context, record slog.Record) error {
 
 	l := tl.getLogger()
 	if l == stdLogger {
-		// This is to be safe as we currently do not have any non muffled goroutine logs
-		// When we do, this makes sure that we are aware and can add exceptions to them.
-		panic("noop logger found when logging non-muffled messages")
+		// If it's a known log that can happen in goroutines, we can ignore it (muffle it)
+		// instead of panicking.
+		// For example, local database loading logs ("Loaded ...", "could not load db for ...")
+		// can be triggered within goroutines spawned by guided remediation (e.g. in osv-scalibr's
+		// ComputePatches).
+		for _, prefix := range []string{
+			"Loaded ",
+			"could not load db for ",
+		} {
+			if strings.HasPrefix(record.Message, prefix) {
+				return nil
+			}
+		}
+		// Include the message in the panic to make debugging easier
+		panic("noop logger found when logging non-muffled messages: " + record.Message)
 	}
 
 	return l.Handle(ctx, record)

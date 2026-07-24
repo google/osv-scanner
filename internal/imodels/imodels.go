@@ -61,19 +61,15 @@ func toCachedPackageInfo(pkg *extractor.Package) *models.PackageInfo {
 	return v.(*models.PackageInfo)
 }
 
+// Name patches the SCALIBR package name to something used by OSV.
+// This does not affect matching. It is only used for reporting and filtering.
 func Name(pkg *extractor.Package) string {
-	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-	if purlCache := toCachedPackageInfo(pkg); purlCache != nil {
-		return purlCache.Name
-	}
-
 	// --- Make specific patches to names as necessary ---
 	// Patch Go package to stdlib
 	if Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo && pkg.Name == "go" {
 		return "stdlib"
 	}
 
-	// TODO: Move the normalization to another place where matching logic happens.
 	// Patch python package names to be normalized
 	if Ecosystem(pkg).Ecosystem == osvconstants.EcosystemPyPI {
 		// per https://peps.python.org/pep-0503/#normalized-names
@@ -119,24 +115,9 @@ func Ecosystem(pkg *extractor.Package) osvecosystem.Parsed {
 			return eco
 		}
 
-		eco = newEco
-	}
-
-	// If ecosystem is empty and the source code repo is set we set the ecosystem to GIT
-	// since it's likely that the vulnerabilities will be associated with the source code repo
-	if eco.Ecosystem == "" && pkg.SourceCode != nil {
-		eco = osvecosystem.MustParse("GIT")
-	}
-
-	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-	if purlCache := toCachedPackageInfo(pkg); purlCache != nil {
-		newEco, err := osvecosystem.Parse(purlCache.Ecosystem)
-		if err != nil {
-			cmdlogger.Warnf("Warning: error parsing osvscanner.json ecosystem: %s", err.Error())
-			return eco
+		if !newEco.IsEmpty() {
+			eco = newEco
 		}
-
-		eco = newEco
 	}
 
 	return eco

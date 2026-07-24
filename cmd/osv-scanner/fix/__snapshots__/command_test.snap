@@ -11485,6 +11485,7 @@ manifest or lockfile is required
 
 [TestCommand_OfflineDatabase/fix_non_interactive_in_place_package_lock_json_with_offline_vulns - 1]
 Guided remediation (the fix command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
+Loaded npm local db from <tempdir>/osv-scalibr/npm/all.zip
 Found 18 vulnerabilities matching the filter
 Can fix 9/18 matching vulnerabilities by changing 5 dependencies
 UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.16
@@ -13228,6 +13229,7 @@ UNFIXABLE-VULNS: 9
 
 [TestCommand_OfflineDatabase/fix_non_interactive_relax_package_json_with_offline_vulns - 1]
 Guided remediation (the fix command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
+Loaded npm local db from <tempdir>/osv-scalibr/npm/all.zip
 Found 9 vulnerabilities matching the filter
 Can fix 3/9 matching vulnerabilities by changing 1 dependencies
 UPGRADED-PACKAGE: npm-registry-client,6.2.0,^7.5.0
