@@ -12,6 +12,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels"
+	"github.com/google/osv-scanner/v2/internal/tuxcare"
 	"github.com/ossf/osv-schema/bindings/go/osvconstants"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"golang.org/x/sync/errgroup"
@@ -139,6 +140,19 @@ func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*ext
 }
 
 func pkgToQuery(pkg *extractor.Package) *api.Query {
+	// Route vendor-rebuilt packages (e.g. TuxCare) before the base-ecosystem gate
+	// below. This must run even when the package has no base ecosystem — scalibr
+	// leaves CentOS/Oracle RPMs without one — so it cannot be gated on a non-empty
+	// base ecosystem. routedQueryPackage already requires a name and version.
+	if routed := routedQueryPackage(pkg); routed != nil {
+		return &api.Query{
+			Package: routed,
+			Param: &api.Query_Version{
+				Version: tuxcare.QueryVersion(pkg),
+			},
+		}
+	}
+
 	if imodels.Name(pkg) != "" && !imodels.Ecosystem(pkg).IsEmpty() && imodels.Version(pkg) != "" {
 		name := imodels.Name(pkg)
 

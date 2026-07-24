@@ -15,6 +15,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/identifiers"
 	"github.com/google/osv-scanner/v2/internal/utility/results"
 	"github.com/google/osv-scanner/v2/internal/utility/severity"
+	vulnutil "github.com/google/osv-scanner/v2/internal/utility/vulns"
 	"github.com/google/osv-scanner/v2/pkg/models"
 
 	"github.com/jedib0t/go-pretty/v6/text"
@@ -878,12 +879,7 @@ func ecosystemHasRegVuln(ecosystem EcosystemResult) bool {
 }
 
 func removeVariants(ecosystem string) string {
-	if strings.Contains(ecosystem, "Ubuntu") {
-		ecosystem := strings.ReplaceAll(strings.ReplaceAll(ecosystem, ":Pro", ""), ":LTS", "")
-		return ecosystem
-	}
-
-	return ecosystem
+	return vulnutil.RemoveVariants(ecosystem)
 }
 
 func formatHiddenVulnsPrompt(hiddenVulns int) string {

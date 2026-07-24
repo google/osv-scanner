@@ -13,6 +13,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
+	tuxcareelsrepo "github.com/google/osv-scanner/v2/internal/scalibrextract/os/tuxcareelsrepo"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 )
 
@@ -34,6 +35,8 @@ func resolveFromName(name string, cfg *cpb.PluginConfig) (plugin.Plugin, error) 
 		return gitrepo.New(cfg)
 	case osvscannerjson.Name:
 		return osvscannerjson.New(cfg)
+	case tuxcareelsrepo.Name:
+		return tuxcareelsrepo.New(cfg)
 	default:
 		return nil, fmt.Errorf("not an exact name for a plugin: %q", name)
 	}
