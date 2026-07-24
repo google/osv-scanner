@@ -86,6 +86,8 @@ func action(ctx context.Context, cmd *cli.Command) error {
 	opts.MavenClient = mc
 
 	userAgent := "osv-scanner_update/" + version.OSVVersion
+	mc.SetUserAgent(userAgent)
+
 	switch cmd.String("data-source") {
 	case "deps.dev":
 		cl, err := resolution.NewDepsDevClient(depsdev.DepsdevAPI, userAgent)
@@ -97,6 +99,7 @@ func action(ctx context.Context, cmd *cli.Command) error {
 		cl, err := resolution.NewCombinedNativeClient(resolution.CombinedNativeClientOptions{
 			ProjectDir:  filepath.Dir(opts.Manifest),
 			MavenClient: mc,
+			UserAgent:   userAgent,
 		})
 		if err != nil {
 			return err
