@@ -2,6 +2,7 @@
 
 ### Features:
 
+- [Feature #303](https://github.com/google/osv-scanner/issues/303) Add a `--dry-run` mode that prints the OSV.dev `querybatch` payload that would be sent without making network requests to OSV.dev.
 - [Feature #2815](https://github.com/google/osv-scanner/pull/2815) Add support for the CycloneDX 1.7 specification (bumps `cyclonedx-go` to v0.11.0).
 - [Feature #2799](https://github.com/google/osv-scanner/pull/2799) Enable `.csproj` and Central Package Management (`nugetcpm`) source scanning plugins by default.
 - [Feature #2871](https://github.com/google/osv-scanner/pull/2871) Extract and parse Alpine OS distro version (e.g. `Alpine:v3.17`, `Alpine:edge`) from PURL `distro` qualifiers to scan packages under their respective Alpine ecosystems.

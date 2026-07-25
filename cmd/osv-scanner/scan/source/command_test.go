@@ -415,6 +415,35 @@ func TestCommand(t *testing.T) {
 	}
 }
 
+func TestCommand_DryRun(t *testing.T) {
+	t.Parallel()
+
+	// Dry-run does not contact OSV.dev, so no VCR cassette is required for matching.
+	// A plain client is still passed for any incidental HTTP used during extraction.
+	client := &http.Client{}
+
+	tests := []testcmd.Case{
+		{
+			Name: "dry_run_prints_osv_dev_payload_without_finding_vulns",
+			Args: []string{"", "source", "--dry-run", "./testdata/locks-many/composer.lock"},
+			Exit: 0,
+		},
+		{
+			Name: "dry_run_incompatible_with_offline_vulnerabilities",
+			Args: []string{"", "source", "--dry-run", "--offline-vulnerabilities", "./testdata/locks-many/composer.lock"},
+			Exit: 127,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+
+			tt.HTTPClient = client
+			testcmd.RunAndMatchSnapshots(t, tt)
+		})
+	}
+}
+
 func TestCommand_Config_UnusedIgnores(t *testing.T) {
 	t.Parallel()
 

@@ -3003,6 +3003,44 @@ Total 23 packages affected by 223 known vulnerabilities (27 Critical, 93 High, 6
 
 ---
 
+[TestCommand_DryRun/dry_run_incompatible_with_offline_vulnerabilities - 1]
+
+---
+
+[TestCommand_DryRun/dry_run_incompatible_with_offline_vulnerabilities - 2]
+cannot use --dry-run together with --offline-vulnerabilities
+
+---
+
+[TestCommand_DryRun/dry_run_prints_osv_dev_payload_without_finding_vulns - 1]
+Scanning dir ./testdata/locks-many/composer.lock
+Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
+Dry-run mode: no requests will be sent to OSV.dev
+The following request would be sent to OSV.dev:
+POST https://api.osv.dev/v1/querybatch
+{
+  "queries":  [
+    {
+      "version":  "2.0.4",
+      "package":  {
+        "name":  "sentry/sdk",
+        "ecosystem":  "Packagist"
+      }
+    }
+  ]
+}
+If vulnerabilities were returned, follow-up GET https://api.osv.dev/v1/vulns/{id} requests would be made for each vulnerability ID
+Vendored C/C++ determineversion requests to https://api.osv.dev/v1experimental/determineversion are also skipped in dry-run mode
+
+No issues found
+
+---
+
+[TestCommand_DryRun/dry_run_prints_osv_dev_payload_without_finding_vulns - 2]
+
+---
+
 [TestCommand_ExplicitExtractors_WithDefaults/empty_plugins_flag_does_default - 1]
 
 ---

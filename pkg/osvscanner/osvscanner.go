@@ -59,6 +59,9 @@ type ScannerActions struct {
 	DownloadDatabases bool
 	LocalDBPath       string
 
+	// DryRun prints the OSV.dev requests that would be made without sending them.
+	DryRun bool
+
 	// network-backed plugins
 	PluginNetworkDisabled bool
 
@@ -126,6 +129,19 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 		userAgent = actions.RequestUserAgent
 	}
 
+	// Dry-run Mode
+	// ------------
+	// Show OSV.dev payloads without making network requests to OSV.dev.
+	// Intentionally does not set OSVDevClient so vendored determineversion is skipped.
+	if actions.DryRun {
+		if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
+			cmdlogger.Warnf("License scanning is skipped in dry-run mode")
+		}
+		externalAccessors.VulnMatcher = &osvmatcher.DryRunMatcher{}
+
+		return externalAccessors, nil
+	}
+
 	// Offline Mode
 	// ------------
 	if actions.CompareOffline {
@@ -169,6 +185,10 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 	// --- Sanity check flags ----
 	// TODO(v2): Move the logic of the offline flag changing other flags into here from the main.go/scan.go
+	if actions.DryRun && actions.CompareOffline {
+		return models.VulnerabilityResults{}, errors.New("cannot use --dry-run together with --offline-vulnerabilities")
+	}
+
 	if actions.CompareOffline {
 		if actions.ScanLicensesSummary {
 			return models.VulnerabilityResults{}, errors.New("cannot retrieve licenses locally")
@@ -241,6 +261,10 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 }
 
 func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error) {
+	if actions.DryRun && actions.CompareOffline {
+		return models.VulnerabilityResults{}, errors.New("cannot use --dry-run together with --offline-vulnerabilities")
+	}
+
 	scanResults := results.ScanResults{
 		ConfigManager: config.Manager{
 			DefaultConfig: config.Config{},
