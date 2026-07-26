@@ -403,6 +403,12 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "--help"},
 			Exit: 0,
 		},
+		// yarn.lock with a git-pinned dependency should not produce false positives
+		{
+			Name: "yarn_lock_with_git_pinned_dep_no_false_positive",
+			Args: []string{"", "source", "./testdata/locks-yarn-git-dep/yarn.lock"},
+			Exit: 0,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {

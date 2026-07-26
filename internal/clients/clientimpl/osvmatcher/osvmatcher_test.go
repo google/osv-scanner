@@ -100,6 +100,53 @@ func TestOSVMatcher_MatchVulnerabilities(t *testing.T) {
 	}
 }
 
+func TestPkgToQuery(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name string
+		pkg  *extractor.Package
+		want *api.Query
+	}{
+		{
+			name: "regular npm package uses ecosystem query",
+			pkg: &extractor.Package{
+				Name:     "lodash",
+				Version:  "4.17.21",
+				PURLType: purl.TypeNPM,
+			},
+			want: &api.Query{
+				Package: &osvschema.Package{Name: "lodash", Ecosystem: "npm"},
+				Param:   &api.Query_Version{Version: "4.17.21"},
+			},
+		},
+		{
+			name: "git-pinned npm package uses commit query, not npm ecosystem",
+			pkg: &extractor.Package{
+				Name:     "closure-net",
+				Version:  "0.0.0",
+				PURLType: purl.TypeNPM,
+				SourceCode: &extractor.SourceCodeIdentifier{
+					Commit: "6f48f578d3e80fe7a85e530a5d95b9351433d135",
+				},
+			},
+			want: &api.Query{
+				Param: &api.Query_Commit{Commit: "6f48f578d3e80fe7a85e530a5d95b9351433d135"},
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			got := pkgToQuery(tt.pkg)
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("pkgToQuery() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func mustReadAll(t *testing.T, r *http.Request) []byte {
 	t.Helper()
 

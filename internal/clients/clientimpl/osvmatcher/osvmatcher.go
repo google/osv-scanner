@@ -139,6 +139,18 @@ func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*ext
 }
 
 func pkgToQuery(pkg *extractor.Package) *api.Query {
+	// A git-pinned npm dependency (e.g. resolved via git+https:// in yarn.lock) has
+	// ecosystem=npm but was not fetched from the npm registry. Querying by npm ecosystem
+	// causes false positives from unrelated packages that share the same name on npm.
+	// Use a commit query instead, which the yarnlock extractor already populates.
+	if imodels.Commit(pkg) != "" && imodels.Ecosystem(pkg).Ecosystem == osvconstants.EcosystemNPM {
+		return &api.Query{
+			Param: &api.Query_Commit{
+				Commit: imodels.Commit(pkg),
+			},
+		}
+	}
+
 	if imodels.Name(pkg) != "" && !imodels.Ecosystem(pkg).IsEmpty() && imodels.Version(pkg) != "" {
 		name := imodels.Name(pkg)
 
