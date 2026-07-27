@@ -14,7 +14,7 @@ import (
 	"google.golang.org/grpc/credentials"
 )
 
-type closableGRPCConn interface {
+type grpcClientConnCloser interface {
 	grpc.ClientConnInterface
 	Close() error
 }
@@ -23,7 +23,7 @@ type closableGRPCConn interface {
 type ClientFactories struct {
 	mu               sync.Mutex
 	baseHTTPClient   *http.Client
-	grpcClientConns  map[string]closableGRPCConn
+	grpcClientConns  map[string]grpcClientConnCloser
 	defaultUserAgent string
 }
 
@@ -37,7 +37,7 @@ func NewClientFactories(baseHTTPClient *http.Client, defaultUserAgent string) *C
 
 	return &ClientFactories{
 		baseHTTPClient:   baseHTTPClient,
-		grpcClientConns:  make(map[string]closableGRPCConn),
+		grpcClientConns:  make(map[string]grpcClientConnCloser),
 		defaultUserAgent: defaultUserAgent,
 	}
 }
@@ -76,7 +76,7 @@ func (c *ClientFactories) HTTPClient() *http.Client {
 
 //nolint:nilnil // returning nil client is expected when not implemented
 func (c *ClientFactories) GoogleHTTPClient(_ context.Context, _ ...string) (*http.Client, error) {
-	return nil, nil
+	return nil, fmt.Errorf("unimplemented, this should not be used from osv-scanner")
 }
 
 // GRPCClientConn returns a cached gRPC client connection from a package-level connection cache.
