@@ -172,16 +172,10 @@ func (a *Annotator) Annotate(_ context.Context, _ *annotator.ScanInput, results 
 
 // FilteredPackages returns the list of packages filtered out that should be preserved.
 func (a *Annotator) FilteredPackages() []*extractor.Package {
-	a.mu.Lock()
-	defer a.mu.Unlock()
-
 	return a.filteredPackages
 }
 
 // PreFilteredPackageCount returns the number of packages found before filtering.
 func (a *Annotator) PreFilteredPackageCount() int {
-	a.mu.Lock()
-	defer a.mu.Unlock()
-
 	return a.preFilteredPackageCount
 }

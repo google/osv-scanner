@@ -76,18 +76,21 @@ func (c *ClientFactories) HTTPClient() *http.Client {
 
 //nolint:nilnil // returning nil client is expected when not implemented
 func (c *ClientFactories) GoogleHTTPClient(_ context.Context, _ ...string) (*http.Client, error) {
-	return nil, fmt.Errorf("unimplemented, this should not be used from osv-scanner")
+	return nil, nil
+	// return nil, fmt.Errorf("unimplemented, this should not be used from osv-scanner")
 }
 
 // GRPCClientConn returns a cached gRPC client connection from a package-level connection cache.
 func (c *ClientFactories) GRPCClientConn(url string, dialOpts ...grpc.DialOption) (grpc.ClientConnInterface, error) {
 	c.mu.Lock()
-	defer c.mu.Unlock()
-
 	if conn, ok := c.grpcClientConns[url]; ok {
+		c.mu.Unlock()
 		return conn, nil
 	}
+	c.mu.Unlock()
 
+	// Perform system cert pool loading and gRPC client creation outside the critical section
+	// to avoid lock contention across concurrent callers while dialing external endpoints.
 	certPool, err := x509.SystemCertPool()
 	if err != nil {
 		return nil, fmt.Errorf("failed to get system cert pool: %w", err)
@@ -103,6 +106,15 @@ func (c *ClientFactories) GRPCClientConn(url string, dialOpts ...grpc.DialOption
 	realConn, err := grpc.NewClient(url, ourDialOpts...)
 	if err != nil {
 		return nil, fmt.Errorf("failed to dial gRPC endpoint %s: %w", url, err)
+	}
+
+	c.mu.Lock()
+	defer c.mu.Unlock()
+
+	// Double-check if another goroutine created and stored a connection for this URL in the meantime.
+	if conn, ok := c.grpcClientConns[url]; ok {
+		_ = realConn.Close()
+		return conn, nil
 	}
 
 	c.grpcClientConns[url] = realConn
