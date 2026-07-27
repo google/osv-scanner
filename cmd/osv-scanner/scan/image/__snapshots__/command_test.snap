@@ -318,6 +318,7 @@ Package Ubuntu:20.04/attr/1:2.4.48-5 has been filtered out because: Just want to
 Package Ubuntu:20.04/bzip2/1.0.8-2 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/bzip2/1.0.8-2 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/coreutils/8.30-3ubuntu2 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/diffutils/1:3.7-3 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/dpkg/1.19.7ubuntu3.2 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/gcc-10/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/gcc-10/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
@@ -359,7 +360,7 @@ Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because:
 Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/xz-utils/5.2.4-1ubuntu1.1 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/zlib/1:1.2.11.dfsg-2ubuntu1.5 has been filtered out because: Just want to test only unimportant vulns
-Filtered 46 ignored package/s from the scan.
+Filtered 47 ignored package/s from the scan.
 
 
 Container Scanning Result (Ubuntu 20.04.6 LTS) (Based on "google/ubuntu2004" image):
@@ -385,6 +386,7 @@ Package Ubuntu:20.04/attr/1:2.4.48-5 has been filtered out because: Just want to
 Package Ubuntu:20.04/bzip2/1.0.8-2 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/bzip2/1.0.8-2 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/coreutils/8.30-3ubuntu2 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/diffutils/1:3.7-3 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/dpkg/1.19.7ubuntu3.2 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/gcc-10/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/gcc-10/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
@@ -426,7 +428,7 @@ Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because:
 Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/xz-utils/5.2.4-1ubuntu1.1 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/zlib/1:1.2.11.dfsg-2ubuntu1.5 has been filtered out because: Just want to test only unimportant vulns
-Filtered 46 ignored package/s from the scan.
+Filtered 47 ignored package/s from the scan.
 
 
 Container Scanning Result (Ubuntu 20.04.6 LTS) (Based on "google/ubuntu2004" image):
@@ -456,7 +458,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 29 packages affected by 90 known vulnerabilities (13 Critical, 27 High, 34 Medium, 6 Low, 10 Unknown) from 1 ecosystem.
+Total 30 packages affected by 91 known vulnerabilities (13 Critical, 27 High, 34 Medium, 7 Low, 10 Unknown) from 1 ecosystem.
 41 vulnerabilities can be fixed.
 
 
@@ -470,6 +472,7 @@ Ubuntu:22.04
 | attr           | 1:2.5.1-1build1              | No fix available        |          1 | libattr1                | # 4 Layer        | ubuntu        |
 | bzip2          | 1.0.8-5build1                | No fix available        |          1 | libbz2-1.0              | # 4 Layer        | ubuntu        |
 | coreutils      | 8.32-4.1ubuntu1.2            | No fix available        |          2 | coreutils               | # 4 Layer        | ubuntu        |
+| diffutils      | 1:3.8-0ubuntu2               | No fix available        |          1 | diffutils               | # 4 Layer        | ubuntu        |
 | dpkg           | 1.21.1ubuntu2.3              | Fix Available           |          1 | dpkg                    | # 4 Layer        | ubuntu        |
 | gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
 | glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |          8 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
@@ -512,7 +515,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 29 packages affected by 90 known vulnerabilities (13 Critical, 27 High, 34 Medium, 6 Low, 10 Unknown) from 1 ecosystem.
+Total 30 packages affected by 91 known vulnerabilities (13 Critical, 27 High, 34 Medium, 7 Low, 10 Unknown) from 1 ecosystem.
 41 vulnerabilities can be fixed.
 
 
@@ -526,6 +529,7 @@ Ubuntu:22.04
 | attr           | 1:2.5.1-1build1              | No fix available        |          1 | libattr1                | # 4 Layer        | ubuntu        |
 | bzip2          | 1.0.8-5build1                | No fix available        |          1 | libbz2-1.0              | # 4 Layer        | ubuntu        |
 | coreutils      | 8.32-4.1ubuntu1.2            | No fix available        |          2 | coreutils               | # 4 Layer        | ubuntu        |
+| diffutils      | 1:3.8-0ubuntu2               | No fix available        |          1 | diffutils               | # 4 Layer        | ubuntu        |
 | dpkg           | 1.21.1ubuntu2.3              | Fix Available           |          1 | dpkg                    | # 4 Layer        | ubuntu        |
 | gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
 | glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |          8 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
@@ -587,7 +591,7 @@ Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 30 packages affected by 92 known vulnerabilities (13 Critical, 29 High, 34 Medium, 6 Low, 10 Unknown) from 1 ecosystem.
+Total 31 packages affected by 93 known vulnerabilities (13 Critical, 29 High, 34 Medium, 7 Low, 10 Unknown) from 1 ecosystem.
 41 vulnerabilities can be fixed.
 
 
@@ -601,6 +605,7 @@ Ubuntu:22.04
 | attr           | 1:2.5.1-1build1              | No fix available        |          1 | libattr1                | # 4 Layer        | ubuntu        |
 | bzip2          | 1.0.8-5build1                | No fix available        |          1 | libbz2-1.0              | # 4 Layer        | ubuntu        |
 | coreutils      | 8.32-4.1ubuntu1.2            | No fix available        |          2 | coreutils               | # 4 Layer        | ubuntu        |
+| diffutils      | 1:3.8-0ubuntu2               | No fix available        |          1 | diffutils               | # 4 Layer        | ubuntu        |
 | dpkg           | 1.21.1ubuntu2.3              | Fix Available           |          1 | dpkg                    | # 4 Layer        | ubuntu        |
 | fzf            | 0.29.0-1ubuntu0.1            | No fix available        |          2 | fzf                     | # 7 Layer        | --            |
 | gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
@@ -644,8 +649,8 @@ Scanning local image tarball "./testdata/test-java-full.tar"
 
 
 Container Scanning Result (Alpine Linux v3.21) (Based on "eclipse-temurin" image):
-Total 42 packages affected by 177 known vulnerabilities (5 Critical, 85 High, 78 Medium, 8 Low, 1 Unknown) from 2 ecosystems.
-177 vulnerabilities can be fixed.
+Total 42 packages affected by 179 known vulnerabilities (5 Critical, 86 High, 79 Medium, 8 Low, 1 Unknown) from 2 ecosystems.
+179 vulnerabilities can be fixed.
 
 
 Maven
@@ -661,7 +666,7 @@ Maven
 | commons-beanutils:commons-beanutils         | 1.9.4             | Fix Available |          1 | # 12 Layer       | --            |
 | dnsjava:dnsjava                             | 3.4.0             | Fix Available |          1 | # 12 Layer       | --            |
 | io.netty:netty-codec                        | 4.1.100.Final     | Fix Available |          3 | # 12 Layer       | --            |
-| io.netty:netty-codec-dns                    | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
+| io.netty:netty-codec-dns                    | 4.1.100.Final     | Fix Available |          2 | # 12 Layer       | --            |
 | io.netty:netty-codec-haproxy                | 4.1.100.Final     | Fix Available |          4 | # 12 Layer       | --            |
 | io.netty:netty-codec-http                   | 4.1.100.Final     | Fix Available |         18 | # 12 Layer       | --            |
 | io.netty:netty-codec-http2                  | 4.1.100.Final     | Fix Available |          7 | # 12 Layer       | --            |
@@ -669,7 +674,7 @@ Maven
 | io.netty:netty-codec-redis                  | 4.1.100.Final     | Fix Available |          5 | # 12 Layer       | --            |
 | io.netty:netty-codec-smtp                   | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
 | io.netty:netty-codec-stomp                  | 4.1.100.Final     | Fix Available |          2 | # 12 Layer       | --            |
-| io.netty:netty-codec-xml                    | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
+| io.netty:netty-codec-xml                    | 4.1.100.Final     | Fix Available |          2 | # 12 Layer       | --            |
 | io.netty:netty-common                       | 4.1.100.Final     | Fix Available |          2 | # 12 Layer       | --            |
 | io.netty:netty-handler                      | 4.1.100.Final     | Fix Available |          4 | # 12 Layer       | --            |
 | io.netty:netty-handler-proxy                | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
@@ -3837,6 +3842,21 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
         },
         {
           "package": {
+            "name": "diffutils",
+            "os_package_name": "diffutils",
+            "version": "1:3.8-0ubuntu2",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "UBUNTU-CVE-2026-53910"
+          ]
+        },
+        {
+          "package": {
             "name": "dpkg",
             "os_package_name": "dpkg",
             "version": "1.21.1ubuntu2.3",
@@ -4344,6 +4364,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
           "groups": 3,
           "vulnerabilities": [
             "USN-7580-1",
+            "USN-8601-1",
             "UBUNTU-CVE-2024-10041",
             "UBUNTU-CVE-2025-6020",
             "UBUNTU-CVE-2026-54411"
@@ -4362,6 +4383,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
           "groups": 3,
           "vulnerabilities": [
             "USN-7580-1",
+            "USN-8601-1",
             "UBUNTU-CVE-2024-10041",
             "UBUNTU-CVE-2025-6020",
             "UBUNTU-CVE-2026-54411"
@@ -4380,6 +4402,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
           "groups": 3,
           "vulnerabilities": [
             "USN-7580-1",
+            "USN-8601-1",
             "UBUNTU-CVE-2024-10041",
             "UBUNTU-CVE-2025-6020",
             "UBUNTU-CVE-2026-54411"
@@ -4398,6 +4421,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
           "groups": 3,
           "vulnerabilities": [
             "USN-7580-1",
+            "USN-8601-1",
             "UBUNTU-CVE-2024-10041",
             "UBUNTU-CVE-2025-6020",
             "UBUNTU-CVE-2026-54411"
@@ -5062,6 +5086,21 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
         },
         {
           "package": {
+            "name": "diffutils",
+            "os_package_name": "diffutils",
+            "version": "1:3.8-0ubuntu2",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "UBUNTU-CVE-2026-53910"
+          ]
+        },
+        {
+          "package": {
             "name": "dpkg",
             "os_package_name": "dpkg",
             "version": "1.21.1ubuntu2.3",
@@ -5585,6 +5624,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           "groups": 3,
           "vulnerabilities": [
             "USN-7580-1",
+            "USN-8601-1",
             "UBUNTU-CVE-2024-10041",
             "UBUNTU-CVE-2025-6020",
             "UBUNTU-CVE-2026-54411"
@@ -5603,6 +5643,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           "groups": 3,
           "vulnerabilities": [
             "USN-7580-1",
+            "USN-8601-1",
             "UBUNTU-CVE-2024-10041",
             "UBUNTU-CVE-2025-6020",
             "UBUNTU-CVE-2026-54411"
@@ -5621,6 +5662,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           "groups": 3,
           "vulnerabilities": [
             "USN-7580-1",
+            "USN-8601-1",
             "UBUNTU-CVE-2024-10041",
             "UBUNTU-CVE-2025-6020",
             "UBUNTU-CVE-2026-54411"
@@ -5639,6 +5681,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           "groups": 3,
           "vulnerabilities": [
             "USN-7580-1",
+            "USN-8601-1",
             "UBUNTU-CVE-2024-10041",
             "UBUNTU-CVE-2025-6020",
             "UBUNTU-CVE-2026-54411"

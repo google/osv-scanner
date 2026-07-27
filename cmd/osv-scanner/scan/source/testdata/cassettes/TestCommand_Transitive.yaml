@@ -1126,7 +1126,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 1604
+      content_length: 1610
       host: api.osv.dev
       body: |
         {
@@ -1199,7 +1199,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "pytz"
               },
-              "version": "2026.2.0"
+              "version": "2026.3.0.post1"
             },
             {
               "package": {
@@ -57176,10 +57176,74 @@ interactions:
               "upload-time": "2026-05-04T01:35:29.667131Z",
               "url": "https://files.pythonhosted.org/packages/ff/46/dd499ec9038423421951e4fad73051febaa13d2df82b4064f87af8b8c0c3/pytz-2026.2.tar.gz",
               "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "7129f18b1522c931d5f22d7546c432e6ecb5f8eccc9b87d4980112e82c6694c1"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "7129f18b1522c931d5f22d7546c432e6ecb5f8eccc9b87d4980112e82c6694c1"
+              },
+              "filename": "pytz-2026.3-py2.py3-none-any.whl",
+              "hashes": {
+                "sha256": "f2c90c10a28a593365fe42a654c5a4dc20bc48ad13451735db1c9adb94e039be"
+              },
+              "provenance": "https://pypi.org/integrity/pytz/2026.3/pytz-2026.3-py2.py3-none-any.whl/provenance",
+              "requires-python": null,
+              "size": 508203,
+              "upload-time": "2026-07-25T11:09:29.677539Z",
+              "url": "https://files.pythonhosted.org/packages/c4/f5/6d4e606d0a64730dfb99e2096bfc443792716d630385863f9ec38d56338a/pytz-2026.3-py2.py3-none-any.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": false,
+              "data-dist-info-metadata": false,
+              "filename": "pytz-2026.3.tar.gz",
+              "hashes": {
+                "sha256": "3a30feb7a1a04cf0fa0be1624415930843b02f012eb800380f36f906a723e4ae"
+              },
+              "provenance": "https://pypi.org/integrity/pytz/2026.3/pytz-2026.3.tar.gz/provenance",
+              "requires-python": null,
+              "size": 319698,
+              "upload-time": "2026-07-25T11:09:31.453995Z",
+              "url": "https://files.pythonhosted.org/packages/96/24/b0c591d81fdb795a3bf65a05ac6dd2a138b80dd0711b3fd84ee630f1fee4/pytz-2026.3.tar.gz",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "25ef8a562377a28d8c6bd8c5c9e80d761d0e22ac4a7bed24e512f589644ed33d"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "25ef8a562377a28d8c6bd8c5c9e80d761d0e22ac4a7bed24e512f589644ed33d"
+              },
+              "filename": "pytz-2026.3.post1-py2.py3-none-any.whl",
+              "hashes": {
+                "sha256": "dd95840dd199baea12d9cc096a1d452caa6596a1c1e4b5f3dbd1541855d5e815"
+              },
+              "provenance": "https://pypi.org/integrity/pytz/2026.3.post1/pytz-2026.3.post1-py2.py3-none-any.whl/provenance",
+              "requires-python": null,
+              "size": 508283,
+              "upload-time": "2026-07-25T15:12:05.782880Z",
+              "url": "https://files.pythonhosted.org/packages/0f/7b/39c34ca613b0b198cb866466651b26b045e2009864c5183c979a3b83f383/pytz-2026.3.post1-py2.py3-none-any.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": false,
+              "data-dist-info-metadata": false,
+              "filename": "pytz-2026.3.post1.tar.gz",
+              "hashes": {
+                "sha256": "2211d3fcf9a797d3405cac96ac7f61d80e6a644f72a3309607282fe8a2010c5d"
+              },
+              "provenance": "https://pypi.org/integrity/pytz/2026.3.post1/pytz-2026.3.post1.tar.gz/provenance",
+              "requires-python": null,
+              "size": 319745,
+              "upload-time": "2026-07-25T15:12:07.385487Z",
+              "url": "https://files.pythonhosted.org/packages/fb/48/fb042503b6ca6cd271261dc559fd6432f7d8c713153e9ec5c591af4dfc1c/pytz-2026.3.post1.tar.gz",
+              "yanked": false
             }
           ],
           "meta": {
-            "_last-serial": 36705320,
+            "_last-serial": 39364553,
             "api-version": "1.4"
           },
           "name": "pytz",
@@ -57307,7 +57371,9 @@ interactions:
             "2025.2",
             "2026.1",
             "2026.1.post1",
-            "2026.2"
+            "2026.2",
+            "2026.3",
+            "2026.3.post1"
           ]
         }
       headers:
@@ -57336,7 +57402,7 @@ interactions:
         Strict-Transport-Security:
           - max-age=31536000; includeSubDomains; preload
         Vary:
-          - Accept-Encoding, Accept
+          - Accept, Accept-Encoding
         X-Content-Type-Options:
           - nosniff
         X-Frame-Options:
@@ -67703,7 +67769,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 1598
+      content_length: 1604
       host: api.osv.dev
       body: |
         {
@@ -67776,7 +67842,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "pytz"
               },
-              "version": "2026.2"
+              "version": "2026.3.post1"
             },
             {
               "package": {
