@@ -76,7 +76,14 @@ func (c *Handler) Handle(ctx context.Context, record slog.Record) error {
 		return c.overrideHandler.Handle(ctx, record)
 	}
 
-	_, err := fmt.Fprint(c.writer(record.Level), record.Message+"\n")
+	// Sanitize \r from the message before writing to stdout.
+	// The GitHub Actions runner treats \r as a line terminator when scanning
+	// for ::command::value workflow command sequences. Without this, an
+	// attacker-controlled path containing \r can inject arbitrary workflow
+	// commands (::error::, ::stop-commands::, etc.) via any log message,
+	// even if individual callsites use SanitizeForWorkflowCommand.
+	sanitized := strings.ReplaceAll(record.Message, "\r", "%0D")
+	_, err := fmt.Fprint(c.writer(record.Level), sanitized+"\n")
 
 	return err
 }
