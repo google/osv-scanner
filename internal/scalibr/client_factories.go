@@ -74,10 +74,8 @@ func (c *ClientFactories) HTTPClient() *http.Client {
 	return &clientCopy
 }
 
-//nolint:nilnil // returning nil client is expected when not implemented
 func (c *ClientFactories) GoogleHTTPClient(_ context.Context, _ ...string) (*http.Client, error) {
-	return nil, nil
-	// return nil, fmt.Errorf("unimplemented, this should not be used from osv-scanner")
+	return nil, errors.New("unimplemented, this should not be used from osv-scanner")
 }
 
 // GRPCClientConn returns a cached gRPC client connection from a package-level connection cache.

@@ -97,15 +97,17 @@ func getPlugins(
 		finalScalibrConfig = scalibrConfig
 		if finalScalibrConfig.ProtoConfig == nil {
 			finalScalibrConfig.ProtoConfig = &cpb.PluginConfig{
-				UserAgent:      actions.RequestUserAgent,
-				PluginSpecific: pluginSpecific,
+				UserAgent:         actions.RequestUserAgent,
+				PluginSpecific:    pluginSpecific,
+				DisableGoogleAuth: true,
 			}
 		}
 	} else {
 		finalScalibrConfig = &config.PluginConfig{
 			ProtoConfig: &cpb.PluginConfig{
-				UserAgent:      actions.RequestUserAgent,
-				PluginSpecific: pluginSpecific,
+				UserAgent:         actions.RequestUserAgent,
+				PluginSpecific:    pluginSpecific,
+				DisableGoogleAuth: true,
 			},
 		}
 	}
