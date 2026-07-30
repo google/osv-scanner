@@ -29,7 +29,7 @@ require (
 	go.yaml.in/yaml/v4 v4.0.0-rc.4
 	golang.org/x/term v0.43.0
 	golang.org/x/vuln v1.3.0
-	google.golang.org/grpc v1.81.1
+	google.golang.org/grpc v1.82.1
 	google.golang.org/protobuf v1.36.11
 	gopkg.in/dnaeon/go-vcr.v4 v4.0.6
 	osv.dev/bindings/go v0.0.0-20260512064147-daa692bbd4ed
