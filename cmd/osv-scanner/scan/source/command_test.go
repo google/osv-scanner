@@ -451,7 +451,8 @@ func TestCommand_Config_UnusedIgnores(t *testing.T) {
 func TestCommand_JavareachArchive(t *testing.T) {
 	t.Parallel()
 
-	testutility.SkipIfShort(t)
+	// testutility.SkipIfShort(t)
+	testutility.Skip(t, "Skipping for now as Maven is enforcing stricter 429s")
 
 	client := testcmd.InsertCassette(t)
 

@@ -39,7 +39,7 @@ func TestExtractor_Extract(t *testing.T) {
 					Name:     "activesupport",
 					Version:  "7.0.7",
 					Location: extractor.LocationFromPath("testdata/one-package.json"),
-					PURLType: "placeholder",
+					PURLType: "gem",
 					Plugins:  []string{"osv/osvscannerjson"},
 					Metadata: &osvscannerjson.Metadata{
 						Ecosystem: "RubyGems",
@@ -83,7 +83,7 @@ func TestExtractor_Extract(t *testing.T) {
 					Name:     "crossbeam-utils",
 					Version:  "0.6.6",
 					Location: extractor.LocationFromPath("testdata/multiple-packages-with-vulns.json"),
-					PURLType: "placeholder",
+					PURLType: "cargo",
 					Plugins:  []string{"osv/osvscannerjson"},
 					Metadata: &osvscannerjson.Metadata{
 						Ecosystem: "crates.io",
@@ -97,7 +97,7 @@ func TestExtractor_Extract(t *testing.T) {
 					Name:     "memoffset",
 					Version:  "0.5.6",
 					Location: extractor.LocationFromPath("testdata/multiple-packages-with-vulns.json"),
-					PURLType: "placeholder",
+					PURLType: "cargo",
 					Plugins:  []string{"osv/osvscannerjson"},
 					Metadata: &osvscannerjson.Metadata{
 						Ecosystem: "crates.io",
@@ -111,7 +111,7 @@ func TestExtractor_Extract(t *testing.T) {
 					Name:     "smallvec",
 					Version:  "1.6.0",
 					Location: extractor.LocationFromPath("testdata/multiple-packages-with-vulns.json"),
-					PURLType: "placeholder",
+					PURLType: "cargo",
 					Plugins:  []string{"osv/osvscannerjson"},
 					Metadata: &osvscannerjson.Metadata{
 						Ecosystem: "crates.io",

@@ -123,3 +123,9 @@ name = "p11-kit"
 reason = "Just want to test only unimportant vulns"
 ignore = true
 
+
+[[PackageOverrides]]
+name = "diffutils"
+reason = "Just want to test only unimportant vulns"
+ignore = true
+

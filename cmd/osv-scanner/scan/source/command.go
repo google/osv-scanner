@@ -6,10 +6,10 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"net/http"
 	"os"
 	"path/filepath"
 
+	scalibrconfig "github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/helper"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/version"
@@ -18,7 +18,7 @@ import (
 	"github.com/urfave/cli/v3"
 )
 
-func Command(stdout, stderr io.Writer, client *http.Client) *cli.Command {
+func Command(stdout, stderr io.Writer, clientFactories scalibrconfig.ClientFactories) *cli.Command {
 	return &cli.Command{
 		Name:        "source",
 		Usage:       "scans a source project's dependencies for known vulnerabilities using the OSV database.",
@@ -80,12 +80,12 @@ func Command(stdout, stderr io.Writer, client *http.Client) *cli.Command {
 		}, helper.BuildCommonScanFlags([]string{"lockfile", "sbom", "directory"})...),
 		ArgsUsage: "[directory1 directory2...]",
 		Action: func(ctx context.Context, cmd *cli.Command) error {
-			return action(ctx, cmd, stdout, stderr, client)
+			return action(ctx, cmd, stdout, stderr, clientFactories)
 		},
 	}
 }
 
-func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, client *http.Client) error {
+func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clientFactories scalibrconfig.ClientFactories) error {
 	format := cmd.String("format")
 
 	outputPath := cmd.String("output-file")
@@ -115,16 +115,7 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 		return err
 	}
 
-	experimentalScannerActions := helper.GetExperimentalScannerActions(cmd, client)
-	experimentalScannerActions.RequestUserAgent = "osv-scanner_scan-source/" + version.OSVVersion
-	experimentalScannerActions.ExcludePatterns = cmd.StringSlice("experimental-exclude")
-	// Add `source` specific experimental configs
-	experimentalScannerActions.TransitiveScanning = osvscanner.TransitiveScanningActions{
-		Disabled:         cmd.Bool("no-resolve"),
-		NativeDataSource: cmd.String("data-source") == "native",
-		MavenRegistry:    cmd.String("maven-registry"),
-	}
-
+	userAgent := "osv-scanner_scan-source/" + version.OSVVersion
 	scannerAction := helper.GetCommonScannerActions(cmd, scanLicensesAllowlist)
 
 	scannerAction.LockfilePaths = cmd.StringSlice("lockfile")
@@ -133,7 +124,24 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 	scannerAction.Recursive = cmd.Bool("recursive")
 	scannerAction.NoIgnore = cmd.Bool("no-ignore")
 	scannerAction.DirectoryPaths = cmd.Args().Slice()
+
+	experimentalScannerActions := helper.GetExperimentalScannerActions(cmd)
+	experimentalScannerActions.RequestUserAgent = userAgent
+	experimentalScannerActions.ExcludePatterns = cmd.StringSlice("experimental-exclude")
+	// Add `source` specific experimental configs
+	experimentalScannerActions.TransitiveScanning = osvscanner.TransitiveScanningActions{
+		Disabled:         cmd.Bool("no-resolve"),
+		NativeDataSource: cmd.String("data-source") == "native",
+		MavenRegistry:    cmd.String("maven-registry"),
+	}
+
 	scannerAction.ExperimentalScannerActions = experimentalScannerActions
+
+	if clientFactories != nil {
+		scannerAction.ScalibrConfig = &scalibrconfig.PluginConfig{
+			ClientFactories: clientFactories,
+		}
+	}
 
 	var vulnResult models.VulnerabilityResults
 	//nolint:contextcheck // passing the context in would be a breaking change

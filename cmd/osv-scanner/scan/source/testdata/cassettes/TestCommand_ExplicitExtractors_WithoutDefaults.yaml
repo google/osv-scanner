@@ -12,17 +12,17 @@ interactions:
           "queries": [
             {
               "package": {
-                "ecosystem": "Packagist",
-                "name": "sentry/sdk"
-              },
-              "version": "2.0.4"
-            },
-            {
-              "package": {
                 "ecosystem": "npm",
                 "name": "ansi-html"
               },
               "version": "0.0.8"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "sentry/sdk"
+              },
+              "version": "2.0.4"
             }
           ]
         }
@@ -64,17 +64,17 @@ interactions:
           "queries": [
             {
               "package": {
-                "ecosystem": "Packagist",
-                "name": "sentry/sdk"
-              },
-              "version": "2.0.4"
-            },
-            {
-              "package": {
                 "ecosystem": "npm",
                 "name": "ansi-html"
               },
               "version": "0.0.8"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "sentry/sdk"
+              },
+              "version": "2.0.4"
             }
           ]
         }
@@ -167,17 +167,17 @@ interactions:
             },
             {
               "package": {
-                "ecosystem": "Packagist",
-                "name": "sentry/sdk"
-              },
-              "version": "2.0.4"
-            },
-            {
-              "package": {
                 "ecosystem": "npm",
                 "name": "balanced-match"
               },
               "version": "1.0.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "sentry/sdk"
+              },
+              "version": "2.0.4"
             }
           ]
         }

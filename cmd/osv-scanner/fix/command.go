@@ -7,17 +7,14 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
-	"time"
 
 	"charm.land/glamour/v2"
 	"charm.land/glamour/v2/ansi"
 	"charm.land/glamour/v2/styles"
 	"charm.land/lipgloss/v2"
-	"osv.dev/bindings/go/osvdev"
 
 	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
 	"github.com/google/osv-scalibr/clients/datasource"
@@ -28,9 +25,11 @@ import (
 	"github.com/google/osv-scalibr/guidedremediation/options"
 	"github.com/google/osv-scalibr/guidedremediation/strategy"
 	"github.com/google/osv-scalibr/guidedremediation/upgrade"
+	"github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/depsdev"
 	"github.com/google/osv-scanner/v2/internal/version"
+	"github.com/google/osv-scanner/v2/pkg/osvscanner"
 	"github.com/urfave/cli/v3"
 	"golang.org/x/term"
 )
@@ -43,7 +42,7 @@ const (
 	autoModeCategory = "non-interactive options:" // intentionally lowercase to force it to sort after the other categories
 )
 
-func Command(stdout, _ io.Writer, _ *http.Client) *cli.Command {
+func Command(stdout, _ io.Writer, clientFactories config.ClientFactories) *cli.Command {
 	return &cli.Command{
 		Name:        "fix",
 		Usage:       "scans a manifest and/or lockfile for vulnerabilities and suggests changes for remediating them",
@@ -206,12 +205,12 @@ func Command(stdout, _ io.Writer, _ *http.Client) *cli.Command {
 			},
 		},
 		Action: func(ctx context.Context, cmd *cli.Command) error {
-			return action(ctx, cmd, stdout)
+			return action(ctx, cmd, stdout, clientFactories)
 		},
 	}
 }
 
-func action(ctx context.Context, cmd *cli.Command, stdout io.Writer) error {
+func action(ctx context.Context, cmd *cli.Command, stdout io.Writer, clientFactories config.ClientFactories) error {
 	cmdlogger.Warnf("Guided remediation (the fix command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.")
 	if !cmd.IsSet("manifest") && !cmd.IsSet("lockfile") {
 		return errors.New("manifest or lockfile is required")
@@ -241,23 +240,27 @@ func action(ctx context.Context, cmd *cli.Command, stdout io.Writer) error {
 		opts.Strategy = strategy.StrategyRelax
 	}
 
+	userAgent := "osv-scanner_fix/" + version.OSVVersion
+	cf, cleanup := osvscanner.SetupClientFactories(clientFactories, nil, userAgent)
+	defer cleanup()
+
 	// MavenClient is required for Maven projects
 	mc, err := datasource.NewMavenRegistryAPIClient(ctx, datasource.MavenRegistry{
 		URL:             cmd.String("maven-registry"),
 		ReleasesEnabled: true,
-	}, "", false)
+	}, "", false, cf.HTTPClient(), nil)
 	if err != nil {
 		return err
 	}
 	opts.MavenClient = mc
-	userAgent := "osv-scanner_fix/" + version.OSVVersion
+
 	switch cmd.String("data-source") {
 	case "deps.dev":
-		cl, err := resolution.NewDepsDevClient(depsdev.DepsdevAPI, userAgent)
+		conn, err := cf.GRPCClientConn(depsdev.DepsdevAPI)
 		if err != nil {
 			return err
 		}
-		opts.ResolveClient = cl
+		opts.ResolveClient = resolution.NewDepsDevClientWithConn(conn)
 
 	case "native":
 		var workDir string
@@ -268,8 +271,10 @@ func action(ctx context.Context, cmd *cli.Command, stdout io.Writer) error {
 			workDir = filepath.Dir(opts.Lockfile)
 		}
 		cl, err := resolution.NewCombinedNativeClient(resolution.CombinedNativeClientOptions{
-			ProjectDir:    workDir,
-			MavenRegistry: cmd.String("maven-registry"),
+			HTTPClient:        cf.HTTPClient(),
+			DisableGoogleAuth: true,
+			ProjectDir:        workDir,
+			MavenRegistry:     cmd.String("maven-registry"),
 		})
 		if err != nil {
 			return err
@@ -277,26 +282,31 @@ func action(ctx context.Context, cmd *cli.Command, stdout io.Writer) error {
 		opts.ResolveClient = cl
 	}
 
+	cfg := &cpb.PluginConfig{
+		UserAgent: userAgent,
+		PluginSpecific: []*cpb.PluginSpecificConfig{
+			{Config: &cpb.PluginSpecificConfig_Osvlocal{Osvlocal: &cpb.OSVLocalConfig{
+				Download:   cmd.Bool("download-offline-databases"),
+				LocalPath:  cmd.String("local-db-path"),
+				RemoteHost: "https://osv-vulnerabilities.storage.googleapis.com",
+			}}},
+		},
+	}
+	pluginCfg := &config.PluginConfig{
+		ProtoConfig:     cfg,
+		ClientFactories: cf,
+	}
 	if cmd.Bool("offline-vulnerabilities") {
-		cfg := &cpb.PluginConfig{
-			UserAgent: userAgent,
-			PluginSpecific: []*cpb.PluginSpecificConfig{
-				{Config: &cpb.PluginSpecificConfig_Osvlocal{Osvlocal: &cpb.OSVLocalConfig{
-					Download:   cmd.Bool("download-offline-databases"),
-					LocalPath:  cmd.String("local-db-path"),
-					RemoteHost: "https://osv-vulnerabilities.storage.googleapis.com",
-				}}},
-			},
-		}
-		enricher, err := osvlocal.New(cfg)
+		enricher, err := osvlocal.New(pluginCfg)
 		if err != nil {
 			return err
 		}
 		opts.VulnEnricher = enricher
 	} else {
-		osvdevCl := osvdev.DefaultClient()
-		osvdevCl.Config.UserAgent = userAgent
-		opts.VulnEnricher = scalibrosvdev.NewWithClient(osvdevCl, 5*time.Minute)
+		opts.VulnEnricher, err = scalibrosvdev.New(pluginCfg)
+		if err != nil {
+			return err
+		}
 	}
 
 	if cmd.Bool("interactive") {

@@ -328,20 +328,6 @@ interactions:
           "queries": [
             {
               "package": {
-                "ecosystem": "RubyGems",
-                "name": "ast"
-              },
-              "version": "2.4.2"
-            },
-            {
-              "package": {
-                "ecosystem": "Packagist",
-                "name": "sentry/sdk"
-              },
-              "version": "2.0.4"
-            },
-            {
-              "package": {
                 "ecosystem": "npm",
                 "name": "ansi-html"
               },
@@ -349,10 +335,24 @@ interactions:
             },
             {
               "package": {
+                "ecosystem": "RubyGems",
+                "name": "ast"
+              },
+              "version": "2.4.2"
+            },
+            {
+              "package": {
                 "ecosystem": "npm",
                 "name": "balanced-match"
               },
               "version": "1.0.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "sentry/sdk"
+              },
+              "version": "2.0.4"
             }
           ]
         }
@@ -396,20 +396,6 @@ interactions:
           "queries": [
             {
               "package": {
-                "ecosystem": "RubyGems",
-                "name": "ast"
-              },
-              "version": "2.4.2"
-            },
-            {
-              "package": {
-                "ecosystem": "Packagist",
-                "name": "sentry/sdk"
-              },
-              "version": "2.0.4"
-            },
-            {
-              "package": {
                 "ecosystem": "npm",
                 "name": "ansi-html"
               },
@@ -417,10 +403,24 @@ interactions:
             },
             {
               "package": {
+                "ecosystem": "RubyGems",
+                "name": "ast"
+              },
+              "version": "2.4.2"
+            },
+            {
+              "package": {
                 "ecosystem": "npm",
                 "name": "balanced-match"
               },
               "version": "1.0.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "sentry/sdk"
+              },
+              "version": "2.0.4"
             }
           ]
         }
@@ -532,10 +532,24 @@ interactions:
           "queries": [
             {
               "package": {
+                "ecosystem": "RubyGems",
+                "name": "ast"
+              },
+              "version": "2.4.2"
+            },
+            {
+              "package": {
                 "ecosystem": "Packagist",
                 "name": "league/flysystem"
               },
               "version": "1.0.8"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "sentry/sdk"
+              },
+              "version": "2.0.4"
             },
             {
               "package": {
@@ -550,20 +564,6 @@ interactions:
                 "name": "toolchain"
               },
               "version": "1.99.9"
-            },
-            {
-              "package": {
-                "ecosystem": "RubyGems",
-                "name": "ast"
-              },
-              "version": "2.4.2"
-            },
-            {
-              "package": {
-                "ecosystem": "Packagist",
-                "name": "sentry/sdk"
-              },
-              "version": "2.0.4"
             }
           ]
         }
@@ -582,6 +582,7 @@ interactions:
       body: |
         {
           "results": [
+            {},
             {
               "vulns": [
                 {
@@ -590,7 +591,6 @@ interactions:
                 }
               ]
             },
-            {},
             {},
             {},
             {}

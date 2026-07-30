@@ -7,13 +7,14 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"net/http"
 	"sort"
 	"strings"
 	"testing"
 
+	scalibrconfig "github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/cmd"
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
+	"github.com/google/osv-scanner/v2/internal/scalibr"
 	"github.com/google/osv-scanner/v2/internal/testlogger"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 	"github.com/urfave/cli/v3"
@@ -33,7 +34,7 @@ func fetchCommandsToTest() []cmd.CommandBuilder {
 		}
 	}
 
-	return append(CommandsUnderTest, func(_, _ io.Writer, _ *http.Client) *cli.Command {
+	return append(CommandsUnderTest, func(_, _ io.Writer, _ scalibrconfig.ClientFactories) *cli.Command {
 		return &cli.Command{
 			Name: "scan",
 			Action: func(_ context.Context, _ *cli.Command) error {
@@ -49,7 +50,12 @@ func run(t *testing.T, tc Case) (string, string) {
 	stdout := &bytes.Buffer{}
 	stderr := &bytes.Buffer{}
 
-	ec := cmd.Run(tc.Args, stdout, stderr, tc.HTTPClient, fetchCommandsToTest())
+	cf := tc.ClientFactories
+	if cf == nil {
+		cf = scalibr.NewClientFactories(tc.HTTPClient, "")
+	}
+
+	ec := cmd.Run(tc.Args, stdout, stderr, cf, fetchCommandsToTest())
 
 	if ec != tc.Exit {
 		t.Errorf("cli exited with code %d, not %d", ec, tc.Exit)
