@@ -3,7 +3,15 @@
 ### Features & Refactors:
 
 - **Full OSV-Scalibr pipeline**: Migrated scanning, filtering, and matching in `osv-scanner` to use `osv-scalibr` end-to-end, so most plugins that's supported in osv-scalibr should be supported via the `--experimental-plugins` flag ([#2935](https://github.com/google/osv-scanner/pull/2935)).
--
+- **New extractors and ecosystem support via `osv-scalibr`**:
+  - Add `javascript/vsix` extractor to support scanning VS Code extension (`.vsix`) packages.
+  - Extend ecosystem mapping for:
+    - SUSE
+    - Azure Linux / Mariner
+    - Alpaquita
+    - Mageia
+    - openSUSE Leap
+    - Debian and Ubuntu PURL
 
 - **PURL Type Resolution**: Updated `osvscannerjson` extractor to map ecosystem names to valid PURL types (golang, gem, cargo, npm, etc.).
 
