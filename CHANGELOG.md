@@ -1,3 +1,26 @@
+# v2.5.0
+
+### Features & Refactors:
+
+- **Full OSV-Scalibr pipeline**: Migrated scanning, filtering, and matching in `osv-scanner` to use `osv-scalibr` end-to-end, so most plugins that's supported in osv-scalibr should be supported via the `--experimental-plugins` flag ([#2935](https://github.com/google/osv-scanner/pull/2935)).
+- **New extractors and ecosystem support via `osv-scalibr`**:
+  - Add `javascript/vsix` extractor to support scanning VS Code extension (`.vsix`) packages.
+  - Extend ecosystem mapping for:
+    - SUSE
+    - Azure Linux / Mariner
+    - Alpaquita
+    - Mageia
+    - openSUSE Leap
+    - Debian and Ubuntu PURL
+
+- **PURL Type Resolution**: Updated `osvscannerjson` extractor to map ecosystem names to valid PURL types (golang, gem, cargo, npm, etc.).
+
+### Fixes:
+
+- [Bug #2915](https://github.com/google/osv-scanner/pull/2915) Fix issue where osv-scanner reported already-fixed advisories as unfixed for RHEL-family RPM packages (Red Hat, AlmaLinux, Rocky Linux) with epochs by sending epoch-qualified versions.
+- Fix Python requirements.txt extractor in `osv-scalibr`, specifically regular expressions used to extract package names and per-requirement options (Fixes #2940, #2931)
+- Fix NPM and Composer PURL generation in `osv-scalibr`, separating package namespace (scope) from package name
+
 # v2.4.0
 
 ### Features:
