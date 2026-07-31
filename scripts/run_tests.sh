@@ -30,7 +30,12 @@ fi
 
 # If running in CI, test with coverage
 if [ -n "$CI" ]; then
-    go test ./... -coverpkg=./... -coverprofile coverage.out "$@"
+    # Omit -coverpkg=./... on macOS to avoid heavy linker overhead, memory pressure, and SIGBUS/timeouts
+    if [ "$RUNNER_OS" = "macOS" ] || [ "$(uname -s)" = "Darwin" ]; then
+        go test ./... -coverprofile coverage.out "$@"
+    else
+        go test ./... -coverpkg=./... -coverprofile coverage.out "$@"
+    fi
 else
     # Use gotestsum which has a nicer test output
     go run gotest.tools/gotestsum@v1.13.0 ./... "$@"
