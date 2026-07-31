@@ -3,7 +3,6 @@
 ### Features & Refactors:
 
 - **End-to-End Scalibr Migration**: Migrated scanning, filtering, and matching in `osv-scanner` to use `osv-scalibr` end-to-end ([#2935](https://github.com/google/osv-scanner/pull/2935)).
-  - **Matching Offloaded to Scalibr Enrichers**: Removed legacy vulnerability and license matchers from `osv-scanner`, delegating them to `osv-scalibr` enrichers.
   - **Filtering Annotator Plugin**: Implemented package filtering as a `scalibr` annotator plugin (`osv-scanner/filter`) to handle unscannable packages, container-specific package exclusions, and ignore rules.
   - **Client Factories**: Introduced `ClientFactories` implementing `scalibrconfig.ClientFactories` to inject User-Agent headers and pool client connections.
   - **PURL Type Resolution**: Updated `osvscannerjson` extractor to map ecosystem names to valid PURL types (golang, gem, cargo, npm, etc.).
