@@ -3,9 +3,9 @@
 ### Features & Refactors:
 
 - **Full OSV-Scalibr pipeline**: Migrated scanning, filtering, and matching in `osv-scanner` to use `osv-scalibr` end-to-end, so most plugins that's supported in osv-scalibr should be supported via the `--experimental-plugins` flag ([#2935](https://github.com/google/osv-scanner/pull/2935)).
-- 
+-
 
-  - **PURL Type Resolution**: Updated `osvscannerjson` extractor to map ecosystem names to valid PURL types (golang, gem, cargo, npm, etc.).
+- **PURL Type Resolution**: Updated `osvscannerjson` extractor to map ecosystem names to valid PURL types (golang, gem, cargo, npm, etc.).
 
 ### Fixes:
 
