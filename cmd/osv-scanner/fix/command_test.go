@@ -154,6 +154,13 @@ func TestCommand_OfflineDatabase(t *testing.T) {
 			lockfile := testcmd.CopyFileFlagTo(t, tt, "-L", testDir)
 			manifest := testcmd.CopyFileFlagTo(t, tt, "-M", testDir)
 
+			old := tt.Args
+			tt.Args = []string{"", "fix", "--local-db-path", testDir}
+			tt.Args = append(tt.Args, old[2:]...)
+
+			// run each test twice since they should provide the same output,
+			// and the second run should be fast as the db is already available
+			testcmd.RunAndMatchSnapshots(t, tt)
 			testcmd.RunAndMatchSnapshots(t, tt)
 
 			if lockfile != "" {

@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"slices"
 	"sort"
 	"strings"
 	"testing"
@@ -53,6 +54,23 @@ func run(t *testing.T, tc Case) (string, string) {
 	cf := tc.ClientFactories
 	if cf == nil {
 		cf = scalibr.NewClientFactories(tc.HTTPClient, "")
+	}
+
+	// Inject a per-test --local-db-path tempdir if offline databases are used without an explicit --local-db-path flag
+	if !slices.ContainsFunc(tc.Args, func(arg string) bool {
+		return arg == "--local-db-path" || strings.HasPrefix(arg, "--local-db-path=")
+	}) {
+		if slices.Contains(tc.Args, "--download-offline-databases") || slices.Contains(tc.Args, "--offline-vulnerabilities") {
+			dbDir := testutility.CreateTestDir(t)
+			subcmd := "source"
+			if len(tc.Args) >= 2 {
+				subcmd = tc.Args[1]
+			}
+			newArgs := make([]string, 0, len(tc.Args)+2)
+			newArgs = append(newArgs, "", subcmd, "--local-db-path", dbDir)
+			newArgs = append(newArgs, tc.Args[2:]...)
+			tc.Args = newArgs
+		}
 	}
 
 	ec := cmd.Run(tc.Args, stdout, stderr, cf, fetchCommandsToTest())
