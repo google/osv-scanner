@@ -13278,25 +13278,3 @@ UNFIXABLE-VULNS: 6
 }
 
 ---
-
-[TestCommand_OfflineDatabase/fix_non_interactive_relax_package_json_with_offline_vulns - 4]
-
----
-
-[TestCommand_OfflineDatabase/fix_non_interactive_relax_package_json_with_offline_vulns - 5]
-{
-  "name": "osv-fix",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo /"Error: no test specified/" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "npm-registry-client": "^7.5.0"
-  }
-}
-
----
