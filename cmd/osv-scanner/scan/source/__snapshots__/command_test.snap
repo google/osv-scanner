@@ -2114,7 +2114,7 @@ Total 7 packages affected by 48 known vulnerabilities (3 Critical, 21 High, 16 M
 [TestCommand_CommitSupport/online_uses_git_commits - 1]
 Scanned <rootdir>/testdata/locks-git/osv-scanner.json file and found 11 packages
 
-Total 11 packages affected by 70 known vulnerabilities (3 Critical, 28 High, 27 Medium, 6 Low, 6 Unknown) from 1 ecosystem.
+Total 11 packages affected by 69 known vulnerabilities (3 Critical, 28 High, 26 Medium, 6 Low, 6 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +--------------------------------+------+-----------+-----------------------------------------------+------------------+---------------+-------------------------------------+
@@ -2136,7 +2136,6 @@ Total 11 packages affected by 70 known vulnerabilities (3 Critical, 28 High, 27 
 | https://osv.dev/OSV-2024-340   |      | GIT       | https://github.com/Exiv2/exiv2                | v0.28.0          | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2021-22569 | 5.5  | GIT       | https://github.com/apache/orc                 | v3.19.0          | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2022-1941  | 7.5  | GIT       | https://github.com/apache/orc                 | v3.19.0          | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2022-3171  | 4.3  | GIT       | https://github.com/apache/orc                 | v3.19.0          | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2022-3509  | 7.5  | GIT       | https://github.com/apache/orc                 | v3.19.0          | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2022-3510  | 7.5  | GIT       | https://github.com/apache/orc                 | v3.19.0          | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/OSV-2018-389   |      | GIT       | https://github.com/boostorg/boost             | boost-1.67.0     | --            | testdata/locks-git/osv-scanner.json |
