@@ -3,6 +3,7 @@ package imodels
 
 import (
 	"fmt"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"sync"
@@ -178,7 +179,7 @@ func ecosystemEncodesEpoch(ecosystem string) bool {
 }
 
 func Location(pkg *extractor.Package) string {
-	return pkg.Location.PathOrEmpty()
+	return filepath.Join(pkg.ScanRoot, pkg.Location.PathOrEmpty())
 }
 
 func Commit(pkg *extractor.Package) string {
