@@ -22,8 +22,7 @@ jobs:
       contents: read # to fetch code (actions/checkout)
       security-events: write # for uploading SARIF files
       actions: read
-    # zizmor: ignore[unpinned-uses]
-    uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@main
+    uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@main # zizmor: ignore[unpinned-uses]
     with:
       # Only scan the top level go.mod file without recursively scanning directories since
       # this pipeline is about releasing the go module and binary
