@@ -24596,6 +24596,38 @@ interactions:
             },
             {
               "core-metadata": {
+                "sha256": "99b5f9e14ccc1eec8d89ef623738a27d0b12f0d7e096d61ae98605fe3ed43693"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "99b5f9e14ccc1eec8d89ef623738a27d0b12f0d7e096d61ae98605fe3ed43693"
+              },
+              "filename": "django-5.2.17-py3-none-any.whl",
+              "hashes": {
+                "sha256": "f04fb3b36ee119e1af4fa1d397d5fd6cf12700f49321e84d4f4c642c5b1973db"
+              },
+              "provenance": null,
+              "requires-python": ">=3.10",
+              "size": 8315563,
+              "upload-time": "2026-08-04T15:03:59.100926Z",
+              "url": "https://files.pythonhosted.org/packages/df/f8/ce120525ca78f12b07daf65786679c5d0b54a75285a8958d3ae55e39da35/django-5.2.17-py3-none-any.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": false,
+              "data-dist-info-metadata": false,
+              "filename": "django-5.2.17.tar.gz",
+              "hashes": {
+                "sha256": "9d4d93be539a18ab80d058eb515900e10951e04c537c5a6b394fc49528d3251f"
+              },
+              "provenance": null,
+              "requires-python": ">=3.10",
+              "size": 10889740,
+              "upload-time": "2026-08-04T15:04:03.173992Z",
+              "url": "https://files.pythonhosted.org/packages/d5/d8/43e9d000519adceb189620b6869ff88031e046df91c2e9da72f8f6918399/django-5.2.17.tar.gz",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
                 "sha256": "26347a3a91a455307c61a74b30d70a33c8cff80a64e9ea8bdf9c08766a36fb18"
               },
               "data-dist-info-metadata": {
@@ -24948,6 +24980,38 @@ interactions:
             },
             {
               "core-metadata": {
+                "sha256": "d66fddc6a5b852e65031ad1cf076fb7fa40c36284acd53a000e8806431f100d6"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "d66fddc6a5b852e65031ad1cf076fb7fa40c36284acd53a000e8806431f100d6"
+              },
+              "filename": "django-6.0.8-py3-none-any.whl",
+              "hashes": {
+                "sha256": "9b98b7e1902e0e575ea4f42c175fc9512784f7f2580898286aee3388b322219d"
+              },
+              "provenance": null,
+              "requires-python": ">=3.12",
+              "size": 8376956,
+              "upload-time": "2026-08-04T15:03:35.138697Z",
+              "url": "https://files.pythonhosted.org/packages/2e/b4/23e74d261eebfa9c8baed5e8810f09858b9afd613d1037f42ff7aa95c87f/django-6.0.8-py3-none-any.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": false,
+              "data-dist-info-metadata": false,
+              "filename": "django-6.0.8.tar.gz",
+              "hashes": {
+                "sha256": "cb0bd962d27fc866f3c514b20aae6a7df56ec80b488f9899da46d675cd051526"
+              },
+              "provenance": null,
+              "requires-python": ">=3.12",
+              "size": 10924565,
+              "upload-time": "2026-08-04T15:03:39.469322Z",
+              "url": "https://files.pythonhosted.org/packages/3c/28/5fee292e588dbdb782582436d1eb62ac8809ec55b98ef27f5b9676a00e9a/django-6.0.8.tar.gz",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
                 "sha256": "62b3a7e06a1708afd23f595ef3c47aad04c38ca9768a906681af9406034d0676"
               },
               "data-dist-info-metadata": {
@@ -25044,7 +25108,7 @@ interactions:
             }
           ],
           "meta": {
-            "_last-serial": 39271514,
+            "_last-serial": 39685695,
             "api-version": "1.4"
           },
           "name": "django",
@@ -25469,6 +25533,7 @@ interactions:
             "5.2.14",
             "5.2.15",
             "5.2.16",
+            "5.2.17",
             "6.0a1",
             "6.0b1",
             "6.0rc1",
@@ -25480,6 +25545,7 @@ interactions:
             "6.0.5",
             "6.0.6",
             "6.0.7",
+            "6.0.8",
             "6.1a1",
             "6.1b1",
             "6.1rc1"
@@ -25511,7 +25577,7 @@ interactions:
         Strict-Transport-Security:
           - max-age=31536000; includeSubDomains; preload
         Vary:
-          - Accept-Encoding, Accept
+          - Accept, Accept-Encoding
         X-Content-Type-Options:
           - nosniff
         X-Frame-Options:
