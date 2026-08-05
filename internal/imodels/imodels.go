@@ -179,7 +179,12 @@ func ecosystemEncodesEpoch(ecosystem string) bool {
 }
 
 func Location(pkg *extractor.Package) string {
-	return filepath.Join(pkg.ScanRoot, pkg.Location.PathOrEmpty())
+	// Use the scan root, defaulting to / for virtual filesystems (e.g. container images)
+	scanRoot := pkg.ScanRoot
+	if scanRoot == "" {
+		scanRoot = "/"
+	}
+	return filepath.Join(scanRoot, pkg.Location.PathOrEmpty())
 }
 
 func Commit(pkg *extractor.Package) string {
