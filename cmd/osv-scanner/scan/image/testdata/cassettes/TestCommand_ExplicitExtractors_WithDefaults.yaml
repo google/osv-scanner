@@ -5,7 +5,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 1641
+      content_length: 2037
       host: api.osv.dev
       body: |
         {
@@ -62,6 +62,13 @@ interactions:
             {
               "package": {
                 "ecosystem": "Alpine:v3.10",
+                "name": "openssl"
+              },
+              "version": "1.1.1k-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.10",
                 "name": "libtls-standalone"
               },
               "version": "2.9.1-r0"
@@ -76,9 +83,23 @@ interactions:
             {
               "package": {
                 "ecosystem": "Alpine:v3.10",
+                "name": "musl"
+              },
+              "version": "1.1.22-r4"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.10",
                 "name": "pax-utils"
               },
               "version": "1.2.3-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.10",
+                "name": "busybox"
+              },
+              "version": "1.30.1-r5"
             },
             {
               "package": {
@@ -107,7 +128,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 355
+      content_length: 364
       body: |
         {
           "results": [
@@ -121,6 +142,9 @@ interactions:
                 }
               ]
             },
+            {},
+            {},
+            {},
             {},
             {},
             {},
@@ -149,7 +173,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "355"
+          - "364"
         Content-Type:
           - application/json
       status: 200 OK
@@ -159,7 +183,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 1511
+      content_length: 1907
       host: api.osv.dev
       body: |
         {
@@ -216,6 +240,13 @@ interactions:
             {
               "package": {
                 "ecosystem": "Alpine:v3.10",
+                "name": "openssl"
+              },
+              "version": "1.1.1k-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.10",
                 "name": "libtls-standalone"
               },
               "version": "2.9.1-r0"
@@ -230,9 +261,23 @@ interactions:
             {
               "package": {
                 "ecosystem": "Alpine:v3.10",
+                "name": "musl"
+              },
+              "version": "1.1.22-r4"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.10",
                 "name": "pax-utils"
               },
               "version": "1.2.3-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.10",
+                "name": "busybox"
+              },
+              "version": "1.30.1-r5"
             },
             {
               "package": {
@@ -254,7 +299,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 127
+      content_length: 136
       body: |
         {
           "results": [
@@ -275,12 +320,15 @@ interactions:
             {},
             {},
             {},
+            {},
+            {},
+            {},
             {}
           ]
         }
       headers:
         Content-Length:
-          - "127"
+          - "136"
         Content-Type:
           - application/json
       status: 200 OK
@@ -290,7 +338,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 1511
+      content_length: 1907
       host: api.osv.dev
       body: |
         {
@@ -347,6 +395,13 @@ interactions:
             {
               "package": {
                 "ecosystem": "Alpine:v3.10",
+                "name": "openssl"
+              },
+              "version": "1.1.1k-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.10",
                 "name": "libtls-standalone"
               },
               "version": "2.9.1-r0"
@@ -361,9 +416,23 @@ interactions:
             {
               "package": {
                 "ecosystem": "Alpine:v3.10",
+                "name": "musl"
+              },
+              "version": "1.1.22-r4"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.10",
                 "name": "pax-utils"
               },
               "version": "1.2.3-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.10",
+                "name": "busybox"
+              },
+              "version": "1.30.1-r5"
             },
             {
               "package": {
@@ -385,7 +454,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 127
+      content_length: 136
       body: |
         {
           "results": [
@@ -406,12 +475,15 @@ interactions:
             {},
             {},
             {},
+            {},
+            {},
+            {},
             {}
           ]
         }
       headers:
         Content-Length:
-          - "127"
+          - "136"
         Content-Type:
           - application/json
       status: 200 OK
@@ -421,7 +493,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 1511
+      content_length: 1907
       host: api.osv.dev
       body: |
         {
@@ -478,6 +550,13 @@ interactions:
             {
               "package": {
                 "ecosystem": "Alpine:v3.10",
+                "name": "openssl"
+              },
+              "version": "1.1.1k-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.10",
                 "name": "libtls-standalone"
               },
               "version": "2.9.1-r0"
@@ -492,9 +571,23 @@ interactions:
             {
               "package": {
                 "ecosystem": "Alpine:v3.10",
+                "name": "musl"
+              },
+              "version": "1.1.22-r4"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.10",
                 "name": "pax-utils"
               },
               "version": "1.2.3-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.10",
+                "name": "busybox"
+              },
+              "version": "1.30.1-r5"
             },
             {
               "package": {
@@ -516,7 +609,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 127
+      content_length: 136
       body: |
         {
           "results": [
@@ -537,12 +630,15 @@ interactions:
             {},
             {},
             {},
+            {},
+            {},
+            {},
             {}
           ]
         }
       headers:
         Content-Length:
-          - "127"
+          - "136"
         Content-Type:
           - application/json
       status: 200 OK

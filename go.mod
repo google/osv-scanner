@@ -3,19 +3,19 @@ module github.com/google/osv-scanner/v2
 go 1.26.4
 
 require (
-	charm.land/glamour/v2 v2.0.0
-	charm.land/lipgloss/v2 v2.0.3
+	charm.land/glamour/v2 v2.0.1
+	charm.land/lipgloss/v2 v2.0.5
 	deps.dev/api/v3 v3.0.0-20260422013440-90c27f84dd6f
 	deps.dev/api/v3alpha v0.0.0-20260422013440-90c27f84dd6f
 	github.com/BurntSushi/toml v1.6.0
 	github.com/CycloneDX/cyclonedx-go v0.11.0
-	github.com/gkampitakis/go-snaps v0.5.22
+	github.com/gkampitakis/go-snaps v0.5.23
 	github.com/go-git/go-git/v5 v5.19.1
 	github.com/gobwas/glob v0.2.3
 	github.com/google/go-cmp v0.7.0
-	github.com/google/osv-scalibr v0.4.6-0.20260612031204-164402d9140e
-	github.com/ianlancetaylor/demangle v0.0.0-20260505044615-1ff4bf46051f
-	github.com/jedib0t/go-pretty/v6 v6.7.10
+	github.com/google/osv-scalibr v0.4.6-0.20260727075515-eb1ca153f805
+	github.com/ianlancetaylor/demangle v0.0.0-20260724033716-83e58baca724
+	github.com/jedib0t/go-pretty/v6 v6.8.3
 	github.com/modelcontextprotocol/go-sdk v1.6.1
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/ossf/osv-schema/bindings/go v0.0.0-20260424063704-83285ce2a866
@@ -25,14 +25,13 @@ require (
 	github.com/tidwall/gjson v1.19.0
 	github.com/tidwall/pretty v1.2.1
 	github.com/tidwall/sjson v1.2.5
-	github.com/urfave/cli/v3 v3.9.0
-	go.yaml.in/yaml/v4 v4.0.0-rc.4
-	golang.org/x/sync v0.20.0
-	golang.org/x/term v0.43.0
+	github.com/urfave/cli/v3 v3.10.1
+	go.yaml.in/yaml/v4 v4.0.0-rc.6
+	golang.org/x/term v0.45.0
 	golang.org/x/vuln v1.3.0
-	google.golang.org/grpc v1.81.1
+	google.golang.org/grpc v1.82.1
 	google.golang.org/protobuf v1.36.11
-	gopkg.in/dnaeon/go-vcr.v4 v4.0.6
+	gopkg.in/dnaeon/go-vcr.v4 v4.0.7
 	osv.dev/bindings/go v0.0.0-20260512064147-daa692bbd4ed
 )
 
@@ -44,7 +43,6 @@ require (
 	deps.dev/util/pypi v0.0.0-20260422013440-90c27f84dd6f // indirect
 	deps.dev/util/resolve v0.0.0-20260422013440-90c27f84dd6f // indirect
 	deps.dev/util/semver v0.0.0-20260529052642-cf1e78d92744 // indirect
-	github.com/Azure/go-ansiterm v0.0.0-20250102033503-faa5f7b0171c // indirect
 	github.com/GehirnInc/crypt v0.0.0-20230320061759-8cc1b52080c5 // indirect
 	github.com/Microsoft/go-winio v0.6.2 // indirect
 	github.com/ProtonMail/go-crypto v1.3.0 // indirect
@@ -88,9 +86,8 @@ require (
 	github.com/dlclark/regexp2 v1.11.5 // indirect
 	github.com/docker/cli v29.4.3+incompatible // indirect
 	github.com/docker/distribution v2.8.3+incompatible // indirect
-	github.com/docker/docker v28.5.2+incompatible // indirect
 	github.com/docker/docker-credential-helpers v0.9.5 // indirect
-	github.com/docker/go-connections v0.5.0 // indirect
+	github.com/docker/go-connections v0.7.0 // indirect
 	github.com/docker/go-units v0.5.0 // indirect
 	github.com/dsoprea/go-exfat v0.0.0-20190906070738-5e932fbdb589 // indirect
 	github.com/dsoprea/go-logging v0.0.0-20200710184922-b02d349568dd // indirect
@@ -138,6 +135,8 @@ require (
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/moby/buildkit v0.30.0 // indirect
 	github.com/moby/docker-image-spec v1.3.1 // indirect
+	github.com/moby/moby/api v1.55.0 // indirect
+	github.com/moby/moby/client v0.5.0 // indirect
 	github.com/muesli/ansi v0.0.0-20230316100256-276c6243b2f6 // indirect
 	github.com/muesli/cancelreader v0.2.2 // indirect
 	github.com/muesli/reflow v0.3.0 // indirect
@@ -196,7 +195,8 @@ require (
 	golang.org/x/mod v0.36.0 // indirect
 	golang.org/x/net v0.55.0 // indirect
 	golang.org/x/oauth2 v0.36.0 // indirect
-	golang.org/x/sys v0.45.0 // indirect
+	golang.org/x/sync v0.20.0 // indirect
+	golang.org/x/sys v0.47.0 // indirect
 	golang.org/x/telemetry v0.0.0-20260508192327-42602be52be6 // indirect
 	golang.org/x/text v0.37.0 // indirect
 	golang.org/x/tools v0.45.0 // indirect
@@ -214,5 +214,3 @@ require (
 	www.velocidex.com/golang/go-ntfs v0.2.0 // indirect
 	www.velocidex.com/golang/regparser v0.0.0-20250203141505-31e704a67ef7 // indirect
 )
-
-replace github.com/google/osv-scalibr => github.com/herdiyana256/osv-scalibr v0.4.6-0.20260722130254-d58d87909b1e

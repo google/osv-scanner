@@ -302,7 +302,7 @@ NAME:
    osv-scanner update - [EXPERIMENTAL] scans a manifest file then updates dependencies
 
 USAGE:
-   osv-scanner update
+   osv-scanner update [options]
 
 OPTIONS:
    --manifest string, -M string                                                     path to manifest file (required)
@@ -314,6 +314,8 @@ OPTIONS:
 ---
 
 [TestCommand/with_no_arguments - 2]
+Incorrect Usage: Required flag "manifest" not set
+
 Required flag "manifest" not set
 
 ---

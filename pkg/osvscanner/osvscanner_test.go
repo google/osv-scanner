@@ -86,6 +86,8 @@ func TestDoScan(t *testing.T) {
 			got, err := osvscanner.DoScan(tt.args.actions)
 			if !errors.Is(err, tt.wantErr) {
 				t.Errorf("DoScan() error = %v, wantErr %v", err, tt.wantErr)
+				t.Logf("Got %d packages and %d vulns", len(got.Results), len(got.Flatten()))
+
 				return
 			}
 

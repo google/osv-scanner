@@ -5,9 +5,9 @@ import (
 	"errors"
 	"io"
 	"log/slog"
-	"net/http"
 	"testing"
 
+	scalibrconfig "github.com/google/osv-scalibr/plugin/config"
 	scalibr "github.com/google/osv-scalibr/version"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/testlogger"
@@ -21,9 +21,9 @@ var (
 	date   = "n/a"
 )
 
-type CommandBuilder = func(stdout, stderr io.Writer, client *http.Client) *cli.Command
+type CommandBuilder = func(stdout, stderr io.Writer, clientFactories scalibrconfig.ClientFactories) *cli.Command
 
-func Run(args []string, stdout, stderr io.Writer, client *http.Client, commands []CommandBuilder) int {
+func Run(args []string, stdout, stderr io.Writer, clientFactories scalibrconfig.ClientFactories, commands []CommandBuilder) int {
 	// --- Setup Logger ---
 	logHandler := cmdlogger.New(stdout, stderr)
 
@@ -58,7 +58,7 @@ func Run(args []string, stdout, stderr io.Writer, client *http.Client, commands 
 
 	cmds := make([]*cli.Command, 0, len(commands))
 	for _, cmd := range commands {
-		cmds = append(cmds, cmd(stdout, stderr, client))
+		cmds = append(cmds, cmd(stdout, stderr, clientFactories))
 	}
 
 	app := &cli.Command{
