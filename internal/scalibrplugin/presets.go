@@ -166,7 +166,7 @@ var ExtractorPresets = map[string]extractors.InitMap{
 		// Homebrew
 		homebrew.Name: {protoCfg(homebrew.New)},
 		// RPM-based (AlmaLinux, RHEL, Rocky, CentOS, Fedora, Mageia, openSUSE Leap)
-		rpm.Name: {rpm.New},
+		rpm.Name: {protoCfg(rpm.New)},
 	},
 }
 
