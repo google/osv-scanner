@@ -100,7 +100,7 @@ jobs:
         id: date
         run: echo "date=$(TZ='Australia/Sydney' date +'%Y-%m-%d')" >> "$GITHUB_OUTPUT"
       - name: Cache test images
-        uses: actions/cache@d4323d4df104b026a6ec63630ce1d0090f708603 # v4.2.0
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: cmd/osv-scanner/scan/image/testdata/*.tar
           key: test-images-${{ runner.os }}-${{ steps.date.outputs.date }}-${{ hashFiles('cmd/osv-scanner/scan/image/testdata/*.Dockerfile') }}
