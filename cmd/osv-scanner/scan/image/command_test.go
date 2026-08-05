@@ -381,6 +381,13 @@ func TestCommand_OCIImage(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
+			// the os/rpm extractor has a Windows-only stub implementation upstream
+			// (osv-scalibr's rpm_dummy.go) that never finds any packages, so
+			// RPM-based image tests can't pass there yet
+			if runtime.GOOS == "windows" && strings.Contains(strings.ToLower(tt.Name), "opensuse") {
+				testutility.Skip(t, "Skipping RPM-based test as os/rpm extraction is not supported on Windows")
+			}
+
 			// point out that we need the images to be built and saved separately
 			for _, arg := range tt.Args {
 				if strings.HasPrefix(arg, "./testdata/") && strings.HasSuffix(arg, ".tar") {
@@ -541,6 +548,13 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
+
+			// the os/rpm extractor has a Windows-only stub implementation upstream
+			// (osv-scalibr's rpm_dummy.go) that never finds any packages, so
+			// RPM-based image tests can't pass there yet
+			if runtime.GOOS == "windows" && strings.Contains(strings.ToLower(tt.Name), "opensuse") {
+				testutility.Skip(t, "Skipping RPM-based test as os/rpm extraction is not supported on Windows")
+			}
 
 			// point out that we need the images to be built and saved separately
 			for _, arg := range tt.Args {
