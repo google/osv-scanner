@@ -22,7 +22,7 @@ jobs:
       contents: read # to fetch code (actions/checkout)
       security-events: write # for uploading SARIF files
       actions: read
-    # zizmor:ignore[unpinned-uses]
+    # zizmor: ignore[ref-confusion]
     uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@main
     with:
       # Only scan the top level go.mod file without recursively scanning directories since
