@@ -184,6 +184,7 @@ func Location(pkg *extractor.Package) string {
 	if scanRoot == "" {
 		scanRoot = "/"
 	}
+
 	return filepath.Join(scanRoot, pkg.Location.PathOrEmpty())
 }
 
