@@ -53,6 +53,14 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+      - name: Get current date (AEST)
+        id: date
+        run: echo "date=$(TZ='Australia/Sydney' date +'%Y-%m-%d')" >> "$GITHUB_OUTPUT"
+      - name: Cache test images
+        uses: actions/cache@d4323d4df104b026a6ec63630ce1d0090f708603 # v4.2.0
+        with:
+          path: cmd/osv-scanner/scan/image/testdata/*.tar
+          key: test-images-${{ runner.os }}-${{ steps.date.outputs.date }}-${{ hashFiles('cmd/osv-scanner/scan/image/testdata/*.Dockerfile') }}
       - run: scripts/build_test_images.sh
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
