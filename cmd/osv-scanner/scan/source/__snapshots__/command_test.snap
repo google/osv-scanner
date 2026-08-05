@@ -5554,8 +5554,8 @@ Total 5 packages affected by 24 known vulnerabilities (1 Critical, 10 High, 13 M
 
 [TestCommand_WithDetector_OffLinux/ssh_version_errors - 1]
 Scanning dir <tempdir>/composer.lock
-Scanned <tempdir>/composer.lock file and found 1 package
 Loaded filter from: <tempdir>/osv-scanner-test.toml
+Scanned <tempdir>/composer.lock file and found 1 package
 
 No issues found
 
@@ -5567,8 +5567,8 @@ No issues found
 
 [TestCommand_WithDetector_OffLinux/ssh_version_is_after_last_vuln_version - 1]
 Scanning dir <tempdir>/composer.lock
-Scanned <tempdir>/composer.lock file and found 1 package
 Loaded filter from: <tempdir>/osv-scanner-test.toml
+Scanned <tempdir>/composer.lock file and found 1 package
 
 No issues found
 
@@ -5580,8 +5580,8 @@ No issues found
 
 [TestCommand_WithDetector_OffLinux/ssh_version_is_before_first_vuln_version - 1]
 Scanning dir <tempdir>/composer.lock
-Scanned <tempdir>/composer.lock file and found 1 package
 Loaded filter from: <tempdir>/osv-scanner-test.toml
+Scanned <tempdir>/composer.lock file and found 1 package
 
 No issues found
 
