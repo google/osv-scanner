@@ -1,15 +1,12 @@
 package scalibrplugin
 
 import (
-	"fmt"
-
 	annotatorlist "github.com/google/osv-scalibr/annotator/list"
 	"github.com/google/osv-scalibr/annotator/misc/brewsource"
 	apkanno "github.com/google/osv-scalibr/annotator/osduplicate/apk"
 	dpkganno "github.com/google/osv-scalibr/annotator/osduplicate/dpkg"
 	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
 	detectors "github.com/google/osv-scalibr/detector/list"
-	"github.com/google/osv-scalibr/enricher"
 	"github.com/google/osv-scalibr/enricher/baseimage"
 	"github.com/google/osv-scalibr/enricher/enricherlist"
 	transitivedependencypomxml "github.com/google/osv-scalibr/enricher/transitivedependency/pomxml"
@@ -54,11 +51,12 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/os/homebrew"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
+	"github.com/google/osv-scalibr/plugin"
+	"github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
-	"github.com/google/osv-scanner/v2/internal/version"
 )
 
 var detectorPresets = map[string]detectors.InitMap{
@@ -70,108 +68,108 @@ var detectorPresets = map[string]detectors.InitMap{
 
 var ExtractorPresets = map[string]extractors.InitMap{
 	"sbom": {
-		spdx.Name: {spdx.New},
-		cdx.Name:  {cdx.New},
+		spdx.Name: {protoCfg(spdx.New)},
+		cdx.Name:  {protoCfg(cdx.New)},
 	},
 	"lockfile": {
 		// C
-		conanlock.Name: {conanlock.New},
+		conanlock.Name: {protoCfg(conanlock.New)},
 
 		// Erlang
-		mixlock.Name: {mixlock.New},
+		mixlock.Name: {protoCfg(mixlock.New)},
 
 		// Flutter
-		pubspec.Name: {pubspec.New},
+		pubspec.Name: {protoCfg(pubspec.New)},
 
 		// Go
-		gomod.Name: {gomod.New},
+		gomod.Name: {protoCfg(gomod.New)},
 
 		// Java
-		gradlelockfile.Name:                {gradlelockfile.New},
-		gradleverificationmetadataxml.Name: {gradleverificationmetadataxml.New},
-		pomxml.Name:                        {pomxml.New},
+		gradlelockfile.Name:                {protoCfg(gradlelockfile.New)},
+		gradleverificationmetadataxml.Name: {protoCfg(gradleverificationmetadataxml.New)},
+		pomxml.Name:                        {protoCfg(pomxml.New)},
 
 		// Javascript
-		packagelockjson.Name: {packagelockjson.New},
-		pnpmlock.Name:        {pnpmlock.New},
-		yarnlock.Name:        {yarnlock.New},
-		bunlock.Name:         {bunlock.New},
+		packagelockjson.Name: {protoCfg(packagelockjson.New)},
+		pnpmlock.Name:        {protoCfg(pnpmlock.New)},
+		yarnlock.Name:        {protoCfg(yarnlock.New)},
+		bunlock.Name:         {protoCfg(bunlock.New)},
 
 		// PHP
-		composerlock.Name: {composerlock.New},
+		composerlock.Name: {protoCfg(composerlock.New)},
 
 		// Python
-		pipfilelock.Name:  {pipfilelock.New},
-		pdmlock.Name:      {pdmlock.New},
-		poetrylock.Name:   {poetrylock.New},
-		pylock.Name:       {pylock.New},
-		requirements.Name: {requirements.New},
-		uvlock.Name:       {uvlock.New},
+		pipfilelock.Name:  {protoCfg(pipfilelock.New)},
+		pdmlock.Name:      {protoCfg(pdmlock.New)},
+		poetrylock.Name:   {protoCfg(poetrylock.New)},
+		pylock.Name:       {protoCfg(pylock.New)},
+		requirements.Name: {protoCfg(requirements.New)},
+		uvlock.Name:       {protoCfg(uvlock.New)},
 
 		// R
-		renvlock.Name: {renvlock.New},
+		renvlock.Name: {protoCfg(renvlock.New)},
 
 		// Ruby
-		gemfilelock.Name: {gemfilelock.New},
+		gemfilelock.Name: {protoCfg(gemfilelock.New)},
 
 		// Swift
-		packageresolved.Name: {packageresolved.New},
+		packageresolved.Name: {protoCfg(packageresolved.New)},
 
 		// Rust
-		cargolock.Name: {cargolock.New},
+		cargolock.Name: {protoCfg(cargolock.New)},
 
 		// NuGet
-		csproj.Name:           {csproj.New},
-		depsjson.Name:         {depsjson.New},
-		nugetcpm.Name:         {nugetcpm.New},
-		packagesconfig.Name:   {packagesconfig.New},
-		packageslockjson.Name: {packageslockjson.New},
+		csproj.Name:           {protoCfg(csproj.New)},
+		depsjson.Name:         {protoCfg(depsjson.New)},
+		nugetcpm.Name:         {protoCfg(nugetcpm.New)},
+		packagesconfig.Name:   {protoCfg(packagesconfig.New)},
+		packageslockjson.Name: {protoCfg(packageslockjson.New)},
 
 		// Haskell
-		cabal.Name:     {cabal.New},
-		stacklock.Name: {stacklock.New},
+		cabal.Name:     {protoCfg(cabal.New)},
+		stacklock.Name: {protoCfg(stacklock.New)},
 
-		osvscannerjson.Name: {osvscannerjson.New},
+		osvscannerjson.Name: {protoCfg(osvscannerjson.New)},
 
 		// --- OS "lockfiles" ---
 		// These have very strict FileRequired paths, so we can safely enable them for source scanning as well.
 		// Alpine
-		apk.Name: {apk.New},
+		apk.Name: {protoCfg(apk.New)},
 		// Debian
-		dpkg.Name: {dpkg.New},
+		dpkg.Name: {protoCfg(dpkg.New)},
 	},
 	"directory": {
-		gitrepo.Name:  {gitrepo.New},
-		vendored.Name: {vendored.New},
+		gitrepo.Name:  {protoCfg(gitrepo.New)},
+		vendored.Name: {protoCfg(vendored.New)},
 	},
 	"artifact": {
 		// --- Project artifacts ---
 		// Python
-		wheelegg.Name: {wheelegg.New},
+		wheelegg.Name: {protoCfg(wheelegg.New)},
 		// Java
-		archive.Name: {archive.New},
+		archive.Name: {protoCfg(archive.New)},
 		// Go
-		gobinary.Name: {gobinary.New},
+		gobinary.Name: {protoCfg(gobinary.New)},
 		// Javascript
-		nodemodules.Name: {nodemodules.New},
+		nodemodules.Name: {protoCfg(nodemodules.New)},
 		// Rust
-		cargoauditable.Name: {cargoauditable.New},
+		cargoauditable.Name: {protoCfg(cargoauditable.New)},
 
 		// --- OS packages ---
 		// Alpine
-		apk.Name: {apk.New},
+		apk.Name: {protoCfg(apk.New)},
 		// Debian
-		dpkg.Name: {dpkg.New},
+		dpkg.Name: {protoCfg(dpkg.New)},
 		// Chisel
-		chisel.Name: {chisel.New},
+		chisel.Name: {protoCfg(chisel.New)},
 		// Homebrew
-		homebrew.Name: {homebrew.New},
+		homebrew.Name: {protoCfg(homebrew.New)},
 	},
 }
 
 var enricherPresets = map[string]enricherlist.InitMap{
 	"artifact": {
-		baseimage.Name: {baseImageEnricher},
+		baseimage.Name: {baseimage.New},
 	},
 	"vulns":    enricherlist.VulnMatching,
 	"licenses": enricherlist.License,
@@ -183,20 +181,18 @@ var enricherPresets = map[string]enricherlist.InitMap{
 
 var annotatorPresets = map[string]annotatorlist.InitMap{
 	"artifact": {
-		apkanno.Name:    {apkanno.New},
-		dpkganno.Name:   {dpkganno.New},
-		brewsource.Name: {brewsource.New},
+		apkanno.Name:    {protoCfg(apkanno.New)},
+		dpkganno.Name:   {protoCfg(dpkganno.New)},
+		brewsource.Name: {protoCfg(brewsource.New)},
 	},
 }
 
-func baseImageEnricher(_ *cpb.PluginConfig) (enricher.Enricher, error) {
-	baseImageEnricher, err := baseimage.New(&cpb.PluginConfig{
-		UserAgent: "osv-scanner_scan/" + version.OSVVersion,
-	})
+func protoCfg[T plugin.Plugin](f func(*cpb.PluginConfig) (T, error)) func(*config.PluginConfig) (T, error) {
+	return func(cfg *config.PluginConfig) (T, error) {
+		if cfg != nil && cfg.ProtoConfig != nil {
+			return f(cfg.ProtoConfig)
+		}
 
-	if err != nil {
-		return nil, fmt.Errorf("unable to initialize base image enricher: %w", err)
+		return f(&cpb.PluginConfig{})
 	}
-
-	return baseImageEnricher, nil
 }

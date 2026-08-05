@@ -90,7 +90,7 @@
               },
               "details": "cryptidy through 1.2.4 allows code execution via untrusted data because pickle.loads is used. This occurs in aes_decrypt_message in symmetric_encryption.py.",
               "id": "CVE-2025-63675",
-              "modified": "2026-07-08T07:32:10.770698370Z",
+              "modified": "2026-07-15T01:48:52.277713523Z",
               "published": "2025-10-31T00:00:00Z",
               "references": [
                 {

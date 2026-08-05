@@ -5260,14 +5260,14 @@ unsupported strategy "force" - must be one of: in-place, relax, override
 
 [TestCommand/fix_non-interactive_in-place_package-lock.json - 1]
 Guided remediation (the fix command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
-Found 17 vulnerabilities matching the filter
-Can fix 8/17 matching vulnerabilities by changing 5 dependencies
+Found 20 vulnerabilities matching the filter
+Can fix 11/20 matching vulnerabilities by changing 5 dependencies
+UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.18
 UPGRADED-PACKAGE: minimatch,3.1.2,3.1.5
-UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.16
 UPGRADED-PACKAGE: ajv,6.12.6,6.15.0
 UPGRADED-PACKAGE: concat-stream,1.5.0,1.6.1
 UPGRADED-PACKAGE: hosted-git-info,2.1.4,2.8.9
-FIXED-VULN-IDS: GHSA-23c5-xmqv-rm74,GHSA-2g4f-4pwh-qvx6,GHSA-3ppc-4f35-3m26,GHSA-43f8-2h32-f4cj,GHSA-7r86-cg39-jmmj,GHSA-f886-m6hf-6m8v,GHSA-g74r-ffvr-5q9f,GHSA-v6h2-p8h4-qcjw
+FIXED-VULN-IDS: GHSA-23c5-xmqv-rm74,GHSA-2g4f-4pwh-qvx6,GHSA-3jxr-9vmj-r5cp,GHSA-3ppc-4f35-3m26,GHSA-43f8-2h32-f4cj,GHSA-7r86-cg39-jmmj,GHSA-f886-m6hf-6m8v,GHSA-g74r-ffvr-5q9f,GHSA-mh99-v99m-4gvg,GHSA-rgw5-rvv9-x895,GHSA-v6h2-p8h4-qcjw
 REMAINING-VULNS: 9
 UNFIXABLE-VULNS: 9
 
@@ -5379,9 +5379,9 @@ UNFIXABLE-VULNS: 9
       }
     },
     "node_modules/brace-expansion": {
-      "version": "1.1.16",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.16.tgz",
-      "integrity": "sha512-IDw48K2/2kRkg9LdJxurvq3lV3aBgq0REY89duEqFRthjlPdXHKMj7EnQOXVckxzgisinf3nHfrcE2FufFLXMw==",
+      "version": "1.1.18",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.18.tgz",
+      "integrity": "sha512-Edep/X9fGqVNmzKBVsDYIOtD+z1tuezV70LBjdCst9Tqu76lsnvRiZ6oTic1n+/BIwX6QDGAO94PN4N2SADvtw==",
       "dependencies": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
@@ -6299,9 +6299,9 @@ UNFIXABLE-VULNS: 9
       }
     },
     "brace-expansion": {
-      "version": "1.1.16",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.16.tgz",
-      "integrity": "sha512-IDw48K2/2kRkg9LdJxurvq3lV3aBgq0REY89duEqFRthjlPdXHKMj7EnQOXVckxzgisinf3nHfrcE2FufFLXMw==",
+      "version": "1.1.18",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.18.tgz",
+      "integrity": "sha512-Edep/X9fGqVNmzKBVsDYIOtD+z1tuezV70LBjdCst9Tqu76lsnvRiZ6oTic1n+/BIwX6QDGAO94PN4N2SADvtw==",
       "requires": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
@@ -7026,6 +7026,15 @@ UNFIXABLE-VULNS: 9
       ]
     },
     {
+      "id": "GHSA-3jxr-9vmj-r5cp",
+      "packages": [
+        {
+          "name": "brace-expansion",
+          "version": "1.1.11"
+        }
+      ]
+    },
+    {
       "id": "GHSA-3ppc-4f35-3m26",
       "packages": [
         {
@@ -7141,6 +7150,15 @@ UNFIXABLE-VULNS: 9
       "unactionable": true
     },
     {
+      "id": "GHSA-mh99-v99m-4gvg",
+      "packages": [
+        {
+          "name": "brace-expansion",
+          "version": "1.1.11"
+        }
+      ]
+    },
+    {
       "id": "GHSA-p8p7-x288-28g6",
       "packages": [
         {
@@ -7149,6 +7167,15 @@ UNFIXABLE-VULNS: 9
         }
       ],
       "unactionable": true
+    },
+    {
+      "id": "GHSA-rgw5-rvv9-x895",
+      "packages": [
+        {
+          "name": "brace-expansion",
+          "version": "1.1.11"
+        }
+      ]
     },
     {
       "id": "GHSA-v6h2-p8h4-qcjw",
@@ -7171,6 +7198,63 @@ UNFIXABLE-VULNS: 9
     }
   ],
   "patches": [
+    {
+      "packageUpdates": [
+        {
+          "name": "brace-expansion",
+          "versionFrom": "1.1.11",
+          "versionTo": "1.1.18",
+          "transitive": true
+        }
+      ],
+      "fixed": [
+        {
+          "id": "GHSA-3jxr-9vmj-r5cp",
+          "packages": [
+            {
+              "name": "brace-expansion",
+              "version": "1.1.11"
+            }
+          ]
+        },
+        {
+          "id": "GHSA-f886-m6hf-6m8v",
+          "packages": [
+            {
+              "name": "brace-expansion",
+              "version": "1.1.11"
+            }
+          ]
+        },
+        {
+          "id": "GHSA-mh99-v99m-4gvg",
+          "packages": [
+            {
+              "name": "brace-expansion",
+              "version": "1.1.11"
+            }
+          ]
+        },
+        {
+          "id": "GHSA-rgw5-rvv9-x895",
+          "packages": [
+            {
+              "name": "brace-expansion",
+              "version": "1.1.11"
+            }
+          ]
+        },
+        {
+          "id": "GHSA-v6h2-p8h4-qcjw",
+          "packages": [
+            {
+              "name": "brace-expansion",
+              "version": "1.1.11"
+            }
+          ]
+        }
+      ]
+    },
     {
       "packageUpdates": [
         {
@@ -7205,36 +7289,6 @@ UNFIXABLE-VULNS: 9
             {
               "name": "minimatch",
               "version": "3.1.2"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "packageUpdates": [
-        {
-          "name": "brace-expansion",
-          "versionFrom": "1.1.11",
-          "versionTo": "1.1.16",
-          "transitive": true
-        }
-      ],
-      "fixed": [
-        {
-          "id": "GHSA-f886-m6hf-6m8v",
-          "packages": [
-            {
-              "name": "brace-expansion",
-              "version": "1.1.11"
-            }
-          ]
-        },
-        {
-          "id": "GHSA-v6h2-p8h4-qcjw",
-          "packages": [
-            {
-              "name": "brace-expansion",
-              "version": "1.1.11"
             }
           ]
         }
@@ -7415,9 +7469,9 @@ Guided remediation (the fix command) can be risky when run on untrusted projects
       }
     },
     "node_modules/brace-expansion": {
-      "version": "1.1.16",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.16.tgz",
-      "integrity": "sha512-IDw48K2/2kRkg9LdJxurvq3lV3aBgq0REY89duEqFRthjlPdXHKMj7EnQOXVckxzgisinf3nHfrcE2FufFLXMw==",
+      "version": "1.1.18",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.18.tgz",
+      "integrity": "sha512-Edep/X9fGqVNmzKBVsDYIOtD+z1tuezV70LBjdCst9Tqu76lsnvRiZ6oTic1n+/BIwX6QDGAO94PN4N2SADvtw==",
       "dependencies": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
@@ -8335,9 +8389,9 @@ Guided remediation (the fix command) can be risky when run on untrusted projects
       }
     },
     "brace-expansion": {
-      "version": "1.1.16",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.16.tgz",
-      "integrity": "sha512-IDw48K2/2kRkg9LdJxurvq3lV3aBgq0REY89duEqFRthjlPdXHKMj7EnQOXVckxzgisinf3nHfrcE2FufFLXMw==",
+      "version": "1.1.18",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.18.tgz",
+      "integrity": "sha512-Edep/X9fGqVNmzKBVsDYIOtD+z1tuezV70LBjdCst9Tqu76lsnvRiZ6oTic1n+/BIwX6QDGAO94PN4N2SADvtw==",
       "requires": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
@@ -9648,14 +9702,14 @@ UNFIXABLE-VULNS: 6
 
 [TestCommand/fix_non_interactive_in_place_package_lock_json_with_native_data_source - 1]
 Guided remediation (the fix command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
-Found 17 vulnerabilities matching the filter
-Can fix 8/17 matching vulnerabilities by changing 5 dependencies
+Found 20 vulnerabilities matching the filter
+Can fix 11/20 matching vulnerabilities by changing 5 dependencies
+UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.18
 UPGRADED-PACKAGE: minimatch,3.1.2,3.1.5
-UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.16
 UPGRADED-PACKAGE: ajv,6.12.6,6.15.0
 UPGRADED-PACKAGE: concat-stream,1.5.0,1.6.1
 UPGRADED-PACKAGE: hosted-git-info,2.1.4,2.8.9
-FIXED-VULN-IDS: GHSA-23c5-xmqv-rm74,GHSA-2g4f-4pwh-qvx6,GHSA-3ppc-4f35-3m26,GHSA-43f8-2h32-f4cj,GHSA-7r86-cg39-jmmj,GHSA-f886-m6hf-6m8v,GHSA-g74r-ffvr-5q9f,GHSA-v6h2-p8h4-qcjw
+FIXED-VULN-IDS: GHSA-23c5-xmqv-rm74,GHSA-2g4f-4pwh-qvx6,GHSA-3jxr-9vmj-r5cp,GHSA-3ppc-4f35-3m26,GHSA-43f8-2h32-f4cj,GHSA-7r86-cg39-jmmj,GHSA-f886-m6hf-6m8v,GHSA-g74r-ffvr-5q9f,GHSA-mh99-v99m-4gvg,GHSA-rgw5-rvv9-x895,GHSA-v6h2-p8h4-qcjw
 REMAINING-VULNS: 9
 UNFIXABLE-VULNS: 9
 
@@ -9767,9 +9821,9 @@ UNFIXABLE-VULNS: 9
       }
     },
     "node_modules/brace-expansion": {
-      "version": "1.1.16",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.16.tgz",
-      "integrity": "sha512-IDw48K2/2kRkg9LdJxurvq3lV3aBgq0REY89duEqFRthjlPdXHKMj7EnQOXVckxzgisinf3nHfrcE2FufFLXMw==",
+      "version": "1.1.18",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.18.tgz",
+      "integrity": "sha512-Edep/X9fGqVNmzKBVsDYIOtD+z1tuezV70LBjdCst9Tqu76lsnvRiZ6oTic1n+/BIwX6QDGAO94PN4N2SADvtw==",
       "dependencies": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
@@ -10687,9 +10741,9 @@ UNFIXABLE-VULNS: 9
       }
     },
     "brace-expansion": {
-      "version": "1.1.16",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.16.tgz",
-      "integrity": "sha512-IDw48K2/2kRkg9LdJxurvq3lV3aBgq0REY89duEqFRthjlPdXHKMj7EnQOXVckxzgisinf3nHfrcE2FufFLXMw==",
+      "version": "1.1.18",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.18.tgz",
+      "integrity": "sha512-Edep/X9fGqVNmzKBVsDYIOtD+z1tuezV70LBjdCst9Tqu76lsnvRiZ6oTic1n+/BIwX6QDGAO94PN4N2SADvtw==",
       "requires": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
@@ -11467,14 +11521,15 @@ manifest or lockfile is required
 
 [TestCommand_OfflineDatabase/fix_non_interactive_in_place_package_lock_json_with_offline_vulns - 1]
 Guided remediation (the fix command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
-Found 17 vulnerabilities matching the filter
-Can fix 8/17 matching vulnerabilities by changing 5 dependencies
+Loaded npm local db from <tempdir>/osv-scalibr/npm/all.zip
+Found 20 vulnerabilities matching the filter
+Can fix 11/20 matching vulnerabilities by changing 5 dependencies
+UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.18
 UPGRADED-PACKAGE: minimatch,3.1.2,3.1.5
-UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.16
 UPGRADED-PACKAGE: ajv,6.12.6,6.15.0
 UPGRADED-PACKAGE: concat-stream,1.5.0,1.6.1
 UPGRADED-PACKAGE: hosted-git-info,2.1.4,2.8.9
-FIXED-VULN-IDS: GHSA-23c5-xmqv-rm74,GHSA-2g4f-4pwh-qvx6,GHSA-3ppc-4f35-3m26,GHSA-43f8-2h32-f4cj,GHSA-7r86-cg39-jmmj,GHSA-f886-m6hf-6m8v,GHSA-g74r-ffvr-5q9f,GHSA-v6h2-p8h4-qcjw
+FIXED-VULN-IDS: GHSA-23c5-xmqv-rm74,GHSA-2g4f-4pwh-qvx6,GHSA-3jxr-9vmj-r5cp,GHSA-3ppc-4f35-3m26,GHSA-43f8-2h32-f4cj,GHSA-7r86-cg39-jmmj,GHSA-f886-m6hf-6m8v,GHSA-g74r-ffvr-5q9f,GHSA-mh99-v99m-4gvg,GHSA-rgw5-rvv9-x895,GHSA-v6h2-p8h4-qcjw
 REMAINING-VULNS: 9
 UNFIXABLE-VULNS: 9
 
@@ -11586,9 +11641,9 @@ UNFIXABLE-VULNS: 9
       }
     },
     "node_modules/brace-expansion": {
-      "version": "1.1.16",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.16.tgz",
-      "integrity": "sha512-IDw48K2/2kRkg9LdJxurvq3lV3aBgq0REY89duEqFRthjlPdXHKMj7EnQOXVckxzgisinf3nHfrcE2FufFLXMw==",
+      "version": "1.1.18",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.18.tgz",
+      "integrity": "sha512-Edep/X9fGqVNmzKBVsDYIOtD+z1tuezV70LBjdCst9Tqu76lsnvRiZ6oTic1n+/BIwX6QDGAO94PN4N2SADvtw==",
       "dependencies": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
@@ -12506,9 +12561,9 @@ UNFIXABLE-VULNS: 9
       }
     },
     "brace-expansion": {
-      "version": "1.1.16",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.16.tgz",
-      "integrity": "sha512-IDw48K2/2kRkg9LdJxurvq3lV3aBgq0REY89duEqFRthjlPdXHKMj7EnQOXVckxzgisinf3nHfrcE2FufFLXMw==",
+      "version": "1.1.18",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.18.tgz",
+      "integrity": "sha512-Edep/X9fGqVNmzKBVsDYIOtD+z1tuezV70LBjdCst9Tqu76lsnvRiZ6oTic1n+/BIwX6QDGAO94PN4N2SADvtw==",
       "requires": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
@@ -13210,6 +13265,7 @@ UNFIXABLE-VULNS: 9
 
 [TestCommand_OfflineDatabase/fix_non_interactive_relax_package_json_with_offline_vulns - 1]
 Guided remediation (the fix command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
+Loaded npm local db from <tempdir>/osv-scalibr/npm/all.zip
 Found 9 vulnerabilities matching the filter
 Can fix 3/9 matching vulnerabilities by changing 1 dependencies
 UPGRADED-PACKAGE: npm-registry-client,6.2.0,^7.5.0

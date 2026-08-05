@@ -13,6 +13,7 @@ import (
 
 	"net/http"
 
+	scalibrconfig "github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/output"
 	"github.com/google/osv-scanner/v2/internal/version"
@@ -32,7 +33,7 @@ var (
 )
 
 // Command is the entry point for the `mcp` subcommand.
-func Command(_, _ io.Writer, _ *http.Client) *cli.Command {
+func Command(_, _ io.Writer, _ scalibrconfig.ClientFactories) *cli.Command {
 	return &cli.Command{
 		Name:        "experimental-mcp",
 		Usage:       "Run osv-scanner as an MCP service (experimental)",

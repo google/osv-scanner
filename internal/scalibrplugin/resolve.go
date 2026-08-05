@@ -8,6 +8,7 @@ import (
 	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
 	"github.com/google/osv-scalibr/enricher"
 	"github.com/google/osv-scalibr/plugin"
+	"github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scalibr/plugin/list"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
@@ -16,30 +17,35 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 )
 
-func resolveFromName(name string, cfg *cpb.PluginConfig) (plugin.Plugin, error) {
-	plug, err := list.FromName(name, cfg)
+func resolveFromName(name string, scalibrConfig *config.PluginConfig) (plugin.Plugin, error) {
+	plug, err := list.FromName(name, scalibrConfig)
 
 	if err == nil {
 		return plug, nil
 	}
 
+	var protoConfig *cpb.PluginConfig
+	if scalibrConfig != nil {
+		protoConfig = scalibrConfig.ProtoConfig
+	}
+
 	switch name {
 	// Javascript
 	case nodemodules.Name:
-		return nodemodules.New(cfg)
+		return nodemodules.New(protoConfig)
 	// Directories
 	case vendored.Name:
-		return vendored.New(cfg)
+		return vendored.New(protoConfig)
 	case gitrepo.Name:
-		return gitrepo.New(cfg)
+		return gitrepo.New(protoConfig)
 	case osvscannerjson.Name:
-		return osvscannerjson.New(cfg)
+		return osvscannerjson.New(protoConfig)
 	default:
 		return nil, fmt.Errorf("not an exact name for a plugin: %q", name)
 	}
 }
 
-func Resolve(enabledPlugins []string, disabledPlugins []string, cfg *cpb.PluginConfig) []plugin.Plugin {
+func Resolve(enabledPlugins []string, disabledPlugins []string, scalibrConfig *config.PluginConfig) []plugin.Plugin {
 	plugins := make(map[string]bool)
 
 	for i, exts := range [][]string{enabledPlugins, disabledPlugins} {
@@ -85,7 +91,7 @@ func Resolve(enabledPlugins []string, disabledPlugins []string, cfg *cpb.PluginC
 
 	for name, value := range plugins {
 		if name != "" && value {
-			plug, err := resolveFromName(name, cfg)
+			plug, err := resolveFromName(name, scalibrConfig)
 
 			if err != nil {
 				cmdlogger.Errorf("%s", err)

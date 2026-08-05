@@ -451,7 +451,8 @@ func TestCommand_Config_UnusedIgnores(t *testing.T) {
 func TestCommand_JavareachArchive(t *testing.T) {
 	t.Parallel()
 
-	testutility.SkipIfShort(t)
+	// testutility.SkipIfShort(t)
+	testutility.Skip(t, "Skipping for now as Maven is enforcing stricter 429s")
 
 	client := testcmd.InsertCassette(t)
 
@@ -1170,6 +1171,9 @@ func TestCommand_LocalDatabases_AlwaysOffline(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
+
+			// Setup a custom test dir instead of relying on the testDir created in testcmd/run.go
+			// as this way we can keep the same db path for both runs.
 			testDir := testutility.CreateTestDir(t)
 			old := tt.Args
 			tt.Args = []string{"", "source", "--local-db-path", testDir}

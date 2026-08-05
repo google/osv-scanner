@@ -544,8 +544,8 @@
       "filesAnalyzed": false
     },
     {
-      "name": "author1/mine1",
-      "SPDXID": "SPDXRef-Package-author1-mine1-<uuid>",
+      "name": "mine1",
+      "SPDXID": "SPDXRef-Package-mine1-<uuid>",
       "versionInfo": "1.2.3",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -557,7 +557,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:composer/author1%2Fmine1@1.2.3"
+          "referenceLocator": "pkg:composer/author1/mine1@1.2.3"
         }
       ]
     },
@@ -616,8 +616,8 @@
       ]
     },
     {
-      "name": "author1/mine1",
-      "SPDXID": "SPDXRef-Package-author1-mine1-<uuid>",
+      "name": "mine1",
+      "SPDXID": "SPDXRef-Package-mine1-<uuid>",
       "versionInfo": "1.2.3",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -629,7 +629,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:composer/author1%2Fmine1@1.2.3"
+          "referenceLocator": "pkg:composer/author1/mine1@1.2.3"
         }
       ]
     }
@@ -642,11 +642,11 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-author1-mine1-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-Package-author1-mine1-<uuid>",
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
     },
@@ -682,11 +682,11 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-author1-mine1-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-Package-author1-mine1-<uuid>",
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
     }
@@ -3262,8 +3262,8 @@
       "filesAnalyzed": false
     },
     {
-      "name": "author1/mine1",
-      "SPDXID": "SPDXRef-Package-author1-mine1-<uuid>",
+      "name": "mine1",
+      "SPDXID": "SPDXRef-Package-mine1-<uuid>",
       "versionInfo": "1.2.3",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -3275,7 +3275,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:composer/author1%2Fmine1@1.2.3"
+          "referenceLocator": "pkg:composer/author1/mine1@1.2.3"
         }
       ]
     },
@@ -3316,8 +3316,8 @@
       ]
     },
     {
-      "name": "author3/mine3",
-      "SPDXID": "SPDXRef-Package-author3-mine3-<uuid>",
+      "name": "mine3",
+      "SPDXID": "SPDXRef-Package-mine3-<uuid>",
       "versionInfo": "0.4.1",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -3329,7 +3329,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:composer/author3%2Fmine3@0.4.1"
+          "referenceLocator": "pkg:composer/author3/mine3@0.4.1"
         }
       ]
     }
@@ -3342,11 +3342,11 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-author1-mine1-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-Package-author1-mine1-<uuid>",
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
     },
@@ -3372,11 +3372,11 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-author3-mine3-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-Package-author3-mine3-<uuid>",
+      "spdxElementId": "SPDXRef-Package-mine3-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
     }
@@ -3408,8 +3408,8 @@
       "filesAnalyzed": false
     },
     {
-      "name": "author1/mine1",
-      "SPDXID": "SPDXRef-Package-author1-mine1-<uuid>",
+      "name": "mine1",
+      "SPDXID": "SPDXRef-Package-mine1-<uuid>",
       "versionInfo": "1.2.3",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -3421,7 +3421,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:composer/author1%2Fmine1@1.2.3"
+          "referenceLocator": "pkg:composer/author1/mine1@1.2.3"
         }
       ]
     },
@@ -3462,8 +3462,8 @@
       ]
     },
     {
-      "name": "author3/mine3",
-      "SPDXID": "SPDXRef-Package-author3-mine3-<uuid>",
+      "name": "mine3",
+      "SPDXID": "SPDXRef-Package-mine3-<uuid>",
       "versionInfo": "0.4.1",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -3475,7 +3475,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:composer/author3%2Fmine3@0.4.1"
+          "referenceLocator": "pkg:composer/author3/mine3@0.4.1"
         }
       ]
     }
@@ -3488,11 +3488,11 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-author1-mine1-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-Package-author1-mine1-<uuid>",
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
     },
@@ -3518,11 +3518,11 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-author3-mine3-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-Package-author3-mine3-<uuid>",
+      "spdxElementId": "SPDXRef-Package-mine3-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
     }
@@ -3554,8 +3554,8 @@
       "filesAnalyzed": false
     },
     {
-      "name": "author1/mine1",
-      "SPDXID": "SPDXRef-Package-author1-mine1-<uuid>",
+      "name": "mine1",
+      "SPDXID": "SPDXRef-Package-mine1-<uuid>",
       "versionInfo": "1.2.3",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -3567,7 +3567,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:composer/author1%2Fmine1@1.2.3"
+          "referenceLocator": "pkg:composer/author1/mine1@1.2.3"
         }
       ]
     },
@@ -3590,8 +3590,8 @@
       ]
     },
     {
-      "name": "author3/mine3",
-      "SPDXID": "SPDXRef-Package-author3-mine3-<uuid>",
+      "name": "mine3",
+      "SPDXID": "SPDXRef-Package-mine3-<uuid>",
       "versionInfo": "0.4.1",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -3603,7 +3603,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:composer/author3%2Fmine3@0.4.1"
+          "referenceLocator": "pkg:composer/author3/mine3@0.4.1"
         }
       ]
     }
@@ -3616,11 +3616,11 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-author1-mine1-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-Package-author1-mine1-<uuid>",
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
     },
@@ -3636,11 +3636,11 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-author3-mine3-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-Package-author3-mine3-<uuid>",
+      "spdxElementId": "SPDXRef-Package-mine3-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
     }
