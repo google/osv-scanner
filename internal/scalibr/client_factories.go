@@ -8,10 +8,12 @@ import (
 	"fmt"
 	"net/http"
 	"sync"
+	"time"
 
 	"github.com/google/osv-scalibr/plugin/config"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
+	"google.golang.org/grpc/keepalive"
 )
 
 type grpcClientConnCloser interface {
@@ -95,7 +97,14 @@ func (c *ClientFactories) GRPCClientConn(url string, dialOpts ...grpc.DialOption
 	}
 	creds := credentials.NewClientTLSFromCert(certPool, "")
 
-	ourDialOpts := []grpc.DialOption{grpc.WithTransportCredentials(creds)}
+	ourDialOpts := []grpc.DialOption{
+		grpc.WithTransportCredentials(creds),
+		grpc.WithKeepaliveParams(keepalive.ClientParameters{
+			Time:                10 * time.Second,
+			Timeout:             5 * time.Second,
+			PermitWithoutStream: true,
+		}),
+	}
 	if c.defaultUserAgent != "" {
 		ourDialOpts = append(ourDialOpts, grpc.WithUserAgent(c.defaultUserAgent))
 	}
