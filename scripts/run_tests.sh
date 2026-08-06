@@ -2,8 +2,6 @@
 
 set -e
 
-export GODEBUG=netdns=go
-
 if [ "$TEST_ACCEPTANCE" = true ]; then
     scripts/build_test_images.sh
 fi
