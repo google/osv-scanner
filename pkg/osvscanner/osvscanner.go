@@ -248,7 +248,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	scalibrSR, err := scanner.ScanContainer(context.Background(), img, &scalibr.ScanConfig{
 		Plugins:           plugins,
 		Capabilities:      capabilities,
-		StoreAbsolutePath: true,
+		StoreAbsolutePath: false,
 		ExplicitPlugins:   true,
 	})
 	if err != nil {
