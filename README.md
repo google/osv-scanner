@@ -13,7 +13,7 @@
 [![GitHub Release](https://img.shields.io/github/v/release/google/osv-scanner)](https://github.com/google/osv-scanner/releases)
 
 Use OSV-Scanner to find existing vulnerabilities affecting your project's dependencies.
-OSV-Scanner provides an officially supported frontend to the [OSV database](https://osv.dev/) and CLI interface to [OSV-Scalibr](https://github.com/google/osv-scalibr) that connects a project’s list of dependencies with the vulnerabilities that affect them.
+OSV-Scanner provides an officially supported frontend to the [OSV database](https://osv.dev/) and CLI to [OSV-Scalibr](https://github.com/google/osv-scalibr) that connects a project’s list of dependencies with the vulnerabilities that affect them.
 
 OSV-Scanner supports a wide range of project types, package managers and features, including but not limited to:
 
