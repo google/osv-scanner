@@ -323,7 +323,7 @@ SBOMLoop:
 			Stats:                 &statsCollector,
 			ReadSymlinks:          false,
 			MaxInodes:             0,
-			StoreAbsolutePath:     true,
+			StoreAbsolutePath:     false,
 			PrintDurationAnalysis: false,
 			ErrorOnFSErrors:       false,
 			ExplicitPlugins:       true,
