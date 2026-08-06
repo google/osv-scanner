@@ -100,9 +100,9 @@ func (c *ClientFactories) GRPCClientConn(url string, dialOpts ...grpc.DialOption
 	ourDialOpts := []grpc.DialOption{
 		grpc.WithTransportCredentials(creds),
 		grpc.WithKeepaliveParams(keepalive.ClientParameters{
-			Time:                10 * time.Second,
+			Time:                20 * time.Second,
 			Timeout:             5 * time.Second,
-			PermitWithoutStream: true,
+			PermitWithoutStream: false,
 		}),
 	}
 	if c.defaultUserAgent != "" {
