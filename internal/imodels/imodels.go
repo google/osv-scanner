@@ -3,6 +3,7 @@ package imodels
 
 import (
 	"fmt"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"sync"
@@ -178,7 +179,13 @@ func ecosystemEncodesEpoch(ecosystem string) bool {
 }
 
 func Location(pkg *extractor.Package) string {
-	return pkg.Location.PathOrEmpty()
+	// Use the scan root, defaulting to / for virtual filesystems (e.g. container images)
+	scanRoot := pkg.ScanRoot
+	if scanRoot == "" {
+		scanRoot = "/"
+	}
+
+	return filepath.Join(scanRoot, pkg.Location.PathOrEmpty())
 }
 
 func Commit(pkg *extractor.Package) string {
