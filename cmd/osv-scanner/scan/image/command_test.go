@@ -371,10 +371,22 @@ func TestCommand_OCIImage(t *testing.T) {
 			},
 			Exit: 1,
 		},
+		{
+			Name: "Scanning_openSUSE_Leap_15.5_image",
+			Args: []string{"", "image", "--archive", "./testdata/test-opensuse-leap-15.5.tar"},
+			Exit: 1,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
+
+			// the os/rpm extractor has a Windows-only stub implementation upstream
+			// (osv-scalibr's rpm_dummy.go) that never finds any packages, so
+			// RPM-based image tests can't pass there yet
+			if runtime.GOOS == "windows" && strings.Contains(strings.ToLower(tt.Name), "opensuse") {
+				testutility.Skip(t, "Skipping RPM-based test as os/rpm extraction is not supported on Windows")
+			}
 
 			// point out that we need the images to be built and saved separately
 			for _, arg := range tt.Args {
@@ -521,10 +533,28 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 				testutility.AnyDiffID,
 			},
 		},
+		{
+			Name: "scanning_opensuse_leap_15.5_image",
+			Args: []string{"", "image", "--archive", "--format=json", "./testdata/test-opensuse-leap-15.5.tar"},
+			Exit: 1,
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.GroupsAsArrayLen,
+				testutility.OnlyIDVulnsRule,
+				testutility.OnlyFirstBaseImage,
+				testutility.AnyDiffID,
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
+
+			// the os/rpm extractor has a Windows-only stub implementation upstream
+			// (osv-scalibr's rpm_dummy.go) that never finds any packages, so
+			// RPM-based image tests can't pass there yet
+			if runtime.GOOS == "windows" && strings.Contains(strings.ToLower(tt.Name), "opensuse") {
+				testutility.Skip(t, "Skipping RPM-based test as os/rpm extraction is not supported on Windows")
+			}
 
 			// point out that we need the images to be built and saved separately
 			for _, arg := range tt.Args {

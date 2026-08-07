@@ -719,6 +719,34 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
+[TestCommand_OCIImage/Scanning_openSUSE_Leap_15.5_image - 1]
+Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
+
+
+Container Scanning Result (openSUSE Leap 15.5) (Based on "opensuse/leap" image):
+Total 2 packages affected by 3 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 3 Unknown) from 1 ecosystem.
+3 vulnerabilities can be fixed.
+
+
+openSUSE:Leap 15.5
++----------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/usr/lib/sysimage/rpm/Packages.db                                                                                      |
++----------------+-----------------------+---------------+------------+-------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION     | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+-----------------------+---------------+------------+-------------------------+------------------+---------------+
+| curl           | 8.0.1-150400.5.50.1   | Fix Available |          2 | curl                    | # 0 Layer        | opensuse/leap |
+| openssl-1_1    | 1.1.1l-150500.17.34.1 | Fix Available |          1 | openssl-1_1             | # 0 Layer        | opensuse/leap |
++----------------+-----------------------+---------------+------------+-------------------------+------------------+---------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
+
+---
+
+[TestCommand_OCIImage/Scanning_openSUSE_Leap_15.5_image - 2]
+
+---
+
 [TestCommand_OCIImage/Scanning_python_image_with_no_packages - 1]
 Scanning local image tarball "./testdata/test-python-empty.tar"
 
@@ -3794,6 +3822,82 @@ Scanning local image tarball "./testdata/test-chisel.tar"
 
 [TestCommand_OCIImage_JSONFormat/scanning_node_modules_using_npm_with_some_packages - 2]
 Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
+
+---
+
+[TestCommand_OCIImage_JSONFormat/scanning_opensuse_leap_15.5_image - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "/usr/lib/sysimage/rpm/Packages.db",
+        "type": "os"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "curl",
+            "os_package_name": "curl",
+            "version": "8.0.1-150400.5.50.1",
+            "ecosystem": "openSUSE:Leap 15.5",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "SUSE-SU-2024:3926-1",
+            "SUSE-SU-2024:4359-1"
+          ]
+        },
+        {
+          "package": {
+            "name": "openssl-1_1",
+            "os_package_name": "openssl-1_1",
+            "version": "1.1.1l-150500.17.34.1",
+            "ecosystem": "openSUSE:Leap 15.5",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "SUSE-SU-2024:3765-1"
+          ]
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  },
+  "image_metadata": {
+    "os": "openSUSE Leap 15.5",
+    "layer_metadata": [
+      {
+        "diff_id": "sha256:...",
+        "command": "KIWI 9.24.43",
+        "is_empty": false,
+        "base_image_index": 1
+      }
+    ],
+    "base_images": [
+      {},
+      {
+        "name": "opensuse/leap",
+        "tags": null
+      }
+    ]
+  }
+}
+
+---
+
+[TestCommand_OCIImage_JSONFormat/scanning_opensuse_leap_15.5_image - 2]
+Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
 
 ---
 
