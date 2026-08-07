@@ -487,6 +487,10 @@ func TestCommand_JavareachArchive(t *testing.T) {
 func TestCommand_HomebrewWithAnnotators(t *testing.T) {
 	t.Parallel()
 
+	if runtime.GOOS == "windows" {
+		testutility.Skip(t, "The detector in this test does not work on windows")
+	}
+
 	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
