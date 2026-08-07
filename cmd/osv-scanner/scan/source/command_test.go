@@ -487,10 +487,6 @@ func TestCommand_JavareachArchive(t *testing.T) {
 func TestCommand_HomebrewWithAnnotators(t *testing.T) {
 	t.Parallel()
 
-	if runtime.GOOS != "darwin" {
-		testutility.Skip(t, "The detector in this test only works on Darwin")
-	}
-
 	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
