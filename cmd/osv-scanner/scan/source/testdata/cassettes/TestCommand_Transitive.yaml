@@ -875,12 +875,16 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 1481
+      content_length: 1901
       body: |
         {
           "results": [
             {
               "vulns": [
+                {
+                  "id": "GHSA-3h9f-r86x-qvjx",
+                  "modified": "2026-08-07T20:25:51.809248Z"
+                },
                 {
                   "id": "GHSA-68w8-qjq3-2gfm",
                   "modified": "2024-09-20T15:46:52.557962Z"
@@ -894,12 +898,32 @@ interactions:
                   "modified": "2026-02-04T03:48:05.224740Z"
                 },
                 {
+                  "id": "GHSA-8cjm-8mp7-r2xf",
+                  "modified": "2026-08-07T20:25:59.879818Z"
+                },
+                {
+                  "id": "GHSA-8qcx-xf44-272x",
+                  "modified": "2026-08-07T20:25:58.536033Z"
+                },
+                {
                   "id": "GHSA-8x94-hmjh-97hq",
                   "modified": "2026-02-04T02:45:55.690257Z"
                 },
                 {
+                  "id": "GHSA-923m-gv2p-w5qp",
+                  "modified": "2026-08-07T20:10:37.052844Z"
+                },
+                {
+                  "id": "GHSA-crhf-3pfg-w68w",
+                  "modified": "2026-08-07T20:26:00.178698Z"
+                },
+                {
                   "id": "GHSA-frmv-pr5f-9mcr",
                   "modified": "2026-06-05T14:45:52.053173Z"
+                },
+                {
+                  "id": "GHSA-h7pc-vwp9-298g",
+                  "modified": "2026-08-07T20:25:53.113426Z"
                 },
                 {
                   "id": "GHSA-qw25-v68c-qjf3",
@@ -979,7 +1003,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "1481"
+          - "1901"
         Content-Type:
           - application/json
       status: 200 OK
@@ -1235,7 +1259,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 3018
+      content_length: 3438
       body: |
         {
           "results": [
@@ -1244,6 +1268,10 @@ interactions:
             {},
             {
               "vulns": [
+                {
+                  "id": "GHSA-3h9f-r86x-qvjx",
+                  "modified": "2026-08-07T20:25:51.809248Z"
+                },
                 {
                   "id": "GHSA-68w8-qjq3-2gfm",
                   "modified": "2024-09-20T15:46:52.557962Z"
@@ -1257,12 +1285,32 @@ interactions:
                   "modified": "2026-02-04T03:48:05.224740Z"
                 },
                 {
+                  "id": "GHSA-8cjm-8mp7-r2xf",
+                  "modified": "2026-08-07T20:25:59.879818Z"
+                },
+                {
+                  "id": "GHSA-8qcx-xf44-272x",
+                  "modified": "2026-08-07T20:25:58.536033Z"
+                },
+                {
                   "id": "GHSA-8x94-hmjh-97hq",
                   "modified": "2026-02-04T02:45:55.690257Z"
                 },
                 {
+                  "id": "GHSA-923m-gv2p-w5qp",
+                  "modified": "2026-08-07T20:10:37.052844Z"
+                },
+                {
+                  "id": "GHSA-crhf-3pfg-w68w",
+                  "modified": "2026-08-07T20:26:00.178698Z"
+                },
+                {
                   "id": "GHSA-frmv-pr5f-9mcr",
                   "modified": "2026-06-05T14:45:52.053173Z"
+                },
+                {
+                  "id": "GHSA-h7pc-vwp9-298g",
+                  "modified": "2026-08-07T20:25:53.113426Z"
                 },
                 {
                   "id": "GHSA-qw25-v68c-qjf3",
@@ -1443,7 +1491,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "3018"
+          - "3438"
         Content-Type:
           - application/json
       status: 200 OK
@@ -10147,10 +10195,1298 @@ interactions:
               "upload-time": "2026-04-13T21:33:39.803008Z",
               "url": "https://files.pythonhosted.org/packages/19/b6/9df434a8eeba2e6628c465a1dfa31034228ef79b26f76f46278f4ef7e49d/chardet-7.4.3.tar.gz",
               "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp310-cp310-macosx_10_9_x86_64.whl",
+              "hashes": {
+                "sha256": "d0a62f0909be24d579fea86c38308372a3091eae76ace75b457a83a1566dfdb7"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp310-cp310-macosx_10_9_x86_64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 935827,
+              "upload-time": "2026-08-06T03:10:39.274586Z",
+              "url": "https://files.pythonhosted.org/packages/77/99/f55eb26faeea9d656124db4fe5dae387af9e5e4f6c7b9f5dd9a04a0eb040/chardet-7.5.0-cp310-cp310-macosx_10_9_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp310-cp310-macosx_11_0_arm64.whl",
+              "hashes": {
+                "sha256": "c76d04bc911b2fb4ef8697bbd6ec7b3564845d4719fcd3ac655878a4007e895b"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp310-cp310-macosx_11_0_arm64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 921298,
+              "upload-time": "2026-08-06T03:10:40.795501Z",
+              "url": "https://files.pythonhosted.org/packages/9c/27/a14a22faeb322fd348b4d390179c9e4ed7f04c0e272695410b78ca5582e5/chardet-7.5.0-cp310-cp310-macosx_11_0_arm64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "hashes": {
+                "sha256": "244272beb556ce4b84f2657ca84fb7c32d622ada02d2a6e2f6d1e89b99debd4c"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 946565,
+              "upload-time": "2026-08-06T03:10:42.144979Z",
+              "url": "https://files.pythonhosted.org/packages/33/1e/9154176a02ad9b86caa705d1d97c95e8832c49d4ef7b5fbd4f9579fa021a/chardet-7.5.0-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "hashes": {
+                "sha256": "73c603993993d88471e2022eeeaba3aa8faeeef12bf723e32bc512b48480676b"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 957277,
+              "upload-time": "2026-08-06T03:10:43.433672Z",
+              "url": "https://files.pythonhosted.org/packages/6e/16/79e5adeab9c4e8772c93de64c28f884bbaded1ce1ce1aacf4aac55efa6cf/chardet-7.5.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp310-cp310-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "hashes": {
+                "sha256": "6d3c0bfd44b40be506ec889397b61ce0a69e3c510c75de55a137066b20756863"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp310-cp310-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 950388,
+              "upload-time": "2026-08-06T03:10:45.142334Z",
+              "url": "https://files.pythonhosted.org/packages/06/d9/770186e0942b9603ad4ca0596c52f6ce0ddec5692c97d62d20f520421b24/chardet-7.5.0-cp310-cp310-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp310-cp310-win_amd64.whl",
+              "hashes": {
+                "sha256": "7fc7ed438dde2f316f548ee4a8a47cfc508584b3c698e3c3f19c91168f1b7e58"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp310-cp310-win_amd64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 1033434,
+              "upload-time": "2026-08-06T03:10:46.708525Z",
+              "url": "https://files.pythonhosted.org/packages/1e/56/514c9ff9ba33184c2dc41782fb18bdb5701c6d4c0fee7814e39b88e7460c/chardet-7.5.0-cp310-cp310-win_amd64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp311-cp311-macosx_10_9_x86_64.whl",
+              "hashes": {
+                "sha256": "f912092f40409dcbd907d4637ebe0935bb1a77d824d6a898f33dac82505a97c5"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp311-cp311-macosx_10_9_x86_64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 931453,
+              "upload-time": "2026-08-06T03:10:48.153216Z",
+              "url": "https://files.pythonhosted.org/packages/d4/1b/9335a1cde57f730d627c1dec987d9ac39ee7d20bb8963b2b0a41a2d439f4/chardet-7.5.0-cp311-cp311-macosx_10_9_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp311-cp311-macosx_11_0_arm64.whl",
+              "hashes": {
+                "sha256": "69a1df49672f660e226e6a1527ee9bf3f7b85c05a38505815d8fdea4f92443d4"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp311-cp311-macosx_11_0_arm64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 917452,
+              "upload-time": "2026-08-06T03:10:49.575276Z",
+              "url": "https://files.pythonhosted.org/packages/db/1d/b8a0df9b0cf0f0da35ec62d9526f31db98321d32374fa2fad25c9d6d4527/chardet-7.5.0-cp311-cp311-macosx_11_0_arm64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "hashes": {
+                "sha256": "06dff305bdff45a2692e8f0358b38015f8a8bb0e10283ed9fe0190ed720fd761"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 942649,
+              "upload-time": "2026-08-06T03:10:51.074684Z",
+              "url": "https://files.pythonhosted.org/packages/ed/26/edf73dc012e03b11c45896c35a1b0d865417101c8538448be9a0cc37786f/chardet-7.5.0-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "hashes": {
+                "sha256": "6a586509d9077491cdf7f5e6ac99cdcf9894330550d6de81cc4fa2d25ac9c460"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 952680,
+              "upload-time": "2026-08-06T03:10:52.558960Z",
+              "url": "https://files.pythonhosted.org/packages/fe/ab/e6041cad239748005917a235c7ea9a55155fe1d689cca25c5e7c82de123f/chardet-7.5.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp311-cp311-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "hashes": {
+                "sha256": "e41cda6661d0feda4099ee0203e0c541c1ad49c231a27dc2ebab26539d92a9c1"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp311-cp311-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 943652,
+              "upload-time": "2026-08-06T03:10:53.811540Z",
+              "url": "https://files.pythonhosted.org/packages/56/3e/849ed6b560b50c3cc8f07c62257ebccd16af59bacc1878dcbac82ca6ebf3/chardet-7.5.0-cp311-cp311-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp311-cp311-win_amd64.whl",
+              "hashes": {
+                "sha256": "3515dd5bb5696b9c3b8fd1a438bd7cecae525b6d13ec45a2fe24fe66d58a89c2"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp311-cp311-win_amd64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 1032202,
+              "upload-time": "2026-08-06T03:10:55.352997Z",
+              "url": "https://files.pythonhosted.org/packages/b3/45/1f6b0d474f2d8e80e4d9d85953ccbc46cbf88592aae6f10301187df91652/chardet-7.5.0-cp311-cp311-win_amd64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp312-cp312-macosx_10_13_x86_64.whl",
+              "hashes": {
+                "sha256": "be4c91db017330a503e03086c2a363bda32c967c562dcfd1c3316d559deca070"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp312-cp312-macosx_10_13_x86_64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 937279,
+              "upload-time": "2026-08-06T03:10:56.839562Z",
+              "url": "https://files.pythonhosted.org/packages/6b/84/2cd1f5e871b58da75436f00d672e559b2138ef1020af3b44d660f342c8da/chardet-7.5.0-cp312-cp312-macosx_10_13_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp312-cp312-macosx_11_0_arm64.whl",
+              "hashes": {
+                "sha256": "89d2fcaeec2196b8f281c82e9ac51635b58cca6f6934648bbde41bee59ddd76e"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp312-cp312-macosx_11_0_arm64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 919718,
+              "upload-time": "2026-08-06T03:10:58.452272Z",
+              "url": "https://files.pythonhosted.org/packages/26/85/ebb08a69c595db068668428e2d8b8bb86cc2684306f4918975a00971d624/chardet-7.5.0-cp312-cp312-macosx_11_0_arm64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "hashes": {
+                "sha256": "9d7828fa61df6fecdcacc667b169b0915d866044ed7be01a382a07abaa990cf0"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 943731,
+              "upload-time": "2026-08-06T03:10:59.805992Z",
+              "url": "https://files.pythonhosted.org/packages/5e/e2/08cdcaef4492fdf6dfc3c4970f4db58e15d0c7eb842dce7cd018ec6a2df3/chardet-7.5.0-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "hashes": {
+                "sha256": "98f7de1b8cb385b4bd65a8c287aa61d9b9748ca294ee1a563711fa08e6467599"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 958679,
+              "upload-time": "2026-08-06T03:11:02.125336Z",
+              "url": "https://files.pythonhosted.org/packages/02/1d/3c7e1e38363cdcd4bb6e8809ef292642119013e87bcb9eaacd037ac8bfd5/chardet-7.5.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp312-cp312-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "hashes": {
+                "sha256": "883c12e5bdf7b012c910a2b8c930c2c5413be5f58c9bb7e2900edf3ca279a8ef"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp312-cp312-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 948037,
+              "upload-time": "2026-08-06T03:11:03.435796Z",
+              "url": "https://files.pythonhosted.org/packages/e6/fc/2f9ebc3bc39d5def5461c36a0044dc24a97df2f1367f307fc902089fd5aa/chardet-7.5.0-cp312-cp312-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp312-cp312-win_amd64.whl",
+              "hashes": {
+                "sha256": "fb35d8a6234f3815ed5164aa7e7f56f8cc0dd7fa5860f2ce71b3c4f8328eee95"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp312-cp312-win_amd64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 1033765,
+              "upload-time": "2026-08-06T03:11:04.694905Z",
+              "url": "https://files.pythonhosted.org/packages/9f/10/17ee5acd776cf8947a8235c089f158643ba3d9df253b36cd315a3b23292b/chardet-7.5.0-cp312-cp312-win_amd64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp313-cp313-macosx_10_13_x86_64.whl",
+              "hashes": {
+                "sha256": "9591f8230465b782390d8cbe364b2ed6b46c206dbc2b94424556ed0b11260fb1"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp313-cp313-macosx_10_13_x86_64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 932901,
+              "upload-time": "2026-08-06T03:11:05.999327Z",
+              "url": "https://files.pythonhosted.org/packages/a4/30/908a92b73e4b4e6854ea50abb3343a5f19318f22677a367703546155a315/chardet-7.5.0-cp313-cp313-macosx_10_13_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp313-cp313-macosx_11_0_arm64.whl",
+              "hashes": {
+                "sha256": "f162bb5d79b84bf5253a191a501cbed4dc6315d629d78fa596a3c1f9a7e022db"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp313-cp313-macosx_11_0_arm64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 915379,
+              "upload-time": "2026-08-06T03:11:07.320467Z",
+              "url": "https://files.pythonhosted.org/packages/5f/dc/55676e9084af2c3fd46db7afcb0b52bfbcc67babf8ffbf963572c88391db/chardet-7.5.0-cp313-cp313-macosx_11_0_arm64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "hashes": {
+                "sha256": "c556ec9f7e6c1b022c4598c05d66a2320dd3f2f656ac7f8900b7941929fa0f08"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 942677,
+              "upload-time": "2026-08-06T03:11:08.773493Z",
+              "url": "https://files.pythonhosted.org/packages/f1/e4/9187eb90fef957a38f53a0b76b5f7b6fcb4283075ec823f95fe4c6314018/chardet-7.5.0-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "hashes": {
+                "sha256": "3db8e5a145048766367a37a1c4d9940e2a71b692d0fe311967f8d881bb89e1d5"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 957190,
+              "upload-time": "2026-08-06T03:11:10.181060Z",
+              "url": "https://files.pythonhosted.org/packages/43/1d/1e487c454a7d6a5e83cf9687055ae8e805dce01983a409a303adfd10f546/chardet-7.5.0-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp313-cp313-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "hashes": {
+                "sha256": "c6266ad2b28e334898c92be1d0fd9d5b1a687a94f0a828cd6db23626fab0f878"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp313-cp313-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 946966,
+              "upload-time": "2026-08-06T03:11:11.771117Z",
+              "url": "https://files.pythonhosted.org/packages/ec/74/f095b597d0f7fcab40518115016cbecd7f7287e552fe11a94b8c16509b65/chardet-7.5.0-cp313-cp313-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp313-cp313-win_amd64.whl",
+              "hashes": {
+                "sha256": "5fc9109b44ee05320846c61f9e83b9b3cf81e874d85fc2aec1f8004408cf0570"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp313-cp313-win_amd64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 1032105,
+              "upload-time": "2026-08-06T03:11:13.011012Z",
+              "url": "https://files.pythonhosted.org/packages/6b/16/8f5a19314a8502d488136e6911d149e96ab870231251fc009e811015e898/chardet-7.5.0-cp313-cp313-win_amd64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp314-cp314-macosx_10_15_x86_64.whl",
+              "hashes": {
+                "sha256": "5f22a1ffc2d730da29d73725df0c86fffec092f93e37b5fa8b87efcf842176c5"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp314-cp314-macosx_10_15_x86_64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 931881,
+              "upload-time": "2026-08-06T03:11:14.493702Z",
+              "url": "https://files.pythonhosted.org/packages/ba/c6/88e37a845ebf3d12f65f21cea95cdb3b3f5e7f64c8506c55e499479c3d24/chardet-7.5.0-cp314-cp314-macosx_10_15_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp314-cp314-macosx_11_0_arm64.whl",
+              "hashes": {
+                "sha256": "37bdffaf2929ed2bf51c354d8dd0dbaba56383901d2b7e18d6f9166d758d3494"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp314-cp314-macosx_11_0_arm64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 914885,
+              "upload-time": "2026-08-06T03:11:15.912814Z",
+              "url": "https://files.pythonhosted.org/packages/a9/01/fb75b69ae6928b1e29019ce2f56a0b458c3b9a55fee2f463e0b49db8bcff/chardet-7.5.0-cp314-cp314-macosx_11_0_arm64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "hashes": {
+                "sha256": "aa2f2fed3b08bc6e3b57dfa02bbd229fbb6a2786cdedd02b0b0a9b4cede68d68"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 945121,
+              "upload-time": "2026-08-06T03:11:17.312880Z",
+              "url": "https://files.pythonhosted.org/packages/c9/fe/88bd0ad2e1bc19ebe356271145f87ee13bcbdc64a0661c52d1dc01b019fe/chardet-7.5.0-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "hashes": {
+                "sha256": "5cbcbebb4a08f94a042452bd914919cf13eab215c45726c0daa8b7aecd2d613f"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 957673,
+              "upload-time": "2026-08-06T03:11:18.966322Z",
+              "url": "https://files.pythonhosted.org/packages/b7/c3/8f5644804c074b7be92eebfa5b78932b518cbe51266bdb697702396194e5/chardet-7.5.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp314-cp314-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "hashes": {
+                "sha256": "69a079752ffdf0318d4ffcf464dd746189c4608389df5e3e352c6cfd22b2533f"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp314-cp314-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 947874,
+              "upload-time": "2026-08-06T03:11:20.465646Z",
+              "url": "https://files.pythonhosted.org/packages/34/0c/08533a88224c1ab81d81d17a7c06928a70385851ea7f572d0aa5cce0db74/chardet-7.5.0-cp314-cp314-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp314-cp314-win_amd64.whl",
+              "hashes": {
+                "sha256": "cb8bf3d832fd91109ac80e0954b34d946c72d8f3b77f7e94d34b3c1a9e00e6e3"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp314-cp314-win_amd64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 1030003,
+              "upload-time": "2026-08-06T03:11:21.771632Z",
+              "url": "https://files.pythonhosted.org/packages/ad/1e/fd4f46e55844a6da59f9300678f941f9c02528e3eb6c2391e8bd09fae880/chardet-7.5.0-cp314-cp314-win_amd64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp314-cp314t-macosx_10_15_x86_64.whl",
+              "hashes": {
+                "sha256": "8e3425d784a012b70a95db224b1f8b3d35302bf5ee281c58027927d146884864"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp314-cp314t-macosx_10_15_x86_64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 951661,
+              "upload-time": "2026-08-06T03:11:23.060845Z",
+              "url": "https://files.pythonhosted.org/packages/7b/a9/b846f1ccca00ce1ab5fb6ceb9fd100270885dbdae0bd5a5ceef3763583b2/chardet-7.5.0-cp314-cp314t-macosx_10_15_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp314-cp314t-macosx_11_0_arm64.whl",
+              "hashes": {
+                "sha256": "69ef54974cec68a6935c6360c6b2546a0d9d8f2aebb1e03f9e90341ea2afb557"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp314-cp314t-macosx_11_0_arm64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 933583,
+              "upload-time": "2026-08-06T03:11:24.506822Z",
+              "url": "https://files.pythonhosted.org/packages/38/c3/c9beb14d81971f6820ec5d50ab86a48f79bc0cc820614061ae5a93f6ba53/chardet-7.5.0-cp314-cp314t-macosx_11_0_arm64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp314-cp314t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "hashes": {
+                "sha256": "0e8a59cebe880b24de4af43ad5b4bdc46b50e6995b5291c724dc8487ca2cce25"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp314-cp314t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 961058,
+              "upload-time": "2026-08-06T03:11:25.929908Z",
+              "url": "https://files.pythonhosted.org/packages/fd/43/f299b8bd15803132226555fc121cded8ef5e7875513f903643c036a6d290/chardet-7.5.0-cp314-cp314t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-cp314-cp314t-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "hashes": {
+                "sha256": "c80d5461228c0500e241195d1054d74816044bdcc65b1c3d30f72687b2facb8f"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-cp314-cp314t-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 973272,
+              "upload-time": "2026-08-06T03:11:27.471692Z",
+              "url": "https://files.pythonhosted.org/packages/b1/b1/b646c88a69d14f8300ea4a272915c08c8935d5430bed655a07d4143a31db/chardet-7.5.0-cp314-cp314t-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "77811e706ca6addf918fcaf81442ebdbb864a441fbb2ee84e492365b06a23621"
+              },
+              "filename": "chardet-7.5.0-py3-none-any.whl",
+              "hashes": {
+                "sha256": "ce1df595840f830ffb499f9fa7eab9740e21d8c894dbcac2706b2a6b7486bfac"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0-py3-none-any.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 653830,
+              "upload-time": "2026-08-06T03:11:28.983037Z",
+              "url": "https://files.pythonhosted.org/packages/6b/b9/6f4c09fd75400adafd075f3a3141aa4cc31ef4feecd105373a36ec30a3e9/chardet-7.5.0-py3-none-any.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": false,
+              "data-dist-info-metadata": false,
+              "filename": "chardet-7.5.0.tar.gz",
+              "hashes": {
+                "sha256": "f782ffd6298e993e9ac8dbc33404cf63283696b9e7eb5475cc4aa10fa50f8ed6"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.0/chardet-7.5.0.tar.gz/provenance",
+              "requires-python": ">=3.10",
+              "size": 834534,
+              "upload-time": "2026-08-06T03:11:30.373725Z",
+              "url": "https://files.pythonhosted.org/packages/9e/97/f8c11730ad5f0a1916a60ccdbf3237f3b4c7872488158afb9faf9f9cf6a8/chardet-7.5.0.tar.gz",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp310-cp310-macosx_10_9_x86_64.whl",
+              "hashes": {
+                "sha256": "951ccab3a037a563079f4d448e82bbfee5f2715239440f732ffb0ac9f251dedb"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp310-cp310-macosx_10_9_x86_64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 938086,
+              "upload-time": "2026-08-06T05:01:14.135830Z",
+              "url": "https://files.pythonhosted.org/packages/64/c3/12e838956015a4c3d4cf6af1ea843fddd0854e43e03d69d13897133ac845/chardet-7.5.1-cp310-cp310-macosx_10_9_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp310-cp310-macosx_11_0_arm64.whl",
+              "hashes": {
+                "sha256": "f22396ad419f1e78594057e200aa7253be56840f5b04d07b86ccecd99e09c068"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp310-cp310-macosx_11_0_arm64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 923958,
+              "upload-time": "2026-08-06T05:01:16.124814Z",
+              "url": "https://files.pythonhosted.org/packages/da/6e/9a9c51f5d8b918c3e1ece93ce0369ca34768044749208058659095de9d78/chardet-7.5.1-cp310-cp310-macosx_11_0_arm64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "hashes": {
+                "sha256": "126b2a65141ed8a460c721d19f487c7b6fd12542aa761ce449f543296d0dd71e"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 948644,
+              "upload-time": "2026-08-06T05:01:17.885848Z",
+              "url": "https://files.pythonhosted.org/packages/92/2f/0ed2206d6efbd1cd4888e83ee9f8a0a2f89893bd750c987cd8bea8245a2f/chardet-7.5.1-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "hashes": {
+                "sha256": "b1c049906b95db7b12fd674f661f75285baf925eae98aa52a4a09305fc786855"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 959375,
+              "upload-time": "2026-08-06T05:01:19.371930Z",
+              "url": "https://files.pythonhosted.org/packages/03/8e/47ded9c693655501231a001dba9a1319d1c89010a772b7752aa69ce8ca0c/chardet-7.5.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp310-cp310-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "hashes": {
+                "sha256": "61312fd3ff363c3ec549548250630a02fd3123c360dd492bf1fce0d28e915b87"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp310-cp310-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 952712,
+              "upload-time": "2026-08-06T05:01:21.477487Z",
+              "url": "https://files.pythonhosted.org/packages/d4/e4/714cfd3de9e34964f4c8fe85fe929ef2a9d889bd908d5cdc822ecee3a1cd/chardet-7.5.1-cp310-cp310-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp310-cp310-win_amd64.whl",
+              "hashes": {
+                "sha256": "5953d8236049aed0411908cfeaeeec03984ab2f109f980f0ec70fbe6938c8f9e"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp310-cp310-win_amd64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 1035569,
+              "upload-time": "2026-08-06T05:01:22.931359Z",
+              "url": "https://files.pythonhosted.org/packages/27/15/e82da34603cda9962fa4627a8d89f11d808c2b616d58138416c78277f05c/chardet-7.5.1-cp310-cp310-win_amd64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp311-cp311-macosx_10_9_x86_64.whl",
+              "hashes": {
+                "sha256": "e72489029c1f6e4be6138dd045a4e52bffaba5d5da0398df585bfcf8b239e324"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp311-cp311-macosx_10_9_x86_64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 934119,
+              "upload-time": "2026-08-06T05:01:24.668274Z",
+              "url": "https://files.pythonhosted.org/packages/2a/e9/86ebd066a78fc3c1c368e6448eee363e596e5e4b802460566af40e09dbbb/chardet-7.5.1-cp311-cp311-macosx_10_9_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp311-cp311-macosx_11_0_arm64.whl",
+              "hashes": {
+                "sha256": "6df2e255413c5f277067d9af7444ab1e9719126335efbefae24d8370aedf35c5"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp311-cp311-macosx_11_0_arm64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 920018,
+              "upload-time": "2026-08-06T05:01:26.318421Z",
+              "url": "https://files.pythonhosted.org/packages/79/89/d683635b8da75762c4c7c1978cbe374bb0e03c236b97124c8913b0010290/chardet-7.5.1-cp311-cp311-macosx_11_0_arm64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "hashes": {
+                "sha256": "d06a8bacc8b6a26e900c3bd825601f9a8c02e063e687e960cf77363a9a397a0b"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 944717,
+              "upload-time": "2026-08-06T05:01:27.811638Z",
+              "url": "https://files.pythonhosted.org/packages/82/08/7d2cf6856455588aad4f92f1efc8dcab6850a2cb20629ac57214cd8fb693/chardet-7.5.1-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "hashes": {
+                "sha256": "a599a836fbd41ff5a2a0c20e211da13ba8cc14dcba1e4bcfad8a7bcad64a2ff6"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 954791,
+              "upload-time": "2026-08-06T05:01:29.348032Z",
+              "url": "https://files.pythonhosted.org/packages/6e/8c/8120efdadbf8a54f3bb4892ce6051be055eab7cedd7f85ed389f47c59299/chardet-7.5.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp311-cp311-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "hashes": {
+                "sha256": "bbf6948b7a5b85af5e435993c4e5fdb092d0d8f38c00d68c96e2640bafce5ec2"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp311-cp311-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 945934,
+              "upload-time": "2026-08-06T05:01:30.770552Z",
+              "url": "https://files.pythonhosted.org/packages/c5/28/e8df108688d80ac4e983c489fa6ddf14899b8513e3c93d6909c7de60245a/chardet-7.5.1-cp311-cp311-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp311-cp311-win_amd64.whl",
+              "hashes": {
+                "sha256": "a77d6d2d61f39b40423bd0abaee32175739cec9f11edf9e7236a5341d0e05c99"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp311-cp311-win_amd64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 1034222,
+              "upload-time": "2026-08-06T05:01:32.468929Z",
+              "url": "https://files.pythonhosted.org/packages/ea/21/4b8782d18fbec3b12a57fe9e5fcf252edbaefbe9386bc4a1620b7872d43d/chardet-7.5.1-cp311-cp311-win_amd64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp312-cp312-macosx_10_13_x86_64.whl",
+              "hashes": {
+                "sha256": "3eb37b2c0aa67bfb1112aa90bfdd95cd3b4006fe051a2ea4872c3c6ba9cf855b"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp312-cp312-macosx_10_13_x86_64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 939537,
+              "upload-time": "2026-08-06T05:01:34.127690Z",
+              "url": "https://files.pythonhosted.org/packages/29/95/60f047ece9faf585d6f625adea8786bb15a453fbf183e77a5762c8755c86/chardet-7.5.1-cp312-cp312-macosx_10_13_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp312-cp312-macosx_11_0_arm64.whl",
+              "hashes": {
+                "sha256": "8a001a8f030625b705d9a4e68116e573462bd38192cc6c1bfa318b45606747ac"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp312-cp312-macosx_11_0_arm64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 922039,
+              "upload-time": "2026-08-06T05:01:35.929984Z",
+              "url": "https://files.pythonhosted.org/packages/c4/8e/847935c588455b0d82fa57a5a8ced4c73a928e30f2012639228e566e3283/chardet-7.5.1-cp312-cp312-macosx_11_0_arm64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "hashes": {
+                "sha256": "54bae16fc5b7ea39956ee737dd09b5f5438deafa9f565ac27c882992c3965b88"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 945557,
+              "upload-time": "2026-08-06T05:01:37.696394Z",
+              "url": "https://files.pythonhosted.org/packages/fb/9f/841f7d9f1ff7b99ef2a7e7596b14199dbfe289a11b39c7f98cfb23d0c55a/chardet-7.5.1-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "hashes": {
+                "sha256": "ecbe0e0a9fff7825fc48650ef297ede49c71a7abc411a0638416207a70bf78c0"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 961089,
+              "upload-time": "2026-08-06T05:01:39.319202Z",
+              "url": "https://files.pythonhosted.org/packages/10/56/89866e9995fdb2c8e8ff1336c4ecd4c86ba0f7e4622ccfacad2c13b2ba7e/chardet-7.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp312-cp312-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "hashes": {
+                "sha256": "469f164a608ccee4a8a2c0c2b4328470df9b07443e8269714f8e8a51f6fdf4c4"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp312-cp312-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 950289,
+              "upload-time": "2026-08-06T05:01:40.782454Z",
+              "url": "https://files.pythonhosted.org/packages/1b/fe/f568f20d0cea7f853769d3015915daf8bb8460a4265237a051bb374fdcd0/chardet-7.5.1-cp312-cp312-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp312-cp312-win_amd64.whl",
+              "hashes": {
+                "sha256": "fad6fbc154113e3b17bb757c34b21477e4b6d69fdd4ce51ff2b3f29a42f08b5b"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp312-cp312-win_amd64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 1036514,
+              "upload-time": "2026-08-06T05:01:42.394680Z",
+              "url": "https://files.pythonhosted.org/packages/dc/9a/9e17c1c6fbc65f9cba07951d359a24c8f7b17d3ca26bd54f33fd98b70f2e/chardet-7.5.1-cp312-cp312-win_amd64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp313-cp313-macosx_10_13_x86_64.whl",
+              "hashes": {
+                "sha256": "b72b9b95c636d170d9a6284d99be9fd93ca08bb2221385ff1a5b69da98ec4f76"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp313-cp313-macosx_10_13_x86_64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 935215,
+              "upload-time": "2026-08-06T05:01:44.082938Z",
+              "url": "https://files.pythonhosted.org/packages/53/3d/3aed10edee5735bc92cf0bd1a469335f596331b3ffc82bbdd157f8d5135f/chardet-7.5.1-cp313-cp313-macosx_10_13_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp313-cp313-macosx_11_0_arm64.whl",
+              "hashes": {
+                "sha256": "4d30a84ec52c37532ad7978329a41224c454959b22503b8f8ed4df763e6c3ed2"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp313-cp313-macosx_11_0_arm64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 917514,
+              "upload-time": "2026-08-06T05:01:46.018782Z",
+              "url": "https://files.pythonhosted.org/packages/c5/e9/bd883f6ed3cb53a66b6752da493ef4b82f6435e7c085e0eee21296a0a31c/chardet-7.5.1-cp313-cp313-macosx_11_0_arm64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "hashes": {
+                "sha256": "e6faa6b18c7af2fca8d4cbb51fa035fa47f8f4b68547ae927a1c0be34dfc96fa"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 944654,
+              "upload-time": "2026-08-06T05:01:48.010222Z",
+              "url": "https://files.pythonhosted.org/packages/ea/d2/1773383d05a6cc1a69ee075cf477942edbb00c90bf8ac9778bce884e4c0a/chardet-7.5.1-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "hashes": {
+                "sha256": "36843a0e9e3196142e317806d5ca29ab0bb714de2315897124a018438cc535a3"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 959589,
+              "upload-time": "2026-08-06T05:01:49.512189Z",
+              "url": "https://files.pythonhosted.org/packages/05/c2/9e5200bd6f8c6a32d0f2bbb6235783b3ca421630cb4f18507d5c9edc07ac/chardet-7.5.1-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp313-cp313-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "hashes": {
+                "sha256": "59598a8e15769ebe62fd0c153a5e4347a7a126cc7b376a724ff63ad80b890506"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp313-cp313-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 949138,
+              "upload-time": "2026-08-06T05:01:50.993074Z",
+              "url": "https://files.pythonhosted.org/packages/11/b7/1e49d101a790501e540f9d9b33e52a65ccfcc0c0748220cb3ffb44987823/chardet-7.5.1-cp313-cp313-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp313-cp313-win_amd64.whl",
+              "hashes": {
+                "sha256": "71f152d66e7bd1faad615897d34765243cb567ad6aef07bf0d7c0cdd69bf6cce"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp313-cp313-win_amd64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 1034753,
+              "upload-time": "2026-08-06T05:01:52.488760Z",
+              "url": "https://files.pythonhosted.org/packages/88/d4/ed3b7e5c882ba24b71df8554840898ebbbbc3a57844d218edd4a1f8770a4/chardet-7.5.1-cp313-cp313-win_amd64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp314-cp314-macosx_10_15_x86_64.whl",
+              "hashes": {
+                "sha256": "a6b20b42a9e6048d557aec9903df33239c299b4643c6553203127c8f92f47e78"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp314-cp314-macosx_10_15_x86_64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 934245,
+              "upload-time": "2026-08-06T05:01:54.060920Z",
+              "url": "https://files.pythonhosted.org/packages/68/04/71d601ad6b13b30921c7c0e085aec44b152df206bef45b164988d4ea143b/chardet-7.5.1-cp314-cp314-macosx_10_15_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp314-cp314-macosx_11_0_arm64.whl",
+              "hashes": {
+                "sha256": "6eefafa763b7099c3c0a86c343097d69b766b3fe5705edba9400bae26450af1f"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp314-cp314-macosx_11_0_arm64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 917122,
+              "upload-time": "2026-08-06T05:01:55.526240Z",
+              "url": "https://files.pythonhosted.org/packages/85/84/5690a64afecf9967c3844ec96842d549e6f3ef72009bfd5524b69111245a/chardet-7.5.1-cp314-cp314-macosx_11_0_arm64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "hashes": {
+                "sha256": "2c99dea9eea1bdc6cc20dcb3555581234899d58a4147163c7d03d8fca11402b0"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 947091,
+              "upload-time": "2026-08-06T05:01:56.995767Z",
+              "url": "https://files.pythonhosted.org/packages/bf/7b/df208823a1c53aa765caa4511479a7182399a397fb247aa30e0adccdd1a0/chardet-7.5.1-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "hashes": {
+                "sha256": "9c378ccd8c0fab30171ed7c54d501f72c4294d9b98c71ea1ff7852aa9ccac399"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 959741,
+              "upload-time": "2026-08-06T05:01:58.525200Z",
+              "url": "https://files.pythonhosted.org/packages/76/bb/32871c9e393f174a60930a29873b6a4217b3f1c65667cad303ef146caedc/chardet-7.5.1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp314-cp314-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "hashes": {
+                "sha256": "1cd58589a52211901c5ac57016feffbe8a7e7e6328f5bf0b03ce44043e221e99"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp314-cp314-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 950265,
+              "upload-time": "2026-08-06T05:01:59.962491Z",
+              "url": "https://files.pythonhosted.org/packages/85/69/cd0f5a176ed50787a9f143dd79a6a2cb47ce30cc1b164c76445bf3d971ea/chardet-7.5.1-cp314-cp314-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp314-cp314-win_amd64.whl",
+              "hashes": {
+                "sha256": "46d10bbb7ba7ba345694fe0276a61290d4cc25d3624c03282311dbc58c1d49b4"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp314-cp314-win_amd64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 1032664,
+              "upload-time": "2026-08-06T05:02:01.415878Z",
+              "url": "https://files.pythonhosted.org/packages/e9/8f/d871b357287caae0483d2cd235fae476da3768dd7d56e1fe733ffd3f707c/chardet-7.5.1-cp314-cp314-win_amd64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp314-cp314t-macosx_10_15_x86_64.whl",
+              "hashes": {
+                "sha256": "a198d47eaa28e1ba458f11ab636f0677f34c5d1ce7e909bec6ca2f346c21e78c"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp314-cp314t-macosx_10_15_x86_64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 954309,
+              "upload-time": "2026-08-06T05:02:02.971397Z",
+              "url": "https://files.pythonhosted.org/packages/3e/f9/746f0b494b2a08e694e4f97259979dce9f16740f0c624abcc76e9d2642c0/chardet-7.5.1-cp314-cp314t-macosx_10_15_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp314-cp314t-macosx_11_0_arm64.whl",
+              "hashes": {
+                "sha256": "44214df32ff7c87fe82d7f1f21c7fe95c04769869e523f944413e668e001f52c"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp314-cp314t-macosx_11_0_arm64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 935936,
+              "upload-time": "2026-08-06T05:02:04.921696Z",
+              "url": "https://files.pythonhosted.org/packages/de/60/41497afb2f225cc0c8cd731b34ee0f7bd5a85ab76547035f22b0326c0342/chardet-7.5.1-cp314-cp314t-macosx_11_0_arm64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp314-cp314t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "hashes": {
+                "sha256": "c461fc9746912d19ab77efc1912b7f9a364b7fca1d787e1215207d5f6f68685d"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp314-cp314t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 963210,
+              "upload-time": "2026-08-06T05:02:06.855352Z",
+              "url": "https://files.pythonhosted.org/packages/78/eb/d69d9013a67de60fc71da55d8cd6b25efdeaba0b0f4f9ae655fb71d82604/chardet-7.5.1-cp314-cp314t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-cp314-cp314t-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "hashes": {
+                "sha256": "26160da949c66f0cca280101d85e6e4fddca53bfe465a1b69ceb3c9998295cc0"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-cp314-cp314t-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 975809,
+              "upload-time": "2026-08-06T05:02:08.497704Z",
+              "url": "https://files.pythonhosted.org/packages/58/21/eaa124a4a7beb8bc4df5e7a4df78021c09b2e5d68fbf66a24544228e583b/chardet-7.5.1-cp314-cp314t-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "bf0b891fea41e98969492bd0bdd8ebeadfe791c22215bbd56439282bb33df368"
+              },
+              "filename": "chardet-7.5.1-py3-none-any.whl",
+              "hashes": {
+                "sha256": "ba7e9b6c15b4fcdf07ae675e5116dee610425f9ad6955c9bdb6bf99aed2e555d"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1-py3-none-any.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 655022,
+              "upload-time": "2026-08-06T05:02:10.071561Z",
+              "url": "https://files.pythonhosted.org/packages/36/6b/f195e0d66b1e18ccbcc3adc52c1c7e1263203e70b9bbe12c5a4198d1935b/chardet-7.5.1-py3-none-any.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": false,
+              "data-dist-info-metadata": false,
+              "filename": "chardet-7.5.1.tar.gz",
+              "hashes": {
+                "sha256": "0df08f2b2f6ac04b3e7f9e8ad1b1559c2e8497338ff9dfa1e0922335ff9dfe8d"
+              },
+              "provenance": "https://pypi.org/integrity/chardet/7.5.1/chardet-7.5.1.tar.gz/provenance",
+              "requires-python": ">=3.10",
+              "size": 837498,
+              "upload-time": "2026-08-06T05:02:11.499402Z",
+              "url": "https://files.pythonhosted.org/packages/56/7c/c9cf52695364a0609829ccc9e88adea553587ef70349314f29ed1b62bcff/chardet-7.5.1.tar.gz",
+              "yanked": false
             }
           ],
           "meta": {
-            "_last-serial": 36089780,
+            "_last-serial": 39744524,
             "api-version": "1.4"
           },
           "name": "chardet",
@@ -10185,7 +11521,9 @@ interactions:
             "7.4.0.post2",
             "7.4.1",
             "7.4.2",
-            "7.4.3"
+            "7.4.3",
+            "7.5.0",
+            "7.5.1"
           ]
         }
       headers:
@@ -25105,10 +26443,42 @@ interactions:
               "upload-time": "2026-07-22T20:07:51.603498Z",
               "url": "https://files.pythonhosted.org/packages/f9/6e/250a009775787f4f83e2af2ee47f8722505722266907471c298863a1d42e/django-6.1rc1.tar.gz",
               "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "d77b53bd8cba63504423605722e98b4578839dc389f135ce429567027b3120f7"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "d77b53bd8cba63504423605722e98b4578839dc389f135ce429567027b3120f7"
+              },
+              "filename": "django-6.1-py3-none-any.whl",
+              "hashes": {
+                "sha256": "6c132cd980c9392b06807d4ca52d72530d631dc65a85d9dacede00a780cefbbe"
+              },
+              "provenance": null,
+              "requires-python": ">=3.12",
+              "size": 8417399,
+              "upload-time": "2026-08-05T19:21:47.285453Z",
+              "url": "https://files.pythonhosted.org/packages/91/9c/ce847620134cfab903e75690c498af73b46abbede2912ea89bd76d5c1e76/django-6.1-py3-none-any.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": false,
+              "data-dist-info-metadata": false,
+              "filename": "django-6.1.tar.gz",
+              "hashes": {
+                "sha256": "86a2aacd59b817e4d6ac2ebfe22356c58f66f7b24e503f71b7c2fead677ee48b"
+              },
+              "provenance": null,
+              "requires-python": ">=3.12",
+              "size": 11223034,
+              "upload-time": "2026-08-05T19:21:53.789229Z",
+              "url": "https://files.pythonhosted.org/packages/e2/42/6cb20996733984c1f6661daeda3877990836c76c633c6c8879d39f7120eb/django-6.1.tar.gz",
+              "yanked": false
             }
           ],
           "meta": {
-            "_last-serial": 39685695,
+            "_last-serial": 39731925,
             "api-version": "1.4"
           },
           "name": "django",
@@ -25548,7 +26918,8 @@ interactions:
             "6.0.8",
             "6.1a1",
             "6.1b1",
-            "6.1rc1"
+            "6.1rc1",
+            "6.1"
           ]
         }
       headers:
@@ -67944,7 +69315,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 3018
+      content_length: 3438
       body: |
         {
           "results": [
@@ -67953,6 +69324,10 @@ interactions:
             {},
             {
               "vulns": [
+                {
+                  "id": "GHSA-3h9f-r86x-qvjx",
+                  "modified": "2026-08-07T20:25:51.809248Z"
+                },
                 {
                   "id": "GHSA-68w8-qjq3-2gfm",
                   "modified": "2024-09-20T15:46:52.557962Z"
@@ -67966,12 +69341,32 @@ interactions:
                   "modified": "2026-02-04T03:48:05.224740Z"
                 },
                 {
+                  "id": "GHSA-8cjm-8mp7-r2xf",
+                  "modified": "2026-08-07T20:25:59.879818Z"
+                },
+                {
+                  "id": "GHSA-8qcx-xf44-272x",
+                  "modified": "2026-08-07T20:25:58.536033Z"
+                },
+                {
                   "id": "GHSA-8x94-hmjh-97hq",
                   "modified": "2026-02-04T02:45:55.690257Z"
                 },
                 {
+                  "id": "GHSA-923m-gv2p-w5qp",
+                  "modified": "2026-08-07T20:10:37.052844Z"
+                },
+                {
+                  "id": "GHSA-crhf-3pfg-w68w",
+                  "modified": "2026-08-07T20:26:00.178698Z"
+                },
+                {
                   "id": "GHSA-frmv-pr5f-9mcr",
                   "modified": "2026-06-05T14:45:52.053173Z"
+                },
+                {
+                  "id": "GHSA-h7pc-vwp9-298g",
+                  "modified": "2026-08-07T20:25:53.113426Z"
                 },
                 {
                   "id": "GHSA-qw25-v68c-qjf3",
@@ -68152,7 +69547,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "3018"
+          - "3438"
         Content-Type:
           - application/json
       status: 200 OK
