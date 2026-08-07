@@ -487,8 +487,8 @@ func TestCommand_JavareachArchive(t *testing.T) {
 func TestCommand_HomebrewWithAnnotators(t *testing.T) {
 	t.Parallel()
 
-	if runtime.GOOS != "darwin" {
-		testutility.Skip(t, "The detector in this test only works on Darwin")
+	if runtime.GOOS == "windows" {
+		testutility.Skip(t, "The detector in this test does not work on windows")
 	}
 
 	client := testcmd.InsertCassette(t)
@@ -1068,6 +1068,10 @@ func TestCommand_GithubActions(t *testing.T) {
 
 func TestCommand_LocalDatabases(t *testing.T) {
 	t.Parallel()
+
+	if runtime.GOOS == "darwin" && os.Getenv("CI") != "" {
+		testutility.Skip(t, "Skipping this test on CI because of APFS issues causing the test to time out.")
+	}
 
 	testutility.SkipIfShort(t)
 

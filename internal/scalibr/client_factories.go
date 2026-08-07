@@ -8,12 +8,10 @@ import (
 	"fmt"
 	"net/http"
 	"sync"
-	"time"
 
 	"github.com/google/osv-scalibr/plugin/config"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
-	"google.golang.org/grpc/keepalive"
 )
 
 type grpcClientConnCloser interface {
@@ -99,11 +97,12 @@ func (c *ClientFactories) GRPCClientConn(url string, dialOpts ...grpc.DialOption
 
 	ourDialOpts := []grpc.DialOption{
 		grpc.WithTransportCredentials(creds),
-		grpc.WithKeepaliveParams(keepalive.ClientParameters{
-			Time:                10 * time.Second,
-			Timeout:             5 * time.Second,
-			PermitWithoutStream: true,
-		}),
+		// We might want keep alive params in the future, but it works for now.
+		// grpc.WithKeepaliveParams(keepalive.ClientParameters{
+		// 	Time:                20 * time.Second,
+		// 	Timeout:             5 * time.Second,
+		// 	PermitWithoutStream: false,
+		// }),
 	}
 	if c.defaultUserAgent != "" {
 		ourDialOpts = append(ourDialOpts, grpc.WithUserAgent(c.defaultUserAgent))
