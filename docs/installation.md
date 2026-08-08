@@ -28,6 +28,8 @@ Windows users can also install osv-scanner from the official [WinGet repo](https
 winget install Google.OSVScanner
 ```
 
+After Scoop or WinGet on Windows, open a **new** terminal so `PATH` picks up `osv-scanner`. For `go install`, ensure `%USERPROFILE%\go\bin` (or `$env:GOBIN`) is on `PATH`.
+
 ### Homebrew
 
 [Homebrew](https://brew.sh/) users can install [osv-scanner](https://formulae.brew.sh/formula/osv-scanner) via:
