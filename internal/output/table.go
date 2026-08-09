@@ -184,7 +184,7 @@ func printSummaryResult(result Result, outputWriter io.Writer, terminalWidth int
 					}
 				}
 
-				outputRow = append(outputRow, pkg.Name, getInstalledVersionOrCommit(pkg), fixAvailable, totalCount)
+				outputRow = append(outputRow, SanitizeForWorkflowCommand(pkg.Name), SanitizeForWorkflowCommand(getInstalledVersionOrCommit(pkg)), fixAvailable, totalCount)
 
 				if isOSResult(source.Type) {
 					outputRow = append(outputRow, formatBinaryPackages(pkg.OSPackageNames))
@@ -238,7 +238,7 @@ func printSummaryResult(result Result, outputWriter io.Writer, terminalWidth int
 					outputRow := make(table.Row, 0, 5)
 					totalCount := pkg.VulnCount.AnalysisCount.Hidden
 					filteredReasons := getFilteredVulnReasons(pkg.HiddenVulns)
-					outputRow = append(outputRow, pkg.Name, eco.Name, getInstalledVersionOrCommit(pkg), totalCount, filteredReasons)
+					outputRow = append(outputRow, SanitizeForWorkflowCommand(pkg.Name), eco.Name, SanitizeForWorkflowCommand(getInstalledVersionOrCommit(pkg)), totalCount, filteredReasons)
 					outputTable.AppendRow(outputRow)
 				}
 			}
@@ -319,23 +319,23 @@ func tableBuilderInner(result Result, vulnAnalysisType VulnAnalysisType) []tbInn
 
 					if eco.Name == "" && pkg.Commit != "" {
 						pkgCommitStr := results.PkgToString(models.PackageInfo{
-							Name:    pkg.Name,
+							Name:    SanitizeForWorkflowCommand(pkg.Name),
 							Commit:  pkg.Commit,
-							Version: pkg.InstalledVersion,
+							Version: SanitizeForWorkflowCommand(pkg.InstalledVersion),
 						})
 						outputRow = append(outputRow, "GIT", pkgCommitStr, pkgCommitStr)
 						shouldMerge = true
 					} else {
 						outputRow = append(outputRow, eco.Name)
 
-						name := pkg.Name
+						name := SanitizeForWorkflowCommand(pkg.Name)
 
 						// TODO(#1646): Migrate this earlier to the result struct directly
 						if depgroups.IsDevGroup(osvecosystem.MustParse(eco.Name).Ecosystem, pkg.DepGroups) {
 							name += " (dev)"
 						}
 						outputRow = append(outputRow, name)
-						outputRow = append(outputRow, pkg.InstalledVersion)
+						outputRow = append(outputRow, SanitizeForWorkflowCommand(pkg.InstalledVersion))
 					}
 
 					if vuln.IsFixable {
@@ -399,7 +399,10 @@ func buildLicenseSummaryTable(outputWriter io.Writer, terminalWidth int, vulnRes
 func licenseSummaryTableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults) table.Writer {
 	outputTable.AppendHeader(table.Row{"License", "No. of package versions"})
 	for _, license := range vulnResult.LicenseSummary {
-		outputTable.AppendRow(table.Row{license.Name, license.Count})
+		// license.Name can originate from a package manifest's freeform license
+		// field; sanitize defensively even though this data flow wasn't traced
+		// as precisely as the package name/version cases above.
+		outputTable.AppendRow(table.Row{SanitizeForWorkflowCommand(string(license.Name)), license.Count})
 	}
 
 	return outputTable
@@ -434,8 +437,8 @@ func licenseViolationsTableBuilder(outputTable table.Writer, vulnResult *models.
 			outputTable.AppendRow(table.Row{
 				strings.Join(violations, ", "),
 				pkg.Package.Ecosystem,
-				pkg.Package.Name,
-				pkg.Package.Version,
+				SanitizeForWorkflowCommand(pkg.Package.Name),
+				SanitizeForWorkflowCommand(pkg.Package.Version),
 				// path is user-controlled; sanitize \r/\n before printing to
 				// prevent GitHub Actions workflow command injection.
 				SanitizeForWorkflowCommand(path),
@@ -471,8 +474,8 @@ func deprecatedPackagesTableBuilder(outputTable table.Writer, vulnResult *models
 			}
 			outputTable.AppendRow(table.Row{
 				pkg.Package.Ecosystem,
-				pkg.Package.Name,
-				pkg.Package.Version,
+				SanitizeForWorkflowCommand(pkg.Package.Name),
+				SanitizeForWorkflowCommand(pkg.Package.Version),
 				// path is user-controlled; sanitize \r/\n before printing to
 				// prevent GitHub Actions workflow command injection.
 				SanitizeForWorkflowCommand(path),
