@@ -8,7 +8,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"log"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -193,8 +192,14 @@ func extractRlibArchive(rlibPath string) (bytes.Buffer, error) {
 	}
 	for {
 		header, err := reader.Next()
+		// Reaching the end of the archive without finding an object file means this is not an
+		// rlib we can analyse. Return an error so the caller can skip this artifact, rather than
+		// ending the process and with it the rest of the scan.
+		if errors.Is(err, io.EOF) {
+			return bytes.Buffer{}, fmt.Errorf("no object file found in rlib archive '%s'", rlibPath)
+		}
 		if err != nil {
-			log.Fatalf("%v", err)
+			return bytes.Buffer{}, fmt.Errorf("failed to read rlib archive '%s': %w", rlibPath, err)
 		}
 		if header.Name == "//" { // "//" is used in GNU ar format as a store for long file names
 			fileBuf := bytes.Buffer{}

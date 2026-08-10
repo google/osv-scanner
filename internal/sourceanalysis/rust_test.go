@@ -2,6 +2,7 @@ package sourceanalysis
 
 import (
 	"bytes"
+	"fmt"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -101,5 +102,38 @@ func Test_rustBuildSource(t *testing.T) {
 		if !reflect.DeepEqual(got, tt.want) {
 			t.Errorf("rustBuildSource() = %v, want %v", got, tt.want)
 		}
+	}
+}
+
+// A well-formed ar archive that is not a Rust rlib — it contains no "/0" member and no
+// ".rcgu.o/" member — must be reported as an error the caller can skip, not end the process.
+// Before this was fixed, the iteration loop reached end-of-archive and called log.Fatalf on the
+// resulting io.EOF, which is os.Exit(1). That killed the whole scan on one unrelated build
+// artifact, and reported the failure through the exit code reserved for "vulnerabilities or
+// findings" (see docs/output.md).
+func Test_extractRlibArchive_noObjectFile(t *testing.T) {
+	t.Parallel()
+
+	// A minimal GNU ar archive with a single plain member, built by hand so the test needs no
+	// `ar` binary on the machine running it.
+	var archive bytes.Buffer
+	archive.WriteString("!<arch>\n")
+	const content = "hi"
+	// name[16] mtime[12] uid[6] gid[6] mode[8] size[10] fmag[2]
+	fmt.Fprintf(&archive, "%-16s%-12d%-6d%-6d%-8s%-10d`\n", "a.txt/", 0, 0, 0, "100644", len(content))
+	archive.WriteString(content)
+
+	path := filepath.Join(t.TempDir(), "not-an-rlib.rlib")
+	if err := os.WriteFile(path, archive.Bytes(), 0600); err != nil {
+		t.Fatalf("failed to write test archive: %v", err)
+	}
+
+	// If the regression returns, this call terminates the test binary instead of failing it.
+	_, err := extractRlibArchive(path)
+	if err == nil {
+		t.Fatal("expected an error for an ar archive with no object file, got nil")
+	}
+	if !strings.Contains(err.Error(), "no object file found") {
+		t.Errorf("expected a 'no object file found' error, got: %v", err)
 	}
 }
