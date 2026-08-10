@@ -883,7 +883,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-3h9f-r86x-qvjx",
-                  "modified": "2026-08-07T20:25:51.809248Z"
+                  "modified": "2026-08-10T15:39:09.350867Z"
                 },
                 {
                   "id": "GHSA-68w8-qjq3-2gfm",
@@ -903,7 +903,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-8qcx-xf44-272x",
-                  "modified": "2026-08-07T20:25:58.536033Z"
+                  "modified": "2026-08-10T15:39:09.597833Z"
                 },
                 {
                   "id": "GHSA-8x94-hmjh-97hq",
@@ -915,7 +915,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-crhf-3pfg-w68w",
-                  "modified": "2026-08-07T20:26:00.178698Z"
+                  "modified": "2026-08-10T15:39:09.502515Z"
                 },
                 {
                   "id": "GHSA-frmv-pr5f-9mcr",
@@ -1270,7 +1270,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-3h9f-r86x-qvjx",
-                  "modified": "2026-08-07T20:25:51.809248Z"
+                  "modified": "2026-08-10T15:39:09.350867Z"
                 },
                 {
                   "id": "GHSA-68w8-qjq3-2gfm",
@@ -1290,7 +1290,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-8qcx-xf44-272x",
-                  "modified": "2026-08-07T20:25:58.536033Z"
+                  "modified": "2026-08-10T15:39:09.597833Z"
                 },
                 {
                   "id": "GHSA-8x94-hmjh-97hq",
@@ -1302,7 +1302,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-crhf-3pfg-w68w",
-                  "modified": "2026-08-07T20:26:00.178698Z"
+                  "modified": "2026-08-10T15:39:09.502515Z"
                 },
                 {
                   "id": "GHSA-frmv-pr5f-9mcr",
@@ -69326,7 +69326,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-3h9f-r86x-qvjx",
-                  "modified": "2026-08-07T20:25:51.809248Z"
+                  "modified": "2026-08-10T15:39:09.350867Z"
                 },
                 {
                   "id": "GHSA-68w8-qjq3-2gfm",
@@ -69346,7 +69346,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-8qcx-xf44-272x",
-                  "modified": "2026-08-07T20:25:58.536033Z"
+                  "modified": "2026-08-10T15:39:09.597833Z"
                 },
                 {
                   "id": "GHSA-8x94-hmjh-97hq",
@@ -69358,7 +69358,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-crhf-3pfg-w68w",
-                  "modified": "2026-08-07T20:26:00.178698Z"
+                  "modified": "2026-08-10T15:39:09.502515Z"
                 },
                 {
                   "id": "GHSA-frmv-pr5f-9mcr",
