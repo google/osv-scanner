@@ -105,17 +105,12 @@ func Test_rustBuildSource(t *testing.T) {
 	}
 }
 
-// A well-formed ar archive that is not a Rust rlib — it contains no "/0" member and no
-// ".rcgu.o/" member — must be reported as an error the caller can skip, not end the process.
-// Before this was fixed, the iteration loop reached end-of-archive and called log.Fatalf on the
-// resulting io.EOF, which is os.Exit(1). That killed the whole scan on one unrelated build
-// artifact, and reported the failure through the exit code reserved for "vulnerabilities or
-// findings" (see docs/output.md).
+// An ar archive with no object file member is not an rlib we can analyse, so it should return
+// an error.
 func Test_extractRlibArchive_noObjectFile(t *testing.T) {
 	t.Parallel()
 
-	// A minimal GNU ar archive with a single plain member, built by hand so the test needs no
-	// `ar` binary on the machine running it.
+	// Built by hand so the test needs no `ar` binary on the machine running it.
 	var archive bytes.Buffer
 	archive.WriteString("!<arch>\n")
 	const content = "hi"
@@ -128,7 +123,6 @@ func Test_extractRlibArchive_noObjectFile(t *testing.T) {
 		t.Fatalf("failed to write test archive: %v", err)
 	}
 
-	// If the regression returns, this call terminates the test binary instead of failing it.
 	_, err := extractRlibArchive(path)
 	if err == nil {
 		t.Fatal("expected an error for an ar archive with no object file, got nil")
