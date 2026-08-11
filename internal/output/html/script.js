@@ -425,17 +425,6 @@ document.addEventListener("DOMContentLoaded", () => {
   resetFilterText();
   showAndHideParentSections();
 
-  // Implement filter for "show license violations without vulnerabilities"
-  const licenseViolationCheckbox = document.getElementById(
-    "license-violation-type-checkbox"
-  );
-  if (licenseViolationCheckbox) {
-    licenseViolationCheckbox.addEventListener("change", () => {
-      showLicenseViolations = licenseViolationCheckbox.checked;
-      applyFilters(selectedTypeFilterValue, selectedLayer);
-    });
-  }
-
   // Implement filter for vulnerability types
   const typeFilterOptions = document.getElementById(
     "type-filter-option-container"
@@ -448,6 +437,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const projectCheckbox = document.getElementById("project-type-checkbox"); // Project vulnerabilities
     const osCheckbox = document.getElementById("os-type-checkbox"); // OS vulnerabilities
     const uncalledCheckbox = document.getElementById("uncalled-type-checkbox"); // OS vulnerabilities
+    const licenseViolationCheckbox = document.getElementById(
+      "license-violation-type-checkbox"
+    );
+
     selectedTypeFilterValue.clear();
 
     if (allTypesCheckbox !== null) {
@@ -473,6 +466,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (uncalledCheckbox.checked) {
       selectedTypeFilterValue.add("uncalled");
+    }
+
+    if (licenseViolationCheckbox) {
+      showLicenseViolations = licenseViolationCheckbox.checked;
     }
 
     applyFilters(selectedTypeFilterValue, selectedLayer);
