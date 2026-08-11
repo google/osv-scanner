@@ -162,6 +162,22 @@ func stripGitHubWorkspace(path string) string {
 	return strings.TrimPrefix(path, "/github/workspace/")
 }
 
+// sarifLevelForRating maps a severity.Rating string (as returned by
+// severity.CalculateOverallScore) to a SARIF result level, so tools
+// consuming our SARIF output (e.g. GitHub code scanning) can distinguish
+// critical/high severity vulnerabilities from lower-severity ones instead
+// of seeing every finding at the same level.
+func sarifLevelForRating(rating string) string {
+	switch severity.Rating(rating) {
+	case severity.CriticalRating, severity.HighRating:
+		return "error"
+	default:
+		// Medium, Low, and Unknown (no severity data available) all fall
+		// back to the previous behavior of reporting as a warning.
+		return "warning"
+	}
+}
+
 // createSARIFFingerprint generates a stable fingerprint for a SARIF result
 // to help GitHub deduplicate findings across scans.
 //
@@ -310,13 +326,15 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 
 		// Find the worst severity score
 		var worstScore float64 = -1
+		var worstRating string
 		for _, v := range gv.AliasedVulns {
 			if v == nil || v.GetSeverity() == nil {
 				continue
 			}
-			score, _, _ := severity.CalculateOverallScore(v.GetSeverity())
+			score, rating, _ := severity.CalculateOverallScore(v.GetSeverity())
 			if score > worstScore {
 				worstScore = score
+				worstRating = rating
 			}
 		}
 
@@ -325,6 +343,8 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 			bag.Add("security-severity", strconv.FormatFloat(worstScore, 'f', -1, 64))
 			rule.WithProperties(bag)
 		}
+
+		sarifLevel := sarifLevelForRating(worstRating)
 
 		if gv.AliasedIDList == nil {
 			gv.AliasedIDList = []string{}
@@ -353,7 +373,7 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 			fingerprint := createSARIFFingerprint(gv.DisplayID, artifactPath, pws.Package)
 
 			run.CreateResultForRule(gv.DisplayID).
-				WithLevel("warning").
+				WithLevel(sarifLevel).
 				WithMessage(
 					sarif.NewTextMessage(
 						fmt.Sprintf(
