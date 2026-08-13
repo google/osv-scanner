@@ -5223,12 +5223,13 @@ Loaded Maven local db from <tempdir>/osv-scalibr/Maven/all.zip
 Scanned <rootdir>/testdata/maven-transitive/pom.xml file and found 1 package
 Warning: enricher transitivedependency/pomxml may be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts.
 
-Total 1 package affected by 7 known vulnerabilities (2 Critical, 1 High, 4 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-7 vulnerabilities can be fixed.
+Total 2 packages affected by 8 known vulnerabilities (2 Critical, 1 High, 5 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+8 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+-------------------------------------+---------+---------------+-----------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                             | VERSION | FIXED VERSION | SOURCE                            |
 +-------------------------------------+------+-----------+-------------------------------------+---------+---------------+-----------------------------------+
+| https://osv.dev/GHSA-qv9r-c865-cp47 | 6.3  | Maven     | org.apache.logging.log4j:log4j-api  | 2.14.1  | 2.25.5        | testdata/maven-transitive/pom.xml |
 | https://osv.dev/GHSA-3pxv-7cmr-fjr4 | 6.9  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.25.4        | testdata/maven-transitive/pom.xml |
 | https://osv.dev/GHSA-6hg6-v5c8-fphq | 6.3  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.25.4        | testdata/maven-transitive/pom.xml |
 | https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.16.0        | testdata/maven-transitive/pom.xml |
