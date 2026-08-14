@@ -287,6 +287,9 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "--format", "spdx-2-3", "--all-packages", "./testdata/locks-insecure"},
 			ReplaceRules: []testutility.JSONReplaceRule{
 				testutility.NormalizeCreateDateSPDX,
+				testutility.NormalizeFileIDsSPDX,
+				testutility.NormalizeRelationshipFileIDsSPDX,
+				testutility.NormalizeChecksumsSPDX,
 			},
 			Exit: 1,
 		},

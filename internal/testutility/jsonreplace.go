@@ -90,6 +90,32 @@ var (
 		},
 	}
 
+	// NormalizeFileIDsSPDX normalizes SPDXRef-File IDs in SPDX JSON output
+	NormalizeFileIDsSPDX = JSONReplaceRule{
+		Path: "files.#.SPDXID",
+		ReplaceFunc: func(toReplace gjson.Result) any {
+			spdxHashRegex := cachedregexp.MustCompile(`(SPDXRef-File.*?)-[a-f0-9]{8}\b`)
+			return spdxHashRegex.ReplaceAllString(toReplace.String(), "${1}-<hash>")
+		},
+	}
+
+	// NormalizeRelationshipFileIDsSPDX normalizes SPDXRef-File IDs in SPDX relationship JSON output
+	NormalizeRelationshipFileIDsSPDX = JSONReplaceRule{
+		Path: "relationships.#.spdxElementId",
+		ReplaceFunc: func(toReplace gjson.Result) any {
+			spdxHashRegex := cachedregexp.MustCompile(`(SPDXRef-File.*?)-[a-f0-9]{8}\b`)
+			return spdxHashRegex.ReplaceAllString(toReplace.String(), "${1}-<hash>")
+		},
+	}
+
+	// NormalizeChecksumsSPDX normalizes file content SHA256 checksums in SPDX JSON output
+	NormalizeChecksumsSPDX = JSONReplaceRule{
+		Path: "files.#.checksums.#.checksumValue",
+		ReplaceFunc: func(_ gjson.Result) any {
+			return "<checksum>"
+		},
+	}
+
 	ReplacePartialFingerprintHash = JSONReplaceRule{
 		Path: "runs.#.results.#.partialFingerprints.primaryLocationLineHash",
 		ReplaceFunc: func(toReplace gjson.Result) any {

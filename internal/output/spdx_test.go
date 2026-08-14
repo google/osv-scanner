@@ -18,6 +18,14 @@ func normalizeSPDXOutput(t *testing.T, str string) string {
 	str = cachedregexp.MustCompile(`[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}`).ReplaceAllString(str, `<uuid>`)
 	str = cachedregexp.MustCompile(`"created": ".+T.+Z"`).ReplaceAllString(str, `"created": "<timestamp>"`)
 
+	// Normalize 8-character path hashes in SPDXRef-File IDs
+	spdxHashRegex := cachedregexp.MustCompile(`(SPDXRef-File.*?)-[a-f0-9]{8}\b`)
+	str = spdxHashRegex.ReplaceAllString(str, "${1}-<hash>")
+
+	// Normalize file content SHA256 checksums (which differ on Windows due to CRLF line endings)
+	spdxChecksumRegex := cachedregexp.MustCompile(`("checksumValue":\s*")[a-f0-9]{64}(")`)
+	str = spdxChecksumRegex.ReplaceAllString(str, "${1}<checksum>${2}")
+
 	return str
 }
 
