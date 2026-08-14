@@ -1909,7 +1909,7 @@ Total 12 packages affected by 71 known vulnerabilities (6 Critical, 20 High, 32 
   "files": [
     {
       "fileName": "<rootdir>/testdata/locks-insecure/bun.lock",
-      "SPDXID": "SPDXRef-File-usr-local-google-home-joeylauy-osv-scanner-cmd-osv-scanner-scan-source-testdata-locks-insecure-bun.lock-58295324",
+      "SPDXID": "SPDXRef-File<rootdir>-testdata-locks-insecure-bun.lock-58295324",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1920,7 +1920,7 @@ Total 12 packages affected by 71 known vulnerabilities (6 Critical, 20 High, 32 
     },
     {
       "fileName": "<rootdir>/testdata/locks-insecure/composer.lock",
-      "SPDXID": "SPDXRef-File-usr-local-google-home-joeylauy-osv-scanner-cmd-osv-scanner-scan-source-testdata-locks-insecure-composer.lock-22ffc085",
+      "SPDXID": "SPDXRef-File<rootdir>-testdata-locks-insecure-composer.lock-22ffc085",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1931,7 +1931,7 @@ Total 12 packages affected by 71 known vulnerabilities (6 Critical, 20 High, 32 
     },
     {
       "fileName": "<rootdir>/testdata/locks-insecure/osv-scanner-custom.json",
-      "SPDXID": "SPDXRef-File-usr-local-google-home-joeylauy-osv-scanner-cmd-osv-scanner-scan-source-testdata-locks-insecure-osv-scanner-custom.json-2c3a52ca",
+      "SPDXID": "SPDXRef-File<rootdir>-testdata-locks-insecure-osv-scanner-custom.json-2c3a52ca",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1958,7 +1958,7 @@ Total 12 packages affected by 71 known vulnerabilities (6 Critical, 20 High, 32 
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-File-usr-local-google-home-joeylauy-osv-scanner-cmd-osv-scanner-scan-source-testdata-locks-insecure-bun.lock-58295324",
+      "spdxElementId": "SPDXRef-File<rootdir>-testdata-locks-insecure-bun.lock-58295324",
       "relatedSpdxElement": "SPDXRef-Package-has-flag-uuid-placeholder-2",
       "relationshipType": "DEPENDENCY_MANIFEST_OF"
     },
@@ -1973,7 +1973,7 @@ Total 12 packages affected by 71 known vulnerabilities (6 Critical, 20 High, 32 
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-File-usr-local-google-home-joeylauy-osv-scanner-cmd-osv-scanner-scan-source-testdata-locks-insecure-bun.lock-58295324",
+      "spdxElementId": "SPDXRef-File<rootdir>-testdata-locks-insecure-bun.lock-58295324",
       "relatedSpdxElement": "SPDXRef-Package-wrappy-uuid-placeholder-3",
       "relationshipType": "DEPENDENCY_MANIFEST_OF"
     },
@@ -1988,7 +1988,7 @@ Total 12 packages affected by 71 known vulnerabilities (6 Critical, 20 High, 32 
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-File-usr-local-google-home-joeylauy-osv-scanner-cmd-osv-scanner-scan-source-testdata-locks-insecure-composer.lock-22ffc085",
+      "spdxElementId": "SPDXRef-File<rootdir>-testdata-locks-insecure-composer.lock-22ffc085",
       "relatedSpdxElement": "SPDXRef-Package-flysystem-uuid-placeholder-4",
       "relationshipType": "DEPENDENCY_MANIFEST_OF"
     },
@@ -2003,7 +2003,7 @@ Total 12 packages affected by 71 known vulnerabilities (6 Critical, 20 High, 32 
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-File-usr-local-google-home-joeylauy-osv-scanner-cmd-osv-scanner-scan-source-testdata-locks-insecure-osv-scanner-custom.json-2c3a52ca",
+      "spdxElementId": "SPDXRef-File<rootdir>-testdata-locks-insecure-osv-scanner-custom.json-2c3a52ca",
       "relatedSpdxElement": "SPDXRef-Package-stdlib-uuid-placeholder-5",
       "relationshipType": "DEPENDENCY_MANIFEST_OF"
     },
@@ -2018,7 +2018,7 @@ Total 12 packages affected by 71 known vulnerabilities (6 Critical, 20 High, 32 
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-File-usr-local-google-home-joeylauy-osv-scanner-cmd-osv-scanner-scan-source-testdata-locks-insecure-osv-scanner-custom.json-2c3a52ca",
+      "spdxElementId": "SPDXRef-File<rootdir>-testdata-locks-insecure-osv-scanner-custom.json-2c3a52ca",
       "relatedSpdxElement": "SPDXRef-Package-toolchain-uuid-placeholder-6",
       "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }

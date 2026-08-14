@@ -66,6 +66,23 @@ func normalizeRootDirectory(t *testing.T, str string) string {
 	return str
 }
 
+// normalizeSPDXFileIDs replaces absolute working directory paths and SHA256 path hashes
+// in SPDXRef-File IDs to ensure snapshot comparisons are deterministic across environments.
+func normalizeSPDXFileIDs(t *testing.T, str string) string {
+	t.Helper()
+
+	cwd := normalizeFilePaths(t, GetCurrentWorkingDirectory(t))
+	invalidCharsRegex := cachedregexp.MustCompile(`[^a-zA-Z0-9.-]`)
+	cwdHyphenated := invalidCharsRegex.ReplaceAllString(cwd, "-")
+
+	str = strings.ReplaceAll(str, cwdHyphenated, "<rootdir>")
+	str = strings.ReplaceAll(str, strings.TrimPrefix(cwdHyphenated, "-"), "<rootdir>")
+
+	spdxHashRegex := cachedregexp.MustCompile(`(SPDXRef-File-[\w.-]+-)[a-f0-9]{8}\b`)
+
+	return spdxHashRegex.ReplaceAllString(str, "${1}<hash>")
+}
+
 // normalizeUserCacheDirectory attempts to replace references to the current working
 // directory with "<tempdir>", in order to reduce the noise of the cmp diff
 func normalizeUserCacheDirectory(t *testing.T, str string) string {
@@ -132,6 +149,7 @@ func normalizeSnapshot(t *testing.T, str string) string {
 	for _, normalizer := range []func(t *testing.T, str string) string{
 		normalizeFilePathsOnOutput,
 		normalizeRootDirectory,
+		normalizeSPDXFileIDs,
 		normalizeTempDirectory,
 		normalizeUserCacheDirectory,
 		normalizeErrors,
