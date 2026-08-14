@@ -1909,7 +1909,7 @@ Total 12 packages affected by 71 known vulnerabilities (6 Critical, 20 High, 32 
   "files": [
     {
       "fileName": "<rootdir>/testdata/locks-insecure/bun.lock",
-      "SPDXID": "SPDXRef-File<rootdir>-testdata-locks-insecure-bun.lock-<hash>",
+      "SPDXID": "SPDXRef-File-<rootdir>-testdata-locks-insecure-bun.lock-<hash>",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1920,7 +1920,7 @@ Total 12 packages affected by 71 known vulnerabilities (6 Critical, 20 High, 32 
     },
     {
       "fileName": "<rootdir>/testdata/locks-insecure/composer.lock",
-      "SPDXID": "SPDXRef-File<rootdir>-testdata-locks-insecure-composer.lock-<hash>",
+      "SPDXID": "SPDXRef-File-<rootdir>-testdata-locks-insecure-composer.lock-<hash>",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1931,7 +1931,7 @@ Total 12 packages affected by 71 known vulnerabilities (6 Critical, 20 High, 32 
     },
     {
       "fileName": "<rootdir>/testdata/locks-insecure/osv-scanner-custom.json",
-      "SPDXID": "SPDXRef-File<rootdir>-testdata-locks-insecure-osv-scanner-custom.json-<hash>",
+      "SPDXID": "SPDXRef-File-<rootdir>-testdata-locks-insecure-osv-scanner-custom.json-<hash>",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1958,7 +1958,7 @@ Total 12 packages affected by 71 known vulnerabilities (6 Critical, 20 High, 32 
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-File<rootdir>-testdata-locks-insecure-bun.lock-<hash>",
+      "spdxElementId": "SPDXRef-File-<rootdir>-testdata-locks-insecure-bun.lock-<hash>",
       "relatedSpdxElement": "SPDXRef-Package-has-flag-uuid-placeholder-2",
       "relationshipType": "DEPENDENCY_MANIFEST_OF"
     },
@@ -1973,7 +1973,7 @@ Total 12 packages affected by 71 known vulnerabilities (6 Critical, 20 High, 32 
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-File<rootdir>-testdata-locks-insecure-bun.lock-<hash>",
+      "spdxElementId": "SPDXRef-File-<rootdir>-testdata-locks-insecure-bun.lock-<hash>",
       "relatedSpdxElement": "SPDXRef-Package-wrappy-uuid-placeholder-3",
       "relationshipType": "DEPENDENCY_MANIFEST_OF"
     },
@@ -1988,7 +1988,7 @@ Total 12 packages affected by 71 known vulnerabilities (6 Critical, 20 High, 32 
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-File<rootdir>-testdata-locks-insecure-composer.lock-<hash>",
+      "spdxElementId": "SPDXRef-File-<rootdir>-testdata-locks-insecure-composer.lock-<hash>",
       "relatedSpdxElement": "SPDXRef-Package-flysystem-uuid-placeholder-4",
       "relationshipType": "DEPENDENCY_MANIFEST_OF"
     },
@@ -2003,7 +2003,7 @@ Total 12 packages affected by 71 known vulnerabilities (6 Critical, 20 High, 32 
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-File<rootdir>-testdata-locks-insecure-osv-scanner-custom.json-<hash>",
+      "spdxElementId": "SPDXRef-File-<rootdir>-testdata-locks-insecure-osv-scanner-custom.json-<hash>",
       "relatedSpdxElement": "SPDXRef-Package-stdlib-uuid-placeholder-5",
       "relationshipType": "DEPENDENCY_MANIFEST_OF"
     },
@@ -2018,7 +2018,7 @@ Total 12 packages affected by 71 known vulnerabilities (6 Critical, 20 High, 32 
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-File<rootdir>-testdata-locks-insecure-osv-scanner-custom.json-<hash>",
+      "spdxElementId": "SPDXRef-File-<rootdir>-testdata-locks-insecure-osv-scanner-custom.json-<hash>",
       "relatedSpdxElement": "SPDXRef-Package-toolchain-uuid-placeholder-6",
       "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }

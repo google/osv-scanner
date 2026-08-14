@@ -94,8 +94,8 @@ var (
 	NormalizeFileIDsSPDX = JSONReplaceRule{
 		Path: "files.#.SPDXID",
 		ReplaceFunc: func(toReplace gjson.Result) any {
-			spdxHashRegex := cachedregexp.MustCompile(`(SPDXRef-File.*?)-[a-f0-9]{8}\b`)
-			return spdxHashRegex.ReplaceAllString(toReplace.String(), "${1}-<hash>")
+			spdxFileIDRegex := cachedregexp.MustCompile(`SPDXRef-File-.*?(testdata-.*)-[a-f0-9]{8}\b`)
+			return spdxFileIDRegex.ReplaceAllString(toReplace.String(), "SPDXRef-File-<rootdir>-${1}-<hash>")
 		},
 	}
 
@@ -103,8 +103,8 @@ var (
 	NormalizeRelationshipFileIDsSPDX = JSONReplaceRule{
 		Path: "relationships.#.spdxElementId",
 		ReplaceFunc: func(toReplace gjson.Result) any {
-			spdxHashRegex := cachedregexp.MustCompile(`(SPDXRef-File.*?)-[a-f0-9]{8}\b`)
-			return spdxHashRegex.ReplaceAllString(toReplace.String(), "${1}-<hash>")
+			spdxFileIDRegex := cachedregexp.MustCompile(`SPDXRef-File-.*?(testdata-.*)-[a-f0-9]{8}\b`)
+			return spdxFileIDRegex.ReplaceAllString(toReplace.String(), "SPDXRef-File-<rootdir>-${1}-<hash>")
 		},
 	}
 

@@ -63,16 +63,6 @@ func normalizeRootDirectory(t *testing.T, str string) string {
 	// Replace versions without the root as well
 	str = strings.ReplaceAll(str, pathWithoutRoot(t, cwd), "<rootdir>")
 
-	// Replace hyphenated versions of working directory paths
-	invalidCharsRegex := cachedregexp.MustCompile(`[^a-zA-Z0-9.-]`)
-	cwdHyphenated := invalidCharsRegex.ReplaceAllString(cwd, "-")
-	cwdWithoutRootHyphenated := invalidCharsRegex.ReplaceAllString(pathWithoutRoot(t, cwd), "-")
-
-	str = strings.ReplaceAll(str, cwdHyphenated, "<rootdir>")
-	str = strings.ReplaceAll(str, strings.TrimPrefix(cwdHyphenated, "-"), "<rootdir>")
-	str = strings.ReplaceAll(str, cwdWithoutRootHyphenated, "<rootdir>")
-	str = strings.ReplaceAll(str, strings.TrimPrefix(cwdWithoutRootHyphenated, "-"), "<rootdir>")
-
 	return str
 }
 
