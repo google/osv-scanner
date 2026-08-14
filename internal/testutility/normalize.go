@@ -66,21 +66,31 @@ func normalizeRootDirectory(t *testing.T, str string) string {
 	return str
 }
 
-// normalizeSPDXFileIDs replaces absolute working directory paths and SHA256 path hashes
-// in SPDXRef-File IDs to ensure snapshot comparisons are deterministic across environments.
+// normalizeSPDXFileIDs replaces absolute working directory paths, SHA256 path hashes,
+// and file content checksums in SPDX output to ensure snapshot comparisons are deterministic
+// across environments.
 func normalizeSPDXFileIDs(t *testing.T, str string) string {
 	t.Helper()
 
 	cwd := normalizeFilePaths(t, GetCurrentWorkingDirectory(t))
 	invalidCharsRegex := cachedregexp.MustCompile(`[^a-zA-Z0-9.-]`)
 	cwdHyphenated := invalidCharsRegex.ReplaceAllString(cwd, "-")
+	cwdWithoutRootHyphenated := invalidCharsRegex.ReplaceAllString(pathWithoutRoot(t, cwd), "-")
 
 	str = strings.ReplaceAll(str, cwdHyphenated, "<rootdir>")
 	str = strings.ReplaceAll(str, strings.TrimPrefix(cwdHyphenated, "-"), "<rootdir>")
+	str = strings.ReplaceAll(str, cwdWithoutRootHyphenated, "<rootdir>")
+	str = strings.ReplaceAll(str, strings.TrimPrefix(cwdWithoutRootHyphenated, "-"), "<rootdir>")
 
+	// Normalize 8-character path hashes in SPDXRef-File IDs
 	spdxHashRegex := cachedregexp.MustCompile(`(SPDXRef-File.*?)-[a-f0-9]{8}\b`)
+	str = spdxHashRegex.ReplaceAllString(str, "${1}-<hash>")
 
-	return spdxHashRegex.ReplaceAllString(str, "${1}-<hash>")
+	// Normalize file content SHA256 checksums (which differ on Windows due to CRLF line endings)
+	spdxChecksumRegex := cachedregexp.MustCompile(`("checksumValue":\s*")[a-f0-9]{64}(")`)
+	str = spdxChecksumRegex.ReplaceAllString(str, "${1}<checksum>${2}")
+
+	return str
 }
 
 // normalizeUserCacheDirectory attempts to replace references to the current working

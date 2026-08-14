@@ -1913,7 +1913,7 @@ Total 12 packages affected by 71 known vulnerabilities (6 Critical, 20 High, 32 
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "da28c519529efc5b4d73858b622f9b70fb4e00f4ef851d1448eb7ab6cf2ad362"
+          "checksumValue": "<checksum>"
         }
       ],
       "copyrightText": "NOASSERTION"
@@ -1924,7 +1924,7 @@ Total 12 packages affected by 71 known vulnerabilities (6 Critical, 20 High, 32 
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "d8c2c6512d65b2b50f25180ae2546ab82710efbad45dd62428de9dac7264d609"
+          "checksumValue": "<checksum>"
         }
       ],
       "copyrightText": "NOASSERTION"
@@ -1935,7 +1935,7 @@ Total 12 packages affected by 71 known vulnerabilities (6 Critical, 20 High, 32 
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "162b857ed253b77603cd9267f71ae1a675d43375c54aafd25f070e2d920cd200"
+          "checksumValue": "<checksum>"
         }
       ],
       "copyrightText": "NOASSERTION"
