@@ -945,8 +945,8 @@ Scanning local image tarball "./testdata/test-package-tracing.tar"
 
 
 Container Scanning Result (Alpine Linux v3.20) (Based on "alpine" image):
-Total 10 packages affected by 343 known vulnerabilities (2 Critical, 14 High, 13 Medium, 2 Low, 312 Unknown) from 2 ecosystems.
-343 vulnerabilities can be fixed.
+Total 10 packages affected by 391 known vulnerabilities (2 Critical, 14 High, 13 Medium, 2 Low, 360 Unknown) from 2 ecosystems.
+391 vulnerabilities can be fixed.
 
 
 Go
@@ -955,42 +955,42 @@ Go
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.22.4            | Fix Available |         52 | # 9 Layer        | --            |
+| stdlib  | 1.22.4            | Fix Available |         60 | # 9 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/go/bin/ptf-1.2.0                                                           |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.22.4            | Fix Available |         52 | # 2 Layer        | --            |
+| stdlib  | 1.22.4            | Fix Available |         60 | # 2 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/go/bin/ptf-1.3.0                                                           |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.22.4            | Fix Available |         52 | # 4 Layer        | --            |
+| stdlib  | 1.22.4            | Fix Available |         60 | # 4 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/go/bin/ptf-1.3.0-moved                                                     |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.22.4            | Fix Available |         52 | # 3 Layer        | --            |
+| stdlib  | 1.22.4            | Fix Available |         60 | # 3 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/go/bin/ptf-1.4.0                                                           |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.22.4            | Fix Available |         52 | # 2 Layer        | --            |
+| stdlib  | 1.22.4            | Fix Available |         60 | # 2 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/go/bin/ptf-vulnerable                                                      |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.22.4            | Fix Available |         52 | # 7 Layer        | --            |
+| stdlib  | 1.22.4            | Fix Available |         60 | # 7 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 Alpine:v3.20
 +------------------------------------------------------------------------------------------------------------------------------+
@@ -1126,8 +1126,8 @@ Scanning local image tarball "./testdata/test-chisel.tar"
 
 
 Container Scanning Result (Ubuntu 26.04 LTS):
-Total 7 packages affected by 153 known vulnerabilities (0 Critical, 0 High, 2 Medium, 1 Low, 150 Unknown) from 2 ecosystems.
-150 vulnerabilities can be fixed.
+Total 7 packages affected by 201 known vulnerabilities (0 Critical, 0 High, 2 Medium, 1 Low, 198 Unknown) from 2 ecosystems.
+198 vulnerabilities can be fixed.
 
 
 Go
@@ -1136,42 +1136,42 @@ Go
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.26.0            | Fix Available |         25 | # 0 Layer        | --            |
+| stdlib  | 1.26.0            | Fix Available |         33 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/lib/go-1.26/bin/gofmt                                                  |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.26.0            | Fix Available |         25 | # 0 Layer        | --            |
+| stdlib  | 1.26.0            | Fix Available |         33 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/asm                                   |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.26.0            | Fix Available |         25 | # 0 Layer        | --            |
+| stdlib  | 1.26.0            | Fix Available |         33 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/compile                               |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.26.0            | Fix Available |         25 | # 0 Layer        | --            |
+| stdlib  | 1.26.0            | Fix Available |         33 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/link                                  |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.26.0            | Fix Available |         25 | # 0 Layer        | --            |
+| stdlib  | 1.26.0            | Fix Available |         33 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/vet                                   |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.26.0            | Fix Available |         25 | # 0 Layer        | --            |
+| stdlib  | 1.26.0            | Fix Available |         33 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 Ubuntu:26.04
 +-------------------------------------------------------------------------------------------------------------------------------------------+
@@ -2578,7 +2578,7 @@ Scanning local image tarball "./testdata/test-image-with-deprecated.tar"
               "index": 2
             }
           },
-          "groups": 52,
+          "groups": 60,
           "vulnerabilities": [
             "GO-2024-2963",
             "GO-2024-3105",
@@ -2628,10 +2628,18 @@ Scanning local image tarball "./testdata/test-image-with-deprecated.tar"
             "GO-2026-4981",
             "GO-2026-4982",
             "GO-2026-4986",
+            "GO-2026-5026",
             "GO-2026-5037",
             "GO-2026-5038",
             "GO-2026-5039",
-            "GO-2026-5856"
+            "GO-2026-5856",
+            "GO-2026-5942",
+            "GO-2026-5972",
+            "GO-2026-6088",
+            "GO-2026-6089",
+            "GO-2026-6090",
+            "GO-2026-6091",
+            "GO-2026-6218"
           ]
         },
         {
@@ -3184,7 +3192,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
               "index": 0
             }
           },
-          "groups": 25,
+          "groups": 33,
           "vulnerabilities": [
             "GO-2026-4599",
             "GO-2026-4600",
@@ -3207,10 +3215,18 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             "GO-2026-4981",
             "GO-2026-4982",
             "GO-2026-4986",
+            "GO-2026-5026",
             "GO-2026-5037",
             "GO-2026-5038",
             "GO-2026-5039",
-            "GO-2026-5856"
+            "GO-2026-5856",
+            "GO-2026-5942",
+            "GO-2026-5972",
+            "GO-2026-6088",
+            "GO-2026-6089",
+            "GO-2026-6090",
+            "GO-2026-6091",
+            "GO-2026-6218"
           ]
         }
       ]
@@ -3230,7 +3246,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
               "index": 0
             }
           },
-          "groups": 25,
+          "groups": 33,
           "vulnerabilities": [
             "GO-2026-4599",
             "GO-2026-4600",
@@ -3253,10 +3269,18 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             "GO-2026-4981",
             "GO-2026-4982",
             "GO-2026-4986",
+            "GO-2026-5026",
             "GO-2026-5037",
             "GO-2026-5038",
             "GO-2026-5039",
-            "GO-2026-5856"
+            "GO-2026-5856",
+            "GO-2026-5942",
+            "GO-2026-5972",
+            "GO-2026-6088",
+            "GO-2026-6089",
+            "GO-2026-6090",
+            "GO-2026-6091",
+            "GO-2026-6218"
           ]
         }
       ]
@@ -3276,7 +3300,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
               "index": 0
             }
           },
-          "groups": 25,
+          "groups": 33,
           "vulnerabilities": [
             "GO-2026-4599",
             "GO-2026-4600",
@@ -3299,10 +3323,18 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             "GO-2026-4981",
             "GO-2026-4982",
             "GO-2026-4986",
+            "GO-2026-5026",
             "GO-2026-5037",
             "GO-2026-5038",
             "GO-2026-5039",
-            "GO-2026-5856"
+            "GO-2026-5856",
+            "GO-2026-5942",
+            "GO-2026-5972",
+            "GO-2026-6088",
+            "GO-2026-6089",
+            "GO-2026-6090",
+            "GO-2026-6091",
+            "GO-2026-6218"
           ]
         }
       ]
@@ -3322,7 +3354,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
               "index": 0
             }
           },
-          "groups": 25,
+          "groups": 33,
           "vulnerabilities": [
             "GO-2026-4599",
             "GO-2026-4600",
@@ -3345,10 +3377,18 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             "GO-2026-4981",
             "GO-2026-4982",
             "GO-2026-4986",
+            "GO-2026-5026",
             "GO-2026-5037",
             "GO-2026-5038",
             "GO-2026-5039",
-            "GO-2026-5856"
+            "GO-2026-5856",
+            "GO-2026-5942",
+            "GO-2026-5972",
+            "GO-2026-6088",
+            "GO-2026-6089",
+            "GO-2026-6090",
+            "GO-2026-6091",
+            "GO-2026-6218"
           ]
         }
       ]
@@ -3368,7 +3408,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
               "index": 0
             }
           },
-          "groups": 25,
+          "groups": 33,
           "vulnerabilities": [
             "GO-2026-4599",
             "GO-2026-4600",
@@ -3391,10 +3431,18 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             "GO-2026-4981",
             "GO-2026-4982",
             "GO-2026-4986",
+            "GO-2026-5026",
             "GO-2026-5037",
             "GO-2026-5038",
             "GO-2026-5039",
-            "GO-2026-5856"
+            "GO-2026-5856",
+            "GO-2026-5942",
+            "GO-2026-5972",
+            "GO-2026-6088",
+            "GO-2026-6089",
+            "GO-2026-6090",
+            "GO-2026-6091",
+            "GO-2026-6218"
           ]
         }
       ]
@@ -3414,7 +3462,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
               "index": 0
             }
           },
-          "groups": 25,
+          "groups": 33,
           "vulnerabilities": [
             "GO-2026-4599",
             "GO-2026-4600",
@@ -3437,10 +3485,18 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             "GO-2026-4981",
             "GO-2026-4982",
             "GO-2026-4986",
+            "GO-2026-5026",
             "GO-2026-5037",
             "GO-2026-5038",
             "GO-2026-5039",
-            "GO-2026-5856"
+            "GO-2026-5856",
+            "GO-2026-5942",
+            "GO-2026-5972",
+            "GO-2026-6088",
+            "GO-2026-6089",
+            "GO-2026-6090",
+            "GO-2026-6091",
+            "GO-2026-6218"
           ]
         }
       ]
@@ -5064,7 +5120,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 7
             }
           },
-          "groups": 104,
+          "groups": 112,
           "vulnerabilities": [
             "GO-2022-0477",
             "GO-2022-0493",
@@ -5166,10 +5222,18 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "GO-2026-4981",
             "GO-2026-4982",
             "GO-2026-4986",
+            "GO-2026-5026",
             "GO-2026-5037",
             "GO-2026-5038",
             "GO-2026-5039",
-            "GO-2026-5856"
+            "GO-2026-5856",
+            "GO-2026-5942",
+            "GO-2026-5972",
+            "GO-2026-6088",
+            "GO-2026-6089",
+            "GO-2026-6090",
+            "GO-2026-6091",
+            "GO-2026-6218"
           ]
         }
       ]
