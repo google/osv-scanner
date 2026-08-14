@@ -78,9 +78,9 @@ func normalizeSPDXFileIDs(t *testing.T, str string) string {
 	str = strings.ReplaceAll(str, cwdHyphenated, "<rootdir>")
 	str = strings.ReplaceAll(str, strings.TrimPrefix(cwdHyphenated, "-"), "<rootdir>")
 
-	spdxHashRegex := cachedregexp.MustCompile(`(SPDXRef-File-[\w.-]+-)[a-f0-9]{8}\b`)
+	spdxHashRegex := cachedregexp.MustCompile(`(SPDXRef-File.*?)-[a-f0-9]{8}\b`)
 
-	return spdxHashRegex.ReplaceAllString(str, "${1}<hash>")
+	return spdxHashRegex.ReplaceAllString(str, "${1}-<hash>")
 }
 
 // normalizeUserCacheDirectory attempts to replace references to the current working
