@@ -54,13 +54,15 @@ func filterPackageVulns(pkgVulns models.PackageVulns, configToUse config.Config)
 				}
 
 				// NB: This only prints the first reason encountered in all the aliases.
+				// Warn rather than info: this hides a known vulnerability from the
+				// result, so it must stay visible at reduced verbosity.
 				switch len(group.Aliases) {
 				case 1:
-					cmdlogger.Infof("%s has been filtered out because: %s", ignoreLine.ID, reason)
+					cmdlogger.Warnf("%s has been filtered out because: %s", ignoreLine.ID, reason)
 				case 2:
-					cmdlogger.Infof("%s and 1 alias have been filtered out because: %s", ignoreLine.ID, reason)
+					cmdlogger.Warnf("%s and 1 alias have been filtered out because: %s", ignoreLine.ID, reason)
 				default:
-					cmdlogger.Infof("%s and %d aliases have been filtered out because: %s", ignoreLine.ID, len(group.Aliases)-1, reason)
+					cmdlogger.Warnf("%s and %d aliases have been filtered out because: %s", ignoreLine.ID, len(group.Aliases)-1, reason)
 				}
 
 				ignoreLine.MarkAsUsed()

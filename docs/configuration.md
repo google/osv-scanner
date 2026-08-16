@@ -22,6 +22,12 @@ To configure scanning, place an osv-scanner.toml file in the scanned file's dire
 
 To override `osv-scanner.toml` files, pass the `--config=/path/to/config.toml` flag with the path to the configuration you want to apply instead, this will apply `config.toml` to all files parsed, and ignore `osv-scanner.toml` in all directories.
 
+## A note on trust
+
+An auto-discovered `osv-scanner.toml` is read from the directory of each manifest that is scanned, including directories inside the scanned tree that you did not author yourself, such as a vendored dependency, a git submodule, an extracted archive, or a directory added by a pull request. Its `IgnoredVulns` and `PackageOverrides` `ignore` directives suppress findings for that directory. This means code you are scanning can carry a config that hides its own vulnerabilities from the result.
+
+Whenever a config suppresses a finding, osv-scanner logs it at warning level (the config path, each suppressed vulnerability, and a count), so a suppressed result is not silent even at reduced verbosity. To refuse suppression directives that come from auto-discovered configs entirely, pass `--no-config-ignore`; a config you supply yourself with `--config` is always honored. Use `--no-config-ignore` when scanning code you do not fully control, for example in CI on pull requests or over vendored third-party trees.
+
 ## Ignore vulnerabilities by ID
 
 To ignore a vulnerability, enter the ID under the `IgnoreVulns` key. Optionally, add an expiry date or reason.

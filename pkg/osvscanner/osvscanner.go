@@ -48,6 +48,10 @@ type ScannerActions struct {
 	Image              string
 	IsImageArchive     bool
 	ConfigOverridePath string
+	// NoConfigIgnore drops vulnerability-suppressing directives from
+	// osv-scanner.toml files discovered next to the scanned manifests. A config
+	// passed explicitly with --config is unaffected.
+	NoConfigIgnore     bool
 	CallAnalysisStates map[string]bool
 	ShowAllPackages    bool
 	ShowAllVulns       bool
@@ -130,8 +134,9 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 
 	scanResults := results.ScanResults{
 		ConfigManager: config.Manager{
-			DefaultConfig: config.Config{},
-			ConfigMap:     make(map[string]config.Config),
+			DefaultConfig:        config.Config{},
+			ConfigMap:            make(map[string]config.Config),
+			DisableInTreeIgnores: actions.NoConfigIgnore,
 		},
 	}
 
@@ -169,8 +174,9 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 	scanResults := results.ScanResults{
 		ConfigManager: config.Manager{
-			DefaultConfig: config.Config{},
-			ConfigMap:     make(map[string]config.Config),
+			DefaultConfig:        config.Config{},
+			ConfigMap:            make(map[string]config.Config),
+			DisableInTreeIgnores: actions.NoConfigIgnore,
 		},
 	}
 
@@ -291,7 +297,10 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 
 	filtered := filterResults(&vulnerabilityResults, &scanResult.ConfigManager, actions.ShowAllPackages)
 	if filtered > 0 {
-		cmdlogger.Infof(
+		// Warn rather than info: this count is how many known vulnerabilities the
+		// config removed from the result, so it must survive a reduced-verbosity
+		// run where the exit code alone would otherwise read as clean.
+		cmdlogger.Warnf(
 			"Filtered %d %s from output",
 			filtered,
 			output.Form(filtered, "vulnerability", "vulnerabilities"),

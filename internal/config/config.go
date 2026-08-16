@@ -80,6 +80,39 @@ func (e PackageOverrideEntry) matches(pkg *extractor.Package) bool {
 	return true
 }
 
+// withoutVulnIgnores returns a copy of the config with every directive that
+// suppresses a vulnerability removed: the IgnoredVulns list and the ignore
+// flags on any PackageOverrides. License overrides and the remaining fields are
+// left intact. It is used for configs discovered inside the scanned tree when
+// in-tree ignores have been disabled, so a config planted in the scanned tree
+// cannot hide findings.
+func (c Config) withoutVulnIgnores() Config {
+	dropped := len(c.IgnoredVulns)
+
+	overrides := make([]PackageOverrideEntry, 0, len(c.PackageOverrides))
+	for _, o := range c.PackageOverrides {
+		if o.Ignore || o.Vulnerability.Ignore {
+			dropped++
+			o.Ignore = false
+			o.Vulnerability.Ignore = false
+		}
+		overrides = append(overrides, o)
+	}
+
+	c.IgnoredVulns = nil
+	c.PackageOverrides = overrides
+
+	if dropped > 0 {
+		cmdlogger.Warnf(
+			"Ignored %d vulnerability-suppressing directive/s from %s because in-tree config ignores are disabled",
+			dropped,
+			c.LoadPath,
+		)
+	}
+
+	return c
+}
+
 type Vulnerability struct {
 	Ignore bool `toml:"ignore"`
 }

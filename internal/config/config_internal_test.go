@@ -1359,3 +1359,55 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 		})
 	}
 }
+
+func TestConfig_withoutVulnIgnores(t *testing.T) {
+	t.Parallel()
+
+	pkg := &extractor.Package{
+		Name:     "lib1",
+		Version:  "1.0.0",
+		PURLType: purl.TypeGolang,
+	}
+
+	config := Config{
+		LoadPath: "/some/scanned/subdir/osv-scanner.toml",
+		IgnoredVulns: []*IgnoreEntry{
+			{ID: "GO-2022-0968"},
+		},
+		PackageOverrides: []PackageOverrideEntry{
+			{
+				Name:          "lib1",
+				Ecosystem:     "Go",
+				Ignore:        true,
+				Vulnerability: Vulnerability{Ignore: true},
+				License:       License{Override: []string{"MIT"}},
+			},
+		},
+	}
+
+	stripped := config.withoutVulnIgnores()
+
+	// The vulnerability-suppressing directives are gone.
+	if ignore, _ := stripped.ShouldIgnore("GO-2022-0968"); ignore {
+		t.Error("withoutVulnIgnores() still ignores a vulnerability by ID")
+	}
+	if ignore, _ := stripped.ShouldIgnorePackage(pkg); ignore {
+		t.Error("withoutVulnIgnores() still ignores a package")
+	}
+	if stripped.ShouldIgnorePackageVulnerabilities(pkg) {
+		t.Error("withoutVulnIgnores() still ignores a package's vulnerabilities")
+	}
+
+	// The non-suppressing license override is preserved.
+	if ok, entry := stripped.ShouldOverridePackageLicense(pkg); !ok || !reflect.DeepEqual(entry.License.Override, []string{"MIT"}) {
+		t.Errorf("withoutVulnIgnores() dropped the license override: ok=%v entry=%+v", ok, entry)
+	}
+
+	// The original config is left untouched.
+	if ignore, _ := config.ShouldIgnore("GO-2022-0968"); !ignore {
+		t.Error("withoutVulnIgnores() mutated the original config's IgnoredVulns")
+	}
+	if ignore, _ := config.ShouldIgnorePackage(pkg); !ignore {
+		t.Error("withoutVulnIgnores() mutated the original config's PackageOverrides")
+	}
+}

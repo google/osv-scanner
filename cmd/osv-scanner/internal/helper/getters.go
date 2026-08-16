@@ -37,6 +37,7 @@ func GetCommonScannerActions(cmd *cli.Command, scanLicensesAllowlist []string) o
 	return osvscanner.ScannerActions{
 		IncludeGitRoot:        cmd.Bool("include-git-root"),
 		ConfigOverridePath:    cmd.String("config"),
+		NoConfigIgnore:        cmd.Bool("no-config-ignore"),
 		ShowAllPackages:       cmd.Bool("all-packages"),
 		ShowAllVulns:          cmd.Bool("all-vulns"),
 		CompareOffline:        cmd.Bool("offline-vulnerabilities"),

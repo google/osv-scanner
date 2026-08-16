@@ -19,6 +19,14 @@ type Manager struct {
 	DefaultConfig Config
 	// Cache to store loaded configs
 	ConfigMap map[string]Config
+	// DisableInTreeIgnores drops the vulnerability-suppressing directives
+	// (IgnoredVulns and PackageOverrides with an ignore flag) from configs that
+	// are auto-discovered next to the scanned manifests. It does not affect a
+	// config supplied explicitly with --config via OverrideConfig, which the
+	// user has chosen and therefore trusts. This lets a scan refuse suppression
+	// directives that live inside the scanned tree, where they may have been
+	// planted by code the person running the scan did not author.
+	DisableInTreeIgnores bool
 }
 
 // UseOverride updates the Manager to use the config at the given path in place
@@ -54,7 +62,13 @@ func (m *Manager) Get(targetPath string) Config {
 
 	config, configErr := tryLoadConfig(configPath)
 	if configErr == nil {
-		cmdlogger.Infof("Loaded filter from: %s", config.LoadPath)
+		if m.DisableInTreeIgnores {
+			config = config.withoutVulnIgnores()
+		}
+		// A discovered config can suppress findings, so surface it at warn level
+		// rather than burying it at info where a reduced-verbosity run would drop
+		// it while the exit code still reflected the suppressed result.
+		cmdlogger.Warnf("Loaded filter from: %s", config.LoadPath)
 	} else {
 		// anything other than the config file not existing is most likely due to an invalid config file
 		if !errors.Is(configErr, os.ErrNotExist) {

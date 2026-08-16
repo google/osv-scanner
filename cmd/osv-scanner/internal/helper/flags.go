@@ -57,6 +57,11 @@ func BuildCommonScanFlags(defaultExtractors []string) []cli.Flag {
 			Usage:     "set/override config file",
 			TakesFile: true,
 		},
+		&cli.BoolFlag{
+			Name:  "no-config-ignore",
+			Usage: "ignore IgnoredVulns and PackageOverrides ignore directives from osv-scanner.toml files discovered next to scanned manifests (a config passed with --config is unaffected)",
+			Value: false,
+		},
 		&cli.StringFlag{
 			Name:    "format",
 			Aliases: []string{"f"},

@@ -148,9 +148,11 @@ func (a *Annotator) Annotate(_ context.Context, _ *annotator.ScanInput, results 
 		cmdlogger.Warnf("%s", warn)
 	}
 
+	// These are packages suppressed by config (ShouldIgnorePackage), so they
+	// hide findings and must stay visible at reduced verbosity.
 	slices.Sort(infos)
 	for _, info := range infos {
-		cmdlogger.Infof("%s", info)
+		cmdlogger.Warnf("%s", info)
 	}
 
 	if unscannableCount > 0 {
@@ -160,7 +162,7 @@ func (a *Annotator) Annotate(_ context.Context, _ *annotator.ScanInput, results 
 		cmdlogger.Infof("Filtered %d non container relevant package/s from the scan.", nonContainerRelevantCount)
 	}
 	if ignoredCount > 0 {
-		cmdlogger.Infof("Filtered %d ignored package/s from the scan.", ignoredCount)
+		cmdlogger.Warnf("Filtered %d ignored package/s from the scan.", ignoredCount)
 	}
 
 	slices.SortFunc(packageResults, scalibr.CmpPackages)
