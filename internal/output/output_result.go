@@ -581,13 +581,22 @@ func getNextFixVersion(allAffected []*osvschema.Affected, installedVersion strin
 		}
 		for _, affectedRange := range affected.GetRanges() {
 			for _, affectedEvent := range affectedRange.GetEvents() {
-				order, _ := vp.CompareStr(affectedEvent.GetFixed())
+				order, err := vp.CompareStr(affectedEvent.GetFixed())
 				// Skip if it's not a fix version event or the installed version is greater than the fix version.
-				if affectedEvent.GetFixed() == "" || order > 0 {
+				// A fixed version this ecosystem's parser rejects is skipped too: it cannot be
+				// compared, so it cannot be offered as the next fix. Advisories are third-party
+				// data, and using MustParse here aborted the whole scan after matching had already
+				// succeeded — the same reason the installed version above degrades instead of panicking.
+				if affectedEvent.GetFixed() == "" || err != nil || order > 0 {
 					continue
 				}
 
-				order, _ = semantic.MustParse(affectedEvent.GetFixed(), ecosystemPrefix).CompareStr(minFixVersion)
+				fixedVersion, err := semantic.Parse(affectedEvent.GetFixed(), ecosystemPrefix)
+				if err != nil {
+					continue
+				}
+
+				order, _ = fixedVersion.CompareStr(minFixVersion)
 				// Find the minimum fix version
 				if minFixVersion == UnfixedDescription || order < 0 {
 					minFixVersion = affectedEvent.GetFixed()
