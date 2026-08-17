@@ -1185,8 +1185,8 @@ Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and f
 [TestCommand/go_packages_in_osv-scanner.json_format - 1]
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner.json file and found 2 packages
 
-Total 2 packages affected by 59 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 59 Unknown) from 1 ecosystem.
-59 vulnerabilities can be fixed.
+Total 2 packages affected by 58 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 58 Unknown) from 1 ecosystem.
+58 vulnerabilities can be fixed.
 
 +------------------------------+------+-----------+-----------+---------+---------------+------------------------------------------+
 | OSV URL                      | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                   |
@@ -1232,7 +1232,6 @@ Total 2 packages affected by 59 known vulnerabilities (0 Critical, 0 High, 0 Med
 | https://osv.dev/GO-2026-5038 |      | Go        | stdlib    | 1.24.4  | 1.25.11       | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-5039 |      | Go        | stdlib    | 1.24.4  | 1.25.11       | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-5856 |      | Go        | stdlib    | 1.24.4  | 1.25.12       | testdata/locks-insecure/osv-scanner.json |
-| https://osv.dev/GO-2026-5942 |      | Go        | stdlib    | 1.24.4  | 1.26.6        | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-5972 |      | Go        | stdlib    | 1.24.4  | 1.25.13       | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-6088 |      | Go        | stdlib    | 1.24.4  | 1.25.13       | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-6089 |      | Go        | stdlib    | 1.24.4  | 1.25.13       | testdata/locks-insecure/osv-scanner.json |
@@ -2137,7 +2136,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 Loaded GIT local db from <tempdir>/osv-scalibr/GIT/all.zip
 Scanned <rootdir>/testdata/locks-git/osv-scanner.json file and found 11 packages
 
-Total 7 packages affected by 48 known vulnerabilities (3 Critical, 21 High, 16 Medium, 2 Low, 6 Unknown) from 1 ecosystem.
+Total 7 packages affected by 49 known vulnerabilities (3 Critical, 22 High, 16 Medium, 2 Low, 6 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +--------------------------------+------+-----------+----------------------------------------------+---------------+---------------+-------------------------------------+
@@ -2167,6 +2166,7 @@ Total 7 packages affected by 48 known vulnerabilities (3 Critical, 21 High, 16 M
 | https://osv.dev/CVE-2025-9230  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-9231  | 6.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-9232  | 5.9  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2026-14456 | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-22795 | 5.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-22796 | 5.3  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-2673  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
@@ -2202,7 +2202,7 @@ Total 7 packages affected by 48 known vulnerabilities (3 Critical, 21 High, 16 M
 [TestCommand_CommitSupport/online_uses_git_commits - 1]
 Scanned <rootdir>/testdata/locks-git/osv-scanner.json file and found 11 packages
 
-Total 11 packages affected by 70 known vulnerabilities (3 Critical, 28 High, 27 Medium, 6 Low, 6 Unknown) from 1 ecosystem.
+Total 11 packages affected by 71 known vulnerabilities (3 Critical, 29 High, 27 Medium, 6 Low, 6 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +--------------------------------+------+-----------+-----------------------------------------------+------------------+---------------+-------------------------------------+
@@ -2250,6 +2250,7 @@ Total 11 packages affected by 70 known vulnerabilities (3 Critical, 28 High, 27 
 | https://osv.dev/CVE-2025-9230  | 7.5  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-9231  | 6.5  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-9232  | 5.9  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2026-14456 | 7.5  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-22795 | 5.5  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-22796 | 5.3  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-2673  | 7.5  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
