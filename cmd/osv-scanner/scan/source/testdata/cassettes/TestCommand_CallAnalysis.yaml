@@ -44,7 +44,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 1442
+      content_length: 1505
       body: |
         {
           "results": [
@@ -88,7 +88,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-q675-qj96-32m9",
-                  "modified": "2026-07-02T21:26:03.734268Z"
+                  "modified": "2026-08-15T21:41:51.372728Z"
                 },
                 {
                   "id": "GHSA-qgc7-mgm3-q253",
@@ -145,6 +145,10 @@ interactions:
                 {
                   "id": "GO-2026-5066",
                   "modified": "2026-06-27T06:14:20.408848Z"
+                },
+                {
+                  "id": "GO-2026-6222",
+                  "modified": "2026-08-15T09:41:53.891904Z"
                 }
               ]
             }
@@ -152,7 +156,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "1442"
+          - "1505"
         Content-Type:
           - application/json
       status: 200 OK

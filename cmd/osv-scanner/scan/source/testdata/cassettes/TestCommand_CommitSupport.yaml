@@ -56,7 +56,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 4736
+      content_length: 4801
       body: |
         {
           "results": [
@@ -124,7 +124,7 @@ interactions:
                 },
                 {
                   "id": "OSV-2024-340",
-                  "modified": "2026-08-13T14:24:51.213039Z"
+                  "modified": "2026-08-16T14:18:14.711007Z"
                 },
                 {
                   "id": "PYSEC-2023-233",
@@ -216,7 +216,7 @@ interactions:
                 },
                 {
                   "id": "CVE-2025-15467",
-                  "modified": "2026-08-13T08:22:30.708128Z"
+                  "modified": "2026-08-15T09:53:18.573818Z"
                 },
                 {
                   "id": "CVE-2025-15468",
@@ -261,6 +261,10 @@ interactions:
                 {
                   "id": "CVE-2025-9232",
                   "modified": "2026-08-12T16:24:42.919110Z"
+                },
+                {
+                  "id": "CVE-2026-14456",
+                  "modified": "2026-08-15T16:52:29.017325Z"
                 },
                 {
                   "id": "CVE-2026-22795",
@@ -368,15 +372,15 @@ interactions:
                 },
                 {
                   "id": "CVE-2025-24898",
-                  "modified": "2026-08-12T18:48:03.597911Z"
+                  "modified": "2026-08-14T18:51:41.858859Z"
                 },
                 {
                   "id": "CVE-2026-42327",
-                  "modified": "2026-08-12T18:48:11.584952Z"
+                  "modified": "2026-08-16T18:35:10.537140Z"
                 },
                 {
                   "id": "CVE-2026-44662",
-                  "modified": "2026-08-12T18:48:14.878273Z"
+                  "modified": "2026-08-16T18:35:11.546666Z"
                 }
               ]
             },
@@ -392,7 +396,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "4736"
+          - "4801"
         Content-Type:
           - application/json
       status: 200 OK
