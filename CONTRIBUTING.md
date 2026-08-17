@@ -75,7 +75,7 @@ Run the following in the project directory:
 ./scripts/build_snapshot.sh
 ```
 
-See GoReleaser [documentation](https://goreleaser.com/customization/builds/) for build options.
+See GoReleaser [documentation](https://goreleaser.com/customization/builds/builders/go/) for build options.
 
 You can also reproduce the downloadable builds by checking out the specific tag and running `goreleaser build`,
 using the same Go version as the one used during the actual release (see goreleaser workflows).
