@@ -156,6 +156,10 @@ func BuildCommonScanFlags(defaultExtractors []string) []cli.Flag {
 			Name:  "download-offline-databases",
 			Usage: "downloads vulnerability databases for offline comparison",
 		},
+		&cli.BoolFlag{
+			Name:  "dry-run",
+			Usage: "show what data would be sent to OSV.dev without making actual requests",
+		},
 		&cli.StringFlag{
 			Name:   "local-db-path",
 			Usage:  "sets the path that local databases should be stored",

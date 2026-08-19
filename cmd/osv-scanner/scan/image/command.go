@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
@@ -13,6 +14,7 @@ import (
 	scalibrconfig "github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/helper"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
+	httputil "github.com/google/osv-scanner/v2/internal/http"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
@@ -83,6 +85,16 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 	userAgent := "osv-scanner_scan-image/" + version.OSVVersion
 	scannerAction.ExperimentalScannerActions = helper.GetExperimentalScannerActions(cmd)
 	scannerAction.RequestUserAgent = userAgent
+
+	// Set up HTTP client with dry-run transport if dry-run mode is enabled
+	if scannerAction.DryRun && scannerAction.ExperimentalScannerActions.HTTPClient == nil {
+		scannerAction.ExperimentalScannerActions.HTTPClient = &http.Client{}
+		transport := scannerAction.ExperimentalScannerActions.HTTPClient.Transport
+		if transport == nil {
+			transport = http.DefaultTransport
+		}
+		scannerAction.ExperimentalScannerActions.HTTPClient.Transport = httputil.NewDryRunRoundTripper(transport)
+	}
 
 	if clientFactories != nil {
 		scannerAction.ScalibrConfig = &scalibrconfig.PluginConfig{

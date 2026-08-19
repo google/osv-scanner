@@ -46,6 +46,7 @@ func GetCommonScannerActions(cmd *cli.Command, scanLicensesAllowlist []string) o
 		ScanLicensesSummary:   cmd.IsSet("licenses"),
 		ScanLicensesAllowlist: scanLicensesAllowlist,
 		CallAnalysisStates:    callAnalysisStates,
+		DryRun:                cmd.Bool("dry-run"),
 	}
 }
 

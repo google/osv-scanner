@@ -25,6 +25,7 @@ import (
 	"github.com/google/osv-scalibr/stats"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/config"
+	httputil "github.com/google/osv-scanner/v2/internal/http"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/imodels/results"
 	"github.com/google/osv-scanner/v2/internal/output"
@@ -63,6 +64,9 @@ type ScannerActions struct {
 	// license scanning
 	ScanLicensesSummary   bool
 	ScanLicensesAllowlist []string
+
+	// dry-run mode
+	DryRun bool
 
 	// Deprecated: in favor of LockfilePaths
 	SBOMPaths []string
@@ -126,6 +130,12 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 
 	if !actions.CompareOffline && actions.DownloadDatabases {
 		return models.VulnerabilityResults{}, errors.New("databases can only be downloaded when running in offline mode")
+	}
+
+	// Inform user about dry-run mode
+	if actions.DryRun {
+		cmdlogger.Infof("Dry-run mode enabled: No actual requests will be made to OSV.dev")
+		cmdlogger.Infof("Only request details will be displayed for privacy inspection")
 	}
 
 	scanResults := results.ScanResults{
@@ -482,7 +492,20 @@ func setupAccessors(actions ScannerActions) (*scalibrconfig.PluginConfig, Extern
 	if actions.ScalibrConfig != nil {
 		scalibrConfig = actions.ScalibrConfig
 	} else {
-		cf := localscalibr.NewClientFactories(actions.HTTPClient, actions.RequestUserAgent)
+		// Set up HTTP client with dry-run transport if dry-run mode is enabled
+		httpClient := actions.HTTPClient
+		if actions.DryRun && httpClient == nil {
+			httpClient = &http.Client{}
+		}
+		if actions.DryRun && httpClient != nil {
+			transport := httpClient.Transport
+			if transport == nil {
+				transport = http.DefaultTransport
+			}
+			httpClient.Transport = httputil.NewDryRunRoundTripper(transport)
+		}
+
+		cf := localscalibr.NewClientFactories(httpClient, actions.RequestUserAgent)
 		scalibrConfig = &scalibrconfig.PluginConfig{
 			ClientFactories: cf,
 		}

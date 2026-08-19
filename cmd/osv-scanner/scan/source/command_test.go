@@ -29,6 +29,12 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "--offline=false", "./testdata/locks-many/composer.lock"},
 			Exit: 0,
 		},
+		// dry-run mode test
+		{
+			Name: "dry_run_mode",
+			Args: []string{"", "source", "--dry-run", "./testdata/locks-many/composer.lock"},
+			Exit: 0,
+		},
 		// one specific supported sbom with vulns
 		{
 			Name: "folder_of_supported_sbom_with_vulns",
