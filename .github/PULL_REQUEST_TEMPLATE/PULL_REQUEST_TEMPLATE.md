@@ -25,6 +25,7 @@ Please describe the tests that you ran to verify your changes. For example:
 ## Checklist
 
 - [ ] I have signed the [Contributor License Agreement](https://cla.developers.google.com/).
+- [ ] I have read the [CONTRIBUTING guide](https://github.com/google/osv-scanner/blob/main/CONTRIBUTING.md), and understand when to open a pull request
 - [ ] I have run the linter using `./scripts/run_lints.sh`.
 - [ ] I have run the unit tests using `./scripts/run_tests.sh`.
 - [ ] I have made my commits and PR title follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification.

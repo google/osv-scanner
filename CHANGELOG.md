@@ -1,3 +1,11 @@
+# v2.5.1
+
+### Fixes:
+
+- Preserve package namespaces when querying osv.dev API (fixes [#2978](https://github.com/google/osv-scanner/issues/2978)).
+- Re-add support for the `OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY` environment variable (fixes [#2983](https://github.com/google/osv-scanner/issues/2983)).
+- Fix local vulnerability matching (`--offline-vulnerabilities`) not working when network capability is `NetworkOnline`.
+
 # v2.5.0
 
 ### Features & Refactors:

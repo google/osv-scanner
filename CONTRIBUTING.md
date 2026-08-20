@@ -30,7 +30,7 @@ This helps ensure that your contribution is aligned with the project's goals
 and avoids duplicate efforts.
 
 When creating a pull request, please use the provided
-[pull request template](/.github/PULL_REQUEST_TEMPLATE/PULL_REQUEST_TEMPLATE.md)
+[pull request template](.github/PULL_REQUEST_TEMPLATE/PULL_REQUEST_TEMPLATE.md)
 and fill out the sections to ensure a smooth review process.
 
 ## Community Guidelines
@@ -75,7 +75,7 @@ Run the following in the project directory:
 ./scripts/build_snapshot.sh
 ```
 
-See GoReleaser [documentation](https://goreleaser.com/cmd/goreleaser_build/) for build options.
+See GoReleaser [documentation](https://goreleaser.com/customization/builds/builders/go/) for build options.
 
 You can also reproduce the downloadable builds by checking out the specific tag and running `goreleaser build`,
 using the same Go version as the one used during the actual release (see goreleaser workflows).
