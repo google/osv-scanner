@@ -896,7 +896,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 1901
+      content_length: 1967
       body: |
         {
           "results": [
@@ -961,6 +961,10 @@ interactions:
                 {
                   "id": "PYSEC-2026-1297",
                   "modified": "2026-07-07T17:57:34.018251Z"
+                },
+                {
+                  "id": "PYSEC-2026-3717",
+                  "modified": "2026-08-19T13:55:32.521127Z"
                 }
               ]
             },
@@ -1024,7 +1028,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "1901"
+          - "1967"
         Content-Type:
           - application/json
       status: 200 OK
@@ -1280,7 +1284,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 3438
+      content_length: 3504
       body: |
         {
           "results": [
@@ -1348,6 +1352,10 @@ interactions:
                 {
                   "id": "PYSEC-2026-1297",
                   "modified": "2026-07-07T17:57:34.018251Z"
+                },
+                {
+                  "id": "PYSEC-2026-3717",
+                  "modified": "2026-08-19T13:55:32.521127Z"
                 }
               ]
             },
@@ -1512,7 +1520,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "3438"
+          - "3504"
         Content-Type:
           - application/json
       status: 200 OK
@@ -30805,10 +30813,42 @@ interactions:
               "upload-time": "2026-06-02T14:34:07.794523Z",
               "url": "https://files.pythonhosted.org/packages/cd/63/9496c57188a2ee585e0f1db071d75089a11e98aa86eb99d9d7618fc1edce/idna-3.18.tar.gz",
               "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "4d113161aca8582e8d28fddf3ea50f19b607209c2b3e4364379a163454680084"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "4d113161aca8582e8d28fddf3ea50f19b607209c2b3e4364379a163454680084"
+              },
+              "filename": "idna-3.19-py3-none-any.whl",
+              "hashes": {
+                "sha256": "815e7be7a7806d54abb586dc943addc79e8b2ee16915059658cbeff4b1b43bf4"
+              },
+              "provenance": "https://pypi.org/integrity/idna/3.19/idna-3.19-py3-none-any.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 68550,
+              "upload-time": "2026-08-18T05:14:22.343598Z",
+              "url": "https://files.pythonhosted.org/packages/57/b0/0e52c878c53f245edd3a11020f20979b3f490f245af532c7cae3027754b5/idna-3.19-py3-none-any.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": false,
+              "data-dist-info-metadata": false,
+              "filename": "idna-3.19.tar.gz",
+              "hashes": {
+                "sha256": "5e0811a4383b21dc5838069f801c4fb62113b7447663d2530d2bd6e77b49bf15"
+              },
+              "provenance": "https://pypi.org/integrity/idna/3.19/idna-3.19.tar.gz/provenance",
+              "requires-python": ">=3.9",
+              "size": 215237,
+              "upload-time": "2026-08-18T05:14:24.270231Z",
+              "url": "https://files.pythonhosted.org/packages/5f/f7/abb373e5757eaec4b922b92f97ec8d6d7e057cf06778247604fbc4e7c3f3/idna-3.19.tar.gz",
+              "yanked": false
             }
           ],
           "meta": {
-            "_last-serial": 37646424,
+            "_last-serial": 40127705,
             "api-version": "1.4"
           },
           "name": "idna",
@@ -30855,7 +30895,8 @@ interactions:
             "3.15",
             "3.16",
             "3.17",
-            "3.18"
+            "3.18",
+            "3.19"
           ]
         }
       headers:
@@ -30884,7 +30925,7 @@ interactions:
         Strict-Transport-Security:
           - max-age=31536000; includeSubDomains; preload
         Vary:
-          - Accept-Encoding, Accept
+          - Accept, Accept-Encoding
         X-Content-Type-Options:
           - nosniff
         X-Frame-Options:
@@ -70161,7 +70202,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 3438
+      content_length: 3504
       body: |
         {
           "results": [
@@ -70229,6 +70270,10 @@ interactions:
                 {
                   "id": "PYSEC-2026-1297",
                   "modified": "2026-07-07T17:57:34.018251Z"
+                },
+                {
+                  "id": "PYSEC-2026-3717",
+                  "modified": "2026-08-19T13:55:32.521127Z"
                 }
               ]
             },
@@ -70393,7 +70438,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "3438"
+          - "3504"
         Content-Type:
           - application/json
       status: 200 OK
