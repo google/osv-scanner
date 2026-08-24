@@ -31,4 +31,10 @@ func TestPrintResult_UnsupportedFormatter(t *testing.T) {
 	if err == nil {
 		t.Errorf("Did not get expected error")
 	}
+
+	// Verify spdx-2.3-json format is also rejected
+	err = reporter.PrintResult(&models.VulnerabilityResults{}, "spdx-2.3-json", stdout, 0, true)
+	if err == nil {
+		t.Errorf("Expected error for unsupported format spdx-2.3-json, got nil")
+	}
 }

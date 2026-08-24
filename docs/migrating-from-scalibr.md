@@ -80,7 +80,7 @@ and a separate `--output-file` flag if you wish to save the output into a file.
 **osv-scanner:**
 
 ```sh
-osv-scanner --format spdx-2.3-json /path/to/your/project > result.spdx.json
+osv-scanner scan --format spdx-2-3 --all-packages /path/to/your/project > result.spdx.json
 ```
 
 For more details on `osv-scanner` output formats, see the [output documentation](output.md).
@@ -91,8 +91,8 @@ For more details on `osv-scanner` output formats, see the [output documentation]
 | --------------------------------- | ------------------------- | ---------------------------------------------------------------------------------------------------------- |
 | `--version`                       | `--version`               | `osv-scanner version`                                                                                      |
 | `--root`                          | `[directory]` (argument)  | `osv-scanner scan source [directory]`                                                                      |
-| `--result`                        | `--output`                | `osv-scanner --output <file>`                                                                              |
-| `-o`                              | `--format` and `--output` | e.g. `osv-scalibr -o spdx23-json=r.json` becomes `osv-scanner --format spdx-2.3-json --output-file r.json` |
+| `--result`                        | `--output-file`           | `osv-scanner --output-file <file>`                                                                         |
+| `-o`                              | `--format` and `--output-file` | e.g. `osv-scalibr -o spdx23-json=r.json` becomes `osv-scanner scan --format spdx-2-3 --output-file r.json` |
 | `--plugins`                       | `--experimental-plugins`  |                                                                                                            |
 | `--extractors`                    | `--experimental-plugins`  |                                                                                                            |
 | `--detectors`                     | `--experimental-plugins`  |                                                                                                            |
