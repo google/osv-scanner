@@ -287,3 +287,37 @@ jobs:
 ```
 
 </details>
+
+## Local Pre-Commit Hook Integration
+
+To catch vulnerable dependencies locally before committing and pushing to your repository, you can integrate `osv-scanner` directly into your local Git workflows using [`pre-commit`](https://pre-commit.com/):
+
+### Configuration
+
+Add the following to your `.pre-commit-config.yaml`:
+
+```yaml
+repos:
+  - repo: local
+    hooks:
+      - id: osv-scanner
+        name: OSV-Scanner Vulnerability Check
+        entry: osv-scanner scan source -r .
+        language: system
+        pass_filenames: false
+        always_run: true
+```
+
+Alternatively, you can create a standard `.git/hooks/pre-commit` script:
+
+```bash
+#!/bin/sh
+# Check for known open-source vulnerabilities before committing
+echo "Running OSV-Scanner dependency check..."
+osv-scanner scan source -r .
+if [ $? -ne 0 ]; then
+  echo "❌ Commit rejected: Vulnerabilities found in project dependencies."
+  echo "Run 'osv-scanner fix' or upgrade affected packages."
+  exit 1
+fi
+```
