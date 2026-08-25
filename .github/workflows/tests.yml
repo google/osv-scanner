@@ -17,21 +17,9 @@ name: Tests
 on:
   push:
     branches: ["main", "v1", "mcp"]
-    paths-ignore:
-      - "**/*.md"
-      - "docs/**"
-      - ".github/workflows/*"
-      - "!.github/workflows/tests.yml"
-
   pull_request:
     # The branches below must be a subset of the branches above
     branches: ["main", "v1", "mcp"]
-    paths-ignore:
-      - "**/*.md"
-      - "docs/**"
-      - ".github/workflows/*"
-      - "!.github/workflows/tests.yml"
-
   workflow_dispatch:
 
 concurrency:
@@ -44,9 +32,33 @@ concurrency:
 permissions: {}
 
 jobs:
+  changes:
+    permissions:
+      contents: read # to fetch code (actions/checkout)
+    runs-on: ubuntu-latest
+    outputs:
+      should_run: ${{ steps.filter.outputs.should_run }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Check for relevant file changes
+        uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4.0.3
+        id: filter
+        with:
+          predicate-quantifier: "every"
+          filters: |
+            should_run:
+              - '**'
+              - '!**/*.md'
+              - '!docs/**'
+              - '!.github/workflows/!(tests.yml)'
   prepare_test_image_testdata:
     permissions:
       contents: read # to fetch code (actions/checkout)
+    needs: changes
+    if: github.event_name == 'workflow_dispatch' || needs.changes.outputs.should_run == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
@@ -71,7 +83,9 @@ jobs:
     permissions:
       contents: read # to fetch code (actions/checkout)
     needs:
+      - changes
       - prepare_test_image_testdata
+    if: github.event_name == 'workflow_dispatch' || needs.changes.outputs.should_run == 'true'
     name: Run unit tests
     strategy:
       fail-fast: false
@@ -100,6 +114,8 @@ jobs:
   docker:
     permissions:
       contents: read # to fetch code (actions/checkout)
+    needs: changes
+    if: github.event_name == 'workflow_dispatch' || needs.changes.outputs.should_run == 'true'
     runs-on: ubuntu-latest
     env:
       # Required for buildx on docker 19.x
