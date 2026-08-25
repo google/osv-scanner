@@ -3335,7 +3335,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 4381
+      content_length: 4385
       host: api.osv.dev
       body: |
         {
@@ -3371,9 +3371,9 @@ interactions:
             {
               "package": {
                 "ecosystem": "Ubuntu:26.04",
-                "name": "gcc-14-base"
+                "name": "gcc-16-base"
               },
-              "version": "14.3.0-14ubuntu1"
+              "version": "16-20260322-1ubuntu1"
             },
             {
               "package": {
@@ -8158,7 +8158,7 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2026-42497",
-                  "modified": "2026-07-01T13:53:02.335741Z"
+                  "modified": "2026-08-24T16:25:57.900341Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2026-48959",
@@ -8166,7 +8166,7 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2026-48961",
-                  "modified": "2026-07-01T13:53:13.376190Z"
+                  "modified": "2026-08-24T16:27:35.948257Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2026-48962",
@@ -10929,7 +10929,7 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2026-42497",
-                  "modified": "2026-07-01T13:53:02.335741Z"
+                  "modified": "2026-08-24T16:25:57.900341Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2026-48959",
@@ -10937,7 +10937,7 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2026-48961",
-                  "modified": "2026-07-01T13:53:13.376190Z"
+                  "modified": "2026-08-24T16:27:35.948257Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2026-48962",
