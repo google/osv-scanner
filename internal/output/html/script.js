@@ -261,11 +261,12 @@ function applyFilters(selectedTypeFilterValue, selectedLayerFilterValue) {
   applyTypeFilter(selectedTypeFilterValue);
   applyLayerFilter(selectedLayerFilterValue);
   applyFixFilter();
+  // Runs last so the summary can count the rows that survived every filter.
+  updateTypeFilterText();
   showAndHideParentSections();
 }
 
 function applyTypeFilter(selectedValue) {
-  updateTypeFilterText();
   const selectedAll = selectedValue.has("all");
   const selectedProject = selectedAll || selectedValue.has("project");
   const selectedOS = selectedAll || selectedValue.has("os");
@@ -305,7 +306,7 @@ function applyLayerFilter(selectedLayerID) {
 }
 
 function applyFixFilter() {
-  const fixableCheckbox = document.getElementById("fixable-type-checkbox");
+  const fixableCheckbox = document.getElementById("fixable-checkbox");
 
   if (!fixableCheckbox || !fixableCheckbox.checked) {
     return;
@@ -329,7 +330,7 @@ function updateTypeFilterText() {
   const uncalledTypeCheckbox = document.getElementById(
     "uncalled-type-checkbox"
   );
-  const fixableTypeCheckbox = document.getElementById("fixable-type-checkbox");
+  const fixableCheckbox = document.getElementById("fixable-checkbox");
 
   let selectedText = "";
   let selectedCount = 0;
@@ -353,10 +354,6 @@ function updateTypeFilterText() {
     );
     selectedCount += parseInt(uncalledTypeVulnCount, 10);
   }
-  if (fixableTypeCheckbox && fixableTypeCheckbox.checked) {
-    selectedText += `${selectedText ? ", " : ""}Fix available`;
-  }
-
   if (
     allTypeCheckbox &&
     allTypeCheckbox.checked &&
@@ -364,6 +361,14 @@ function updateTypeFilterText() {
     !uncalledTypeCheckbox.checked
   ) {
     selectedText = "Default";
+  }
+
+  // Appended after the "Default" shorthand so it is not overwritten by it.
+  if (fixableCheckbox && fixableCheckbox.checked) {
+    selectedText += `${selectedText ? ", " : ""}Fix available`;
+    selectedCount = document.querySelectorAll(
+      ".vuln-tr:not(.hide-block)"
+    ).length;
   }
 
   typeSelected.textContent = selectedText;
@@ -383,10 +388,11 @@ function resetFilterText() {
   const uncalledTypeCheckBox = document.getElementById(
     "uncalled-type-checkbox"
   );
-  const fixableTypeCheckBox = document.getElementById("fixable-type-checkbox");
-  if (fixableTypeCheckBox) {
-    fixableTypeCheckBox.checked = false;
+  const fixableCheckbox = document.getElementById("fixable-checkbox");
+  if (fixableCheckbox) {
+    fixableCheckbox.checked = false;
   }
+
   if (allTypeCheckedBox) {
     typeSelected.textContent = "Default";
     selectedVulnCount.textContent = allTypeCheckedBox.getAttribute(
@@ -433,9 +439,9 @@ function resetTypeCheckbox() {
     }
     uncalledTypeCheckbox.checked = false;
   }
-  const fixableTypeCheckbox = document.getElementById("fixable-type-checkbox");
-  if (fixableTypeCheckbox) {
-    fixableTypeCheckbox.checked = false;
+  const fixableCheckbox = document.getElementById("fixable-checkbox");
+  if (fixableCheckbox) {
+    fixableCheckbox.checked = false;
   }
 }
 
