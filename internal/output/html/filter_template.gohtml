@@ -76,6 +76,10 @@
           <input type="checkbox" id="uncalled-type-checkbox" data-type-uncalled-count="{{ .VulnTypeSummary.Hidden }}">
           Uncalled/Unimportant ({{ .VulnTypeSummary.Hidden }})
         </label>
+        <label class="filter-option" for="fixable-type-checkbox">
+          <input type="checkbox" id="fixable-type-checkbox" data-fixable-count="{{ .VulnCount.FixableCount.Fixed }}">
+          Fix available ({{ .VulnCount.FixableCount.Fixed }})
+        </label>
       </div>
     </div>
   </div>

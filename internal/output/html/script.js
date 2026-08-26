@@ -260,6 +260,7 @@ function applyFilters(selectedTypeFilterValue, selectedLayerFilterValue) {
   showAllVulns();
   applyTypeFilter(selectedTypeFilterValue);
   applyLayerFilter(selectedLayerFilterValue);
+  applyFixFilter();
   showAndHideParentSections();
 }
 
@@ -303,6 +304,21 @@ function applyLayerFilter(selectedLayerID) {
   });
 }
 
+function applyFixFilter() {
+  const fixableCheckbox = document.getElementById("fixable-type-checkbox");
+
+  if (!fixableCheckbox || !fixableCheckbox.checked) {
+    return;
+  }
+
+  const vulnRows = document.querySelectorAll(".vuln-tr");
+  vulnRows.forEach(vuln => {
+    if (vuln.getAttribute("data-fixable") !== "true") {
+      vuln.classList.add("hide-block");
+    }
+  });
+}
+
 function updateTypeFilterText() {
   const typeSelected = document.getElementById("type-filter-selected");
   const selectedVulnCount = document.getElementById("selected-count");
@@ -313,6 +329,7 @@ function updateTypeFilterText() {
   const uncalledTypeCheckbox = document.getElementById(
     "uncalled-type-checkbox"
   );
+  const fixableTypeCheckbox = document.getElementById("fixable-type-checkbox");
 
   let selectedText = "";
   let selectedCount = 0;
@@ -335,6 +352,9 @@ function updateTypeFilterText() {
       "data-type-uncalled-count"
     );
     selectedCount += parseInt(uncalledTypeVulnCount, 10);
+  }
+  if (fixableTypeCheckbox && fixableTypeCheckbox.checked) {
+    selectedText += `${selectedText ? ", " : ""}Fix available`;
   }
 
   if (
@@ -363,6 +383,10 @@ function resetFilterText() {
   const uncalledTypeCheckBox = document.getElementById(
     "uncalled-type-checkbox"
   );
+  const fixableTypeCheckBox = document.getElementById("fixable-type-checkbox");
+  if (fixableTypeCheckBox) {
+    fixableTypeCheckBox.checked = false;
+  }
   if (allTypeCheckedBox) {
     typeSelected.textContent = "Default";
     selectedVulnCount.textContent = allTypeCheckedBox.getAttribute(
@@ -408,6 +432,10 @@ function resetTypeCheckbox() {
       osTypeCheckbox.checked = true;
     }
     uncalledTypeCheckbox.checked = false;
+  }
+  const fixableTypeCheckbox = document.getElementById("fixable-type-checkbox");
+  if (fixableTypeCheckbox) {
+    fixableTypeCheckbox.checked = false;
   }
 }
 
