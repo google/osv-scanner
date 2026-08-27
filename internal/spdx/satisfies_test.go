@@ -79,6 +79,23 @@ func TestSatisfies(t *testing.T) {
 				{"Apache-2.0"},
 			},
 		},
+		// empty expression licenses contain no tokens and can never satisfy an
+		// allowlist, but must not panic (regression for #2968)
+		{
+			license: "",
+			fail: [][]string{
+				{"MIT"},
+				{"MIT", "Apache-2.0"},
+				{},
+			},
+		},
+		{
+			license: "   ",
+			fail: [][]string{
+				{"MIT"},
+				{},
+			},
+		},
 		// AND expressions
 		{
 			license: "MIT AND Apache-2.0",
