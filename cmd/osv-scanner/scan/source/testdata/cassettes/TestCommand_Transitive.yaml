@@ -1199,7 +1199,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "click"
               },
-              "version": "8.4.2"
+              "version": "8.5.0"
             },
             {
               "package": {
@@ -14451,10 +14451,42 @@ interactions:
               "upload-time": "2026-06-24T17:45:15.148101Z",
               "url": "https://files.pythonhosted.org/packages/76/d4/81420972a676e8ffea40450d8c8c92943e7218a78fe9b64359836cc9876b/click-8.4.2.tar.gz",
               "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "e87bce0bd194de70dfb8e708e0a6b0483009f25611804eaf87bfeb63e6c20501"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "e87bce0bd194de70dfb8e708e0a6b0483009f25611804eaf87bfeb63e6c20501"
+              },
+              "filename": "click-8.5.0-py3-none-any.whl",
+              "hashes": {
+                "sha256": "255bc9599cf7748b4b1a446ccc735421bd08a2ae529a8b88597d3de5664ee360"
+              },
+              "provenance": "https://pypi.org/integrity/click/8.5.0/click-8.5.0-py3-none-any.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 125251,
+              "upload-time": "2026-08-26T13:33:12.928043Z",
+              "url": "https://files.pythonhosted.org/packages/58/50/6c0d534c5f134586a8e1ba4e330569e32f057e33372ae556463212fb4cd3/click-8.5.0-py3-none-any.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": false,
+              "data-dist-info-metadata": false,
+              "filename": "click-8.5.0.tar.gz",
+              "hashes": {
+                "sha256": "ba0d2089de75ea0310e2dde03160e6ca10009947fb95a182f9b54021bb272e34"
+              },
+              "provenance": "https://pypi.org/integrity/click/8.5.0/click-8.5.0.tar.gz/provenance",
+              "requires-python": ">=3.10",
+              "size": 382235,
+              "upload-time": "2026-08-26T13:33:14.560531Z",
+              "url": "https://files.pythonhosted.org/packages/c7/0e/7fa0ef50764b67090eca4114772a2abf8b6148198475e54c660b97caeee6/click-8.5.0.tar.gz",
+              "yanked": false
             }
           ],
           "meta": {
-            "_last-serial": 38356435,
+            "_last-serial": 40411242,
             "api-version": "1.4"
           },
           "name": "click",
@@ -14525,7 +14557,8 @@ interactions:
             "8.3.3",
             "8.4.0",
             "8.4.1",
-            "8.4.2"
+            "8.4.2",
+            "8.5.0"
           ]
         }
       headers:
@@ -14554,7 +14587,7 @@ interactions:
         Strict-Transport-Security:
           - max-age=31536000; includeSubDomains; preload
         Vary:
-          - Accept-Encoding, Accept
+          - Accept, Accept-Encoding
         X-Content-Type-Options:
           - nosniff
         X-Frame-Options:
@@ -70117,7 +70150,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "click"
               },
-              "version": "8.4.2"
+              "version": "8.5.0"
             },
             {
               "package": {
