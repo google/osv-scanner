@@ -3,7 +3,6 @@ package vendored_test
 import (
 	"io/fs"
 	"path/filepath"
-	"runtime"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -96,10 +95,6 @@ func TestExtractor_FileRequired(t *testing.T) {
 func TestExtractor_Extract(t *testing.T) {
 	t.Parallel()
 
-	if runtime.GOOS == "windows" {
-		// TODO: Reenable when #657 is resolved.
-		testutility.Skip(t, "Temporarily disabled until #657 is resolved")
-	}
 	cwd := testutility.GetCurrentWorkingDirectory(t)
 
 	tests := []extracttest.TestTableEntry{

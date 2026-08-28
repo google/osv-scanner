@@ -149,6 +149,22 @@ func (e *Extractor) Ecosystem(_ *extractor.Package) string {
 	return ""
 }
 
+// normalizeLineEndingsForHash converts CRLF ("\r\n") sequences to LF ("\n") before the
+// bytes are hashed to query the determine-version API (see #657). Git's core.autocrlf
+// setting (common on Windows) rewrites vendored C/C++ source files' line endings on
+// checkout; without normalization the resulting MD5 hash no longer matches the hash of
+// the same logical source checked out with LF-only line endings, so the API lookup
+// silently fails to find a match and known-vulnerable vendored libraries go undetected.
+// Lone CR bytes that are not part of a CRLF pair are left untouched, since Git's
+// autocrlf conversion does not introduce or remove those.
+func normalizeLineEndingsForHash(data []byte) []byte {
+	if !bytes.Contains(data, []byte("\r\n")) {
+		return data
+	}
+
+	return bytes.ReplaceAll(data, []byte("\r\n"), []byte("\n"))
+}
+
 func (e *Extractor) queryDetermineVersions(ctx context.Context, repoDir string, fsys scalibrfs.FS, scanGitDir bool) (*api.VersionMatchList, error) {
 	var hashes []*api.FileHash
 
@@ -183,7 +199,7 @@ func (e *Extractor) queryDetermineVersions(ctx context.Context, repoDir string, 
 		if err != nil {
 			return err
 		}
-		hash := md5.Sum(buf.Bytes()) //nolint:gosec
+		hash := md5.Sum(normalizeLineEndingsForHash(buf.Bytes())) //nolint:gosec
 		hashes = append(hashes, &api.FileHash{
 			FilePath: strings.ReplaceAll(p, repoDir, ""),
 			Hash:     hash[:],
