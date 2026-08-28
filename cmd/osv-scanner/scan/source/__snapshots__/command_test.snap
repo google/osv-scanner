@@ -2139,7 +2139,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 Loaded GIT local db from <tempdir>/osv-scalibr/GIT/all.zip
 Scanned <rootdir>/testdata/locks-git/osv-scanner.json file and found 11 packages
 
-Total 7 packages affected by 49 known vulnerabilities (3 Critical, 22 High, 16 Medium, 2 Low, 6 Unknown) from 1 ecosystem.
+Total 7 packages affected by 58 known vulnerabilities (3 Critical, 28 High, 17 Medium, 2 Low, 8 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +--------------------------------+------+-----------+----------------------------------------------+---------------+---------------+-------------------------------------+
@@ -2170,6 +2170,8 @@ Total 7 packages affected by 49 known vulnerabilities (3 Critical, 22 High, 16 M
 | https://osv.dev/CVE-2025-9231  | 6.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-9232  | 5.9  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-14456 | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2026-14457 | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2026-18798 | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-22795 | 5.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-22796 | 5.3  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-2673  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
@@ -2192,7 +2194,14 @@ Total 7 packages affected by 49 known vulnerabilities (3 Critical, 22 High, 16 M
 | https://osv.dev/CVE-2026-45445 | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-45446 | 4.8  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-45447 | 8.8  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2026-54874 | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2026-63072 | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2026-63073 |      | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2026-63074 | 5.9  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2026-63075 | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2026-63076 | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-7383  | 8.1  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2026-75803 |      | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-9076  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
 +--------------------------------+------+-----------+----------------------------------------------+---------------+---------------+-------------------------------------+
 

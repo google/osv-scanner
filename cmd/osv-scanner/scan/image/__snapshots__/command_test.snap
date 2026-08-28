@@ -459,7 +459,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 30 packages affected by 95 known vulnerabilities (13 Critical, 24 High, 41 Medium, 9 Low, 8 Unknown) from 1 ecosystem.
-44 vulnerabilities can be fixed.
+49 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -486,7 +486,7 @@ Ubuntu:22.04
 | libzstd        | 1.4.8+dfsg-3build1           | No fix available        |          1 | libzstd1                | # 4 Layer        | ubuntu        |
 | lz4            | 1.9.3-2build2                | No fix available        |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
 | ncurses        | 6.3-2ubuntu0.1               | Partial fixes Available |          3 | libncurses6... (5)      | # 4 Layer        | ubuntu        |
-| openssl        | 3.0.2-0ubuntu1.18            | Partial fixes Available |          7 | libssl3                 | # 4 Layer        | ubuntu        |
+| openssl        | 3.0.2-0ubuntu1.18            | Fix Available           |          7 | libssl3                 | # 4 Layer        | ubuntu        |
 | p11-kit        | 0.24.0-6build1               | No fix available        |          2 | libp11-kit0             | # 4 Layer        | ubuntu        |
 | pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          3 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
 | pcre2          | 10.39-3ubuntu0.1             | No fix available        |          1 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
@@ -516,7 +516,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 30 packages affected by 95 known vulnerabilities (13 Critical, 24 High, 41 Medium, 9 Low, 8 Unknown) from 1 ecosystem.
-44 vulnerabilities can be fixed.
+49 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -543,7 +543,7 @@ Ubuntu:22.04
 | libzstd        | 1.4.8+dfsg-3build1           | No fix available        |          1 | libzstd1                | # 4 Layer        | ubuntu        |
 | lz4            | 1.9.3-2build2                | No fix available        |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
 | ncurses        | 6.3-2ubuntu0.1               | Partial fixes Available |          3 | libncurses6... (5)      | # 4 Layer        | ubuntu        |
-| openssl        | 3.0.2-0ubuntu1.18            | Partial fixes Available |          7 | libssl3                 | # 4 Layer        | ubuntu        |
+| openssl        | 3.0.2-0ubuntu1.18            | Fix Available           |          7 | libssl3                 | # 4 Layer        | ubuntu        |
 | p11-kit        | 0.24.0-6build1               | No fix available        |          2 | libp11-kit0             | # 4 Layer        | ubuntu        |
 | pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          3 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
 | pcre2          | 10.39-3ubuntu0.1             | No fix available        |          1 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
@@ -592,7 +592,7 @@ Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 31 packages affected by 97 known vulnerabilities (13 Critical, 26 High, 41 Medium, 9 Low, 8 Unknown) from 1 ecosystem.
-44 vulnerabilities can be fixed.
+49 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -620,7 +620,7 @@ Ubuntu:22.04
 | libzstd        | 1.4.8+dfsg-3build1           | No fix available        |          1 | libzstd1                | # 4 Layer        | ubuntu        |
 | lz4            | 1.9.3-2build2                | No fix available        |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
 | ncurses        | 6.3-2ubuntu0.1               | Partial fixes Available |          3 | libncurses6... (5)      | # 4 Layer        | ubuntu        |
-| openssl        | 3.0.2-0ubuntu1.18            | Partial fixes Available |          7 | libssl3                 | # 4 Layer        | ubuntu        |
+| openssl        | 3.0.2-0ubuntu1.18            | Fix Available           |          7 | libssl3                 | # 4 Layer        | ubuntu        |
 | p11-kit        | 0.24.0-6build1               | No fix available        |          2 | libp11-kit0             | # 4 Layer        | ubuntu        |
 | pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          3 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
 | pcre2          | 10.39-3ubuntu0.1             | No fix available        |          1 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
