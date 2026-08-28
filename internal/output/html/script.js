@@ -1,5 +1,6 @@
 const selectedTypeFilterValue = new Set(["all"]);
 let selectedLayer = "all";
+let showLicenseViolations = false;
 const tabScrollPositions = {};
 
 function toggleDetails(summaryID) {
@@ -213,11 +214,13 @@ function showAndHideParentSections() {
           `${packageRow.id}-details`
         );
         const vulnRows = packageDetails.querySelectorAll(".vuln-tr");
-        if (
-          Array.from(vulnRows).some(
-            row => !row.classList.contains("hide-block")
-          )
-        ) {
+        const hasVisibleVuln = Array.from(vulnRows).some(
+          row => !row.classList.contains("hide-block")
+        );
+        const hasLicenseViolation =
+          packageRow.getAttribute("data-has-license-violation") === "true";
+
+        if (hasVisibleVuln || (showLicenseViolations && hasLicenseViolation)) {
           sourceHasVisibleRows = true;
           packageRow.classList.remove("hide-block");
           return;
@@ -409,6 +412,13 @@ function resetTypeCheckbox() {
     }
     uncalledTypeCheckbox.checked = false;
   }
+  const licenseViolationCheckbox = document.getElementById(
+    "license-violation-type-checkbox"
+  );
+  if (licenseViolationCheckbox) {
+    licenseViolationCheckbox.checked = false;
+  }
+  showLicenseViolations = false;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -427,6 +437,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const projectCheckbox = document.getElementById("project-type-checkbox"); // Project vulnerabilities
     const osCheckbox = document.getElementById("os-type-checkbox"); // OS vulnerabilities
     const uncalledCheckbox = document.getElementById("uncalled-type-checkbox"); // OS vulnerabilities
+    const licenseViolationCheckbox = document.getElementById(
+      "license-violation-type-checkbox"
+    );
+
     selectedTypeFilterValue.clear();
 
     if (allTypesCheckbox !== null) {
@@ -452,6 +466,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (uncalledCheckbox.checked) {
       selectedTypeFilterValue.add("uncalled");
+    }
+
+    if (licenseViolationCheckbox) {
+      showLicenseViolations = licenseViolationCheckbox.checked;
     }
 
     applyFilters(selectedTypeFilterValue, selectedLayer);
