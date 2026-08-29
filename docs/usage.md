@@ -38,6 +38,7 @@ OSV-Scanner V2 is divided into several subcommands:
 | `scan source` | [Source Project Scanning](./scan-source.md)          | Source scanning is default, so the example is the same as above.       |
 | `scan image`  | [Container Scanning](./scan-image.md)                | `osv-scanner scan image my-docker-img:latest`                          |
 | `fix`         | [Guided Remediation](./guided-remediation.md)        | `osv-scanner fix -M path/to/package.json -L path/to/package-lock.json` |
+| `experimental-mcp` | [MCP Server](./mcp.md)                          | `osv-scanner experimental-mcp`                                         |
 
 {: .warning }
 Guided remediation (the `fix` command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
