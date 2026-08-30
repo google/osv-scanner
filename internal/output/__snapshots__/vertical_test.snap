@@ -1,4 +1,712 @@
 
+[TestPrintVerticalResults_WithLicenseSummary/multiple_sources_with_a_mixed_count_of_packages,_no_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+License summary:
+  ISC: 5
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+sbom:<rootdir>/path/to/my/second/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+unknown:<rootdir>/path/to/my/third/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummary/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+License summary:
+  ISC: 2
+  MIT: 2
+  Apache-2.0: 1
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+sbom:<rootdir>/path/to/my/second/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+unknown:<rootdir>/path/to/my/third/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummary/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_some_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 3 ecosystems.
+0 vulnerabilities can be fixed.
+
+License summary:
+  ISC: 2
+  MIT: 2
+  Apache-2.0: 1
+
+NuGet
+
+unknown:<rootdir>/path/to/my/third/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+Packagist
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+unknown:<rootdir>/path/to/my/third/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+npm
+
+sbom:<rootdir>/path/to/my/second/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummary/multiple_sources_with_a_mixed_count_of_packages_and_groups,_some_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+License summary:
+  ISC: 2
+  MIT: 2
+  Apache-2.0: 1
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+sbom:<rootdir>/path/to/my/second/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+unknown:<rootdir>/path/to/my/third/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummary/multiple_sources_with_a_mixed_count_of_packages_with_versions_and_commits,_some_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+License summary:
+  Apache-2.0: 3
+  MIT: 2
+  UNKNOWN: 1
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+sbom:<rootdir>/path/to/my/second/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+unknown:<rootdir>/path/to/my/third/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummary/multiple_sources_with_no_packages - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+License summary:
+
+
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+sbom:<rootdir>/path/to/my/second/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+unknown:<rootdir>/path/to/my/third/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummary/no_sources - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
+0 vulnerabilities can be fixed.
+
+License summary:
+
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummary/one_source_with_no_packages - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+License summary:
+
+
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummary/one_source_with_one_package,_no_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+License summary:
+  ISC: 1
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummary/one_source_with_one_package,_no_licenses - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+License summary:
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummary/one_source_with_one_package_and_an_unknown_license - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+License summary:
+  UNKNOWN: 1
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummary/one_source_with_one_package_and_multiple_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+License summary:
+  Apache-2.0: 1
+  MIT: 1
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummary/one_source_with_one_package_and_one_license_violation - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+License summary:
+  MIT: 1
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummary/one_source_with_one_package_and_one_license_violation_(dev) - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+License summary:
+  MIT: 1
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummary/one_source_with_one_package_with_both_a_version_and_a_commit_and_one_license_violation - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+License summary:
+  MIT: 1
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummary/one_source_with_one_package_with_just_a_commit_and_one_license_violation - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+License summary:
+  MIT: 1
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummary/two_sources_with_packages,_one_license_violation - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+License summary:
+  ISC: 1
+  MIT: 1
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+sbom:<rootdir>/path/to/my/second/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummaryAndViolations/multiple_sources_with_a_mixed_count_of_packages,_no_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+License summary:
+  ISC: 5
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+  no license violations found
+
+sbom:<rootdir>/path/to/my/second/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+  no license violations found
+
+unknown:<rootdir>/path/to/my/third/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+  no license violations found
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummaryAndViolations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+License summary:
+  ISC: 2
+  MIT: 2
+  Apache-2.0: 1
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+  license violations found:
+    mine1@1.2.3 (MIT)
+
+  1 license violation found in lockfile:<rootdir>/path/to/my/first/lockfile
+
+sbom:<rootdir>/path/to/my/second/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+  license violations found:
+    mine2@3.2.5 (Apache-2.0)
+
+  1 license violation found in sbom:<rootdir>/path/to/my/second/lockfile
+
+unknown:<rootdir>/path/to/my/third/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+  license violations found:
+    mine1@1.2.3 (MIT)
+
+  1 license violation found in unknown:<rootdir>/path/to/my/third/lockfile
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummaryAndViolations/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_some_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 3 ecosystems.
+0 vulnerabilities can be fixed.
+
+License summary:
+  ISC: 2
+  MIT: 2
+  Apache-2.0: 1
+
+NuGet
+
+unknown:<rootdir>/path/to/my/third/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+  no license violations found
+
+Packagist
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+  license violations found:
+    author1/mine1@1.2.3 (MIT)
+
+  1 license violation found in lockfile:<rootdir>/path/to/my/first/lockfile
+
+unknown:<rootdir>/path/to/my/third/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+  license violations found:
+    author1/mine1@1.2.3 (MIT)
+
+  1 license violation found in unknown:<rootdir>/path/to/my/third/lockfile
+
+npm
+
+sbom:<rootdir>/path/to/my/second/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+  license violations found:
+    mine2@3.2.5 (Apache-2.0)
+
+  1 license violation found in sbom:<rootdir>/path/to/my/second/lockfile
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummaryAndViolations/multiple_sources_with_a_mixed_count_of_packages_and_groups,_some_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+License summary:
+  ISC: 2
+  MIT: 2
+  Apache-2.0: 1
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+  license violations found:
+    mine1@1.2.3 (MIT)
+
+  1 license violation found in lockfile:<rootdir>/path/to/my/first/lockfile
+
+sbom:<rootdir>/path/to/my/second/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+  license violations found:
+    mine2@3.2.5 (Apache-2.0)
+
+  1 license violation found in sbom:<rootdir>/path/to/my/second/lockfile
+
+unknown:<rootdir>/path/to/my/third/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+  license violations found:
+    mine1@1.2.3 (MIT)
+
+  1 license violation found in unknown:<rootdir>/path/to/my/third/lockfile
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummaryAndViolations/multiple_sources_with_a_mixed_count_of_packages_with_versions_and_commits,_some_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+License summary:
+  Apache-2.0: 3
+  MIT: 2
+  UNKNOWN: 1
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+  license violations found:
+    mine1@1.2.3 (MIT)
+
+  1 license violation found in lockfile:<rootdir>/path/to/my/first/lockfile
+
+sbom:<rootdir>/path/to/my/second/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+  license violations found:
+    mine2@3.2.5 (UNKNOWN)
+
+  1 license violation found in sbom:<rootdir>/path/to/my/second/lockfile
+
+unknown:<rootdir>/path/to/my/third/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+  license violations found:
+    mine1@1.2.3 (MIT)
+
+  1 license violation found in unknown:<rootdir>/path/to/my/third/lockfile
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummaryAndViolations/multiple_sources_with_no_packages - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+License summary:
+
+
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+  no license violations found
+
+sbom:<rootdir>/path/to/my/second/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+  no license violations found
+
+unknown:<rootdir>/path/to/my/third/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+  no license violations found
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummaryAndViolations/no_sources - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
+0 vulnerabilities can be fixed.
+
+License summary:
+
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummaryAndViolations/one_source_with_no_packages - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+License summary:
+
+
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+  no license violations found
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummaryAndViolations/one_source_with_one_package,_no_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+License summary:
+  ISC: 1
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+  no license violations found
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummaryAndViolations/one_source_with_one_package,_no_licenses - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+License summary:
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+  no license violations found
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummaryAndViolations/one_source_with_one_package_and_an_unknown_license - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+License summary:
+  UNKNOWN: 1
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+  no license violations found
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummaryAndViolations/one_source_with_one_package_and_multiple_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+License summary:
+  Apache-2.0: 1
+  MIT: 1
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+  license violations found:
+    mine1@1.2.3 (MIT, Apache-2.0)
+
+  2 license violations found in lockfile:<rootdir>/path/to/my/first/lockfile
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummaryAndViolations/one_source_with_one_package_and_one_license_violation - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+License summary:
+  MIT: 1
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+  license violations found:
+    mine1@1.2.3 (MIT)
+
+  1 license violation found in lockfile:<rootdir>/path/to/my/first/lockfile
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummaryAndViolations/one_source_with_one_package_and_one_license_violation_(dev) - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+License summary:
+  MIT: 1
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+  license violations found:
+    mine1@1.2.3 (MIT)
+
+  1 license violation found in lockfile:<rootdir>/path/to/my/first/lockfile
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummaryAndViolations/one_source_with_one_package_with_both_a_version_and_a_commit_and_one_license_violation - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+License summary:
+  MIT: 1
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+  license violations found:
+    mine1@1.2.3 (MIT)
+
+  1 license violation found in lockfile:<rootdir>/path/to/my/first/lockfile
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummaryAndViolations/one_source_with_one_package_with_just_a_commit_and_one_license_violation - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+License summary:
+  MIT: 1
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+  license violations found:
+    mine1@ (MIT)
+
+  1 license violation found in lockfile:<rootdir>/path/to/my/first/lockfile
+
+---
+
+[TestPrintVerticalResults_WithLicenseSummaryAndViolations/two_sources_with_packages,_one_license_violation - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+License summary:
+  ISC: 1
+  MIT: 1
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+  license violations found:
+    mine1@1.2.3 (MIT)
+
+  1 license violation found in lockfile:<rootdir>/path/to/my/first/lockfile
+
+sbom:<rootdir>/path/to/my/second/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+  no license violations found
+
+---
+
 [TestPrintVerticalResults_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_no_license_violations - 1]
 
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -50,24 +758,6 @@ unknown:<rootdir>/path/to/my/third/lockfile: found 0 packages with issues
     mine1@1.2.3 (MIT)
 
   1 license violation found in unknown:<rootdir>/path/to/my/third/lockfile
-
----
-
-[TestPrintVerticalResults_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations#01 - 1]
-
-Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-0 vulnerabilities can be fixed.
-
-npm
-
-lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
-  no known vulnerabilities found
-
-sbom:<rootdir>/path/to/my/second/lockfile: found 0 packages with issues
-  no known vulnerabilities found
-
-unknown:<rootdir>/path/to/my/third/lockfile: found 0 packages with issues
-  no known vulnerabilities found
 
 ---
 
@@ -132,6 +822,39 @@ sbom:<rootdir>/path/to/my/second/lockfile: found 0 packages with issues
 
   license violations found:
     mine2@3.2.5 (Apache-2.0)
+
+  1 license violation found in sbom:<rootdir>/path/to/my/second/lockfile
+
+unknown:<rootdir>/path/to/my/third/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+  license violations found:
+    mine1@1.2.3 (MIT)
+
+  1 license violation found in unknown:<rootdir>/path/to/my/third/lockfile
+
+---
+
+[TestPrintVerticalResults_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_with_versions_and_commits,_some_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+  license violations found:
+    mine1@1.2.3 (MIT)
+
+  1 license violation found in lockfile:<rootdir>/path/to/my/first/lockfile
+
+sbom:<rootdir>/path/to/my/second/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+  license violations found:
+    mine2@3.2.5 (UNKNOWN)
 
   1 license violation found in sbom:<rootdir>/path/to/my/second/lockfile
 

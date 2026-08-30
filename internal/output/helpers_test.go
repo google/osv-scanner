@@ -1,7 +1,10 @@
 package output_test
 
 import (
+	"maps"
 	"path/filepath"
+	"slices"
+	"sort"
 	"testing"
 
 	"github.com/google/osv-scalibr/extractor"
@@ -1390,10 +1393,68 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 	t.Helper()
 
+	testOutputWithLicenseIssues(t, run, models.ExperimentalLicenseConfig{Summary: false, Allowlist: []models.License{"ISC"}})
+}
+
+func testOutputWithLicenseSummary(t *testing.T, run outputTestRunner) {
+	t.Helper()
+
+	testOutputWithLicenseIssues(t, run, models.ExperimentalLicenseConfig{Summary: true})
+}
+
+func testOutputWithLicenseSummaryAndViolations(t *testing.T, run outputTestRunner) {
+	t.Helper()
+
+	testOutputWithLicenseIssues(t, run, models.ExperimentalLicenseConfig{Summary: true, Allowlist: []models.License{"ISC"}})
+}
+
+// buildTestLicenseSummary counts and orders the licenses of every package in
+// the results, matching how the scanner populates the LicenseSummary field
+// when license summarizing is enabled.
+func buildTestLicenseSummary(vulnResult *models.VulnerabilityResults) []models.LicenseCount {
+	counts := make(map[models.License]int)
+
+	for _, source := range vulnResult.Results {
+		for _, pkg := range source.Packages {
+			for _, license := range pkg.Licenses {
+				counts[license]++
+			}
+		}
+	}
+
+	licenses := slices.Collect(maps.Keys(counts))
+
+	// Sort the license count in descending count order with the UNKNOWN
+	// license last, matching the order used by the scanner.
+	sort.Slice(licenses, func(i, j int) bool {
+		if licenses[i] == "UNKNOWN" {
+			return false
+		}
+		if licenses[j] == "UNKNOWN" {
+			return true
+		}
+		if counts[licenses[i]] == counts[licenses[j]] {
+			return licenses[i] < licenses[j]
+		}
+
+		return counts[licenses[i]] > counts[licenses[j]]
+	})
+
+	licenseSummary := make([]models.LicenseCount, len(licenses))
+	for i, license := range licenses {
+		licenseSummary[i] = models.LicenseCount{Name: license, Count: counts[license]}
+	}
+
+	return licenseSummary
+}
+
+func testOutputWithLicenseIssues(t *testing.T, run outputTestRunner, licenseConfig models.ExperimentalLicenseConfig) {
+	t.Helper()
+
 	cwd := filepath.ToSlash(testutility.GetCurrentWorkingDirectory(t))
 
 	experimentalAnalysisConfig := models.ExperimentalAnalysisConfig{
-		Licenses: models.ExperimentalLicenseConfig{Summary: false, Allowlist: []models.License{"ISC"}},
+		Licenses: licenseConfig,
 	}
 
 	tests := []outputTestCase{
@@ -1989,9 +2050,10 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "multiple_sources_with_a_mixed_count_of_packages,_some_license_violations",
+			name: "multiple_sources_with_a_mixed_count_of_packages_with_versions_and_commits,_some_license_violations",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
+					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
 							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
@@ -2063,6 +2125,12 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 			},
 		},
 	}
+	if licenseConfig.Summary {
+		for _, tt := range tests {
+			tt.args.vulnResult.LicenseSummary = buildTestLicenseSummary(tt.args.vulnResult)
+		}
+	}
+
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()

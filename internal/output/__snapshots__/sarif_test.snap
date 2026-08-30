@@ -326,56 +326,6 @@
 }
 ---
 
-[TestPrintSARIFReport_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations#01 - 1]
-{
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
-  "properties": {},
-  "runs": [
-    {
-      "addresses": [],
-      "graphs": [],
-      "invocations": [],
-      "language": "en-US",
-      "logicalLocations": [],
-      "newlineSequences": [
-        "\r\n",
-        "\n"
-      ],
-      "policies": [],
-      "redactionTokens": [],
-      "results": [],
-      "runAggregates": [],
-      "taxonomies": [],
-      "threadFlowLocations": [],
-      "tool": {
-        "driver": {
-          "contents": [
-            "localizedData",
-            "nonLocalizedData"
-          ],
-          "informationUri": "https://github.com/google/osv-scanner",
-          "isComprehensive": false,
-          "language": "en-US",
-          "locations": [],
-          "name": "osv-scanner",
-          "notifications": [],
-          "rules": [],
-          "supportedTaxonomies": [],
-          "taxa": [],
-          "version": "2.5.1"
-        },
-        "extensions": []
-      },
-      "translations": [],
-      "versionControlProvenance": [],
-      "webRequests": [],
-      "webResponses": []
-    }
-  ],
-  "version": "2.1.0"
-}
----
-
 [TestPrintSARIFReport_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_some_license_violations - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
@@ -427,6 +377,56 @@
 ---
 
 [TestPrintSARIFReport_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_and_groups,_some_license_violations - 1]
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
+  "runs": [
+    {
+      "addresses": [],
+      "graphs": [],
+      "invocations": [],
+      "language": "en-US",
+      "logicalLocations": [],
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ],
+      "policies": [],
+      "redactionTokens": [],
+      "results": [],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
+      "tool": {
+        "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
+          "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
+          "language": "en-US",
+          "locations": [],
+          "name": "osv-scanner",
+          "notifications": [],
+          "rules": [],
+          "supportedTaxonomies": [],
+          "taxa": [],
+          "version": "2.5.1"
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
+    }
+  ],
+  "version": "2.1.0"
+}
+---
+
+[TestPrintSARIFReport_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_with_versions_and_commits,_some_license_violations - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "properties": {},

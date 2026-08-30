@@ -24,3 +24,37 @@ func TestPrintOutputResults_WithVulnerabilities(t *testing.T) {
 		testutility.NewSnapshot().MatchText(t, outputWriter.String())
 	})
 }
+
+func TestPrintOutputResults_WithLicenseSummary(t *testing.T) {
+	t.Parallel()
+
+	testOutputWithLicenseSummary(t, func(t *testing.T, args outputTestCaseArgs) {
+		t.Helper()
+
+		outputWriter := &bytes.Buffer{}
+		err := output.PrintResults(args.vulnResult, outputWriter)
+
+		if err != nil {
+			t.Errorf("Error writing output: %s", err)
+		}
+
+		testutility.NewSnapshot().MatchText(t, outputWriter.String())
+	})
+}
+
+func TestPrintOutputResults_WithLicenseSummaryAndViolations(t *testing.T) {
+	t.Parallel()
+
+	testOutputWithLicenseSummaryAndViolations(t, func(t *testing.T, args outputTestCaseArgs) {
+		t.Helper()
+
+		outputWriter := &bytes.Buffer{}
+		err := output.PrintResults(args.vulnResult, outputWriter)
+
+		if err != nil {
+			t.Errorf("Error writing output: %s", err)
+		}
+
+		testutility.NewSnapshot().MatchText(t, outputWriter.String())
+	})
+}

@@ -137,80 +137,6 @@
 
 ---
 
-[TestPrintCycloneDXResults/CycloneDX14_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations#01 - 1]
-{
-  "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
-  "bomFormat": "CycloneDX",
-  "specVersion": "1.4",
-  "version": 1,
-  "components": [
-    {
-      "bom-ref": "pkg:npm/mine1@1.2.3",
-      "type": "library",
-      "name": "mine1",
-      "version": "1.2.3",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT"
-          }
-        },
-        {
-          "license": {
-            "id": "Apache-2.0"
-          }
-        }
-      ],
-      "purl": "pkg:npm/mine1@1.2.3"
-    },
-    {
-      "bom-ref": "pkg:npm/mine1@1.3.5",
-      "type": "library",
-      "name": "mine1",
-      "version": "1.3.5",
-      "licenses": [
-        {
-          "license": {
-            "id": "Apache-2.0"
-          }
-        }
-      ],
-      "purl": "pkg:npm/mine1@1.3.5"
-    },
-    {
-      "bom-ref": "pkg:npm/mine2@3.2.5",
-      "type": "library",
-      "name": "mine2",
-      "version": "3.2.5",
-      "licenses": [
-        {
-          "license": {
-            "id": "UNKNOWN"
-          }
-        }
-      ],
-      "purl": "pkg:npm/mine2@3.2.5"
-    },
-    {
-      "bom-ref": "pkg:npm/mine3@0.4.1",
-      "type": "library",
-      "name": "mine3",
-      "version": "0.4.1",
-      "licenses": [
-        {
-          "license": {
-            "id": "Apache-2.0"
-          }
-        }
-      ],
-      "purl": "pkg:npm/mine3@0.4.1"
-    }
-  ],
-  "vulnerabilities": []
-}
-
----
-
 [TestPrintCycloneDXResults/CycloneDX14_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_some_license_violations - 1]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
@@ -338,6 +264,80 @@
         {
           "license": {
             "id": "ISC"
+          }
+        }
+      ],
+      "purl": "pkg:npm/mine3@0.4.1"
+    }
+  ],
+  "vulnerabilities": []
+}
+
+---
+
+[TestPrintCycloneDXResults/CycloneDX14_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_with_versions_and_commits,_some_license_violations - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.4",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1@1.2.3",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.2.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        },
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:npm/mine1@1.2.3"
+    },
+    {
+      "bom-ref": "pkg:npm/mine1@1.3.5",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.3.5",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:npm/mine1@1.3.5"
+    },
+    {
+      "bom-ref": "pkg:npm/mine2@3.2.5",
+      "type": "library",
+      "name": "mine2",
+      "version": "3.2.5",
+      "licenses": [
+        {
+          "license": {
+            "id": "UNKNOWN"
+          }
+        }
+      ],
+      "purl": "pkg:npm/mine2@3.2.5"
+    },
+    {
+      "bom-ref": "pkg:npm/mine3@0.4.1",
+      "type": "library",
+      "name": "mine3",
+      "version": "0.4.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
           }
         }
       ],
@@ -2687,80 +2687,6 @@
 
 ---
 
-[TestPrintCycloneDXResults/CycloneDX15_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations#01 - 1]
-{
-  "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
-  "bomFormat": "CycloneDX",
-  "specVersion": "1.5",
-  "version": 1,
-  "components": [
-    {
-      "bom-ref": "pkg:npm/mine1@1.2.3",
-      "type": "library",
-      "name": "mine1",
-      "version": "1.2.3",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT"
-          }
-        },
-        {
-          "license": {
-            "id": "Apache-2.0"
-          }
-        }
-      ],
-      "purl": "pkg:npm/mine1@1.2.3"
-    },
-    {
-      "bom-ref": "pkg:npm/mine1@1.3.5",
-      "type": "library",
-      "name": "mine1",
-      "version": "1.3.5",
-      "licenses": [
-        {
-          "license": {
-            "id": "Apache-2.0"
-          }
-        }
-      ],
-      "purl": "pkg:npm/mine1@1.3.5"
-    },
-    {
-      "bom-ref": "pkg:npm/mine2@3.2.5",
-      "type": "library",
-      "name": "mine2",
-      "version": "3.2.5",
-      "licenses": [
-        {
-          "license": {
-            "id": "UNKNOWN"
-          }
-        }
-      ],
-      "purl": "pkg:npm/mine2@3.2.5"
-    },
-    {
-      "bom-ref": "pkg:npm/mine3@0.4.1",
-      "type": "library",
-      "name": "mine3",
-      "version": "0.4.1",
-      "licenses": [
-        {
-          "license": {
-            "id": "Apache-2.0"
-          }
-        }
-      ],
-      "purl": "pkg:npm/mine3@0.4.1"
-    }
-  ],
-  "vulnerabilities": []
-}
-
----
-
 [TestPrintCycloneDXResults/CycloneDX15_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_some_license_violations - 1]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
@@ -2888,6 +2814,80 @@
         {
           "license": {
             "id": "ISC"
+          }
+        }
+      ],
+      "purl": "pkg:npm/mine3@0.4.1"
+    }
+  ],
+  "vulnerabilities": []
+}
+
+---
+
+[TestPrintCycloneDXResults/CycloneDX15_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_with_versions_and_commits,_some_license_violations - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1@1.2.3",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.2.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        },
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:npm/mine1@1.2.3"
+    },
+    {
+      "bom-ref": "pkg:npm/mine1@1.3.5",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.3.5",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:npm/mine1@1.3.5"
+    },
+    {
+      "bom-ref": "pkg:npm/mine2@3.2.5",
+      "type": "library",
+      "name": "mine2",
+      "version": "3.2.5",
+      "licenses": [
+        {
+          "license": {
+            "id": "UNKNOWN"
+          }
+        }
+      ],
+      "purl": "pkg:npm/mine2@3.2.5"
+    },
+    {
+      "bom-ref": "pkg:npm/mine3@0.4.1",
+      "type": "library",
+      "name": "mine3",
+      "version": "0.4.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
           }
         }
       ],
@@ -5237,80 +5237,6 @@
 
 ---
 
-[TestPrintCycloneDXResults/CycloneDX16_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations#01 - 1]
-{
-  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
-  "bomFormat": "CycloneDX",
-  "specVersion": "1.6",
-  "version": 1,
-  "components": [
-    {
-      "bom-ref": "pkg:npm/mine1@1.2.3",
-      "type": "library",
-      "name": "mine1",
-      "version": "1.2.3",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT"
-          }
-        },
-        {
-          "license": {
-            "id": "Apache-2.0"
-          }
-        }
-      ],
-      "purl": "pkg:npm/mine1@1.2.3"
-    },
-    {
-      "bom-ref": "pkg:npm/mine1@1.3.5",
-      "type": "library",
-      "name": "mine1",
-      "version": "1.3.5",
-      "licenses": [
-        {
-          "license": {
-            "id": "Apache-2.0"
-          }
-        }
-      ],
-      "purl": "pkg:npm/mine1@1.3.5"
-    },
-    {
-      "bom-ref": "pkg:npm/mine2@3.2.5",
-      "type": "library",
-      "name": "mine2",
-      "version": "3.2.5",
-      "licenses": [
-        {
-          "license": {
-            "id": "UNKNOWN"
-          }
-        }
-      ],
-      "purl": "pkg:npm/mine2@3.2.5"
-    },
-    {
-      "bom-ref": "pkg:npm/mine3@0.4.1",
-      "type": "library",
-      "name": "mine3",
-      "version": "0.4.1",
-      "licenses": [
-        {
-          "license": {
-            "id": "Apache-2.0"
-          }
-        }
-      ],
-      "purl": "pkg:npm/mine3@0.4.1"
-    }
-  ],
-  "vulnerabilities": []
-}
-
----
-
 [TestPrintCycloneDXResults/CycloneDX16_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_some_license_violations - 1]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
@@ -5438,6 +5364,80 @@
         {
           "license": {
             "id": "ISC"
+          }
+        }
+      ],
+      "purl": "pkg:npm/mine3@0.4.1"
+    }
+  ],
+  "vulnerabilities": []
+}
+
+---
+
+[TestPrintCycloneDXResults/CycloneDX16_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_with_versions_and_commits,_some_license_violations - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1@1.2.3",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.2.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        },
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:npm/mine1@1.2.3"
+    },
+    {
+      "bom-ref": "pkg:npm/mine1@1.3.5",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.3.5",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:npm/mine1@1.3.5"
+    },
+    {
+      "bom-ref": "pkg:npm/mine2@3.2.5",
+      "type": "library",
+      "name": "mine2",
+      "version": "3.2.5",
+      "licenses": [
+        {
+          "license": {
+            "id": "UNKNOWN"
+          }
+        }
+      ],
+      "purl": "pkg:npm/mine2@3.2.5"
+    },
+    {
+      "bom-ref": "pkg:npm/mine3@0.4.1",
+      "type": "library",
+      "name": "mine3",
+      "version": "0.4.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
           }
         }
       ],
@@ -7787,80 +7787,6 @@
 
 ---
 
-[TestPrintCycloneDXResults/CycloneDX17_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations#01 - 1]
-{
-  "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
-  "bomFormat": "CycloneDX",
-  "specVersion": "1.7",
-  "version": 1,
-  "components": [
-    {
-      "bom-ref": "pkg:npm/mine1@1.2.3",
-      "type": "library",
-      "name": "mine1",
-      "version": "1.2.3",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT"
-          }
-        },
-        {
-          "license": {
-            "id": "Apache-2.0"
-          }
-        }
-      ],
-      "purl": "pkg:npm/mine1@1.2.3"
-    },
-    {
-      "bom-ref": "pkg:npm/mine1@1.3.5",
-      "type": "library",
-      "name": "mine1",
-      "version": "1.3.5",
-      "licenses": [
-        {
-          "license": {
-            "id": "Apache-2.0"
-          }
-        }
-      ],
-      "purl": "pkg:npm/mine1@1.3.5"
-    },
-    {
-      "bom-ref": "pkg:npm/mine2@3.2.5",
-      "type": "library",
-      "name": "mine2",
-      "version": "3.2.5",
-      "licenses": [
-        {
-          "license": {
-            "id": "UNKNOWN"
-          }
-        }
-      ],
-      "purl": "pkg:npm/mine2@3.2.5"
-    },
-    {
-      "bom-ref": "pkg:npm/mine3@0.4.1",
-      "type": "library",
-      "name": "mine3",
-      "version": "0.4.1",
-      "licenses": [
-        {
-          "license": {
-            "id": "Apache-2.0"
-          }
-        }
-      ],
-      "purl": "pkg:npm/mine3@0.4.1"
-    }
-  ],
-  "vulnerabilities": []
-}
-
----
-
 [TestPrintCycloneDXResults/CycloneDX17_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_some_license_violations - 1]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
@@ -7988,6 +7914,80 @@
         {
           "license": {
             "id": "ISC"
+          }
+        }
+      ],
+      "purl": "pkg:npm/mine3@0.4.1"
+    }
+  ],
+  "vulnerabilities": []
+}
+
+---
+
+[TestPrintCycloneDXResults/CycloneDX17_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_with_versions_and_commits,_some_license_violations - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.7",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1@1.2.3",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.2.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        },
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:npm/mine1@1.2.3"
+    },
+    {
+      "bom-ref": "pkg:npm/mine1@1.3.5",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.3.5",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:npm/mine1@1.3.5"
+    },
+    {
+      "bom-ref": "pkg:npm/mine2@3.2.5",
+      "type": "library",
+      "name": "mine2",
+      "version": "3.2.5",
+      "licenses": [
+        {
+          "license": {
+            "id": "UNKNOWN"
+          }
+        }
+      ],
+      "purl": "pkg:npm/mine2@3.2.5"
+    },
+    {
+      "bom-ref": "pkg:npm/mine3@0.4.1",
+      "type": "library",
+      "name": "mine3",
+      "version": "0.4.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
           }
         }
       ],

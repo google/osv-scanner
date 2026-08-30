@@ -46,3 +46,29 @@ func TestPrintMarkdownTableResults_WithMixedIssues(t *testing.T) {
 		testutility.NewSnapshot().MatchText(t, outputWriter.String())
 	})
 }
+
+func TestPrintMarkdownTableResults_WithLicenseSummary(t *testing.T) {
+	t.Parallel()
+
+	testOutputWithLicenseSummary(t, func(t *testing.T, args outputTestCaseArgs) {
+		t.Helper()
+
+		outputWriter := &bytes.Buffer{}
+		output.PrintMarkdownTableResults(args.vulnResult, outputWriter, false)
+
+		testutility.NewSnapshot().MatchText(t, outputWriter.String())
+	})
+}
+
+func TestPrintMarkdownTableResults_WithLicenseSummaryAndViolations(t *testing.T) {
+	t.Parallel()
+
+	testOutputWithLicenseSummaryAndViolations(t, func(t *testing.T, args outputTestCaseArgs) {
+		t.Helper()
+
+		outputWriter := &bytes.Buffer{}
+		output.PrintMarkdownTableResults(args.vulnResult, outputWriter, false)
+
+		testutility.NewSnapshot().MatchText(t, outputWriter.String())
+	})
+}

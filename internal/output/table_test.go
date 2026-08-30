@@ -125,3 +125,81 @@ func TestPrintTableResults_NoTerminalWidth_WithMixedIssues(t *testing.T) {
 		testutility.NewSnapshot().MatchText(t, outputWriter.String())
 	})
 }
+
+func TestPrintTableResults_StandardTerminalWidth_WithLicenseSummary(t *testing.T) {
+	t.Parallel()
+
+	testOutputWithLicenseSummary(t, func(t *testing.T, args outputTestCaseArgs) {
+		t.Helper()
+
+		outputWriter := &bytes.Buffer{}
+		output.PrintTableResults(args.vulnResult, outputWriter, 80, false)
+
+		testutility.NewSnapshot().MatchText(t, text.StripEscape(outputWriter.String()))
+	})
+}
+
+func TestPrintTableResults_StandardTerminalWidth_WithLicenseSummaryAndViolations(t *testing.T) {
+	t.Parallel()
+
+	testOutputWithLicenseSummaryAndViolations(t, func(t *testing.T, args outputTestCaseArgs) {
+		t.Helper()
+
+		outputWriter := &bytes.Buffer{}
+		output.PrintTableResults(args.vulnResult, outputWriter, 80, false)
+
+		testutility.NewSnapshot().MatchText(t, text.StripEscape(outputWriter.String()))
+	})
+}
+
+func TestPrintTableResults_LongTerminalWidth_WithLicenseSummary(t *testing.T) {
+	t.Parallel()
+
+	testOutputWithLicenseSummary(t, func(t *testing.T, args outputTestCaseArgs) {
+		t.Helper()
+
+		outputWriter := &bytes.Buffer{}
+		output.PrintTableResults(args.vulnResult, outputWriter, 800, false)
+
+		testutility.NewSnapshot().MatchText(t, text.StripEscape(outputWriter.String()))
+	})
+}
+
+func TestPrintTableResults_LongTerminalWidth_WithLicenseSummaryAndViolations(t *testing.T) {
+	t.Parallel()
+
+	testOutputWithLicenseSummaryAndViolations(t, func(t *testing.T, args outputTestCaseArgs) {
+		t.Helper()
+
+		outputWriter := &bytes.Buffer{}
+		output.PrintTableResults(args.vulnResult, outputWriter, 800, false)
+
+		testutility.NewSnapshot().MatchText(t, text.StripEscape(outputWriter.String()))
+	})
+}
+
+func TestPrintTableResults_NoTerminalWidth_WithLicenseSummary(t *testing.T) {
+	t.Parallel()
+
+	testOutputWithLicenseSummary(t, func(t *testing.T, args outputTestCaseArgs) {
+		t.Helper()
+
+		outputWriter := &bytes.Buffer{}
+		output.PrintTableResults(args.vulnResult, outputWriter, -1, false)
+
+		testutility.NewSnapshot().MatchText(t, outputWriter.String())
+	})
+}
+
+func TestPrintTableResults_NoTerminalWidth_WithLicenseSummaryAndViolations(t *testing.T) {
+	t.Parallel()
+
+	testOutputWithLicenseSummaryAndViolations(t, func(t *testing.T, args outputTestCaseArgs) {
+		t.Helper()
+
+		outputWriter := &bytes.Buffer{}
+		output.PrintTableResults(args.vulnResult, outputWriter, -1, false)
+
+		testutility.NewSnapshot().MatchText(t, outputWriter.String())
+	})
+}

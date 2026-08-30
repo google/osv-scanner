@@ -7,15 +7,15 @@
 
 ---
 
-[TestPrintGHAnnotationReport_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations#01 - 1]
-
----
-
 [TestPrintGHAnnotationReport_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_some_license_violations - 1]
 
 ---
 
 [TestPrintGHAnnotationReport_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_and_groups,_some_license_violations - 1]
+
+---
+
+[TestPrintGHAnnotationReport_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_with_versions_and_commits,_some_license_violations - 1]
 
 ---
 

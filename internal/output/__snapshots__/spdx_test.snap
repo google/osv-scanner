@@ -467,240 +467,6 @@
 
 ---
 
-[TestPrintSPDXResults_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations#01 - 1]
-{
-  "spdxVersion": "SPDX-2.3",
-  "dataLicense": "CC0-1.0",
-  "SPDXID": "SPDXRef-DOCUMENT",
-  "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/<uuid>",
-  "creationInfo": {
-    "creators": [
-      "Tool: SCALIBR"
-    ],
-    "created": "<timestamp>"
-  },
-  "packages": [
-    {
-      "name": "main",
-      "SPDXID": "SPDXRef-Package-main-<uuid>",
-      "versionInfo": "0",
-      "supplier": "NOASSERTION",
-      "downloadLocation": "NOASSERTION",
-      "filesAnalyzed": false
-    },
-    {
-      "name": "mine1",
-      "SPDXID": "SPDXRef-Package-mine1-<uuid>",
-      "versionInfo": "1.2.3",
-      "supplier": "NOASSERTION",
-      "downloadLocation": "NOASSERTION",
-      "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
-      "licenseConcluded": "NOASSERTION",
-      "licenseDeclared": "NOASSERTION",
-      "externalRefs": [
-        {
-          "referenceCategory": "PACKAGE-MANAGER",
-          "referenceType": "purl",
-          "referenceLocator": "pkg:npm/mine1@1.2.3"
-        }
-      ]
-    },
-    {
-      "name": "mine2",
-      "SPDXID": "SPDXRef-Package-mine2-<uuid>",
-      "versionInfo": "3.2.5",
-      "supplier": "NOASSERTION",
-      "downloadLocation": "NOASSERTION",
-      "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
-      "licenseConcluded": "NOASSERTION",
-      "licenseDeclared": "NOASSERTION",
-      "externalRefs": [
-        {
-          "referenceCategory": "PACKAGE-MANAGER",
-          "referenceType": "purl",
-          "referenceLocator": "pkg:npm/mine2@3.2.5"
-        }
-      ]
-    },
-    {
-      "name": "mine3",
-      "SPDXID": "SPDXRef-Package-mine3-<uuid>",
-      "versionInfo": "0.4.1",
-      "supplier": "NOASSERTION",
-      "downloadLocation": "NOASSERTION",
-      "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
-      "licenseConcluded": "NOASSERTION",
-      "licenseDeclared": "NOASSERTION",
-      "externalRefs": [
-        {
-          "referenceCategory": "PACKAGE-MANAGER",
-          "referenceType": "purl",
-          "referenceLocator": "pkg:npm/mine3@0.4.1"
-        }
-      ]
-    },
-    {
-      "name": "mine1",
-      "SPDXID": "SPDXRef-Package-mine1-<uuid>",
-      "versionInfo": "1.3.5",
-      "supplier": "NOASSERTION",
-      "downloadLocation": "NOASSERTION",
-      "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/third/lockfile",
-      "licenseConcluded": "NOASSERTION",
-      "licenseDeclared": "NOASSERTION",
-      "externalRefs": [
-        {
-          "referenceCategory": "PACKAGE-MANAGER",
-          "referenceType": "purl",
-          "referenceLocator": "pkg:npm/mine1@1.3.5"
-        }
-      ]
-    },
-    {
-      "name": "mine1",
-      "SPDXID": "SPDXRef-Package-mine1-<uuid>",
-      "versionInfo": "1.2.3",
-      "supplier": "NOASSERTION",
-      "downloadLocation": "NOASSERTION",
-      "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/third/lockfile",
-      "licenseConcluded": "NOASSERTION",
-      "licenseDeclared": "NOASSERTION",
-      "externalRefs": [
-        {
-          "referenceCategory": "PACKAGE-MANAGER",
-          "referenceType": "purl",
-          "referenceLocator": "pkg:npm/mine1@1.2.3"
-        }
-      ]
-    }
-  ],
-  "files": [
-    {
-      "fileName": "<rootdir>/path/to/my/first/lockfile",
-      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "<checksum>"
-        }
-      ],
-      "copyrightText": "NOASSERTION"
-    },
-    {
-      "fileName": "<rootdir>/path/to/my/second/lockfile",
-      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "<checksum>"
-        }
-      ],
-      "copyrightText": "NOASSERTION"
-    },
-    {
-      "fileName": "<rootdir>/path/to/my/third/lockfile",
-      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "<checksum>"
-        }
-      ],
-      "copyrightText": "NOASSERTION"
-    }
-  ],
-  "relationships": [
-    {
-      "spdxElementId": "SPDXRef-DOCUMENT",
-      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
-      "relationshipType": "DESCRIBES"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
-      "relationshipType": "CONTAINS"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
-      "relatedSpdxElement": "NOASSERTION",
-      "relationshipType": "CONTAINS"
-    },
-    {
-      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
-      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
-      "relationshipType": "DEPENDENCY_MANIFEST_OF"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
-      "relationshipType": "CONTAINS"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-mine2-<uuid>",
-      "relatedSpdxElement": "NOASSERTION",
-      "relationshipType": "CONTAINS"
-    },
-    {
-      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
-      "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
-      "relationshipType": "DEPENDENCY_MANIFEST_OF"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
-      "relationshipType": "CONTAINS"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-mine3-<uuid>",
-      "relatedSpdxElement": "NOASSERTION",
-      "relationshipType": "CONTAINS"
-    },
-    {
-      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
-      "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
-      "relationshipType": "DEPENDENCY_MANIFEST_OF"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
-      "relationshipType": "CONTAINS"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
-      "relatedSpdxElement": "NOASSERTION",
-      "relationshipType": "CONTAINS"
-    },
-    {
-      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
-      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
-      "relationshipType": "DEPENDENCY_MANIFEST_OF"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
-      "relationshipType": "CONTAINS"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
-      "relatedSpdxElement": "NOASSERTION",
-      "relationshipType": "CONTAINS"
-    },
-    {
-      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
-      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
-      "relationshipType": "DEPENDENCY_MANIFEST_OF"
-    }
-  ]
-}
-
----
-
 [TestPrintSPDXResults_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_some_license_violations - 1]
 {
   "spdxVersion": "SPDX-2.3",
@@ -936,6 +702,240 @@
 ---
 
 [TestPrintSPDXResults_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_and_groups,_some_license_violations - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/<uuid>",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "<timestamp>"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    },
+    {
+      "name": "mine1",
+      "SPDXID": "SPDXRef-Package-mine1-<uuid>",
+      "versionInfo": "1.2.3",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/mine1@1.2.3"
+        }
+      ]
+    },
+    {
+      "name": "mine2",
+      "SPDXID": "SPDXRef-Package-mine2-<uuid>",
+      "versionInfo": "3.2.5",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/mine2@3.2.5"
+        }
+      ]
+    },
+    {
+      "name": "mine3",
+      "SPDXID": "SPDXRef-Package-mine3-<uuid>",
+      "versionInfo": "0.4.1",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/mine3@0.4.1"
+        }
+      ]
+    },
+    {
+      "name": "mine1",
+      "SPDXID": "SPDXRef-Package-mine1-<uuid>",
+      "versionInfo": "1.3.5",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/third/lockfile",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/mine1@1.3.5"
+        }
+      ]
+    },
+    {
+      "name": "mine1",
+      "SPDXID": "SPDXRef-Package-mine1-<uuid>",
+      "versionInfo": "1.2.3",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/third/lockfile",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/mine1@1.2.3"
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/path/to/my/second/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/path/to/my/third/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
+      "relationshipType": "DESCRIBES"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine2-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine3-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_with_versions_and_commits,_some_license_violations - 1]
 {
   "spdxVersion": "SPDX-2.3",
   "dataLicense": "CC0-1.0",
