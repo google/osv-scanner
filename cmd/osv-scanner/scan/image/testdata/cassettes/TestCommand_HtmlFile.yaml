@@ -402,7 +402,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2019-14697",
-                  "modified": "2026-08-27T22:18:00.903707Z"
+                  "modified": "2026-08-29T06:17:59.495472Z"
                 },
                 {
                   "id": "ALPINE-CVE-2020-28928",
@@ -418,7 +418,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2019-14697",
-                  "modified": "2026-08-27T22:18:00.903707Z"
+                  "modified": "2026-08-29T06:17:59.495472Z"
                 },
                 {
                   "id": "ALPINE-CVE-2020-28928",
