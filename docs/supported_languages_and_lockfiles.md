@@ -61,6 +61,22 @@ When scanning source code (`osv-scanner scan source ...`), OSV-Scanner automatic
 | Ruby       | `Gemfile.lock`<br>`gems.locked`                                                                                                                        |
 | Rust       | `Cargo.lock`                                                                                                                                           |
 
+### Python `requirements.txt` files
+
+A `requirements.txt` file is a manifest and does not necessarily record the
+versions installed in an environment. When an entry uses a version range,
+OSV-Scanner's best-effort extractor selects the lowest version allowed by the
+specifier. For example, `PyJWT>=2.10.0` is extracted and checked as version
+`2.10.0`; this does not mean that `2.10.0` is the installed version.
+
+This extraction behavior is independent of `--no-resolve`. That flag controls
+transitive dependency resolution and does not change how direct dependencies
+are extracted from `requirements.txt`.
+
+To scan the dependency versions selected for an environment, scan a resolved
+lockfile such as `poetry.lock` or a fully pinned `requirements.txt` generated
+by `pip freeze`.
+
 ## C/C++ scanning
 
 With the addition of [vulnerable commit ranges](https://osv.dev/blog/posts/introducing-broad-c-c++-support/) to the OSV.dev database, OSV-Scanner now supports vendored and submoduled C/C++ dependencies
