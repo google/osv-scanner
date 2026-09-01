@@ -459,7 +459,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 29 packages affected by 88 known vulnerabilities (11 Critical, 24 High, 37 Medium, 8 Low, 8 Unknown) from 1 ecosystem.
-53 vulnerabilities can be fixed.
+55 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -481,7 +481,7 @@ Ubuntu:22.04
 | gzip           | 1.10-4ubuntu4.1              | Fix Available           |          1 | gzip                    | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4            | Fix Available           |          3 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          2 | libcap2                 | # 4 Layer        | ubuntu        |
-| libgcrypt20    | 1.9.4-3ubuntu3               | Partial fixes Available |          2 | libgcrypt20             | # 4 Layer        | ubuntu        |
+| libgcrypt20    | 1.9.4-3ubuntu3               | Fix Available           |          2 | libgcrypt20             | # 4 Layer        | ubuntu        |
 | libtasn1-6     | 4.18.0-4build1               | Fix Available           |          2 | libtasn1-6              | # 4 Layer        | ubuntu        |
 | libzstd        | 1.4.8+dfsg-3build1           | No fix available        |          1 | libzstd1                | # 4 Layer        | ubuntu        |
 | lz4            | 1.9.3-2build2                | No fix available        |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
@@ -515,7 +515,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 29 packages affected by 88 known vulnerabilities (11 Critical, 24 High, 37 Medium, 8 Low, 8 Unknown) from 1 ecosystem.
-53 vulnerabilities can be fixed.
+55 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -537,7 +537,7 @@ Ubuntu:22.04
 | gzip           | 1.10-4ubuntu4.1              | Fix Available           |          1 | gzip                    | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4            | Fix Available           |          3 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          2 | libcap2                 | # 4 Layer        | ubuntu        |
-| libgcrypt20    | 1.9.4-3ubuntu3               | Partial fixes Available |          2 | libgcrypt20             | # 4 Layer        | ubuntu        |
+| libgcrypt20    | 1.9.4-3ubuntu3               | Fix Available           |          2 | libgcrypt20             | # 4 Layer        | ubuntu        |
 | libtasn1-6     | 4.18.0-4build1               | Fix Available           |          2 | libtasn1-6              | # 4 Layer        | ubuntu        |
 | libzstd        | 1.4.8+dfsg-3build1           | No fix available        |          1 | libzstd1                | # 4 Layer        | ubuntu        |
 | lz4            | 1.9.3-2build2                | No fix available        |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
@@ -590,7 +590,7 @@ Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 30 packages affected by 90 known vulnerabilities (11 Critical, 26 High, 37 Medium, 8 Low, 8 Unknown) from 1 ecosystem.
-53 vulnerabilities can be fixed.
+55 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -613,7 +613,7 @@ Ubuntu:22.04
 | gzip           | 1.10-4ubuntu4.1              | Fix Available           |          1 | gzip                    | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4            | Fix Available           |          3 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          2 | libcap2                 | # 4 Layer        | ubuntu        |
-| libgcrypt20    | 1.9.4-3ubuntu3               | Partial fixes Available |          2 | libgcrypt20             | # 4 Layer        | ubuntu        |
+| libgcrypt20    | 1.9.4-3ubuntu3               | Fix Available           |          2 | libgcrypt20             | # 4 Layer        | ubuntu        |
 | libtasn1-6     | 4.18.0-4build1               | Fix Available           |          2 | libtasn1-6              | # 4 Layer        | ubuntu        |
 | libzstd        | 1.4.8+dfsg-3build1           | No fix available        |          1 | libzstd1                | # 4 Layer        | ubuntu        |
 | lz4            | 1.9.3-2build2                | No fix available        |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
@@ -646,8 +646,8 @@ Scanning local image tarball "./testdata/test-java-full.tar"
 
 
 Container Scanning Result (Alpine Linux v3.21) (Based on "eclipse-temurin" image):
-Total 42 packages affected by 182 known vulnerabilities (5 Critical, 88 High, 80 Medium, 8 Low, 1 Unknown) from 2 ecosystems.
-182 vulnerabilities can be fixed.
+Total 42 packages affected by 186 known vulnerabilities (5 Critical, 90 High, 82 Medium, 8 Low, 1 Unknown) from 2 ecosystems.
+186 vulnerabilities can be fixed.
 
 
 Maven
@@ -695,7 +695,7 @@ Alpine:v3.21
 | SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT)    | INTRODUCED LAYER | IN BASE IMAGE   |
 +----------------+-------------------+---------------+------------+----------------------------+------------------+-----------------+
 | busybox        | 1.37.0-r9         | Fix Available |          2 | busybox... (3)             | # 0 Layer        | alpine          |
-| expat          | 2.6.4-r0          | Fix Available |         22 | libexpat                   | # 5 Layer        | eclipse-temurin |
+| expat          | 2.6.4-r0          | Fix Available |         26 | libexpat                   | # 5 Layer        | eclipse-temurin |
 | gnupg          | 2.4.7-r0          | Fix Available |          2 | gnupg... (11)              | # 5 Layer        | eclipse-temurin |
 | gnutls         | 3.8.8-r0          | Fix Available |         21 | gnutls                     | # 5 Layer        | eclipse-temurin |
 | libpng         | 1.6.44-r0         | Fix Available |         10 | libpng                     | # 5 Layer        | eclipse-temurin |
@@ -1431,6 +1431,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "GHSA-6vgw-5pg2-w6jp",
             "GHSA-jp4c-xjxw-mgf9",
             "GHSA-mq26-g339-26xf",
+            "GHSA-qwm4-qh6w-59xr",
             "GHSA-wf93-45jw-7689"
           ]
         }
@@ -1607,6 +1608,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "GHSA-6vgw-5pg2-w6jp",
             "GHSA-jp4c-xjxw-mgf9",
             "GHSA-mq26-g339-26xf",
+            "GHSA-qwm4-qh6w-59xr",
             "GHSA-wf93-45jw-7689"
           ]
         }
