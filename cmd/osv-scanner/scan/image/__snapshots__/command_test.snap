@@ -459,7 +459,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 30 packages affected by 90 known vulnerabilities (11 Critical, 24 High, 40 Medium, 8 Low, 7 Unknown) from 1 ecosystem.
-46 vulnerabilities can be fixed.
+49 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -471,7 +471,7 @@ Ubuntu:22.04
 | acl            | 2.3.1-1                      | No fix available        |          2 | libacl1                 | # 4 Layer        | ubuntu        |
 | attr           | 1:2.5.1-1build1              | No fix available        |          1 | libattr1                | # 4 Layer        | ubuntu        |
 | bzip2          | 1.0.8-5build1                | No fix available        |          1 | libbz2-1.0              | # 4 Layer        | ubuntu        |
-| coreutils      | 8.32-4.1ubuntu1.2            | No fix available        |          2 | coreutils               | # 4 Layer        | ubuntu        |
+| coreutils      | 8.32-4.1ubuntu1.2            | Partial fixes Available |          2 | coreutils               | # 4 Layer        | ubuntu        |
 | diffutils      | 1:3.8-0ubuntu2               | No fix available        |          1 | diffutils               | # 4 Layer        | ubuntu        |
 | dpkg           | 1.21.1ubuntu2.3              | Fix Available           |          1 | dpkg                    | # 4 Layer        | ubuntu        |
 | gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
@@ -487,7 +487,7 @@ Ubuntu:22.04
 | lz4            | 1.9.3-2build2                | No fix available        |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
 | ncurses        | 6.3-2ubuntu0.1               | Partial fixes Available |          3 | libncurses6... (5)      | # 4 Layer        | ubuntu        |
 | openssl        | 3.0.2-0ubuntu1.18            | Fix Available           |          7 | libssl3                 | # 4 Layer        | ubuntu        |
-| p11-kit        | 0.24.0-6build1               | No fix available        |          2 | libp11-kit0             | # 4 Layer        | ubuntu        |
+| p11-kit        | 0.24.0-6build1               | Fix Available           |          2 | libp11-kit0             | # 4 Layer        | ubuntu        |
 | pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          3 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
 | pcre2          | 10.39-3ubuntu0.1             | No fix available        |          1 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
 | perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |         15 | perl-base               | # 4 Layer        | ubuntu        |
@@ -516,7 +516,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 30 packages affected by 90 known vulnerabilities (11 Critical, 24 High, 40 Medium, 8 Low, 7 Unknown) from 1 ecosystem.
-46 vulnerabilities can be fixed.
+49 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -528,7 +528,7 @@ Ubuntu:22.04
 | acl            | 2.3.1-1                      | No fix available        |          2 | libacl1                 | # 4 Layer        | ubuntu        |
 | attr           | 1:2.5.1-1build1              | No fix available        |          1 | libattr1                | # 4 Layer        | ubuntu        |
 | bzip2          | 1.0.8-5build1                | No fix available        |          1 | libbz2-1.0              | # 4 Layer        | ubuntu        |
-| coreutils      | 8.32-4.1ubuntu1.2            | No fix available        |          2 | coreutils               | # 4 Layer        | ubuntu        |
+| coreutils      | 8.32-4.1ubuntu1.2            | Partial fixes Available |          2 | coreutils               | # 4 Layer        | ubuntu        |
 | diffutils      | 1:3.8-0ubuntu2               | No fix available        |          1 | diffutils               | # 4 Layer        | ubuntu        |
 | dpkg           | 1.21.1ubuntu2.3              | Fix Available           |          1 | dpkg                    | # 4 Layer        | ubuntu        |
 | gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
@@ -544,7 +544,7 @@ Ubuntu:22.04
 | lz4            | 1.9.3-2build2                | No fix available        |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
 | ncurses        | 6.3-2ubuntu0.1               | Partial fixes Available |          3 | libncurses6... (5)      | # 4 Layer        | ubuntu        |
 | openssl        | 3.0.2-0ubuntu1.18            | Fix Available           |          7 | libssl3                 | # 4 Layer        | ubuntu        |
-| p11-kit        | 0.24.0-6build1               | No fix available        |          2 | libp11-kit0             | # 4 Layer        | ubuntu        |
+| p11-kit        | 0.24.0-6build1               | Fix Available           |          2 | libp11-kit0             | # 4 Layer        | ubuntu        |
 | pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          3 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
 | pcre2          | 10.39-3ubuntu0.1             | No fix available        |          1 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
 | perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |         15 | perl-base               | # 4 Layer        | ubuntu        |
@@ -592,7 +592,7 @@ Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 31 packages affected by 92 known vulnerabilities (11 Critical, 26 High, 40 Medium, 8 Low, 7 Unknown) from 1 ecosystem.
-46 vulnerabilities can be fixed.
+49 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -604,7 +604,7 @@ Ubuntu:22.04
 | acl            | 2.3.1-1                      | No fix available        |          2 | libacl1                 | # 4 Layer        | ubuntu        |
 | attr           | 1:2.5.1-1build1              | No fix available        |          1 | libattr1                | # 4 Layer        | ubuntu        |
 | bzip2          | 1.0.8-5build1                | No fix available        |          1 | libbz2-1.0              | # 4 Layer        | ubuntu        |
-| coreutils      | 8.32-4.1ubuntu1.2            | No fix available        |          2 | coreutils               | # 4 Layer        | ubuntu        |
+| coreutils      | 8.32-4.1ubuntu1.2            | Partial fixes Available |          2 | coreutils               | # 4 Layer        | ubuntu        |
 | diffutils      | 1:3.8-0ubuntu2               | No fix available        |          1 | diffutils               | # 4 Layer        | ubuntu        |
 | dpkg           | 1.21.1ubuntu2.3              | Fix Available           |          1 | dpkg                    | # 4 Layer        | ubuntu        |
 | fzf            | 0.29.0-1ubuntu0.1            | No fix available        |          2 | fzf                     | # 7 Layer        | --            |
@@ -621,7 +621,7 @@ Ubuntu:22.04
 | lz4            | 1.9.3-2build2                | No fix available        |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
 | ncurses        | 6.3-2ubuntu0.1               | Partial fixes Available |          3 | libncurses6... (5)      | # 4 Layer        | ubuntu        |
 | openssl        | 3.0.2-0ubuntu1.18            | Fix Available           |          7 | libssl3                 | # 4 Layer        | ubuntu        |
-| p11-kit        | 0.24.0-6build1               | No fix available        |          2 | libp11-kit0             | # 4 Layer        | ubuntu        |
+| p11-kit        | 0.24.0-6build1               | Fix Available           |          2 | libp11-kit0             | # 4 Layer        | ubuntu        |
 | pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          3 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
 | pcre2          | 10.39-3ubuntu0.1             | No fix available        |          1 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
 | perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |         15 | perl-base               | # 4 Layer        | ubuntu        |
@@ -1127,7 +1127,7 @@ Scanning local image tarball "./testdata/test-chisel.tar"
 
 Container Scanning Result (Ubuntu 26.04 LTS):
 Total 7 packages affected by 200 known vulnerabilities (0 Critical, 0 High, 2 Medium, 0 Low, 198 Unknown) from 2 ecosystems.
-198 vulnerabilities can be fixed.
+200 vulnerabilities can be fixed.
 
 
 Go
@@ -1174,13 +1174,13 @@ Go
 | stdlib  | 1.26.0            | Fix Available |         33 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 Ubuntu:26.04
-+-------------------------------------------------------------------------------------------------------------------------------------------+
-| Source:os:/var/lib/chisel/manifest.wall                                                                                                   |
-+----------------+-----------------------------+------------------+------------+-------------------------+------------------+---------------+
-| SOURCE PACKAGE | INSTALLED VERSION           | FIX AVAILABLE    | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
-+----------------+-----------------------------+------------------+------------+-------------------------+------------------+---------------+
-| coreutils      | 9.5-1ubuntu2+0.0.0~ubuntu25 | No fix available |          2 | coreutils               | # 0 Layer        | --            |
-+----------------+-----------------------------+------------------+------------+-------------------------+------------------+---------------+
++----------------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/var/lib/chisel/manifest.wall                                                                                                |
++----------------+-----------------------------+---------------+------------+-------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION           | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+-----------------------------+---------------+------------+-------------------------+------------------+---------------+
+| coreutils      | 9.5-1ubuntu2+0.0.0~ubuntu25 | Fix Available |          2 | coreutils               | # 0 Layer        | --            |
++----------------+-----------------------------+---------------+------------+-------------------------+------------------+---------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
 You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
