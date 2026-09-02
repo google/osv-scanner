@@ -418,3 +418,28 @@ func TestSatisfies_Invalid(t *testing.T) {
 		})
 	}
 }
+
+func TestSatisfies_DeeplyNested(t *testing.T) {
+	t.Parallel()
+
+	// A license expression is untrusted input taken from scanned package
+	// metadata. Deeply nested brackets must be rejected with an error rather
+	// than recursing until the goroutine stack overflows, which is a fatal
+	// error that recover cannot catch. The input is built here rather than
+	// listed in the table above so the generated subtest name stays readable.
+	license := models.License(strings.Repeat("(", 2_000_000) + "MIT" + strings.Repeat(")", 2_000_000))
+
+	got, err := spdx.Satisfies(license, []string{"MIT"})
+
+	if got {
+		t.Errorf("Satisfies(deeply nested) = %v, want %v", got, false)
+	}
+
+	if err == nil {
+		t.Fatal("Satisfies(deeply nested) = nil error, want a nesting-limit error")
+	}
+
+	if !strings.Contains(err.Error(), "nested too deeply") {
+		t.Errorf("Satisfies(deeply nested) = %v, want a nesting-limit error", err)
+	}
+}
