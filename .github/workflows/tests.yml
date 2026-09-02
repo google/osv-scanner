@@ -161,3 +161,25 @@ jobs:
               exit $exit_code
             fi
           done
+  tests-pass:
+    name: All Tests Passed
+    permissions: {}
+    needs:
+      - changes
+      - prepare_test_image_testdata
+      - tests
+      - docker
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Status
+        env:
+          NEEDS_JSON: ${{ toJson(needs) }}
+        run: |
+          if jq --exit-status 'all(.result == "success" or .result == "skipped")' <<< "$NEEDS_JSON"; then
+            echo "All test jobs passed or were skipped."
+            exit 0
+          else
+            echo "One or more test jobs failed."
+            exit 1
+          fi
