@@ -135,7 +135,7 @@ Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
           "rules": [],
           "supportedTaxonomies": [],
           "taxa": [],
-          "version": "2.4.0"
+          "version": "2.5.1"
         },
         "extensions": []
       },
@@ -389,7 +389,7 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium,
           ],
           "supportedTaxonomies": [],
           "taxa": [],
-          "version": "2.4.0"
+          "version": "2.5.1"
         },
         "extensions": []
       },
@@ -1876,6 +1876,41 @@ Total 12 packages affected by 53 known vulnerabilities (6 Critical, 20 High, 26 
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/testdata/locks-insecure/bun.lock",
+      "SPDXID": "SPDXRef-File-<rootdir>-testdata-locks-insecure-bun.lock-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/testdata/locks-insecure/composer.lock",
+      "SPDXID": "SPDXRef-File-<rootdir>-testdata-locks-insecure-composer.lock-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/testdata/locks-insecure/osv-scanner-custom.json",
+      "SPDXID": "SPDXRef-File-<rootdir>-testdata-locks-insecure-osv-scanner-custom.json-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -1893,6 +1928,11 @@ Total 12 packages affected by 53 known vulnerabilities (6 Critical, 20 High, 26 
       "relationshipType": "CONTAINS"
     },
     {
+      "spdxElementId": "SPDXRef-File-<rootdir>-testdata-locks-insecure-bun.lock-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-has-flag-uuid-placeholder-2",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
       "spdxElementId": "SPDXRef-Package-main-uuid-placeholder-1",
       "relatedSpdxElement": "SPDXRef-Package-wrappy-uuid-placeholder-3",
       "relationshipType": "CONTAINS"
@@ -1901,6 +1941,11 @@ Total 12 packages affected by 53 known vulnerabilities (6 Critical, 20 High, 26 
       "spdxElementId": "SPDXRef-Package-wrappy-uuid-placeholder-3",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-testdata-locks-insecure-bun.lock-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-wrappy-uuid-placeholder-3",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     },
     {
       "spdxElementId": "SPDXRef-Package-main-uuid-placeholder-1",
@@ -1913,6 +1958,11 @@ Total 12 packages affected by 53 known vulnerabilities (6 Critical, 20 High, 26 
       "relationshipType": "CONTAINS"
     },
     {
+      "spdxElementId": "SPDXRef-File-<rootdir>-testdata-locks-insecure-composer.lock-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-flysystem-uuid-placeholder-4",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
       "spdxElementId": "SPDXRef-Package-main-uuid-placeholder-1",
       "relatedSpdxElement": "SPDXRef-Package-stdlib-uuid-placeholder-5",
       "relationshipType": "CONTAINS"
@@ -1923,6 +1973,11 @@ Total 12 packages affected by 53 known vulnerabilities (6 Critical, 20 High, 26 
       "relationshipType": "CONTAINS"
     },
     {
+      "spdxElementId": "SPDXRef-File-<rootdir>-testdata-locks-insecure-osv-scanner-custom.json-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-stdlib-uuid-placeholder-5",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
       "spdxElementId": "SPDXRef-Package-main-uuid-placeholder-1",
       "relatedSpdxElement": "SPDXRef-Package-toolchain-uuid-placeholder-6",
       "relationshipType": "CONTAINS"
@@ -1931,6 +1986,11 @@ Total 12 packages affected by 53 known vulnerabilities (6 Critical, 20 High, 26 
       "spdxElementId": "SPDXRef-Package-toolchain-uuid-placeholder-6",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-testdata-locks-insecure-osv-scanner-custom.json-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-toolchain-uuid-placeholder-6",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -2612,15 +2672,7 @@ could not determine extractor, requested package-lock.json
             "version": "1.999.1",
             "ecosystem": "Go"
           }
-        }
-      ]
-    },
-    {
-      "source": {
-        "path": "<rootdir>/testdata/locks-insecure/osv-scanner-with-unscannables.json",
-        "type": "lockfile"
-      },
-      "packages": [
+        },
         {
           "package": {
             "name": "toolchain",
@@ -3076,7 +3128,7 @@ Total 1 package affected by 2 known vulnerabilities (0 Critical, 0 High, 0 Mediu
           ],
           "supportedTaxonomies": [],
           "taxa": [],
-          "version": "2.4.0"
+          "version": "2.5.1"
         },
         "extensions": []
       },
@@ -3178,18 +3230,17 @@ Scanned <rootdir>/testdata/homebrew/Cellar/libssh2/1.11.1/INSTALL_RECEIPT.json f
 
 
 Scanning Result (package view):
-Total 1 package affected by 5 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 5 Unknown) from 1 ecosystem.
+Total 1 package affected by 15 known vulnerabilities (1 Critical, 8 High, 1 Medium, 0 Low, 5 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 
 GIT
 +------------------------------------------------------------------------------------------------------------------+
-| Source:os:<rootdir>/testdata/homebrew/Cellar/libssh |
-| 2/1.11.1/INSTALL_RECEIPT.json                                                                                    |
+| Source:os:testdata/homebrew/Cellar/libssh2/1.11.1/INSTALL_RECEIPT.json                                           |
 +------------------------------------+-------------------+------------------+------------+-------------------------+
 | SOURCE PACKAGE                     | INSTALLED VERSION | FIX AVAILABLE    | VULN COUNT | BINARY PACKAGES (COUNT) |
 +------------------------------------+-------------------+------------------+------------+-------------------------+
-| https://github.com/libssh2/libssh2 | 1.11.1            | No fix available |          5 |                         |
+| https://github.com/libssh2/libssh2 | 1.11.1            | No fix available |         15 |                         |
 +------------------------------------+-------------------+------------------+------------+-------------------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
@@ -3209,18 +3260,17 @@ Scanned <rootdir>/testdata/homebrew/Cellar/libssh2/1.11.1/INSTALL_RECEIPT.json f
 
 
 Scanning Result (package view):
-Total 1 package affected by 5 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 5 Unknown) from 1 ecosystem.
+Total 1 package affected by 15 known vulnerabilities (1 Critical, 8 High, 1 Medium, 0 Low, 5 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 
 GIT
 +------------------------------------------------------------------------------------------------------------------+
-| Source:os:<rootdir>/testdata/homebrew/Cellar/libssh |
-| 2/1.11.1/INSTALL_RECEIPT.json                                                                                    |
+| Source:os:testdata/homebrew/Cellar/libssh2/1.11.1/INSTALL_RECEIPT.json                                           |
 +------------------------------------+-------------------+------------------+------------+-------------------------+
 | SOURCE PACKAGE                     | INSTALLED VERSION | FIX AVAILABLE    | VULN COUNT | BINARY PACKAGES (COUNT) |
 +------------------------------------+-------------------+------------------+------------+-------------------------+
-| https://github.com/libssh2/libssh2 | 1.11.1            | No fix available |          5 |                         |
+| https://github.com/libssh2/libssh2 | 1.11.1            | No fix available |         15 |                         |
 +------------------------------------+-------------------+------------------+------------+-------------------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
@@ -4372,8 +4422,8 @@ No issues found
 [TestCommand_LocalDatabases/one_specific_supported_lockfile - 1]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Loaded Packagist local db from <tempdir>/osv-scalibr/Packagist/all.zip
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
+Loaded Packagist local db from <tempdir>/osv-scalibr/Packagist/all.zip
 
 No issues found
 
@@ -4386,8 +4436,8 @@ No issues found
 [TestCommand_LocalDatabases/one_specific_supported_lockfile - 3]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Loaded Packagist local db from <tempdir>/osv-scalibr/Packagist/all.zip
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
+Loaded Packagist local db from <tempdir>/osv-scalibr/Packagist/all.zip
 
 No issues found
 
@@ -4500,8 +4550,8 @@ No issues found
 [TestCommand_LocalDatabases/output_format_markdown_table - 1]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Loaded Packagist local db from <tempdir>/osv-scalibr/Packagist/all.zip
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
+Loaded Packagist local db from <tempdir>/osv-scalibr/Packagist/all.zip
 
 No issues found
 
@@ -4514,8 +4564,8 @@ No issues found
 [TestCommand_LocalDatabases/output_format_markdown_table - 3]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Loaded Packagist local db from <tempdir>/osv-scalibr/Packagist/all.zip
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
+Loaded Packagist local db from <tempdir>/osv-scalibr/Packagist/all.zip
 
 No issues found
 
@@ -4541,8 +4591,8 @@ No issues found
 [TestCommand_LocalDatabases/output_with_json - 2]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Loaded Packagist local db from <tempdir>/osv-scalibr/Packagist/all.zip
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
+Loaded Packagist local db from <tempdir>/osv-scalibr/Packagist/all.zip
 
 ---
 
@@ -4562,8 +4612,8 @@ Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 [TestCommand_LocalDatabases/output_with_json - 4]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Loaded Packagist local db from <tempdir>/osv-scalibr/Packagist/all.zip
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
+Loaded Packagist local db from <tempdir>/osv-scalibr/Packagist/all.zip
 
 ---
 

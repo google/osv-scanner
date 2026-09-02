@@ -926,6 +926,16 @@ func buildZipInMemory(ecosystem string) ([]byte, error) {
 
 	files, err := os.ReadDir(localDBPath)
 	if err != nil {
+		if errors.Is(err, os.ErrNotExist) {
+			var emptyBuf bytes.Buffer
+			zw := zip.NewWriter(&emptyBuf)
+			if closeErr := zw.Close(); closeErr != nil {
+				return nil, closeErr
+			}
+
+			return emptyBuf.Bytes(), nil
+		}
+
 		return nil, err
 	}
 
