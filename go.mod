@@ -20,8 +20,8 @@ require (
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/ossf/osv-schema/bindings/go v0.0.0-20260730052020-9509daabeece
 	github.com/owenrumney/go-sarif/v3 v3.3.1
-	github.com/package-url/packageurl-go v0.1.6
-	github.com/pandatix/go-cvss v0.6.2
+	github.com/package-url/packageurl-go v0.1.7
+	github.com/pandatix/go-cvss v0.6.4
 	github.com/tidwall/gjson v1.19.0
 	github.com/tidwall/pretty v1.2.1
 	github.com/tidwall/sjson v1.2.5
