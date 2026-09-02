@@ -1,0 +1,64 @@
+interactions:
+    - method: /deps_dev.v3.Insights/GetVersion
+      request: |-
+        {
+          "versionKey": {
+            "name": "ansi-html",
+            "system": "NPM",
+            "version": "0.0.1"
+          }
+        }
+      response: |-
+        {
+          "advisoryKeys": [
+            {
+              "id": "GHSA-whgm-jr23-g3j9"
+            }
+          ],
+          "licenses": [
+            "Apache-2.0"
+          ],
+          "links": [
+            {
+              "label": "HOMEPAGE",
+              "url": "https://github.com/Tjatse/ansi-html"
+            },
+            {
+              "label": "ISSUE_TRACKER",
+              "url": "https://github.com/Tjatse/ansi-html/issues"
+            },
+            {
+              "label": "ORIGIN",
+              "url": "https://registry.npmjs.org/ansi-html/0.0.1"
+            },
+            {
+              "label": "SOURCE_REPO",
+              "url": "git://github.com/Tjatse/ansi-html.git"
+            }
+          ],
+          "publishedAt": "2014-12-15T07:30:55Z",
+          "registries": [
+            "https://registry.npmjs.org/"
+          ],
+          "relatedProjects": [
+            {
+              "projectKey": {
+                "id": "github.com/tjatse/ansi-html"
+              },
+              "relationProvenance": "UNVERIFIED_METADATA",
+              "relationType": "ISSUE_TRACKER"
+            },
+            {
+              "projectKey": {
+                "id": "github.com/tjatse/ansi-html"
+              },
+              "relationProvenance": "UNVERIFIED_METADATA",
+              "relationType": "SOURCE_REPO"
+            }
+          ],
+          "versionKey": {
+            "name": "ansi-html",
+            "system": "NPM",
+            "version": "0.0.1"
+          }
+        }

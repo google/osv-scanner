@@ -1,0 +1,92 @@
+---
+version: 2
+interactions:
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 473
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.logging.log4j:log4j-api"
+              },
+              "version": "2.14.1"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.logging.log4j:log4j-core"
+              },
+              "version": "2.14.1"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.logging.log4j:log4j-web"
+              },
+              "version": "2.14.1"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 521
+      body: |
+        {
+          "results": [
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-3pxv-7cmr-fjr4",
+                  "modified": "2026-04-16T11:29:10.536806Z"
+                },
+                {
+                  "id": "GHSA-6hg6-v5c8-fphq",
+                  "modified": "2026-04-17T12:29:10.521430Z"
+                },
+                {
+                  "id": "GHSA-7rjr-3q55-vv33",
+                  "modified": "2025-10-22T19:37:53.742023Z"
+                },
+                {
+                  "id": "GHSA-8489-44mv-ggj8",
+                  "modified": "2026-06-09T10:45:14.253296Z"
+                },
+                {
+                  "id": "GHSA-jfh8-c2jp-5v3q",
+                  "modified": "2025-10-22T19:37:02.616807Z"
+                },
+                {
+                  "id": "GHSA-p6xc-xr62-6r2g",
+                  "modified": "2026-06-09T10:30:14.432177Z"
+                },
+                {
+                  "id": "GHSA-vc5p-v9hr-52mj",
+                  "modified": "2026-02-04T03:10:00.616806Z"
+                }
+              ]
+            },
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "521"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s

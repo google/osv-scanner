@@ -1,0 +1,72 @@
+---
+version: 2
+interactions:
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 265
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "emoji"
+              },
+              "version": "2.14.0"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "protobuf"
+              },
+              "version": "4.25.5"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 300
+      body: |
+        {
+          "results": [
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-7gcm-g887-7qv7",
+                  "modified": "2026-07-07T17:56:36.712428Z"
+                },
+                {
+                  "id": "GHSA-8qvm-5x2c-j2w7",
+                  "modified": "2026-07-07T17:57:09.877491Z"
+                },
+                {
+                  "id": "PYSEC-2026-1805",
+                  "modified": "2026-07-07T17:48:07.140464Z"
+                },
+                {
+                  "id": "PYSEC-2026-1806",
+                  "modified": "2026-07-07T17:48:07.186137Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "300"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s

@@ -1,0 +1,274 @@
+interactions:
+    - method: /deps_dev.v3alpha.Insights/GetVersionBatch
+      request: |-
+        {
+          "requests": [
+            {
+              "versionKey": {
+                "name": "allocator-api2",
+                "system": "CARGO",
+                "version": "0.2.21"
+              }
+            },
+            {
+              "versionKey": {
+                "name": "equivalent",
+                "system": "CARGO",
+                "version": "1.0.2"
+              }
+            },
+            {
+              "versionKey": {
+                "name": "foldhash",
+                "system": "CARGO",
+                "version": "0.2.0"
+              }
+            },
+            {
+              "versionKey": {
+                "name": "hashbrown",
+                "system": "CARGO",
+                "version": "0.16.0"
+              }
+            },
+            {
+              "versionKey": {
+                "name": "rust_clean",
+                "system": "CARGO",
+                "version": "0.1.0"
+              }
+            }
+          ]
+        }
+      response: |-
+        {
+          "responses": [
+            {
+              "request": {
+                "versionKey": {
+                  "name": "allocator-api2",
+                  "system": "CARGO",
+                  "version": "0.2.21"
+                }
+              },
+              "version": {
+                "licenseDetails": [
+                  {
+                    "license": "Apache-2.0 OR MIT",
+                    "spdx": "Apache-2.0 OR MIT"
+                  }
+                ],
+                "licenses": [
+                  "Apache-2.0 OR MIT"
+                ],
+                "links": [
+                  {
+                    "label": "SOURCE_REPO",
+                    "url": "https://github.com/zakarumych/allocator-api2"
+                  },
+                  {
+                    "label": "HOMEPAGE",
+                    "url": "https://github.com/zakarumych/allocator-api2"
+                  },
+                  {
+                    "label": "DOCUMENTATION",
+                    "url": "https://docs.rs/allocator-api2"
+                  }
+                ],
+                "publishedAt": "2024-12-01T14:49:16Z",
+                "purl": "pkg:cargo/allocator-api2@0.2.21",
+                "registries": [
+                  "https://crates.io/"
+                ],
+                "relatedProjects": [
+                  {
+                    "projectKey": {
+                      "id": "github.com/zakarumych/allocator-api2"
+                    },
+                    "relationProvenance": "UNVERIFIED_METADATA",
+                    "relationType": "SOURCE_REPO"
+                  }
+                ],
+                "upstreamIdentifiers": [
+                  {
+                    "packageName": "allocator-api2",
+                    "source": "CARGO_CRATES_IO",
+                    "versionString": "0.2.21"
+                  }
+                ],
+                "versionKey": {
+                  "name": "allocator-api2",
+                  "system": "CARGO",
+                  "version": "0.2.21"
+                }
+              }
+            },
+            {
+              "request": {
+                "versionKey": {
+                  "name": "equivalent",
+                  "system": "CARGO",
+                  "version": "1.0.2"
+                }
+              },
+              "version": {
+                "isDefault": true,
+                "licenseDetails": [
+                  {
+                    "license": "Apache-2.0 OR MIT",
+                    "spdx": "Apache-2.0 OR MIT"
+                  }
+                ],
+                "licenses": [
+                  "Apache-2.0 OR MIT"
+                ],
+                "links": [
+                  {
+                    "label": "SOURCE_REPO",
+                    "url": "https://github.com/indexmap-rs/equivalent"
+                  }
+                ],
+                "publishedAt": "2025-02-14T22:14:18Z",
+                "purl": "pkg:cargo/equivalent@1.0.2",
+                "registries": [
+                  "https://crates.io/"
+                ],
+                "relatedProjects": [
+                  {
+                    "projectKey": {
+                      "id": "github.com/indexmap-rs/equivalent"
+                    },
+                    "relationProvenance": "UNVERIFIED_METADATA",
+                    "relationType": "SOURCE_REPO"
+                  }
+                ],
+                "upstreamIdentifiers": [
+                  {
+                    "packageName": "equivalent",
+                    "source": "CARGO_CRATES_IO",
+                    "versionString": "1.0.2"
+                  }
+                ],
+                "versionKey": {
+                  "name": "equivalent",
+                  "system": "CARGO",
+                  "version": "1.0.2"
+                }
+              }
+            },
+            {
+              "request": {
+                "versionKey": {
+                  "name": "foldhash",
+                  "system": "CARGO",
+                  "version": "0.2.0"
+                }
+              },
+              "version": {
+                "isDefault": true,
+                "licenseDetails": [
+                  {
+                    "license": "Zlib",
+                    "spdx": "Zlib"
+                  }
+                ],
+                "licenses": [
+                  "Zlib"
+                ],
+                "links": [
+                  {
+                    "label": "SOURCE_REPO",
+                    "url": "https://github.com/orlp/foldhash"
+                  }
+                ],
+                "publishedAt": "2025-08-23T19:14:01Z",
+                "purl": "pkg:cargo/foldhash@0.2.0",
+                "registries": [
+                  "https://crates.io/"
+                ],
+                "relatedProjects": [
+                  {
+                    "projectKey": {
+                      "id": "github.com/orlp/foldhash"
+                    },
+                    "relationProvenance": "UNVERIFIED_METADATA",
+                    "relationType": "SOURCE_REPO"
+                  }
+                ],
+                "upstreamIdentifiers": [
+                  {
+                    "packageName": "foldhash",
+                    "source": "CARGO_CRATES_IO",
+                    "versionString": "0.2.0"
+                  }
+                ],
+                "versionKey": {
+                  "name": "foldhash",
+                  "system": "CARGO",
+                  "version": "0.2.0"
+                }
+              }
+            },
+            {
+              "request": {
+                "versionKey": {
+                  "name": "hashbrown",
+                  "system": "CARGO",
+                  "version": "0.16.0"
+                }
+              },
+              "version": {
+                "licenseDetails": [
+                  {
+                    "license": "Apache-2.0 OR MIT",
+                    "spdx": "Apache-2.0 OR MIT"
+                  }
+                ],
+                "licenses": [
+                  "Apache-2.0 OR MIT"
+                ],
+                "links": [
+                  {
+                    "label": "SOURCE_REPO",
+                    "url": "https://github.com/rust-lang/hashbrown"
+                  }
+                ],
+                "publishedAt": "2025-08-29T11:55:49Z",
+                "purl": "pkg:cargo/hashbrown@0.16.0",
+                "registries": [
+                  "https://crates.io/"
+                ],
+                "relatedProjects": [
+                  {
+                    "projectKey": {
+                      "id": "github.com/rust-lang/hashbrown"
+                    },
+                    "relationProvenance": "UNVERIFIED_METADATA",
+                    "relationType": "SOURCE_REPO"
+                  }
+                ],
+                "upstreamIdentifiers": [
+                  {
+                    "packageName": "hashbrown",
+                    "source": "CARGO_CRATES_IO",
+                    "versionString": "0.16.0"
+                  }
+                ],
+                "versionKey": {
+                  "name": "hashbrown",
+                  "system": "CARGO",
+                  "version": "0.16.0"
+                }
+              }
+            },
+            {
+              "request": {
+                "versionKey": {
+                  "name": "rust_clean",
+                  "system": "CARGO",
+                  "version": "0.1.0"
+                }
+              }
+            }
+          ]
+        }

@@ -1,0 +1,60 @@
+---
+version: 2
+interactions:
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 171
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "GIT",
+                "name": "https://github.com/davegamble/cjson"
+              },
+              "version": "1.7.17"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 220
+      body: |
+        {
+          "results": [
+            {
+              "vulns": [
+                {
+                  "id": "CVE-2023-53154",
+                  "modified": "2026-07-15T01:49:00.910390Z"
+                },
+                {
+                  "id": "CVE-2024-31755",
+                  "modified": "2026-07-15T01:49:12.341839Z"
+                },
+                {
+                  "id": "CVE-2025-57052",
+                  "modified": "2026-07-15T01:49:08.744027Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "220"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s

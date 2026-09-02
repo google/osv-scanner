@@ -12,9 +12,13 @@ import (
 )
 
 func TestMain(m *testing.M) {
+	cf := testcmd.NewClientFactories(nil)
+	testcmd.SharedClientFactories = cf
+
 	slog.SetDefault(slog.New(testlogger.New()))
 	testcmd.CommandsUnderTest = []cmd.CommandBuilder{update.Command}
 	m.Run()
 
+	_ = cf.Close()
 	testutility.CleanSnapshots(m)
 }

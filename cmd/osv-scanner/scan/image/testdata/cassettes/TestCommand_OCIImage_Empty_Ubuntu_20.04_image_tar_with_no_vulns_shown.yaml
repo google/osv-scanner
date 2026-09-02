@@ -1,0 +1,412 @@
+---
+version: 2
+interactions:
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 6381
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "adduser"
+              },
+              "version": "3.118ubuntu2"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "apt"
+              },
+              "version": "2.0.10"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "base-files"
+              },
+              "version": "11ubuntu5.8"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "base-passwd"
+              },
+              "version": "3.5.47"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "bash"
+              },
+              "version": "5.0-6ubuntu1.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "dash"
+              },
+              "version": "0.5.10.2-6"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "debconf"
+              },
+              "version": "1.5.73"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "debianutils"
+              },
+              "version": "4.9.1"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "diffutils"
+              },
+              "version": "1:3.7-3"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "e2fsprogs"
+              },
+              "version": "1.45.5-2ubuntu1.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "findutils"
+              },
+              "version": "4.7.0-1ubuntu1"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "grep"
+              },
+              "version": "3.4-1"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "hostname"
+              },
+              "version": "3.23"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "init-system-helpers"
+              },
+              "version": "1.57"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "apt"
+              },
+              "version": "2.0.10"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "audit"
+              },
+              "version": "1:2.8.5-2ubuntu6"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "audit"
+              },
+              "version": "1:2.8.5-2ubuntu6"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "libcap-ng"
+              },
+              "version": "0.7.9-2.1build1"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "e2fsprogs"
+              },
+              "version": "1.45.5-2ubuntu1.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "libxcrypt"
+              },
+              "version": "1:4.4.10-10ubuntu4"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "db5.3"
+              },
+              "version": "5.3.28+dfsg1-0.6ubuntu2"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "cdebconf"
+              },
+              "version": "0.251ubuntu1"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "e2fsprogs"
+              },
+              "version": "1.45.5-2ubuntu1.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "libffi"
+              },
+              "version": "3.3-4"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "gmp"
+              },
+              "version": "2:6.2.0+dfsg-4ubuntu0.1"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "libgpg-error"
+              },
+              "version": "1.37-1"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "nettle"
+              },
+              "version": "3.5.1+really3.5.1-2ubuntu0.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "libidn2"
+              },
+              "version": "2.2.0-2"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "nettle"
+              },
+              "version": "3.5.1+really3.5.1-2ubuntu0.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "pcre3"
+              },
+              "version": "2:8.39-12ubuntu0.1"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "procps"
+              },
+              "version": "2:3.3.16-1ubuntu2.4"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "libseccomp"
+              },
+              "version": "2.5.1-1ubuntu1~20.04.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "libselinux"
+              },
+              "version": "3.0-1build2"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "libsemanage"
+              },
+              "version": "3.0-1build2"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "libsemanage"
+              },
+              "version": "3.0-1build2"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "libsepol"
+              },
+              "version": "3.0-1ubuntu0.1"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "e2fsprogs"
+              },
+              "version": "1.45.5-2ubuntu1.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "libunistring"
+              },
+              "version": "0.9.10-2"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "libzstd"
+              },
+              "version": "1.4.4+dfsg-3ubuntu0.1"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "e2fsprogs"
+              },
+              "version": "1.45.5-2ubuntu1.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "lsb"
+              },
+              "version": "11.1.0ubuntu2"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "mawk"
+              },
+              "version": "1.3.4.20200120-2"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "procps"
+              },
+              "version": "2:3.3.16-1ubuntu2.4"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "sensible-utils"
+              },
+              "version": "0.0.12+nmu1"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "sysvinit"
+              },
+              "version": "2.96-2.1ubuntu1"
+            },
+            {
+              "package": {
+                "ecosystem": "Ubuntu:20.04",
+                "name": "ubuntu-keyring"
+              },
+              "version": "2020.02.11.4"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 232
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "UBUNTU-CVE-2017-11164",
+                  "modified": "2026-04-22T11:10:44.262299Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "232"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s

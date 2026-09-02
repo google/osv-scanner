@@ -1,0 +1,412 @@
+interactions:
+    - method: /deps_dev.v3alpha.Insights/GetVersionBatch
+      request: |-
+        {
+          "requests": [
+            {
+              "versionKey": {
+                "name": "cfg-if",
+                "system": "CARGO",
+                "version": "0.1.10"
+              }
+            },
+            {
+              "versionKey": {
+                "name": "libc",
+                "system": "CARGO",
+                "version": "0.2.177"
+              }
+            },
+            {
+              "versionKey": {
+                "name": "net2",
+                "system": "CARGO",
+                "version": "0.2.33"
+              }
+            },
+            {
+              "versionKey": {
+                "name": "rust_vuln_deprecated",
+                "system": "CARGO",
+                "version": "0.1.0"
+              }
+            },
+            {
+              "versionKey": {
+                "name": "winapi",
+                "system": "CARGO",
+                "version": "0.3.9"
+              }
+            },
+            {
+              "versionKey": {
+                "name": "winapi-i686-pc-windows-gnu",
+                "system": "CARGO",
+                "version": "0.4.0"
+              }
+            },
+            {
+              "versionKey": {
+                "name": "winapi-x86_64-pc-windows-gnu",
+                "system": "CARGO",
+                "version": "0.4.0"
+              }
+            }
+          ]
+        }
+      response: |-
+        {
+          "responses": [
+            {
+              "request": {
+                "versionKey": {
+                  "name": "cfg-if",
+                  "system": "CARGO",
+                  "version": "0.1.10"
+                }
+              },
+              "version": {
+                "licenseDetails": [
+                  {
+                    "license": "Apache-2.0 OR MIT",
+                    "spdx": "Apache-2.0 OR MIT"
+                  }
+                ],
+                "licenses": [
+                  "Apache-2.0 OR MIT"
+                ],
+                "links": [
+                  {
+                    "label": "SOURCE_REPO",
+                    "url": "https://github.com/rust-lang/cfg-if"
+                  }
+                ],
+                "publishedAt": "2019-09-24T15:27:21Z",
+                "purl": "pkg:cargo/cfg-if@0.1.10",
+                "registries": [
+                  "https://crates.io/"
+                ],
+                "relatedProjects": [
+                  {
+                    "projectKey": {
+                      "id": "github.com/rust-lang/cfg-if"
+                    },
+                    "relationProvenance": "UNVERIFIED_METADATA",
+                    "relationType": "SOURCE_REPO"
+                  }
+                ],
+                "upstreamIdentifiers": [
+                  {
+                    "packageName": "cfg-if",
+                    "source": "CARGO_CRATES_IO",
+                    "versionString": "0.1.10"
+                  }
+                ],
+                "versionKey": {
+                  "name": "cfg-if",
+                  "system": "CARGO",
+                  "version": "0.1.10"
+                }
+              }
+            },
+            {
+              "request": {
+                "versionKey": {
+                  "name": "libc",
+                  "system": "CARGO",
+                  "version": "0.2.177"
+                }
+              },
+              "version": {
+                "licenseDetails": [
+                  {
+                    "license": "Apache-2.0 OR MIT",
+                    "spdx": "Apache-2.0 OR MIT"
+                  }
+                ],
+                "licenses": [
+                  "Apache-2.0 OR MIT"
+                ],
+                "links": [
+                  {
+                    "label": "SOURCE_REPO",
+                    "url": "https://github.com/rust-lang/libc"
+                  }
+                ],
+                "publishedAt": "2025-10-09T14:06:09Z",
+                "purl": "pkg:cargo/libc@0.2.177",
+                "registries": [
+                  "https://crates.io/"
+                ],
+                "relatedProjects": [
+                  {
+                    "projectKey": {
+                      "id": "github.com/rust-lang/libc"
+                    },
+                    "relationProvenance": "UNVERIFIED_METADATA",
+                    "relationType": "SOURCE_REPO"
+                  }
+                ],
+                "upstreamIdentifiers": [
+                  {
+                    "packageName": "libc",
+                    "source": "CARGO_CRATES_IO",
+                    "versionString": "0.2.177"
+                  }
+                ],
+                "versionKey": {
+                  "name": "libc",
+                  "system": "CARGO",
+                  "version": "0.2.177"
+                }
+              }
+            },
+            {
+              "request": {
+                "versionKey": {
+                  "name": "net2",
+                  "system": "CARGO",
+                  "version": "0.2.33"
+                }
+              },
+              "version": {
+                "advisoryKeys": [
+                  {
+                    "id": "GHSA-458v-4hrf-g3m4"
+                  },
+                  {
+                    "id": "GHSA-c79c-gwph-gqfm"
+                  },
+                  {
+                    "id": "RUSTSEC-2020-0016"
+                  },
+                  {
+                    "id": "RUSTSEC-2020-0078"
+                  }
+                ],
+                "isDeprecated": true,
+                "licenseDetails": [
+                  {
+                    "license": "Apache-2.0 OR MIT",
+                    "spdx": "Apache-2.0 OR MIT"
+                  }
+                ],
+                "licenses": [
+                  "Apache-2.0 OR MIT"
+                ],
+                "links": [
+                  {
+                    "label": "SOURCE_REPO",
+                    "url": "https://github.com/deprecrated/net2-rs"
+                  },
+                  {
+                    "label": "HOMEPAGE",
+                    "url": "https://github.com/deprecrated/net2-rs"
+                  },
+                  {
+                    "label": "DOCUMENTATION",
+                    "url": "https://docs.rs/net2/~0.2"
+                  }
+                ],
+                "publishedAt": "2018-06-27T18:24:58Z",
+                "purl": "pkg:cargo/net2@0.2.33",
+                "registries": [
+                  "https://crates.io/"
+                ],
+                "relatedProjects": [
+                  {
+                    "projectKey": {
+                      "id": "github.com/deprecrated/net2-rs"
+                    },
+                    "relationProvenance": "UNVERIFIED_METADATA",
+                    "relationType": "SOURCE_REPO"
+                  }
+                ],
+                "upstreamIdentifiers": [
+                  {
+                    "packageName": "net2",
+                    "source": "CARGO_CRATES_IO",
+                    "versionString": "0.2.33"
+                  }
+                ],
+                "versionKey": {
+                  "name": "net2",
+                  "system": "CARGO",
+                  "version": "0.2.33"
+                }
+              }
+            },
+            {
+              "request": {
+                "versionKey": {
+                  "name": "rust_vuln_deprecated",
+                  "system": "CARGO",
+                  "version": "0.1.0"
+                }
+              }
+            },
+            {
+              "request": {
+                "versionKey": {
+                  "name": "winapi",
+                  "system": "CARGO",
+                  "version": "0.3.9"
+                }
+              },
+              "version": {
+                "isDefault": true,
+                "licenseDetails": [
+                  {
+                    "license": "Apache-2.0 OR MIT",
+                    "spdx": "Apache-2.0 OR MIT"
+                  }
+                ],
+                "licenses": [
+                  "Apache-2.0 OR MIT"
+                ],
+                "links": [
+                  {
+                    "label": "SOURCE_REPO",
+                    "url": "https://github.com/retep998/winapi-rs"
+                  },
+                  {
+                    "label": "DOCUMENTATION",
+                    "url": "https://docs.rs/winapi/"
+                  }
+                ],
+                "publishedAt": "2020-06-26T11:34:33Z",
+                "purl": "pkg:cargo/winapi@0.3.9",
+                "registries": [
+                  "https://crates.io/"
+                ],
+                "relatedProjects": [
+                  {
+                    "projectKey": {
+                      "id": "github.com/retep998/winapi-rs"
+                    },
+                    "relationProvenance": "UNVERIFIED_METADATA",
+                    "relationType": "SOURCE_REPO"
+                  }
+                ],
+                "upstreamIdentifiers": [
+                  {
+                    "packageName": "winapi",
+                    "source": "CARGO_CRATES_IO",
+                    "versionString": "0.3.9"
+                  }
+                ],
+                "versionKey": {
+                  "name": "winapi",
+                  "system": "CARGO",
+                  "version": "0.3.9"
+                }
+              }
+            },
+            {
+              "request": {
+                "versionKey": {
+                  "name": "winapi-i686-pc-windows-gnu",
+                  "system": "CARGO",
+                  "version": "0.4.0"
+                }
+              },
+              "version": {
+                "isDefault": true,
+                "licenseDetails": [
+                  {
+                    "license": "Apache-2.0 OR MIT",
+                    "spdx": "Apache-2.0 OR MIT"
+                  }
+                ],
+                "licenses": [
+                  "Apache-2.0 OR MIT"
+                ],
+                "links": [
+                  {
+                    "label": "SOURCE_REPO",
+                    "url": "https://github.com/retep998/winapi-rs"
+                  }
+                ],
+                "publishedAt": "2018-01-18T00:55:38Z",
+                "purl": "pkg:cargo/winapi-i686-pc-windows-gnu@0.4.0",
+                "registries": [
+                  "https://crates.io/"
+                ],
+                "relatedProjects": [
+                  {
+                    "projectKey": {
+                      "id": "github.com/retep998/winapi-rs"
+                    },
+                    "relationProvenance": "UNVERIFIED_METADATA",
+                    "relationType": "SOURCE_REPO"
+                  }
+                ],
+                "upstreamIdentifiers": [
+                  {
+                    "packageName": "winapi-i686-pc-windows-gnu",
+                    "source": "CARGO_CRATES_IO",
+                    "versionString": "0.4.0"
+                  }
+                ],
+                "versionKey": {
+                  "name": "winapi-i686-pc-windows-gnu",
+                  "system": "CARGO",
+                  "version": "0.4.0"
+                }
+              }
+            },
+            {
+              "request": {
+                "versionKey": {
+                  "name": "winapi-x86_64-pc-windows-gnu",
+                  "system": "CARGO",
+                  "version": "0.4.0"
+                }
+              },
+              "version": {
+                "isDefault": true,
+                "licenseDetails": [
+                  {
+                    "license": "Apache-2.0 OR MIT",
+                    "spdx": "Apache-2.0 OR MIT"
+                  }
+                ],
+                "licenses": [
+                  "Apache-2.0 OR MIT"
+                ],
+                "links": [
+                  {
+                    "label": "SOURCE_REPO",
+                    "url": "https://github.com/retep998/winapi-rs"
+                  }
+                ],
+                "publishedAt": "2018-01-18T00:55:12Z",
+                "purl": "pkg:cargo/winapi-x86_64-pc-windows-gnu@0.4.0",
+                "registries": [
+                  "https://crates.io/"
+                ],
+                "relatedProjects": [
+                  {
+                    "projectKey": {
+                      "id": "github.com/retep998/winapi-rs"
+                    },
+                    "relationProvenance": "UNVERIFIED_METADATA",
+                    "relationType": "SOURCE_REPO"
+                  }
+                ],
+                "upstreamIdentifiers": [
+                  {
+                    "packageName": "winapi-x86_64-pc-windows-gnu",
+                    "source": "CARGO_CRATES_IO",
+                    "versionString": "0.4.0"
+                  }
+                ],
+                "versionKey": {
+                  "name": "winapi-x86_64-pc-windows-gnu",
+                  "system": "CARGO",
+                  "version": "0.4.0"
+                }
+              }
+            }
+          ]
+        }

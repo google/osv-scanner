@@ -1,0 +1,2096 @@
+interactions:
+    - method: /deps_dev.v3.Insights/GetRequirements
+      request: |-
+        {
+          "versionKey": {
+            "name": "org.apache.logging.log4j:log4j",
+            "system": "MAVEN",
+            "version": "2.14.1"
+          }
+        }
+      response: |-
+        {
+          "maven": {
+            "dependencies": [
+              {}
+            ],
+            "dependencyManagement": [
+              {
+                "name": "org.slf4j:slf4j-api",
+                "optional": "false",
+                "version": "${slf4jVersion}"
+              },
+              {
+                "name": "org.slf4j:slf4j-ext",
+                "optional": "false",
+                "version": "${slf4jVersion}"
+              },
+              {
+                "name": "ch.qos.logback:logback-core",
+                "optional": "false",
+                "scope": "test",
+                "version": "${logbackVersion}"
+              },
+              {
+                "name": "ch.qos.logback:logback-core",
+                "optional": "false",
+                "scope": "test",
+                "type": "test-jar",
+                "version": "${logbackVersion}"
+              },
+              {
+                "name": "org.eclipse.tycho:org.eclipse.osgi",
+                "optional": "false",
+                "version": "3.13.0.v20180226-1711"
+              },
+              {
+                "name": "org.apache.felix:org.apache.felix.framework",
+                "optional": "false",
+                "version": "5.6.12"
+              },
+              {
+                "name": "org.apache.maven:maven-core",
+                "optional": "false",
+                "version": "3.6.3"
+              },
+              {
+                "name": "commons-codec:commons-codec",
+                "optional": "false",
+                "version": "1.15"
+              },
+              {
+                "name": "org.apache.commons:commons-lang3",
+                "optional": "false",
+                "version": "3.12.0"
+              },
+              {
+                "name": "org.apache.commons:commons-pool2",
+                "optional": "false",
+                "version": "2.9.0"
+              },
+              {
+                "name": "org.apache.commons:commons-dbcp2",
+                "optional": "false",
+                "version": "2.8.0"
+              },
+              {
+                "name": "ch.qos.logback:logback-classic",
+                "optional": "false",
+                "scope": "test",
+                "version": "${logbackVersion}"
+              },
+              {
+                "name": "ch.qos.logback:logback-classic",
+                "optional": "false",
+                "scope": "test",
+                "type": "test-jar",
+                "version": "${logbackVersion}"
+              },
+              {
+                "name": "org.apache.logging.log4j:log4j-api-java9",
+                "optional": "false",
+                "type": "zip",
+                "version": "${project.version}"
+              },
+              {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "optional": "false",
+                "version": "${project.version}"
+              },
+              {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "optional": "false",
+                "scope": "test",
+                "type": "test-jar",
+                "version": "${project.version}"
+              },
+              {
+                "name": "org.apache.logging.log4j:log4j-core-java9",
+                "optional": "false",
+                "type": "zip",
+                "version": "${project.version}"
+              },
+              {
+                "name": "org.apache.logging.log4j:log4j-core",
+                "optional": "false",
+                "version": "${project.version}"
+              },
+              {
+                "name": "org.apache.logging.log4j:log4j-core",
+                "optional": "false",
+                "scope": "test",
+                "type": "test-jar",
+                "version": "${project.version}"
+              },
+              {
+                "name": "org.apache.logging.log4j:log4j-layout-template-json",
+                "optional": "false",
+                "type": "test-jar",
+                "version": "${project.version}"
+              },
+              {
+                "name": "org.apache.logging.log4j:log4j-slf4j-impl",
+                "optional": "false",
+                "version": "${project.version}"
+              },
+              {
+                "name": "org.apache.logging.log4j:log4j-slf4j-impl",
+                "optional": "false",
+                "type": "zip",
+                "version": "${project.version}"
+              },
+              {
+                "name": "org.apache.logging.log4j:log4j-slf4j18-impl",
+                "optional": "false",
+                "version": "${project.version}"
+              },
+              {
+                "name": "org.apache.logging.log4j:log4j-jcl",
+                "optional": "false",
+                "version": "${project.version}"
+              },
+              {
+                "name": "commons-logging:commons-logging",
+                "optional": "false",
+                "version": "${commonsLoggingVersion}"
+              },
+              {
+                "name": "org.apache.logging.log4j:log4j-1.2-api",
+                "optional": "false",
+                "version": "${project.version}"
+              },
+              {
+                "name": "org.apache.logging.log4j:log4j-flume-ng",
+                "optional": "false",
+                "version": "${project.version}"
+              },
+              {
+                "name": "org.apache.logging.log4j:log4j-iostreams",
+                "optional": "false",
+                "version": "${project.version}"
+              },
+              {
+                "name": "org.apache.logging.log4j:log4j-jul",
+                "optional": "false",
+                "version": "${project.version}"
+              },
+              {
+                "name": "org.apache.logging.log4j:log4j-jpl",
+                "optional": "false",
+                "version": "${project.version}"
+              },
+              {
+                "name": "org.apache.logging.log4j:log4j-taglib",
+                "optional": "false",
+                "version": "${project.version}"
+              },
+              {
+                "name": "org.apache.logging.log4j:log4j-web",
+                "optional": "false",
+                "version": "${project.version}"
+              },
+              {
+                "name": "com.sleepycat:je",
+                "optional": "false",
+                "version": "5.0.73"
+              },
+              {
+                "name": "org.osgi:org.osgi.core",
+                "optional": "false",
+                "scope": "provided",
+                "version": "${osgi.api.version}"
+              },
+              {
+                "name": "org.fusesource.jansi:jansi",
+                "optional": "true",
+                "version": "2.3.1"
+              },
+              {
+                "exclusions": [
+                  "org.codehaus.jackson:jackson-core-asl",
+                  "org.codehaus.jackson:jackson-mapper-asl"
+                ],
+                "name": "org.apache.flume:flume-ng-sdk",
+                "optional": "false",
+                "version": "${flumeVersion}"
+              },
+              {
+                "exclusions": [
+                  "org.slf4j:slf4j-log4j12",
+                  "log4j:log4j"
+                ],
+                "name": "org.apache.flume:flume-ng-core",
+                "optional": "false",
+                "version": "${flumeVersion}"
+              },
+              {
+                "exclusions": [
+                  "org.slf4j:slf4j-log4j12",
+                  "log4j:log4j",
+                  "org.codehaus.jackson:jackson-core-asl",
+                  "org.codehaus.jackson:jackson-mapper-asl"
+                ],
+                "name": "org.apache.flume:flume-ng-embedded-agent",
+                "optional": "false",
+                "version": "${flumeVersion}"
+              },
+              {
+                "exclusions": [
+                  "org.slf4j:slf4j-log4j12",
+                  "log4j:log4j",
+                  "org.codehaus.jackson:jackson-core-asl",
+                  "org.codehaus.jackson:jackson-mapper-asl"
+                ],
+                "name": "org.apache.flume:flume-ng-node",
+                "optional": "false",
+                "version": "${flumeVersion}"
+              },
+              {
+                "exclusions": [
+                  "org.slf4j:slf4j-log4j12",
+                  "log4j:log4j",
+                  "org.mortbay.jetty:servlet-api",
+                  "org.mortbay.jetty:servlet-api-2.5",
+                  "junit:junit"
+                ],
+                "name": "org.apache.flume.flume-ng-channels:flume-file-channel",
+                "optional": "false",
+                "version": "${flumeVersion}"
+              },
+              {
+                "exclusions": [
+                  "org.codehaus.jackson:jackson-core-asl",
+                  "org.codehaus.jackson:jackson-mapper-asl",
+                  "org.mortbay.jetty:servlet-api",
+                  "junit:junit"
+                ],
+                "name": "org.apache.hadoop:hadoop-core",
+                "optional": "false",
+                "version": "1.2.1"
+              },
+              {
+                "name": "org.codehaus.jackson:jackson-core-asl",
+                "optional": "false",
+                "scope": "runtime",
+                "version": "${jackson1Version}"
+              },
+              {
+                "name": "org.codehaus.jackson:jackson-mapper-asl",
+                "optional": "false",
+                "scope": "runtime",
+                "version": "${jackson1Version}"
+              },
+              {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "optional": "true",
+                "version": "${jackson2Version}"
+              },
+              {
+                "name": "com.fasterxml.jackson.core:jackson-databind",
+                "optional": "true",
+                "version": "${jackson2Version}"
+              },
+              {
+                "name": "com.fasterxml.jackson.core:jackson-annotations",
+                "optional": "true",
+                "version": "${jackson2Version}"
+              },
+              {
+                "name": "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml",
+                "optional": "true",
+                "version": "${jackson2Version}"
+              },
+              {
+                "name": "com.fasterxml.jackson.dataformat:jackson-dataformat-xml",
+                "optional": "true",
+                "version": "${jackson2Version}"
+              },
+              {
+                "name": "com.fasterxml.jackson.module:jackson-module-jaxb-annotations",
+                "optional": "true",
+                "version": "${jackson2Version}"
+              },
+              {
+                "name": "com.sun.mail:javax.mail",
+                "optional": "false",
+                "version": "1.6.2"
+              },
+              {
+                "name": "org.jboss.spec.javax.jms:jboss-jms-api_1.1_spec",
+                "optional": "false",
+                "scope": "provided",
+                "version": "1.0.1.Final"
+              },
+              {
+                "name": "org.apache.activemq:activemq-broker",
+                "optional": "false",
+                "version": "${activemq.version}"
+              },
+              {
+                "name": "org.apache.kafka:kafka-clients",
+                "optional": "false",
+                "version": "1.1.1"
+              },
+              {
+                "name": "org.zeromq:jeromq",
+                "optional": "false",
+                "version": "0.4.3"
+              },
+              {
+                "name": "javax.servlet:servlet-api",
+                "optional": "false",
+                "scope": "provided",
+                "version": "2.5"
+              },
+              {
+                "name": "com.lmax:disruptor",
+                "optional": "false",
+                "version": "${disruptorVersion}"
+              },
+              {
+                "name": "com.conversantmedia:disruptor",
+                "optional": "false",
+                "version": "${conversantDisruptorVersion}"
+              },
+              {
+                "name": "org.jctools:jctools-core",
+                "optional": "false",
+                "version": "${jctoolsVersion}"
+              },
+              {
+                "name": "org.junit.jupiter:junit-jupiter-engine",
+                "optional": "false",
+                "scope": "test",
+                "version": "${junitJupiterVersion}"
+              },
+              {
+                "name": "org.junit.jupiter:junit-jupiter-migrationsupport",
+                "optional": "false",
+                "scope": "test",
+                "version": "${junitJupiterVersion}"
+              },
+              {
+                "name": "org.junit.jupiter:junit-jupiter-params",
+                "optional": "false",
+                "scope": "test",
+                "version": "${junitJupiterVersion}"
+              },
+              {
+                "name": "junit:junit",
+                "optional": "false",
+                "scope": "test",
+                "version": "${junitVersion}"
+              },
+              {
+                "name": "org.junit.vintage:junit-vintage-engine",
+                "optional": "false",
+                "scope": "test",
+                "version": "${junitJupiterVersion}"
+              },
+              {
+                "name": "org.assertj:assertj-core",
+                "optional": "false",
+                "scope": "test",
+                "version": "3.19.0"
+              },
+              {
+                "name": "org.hamcrest:hamcrest-all",
+                "optional": "false",
+                "scope": "test",
+                "version": "1.3"
+              },
+              {
+                "name": "org.awaitility:awaitility",
+                "optional": "false",
+                "scope": "test",
+                "version": "4.0.3"
+              },
+              {
+                "name": "org.codehaus.plexus:plexus-utils",
+                "optional": "false",
+                "scope": "test",
+                "version": "3.3.0"
+              },
+              {
+                "name": "org.mockito:mockito-core",
+                "optional": "false",
+                "scope": "test",
+                "version": "${mockitoVersion}"
+              },
+              {
+                "name": "org.mockito:mockito-junit-jupiter",
+                "optional": "false",
+                "scope": "test",
+                "version": "${mockitoVersion}"
+              },
+              {
+                "name": "org.springframework:spring-aop",
+                "optional": "false",
+                "version": "${springVersion}"
+              },
+              {
+                "name": "org.springframework:spring-beans",
+                "optional": "false",
+                "version": "${springVersion}"
+              },
+              {
+                "name": "org.springframework:spring-context",
+                "optional": "false",
+                "version": "${springVersion}"
+              },
+              {
+                "name": "org.springframework:spring-core",
+                "optional": "false",
+                "version": "${springVersion}"
+              },
+              {
+                "name": "org.springframework:spring-expression",
+                "optional": "false",
+                "version": "${springVersion}"
+              },
+              {
+                "name": "org.springframework:spring-oxm",
+                "optional": "false",
+                "version": "${springVersion}"
+              },
+              {
+                "name": "org.springframework:spring-test",
+                "optional": "false",
+                "version": "${springVersion}"
+              },
+              {
+                "name": "org.springframework:spring-web",
+                "optional": "false",
+                "version": "${springVersion}"
+              },
+              {
+                "name": "org.springframework:spring-webmvc",
+                "optional": "false",
+                "version": "${springVersion}"
+              },
+              {
+                "name": "org.springframework:spring-context-support",
+                "optional": "false",
+                "version": "${springVersion}"
+              },
+              {
+                "name": "io.fabric8:kubernetes-client",
+                "optional": "false",
+                "version": "${kubernetes-client.version}"
+              },
+              {
+                "name": "org.hsqldb:hsqldb",
+                "optional": "false",
+                "version": "2.5.1"
+              },
+              {
+                "name": "com.h2database:h2",
+                "optional": "false",
+                "version": "1.4.200"
+              },
+              {
+                "name": "org.eclipse.persistence:org.eclipse.persistence.jpa",
+                "optional": "false",
+                "version": "2.6.5"
+              },
+              {
+                "name": "org.eclipse.persistence:javax.persistence",
+                "optional": "false",
+                "scope": "provided",
+                "version": "${javax.persistence}"
+              },
+              {
+                "name": "org.lightcouch:lightcouch",
+                "optional": "false",
+                "version": "0.0.6"
+              },
+              {
+                "name": "com.datastax.cassandra:cassandra-driver-core",
+                "optional": "false",
+                "version": "3.1.4"
+              },
+              {
+                "name": "org.liquibase:liquibase-core",
+                "optional": "false",
+                "version": "3.5.3"
+              },
+              {
+                "name": "net.javacrumbs.json-unit:json-unit",
+                "optional": "false",
+                "scope": "test",
+                "version": "2.24.0"
+              },
+              {
+                "name": "org.xmlunit:xmlunit-core",
+                "optional": "false",
+                "scope": "test",
+                "version": "${xmlunitVersion}"
+              },
+              {
+                "name": "org.xmlunit:xmlunit-matchers",
+                "optional": "false",
+                "scope": "test",
+                "version": "${xmlunitVersion}"
+              },
+              {
+                "name": "commons-io:commons-io",
+                "optional": "false",
+                "scope": "test",
+                "version": "2.8.0"
+              },
+              {
+                "name": "co.elastic.logging:log4j2-ecs-layout",
+                "optional": "false",
+                "version": "0.5.2"
+              },
+              {
+                "name": "org.elasticsearch.client:elasticsearch-rest-high-level-client",
+                "optional": "false",
+                "version": "${elastic.version}"
+              },
+              {
+                "name": "com.github.tomakehurst:wiremock",
+                "optional": "false",
+                "scope": "test",
+                "version": "2.26.3"
+              },
+              {
+                "name": "org.apache.commons:commons-compress",
+                "optional": "false",
+                "version": "1.20"
+              },
+              {
+                "name": "org.tukaani:xz",
+                "optional": "false",
+                "scope": "test",
+                "version": "1.8"
+              },
+              {
+                "name": "org.apache.commons:commons-csv",
+                "optional": "false",
+                "version": "1.8"
+              },
+              {
+                "name": "com.google.code.java-allocation-instrumenter:java-allocation-instrumenter",
+                "optional": "false",
+                "version": "3.0.1"
+              },
+              {
+                "name": "org.hdrhistogram:HdrHistogram",
+                "optional": "false",
+                "version": "2.1.9"
+              },
+              {
+                "name": "org.apache-extras.beanshell:bsh",
+                "optional": "false",
+                "version": "2.0b6"
+              },
+              {
+                "name": "org.codehaus.groovy:groovy-jsr223",
+                "optional": "false",
+                "version": "${groovy.version}"
+              },
+              {
+                "name": "org.codehaus.groovy:groovy-dateutil",
+                "optional": "false",
+                "version": "${groovy.version}"
+              },
+              {
+                "name": "de.flapdoodle.embed:de.flapdoodle.embed.mongo",
+                "optional": "false",
+                "scope": "test",
+                "version": "3.0.0"
+              }
+            ],
+            "parent": {
+              "name": "org.apache.logging:logging-parent",
+              "system": "MAVEN",
+              "version": "3"
+            },
+            "profiles": [
+              {
+                "activation": {},
+                "id": "pdf"
+              },
+              {
+                "activation": {},
+                "id": "release-notes"
+              },
+              {
+                "activation": {},
+                "id": "apache-release"
+              },
+              {
+                "activation": {},
+                "id": "rat"
+              },
+              {
+                "activation": {},
+                "dependencies": [
+                  {
+                    "name": "com.yourkit:yjp-controller-api-redist",
+                    "optional": "false",
+                    "scope": "system",
+                    "version": "2013"
+                  }
+                ],
+                "id": "yourkit-mac",
+                "properties": [
+                  {
+                    "name": "yourkit.home",
+                    "value": "/Applications/YJP.app"
+                  }
+                ]
+              },
+              {
+                "activation": {
+                  "jdk": {
+                    "jdk": "[1.8,)"
+                  }
+                },
+                "id": "jdk8orGreater"
+              },
+              {
+                "activation": {
+                  "jdk": {
+                    "jdk": "[1.8,)"
+                  }
+                },
+                "id": "java8-doclint-disabled",
+                "properties": [
+                  {
+                    "name": "javadoc.opts",
+                    "value": "-Xdoclint:none"
+                  }
+                ]
+              }
+            ],
+            "properties": [
+              {
+                "name": "log4jParentDir",
+                "value": "${basedir}"
+              },
+              {
+                "name": "Log4jReleaseVersion",
+                "value": "2.14.1"
+              },
+              {
+                "name": "Log4jReleaseManager",
+                "value": "Ralph Goers"
+              },
+              {
+                "name": "Log4jReleaseKey",
+                "value": "B3D8E1BA"
+              },
+              {
+                "name": "slf4jVersion",
+                "value": "1.7.25"
+              },
+              {
+                "name": "logbackVersion",
+                "value": "1.2.3"
+              },
+              {
+                "name": "jackson1Version",
+                "value": "1.9.13"
+              },
+              {
+                "name": "jackson2Version",
+                "value": "2.12.2"
+              },
+              {
+                "name": "spring-boot.version",
+                "value": "2.3.6.RELEASE"
+              },
+              {
+                "name": "springVersion",
+                "value": "5.3.3"
+              },
+              {
+                "name": "kubernetes-client.version",
+                "value": "4.6.1"
+              },
+              {
+                "name": "flumeVersion",
+                "value": "1.9.0"
+              },
+              {
+                "name": "disruptorVersion",
+                "value": "3.4.2"
+              },
+              {
+                "name": "conversantDisruptorVersion",
+                "value": "1.2.15"
+              },
+              {
+                "name": "elastic.version",
+                "value": "7.6.2"
+              },
+              {
+                "name": "mongodb3.version",
+                "value": "3.12.7"
+              },
+              {
+                "name": "mongodb4.version",
+                "value": "4.2.2"
+              },
+              {
+                "name": "woodstox.version",
+                "value": "6.2.4"
+              },
+              {
+                "name": "groovy.version",
+                "value": "3.0.7"
+              },
+              {
+                "name": "compiler.plugin.version",
+                "value": "3.8.1"
+              },
+              {
+                "name": "pmd.plugin.version",
+                "value": "3.10.0"
+              },
+              {
+                "name": "changes.plugin.version",
+                "value": "2.12.1"
+              },
+              {
+                "name": "javadoc.plugin.version",
+                "value": "3.0.1"
+              },
+              {
+                "name": "surefire.plugin.version",
+                "value": "2.22.2"
+              },
+              {
+                "name": "failsafe.plugin.version",
+                "value": "2.22.2"
+              },
+              {
+                "name": "checkstyle.plugin.version",
+                "value": "3.0.0"
+              },
+              {
+                "name": "deploy.plugin.version",
+                "value": "2.8.2"
+              },
+              {
+                "name": "rat.plugin.version",
+                "value": "0.12"
+              },
+              {
+                "name": "pdf.plugin.version",
+                "value": "1.2"
+              },
+              {
+                "name": "cobertura.plugin.version",
+                "value": "2.7"
+              },
+              {
+                "name": "jacoco.plugin.version",
+                "value": "0.8.6"
+              },
+              {
+                "name": "release.plugin.version",
+                "value": "2.5.3"
+              },
+              {
+                "name": "scm.plugin.version",
+                "value": "1.9.5"
+              },
+              {
+                "name": "jxr.plugin.version",
+                "value": "2.5"
+              },
+              {
+                "name": "revapi.plugin.version",
+                "value": "0.11.1"
+              },
+              {
+                "name": "revapi.skip",
+                "value": "false"
+              },
+              {
+                "name": "clirr.plugin.version",
+                "value": "2.8"
+              },
+              {
+                "name": "site.plugin.version",
+                "value": "3.8.2"
+              },
+              {
+                "name": "velocity.plugin.version",
+                "value": "1.5"
+              },
+              {
+                "name": "asciidoc.plugin.version",
+                "value": "1.5.6"
+              },
+              {
+                "name": "remote.resources.plugin.version",
+                "value": "1.5"
+              },
+              {
+                "name": "manifestfile",
+                "value": "${project.build.outputDirectory}/META-INF/MANIFEST.MF"
+              },
+              {
+                "name": "maven.compiler.source",
+                "value": "1.8"
+              },
+              {
+                "name": "maven.compiler.target",
+                "value": "1.8"
+              },
+              {
+                "name": "maven.doap.skip",
+                "value": "false"
+              },
+              {
+                "name": "project.build.sourceEncoding",
+                "value": "UTF-8"
+              },
+              {
+                "name": "docLabel",
+                "value": "Site Documentation"
+              },
+              {
+                "name": "projectDir"
+              },
+              {
+                "name": "commonsLoggingVersion",
+                "value": "1.2"
+              },
+              {
+                "name": "javax.persistence",
+                "value": "2.1.1"
+              },
+              {
+                "name": "osgi.api.version",
+                "value": "4.3.1"
+              },
+              {
+                "name": "activemq.version",
+                "value": "5.16.1"
+              },
+              {
+                "name": "minSeverity",
+                "value": "info"
+              },
+              {
+                "name": "jctoolsVersion",
+                "value": "1.2.1"
+              },
+              {
+                "name": "junitVersion",
+                "value": "4.13.2"
+              },
+              {
+                "name": "junitJupiterVersion",
+                "value": "5.7.1"
+              },
+              {
+                "name": "mockitoVersion",
+                "value": "3.8.0"
+              },
+              {
+                "name": "xmlunitVersion",
+                "value": "2.8.2"
+              },
+              {
+                "name": "argLine",
+                "value": "-Xms256m -Xmx1024m"
+              },
+              {
+                "name": "javaTargetVersion",
+                "value": "1.8"
+              },
+              {
+                "name": "module.name"
+              }
+            ]
+          }
+        }
+    - method: /deps_dev.v3.Insights/GetRequirements
+      request: |-
+        {
+          "versionKey": {
+            "name": "org.apache.logging.log4j:log4j-api",
+            "system": "MAVEN",
+            "version": "2.14.1"
+          }
+        }
+      response: |-
+        {
+          "maven": {
+            "dependencies": [
+              {
+                "name": "org.apache.logging.log4j:log4j-api-java9",
+                "optional": "false",
+                "scope": "provided",
+                "type": "zip"
+              },
+              {
+                "name": "org.apache.felix:org.apache.felix.framework",
+                "optional": "false",
+                "scope": "test"
+              },
+              {
+                "name": "org.osgi:org.osgi.core",
+                "optional": "false",
+                "scope": "provided"
+              },
+              {
+                "name": "org.junit.vintage:junit-vintage-engine",
+                "optional": "false"
+              },
+              {
+                "name": "org.junit.jupiter:junit-jupiter-migrationsupport",
+                "optional": "false"
+              },
+              {
+                "name": "org.junit.jupiter:junit-jupiter-params",
+                "optional": "false"
+              },
+              {
+                "name": "org.junit.jupiter:junit-jupiter-engine",
+                "optional": "false"
+              },
+              {
+                "name": "org.assertj:assertj-core",
+                "optional": "false"
+              },
+              {
+                "name": "org.eclipse.tycho:org.eclipse.osgi",
+                "optional": "false",
+                "scope": "test"
+              },
+              {
+                "name": "org.apache.maven:maven-core",
+                "optional": "false",
+                "scope": "test"
+              },
+              {
+                "name": "org.apache.commons:commons-lang3",
+                "optional": "false",
+                "scope": "test"
+              },
+              {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "optional": "false",
+                "scope": "test"
+              },
+              {
+                "name": "com.fasterxml.jackson.core:jackson-databind",
+                "optional": "false",
+                "scope": "test"
+              },
+              {}
+            ],
+            "dependencyManagement": [
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {
+                "exclusions": [
+                  "org.codehaus.jackson:jackson-core-asl",
+                  "org.codehaus.jackson:jackson-mapper-asl"
+                ]
+              },
+              {
+                "exclusions": [
+                  "org.slf4j:slf4j-log4j12",
+                  "log4j:log4j"
+                ]
+              },
+              {
+                "exclusions": [
+                  "org.slf4j:slf4j-log4j12",
+                  "log4j:log4j",
+                  "org.codehaus.jackson:jackson-core-asl",
+                  "org.codehaus.jackson:jackson-mapper-asl"
+                ]
+              },
+              {
+                "exclusions": [
+                  "org.slf4j:slf4j-log4j12",
+                  "log4j:log4j",
+                  "org.codehaus.jackson:jackson-core-asl",
+                  "org.codehaus.jackson:jackson-mapper-asl"
+                ]
+              },
+              {
+                "exclusions": [
+                  "org.slf4j:slf4j-log4j12",
+                  "log4j:log4j",
+                  "org.mortbay.jetty:servlet-api",
+                  "org.mortbay.jetty:servlet-api-2.5",
+                  "junit:junit"
+                ]
+              },
+              {
+                "exclusions": [
+                  "org.codehaus.jackson:jackson-core-asl",
+                  "org.codehaus.jackson:jackson-mapper-asl",
+                  "org.mortbay.jetty:servlet-api",
+                  "junit:junit"
+                ]
+              },
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {}
+            ],
+            "parent": {
+              "name": "org.apache.logging.log4j:log4j",
+              "system": "MAVEN",
+              "version": "2.14.1"
+            },
+            "properties": [
+              {
+                "name": "log4jParentDir",
+                "value": "${basedir}/.."
+              },
+              {
+                "name": "docLabel",
+                "value": "API Documentation"
+              },
+              {
+                "name": "projectDir",
+                "value": "/api"
+              },
+              {
+                "name": "maven.doap.skip",
+                "value": "true"
+              }
+            ]
+          }
+        }
+    - method: /deps_dev.v3.Insights/GetRequirements
+      request: |-
+        {
+          "versionKey": {
+            "name": "org.apache.logging.log4j:log4j-core",
+            "system": "MAVEN",
+            "version": "2.14.1"
+          }
+        }
+      response: |-
+        {
+          "maven": {
+            "dependencies": [
+              {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "optional": "false"
+              },
+              {
+                "name": "org.apache.logging.log4j:log4j-core-java9",
+                "optional": "false",
+                "scope": "provided",
+                "type": "zip"
+              },
+              {
+                "name": "org.osgi:org.osgi.core",
+                "optional": "false",
+                "scope": "provided"
+              },
+              {
+                "name": "com.lmax:disruptor",
+                "optional": "true"
+              },
+              {
+                "name": "com.conversantmedia:disruptor",
+                "optional": "true"
+              },
+              {
+                "name": "org.jctools:jctools-core",
+                "optional": "true"
+              },
+              {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "optional": "true"
+              },
+              {
+                "name": "com.fasterxml.jackson.core:jackson-databind",
+                "optional": "true"
+              },
+              {
+                "name": "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml",
+                "optional": "true"
+              },
+              {
+                "name": "com.fasterxml.jackson.dataformat:jackson-dataformat-xml",
+                "optional": "true"
+              },
+              {
+                "name": "com.fasterxml.woodstox:woodstox-core",
+                "optional": "true",
+                "version": "${woodstox.version}"
+              },
+              {
+                "name": "org.fusesource.jansi:jansi",
+                "optional": "true"
+              },
+              {
+                "name": "com.sun.mail:javax.mail",
+                "optional": "true"
+              },
+              {
+                "name": "org.jboss.spec.javax.jms:jboss-jms-api_1.1_spec",
+                "optional": "true",
+                "scope": "provided"
+              },
+              {
+                "name": "org.apache.kafka:kafka-clients",
+                "optional": "true"
+              },
+              {
+                "name": "org.zeromq:jeromq",
+                "optional": "true"
+              },
+              {
+                "name": "org.apache.commons:commons-compress",
+                "optional": "true"
+              },
+              {
+                "name": "org.apache.commons:commons-csv",
+                "optional": "true"
+              },
+              {
+                "name": "org.slf4j:slf4j-api",
+                "optional": "true"
+              },
+              {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "optional": "false",
+                "scope": "test",
+                "type": "test-jar"
+              },
+              {
+                "name": "org.tukaani:xz",
+                "optional": "false",
+                "scope": "test"
+              },
+              {
+                "name": "org.jmdns:jmdns",
+                "optional": "false",
+                "scope": "test",
+                "version": "3.5.3"
+              },
+              {
+                "name": "log4j:log4j",
+                "optional": "false",
+                "scope": "test",
+                "version": "1.2.17"
+              },
+              {
+                "name": "org.slf4j:slf4j-ext",
+                "optional": "false",
+                "scope": "test"
+              },
+              {
+                "name": "org.junit.vintage:junit-vintage-engine",
+                "optional": "false"
+              },
+              {
+                "name": "org.junit.jupiter:junit-jupiter-engine",
+                "optional": "false"
+              },
+              {
+                "name": "org.junit.jupiter:junit-jupiter-params",
+                "optional": "false"
+              },
+              {
+                "name": "org.hamcrest:hamcrest-all",
+                "optional": "false",
+                "scope": "test"
+              },
+              {
+                "name": "org.mockito:mockito-core",
+                "optional": "false"
+              },
+              {
+                "name": "org.mockito:mockito-junit-jupiter",
+                "optional": "false"
+              },
+              {
+                "name": "org.hsqldb:hsqldb",
+                "optional": "false",
+                "scope": "test"
+              },
+              {
+                "name": "com.h2database:h2",
+                "optional": "false",
+                "scope": "test"
+              },
+              {
+                "name": "org.springframework:spring-test",
+                "optional": "false",
+                "scope": "test"
+              },
+              {
+                "exclusions": [
+                  "org.apache.geronimo.specs:geronimo-jms_1.1_spec"
+                ],
+                "name": "org.apache.activemq:activemq-broker",
+                "optional": "false",
+                "scope": "test"
+              },
+              {
+                "name": "commons-logging:commons-logging",
+                "optional": "false",
+                "scope": "test"
+              },
+              {
+                "name": "ch.qos.logback:logback-core",
+                "optional": "false",
+                "scope": "test"
+              },
+              {
+                "name": "ch.qos.logback:logback-classic",
+                "optional": "false",
+                "scope": "test"
+              },
+              {
+                "name": "org.eclipse.tycho:org.eclipse.osgi",
+                "optional": "false",
+                "scope": "test"
+              },
+              {
+                "name": "org.apache.felix:org.apache.felix.framework",
+                "optional": "false",
+                "scope": "test"
+              },
+              {
+                "name": "org.codehaus.plexus:plexus-utils",
+                "optional": "false",
+                "scope": "test"
+              },
+              {
+                "name": "org.apache.maven:maven-core",
+                "optional": "false",
+                "scope": "test"
+              },
+              {
+                "name": "net.javacrumbs.json-unit:json-unit",
+                "optional": "false",
+                "scope": "test"
+              },
+              {
+                "name": "org.xmlunit:xmlunit-core",
+                "optional": "false",
+                "scope": "test"
+              },
+              {
+                "name": "org.xmlunit:xmlunit-matchers",
+                "optional": "false",
+                "scope": "test"
+              },
+              {
+                "name": "commons-io:commons-io",
+                "optional": "false",
+                "scope": "test"
+              },
+              {
+                "name": "commons-codec:commons-codec",
+                "optional": "false",
+                "scope": "test"
+              },
+              {
+                "name": "org.apache.commons:commons-lang3",
+                "optional": "false",
+                "scope": "test"
+              },
+              {
+                "name": "org.apache-extras.beanshell:bsh",
+                "optional": "false",
+                "scope": "test"
+              },
+              {
+                "name": "org.codehaus.groovy:groovy-jsr223",
+                "optional": "false",
+                "scope": "test"
+              },
+              {
+                "name": "org.codehaus.groovy:groovy-dateutil",
+                "optional": "false",
+                "scope": "test"
+              },
+              {
+                "name": "com.github.tomakehurst:wiremock",
+                "optional": "false",
+                "scope": "test"
+              },
+              {
+                "name": "com.google.code.java-allocation-instrumenter:java-allocation-instrumenter",
+                "optional": "false",
+                "scope": "test"
+              },
+              {
+                "name": "org.hdrhistogram:HdrHistogram",
+                "optional": "false",
+                "scope": "test"
+              },
+              {}
+            ],
+            "dependencyManagement": [
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {
+                "exclusions": [
+                  "org.codehaus.jackson:jackson-core-asl",
+                  "org.codehaus.jackson:jackson-mapper-asl"
+                ]
+              },
+              {
+                "exclusions": [
+                  "org.slf4j:slf4j-log4j12",
+                  "log4j:log4j"
+                ]
+              },
+              {
+                "exclusions": [
+                  "org.slf4j:slf4j-log4j12",
+                  "log4j:log4j",
+                  "org.codehaus.jackson:jackson-core-asl",
+                  "org.codehaus.jackson:jackson-mapper-asl"
+                ]
+              },
+              {
+                "exclusions": [
+                  "org.slf4j:slf4j-log4j12",
+                  "log4j:log4j",
+                  "org.codehaus.jackson:jackson-core-asl",
+                  "org.codehaus.jackson:jackson-mapper-asl"
+                ]
+              },
+              {
+                "exclusions": [
+                  "org.slf4j:slf4j-log4j12",
+                  "log4j:log4j",
+                  "org.mortbay.jetty:servlet-api",
+                  "org.mortbay.jetty:servlet-api-2.5",
+                  "junit:junit"
+                ]
+              },
+              {
+                "exclusions": [
+                  "org.codehaus.jackson:jackson-core-asl",
+                  "org.codehaus.jackson:jackson-mapper-asl",
+                  "org.mortbay.jetty:servlet-api",
+                  "junit:junit"
+                ]
+              },
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {}
+            ],
+            "parent": {
+              "name": "org.apache.logging.log4j:log4j",
+              "system": "MAVEN",
+              "version": "2.14.1"
+            },
+            "properties": [
+              {
+                "name": "log4jParentDir",
+                "value": "${basedir}/.."
+              },
+              {
+                "name": "docLabel",
+                "value": "Core Documentation"
+              },
+              {
+                "name": "projectDir",
+                "value": "/core"
+              },
+              {
+                "name": "maven.doap.skip",
+                "value": "true"
+              }
+            ]
+          }
+        }
+    - method: /deps_dev.v3.Insights/GetRequirements
+      request: |-
+        {
+          "versionKey": {
+            "name": "org.apache.logging.log4j:log4j-web",
+            "system": "MAVEN",
+            "version": "2.14.1"
+          }
+        }
+      response: |-
+        {
+          "maven": {
+            "dependencies": [
+              {
+                "name": "org.apache.logging.log4j:log4j-api",
+                "optional": "false"
+              },
+              {
+                "name": "org.apache.logging.log4j:log4j-core",
+                "optional": "false"
+              },
+              {
+                "name": "javax.servlet:javax.servlet-api",
+                "optional": "false",
+                "scope": "provided",
+                "version": "3.0.1"
+              },
+              {
+                "name": "org.apache.logging.log4j:log4j-core",
+                "optional": "false",
+                "scope": "test",
+                "type": "test-jar"
+              },
+              {
+                "name": "org.hamcrest:hamcrest-all",
+                "optional": "false"
+              },
+              {
+                "name": "org.junit.jupiter:junit-jupiter-engine",
+                "optional": "false"
+              },
+              {
+                "name": "org.mockito:mockito-junit-jupiter",
+                "optional": "false"
+              },
+              {
+                "name": "org.springframework:spring-test",
+                "optional": "false",
+                "scope": "test"
+              },
+              {
+                "name": "org.mockito:mockito-core",
+                "optional": "false",
+                "scope": "test"
+              },
+              {}
+            ],
+            "dependencyManagement": [
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {
+                "exclusions": [
+                  "org.codehaus.jackson:jackson-core-asl",
+                  "org.codehaus.jackson:jackson-mapper-asl"
+                ]
+              },
+              {
+                "exclusions": [
+                  "org.slf4j:slf4j-log4j12",
+                  "log4j:log4j"
+                ]
+              },
+              {
+                "exclusions": [
+                  "org.slf4j:slf4j-log4j12",
+                  "log4j:log4j",
+                  "org.codehaus.jackson:jackson-core-asl",
+                  "org.codehaus.jackson:jackson-mapper-asl"
+                ]
+              },
+              {
+                "exclusions": [
+                  "org.slf4j:slf4j-log4j12",
+                  "log4j:log4j",
+                  "org.codehaus.jackson:jackson-core-asl",
+                  "org.codehaus.jackson:jackson-mapper-asl"
+                ]
+              },
+              {
+                "exclusions": [
+                  "org.slf4j:slf4j-log4j12",
+                  "log4j:log4j",
+                  "org.mortbay.jetty:servlet-api",
+                  "org.mortbay.jetty:servlet-api-2.5",
+                  "junit:junit"
+                ]
+              },
+              {
+                "exclusions": [
+                  "org.codehaus.jackson:jackson-core-asl",
+                  "org.codehaus.jackson:jackson-mapper-asl",
+                  "org.mortbay.jetty:servlet-api",
+                  "junit:junit"
+                ]
+              },
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
+              {}
+            ],
+            "parent": {
+              "name": "org.apache.logging.log4j:log4j",
+              "system": "MAVEN",
+              "version": "2.14.1"
+            },
+            "properties": [
+              {
+                "name": "log4jParentDir",
+                "value": "${basedir}/.."
+              },
+              {
+                "name": "docLabel",
+                "value": "Web Documentation"
+              },
+              {
+                "name": "projectDir",
+                "value": "/log4j-web"
+              },
+              {
+                "name": "module.name",
+                "value": "org.apache.logging.log4j.web"
+              },
+              {
+                "name": "maven.doap.skip",
+                "value": "true"
+              }
+            ]
+          }
+        }
+    - method: /deps_dev.v3.Insights/GetRequirements
+      request: |-
+        {
+          "versionKey": {
+            "name": "org.apache.logging:logging-parent",
+            "system": "MAVEN",
+            "version": "3"
+          }
+        }
+      response: |-
+        {
+          "maven": {
+            "dependencies": [
+              {}
+            ],
+            "parent": {
+              "name": "org.apache:apache",
+              "system": "MAVEN",
+              "version": "23"
+            },
+            "properties": [
+              {
+                "name": "maven.compiler.source",
+                "value": "1.8"
+              },
+              {
+                "name": "maven.compiler.target",
+                "value": "1.8"
+              }
+            ]
+          }
+        }
+    - method: /deps_dev.v3.Insights/GetRequirements
+      request: |-
+        {
+          "versionKey": {
+            "name": "org.apache:apache",
+            "system": "MAVEN",
+            "version": "23"
+          }
+        }
+      response: |-
+        {
+          "maven": {
+            "profiles": [
+              {
+                "activation": {},
+                "id": "apache-release"
+              }
+            ],
+            "properties": [
+              {
+                "name": "distMgmtSnapshotsName",
+                "value": "Apache Development Snapshot Repository"
+              },
+              {
+                "name": "distMgmtSnapshotsUrl",
+                "value": "https://repository.apache.org/content/repositories/snapshots"
+              },
+              {
+                "name": "organization.logo",
+                "value": "https://www.apache.org/images/asf_logo_wide_2016.png"
+              },
+              {
+                "name": "project.build.sourceEncoding",
+                "value": "UTF-8"
+              },
+              {
+                "name": "project.reporting.outputEncoding",
+                "value": "UTF-8"
+              },
+              {
+                "name": "sourceReleaseAssemblyDescriptor",
+                "value": "source-release"
+              },
+              {
+                "name": "gpg.useagent",
+                "value": "true"
+              },
+              {
+                "name": "arguments"
+              },
+              {
+                "name": "maven.compiler.source",
+                "value": "1.7"
+              },
+              {
+                "name": "maven.compiler.target",
+                "value": "1.7"
+              },
+              {
+                "name": "surefire.version",
+                "value": "2.22.0"
+              },
+              {
+                "name": "assembly.tarLongFileMode",
+                "value": "posix"
+              },
+              {
+                "name": "project.build.outputTimestamp",
+                "value": "2020-01-22T15:10:15Z"
+              }
+            ],
+            "repositories": [
+              {
+                "id": "apache.snapshots",
+                "layout": "default",
+                "releasesEnabled": "false",
+                "snapshotsEnabled": "true",
+                "url": "https://repository.apache.org/snapshots"
+              }
+            ]
+          }
+        }
+    - method: /deps_dev.v3.Insights/GetVersion
+      request: |-
+        {
+          "versionKey": {
+            "name": "org.apache.logging.log4j:log4j-api",
+            "system": "MAVEN",
+            "version": "2.14.1"
+          }
+        }
+      response: |-
+        {
+          "licenses": [
+            "Apache-2.0"
+          ],
+          "links": [
+            {
+              "label": "SOURCE_REPO",
+              "url": "https://gitbox.apache.org/repos/asf?p=logging-log4j2.git"
+            },
+            {
+              "label": "ISSUE_TRACKER",
+              "url": "https://issues.apache.org/jira/browse/LOG4J2"
+            },
+            {
+              "label": "HOMEPAGE",
+              "url": "https://logging.apache.org/log4j/2.x/"
+            }
+          ],
+          "publishedAt": "2021-03-07T05:11:48Z",
+          "registries": [
+            "https://repo.maven.apache.org/maven2/"
+          ],
+          "relatedProjects": [
+            {
+              "projectKey": {},
+              "relationProvenance": "UNVERIFIED_METADATA",
+              "relationType": "ISSUE_TRACKER"
+            }
+          ],
+          "versionKey": {
+            "name": "org.apache.logging.log4j:log4j-api",
+            "system": "MAVEN",
+            "version": "2.14.1"
+          }
+        }
+    - method: /deps_dev.v3.Insights/GetVersion
+      request: |-
+        {
+          "versionKey": {
+            "name": "org.apache.logging.log4j:log4j-core",
+            "system": "MAVEN",
+            "version": "2.14.1"
+          }
+        }
+      response: |-
+        {
+          "advisoryKeys": [
+            {
+              "id": "GHSA-3pxv-7cmr-fjr4"
+            },
+            {
+              "id": "GHSA-6hg6-v5c8-fphq"
+            },
+            {
+              "id": "GHSA-7rjr-3q55-vv33"
+            },
+            {
+              "id": "GHSA-8489-44mv-ggj8"
+            },
+            {
+              "id": "GHSA-jfh8-c2jp-5v3q"
+            },
+            {
+              "id": "GHSA-p6xc-xr62-6r2g"
+            },
+            {
+              "id": "GHSA-vc5p-v9hr-52mj"
+            }
+          ],
+          "licenses": [
+            "Apache-2.0"
+          ],
+          "links": [
+            {
+              "label": "SOURCE_REPO",
+              "url": "https://gitbox.apache.org/repos/asf?p=logging-log4j2.git"
+            },
+            {
+              "label": "ISSUE_TRACKER",
+              "url": "https://issues.apache.org/jira/browse/LOG4J2"
+            },
+            {
+              "label": "HOMEPAGE",
+              "url": "https://logging.apache.org/log4j/2.x/"
+            }
+          ],
+          "publishedAt": "2021-03-07T05:12:31Z",
+          "registries": [
+            "https://repo.maven.apache.org/maven2/"
+          ],
+          "relatedProjects": [
+            {
+              "projectKey": {},
+              "relationProvenance": "UNVERIFIED_METADATA",
+              "relationType": "ISSUE_TRACKER"
+            }
+          ],
+          "versionKey": {
+            "name": "org.apache.logging.log4j:log4j-core",
+            "system": "MAVEN",
+            "version": "2.14.1"
+          }
+        }
+    - method: /deps_dev.v3.Insights/GetVersion
+      request: |-
+        {
+          "versionKey": {
+            "name": "org.apache.logging.log4j:log4j-web",
+            "system": "MAVEN",
+            "version": "2.14.1"
+          }
+        }
+      response: |-
+        {
+          "licenses": [
+            "Apache-2.0"
+          ],
+          "links": [
+            {
+              "label": "SOURCE_REPO",
+              "url": "https://gitbox.apache.org/repos/asf?p=logging-log4j2.git"
+            },
+            {
+              "label": "ISSUE_TRACKER",
+              "url": "https://issues.apache.org/jira/browse/LOG4J2"
+            },
+            {
+              "label": "HOMEPAGE",
+              "url": "https://logging.apache.org/log4j/2.x/"
+            }
+          ],
+          "publishedAt": "2021-03-07T05:14:35Z",
+          "registries": [
+            "https://repo.maven.apache.org/maven2/"
+          ],
+          "relatedProjects": [
+            {
+              "projectKey": {},
+              "relationProvenance": "UNVERIFIED_METADATA",
+              "relationType": "ISSUE_TRACKER"
+            }
+          ],
+          "versionKey": {
+            "name": "org.apache.logging.log4j:log4j-web",
+            "system": "MAVEN",
+            "version": "2.14.1"
+          }
+        }

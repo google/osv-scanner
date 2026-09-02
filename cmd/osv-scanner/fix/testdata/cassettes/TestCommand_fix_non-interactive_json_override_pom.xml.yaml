@@ -1,0 +1,2467 @@
+---
+version: 2
+interactions:
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 1607
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-http"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.codehaus.plexus:plexus-utils"
+              },
+              "version": "3.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.httpcomponents:httpclient"
+              },
+              "version": "4.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.httpcomponents:httpcore"
+              },
+              "version": "4.4.6"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.slf4j:jcl-over-slf4j"
+              },
+              "version": "1.7.22"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-http-shared"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-provider-api"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "commons-codec:commons-codec"
+              },
+              "version": "1.3"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.slf4j:slf4j-api"
+              },
+              "version": "1.7.22"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.jsoup:jsoup"
+              },
+              "version": "1.14.1"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "commons-io:commons-io"
+              },
+              "version": "2.14.0"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 843
+      body: |
+        {
+          "results": [
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-6fmv-xxpf-w3cw",
+                  "modified": "2026-04-08T23:31:29.244942Z"
+                },
+                {
+                  "id": "GHSA-8vhq-qq4p-grq3",
+                  "modified": "2026-03-16T03:08:38.014901Z"
+                },
+                {
+                  "id": "GHSA-g6ph-x5wf-g337",
+                  "modified": "2024-05-03T20:31:38.024044Z"
+                },
+                {
+                  "id": "GHSA-jcwr-x25h-x5fh",
+                  "modified": "2024-05-03T20:32:52.547057Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2x83-r56g-cv47",
+                  "modified": "2024-12-02T05:48:49.049751Z"
+                },
+                {
+                  "id": "GHSA-7r82-7xv7-xcpj",
+                  "modified": "2026-02-04T02:20:49.137443Z"
+                },
+                {
+                  "id": "GHSA-cfh5-3ghh-wfjx",
+                  "modified": "2024-12-03T06:09:02.246830Z"
+                },
+                {
+                  "id": "GHSA-fmj5-wv96-r2ch",
+                  "modified": "2024-12-08T05:23:13.492634Z"
+                },
+                {
+                  "id": "GHSA-gw85-4gmf-m7rh",
+                  "modified": "2024-12-03T06:01:01.943495Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-gp7f-rwcx-9369",
+                  "modified": "2026-02-04T02:21:25.697440Z"
+                },
+                {
+                  "id": "GHSA-m72m-mhq2-9p6c",
+                  "modified": "2026-07-08T06:26:58.033005Z"
+                }
+              ]
+            },
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "843"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 1604
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-http"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.codehaus.plexus:plexus-utils"
+              },
+              "version": "3.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.httpcomponents:httpclient"
+              },
+              "version": "4.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.httpcomponents:httpcore"
+              },
+              "version": "4.4.6"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.slf4j:jcl-over-slf4j"
+              },
+              "version": "1.7.22"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-http-shared"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-provider-api"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "commons-codec:commons-codec"
+              },
+              "version": "1.3"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.slf4j:slf4j-api"
+              },
+              "version": "1.7.22"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.jsoup:jsoup"
+              },
+              "version": "1.14.1"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "commons-io:commons-io"
+              },
+              "version": "2.5"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 985
+      body: |
+        {
+          "results": [
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-6fmv-xxpf-w3cw",
+                  "modified": "2026-04-08T23:31:29.244942Z"
+                },
+                {
+                  "id": "GHSA-8vhq-qq4p-grq3",
+                  "modified": "2026-03-16T03:08:38.014901Z"
+                },
+                {
+                  "id": "GHSA-g6ph-x5wf-g337",
+                  "modified": "2024-05-03T20:31:38.024044Z"
+                },
+                {
+                  "id": "GHSA-jcwr-x25h-x5fh",
+                  "modified": "2024-05-03T20:32:52.547057Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2x83-r56g-cv47",
+                  "modified": "2024-12-02T05:48:49.049751Z"
+                },
+                {
+                  "id": "GHSA-7r82-7xv7-xcpj",
+                  "modified": "2026-02-04T02:20:49.137443Z"
+                },
+                {
+                  "id": "GHSA-cfh5-3ghh-wfjx",
+                  "modified": "2024-12-03T06:09:02.246830Z"
+                },
+                {
+                  "id": "GHSA-fmj5-wv96-r2ch",
+                  "modified": "2024-12-08T05:23:13.492634Z"
+                },
+                {
+                  "id": "GHSA-gw85-4gmf-m7rh",
+                  "modified": "2024-12-03T06:01:01.943495Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-gp7f-rwcx-9369",
+                  "modified": "2026-02-04T02:21:25.697440Z"
+                },
+                {
+                  "id": "GHSA-m72m-mhq2-9p6c",
+                  "modified": "2026-07-08T06:26:58.033005Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-78wr-2p64-hpwj",
+                  "modified": "2026-02-04T02:45:56.683408Z"
+                },
+                {
+                  "id": "GHSA-gwrp-pvrq-jmwv",
+                  "modified": "2024-02-14T20:25:59Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "985"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 1604
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-http"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.codehaus.plexus:plexus-utils"
+              },
+              "version": "3.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.httpcomponents:httpclient"
+              },
+              "version": "4.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.httpcomponents:httpcore"
+              },
+              "version": "4.4.6"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.slf4j:jcl-over-slf4j"
+              },
+              "version": "1.7.22"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-http-shared"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-provider-api"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "commons-codec:commons-codec"
+              },
+              "version": "1.3"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.slf4j:slf4j-api"
+              },
+              "version": "1.7.22"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.jsoup:jsoup"
+              },
+              "version": "1.14.1"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "commons-io:commons-io"
+              },
+              "version": "2.7"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 922
+      body: |
+        {
+          "results": [
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-6fmv-xxpf-w3cw",
+                  "modified": "2026-04-08T23:31:29.244942Z"
+                },
+                {
+                  "id": "GHSA-8vhq-qq4p-grq3",
+                  "modified": "2026-03-16T03:08:38.014901Z"
+                },
+                {
+                  "id": "GHSA-g6ph-x5wf-g337",
+                  "modified": "2024-05-03T20:31:38.024044Z"
+                },
+                {
+                  "id": "GHSA-jcwr-x25h-x5fh",
+                  "modified": "2024-05-03T20:32:52.547057Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2x83-r56g-cv47",
+                  "modified": "2024-12-02T05:48:49.049751Z"
+                },
+                {
+                  "id": "GHSA-7r82-7xv7-xcpj",
+                  "modified": "2026-02-04T02:20:49.137443Z"
+                },
+                {
+                  "id": "GHSA-cfh5-3ghh-wfjx",
+                  "modified": "2024-12-03T06:09:02.246830Z"
+                },
+                {
+                  "id": "GHSA-fmj5-wv96-r2ch",
+                  "modified": "2024-12-08T05:23:13.492634Z"
+                },
+                {
+                  "id": "GHSA-gw85-4gmf-m7rh",
+                  "modified": "2024-12-03T06:01:01.943495Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-gp7f-rwcx-9369",
+                  "modified": "2026-02-04T02:21:25.697440Z"
+                },
+                {
+                  "id": "GHSA-m72m-mhq2-9p6c",
+                  "modified": "2026-07-08T06:26:58.033005Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-78wr-2p64-hpwj",
+                  "modified": "2026-02-04T02:45:56.683408Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "922"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 1604
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-http"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.codehaus.plexus:plexus-utils"
+              },
+              "version": "3.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.httpcomponents:httpclient"
+              },
+              "version": "4.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.httpcomponents:httpcore"
+              },
+              "version": "4.4.6"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.slf4j:jcl-over-slf4j"
+              },
+              "version": "1.7.22"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-http-shared"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-provider-api"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "commons-codec:commons-codec"
+              },
+              "version": "1.3"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.slf4j:slf4j-api"
+              },
+              "version": "1.7.22"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.jsoup:jsoup"
+              },
+              "version": "1.14.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "commons-io:commons-io"
+              },
+              "version": "2.5"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 915
+      body: |
+        {
+          "results": [
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-6fmv-xxpf-w3cw",
+                  "modified": "2026-04-08T23:31:29.244942Z"
+                },
+                {
+                  "id": "GHSA-8vhq-qq4p-grq3",
+                  "modified": "2026-03-16T03:08:38.014901Z"
+                },
+                {
+                  "id": "GHSA-g6ph-x5wf-g337",
+                  "modified": "2024-05-03T20:31:38.024044Z"
+                },
+                {
+                  "id": "GHSA-jcwr-x25h-x5fh",
+                  "modified": "2024-05-03T20:32:52.547057Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2x83-r56g-cv47",
+                  "modified": "2024-12-02T05:48:49.049751Z"
+                },
+                {
+                  "id": "GHSA-7r82-7xv7-xcpj",
+                  "modified": "2026-02-04T02:20:49.137443Z"
+                },
+                {
+                  "id": "GHSA-cfh5-3ghh-wfjx",
+                  "modified": "2024-12-03T06:09:02.246830Z"
+                },
+                {
+                  "id": "GHSA-fmj5-wv96-r2ch",
+                  "modified": "2024-12-08T05:23:13.492634Z"
+                },
+                {
+                  "id": "GHSA-gw85-4gmf-m7rh",
+                  "modified": "2024-12-03T06:01:01.943495Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-gp7f-rwcx-9369",
+                  "modified": "2026-02-04T02:21:25.697440Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-78wr-2p64-hpwj",
+                  "modified": "2026-02-04T02:45:56.683408Z"
+                },
+                {
+                  "id": "GHSA-gwrp-pvrq-jmwv",
+                  "modified": "2024-02-14T20:25:59Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "915"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 1604
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-http"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.codehaus.plexus:plexus-utils"
+              },
+              "version": "3.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.httpcomponents:httpclient"
+              },
+              "version": "4.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.httpcomponents:httpcore"
+              },
+              "version": "4.4.6"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.slf4j:jcl-over-slf4j"
+              },
+              "version": "1.7.22"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-http-shared"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-provider-api"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "commons-codec:commons-codec"
+              },
+              "version": "1.3"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.slf4j:slf4j-api"
+              },
+              "version": "1.7.22"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.jsoup:jsoup"
+              },
+              "version": "1.15.3"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "commons-io:commons-io"
+              },
+              "version": "2.5"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 836
+      body: |
+        {
+          "results": [
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-6fmv-xxpf-w3cw",
+                  "modified": "2026-04-08T23:31:29.244942Z"
+                },
+                {
+                  "id": "GHSA-8vhq-qq4p-grq3",
+                  "modified": "2026-03-16T03:08:38.014901Z"
+                },
+                {
+                  "id": "GHSA-g6ph-x5wf-g337",
+                  "modified": "2024-05-03T20:31:38.024044Z"
+                },
+                {
+                  "id": "GHSA-jcwr-x25h-x5fh",
+                  "modified": "2024-05-03T20:32:52.547057Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2x83-r56g-cv47",
+                  "modified": "2024-12-02T05:48:49.049751Z"
+                },
+                {
+                  "id": "GHSA-7r82-7xv7-xcpj",
+                  "modified": "2026-02-04T02:20:49.137443Z"
+                },
+                {
+                  "id": "GHSA-cfh5-3ghh-wfjx",
+                  "modified": "2024-12-03T06:09:02.246830Z"
+                },
+                {
+                  "id": "GHSA-fmj5-wv96-r2ch",
+                  "modified": "2024-12-08T05:23:13.492634Z"
+                },
+                {
+                  "id": "GHSA-gw85-4gmf-m7rh",
+                  "modified": "2024-12-03T06:01:01.943495Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-78wr-2p64-hpwj",
+                  "modified": "2026-02-04T02:45:56.683408Z"
+                },
+                {
+                  "id": "GHSA-gwrp-pvrq-jmwv",
+                  "modified": "2024-02-14T20:25:59Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "836"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 1606
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-http"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.codehaus.plexus:plexus-utils"
+              },
+              "version": "3.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.httpcomponents:httpclient"
+              },
+              "version": "4.1.1"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.httpcomponents:httpcore"
+              },
+              "version": "4.4.6"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.slf4j:jcl-over-slf4j"
+              },
+              "version": "1.7.22"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-http-shared"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-provider-api"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "commons-codec:commons-codec"
+              },
+              "version": "1.4"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.slf4j:slf4j-api"
+              },
+              "version": "1.7.22"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.jsoup:jsoup"
+              },
+              "version": "1.14.1"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "commons-io:commons-io"
+              },
+              "version": "2.5"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 915
+      body: |
+        {
+          "results": [
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-6fmv-xxpf-w3cw",
+                  "modified": "2026-04-08T23:31:29.244942Z"
+                },
+                {
+                  "id": "GHSA-8vhq-qq4p-grq3",
+                  "modified": "2026-03-16T03:08:38.014901Z"
+                },
+                {
+                  "id": "GHSA-g6ph-x5wf-g337",
+                  "modified": "2024-05-03T20:31:38.024044Z"
+                },
+                {
+                  "id": "GHSA-jcwr-x25h-x5fh",
+                  "modified": "2024-05-03T20:32:52.547057Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2x83-r56g-cv47",
+                  "modified": "2024-12-02T05:48:49.049751Z"
+                },
+                {
+                  "id": "GHSA-7r82-7xv7-xcpj",
+                  "modified": "2026-02-04T02:20:49.137443Z"
+                },
+                {
+                  "id": "GHSA-cfh5-3ghh-wfjx",
+                  "modified": "2024-12-03T06:09:02.246830Z"
+                },
+                {
+                  "id": "GHSA-fmj5-wv96-r2ch",
+                  "modified": "2024-12-08T05:23:13.492634Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-gp7f-rwcx-9369",
+                  "modified": "2026-02-04T02:21:25.697440Z"
+                },
+                {
+                  "id": "GHSA-m72m-mhq2-9p6c",
+                  "modified": "2026-07-08T06:26:58.033005Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-78wr-2p64-hpwj",
+                  "modified": "2026-02-04T02:45:56.683408Z"
+                },
+                {
+                  "id": "GHSA-gwrp-pvrq-jmwv",
+                  "modified": "2024-02-14T20:25:59Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "915"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 1606
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-http"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.codehaus.plexus:plexus-utils"
+              },
+              "version": "3.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.httpcomponents:httpclient"
+              },
+              "version": "4.2.3"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.httpcomponents:httpcore"
+              },
+              "version": "4.4.6"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.slf4j:jcl-over-slf4j"
+              },
+              "version": "1.7.22"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-http-shared"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-provider-api"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "commons-codec:commons-codec"
+              },
+              "version": "1.6"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.slf4j:slf4j-api"
+              },
+              "version": "1.7.22"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.jsoup:jsoup"
+              },
+              "version": "1.14.1"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "commons-io:commons-io"
+              },
+              "version": "2.5"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 845
+      body: |
+        {
+          "results": [
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-6fmv-xxpf-w3cw",
+                  "modified": "2026-04-08T23:31:29.244942Z"
+                },
+                {
+                  "id": "GHSA-8vhq-qq4p-grq3",
+                  "modified": "2026-03-16T03:08:38.014901Z"
+                },
+                {
+                  "id": "GHSA-g6ph-x5wf-g337",
+                  "modified": "2024-05-03T20:31:38.024044Z"
+                },
+                {
+                  "id": "GHSA-jcwr-x25h-x5fh",
+                  "modified": "2024-05-03T20:32:52.547057Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-7r82-7xv7-xcpj",
+                  "modified": "2026-02-04T02:20:49.137443Z"
+                },
+                {
+                  "id": "GHSA-cfh5-3ghh-wfjx",
+                  "modified": "2024-12-03T06:09:02.246830Z"
+                },
+                {
+                  "id": "GHSA-fmj5-wv96-r2ch",
+                  "modified": "2024-12-08T05:23:13.492634Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-gp7f-rwcx-9369",
+                  "modified": "2026-02-04T02:21:25.697440Z"
+                },
+                {
+                  "id": "GHSA-m72m-mhq2-9p6c",
+                  "modified": "2026-07-08T06:26:58.033005Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-78wr-2p64-hpwj",
+                  "modified": "2026-02-04T02:45:56.683408Z"
+                },
+                {
+                  "id": "GHSA-gwrp-pvrq-jmwv",
+                  "modified": "2024-02-14T20:25:59Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "845"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 1606
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-http"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.codehaus.plexus:plexus-utils"
+              },
+              "version": "3.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.httpcomponents:httpclient"
+              },
+              "version": "4.3.5"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.httpcomponents:httpcore"
+              },
+              "version": "4.4.6"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.slf4j:jcl-over-slf4j"
+              },
+              "version": "1.7.22"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-http-shared"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-provider-api"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "commons-codec:commons-codec"
+              },
+              "version": "1.6"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.slf4j:slf4j-api"
+              },
+              "version": "1.7.22"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.jsoup:jsoup"
+              },
+              "version": "1.14.1"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "commons-io:commons-io"
+              },
+              "version": "2.5"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 775
+      body: |
+        {
+          "results": [
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-6fmv-xxpf-w3cw",
+                  "modified": "2026-04-08T23:31:29.244942Z"
+                },
+                {
+                  "id": "GHSA-8vhq-qq4p-grq3",
+                  "modified": "2026-03-16T03:08:38.014901Z"
+                },
+                {
+                  "id": "GHSA-g6ph-x5wf-g337",
+                  "modified": "2024-05-03T20:31:38.024044Z"
+                },
+                {
+                  "id": "GHSA-jcwr-x25h-x5fh",
+                  "modified": "2024-05-03T20:32:52.547057Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-7r82-7xv7-xcpj",
+                  "modified": "2026-02-04T02:20:49.137443Z"
+                },
+                {
+                  "id": "GHSA-fmj5-wv96-r2ch",
+                  "modified": "2024-12-08T05:23:13.492634Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-gp7f-rwcx-9369",
+                  "modified": "2026-02-04T02:21:25.697440Z"
+                },
+                {
+                  "id": "GHSA-m72m-mhq2-9p6c",
+                  "modified": "2026-07-08T06:26:58.033005Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-78wr-2p64-hpwj",
+                  "modified": "2026-02-04T02:45:56.683408Z"
+                },
+                {
+                  "id": "GHSA-gwrp-pvrq-jmwv",
+                  "modified": "2024-02-14T20:25:59Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "775"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 1606
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-http"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.codehaus.plexus:plexus-utils"
+              },
+              "version": "3.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.httpcomponents:httpclient"
+              },
+              "version": "4.3.6"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.httpcomponents:httpcore"
+              },
+              "version": "4.4.6"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.slf4j:jcl-over-slf4j"
+              },
+              "version": "1.7.22"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-http-shared"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-provider-api"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "commons-codec:commons-codec"
+              },
+              "version": "1.6"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.slf4j:slf4j-api"
+              },
+              "version": "1.7.22"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.jsoup:jsoup"
+              },
+              "version": "1.14.1"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "commons-io:commons-io"
+              },
+              "version": "2.5"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 705
+      body: |
+        {
+          "results": [
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-6fmv-xxpf-w3cw",
+                  "modified": "2026-04-08T23:31:29.244942Z"
+                },
+                {
+                  "id": "GHSA-8vhq-qq4p-grq3",
+                  "modified": "2026-03-16T03:08:38.014901Z"
+                },
+                {
+                  "id": "GHSA-g6ph-x5wf-g337",
+                  "modified": "2024-05-03T20:31:38.024044Z"
+                },
+                {
+                  "id": "GHSA-jcwr-x25h-x5fh",
+                  "modified": "2024-05-03T20:32:52.547057Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-7r82-7xv7-xcpj",
+                  "modified": "2026-02-04T02:20:49.137443Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-gp7f-rwcx-9369",
+                  "modified": "2026-02-04T02:21:25.697440Z"
+                },
+                {
+                  "id": "GHSA-m72m-mhq2-9p6c",
+                  "modified": "2026-07-08T06:26:58.033005Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-78wr-2p64-hpwj",
+                  "modified": "2026-02-04T02:45:56.683408Z"
+                },
+                {
+                  "id": "GHSA-gwrp-pvrq-jmwv",
+                  "modified": "2024-02-14T20:25:59Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "705"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 1608
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-http"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.codehaus.plexus:plexus-utils"
+              },
+              "version": "3.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.httpcomponents:httpclient"
+              },
+              "version": "4.5.13"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.httpcomponents:httpcore"
+              },
+              "version": "4.4.6"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.slf4j:jcl-over-slf4j"
+              },
+              "version": "1.7.22"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-http-shared"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-provider-api"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "commons-codec:commons-codec"
+              },
+              "version": "1.11"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.slf4j:slf4j-api"
+              },
+              "version": "1.7.22"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.jsoup:jsoup"
+              },
+              "version": "1.14.1"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "commons-io:commons-io"
+              },
+              "version": "2.5"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 626
+      body: |
+        {
+          "results": [
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-6fmv-xxpf-w3cw",
+                  "modified": "2026-04-08T23:31:29.244942Z"
+                },
+                {
+                  "id": "GHSA-8vhq-qq4p-grq3",
+                  "modified": "2026-03-16T03:08:38.014901Z"
+                },
+                {
+                  "id": "GHSA-g6ph-x5wf-g337",
+                  "modified": "2024-05-03T20:31:38.024044Z"
+                },
+                {
+                  "id": "GHSA-jcwr-x25h-x5fh",
+                  "modified": "2024-05-03T20:32:52.547057Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-gp7f-rwcx-9369",
+                  "modified": "2026-02-04T02:21:25.697440Z"
+                },
+                {
+                  "id": "GHSA-m72m-mhq2-9p6c",
+                  "modified": "2026-07-08T06:26:58.033005Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-78wr-2p64-hpwj",
+                  "modified": "2026-02-04T02:45:56.683408Z"
+                },
+                {
+                  "id": "GHSA-gwrp-pvrq-jmwv",
+                  "modified": "2024-02-14T20:25:59Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "626"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 1607
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-http"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.codehaus.plexus:plexus-utils"
+              },
+              "version": "3.0.16"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.httpcomponents:httpclient"
+              },
+              "version": "4.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.httpcomponents:httpcore"
+              },
+              "version": "4.4.6"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.slf4j:jcl-over-slf4j"
+              },
+              "version": "1.7.22"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-http-shared"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-provider-api"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "commons-codec:commons-codec"
+              },
+              "version": "1.3"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.slf4j:slf4j-api"
+              },
+              "version": "1.7.22"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.jsoup:jsoup"
+              },
+              "version": "1.14.1"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "commons-io:commons-io"
+              },
+              "version": "2.5"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 915
+      body: |
+        {
+          "results": [
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-6fmv-xxpf-w3cw",
+                  "modified": "2026-04-08T23:31:29.244942Z"
+                },
+                {
+                  "id": "GHSA-g6ph-x5wf-g337",
+                  "modified": "2024-05-03T20:31:38.024044Z"
+                },
+                {
+                  "id": "GHSA-jcwr-x25h-x5fh",
+                  "modified": "2024-05-03T20:32:52.547057Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2x83-r56g-cv47",
+                  "modified": "2024-12-02T05:48:49.049751Z"
+                },
+                {
+                  "id": "GHSA-7r82-7xv7-xcpj",
+                  "modified": "2026-02-04T02:20:49.137443Z"
+                },
+                {
+                  "id": "GHSA-cfh5-3ghh-wfjx",
+                  "modified": "2024-12-03T06:09:02.246830Z"
+                },
+                {
+                  "id": "GHSA-fmj5-wv96-r2ch",
+                  "modified": "2024-12-08T05:23:13.492634Z"
+                },
+                {
+                  "id": "GHSA-gw85-4gmf-m7rh",
+                  "modified": "2024-12-03T06:01:01.943495Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-gp7f-rwcx-9369",
+                  "modified": "2026-02-04T02:21:25.697440Z"
+                },
+                {
+                  "id": "GHSA-m72m-mhq2-9p6c",
+                  "modified": "2026-07-08T06:26:58.033005Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-78wr-2p64-hpwj",
+                  "modified": "2026-02-04T02:45:56.683408Z"
+                },
+                {
+                  "id": "GHSA-gwrp-pvrq-jmwv",
+                  "modified": "2024-02-14T20:25:59Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "915"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 1607
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-http"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.codehaus.plexus:plexus-utils"
+              },
+              "version": "3.0.24"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.httpcomponents:httpclient"
+              },
+              "version": "4.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.httpcomponents:httpcore"
+              },
+              "version": "4.4.6"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.slf4j:jcl-over-slf4j"
+              },
+              "version": "1.7.22"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-http-shared"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-provider-api"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "commons-codec:commons-codec"
+              },
+              "version": "1.3"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.slf4j:slf4j-api"
+              },
+              "version": "1.7.22"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.jsoup:jsoup"
+              },
+              "version": "1.14.1"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "commons-io:commons-io"
+              },
+              "version": "2.5"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 775
+      body: |
+        {
+          "results": [
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-6fmv-xxpf-w3cw",
+                  "modified": "2026-04-08T23:31:29.244942Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2x83-r56g-cv47",
+                  "modified": "2024-12-02T05:48:49.049751Z"
+                },
+                {
+                  "id": "GHSA-7r82-7xv7-xcpj",
+                  "modified": "2026-02-04T02:20:49.137443Z"
+                },
+                {
+                  "id": "GHSA-cfh5-3ghh-wfjx",
+                  "modified": "2024-12-03T06:09:02.246830Z"
+                },
+                {
+                  "id": "GHSA-fmj5-wv96-r2ch",
+                  "modified": "2024-12-08T05:23:13.492634Z"
+                },
+                {
+                  "id": "GHSA-gw85-4gmf-m7rh",
+                  "modified": "2024-12-03T06:01:01.943495Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-gp7f-rwcx-9369",
+                  "modified": "2026-02-04T02:21:25.697440Z"
+                },
+                {
+                  "id": "GHSA-m72m-mhq2-9p6c",
+                  "modified": "2026-07-08T06:26:58.033005Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-78wr-2p64-hpwj",
+                  "modified": "2026-02-04T02:45:56.683408Z"
+                },
+                {
+                  "id": "GHSA-gwrp-pvrq-jmwv",
+                  "modified": "2024-02-14T20:25:59Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "775"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 1607
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-http"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.codehaus.plexus:plexus-utils"
+              },
+              "version": "3.0.24"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.httpcomponents:httpclient"
+              },
+              "version": "4.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.httpcomponents:httpcore"
+              },
+              "version": "4.4.6"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.slf4j:jcl-over-slf4j"
+              },
+              "version": "1.7.22"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-http-shared"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-provider-api"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "commons-codec:commons-codec"
+              },
+              "version": "1.3"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.slf4j:slf4j-api"
+              },
+              "version": "1.7.22"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.jsoup:jsoup"
+              },
+              "version": "1.14.1"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "commons-io:commons-io"
+              },
+              "version": "2.5"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 775
+      body: |
+        {
+          "results": [
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-6fmv-xxpf-w3cw",
+                  "modified": "2026-04-08T23:31:29.244942Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2x83-r56g-cv47",
+                  "modified": "2024-12-02T05:48:49.049751Z"
+                },
+                {
+                  "id": "GHSA-7r82-7xv7-xcpj",
+                  "modified": "2026-02-04T02:20:49.137443Z"
+                },
+                {
+                  "id": "GHSA-cfh5-3ghh-wfjx",
+                  "modified": "2024-12-03T06:09:02.246830Z"
+                },
+                {
+                  "id": "GHSA-fmj5-wv96-r2ch",
+                  "modified": "2024-12-08T05:23:13.492634Z"
+                },
+                {
+                  "id": "GHSA-gw85-4gmf-m7rh",
+                  "modified": "2024-12-03T06:01:01.943495Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-gp7f-rwcx-9369",
+                  "modified": "2026-02-04T02:21:25.697440Z"
+                },
+                {
+                  "id": "GHSA-m72m-mhq2-9p6c",
+                  "modified": "2026-07-08T06:26:58.033005Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-78wr-2p64-hpwj",
+                  "modified": "2026-02-04T02:45:56.683408Z"
+                },
+                {
+                  "id": "GHSA-gwrp-pvrq-jmwv",
+                  "modified": "2024-02-14T20:25:59Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "775"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 1606
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-http"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.codehaus.plexus:plexus-utils"
+              },
+              "version": "3.6.1"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.httpcomponents:httpclient"
+              },
+              "version": "4.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.httpcomponents:httpcore"
+              },
+              "version": "4.4.6"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.slf4j:jcl-over-slf4j"
+              },
+              "version": "1.7.22"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-http-shared"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.maven.wagon:wagon-provider-api"
+              },
+              "version": "3.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "commons-codec:commons-codec"
+              },
+              "version": "1.3"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.slf4j:slf4j-api"
+              },
+              "version": "1.7.22"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.jsoup:jsoup"
+              },
+              "version": "1.14.1"
+            },
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "commons-io:commons-io"
+              },
+              "version": "2.5"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 696
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2x83-r56g-cv47",
+                  "modified": "2024-12-02T05:48:49.049751Z"
+                },
+                {
+                  "id": "GHSA-7r82-7xv7-xcpj",
+                  "modified": "2026-02-04T02:20:49.137443Z"
+                },
+                {
+                  "id": "GHSA-cfh5-3ghh-wfjx",
+                  "modified": "2024-12-03T06:09:02.246830Z"
+                },
+                {
+                  "id": "GHSA-fmj5-wv96-r2ch",
+                  "modified": "2024-12-08T05:23:13.492634Z"
+                },
+                {
+                  "id": "GHSA-gw85-4gmf-m7rh",
+                  "modified": "2024-12-03T06:01:01.943495Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-gp7f-rwcx-9369",
+                  "modified": "2026-02-04T02:21:25.697440Z"
+                },
+                {
+                  "id": "GHSA-m72m-mhq2-9p6c",
+                  "modified": "2026-07-08T06:26:58.033005Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-78wr-2p64-hpwj",
+                  "modified": "2026-02-04T02:45:56.683408Z"
+                },
+                {
+                  "id": "GHSA-gwrp-pvrq-jmwv",
+                  "modified": "2024-02-14T20:25:59Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "696"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s

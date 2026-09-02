@@ -15,7 +15,6 @@ import (
 	scalibrconfig "github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/cmd"
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
-	"github.com/google/osv-scanner/v2/internal/scalibr"
 	"github.com/google/osv-scanner/v2/internal/testlogger"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 	"github.com/urfave/cli/v3"
@@ -53,7 +52,27 @@ func run(t *testing.T, tc Case) (string, string) {
 
 	cf := tc.ClientFactories
 	if cf == nil {
-		cf = scalibr.NewClientFactories(tc.HTTPClient, "")
+		if SharedClientFactories == nil {
+			t.Fatalf("testcmd.SharedClientFactories is not initialized. Please initialize it in TestMain using testcmd.NewClientFactories(nil).")
+		}
+
+		httpClient := tc.HTTPClient
+		grpcRecorder := tc.GRPCRecorder
+
+		if !tc.NoVCR {
+			if httpClient == nil {
+				httpClient = InsertCassette(t)
+			}
+			if grpcRecorder == nil {
+				grpcRecorder = InsertGRPCRecorder(t)
+			}
+		}
+
+		cf = &TestClientFactories{
+			ClientFactories:      SharedClientFactories,
+			HTTPClientOverride:   httpClient,
+			GRPCRecorderOverride: grpcRecorder,
+		}
 	}
 
 	// Inject a per-test --local-db-path tempdir if offline databases are used without an explicit --local-db-path flag
@@ -72,7 +91,6 @@ func run(t *testing.T, tc Case) (string, string) {
 			tc.Args = newArgs
 		}
 	}
-
 	ec := cmd.Run(tc.Args, stdout, stderr, cf, fetchCommandsToTest())
 
 	if ec != tc.Exit {
@@ -146,7 +164,8 @@ func normalizeDirScanOrder(t *testing.T, input string) string {
 	inputLines := strings.Split(input, "\n")
 
 	var completeOutput = make([]string, 0, len(inputLines))
-	var dirScanHolder []string
+	var toSort []string
+	var toKeep []string
 	printingDirScanLogs := false
 
 	for _, line := range inputLines {
@@ -165,15 +184,22 @@ func normalizeDirScanOrder(t *testing.T, input string) string {
 			}
 
 			printingDirScanLogs = false
-			sort.Strings(dirScanHolder)
-			completeOutput = append(completeOutput, dirScanHolder...)
-			dirScanHolder = nil
+			sort.Strings(toSort)
+			completeOutput = append(completeOutput, toSort...)
+			completeOutput = append(completeOutput, toKeep...)
+			toSort = nil
+			toKeep = nil
 
 			continue
 		}
 
 		if printingDirScanLogs {
-			dirScanHolder = append(dirScanHolder, line)
+			trimmed := strings.TrimSpace(line)
+			if strings.HasPrefix(trimmed, "Scanned ") || strings.HasPrefix(trimmed, "Scanning ") {
+				toSort = append(toSort, line)
+			} else {
+				toKeep = append(toKeep, line)
+			}
 
 			continue
 		}

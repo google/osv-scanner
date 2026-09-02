@@ -1,0 +1,134 @@
+{
+  "schema_version": "1.7.3",
+  "id": "PYSEC-2023-74",
+  "published": "2023-05-26T18:15:00Z",
+  "modified": "2023-11-08T04:12:35.436175Z",
+  "aliases": [
+    "CVE-2023-32681",
+    "GHSA-j8r2-6x86-q33q"
+  ],
+  "details": "Requests is a HTTP library. Since Requests 2.3.0, Requests has been leaking Proxy-Authorization headers to destination servers when redirected to an HTTPS endpoint. This is a product of how we use `rebuild_proxies` to reattach the `Proxy-Authorization` header to requests. For HTTP connections sent through the tunnel, the proxy will identify the header in the request itself and remove it prior to forwarding to the destination server. However when sent over HTTPS, the `Proxy-Authorization` header must be sent in the CONNECT request as the proxy has no visibility into the tunneled request. This results in Requests forwarding proxy credentials to the destination server unintentionally, allowing a malicious actor to potentially exfiltrate sensitive information. This issue has been patched in version 2.31.0.\n\n",
+  "affected": [
+    {
+      "package": {
+        "name": "requests",
+        "ecosystem": "PyPI",
+        "purl": "pkg:pypi/requests"
+      },
+      "ranges": [
+        {
+          "type": "GIT",
+          "repo": "https://github.com/psf/requests",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "74ea7cf7a6a27a4eeb2ae24e162bcc942a6706d5"
+            }
+          ]
+        },
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "2.3.0"
+            },
+            {
+              "fixed": "2.31.0"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "2.10.0",
+        "2.11.0",
+        "2.11.1",
+        "2.12.0",
+        "2.12.1",
+        "2.12.2",
+        "2.12.3",
+        "2.12.4",
+        "2.12.5",
+        "2.13.0",
+        "2.14.0",
+        "2.14.1",
+        "2.14.2",
+        "2.15.0",
+        "2.15.1",
+        "2.16.0",
+        "2.16.1",
+        "2.16.2",
+        "2.16.3",
+        "2.16.4",
+        "2.16.5",
+        "2.17.0",
+        "2.17.1",
+        "2.17.2",
+        "2.17.3",
+        "2.18.0",
+        "2.18.1",
+        "2.18.2",
+        "2.18.3",
+        "2.18.4",
+        "2.19.0",
+        "2.19.1",
+        "2.20.0",
+        "2.20.1",
+        "2.21.0",
+        "2.22.0",
+        "2.23.0",
+        "2.24.0",
+        "2.25.0",
+        "2.25.1",
+        "2.26.0",
+        "2.27.0",
+        "2.27.1",
+        "2.28.0",
+        "2.28.1",
+        "2.28.2",
+        "2.29.0",
+        "2.3.0",
+        "2.30.0",
+        "2.4.0",
+        "2.4.1",
+        "2.4.2",
+        "2.4.3",
+        "2.5.0",
+        "2.5.1",
+        "2.5.2",
+        "2.5.3",
+        "2.6.0",
+        "2.6.1",
+        "2.6.2",
+        "2.7.0",
+        "2.8.0",
+        "2.8.1",
+        "2.9.0",
+        "2.9.1",
+        "2.9.2"
+      ],
+      "database_specific": {
+        "source": "https://github.com/pypa/advisory-database/blob/main/vulns/requests/PYSEC-2023-74.yaml"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/psf/requests/security/advisories/GHSA-j8r2-6x86-q33q"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/psf/requests/releases/tag/v2.31.0"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/psf/requests/commit/74ea7cf7a6a27a4eeb2ae24e162bcc942a6706d5"
+    },
+    {
+      "type": "WEB",
+      "url": "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/AW7HNFGYP44RT3DUDQXG2QT3OEV2PJ7Y/"
+    }
+  ]
+}
