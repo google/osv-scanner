@@ -2139,7 +2139,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 Loaded GIT local db from <tempdir>/osv-scalibr/GIT/all.zip
 Scanned <rootdir>/testdata/locks-git/osv-scanner.json file and found 11 packages
 
-Total 7 packages affected by 58 known vulnerabilities (4 Critical, 28 High, 17 Medium, 2 Low, 7 Unknown) from 1 ecosystem.
+Total 7 packages affected by 58 known vulnerabilities (5 Critical, 28 High, 17 Medium, 2 Low, 6 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +--------------------------------+------+-----------+----------------------------------------------+---------------+---------------+-------------------------------------+
@@ -2201,7 +2201,7 @@ Total 7 packages affected by 58 known vulnerabilities (4 Critical, 28 High, 17 M
 | https://osv.dev/CVE-2026-63075 | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-63076 | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-7383  | 8.1  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2026-75803 |      | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2026-75803 | 9.1  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-9076  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0 | --            | testdata/locks-git/osv-scanner.json |
 +--------------------------------+------+-----------+----------------------------------------------+---------------+---------------+-------------------------------------+
 
@@ -2214,7 +2214,7 @@ Total 7 packages affected by 58 known vulnerabilities (4 Critical, 28 High, 17 M
 [TestCommand_CommitSupport/online_uses_git_commits - 1]
 Scanned <rootdir>/testdata/locks-git/osv-scanner.json file and found 11 packages
 
-Total 11 packages affected by 80 known vulnerabilities (4 Critical, 35 High, 28 Medium, 6 Low, 7 Unknown) from 1 ecosystem.
+Total 11 packages affected by 80 known vulnerabilities (5 Critical, 35 High, 28 Medium, 6 Low, 6 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +--------------------------------+------+-----------+-----------------------------------------------+------------------+---------------+-------------------------------------+
@@ -2294,7 +2294,7 @@ Total 11 packages affected by 80 known vulnerabilities (4 Critical, 35 High, 28 
 | https://osv.dev/CVE-2026-63075 | 7.5  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-63076 | 7.5  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-7383  | 8.1  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2026-75803 |      | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2026-75803 | 9.1  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-9076  | 7.5  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2023-53159 | 4.5  | GIT       | https://github.com/sfackler-fork/rust-openssl | openssl-v0.10.23 | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-24898 | 6.3  | GIT       | https://github.com/sfackler-fork/rust-openssl | openssl-v0.10.23 | --            | testdata/locks-git/osv-scanner.json |
@@ -3244,7 +3244,7 @@ Scanned <rootdir>/testdata/locks-insecure/osv-scanner-flutter-deps.json file and
 [TestCommand_GithubActions/scanning_osv-scanner_custom_format_with_git_tag - 1]
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom-git-tag.json file and found 1 package
 
-Total 1 package affected by 64 known vulnerabilities (2 Critical, 32 High, 25 Medium, 1 Low, 4 Unknown) from 1 ecosystem.
+Total 1 package affected by 64 known vulnerabilities (3 Critical, 32 High, 25 Medium, 1 Low, 3 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +--------------------------------+------+-----------+----------------------------+---------------+---------------+---------------------------------------------------------+
@@ -3312,7 +3312,7 @@ Total 1 package affected by 64 known vulnerabilities (2 Critical, 32 High, 25 Me
 | https://osv.dev/CVE-2026-63074 | 5.9  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2026-63076 | 7.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2026-7383  | 8.1  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
-| https://osv.dev/CVE-2026-75803 |      | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2026-75803 | 9.1  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2026-9076  | 7.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 +--------------------------------+------+-----------+----------------------------+---------------+---------------+---------------------------------------------------------+
 
