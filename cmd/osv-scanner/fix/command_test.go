@@ -21,8 +21,6 @@ func matchFile(t *testing.T, file string) {
 func TestCommand(t *testing.T) {
 	t.Parallel()
 
-	testutility.SkipIfShort(t)
-
 	tests := []testcmd.Case{
 		{
 			Name: "no_args_provided",
@@ -134,8 +132,6 @@ func TestCommand_OfflineDatabase(t *testing.T) {
 	if runtime.GOOS == "darwin" && os.Getenv("CI") != "" {
 		testutility.Skip(t, "Skipping this test on CI because of APFS issues causing the test to time out.")
 	}
-
-	testutility.SkipIfShort(t)
 
 	tests := []testcmd.Case{
 		{

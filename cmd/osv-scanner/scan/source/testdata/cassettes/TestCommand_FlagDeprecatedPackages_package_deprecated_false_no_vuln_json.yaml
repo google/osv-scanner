@@ -1,0 +1,77 @@
+---
+version: 2
+interactions:
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 670
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "allocator-api2"
+              },
+              "version": "0.2.21"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "equivalent"
+              },
+              "version": "1.0.2"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "foldhash"
+              },
+              "version": "0.2.0"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "hashbrown"
+              },
+              "version": "0.16.0"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "rust_clean"
+              },
+              "version": "0.1.0"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 28
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {},
+            {},
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "28"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s

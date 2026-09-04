@@ -1,0 +1,60 @@
+---
+version: 2
+interactions:
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 238
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "commit": "4579d5538f06c5ef615a15bc67ebb9ac0523a973"
+            },
+            {
+              "commit": "6fc3b89fcdb89b593402e0dabc13a7d7fd3f762d"
+            },
+            {
+              "commit": "5d60bd2eb4642b64d00c845e5ca9f1ea41fd6db6"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 161
+      body: |
+        {
+          "results": [
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "CVE-2023-39137",
+                  "modified": "2026-07-15T01:48:52.379755Z"
+                },
+                {
+                  "id": "CVE-2023-39139",
+                  "modified": "2026-07-15T01:49:21.869281Z"
+                }
+              ]
+            },
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "161"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s

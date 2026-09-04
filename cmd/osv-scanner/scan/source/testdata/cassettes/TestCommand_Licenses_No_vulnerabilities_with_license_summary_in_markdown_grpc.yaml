@@ -1,0 +1,175 @@
+interactions:
+    - method: /deps_dev.v3.Insights/GetVersion
+      request: |-
+        {
+          "versionKey": {
+            "name": "ansi-html",
+            "system": "NPM",
+            "version": "0.0.8"
+          }
+        }
+      response: |-
+        {
+          "licenses": [
+            "Apache-2.0"
+          ],
+          "links": [
+            {
+              "label": "HOMEPAGE",
+              "url": "https://github.com/Tjatse/ansi-html"
+            },
+            {
+              "label": "ISSUE_TRACKER",
+              "url": "https://github.com/Tjatse/ansi-html/issues"
+            },
+            {
+              "label": "ORIGIN",
+              "url": "https://registry.npmjs.org/ansi-html/0.0.8"
+            },
+            {
+              "label": "SOURCE_REPO",
+              "url": "git://github.com/Tjatse/ansi-html.git"
+            }
+          ],
+          "publishedAt": "2022-02-28T14:30:19Z",
+          "registries": [
+            "https://registry.npmjs.org/"
+          ],
+          "relatedProjects": [
+            {
+              "projectKey": {
+                "id": "github.com/tjatse/ansi-html"
+              },
+              "relationProvenance": "UNVERIFIED_METADATA",
+              "relationType": "ISSUE_TRACKER"
+            },
+            {
+              "projectKey": {
+                "id": "github.com/tjatse/ansi-html"
+              },
+              "relationProvenance": "UNVERIFIED_METADATA",
+              "relationType": "SOURCE_REPO"
+            }
+          ],
+          "versionKey": {
+            "name": "ansi-html",
+            "system": "NPM",
+            "version": "0.0.8"
+          }
+        }
+    - method: /deps_dev.v3.Insights/GetVersion
+      request: |-
+        {
+          "versionKey": {
+            "name": "ast",
+            "system": "RUBYGEMS",
+            "version": "2.4.2"
+          }
+        }
+      response: |-
+        {
+          "licenses": [
+            "MIT"
+          ],
+          "links": [
+            {
+              "label": "SOURCE_REPO",
+              "url": "https://github.com/whitequark/ast"
+            },
+            {
+              "label": "ISSUE_TRACKER",
+              "url": "https://github.com/whitequark/ast/issues"
+            },
+            {
+              "label": "HOMEPAGE",
+              "url": "https://whitequark.github.io/ast/"
+            },
+            {
+              "label": "DOCUMENTATION",
+              "url": "http://whitequark.github.io/ast"
+            }
+          ],
+          "publishedAt": "2021-01-23T18:56:53Z",
+          "registries": [
+            "https://rubygems.org/"
+          ],
+          "relatedProjects": [
+            {
+              "projectKey": {
+                "id": "github.com/whitequark/ast"
+              },
+              "relationProvenance": "UNVERIFIED_METADATA",
+              "relationType": "SOURCE_REPO"
+            },
+            {
+              "projectKey": {
+                "id": "github.com/whitequark/ast"
+              },
+              "relationProvenance": "UNVERIFIED_METADATA",
+              "relationType": "ISSUE_TRACKER"
+            }
+          ],
+          "versionKey": {
+            "name": "ast",
+            "system": "RUBYGEMS",
+            "version": "2.4.2"
+          }
+        }
+    - method: /deps_dev.v3.Insights/GetVersion
+      request: |-
+        {
+          "versionKey": {
+            "name": "balanced-match",
+            "system": "NPM",
+            "version": "1.0.2"
+          }
+        }
+      response: |-
+        {
+          "licenses": [
+            "MIT"
+          ],
+          "links": [
+            {
+              "label": "HOMEPAGE",
+              "url": "https://github.com/juliangruber/balanced-match"
+            },
+            {
+              "label": "ISSUE_TRACKER",
+              "url": "https://github.com/juliangruber/balanced-match/issues"
+            },
+            {
+              "label": "ORIGIN",
+              "url": "https://registry.npmjs.org/balanced-match/1.0.2"
+            },
+            {
+              "label": "SOURCE_REPO",
+              "url": "git://github.com/juliangruber/balanced-match.git"
+            }
+          ],
+          "publishedAt": "2021-04-06T12:51:09Z",
+          "registries": [
+            "https://registry.npmjs.org/"
+          ],
+          "relatedProjects": [
+            {
+              "projectKey": {
+                "id": "github.com/juliangruber/balanced-match"
+              },
+              "relationProvenance": "UNVERIFIED_METADATA",
+              "relationType": "ISSUE_TRACKER"
+            },
+            {
+              "projectKey": {
+                "id": "github.com/juliangruber/balanced-match"
+              },
+              "relationProvenance": "UNVERIFIED_METADATA",
+              "relationType": "SOURCE_REPO"
+            }
+          ],
+          "versionKey": {
+            "name": "balanced-match",
+            "system": "NPM",
+            "version": "1.0.2"
+          }
+        }

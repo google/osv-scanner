@@ -8,14 +8,13 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/testcmd"
+	"github.com/google/osv-scanner/v2/internal/grpcvcr"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
 func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 	t.Parallel()
 	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker to build the images")
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -67,8 +66,6 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
-
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
 
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
@@ -80,8 +77,6 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 
 	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker to build the images")
 
-	client := testcmd.InsertCassette(t)
-
 	tests := []testcmd.Case{
 		{
 			Name: "add_extractors",
@@ -137,8 +132,6 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -148,9 +141,6 @@ func TestCommand_Docker(t *testing.T) {
 	t.Parallel()
 
 	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker (also takes a long time to pull images)")
-	testutility.SkipIfShort(t)
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -169,7 +159,7 @@ func TestCommand_Docker(t *testing.T) {
 			Exit: 127,
 		},
 		{
-			Name: "Real_empty_image_with_no_tag,_invalid_scan_target",
+			Name: "Real_empty_image_with_no_tag_invalid_scan_target",
 			Args: []string{"", "image", "hello-world"},
 			Exit: 127, // Invalid scan target
 		},
@@ -206,8 +196,6 @@ func TestCommand_Docker(t *testing.T) {
 				testutility.Skip(t, "Skipping Docker-based test as only Linux has Docker installed in CI")
 			}
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -216,8 +204,7 @@ func TestCommand_Docker(t *testing.T) {
 func TestCommand_OCIImage(t *testing.T) {
 	t.Parallel()
 	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker to build the images")
-
-	client := testcmd.InsertCassette(t)
+	passthroughRecorder, _ := grpcvcr.NewRecorder("", grpcvcr.ModePassthrough, t.Name())
 
 	tests := []testcmd.Case{
 		{
@@ -369,7 +356,8 @@ func TestCommand_OCIImage(t *testing.T) {
 				"", "image",
 				"--archive", "./testdata/test-chisel.tar",
 			},
-			Exit: 1,
+			GRPCRecorder: passthroughRecorder,
+			Exit:         1,
 		},
 		{
 			Name: "Scanning_openSUSE_Leap_15.5_image",
@@ -397,8 +385,6 @@ func TestCommand_OCIImage(t *testing.T) {
 				}
 			}
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -407,8 +393,6 @@ func TestCommand_OCIImage(t *testing.T) {
 func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 	t.Parallel()
 	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker to build the images")
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -565,8 +549,6 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 				}
 			}
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -577,7 +559,6 @@ func TestCommand_HtmlFile(t *testing.T) {
 	testutility.SkipIfNotAcceptanceTesting(t, "Needs built container images")
 
 	testDir := testutility.CreateTestDir(t)
-	client := testcmd.InsertCassette(t)
 
 	_, stderr := testcmd.RunAndNormalize(t, testcmd.Case{
 		Name: "one_specific_supported_lockfile",
@@ -586,8 +567,6 @@ func TestCommand_HtmlFile(t *testing.T) {
 			"--archive", "./testdata/test-alpine.tar",
 		},
 		Exit: 1,
-
-		HTTPClient: testcmd.WithTestNameHeader(t, *client),
 	})
 
 	testutility.NewSnapshot().WithWindowsReplacements(map[string]string{
