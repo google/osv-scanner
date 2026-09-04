@@ -933,7 +933,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			Exit: 127,
 		},
 		{
-			Name: "\"apk-installed\" is supported",
+			Name: "apk-installed is supported",
 			Args: []string{
 				"",
 				"source",
@@ -947,7 +947,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			HTTPClient: http.DefaultClient,
 		},
 		{
-			Name: "\"dpkg-status\" is supported",
+			Name: "dpkg-status is supported",
 			Args: []string{
 				"",
 				"source",
@@ -1581,9 +1581,10 @@ func TestCommand_WithDetector_OnLinux(t *testing.T) {
 			t.Setenv("OSV_SCANNER_TEST_SSH_VERSION_OUTPUT", tt.SSHV)
 
 			testcmd.RunAndMatchSnapshots(t, testcmd.Case{
-				Name: tt.Name,
-				Args: tt.Args,
-				Exit: tt.Exit,
+				Name:         tt.Name,
+				Args:         tt.Args,
+				Exit:         tt.Exit,
+				CassetteName: "TestCommand_WithDetector_AllPlatforms/" + tt.Name,
 			})
 		})
 	}
@@ -1653,9 +1654,10 @@ func TestCommand_WithDetector_OffLinux(t *testing.T) {
 			t.Setenv("OSV_SCANNER_TEST_SSH_VERSION_OUTPUT", tt.SSHV)
 
 			testcmd.RunAndMatchSnapshots(t, testcmd.Case{
-				Name: tt.Name,
-				Args: tt.Args,
-				Exit: tt.Exit,
+				Name:         tt.Name,
+				Args:         tt.Args,
+				Exit:         tt.Exit,
+				CassetteName: "TestCommand_WithDetector_AllPlatforms/" + tt.Name,
 			})
 		})
 	}

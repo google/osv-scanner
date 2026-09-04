@@ -4720,7 +4720,7 @@ Error during extraction: (extracting as vulnmatch/osvlocal) unable to fetch OSV 
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/"apk-installed"_is_supported - 1]
+[TestCommand_LockfileWithExplicitParseAs/apk-installed_is_supported - 1]
 Scanned <rootdir>/testdata/locks-many/installed file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
@@ -4728,11 +4728,11 @@ No issues found
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/"apk-installed"_is_supported - 2]
+[TestCommand_LockfileWithExplicitParseAs/apk-installed_is_supported - 2]
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/"dpkg-status"_is_supported - 1]
+[TestCommand_LockfileWithExplicitParseAs/dpkg-status_is_supported - 1]
 Scanned <rootdir>/testdata/locks-many/status file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
@@ -4740,7 +4740,7 @@ No issues found
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/"dpkg-status"_is_supported - 2]
+[TestCommand_LockfileWithExplicitParseAs/dpkg-status_is_supported - 2]
 
 ---
 

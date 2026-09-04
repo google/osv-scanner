@@ -22,6 +22,10 @@ type Case struct {
 	// NoVCR disables automatic VCR recording/replaying for this test case.
 	NoVCR bool
 
+	// CassetteName overrides the cassette name used for recording/replaying.
+	// If empty, t.Name() is used.
+	CassetteName string
+
 	HTTPClient      *http.Client
 	GRPCRecorder    *grpcvcr.Recorder
 	ClientFactories scalibrconfig.ClientFactories

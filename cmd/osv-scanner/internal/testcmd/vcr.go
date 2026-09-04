@@ -152,9 +152,16 @@ func determineGRPCRecorderMode() grpcvcr.Mode {
 func InsertGRPCRecorder(t *testing.T) *grpcvcr.Recorder {
 	t.Helper()
 
-	path := filepath.Join("testdata/cassettes", strings.ReplaceAll(t.Name(), "/", "_")+"_grpc.yaml")
+	return InsertGRPCRecorderWithName(t, t.Name())
+}
 
-	rec, err := grpcvcr.NewRecorder(path, determineGRPCRecorderMode(), t.Name())
+// InsertGRPCRecorderWithName returns a grpcvcr.Recorder using the specified cassette name.
+func InsertGRPCRecorderWithName(t *testing.T, name string) *grpcvcr.Recorder {
+	t.Helper()
+
+	path := filepath.Join("testdata/cassettes", strings.ReplaceAll(name, "/", "_")+"_grpc.yaml")
+
+	rec, err := grpcvcr.NewRecorder(path, determineGRPCRecorderMode(), name)
 	if err != nil {
 		t.Fatalf("failed to initialize gRPC recorder: %v", err)
 	}
@@ -187,7 +194,15 @@ func InsertGRPCRecorder(t *testing.T) *grpcvcr.Recorder {
 func InsertCassette(t *testing.T) *http.Client {
 	t.Helper()
 
-	path := filepath.Join("testdata/cassettes", strings.ReplaceAll(t.Name(), "/", "_"))
+	return InsertCassetteWithName(t, t.Name())
+}
+
+// InsertCassetteWithName returns an http.Client backed by a [recorder.Recorder] which
+// will record and (re)play responses from a cassette based on the specified name
+func InsertCassetteWithName(t *testing.T, name string) *http.Client {
+	t.Helper()
+
+	path := filepath.Join("testdata/cassettes", strings.ReplaceAll(name, "/", "_"))
 
 	r, err := recorder.New(
 		path,

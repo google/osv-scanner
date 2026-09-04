@@ -60,11 +60,15 @@ func run(t *testing.T, tc Case) (string, string) {
 		grpcRecorder := tc.GRPCRecorder
 
 		if !tc.NoVCR {
+			cassetteName := t.Name()
+			if tc.CassetteName != "" {
+				cassetteName = tc.CassetteName
+			}
 			if httpClient == nil {
-				httpClient = InsertCassette(t)
+				httpClient = InsertCassetteWithName(t, cassetteName)
 			}
 			if grpcRecorder == nil {
-				grpcRecorder = InsertGRPCRecorder(t)
+				grpcRecorder = InsertGRPCRecorderWithName(t, cassetteName)
 			}
 		}
 
