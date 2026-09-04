@@ -1,6 +1,6 @@
 {{ $index := uniqueID }}
 {{ $element := .Element }}
-<tr class="table-tr vuln-tr {{ if .IsHidden }}uncalled-tr{{ end }}" id="table-tr-{{ $index }}" data-vuln-id="{{ $element.ID }}">
+<tr class="table-tr vuln-tr {{ if .IsHidden }}uncalled-tr{{ end }}{{ if not $element.IsFixable }} no-fix{{ end }}" id="table-tr-{{ $index }}" data-vuln-id="{{ $element.ID }}">
   <td {{ if .IsHidden }}class="uncalled-text"{{ end }}>
     {{ if eq (len $element.GroupIDs) 1 }}
     <a class="clickable" href="https://osv.dev/{{ $element.ID }}" target="_blank" onclick="handleVulnClick(event, '{{ $element.ID }}')">{{ $element.ID }}</a>
