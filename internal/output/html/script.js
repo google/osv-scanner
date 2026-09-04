@@ -498,11 +498,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Hide filter options when clicking other parts
-  const filterSections = document.querySelectorAll("div.filter");
+  // Hide filter options when clicking outside the filters and their options
+  const filterContainers = document.querySelectorAll(".filter-container");
 
   document.addEventListener("click", event => {
-    if (![...filterSections].some(c => c.contains(event.target))) {
+    if (![...filterContainers].some(c => c.contains(event.target))) {
       hideAllFilterOptions();
     }
   });
