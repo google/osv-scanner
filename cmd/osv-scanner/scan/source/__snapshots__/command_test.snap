@@ -4720,30 +4720,6 @@ Error during extraction: (extracting as vulnmatch/osvlocal) unable to fetch OSV 
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/apk-installed_is_supported - 1]
-Scanned <rootdir>/testdata/locks-many/installed file and found 1 package
-Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
-
-No issues found
-
----
-
-[TestCommand_LockfileWithExplicitParseAs/apk-installed_is_supported - 2]
-
----
-
-[TestCommand_LockfileWithExplicitParseAs/dpkg-status_is_supported - 1]
-Scanned <rootdir>/testdata/locks-many/status file and found 1 package
-Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
-
-No issues found
-
----
-
-[TestCommand_LockfileWithExplicitParseAs/dpkg-status_is_supported - 2]
-
----
-
 [TestCommand_LockfileWithExplicitParseAs/absolute_paths_are_automatically_escaped_on_windows - 1]
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
@@ -4775,6 +4751,30 @@ No issues found
 ---
 
 [TestCommand_LockfileWithExplicitParseAs/absolute_paths_work_with_explicit_escaping - 2]
+
+---
+
+[TestCommand_LockfileWithExplicitParseAs/apk-installed_is_supported - 1]
+Scanned <rootdir>/testdata/locks-many/installed file and found 1 package
+Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
+
+No issues found
+
+---
+
+[TestCommand_LockfileWithExplicitParseAs/apk-installed_is_supported - 2]
+
+---
+
+[TestCommand_LockfileWithExplicitParseAs/dpkg-status_is_supported - 1]
+Scanned <rootdir>/testdata/locks-many/status file and found 1 package
+Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
+
+No issues found
+
+---
+
+[TestCommand_LockfileWithExplicitParseAs/dpkg-status_is_supported - 2]
 
 ---
 
