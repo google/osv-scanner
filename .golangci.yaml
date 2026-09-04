@@ -7,6 +7,7 @@ linters:
     - cyclop           #
     - err113           # will re-add later (another-rex)
     - exhaustruct      # overkill (g-rath)
+    - exhaustruct_v5   # overkill
     - forcetypeassert  # too hard (g-rath)
     - funlen           #
     - funcorder        #
