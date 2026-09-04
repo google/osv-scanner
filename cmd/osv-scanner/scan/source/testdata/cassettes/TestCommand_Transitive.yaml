@@ -12406,7 +12406,7 @@ interactions:
         Strict-Transport-Security:
           - max-age=31536000; includeSubDomains; preload
         Vary:
-          - Accept-Encoding, Accept
+          - Accept, Accept-Encoding
         X-Content-Type-Options:
           - nosniff
         X-Frame-Options:
@@ -27362,10 +27362,42 @@ interactions:
               "upload-time": "2026-08-05T19:21:53.789229Z",
               "url": "https://files.pythonhosted.org/packages/e2/42/6cb20996733984c1f6661daeda3877990836c76c633c6c8879d39f7120eb/django-6.1.tar.gz",
               "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "1daf6901faeba11ac726f42d381a27dc4fe22200067d3d19b77a3ab4f59666c7"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "1daf6901faeba11ac726f42d381a27dc4fe22200067d3d19b77a3ab4f59666c7"
+              },
+              "filename": "django-6.1.1-py3-none-any.whl",
+              "hashes": {
+                "sha256": "585fb82bf15053c42cf52e67c2f1b54a032dca384759315fd6678ab1870d1d72"
+              },
+              "provenance": null,
+              "requires-python": ">=3.12",
+              "size": 8419512,
+              "upload-time": "2026-09-02T17:20:39.153093Z",
+              "url": "https://files.pythonhosted.org/packages/8d/ca/c1040a4fd15754ede7df15fd72fc2e123045b473b253ab5f5284e11c651e/django-6.1.1-py3-none-any.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": false,
+              "data-dist-info-metadata": false,
+              "filename": "django-6.1.1.tar.gz",
+              "hashes": {
+                "sha256": "7ab93536d8e677aa14554c56426290c69480bf2ee68d7513d4a22f57d6bfeb84"
+              },
+              "provenance": null,
+              "requires-python": ">=3.12",
+              "size": 11284905,
+              "upload-time": "2026-09-02T17:20:45.621516Z",
+              "url": "https://files.pythonhosted.org/packages/f8/d4/8314b5bdef20832f0ac6ae3b3e4d4924e4759fa3b4af27609dd747e7a6be/django-6.1.1.tar.gz",
+              "yanked": false
             }
           ],
           "meta": {
-            "_last-serial": 39731925,
+            "_last-serial": 40659727,
             "api-version": "1.4"
           },
           "name": "django",
@@ -27806,7 +27838,8 @@ interactions:
             "6.1a1",
             "6.1b1",
             "6.1rc1",
-            "6.1"
+            "6.1",
+            "6.1.1"
           ]
         }
       headers:
