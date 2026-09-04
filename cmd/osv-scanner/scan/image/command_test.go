@@ -141,7 +141,6 @@ func TestCommand_Docker(t *testing.T) {
 	t.Parallel()
 
 	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker (also takes a long time to pull images)")
-	testutility.SkipIfShort(t)
 
 	tests := []testcmd.Case{
 		{

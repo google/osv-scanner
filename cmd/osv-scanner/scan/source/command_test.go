@@ -1042,8 +1042,6 @@ func TestCommand_LocalDatabases(t *testing.T) {
 		testutility.Skip(t, "Skipping this test on CI because of APFS issues causing the test to time out.")
 	}
 
-	testutility.SkipIfShort(t)
-
 	tests := []testcmd.Case{
 		{
 			Name: "one_specific_supported_lockfile",
@@ -1156,8 +1154,6 @@ func TestCommand_LocalDatabases_AlwaysOffline(t *testing.T) {
 
 func TestCommand_CommitSupport(t *testing.T) {
 	t.Parallel()
-
-	testutility.SkipIfShort(t)
 
 	tests := []testcmd.Case{
 		{
@@ -1293,8 +1289,6 @@ func TestCommand_Licenses(t *testing.T) {
 
 func TestCommand_Transitive(t *testing.T) {
 	t.Parallel()
-
-	testutility.SkipIfShort(t)
 
 	tests := []testcmd.Case{
 		{
