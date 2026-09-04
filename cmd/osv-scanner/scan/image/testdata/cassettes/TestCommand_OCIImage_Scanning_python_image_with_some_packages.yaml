@@ -798,12 +798,16 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 8930
+      content_length: 9688
       body: |
         {
           "results": [
             {
               "vulns": [
+                {
+                  "id": "GHSA-3h9f-r86x-qvjx",
+                  "modified": "2026-08-10T15:39:09.350867Z"
+                },
                 {
                   "id": "GHSA-68w8-qjq3-2gfm",
                   "modified": "2024-09-20T15:46:52.557962Z"
@@ -817,12 +821,32 @@ interactions:
                   "modified": "2026-02-04T03:48:05.224740Z"
                 },
                 {
+                  "id": "GHSA-8cjm-8mp7-r2xf",
+                  "modified": "2026-08-10T21:42:00.414871Z"
+                },
+                {
+                  "id": "GHSA-8qcx-xf44-272x",
+                  "modified": "2026-08-10T15:39:09.597833Z"
+                },
+                {
                   "id": "GHSA-8x94-hmjh-97hq",
                   "modified": "2026-02-04T02:45:55.690257Z"
                 },
                 {
+                  "id": "GHSA-923m-gv2p-w5qp",
+                  "modified": "2026-08-10T21:41:59.451183Z"
+                },
+                {
+                  "id": "GHSA-crhf-3pfg-w68w",
+                  "modified": "2026-08-10T15:39:09.502515Z"
+                },
+                {
                   "id": "GHSA-frmv-pr5f-9mcr",
                   "modified": "2026-06-05T14:45:52.053173Z"
+                },
+                {
+                  "id": "GHSA-h7pc-vwp9-298g",
+                  "modified": "2026-08-10T21:42:01.687516Z"
                 },
                 {
                   "id": "GHSA-qw25-v68c-qjf3",
@@ -839,6 +863,10 @@ interactions:
                 {
                   "id": "PYSEC-2026-1297",
                   "modified": "2026-07-07T17:57:34.018251Z"
+                },
+                {
+                  "id": "PYSEC-2026-3717",
+                  "modified": "2026-08-19T13:55:32.521127Z"
                 }
               ]
             },
@@ -1208,6 +1236,10 @@ interactions:
                   "modified": "2026-03-24T01:43:05.410801Z"
                 },
                 {
+                  "id": "GHSA-qwm4-qh6w-59xr",
+                  "modified": "2026-09-01T19:10:40.364367Z"
+                },
+                {
                   "id": "GHSA-wf93-45jw-7689",
                   "modified": "2026-07-14T02:29:29.982772Z"
                 },
@@ -1234,6 +1266,10 @@ interactions:
                 {
                   "id": "PYSEC-2026-2876",
                   "modified": "2026-07-13T16:32:57.447552Z"
+                },
+                {
+                  "id": "PYSEC-2026-3721",
+                  "modified": "2026-09-01T19:10:40.364367Z"
                 }
               ]
             },
@@ -1260,6 +1296,10 @@ interactions:
                   "modified": "2026-03-24T01:43:05.410801Z"
                 },
                 {
+                  "id": "GHSA-qwm4-qh6w-59xr",
+                  "modified": "2026-09-01T19:10:40.364367Z"
+                },
+                {
                   "id": "GHSA-wf93-45jw-7689",
                   "modified": "2026-07-14T02:29:29.982772Z"
                 },
@@ -1286,6 +1326,10 @@ interactions:
                 {
                   "id": "PYSEC-2026-2876",
                   "modified": "2026-07-13T16:32:57.447552Z"
+                },
+                {
+                  "id": "PYSEC-2026-3721",
+                  "modified": "2026-09-01T19:10:40.364367Z"
                 }
               ]
             },
@@ -1522,7 +1566,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "8930"
+          - "9688"
         Content-Type:
           - application/json
       status: 200 OK

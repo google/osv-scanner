@@ -10,7 +10,9 @@ interactions:
         }
       response: |-
         {
+          "deprecatedReason": "In 6.x, the babel package has been deprecated in favor of babel-cli. Check https://opencollective.com/babel to support the Babel maintainers",
           "isDefault": true,
+          "isDeprecated": true,
           "licenses": [
             "MIT"
           ],

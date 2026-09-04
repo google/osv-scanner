@@ -1449,7 +1449,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 17508
+      content_length: 19363
       body: |
         {
           "results": [
@@ -1490,10 +1490,6 @@ interactions:
             {},
             {
               "vulns": [
-                {
-                  "id": "GHSA-72hv-8253-57qq",
-                  "modified": "2026-04-07T16:47:43.107166Z"
-                },
                 {
                   "id": "GHSA-h46c-h94j-95f3",
                   "modified": "2026-02-04T03:44:39.385253Z"
@@ -1830,6 +1826,10 @@ interactions:
                   "modified": "2026-02-04T02:23:33.973208Z"
                 },
                 {
+                  "id": "GHSA-558v-64gr-wgg4",
+                  "modified": "2026-07-23T22:29:34.272229Z"
+                },
+                {
                   "id": "GHSA-mj4r-2hfc-f8p6",
                   "modified": "2026-05-14T20:52:02.730912Z"
                 }
@@ -1840,6 +1840,10 @@ interactions:
                 {
                   "id": "GHSA-cm33-6792-r9fm",
                   "modified": "2026-05-14T20:50:50.147382Z"
+                },
+                {
+                  "id": "GHSA-mfg7-5gfp-c4w3",
+                  "modified": "2026-08-15T02:11:52.623012Z"
                 }
               ]
             },
@@ -1852,6 +1856,14 @@ interactions:
                 {
                   "id": "GHSA-h2qv-fj59-j46j",
                   "modified": "2026-07-10T12:45:24.288759Z"
+                },
+                {
+                  "id": "GHSA-q6cq-mhr2-jmr5",
+                  "modified": "2026-07-24T21:14:44.290613Z"
+                },
+                {
+                  "id": "GHSA-wh89-7897-x99h",
+                  "modified": "2026-07-24T21:14:43.533665Z"
                 }
               ]
             },
@@ -1862,6 +1874,10 @@ interactions:
                   "modified": "2026-05-14T20:48:37.405742Z"
                 },
                 {
+                  "id": "GHSA-4mp9-239f-g9hg",
+                  "modified": "2026-07-24T16:01:11.495588Z"
+                },
+                {
                   "id": "GHSA-57rv-r2g8-2cj3",
                   "modified": "2026-05-14T20:47:30.693204Z"
                 },
@@ -1870,8 +1886,20 @@ interactions:
                   "modified": "2026-02-04T02:17:39.757688Z"
                 },
                 {
+                  "id": "GHSA-6cqp-g7gg-8hr5",
+                  "modified": "2026-07-24T16:00:20.409094Z"
+                },
+                {
+                  "id": "GHSA-6jqx-86gh-f27w",
+                  "modified": "2026-07-24T16:00:30.994967Z"
+                },
+                {
                   "id": "GHSA-84h7-rjj3-6jx4",
                   "modified": "2026-02-04T03:25:14.697311Z"
+                },
+                {
+                  "id": "GHSA-8c42-7qj2-3j46",
+                  "modified": "2026-08-18T22:26:59.174151Z"
                 },
                 {
                   "id": "GHSA-f6hv-jmp6-3vwv",
@@ -1882,16 +1910,32 @@ interactions:
                   "modified": "2026-02-04T03:04:04.888405Z"
                 },
                 {
+                  "id": "GHSA-gcjf-9mgh-3p7g",
+                  "modified": "2026-07-24T09:14:31.612560Z"
+                },
+                {
                   "id": "GHSA-hvcg-qmg6-jm4c",
                   "modified": "2026-06-16T14:44:20.815695Z"
+                },
+                {
+                  "id": "GHSA-jppx-w49h-x2qq",
+                  "modified": "2026-07-24T09:14:31.550506Z"
                 },
                 {
                   "id": "GHSA-m4cv-j2px-7723",
                   "modified": "2026-05-14T20:52:01.053039Z"
                 },
                 {
+                  "id": "GHSA-mvh2-crg5-v77c",
+                  "modified": "2026-07-24T09:14:30.573268Z"
+                },
+                {
                   "id": "GHSA-pwqr-wmgm-9rr8",
                   "modified": "2026-03-27T22:04:14.372867Z"
+                },
+                {
+                  "id": "GHSA-q4f6-jm68-57ww",
+                  "modified": "2026-07-24T16:01:48.284679Z"
                 },
                 {
                   "id": "GHSA-v8h7-rr48-vmmv",
@@ -1914,8 +1958,16 @@ interactions:
                   "modified": "2026-06-12T19:45:11.465768Z"
                 },
                 {
+                  "id": "GHSA-93wv-jw9v-4972",
+                  "modified": "2026-08-01T21:44:50.263846Z"
+                },
+                {
                   "id": "GHSA-c2gf-v879-257j",
                   "modified": "2026-07-10T12:45:24.320409Z"
+                },
+                {
+                  "id": "GHSA-c69g-56f8-xwqj",
+                  "modified": "2026-07-24T09:14:30.139580Z"
                 },
                 {
                   "id": "GHSA-f6hv-jmp6-3vwv",
@@ -1959,6 +2011,10 @@ interactions:
                   "modified": "2026-07-10T12:45:25.759557Z"
                 },
                 {
+                  "id": "GHSA-p9jm-q85p-7mcp",
+                  "modified": "2026-08-09T02:56:50.425061Z"
+                },
+                {
                   "id": "GHSA-rgrr-p7gp-5xj7",
                   "modified": "2026-05-14T20:52:36.995968Z"
                 }
@@ -1976,12 +2032,27 @@ interactions:
             {
               "vulns": [
                 {
+                  "id": "GHSA-3g8r-4pfx-jmfh",
+                  "modified": "2026-07-29T18:30:04.002958Z"
+                },
+                {
                   "id": "GHSA-vhch-2wf3-m8rp",
                   "modified": "2026-07-14T20:30:19.656636Z"
                 }
               ]
             },
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-4qhr-g3c6-fcfx",
+                  "modified": "2026-07-25T03:29:38.369051Z"
+                },
+                {
+                  "id": "GHSA-v74w-7mr3-4qg3",
+                  "modified": "2026-08-15T02:11:52.371508Z"
+                }
+              ]
+            },
             {
               "vulns": [
                 {
@@ -2022,7 +2093,22 @@ interactions:
                 }
               ]
             },
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-272m-gcwp-mpwg",
+                  "modified": "2026-07-24T03:44:33.849717Z"
+                },
+                {
+                  "id": "GHSA-g7hg-vrcf-mvmr",
+                  "modified": "2026-07-24T03:44:32.974634Z"
+                },
+                {
+                  "id": "GHSA-wc96-39fc-566f",
+                  "modified": "2026-07-24T03:44:33.680465Z"
+                }
+              ]
+            },
             {},
             {
               "vulns": [
@@ -2065,6 +2151,10 @@ interactions:
             {},
             {
               "vulns": [
+                {
+                  "id": "GHSA-2qj4-mmr9-4v2f",
+                  "modified": "2026-08-18T22:26:59.534480Z"
+                },
                 {
                   "id": "GHSA-5xrh-qmmq-w6ch",
                   "modified": "2026-06-12T19:45:11.468850Z"
@@ -2257,6 +2347,22 @@ interactions:
                 {
                   "id": "ALPINE-CVE-2026-56412",
                   "modified": "2026-06-29T15:30:06.451950Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-66046",
+                  "modified": "2026-09-01T09:30:02.986646Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-76641",
+                  "modified": "2026-09-01T09:30:02.995228Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-76956",
+                  "modified": "2026-09-01T09:30:03.008202Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-76957",
+                  "modified": "2026-09-01T09:30:02.976649Z"
                 }
               ]
             },
@@ -2647,7 +2753,14 @@ interactions:
               ]
             },
             {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2fvj-hgj9-j2gr",
+                  "modified": "2026-07-24T03:44:33.607998Z"
+                }
+              ]
+            },
             {},
             {},
             {},
@@ -2746,7 +2859,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "17508"
+          - "19363"
         Content-Type:
           - application/json
       status: 200 OK

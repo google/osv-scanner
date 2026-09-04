@@ -383,6 +383,8 @@ interactions:
               }
             },
             {
+              "deprecatedReason": "Incorrectly claims to support Python 3.5.",
+              "isDeprecated": true,
               "publishedAt": "2022-05-18T19:12:27Z",
               "versionKey": {
                 "name": "certifi",
@@ -599,12 +601,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-06-17T10:31:06Z",
               "versionKey": {
                 "name": "certifi",
                 "system": "PYPI",
                 "version": "2026.6.17"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-07-22T03:35:11Z",
+              "versionKey": {
+                "name": "certifi",
+                "system": "PYPI",
+                "version": "2026.7.22"
               }
             }
           ]
@@ -855,12 +865,36 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-04-13T21:33:27Z",
               "versionKey": {
                 "name": "chardet",
                 "system": "PYPI",
                 "version": "7.4.3"
+              }
+            },
+            {
+              "publishedAt": "2026-08-06T03:11:18Z",
+              "versionKey": {
+                "name": "chardet",
+                "system": "PYPI",
+                "version": "7.5.0"
+              }
+            },
+            {
+              "publishedAt": "2026-08-06T05:01:58Z",
+              "versionKey": {
+                "name": "chardet",
+                "system": "PYPI",
+                "version": "7.5.1"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-08-14T20:36:47Z",
+              "versionKey": {
+                "name": "chardet",
+                "system": "PYPI",
+                "version": "7.6.0"
               }
             }
           ]
@@ -1329,6 +1363,8 @@ interactions:
               }
             },
             {
+              "deprecatedReason": "Unintended change in behavior of boolean options and None",
+              "isDeprecated": true,
               "publishedAt": "2025-08-02T02:23:39Z",
               "versionKey": {
                 "name": "click",
@@ -1385,12 +1421,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-06-24T17:45:13Z",
               "versionKey": {
                 "name": "click",
                 "system": "PYPI",
                 "version": "8.4.2"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-08-26T13:33:12Z",
+              "versionKey": {
+                "name": "click",
+                "system": "PYPI",
+                "version": "8.5.0"
               }
             }
           ]
@@ -4075,6 +4119,8 @@ interactions:
               }
             },
             {
+              "deprecatedReason": "Release files have Windows end-of-line characters and are missing executable bits.",
+              "isDeprecated": true,
               "publishedAt": "2024-05-06T16:41:14Z",
               "versionKey": {
                 "name": "django",
@@ -4395,6 +4441,8 @@ interactions:
               }
             },
             {
+              "deprecatedReason": "Release files have Windows end-of-line characters and are missing executable bits.",
+              "isDeprecated": true,
               "publishedAt": "2024-05-06T16:46:37Z",
               "versionKey": {
                 "name": "django",
@@ -4683,6 +4731,14 @@ interactions:
               }
             },
             {
+              "publishedAt": "2026-08-04T15:03:59Z",
+              "versionKey": {
+                "name": "django",
+                "system": "PYPI",
+                "version": "5.2.17"
+              }
+            },
+            {
               "publishedAt": "2025-06-04T13:52:33Z",
               "versionKey": {
                 "name": "django",
@@ -4827,12 +4883,27 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-07-07T13:51:20Z",
               "versionKey": {
                 "name": "django",
                 "system": "PYPI",
                 "version": "6.0.7"
+              }
+            },
+            {
+              "publishedAt": "2026-08-04T15:03:35Z",
+              "versionKey": {
+                "name": "django",
+                "system": "PYPI",
+                "version": "6.0.8"
+              }
+            },
+            {
+              "publishedAt": "2026-08-05T19:21:47Z",
+              "versionKey": {
+                "name": "django",
+                "system": "PYPI",
+                "version": "6.1.0"
               }
             },
             {
@@ -4849,6 +4920,23 @@ interactions:
                 "name": "django",
                 "system": "PYPI",
                 "version": "6.1.0b1"
+              }
+            },
+            {
+              "publishedAt": "2026-07-22T20:07:43Z",
+              "versionKey": {
+                "name": "django",
+                "system": "PYPI",
+                "version": "6.1.0rc1"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-09-02T17:20:39Z",
+              "versionKey": {
+                "name": "django",
+                "system": "PYPI",
+                "version": "6.1.1"
               }
             }
           ]
@@ -5647,12 +5735,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-06-02T14:34:06Z",
               "versionKey": {
                 "name": "idna",
                 "system": "PYPI",
                 "version": "3.18.0"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-08-18T05:14:22Z",
+              "versionKey": {
+                "name": "idna",
+                "system": "PYPI",
+                "version": "3.19.0"
               }
             },
             {
@@ -10687,12 +10783,28 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-05-04T01:35:27Z",
               "versionKey": {
                 "name": "pytz",
                 "system": "PYPI",
                 "version": "2026.2.0"
+              }
+            },
+            {
+              "publishedAt": "2026-07-25T11:09:29Z",
+              "versionKey": {
+                "name": "pytz",
+                "system": "PYPI",
+                "version": "2026.3.0"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-07-25T15:12:05Z",
+              "versionKey": {
+                "name": "pytz",
+                "system": "PYPI",
+                "version": "2026.3.0.post1"
               }
             }
           ]
@@ -11768,6 +11880,8 @@ interactions:
               }
             },
             {
+              "deprecatedReason": "Yanked due to conflicts with CVE-2024-35195 mitigation",
+              "isDeprecated": true,
               "publishedAt": "2024-05-20T16:08:19Z",
               "versionKey": {
                 "name": "requests",
@@ -11776,6 +11890,8 @@ interactions:
               }
             },
             {
+              "deprecatedReason": "Yanked due to conflicts with CVE-2024-35195 mitigation ",
+              "isDeprecated": true,
               "publishedAt": "2024-05-20T22:08:45Z",
               "versionKey": {
                 "name": "requests",
@@ -12297,6 +12413,8 @@ interactions:
               }
             },
             {
+              "deprecatedReason": "Broken release",
+              "isDeprecated": true,
               "publishedAt": "2019-04-22T14:06:44Z",
               "versionKey": {
                 "name": "urllib3",
@@ -12305,6 +12423,8 @@ interactions:
               }
             },
             {
+              "deprecatedReason": "Broken release",
+              "isDeprecated": true,
               "publishedAt": "2019-04-24T17:05:21Z",
               "versionKey": {
                 "name": "urllib3",
@@ -12649,6 +12769,8 @@ interactions:
               }
             },
             {
+              "deprecatedReason": "Truncated response bodies when streaming a large compressed body. Upgrade to at least 2.0.2 (See: https://github.com/urllib3/urllib3/issues/3009)",
+              "isDeprecated": true,
               "publishedAt": "2023-04-26T17:21:22Z",
               "versionKey": {
                 "name": "urllib3",
@@ -12689,6 +12811,8 @@ interactions:
               }
             },
             {
+              "deprecatedReason": "Truncated response bodies when streaming a large compressed body. Upgrade to at least 2.0.2 (See: https://github.com/urllib3/urllib3/issues/3009)",
+              "isDeprecated": true,
               "publishedAt": "2023-04-30T09:00:04Z",
               "versionKey": {
                 "name": "urllib3",
@@ -13785,7 +13909,7 @@ interactions:
           "versionKey": {
             "name": "certifi",
             "system": "PYPI",
-            "version": "2026.6.17"
+            "version": "2026.7.22"
           }
         }
       response: |-
@@ -13813,18 +13937,12 @@ interactions:
           "versionKey": {
             "name": "click",
             "system": "PYPI",
-            "version": "8.4.2"
+            "version": "8.5.0"
           }
         }
       response: |-
         {
           "pypi": {
-            "dependencies": [
-              {
-                "environmentMarker": "platform_system == 'Windows'",
-                "projectName": "colorama"
-              }
-            ],
             "requiredPythonVersion": "\u003e=3.10"
           }
         }
@@ -14037,7 +14155,7 @@ interactions:
           "versionKey": {
             "name": "pytz",
             "system": "PYPI",
-            "version": "2026.2.0"
+            "version": "2026.3.0.post1"
           }
         }
       response: |-

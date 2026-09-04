@@ -24,6 +24,10 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2018-04-24T01:10:45Z"
+                },
+                "deprecatedReason": "use String.prototype.padStart()",
                 "isDefault": true,
                 "isDeprecated": true,
                 "licenseDetails": [

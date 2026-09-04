@@ -66,6 +66,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2019-10-04T15:27:21Z"
+                },
                 "licenseDetails": [
                   {
                     "license": "Apache-2.0 OR MIT",
@@ -118,6 +121,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-10-19T14:06:09Z"
+                },
                 "licenseDetails": [
                   {
                     "license": "Apache-2.0 OR MIT",
@@ -184,6 +190,10 @@ interactions:
                     "id": "RUSTSEC-2020-0078"
                   }
                 ],
+                "cooldown": {
+                  "end": "2018-07-07T18:24:58Z"
+                },
+                "deprecatedReason": "yanked",
                 "isDeprecated": true,
                 "licenseDetails": [
                   {
@@ -254,6 +264,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2020-07-06T11:34:33Z"
+                },
                 "isDefault": true,
                 "licenseDetails": [
                   {
@@ -311,6 +324,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2018-01-28T00:55:38Z"
+                },
                 "isDefault": true,
                 "licenseDetails": [
                   {
@@ -364,6 +380,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2018-01-28T00:55:12Z"
+                },
                 "isDefault": true,
                 "licenseDetails": [
                   {

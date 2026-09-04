@@ -5260,16 +5260,16 @@ unsupported strategy "force" - must be one of: in-place, relax, override
 
 [TestCommand/fix_non-interactive_in-place_package-lock.json - 1]
 Guided remediation (the fix command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
-Found 18 vulnerabilities matching the filter
-Can fix 9/18 matching vulnerabilities by changing 5 dependencies
-UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.16
+Found 21 vulnerabilities matching the filter
+Can fix 11/21 matching vulnerabilities by changing 5 dependencies
+UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.18
 UPGRADED-PACKAGE: minimatch,3.1.2,3.1.5
 UPGRADED-PACKAGE: ajv,6.12.6,6.15.0
 UPGRADED-PACKAGE: concat-stream,1.5.0,1.6.1
 UPGRADED-PACKAGE: hosted-git-info,2.1.4,2.8.9
-FIXED-VULN-IDS: GHSA-23c5-xmqv-rm74,GHSA-2g4f-4pwh-qvx6,GHSA-3jxr-9vmj-r5cp,GHSA-3ppc-4f35-3m26,GHSA-43f8-2h32-f4cj,GHSA-7r86-cg39-jmmj,GHSA-f886-m6hf-6m8v,GHSA-g74r-ffvr-5q9f,GHSA-v6h2-p8h4-qcjw
-REMAINING-VULNS: 9
-UNFIXABLE-VULNS: 9
+FIXED-VULN-IDS: GHSA-23c5-xmqv-rm74,GHSA-2g4f-4pwh-qvx6,GHSA-3jxr-9vmj-r5cp,GHSA-3ppc-4f35-3m26,GHSA-43f8-2h32-f4cj,GHSA-7r86-cg39-jmmj,GHSA-f886-m6hf-6m8v,GHSA-g74r-ffvr-5q9f,GHSA-mh99-v99m-4gvg,GHSA-rgw5-rvv9-x895,GHSA-v6h2-p8h4-qcjw
+REMAINING-VULNS: 10
+UNFIXABLE-VULNS: 10
 
 ---
 
@@ -5379,9 +5379,9 @@ UNFIXABLE-VULNS: 9
       }
     },
     "node_modules/brace-expansion": {
-      "version": "1.1.16",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.16.tgz",
-      "integrity": "sha512-IDw48K2/2kRkg9LdJxurvq3lV3aBgq0REY89duEqFRthjlPdXHKMj7EnQOXVckxzgisinf3nHfrcE2FufFLXMw==",
+      "version": "1.1.18",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.18.tgz",
+      "integrity": "sha512-Edep/X9fGqVNmzKBVsDYIOtD+z1tuezV70LBjdCst9Tqu76lsnvRiZ6oTic1n+/BIwX6QDGAO94PN4N2SADvtw==",
       "dependencies": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
@@ -6299,9 +6299,9 @@ UNFIXABLE-VULNS: 9
       }
     },
     "brace-expansion": {
-      "version": "1.1.16",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.16.tgz",
-      "integrity": "sha512-IDw48K2/2kRkg9LdJxurvq3lV3aBgq0REY89duEqFRthjlPdXHKMj7EnQOXVckxzgisinf3nHfrcE2FufFLXMw==",
+      "version": "1.1.18",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.18.tgz",
+      "integrity": "sha512-Edep/X9fGqVNmzKBVsDYIOtD+z1tuezV70LBjdCst9Tqu76lsnvRiZ6oTic1n+/BIwX6QDGAO94PN4N2SADvtw==",
       "requires": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
@@ -7063,6 +7063,16 @@ UNFIXABLE-VULNS: 9
       ]
     },
     {
+      "id": "GHSA-4mjr-xmp4-gh2g",
+      "packages": [
+        {
+          "name": "qs",
+          "version": "6.5.3"
+        }
+      ],
+      "unactionable": true
+    },
+    {
       "id": "GHSA-6rw7-vpxm-498p",
       "packages": [
         {
@@ -7150,6 +7160,15 @@ UNFIXABLE-VULNS: 9
       "unactionable": true
     },
     {
+      "id": "GHSA-mh99-v99m-4gvg",
+      "packages": [
+        {
+          "name": "brace-expansion",
+          "version": "1.1.11"
+        }
+      ]
+    },
+    {
       "id": "GHSA-p8p7-x288-28g6",
       "packages": [
         {
@@ -7158,6 +7177,15 @@ UNFIXABLE-VULNS: 9
         }
       ],
       "unactionable": true
+    },
+    {
+      "id": "GHSA-rgw5-rvv9-x895",
+      "packages": [
+        {
+          "name": "brace-expansion",
+          "version": "1.1.11"
+        }
+      ]
     },
     {
       "id": "GHSA-v6h2-p8h4-qcjw",
@@ -7185,7 +7213,7 @@ UNFIXABLE-VULNS: 9
         {
           "name": "brace-expansion",
           "versionFrom": "1.1.11",
-          "versionTo": "1.1.16",
+          "versionTo": "1.1.18",
           "transitive": true
         }
       ],
@@ -7201,6 +7229,24 @@ UNFIXABLE-VULNS: 9
         },
         {
           "id": "GHSA-f886-m6hf-6m8v",
+          "packages": [
+            {
+              "name": "brace-expansion",
+              "version": "1.1.11"
+            }
+          ]
+        },
+        {
+          "id": "GHSA-mh99-v99m-4gvg",
+          "packages": [
+            {
+              "name": "brace-expansion",
+              "version": "1.1.11"
+            }
+          ]
+        },
+        {
+          "id": "GHSA-rgw5-rvv9-x895",
           "packages": [
             {
               "name": "brace-expansion",
@@ -7433,9 +7479,9 @@ Guided remediation (the fix command) can be risky when run on untrusted projects
       }
     },
     "node_modules/brace-expansion": {
-      "version": "1.1.16",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.16.tgz",
-      "integrity": "sha512-IDw48K2/2kRkg9LdJxurvq3lV3aBgq0REY89duEqFRthjlPdXHKMj7EnQOXVckxzgisinf3nHfrcE2FufFLXMw==",
+      "version": "1.1.18",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.18.tgz",
+      "integrity": "sha512-Edep/X9fGqVNmzKBVsDYIOtD+z1tuezV70LBjdCst9Tqu76lsnvRiZ6oTic1n+/BIwX6QDGAO94PN4N2SADvtw==",
       "dependencies": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
@@ -8353,9 +8399,9 @@ Guided remediation (the fix command) can be risky when run on untrusted projects
       }
     },
     "brace-expansion": {
-      "version": "1.1.16",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.16.tgz",
-      "integrity": "sha512-IDw48K2/2kRkg9LdJxurvq3lV3aBgq0REY89duEqFRthjlPdXHKMj7EnQOXVckxzgisinf3nHfrcE2FufFLXMw==",
+      "version": "1.1.18",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.18.tgz",
+      "integrity": "sha512-Edep/X9fGqVNmzKBVsDYIOtD+z1tuezV70LBjdCst9Tqu76lsnvRiZ6oTic1n+/BIwX6QDGAO94PN4N2SADvtw==",
       "requires": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
@@ -9320,7 +9366,7 @@ Guided remediation (the fix command) can be risky when run on untrusted projects
         {
           "name": "org.jsoup:jsoup",
           "versionFrom": "1.14.1",
-          "versionTo": "1.15.3",
+          "versionTo": "1.23.1",
           "transitive": true
         }
       ],
@@ -9377,7 +9423,7 @@ Guided remediation (the fix command) can be risky when run on untrusted projects
         <dependency>
           <groupId>org.jsoup</groupId>
           <artifactId>jsoup</artifactId>
-          <version>1.15.3</version>
+          <version>1.23.1</version>
         </dependency>
         <dependency>
           <groupId>org.apache.httpcomponents</groupId>
@@ -9417,6 +9463,16 @@ Guided remediation (the fix command) can be risky when run on untrusted projects
           "version": "1.6.0"
         }
       ]
+    },
+    {
+      "id": "GHSA-4mjr-xmp4-gh2g",
+      "packages": [
+        {
+          "name": "qs",
+          "version": "6.5.5"
+        }
+      ],
+      "unactionable": true
     },
     {
       "id": "GHSA-6rw7-vpxm-498p",
@@ -9572,7 +9628,7 @@ Can fix 13/13 matching vulnerabilities by overriding 4 dependencies
 OVERRIDE-PACKAGE: org.apache.httpcomponents:httpclient,4.5.13
 OVERRIDE-PACKAGE: org.codehaus.plexus:plexus-utils,3.6.1
 OVERRIDE-PACKAGE: commons-io:commons-io,2.14.0
-OVERRIDE-PACKAGE: org.jsoup:jsoup,1.15.3
+OVERRIDE-PACKAGE: org.jsoup:jsoup,1.23.1
 FIXED-VULN-IDS: GHSA-2x83-r56g-cv47,GHSA-6fmv-xxpf-w3cw,GHSA-78wr-2p64-hpwj,GHSA-7r82-7xv7-xcpj,GHSA-8vhq-qq4p-grq3,GHSA-cfh5-3ghh-wfjx,GHSA-fmj5-wv96-r2ch,GHSA-g6ph-x5wf-g337,GHSA-gp7f-rwcx-9369,GHSA-gw85-4gmf-m7rh,GHSA-gwrp-pvrq-jmwv,GHSA-jcwr-x25h-x5fh,GHSA-m72m-mhq2-9p6c
 REMAINING-VULNS: 0
 UNFIXABLE-VULNS: 0
@@ -9605,7 +9661,7 @@ UNFIXABLE-VULNS: 0
         <dependency>
           <groupId>org.jsoup</groupId>
           <artifactId>jsoup</artifactId>
-          <version>1.15.3</version>
+          <version>1.23.1</version>
         </dependency>
         <dependency>
           <groupId>org.apache.httpcomponents</groupId>
@@ -9633,12 +9689,12 @@ UNFIXABLE-VULNS: 0
 
 [TestCommand/fix_non-interactive_relax_package.json - 1]
 Guided remediation (the fix command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
-Found 9 vulnerabilities matching the filter
-Can fix 3/9 matching vulnerabilities by changing 1 dependencies
+Found 10 vulnerabilities matching the filter
+Can fix 3/10 matching vulnerabilities by changing 1 dependencies
 UPGRADED-PACKAGE: npm-registry-client,6.2.0,^7.5.0
 FIXED-VULN-IDS: GHSA-43f8-2h32-f4cj,GHSA-c2qf-rxjj-qqgw,GHSA-c6rq-rjc2-86v2
-REMAINING-VULNS: 6
-UNFIXABLE-VULNS: 6
+REMAINING-VULNS: 7
+UNFIXABLE-VULNS: 7
 
 ---
 
@@ -9666,16 +9722,16 @@ UNFIXABLE-VULNS: 6
 
 [TestCommand/fix_non_interactive_in_place_package_lock_json_with_native_data_source - 1]
 Guided remediation (the fix command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
-Found 18 vulnerabilities matching the filter
-Can fix 9/18 matching vulnerabilities by changing 5 dependencies
+Found 21 vulnerabilities matching the filter
+Can fix 11/21 matching vulnerabilities by changing 5 dependencies
 UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.18
 UPGRADED-PACKAGE: minimatch,3.1.2,3.1.5
 UPGRADED-PACKAGE: ajv,6.12.6,6.15.0
 UPGRADED-PACKAGE: concat-stream,1.5.0,1.6.1
 UPGRADED-PACKAGE: hosted-git-info,2.1.4,2.8.9
-FIXED-VULN-IDS: GHSA-23c5-xmqv-rm74,GHSA-2g4f-4pwh-qvx6,GHSA-3jxr-9vmj-r5cp,GHSA-3ppc-4f35-3m26,GHSA-43f8-2h32-f4cj,GHSA-7r86-cg39-jmmj,GHSA-f886-m6hf-6m8v,GHSA-g74r-ffvr-5q9f,GHSA-v6h2-p8h4-qcjw
-REMAINING-VULNS: 9
-UNFIXABLE-VULNS: 9
+FIXED-VULN-IDS: GHSA-23c5-xmqv-rm74,GHSA-2g4f-4pwh-qvx6,GHSA-3jxr-9vmj-r5cp,GHSA-3ppc-4f35-3m26,GHSA-43f8-2h32-f4cj,GHSA-7r86-cg39-jmmj,GHSA-f886-m6hf-6m8v,GHSA-g74r-ffvr-5q9f,GHSA-mh99-v99m-4gvg,GHSA-rgw5-rvv9-x895,GHSA-v6h2-p8h4-qcjw
+REMAINING-VULNS: 10
+UNFIXABLE-VULNS: 10
 
 ---
 

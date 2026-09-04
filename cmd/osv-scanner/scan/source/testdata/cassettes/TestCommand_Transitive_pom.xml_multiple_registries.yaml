@@ -434,7 +434,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 768
+      content_length: 847
       body: |
         {
           "results": [
@@ -501,7 +501,14 @@ interactions:
             {},
             {},
             {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-qv9r-c865-cp47",
+                  "modified": "2026-08-14T21:42:02.007599Z"
+                }
+              ]
+            },
             {
               "vulns": [
                 {
@@ -539,7 +546,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "768"
+          - "847"
         Content-Type:
           - application/json
       status: 200 OK

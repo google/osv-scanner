@@ -28,7 +28,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 5667
+      content_length: 6108
       body: |
         {
           "results": [
@@ -379,6 +379,10 @@ interactions:
                   "modified": "2026-05-11T08:11:18.687307Z"
                 },
                 {
+                  "id": "GO-2026-5026",
+                  "modified": "2026-08-31T10:25:59.035069Z"
+                },
+                {
                   "id": "GO-2026-5037",
                   "modified": "2026-07-14T10:29:32.453910Z"
                 },
@@ -393,6 +397,30 @@ interactions:
                 {
                   "id": "GO-2026-5856",
                   "modified": "2026-07-14T16:41:01.458483Z"
+                },
+                {
+                  "id": "GO-2026-5972",
+                  "modified": "2026-09-02T10:40:54.310380Z"
+                },
+                {
+                  "id": "GO-2026-6088",
+                  "modified": "2026-09-02T10:40:54.383435Z"
+                },
+                {
+                  "id": "GO-2026-6089",
+                  "modified": "2026-09-02T10:40:54.246444Z"
+                },
+                {
+                  "id": "GO-2026-6090",
+                  "modified": "2026-09-02T10:40:54.351851Z"
+                },
+                {
+                  "id": "GO-2026-6091",
+                  "modified": "2026-09-02T10:40:54.183553Z"
+                },
+                {
+                  "id": "GO-2026-6218",
+                  "modified": "2026-09-02T10:40:54.127663Z"
                 }
               ]
             }
@@ -400,7 +428,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "5667"
+          - "6108"
         Content-Type:
           - application/json
       status: 200 OK

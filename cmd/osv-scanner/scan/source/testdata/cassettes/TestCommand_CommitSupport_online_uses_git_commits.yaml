@@ -54,7 +54,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 4736
+      content_length: 5386
       body: |
         {
           "results": [
@@ -261,6 +261,18 @@ interactions:
                   "modified": "2026-07-15T02:17:07.600710Z"
                 },
                 {
+                  "id": "CVE-2026-14456",
+                  "modified": "2026-08-30T08:17:15.079740Z"
+                },
+                {
+                  "id": "CVE-2026-14457",
+                  "modified": "2026-08-30T08:17:14.476630Z"
+                },
+                {
+                  "id": "CVE-2026-18798",
+                  "modified": "2026-08-30T08:17:15.927650Z"
+                },
+                {
                   "id": "CVE-2026-22795",
                   "modified": "2026-07-15T02:17:35.174838Z"
                 },
@@ -349,8 +361,36 @@ interactions:
                   "modified": "2026-07-15T02:20:23.185706Z"
                 },
                 {
+                  "id": "CVE-2026-54874",
+                  "modified": "2026-08-30T08:17:21.682387Z"
+                },
+                {
+                  "id": "CVE-2026-63072",
+                  "modified": "2026-08-30T08:17:27.444644Z"
+                },
+                {
+                  "id": "CVE-2026-63073",
+                  "modified": "2026-09-02T08:08:56.757106Z"
+                },
+                {
+                  "id": "CVE-2026-63074",
+                  "modified": "2026-08-30T08:17:26.896601Z"
+                },
+                {
+                  "id": "CVE-2026-63075",
+                  "modified": "2026-08-30T08:17:27.730733Z"
+                },
+                {
+                  "id": "CVE-2026-63076",
+                  "modified": "2026-08-30T08:17:27.162707Z"
+                },
+                {
                   "id": "CVE-2026-7383",
                   "modified": "2026-07-15T01:49:22.207170Z"
+                },
+                {
+                  "id": "CVE-2026-75803",
+                  "modified": "2026-09-02T08:07:58.490185Z"
                 },
                 {
                   "id": "CVE-2026-9076",
@@ -390,7 +430,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "4736"
+          - "5386"
         Content-Type:
           - application/json
       status: 200 OK

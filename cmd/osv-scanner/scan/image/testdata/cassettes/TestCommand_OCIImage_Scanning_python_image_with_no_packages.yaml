@@ -707,7 +707,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 5300
+      content_length: 5572
       body: |
         {
           "results": [
@@ -988,6 +988,10 @@ interactions:
                   "modified": "2026-03-24T01:43:05.410801Z"
                 },
                 {
+                  "id": "GHSA-qwm4-qh6w-59xr",
+                  "modified": "2026-09-01T19:10:40.364367Z"
+                },
+                {
                   "id": "GHSA-wf93-45jw-7689",
                   "modified": "2026-07-14T02:29:29.982772Z"
                 },
@@ -1014,6 +1018,10 @@ interactions:
                 {
                   "id": "PYSEC-2026-2876",
                   "modified": "2026-07-13T16:32:57.447552Z"
+                },
+                {
+                  "id": "PYSEC-2026-3721",
+                  "modified": "2026-09-01T19:10:40.364367Z"
                 }
               ]
             },
@@ -1040,6 +1048,10 @@ interactions:
                   "modified": "2026-03-24T01:43:05.410801Z"
                 },
                 {
+                  "id": "GHSA-qwm4-qh6w-59xr",
+                  "modified": "2026-09-01T19:10:40.364367Z"
+                },
+                {
                   "id": "GHSA-wf93-45jw-7689",
                   "modified": "2026-07-14T02:29:29.982772Z"
                 },
@@ -1066,6 +1078,10 @@ interactions:
                 {
                   "id": "PYSEC-2026-2876",
                   "modified": "2026-07-13T16:32:57.447552Z"
+                },
+                {
+                  "id": "PYSEC-2026-3721",
+                  "modified": "2026-09-01T19:10:40.364367Z"
                 }
               ]
             },
@@ -1189,7 +1205,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "5300"
+          - "5572"
         Content-Type:
           - application/json
       status: 200 OK

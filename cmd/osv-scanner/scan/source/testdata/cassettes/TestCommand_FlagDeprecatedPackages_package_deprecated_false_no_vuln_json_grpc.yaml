@@ -52,6 +52,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2024-12-11T14:49:16Z"
+                },
                 "licenseDetails": [
                   {
                     "license": "Apache-2.0 OR MIT",
@@ -112,6 +115,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-02-24T22:14:18Z"
+                },
                 "isDefault": true,
                 "licenseDetails": [
                   {
@@ -165,6 +171,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-09-02T19:14:01Z"
+                },
                 "isDefault": true,
                 "licenseDetails": [
                   {
@@ -218,6 +227,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-09-08T11:55:49Z"
+                },
                 "licenseDetails": [
                   {
                     "license": "Apache-2.0 OR MIT",

@@ -615,6 +615,14 @@ interactions:
               }
             },
             {
+              "publishedAt": "2026-08-16T03:17:28Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.18.10"
+              }
+            },
+            {
               "publishedAt": "2024-11-28T00:56:42Z",
               "versionKey": {
                 "name": "com.fasterxml.jackson.core:jackson-core",
@@ -871,6 +879,14 @@ interactions:
               }
             },
             {
+              "publishedAt": "2026-08-14T22:29:15Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.21.6"
+              }
+            },
+            {
               "publishedAt": "2026-05-31T23:57:06Z",
               "versionKey": {
                 "name": "com.fasterxml.jackson.core:jackson-core",
@@ -879,12 +895,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-07-07T21:30:06Z",
               "versionKey": {
                 "name": "com.fasterxml.jackson.core:jackson-core",
                 "system": "MAVEN",
                 "version": "2.22.1"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-08-16T16:26:43Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.22.2"
               }
             },
             {
@@ -2259,7 +2283,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2026-07-07T02:17:42Z",
+              "publishedAt": "2026-07-01T10:49:24Z",
               "versionKey": {
                 "name": "org.apache.logging.log4j:log4j-api",
                 "system": "MAVEN",
@@ -2275,7 +2299,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2026-07-03T02:16:54Z",
+              "publishedAt": "2026-06-29T07:46:02Z",
               "versionKey": {
                 "name": "org.apache.logging.log4j:log4j-api",
                 "system": "MAVEN",
@@ -3085,7 +3109,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2026-05-13T00:13:53Z",
+              "publishedAt": "2026-05-12T18:34:09Z",
               "versionKey": {
                 "name": "org.slf4j:slf4j-migrator",
                 "system": "MAVEN",

@@ -463,6 +463,8 @@ interactions:
               }
             },
             {
+              "deprecatedReason": "Unintended change in behavior of boolean options and None",
+              "isDeprecated": true,
               "publishedAt": "2025-08-02T02:23:39Z",
               "versionKey": {
                 "name": "click",
@@ -519,12 +521,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-06-24T17:45:13Z",
               "versionKey": {
                 "name": "click",
                 "system": "PYPI",
                 "version": "8.4.2"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-08-26T13:33:12Z",
+              "versionKey": {
+                "name": "click",
+                "system": "PYPI",
+                "version": "8.5.0"
               }
             }
           ]
@@ -1477,6 +1487,8 @@ interactions:
               }
             },
             {
+              "deprecatedReason": "Remove test pre-release",
+              "isDeprecated": true,
               "publishedAt": "2023-06-26T01:19:20Z",
               "versionKey": {
                 "name": "flask-cors",
@@ -4867,12 +4879,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-06-28T15:31:11Z",
               "versionKey": {
                 "name": "pandas",
                 "system": "PYPI",
                 "version": "3.0.4"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-07-22T22:18:57Z",
+              "versionKey": {
+                "name": "pandas",
+                "system": "PYPI",
+                "version": "3.0.5"
               }
             }
           ]
@@ -9012,12 +9032,28 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-05-04T01:35:27Z",
               "versionKey": {
                 "name": "pytz",
                 "system": "PYPI",
                 "version": "2026.2.0"
+              }
+            },
+            {
+              "publishedAt": "2026-07-25T11:09:29Z",
+              "versionKey": {
+                "name": "pytz",
+                "system": "PYPI",
+                "version": "2026.3.0"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-07-25T15:12:05Z",
+              "versionKey": {
+                "name": "pytz",
+                "system": "PYPI",
+                "version": "2026.3.0.post1"
               }
             }
           ]

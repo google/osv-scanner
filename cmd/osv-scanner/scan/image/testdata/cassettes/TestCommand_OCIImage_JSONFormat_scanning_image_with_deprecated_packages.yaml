@@ -364,7 +364,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 5978
+      content_length: 7418
       body: |
         {
           "results": [
@@ -453,6 +453,18 @@ interactions:
                   "modified": "2026-07-08T04:30:11.908070Z"
                 },
                 {
+                  "id": "ALPINE-CVE-2026-14456",
+                  "modified": "2026-08-27T22:18:03.115118Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-14457",
+                  "modified": "2026-08-27T22:18:03.115384Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-18798",
+                  "modified": "2026-08-27T22:18:03.183843Z"
+                },
+                {
                   "id": "ALPINE-CVE-2026-22795",
                   "modified": "2026-07-08T04:32:28.331714Z"
                 },
@@ -541,8 +553,36 @@ interactions:
                   "modified": "2026-07-08T04:32:30.331733Z"
                 },
                 {
+                  "id": "ALPINE-CVE-2026-54874",
+                  "modified": "2026-08-27T22:18:03.623511Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-63072",
+                  "modified": "2026-08-27T22:18:03.713856Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-63073",
+                  "modified": "2026-09-01T08:30:02.741346Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-63074",
+                  "modified": "2026-08-27T22:18:03.714336Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-63075",
+                  "modified": "2026-08-27T22:18:03.714405Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-63076",
+                  "modified": "2026-08-27T22:18:03.714894Z"
+                },
+                {
                   "id": "ALPINE-CVE-2026-7383",
                   "modified": "2026-07-08T04:32:25.409598Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-75803",
+                  "modified": "2026-09-02T08:30:02.735460Z"
                 },
                 {
                   "id": "ALPINE-CVE-2026-9076",
@@ -593,6 +633,18 @@ interactions:
                   "modified": "2026-07-08T04:30:11.908070Z"
                 },
                 {
+                  "id": "ALPINE-CVE-2026-14456",
+                  "modified": "2026-08-27T22:18:03.115118Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-14457",
+                  "modified": "2026-08-27T22:18:03.115384Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-18798",
+                  "modified": "2026-08-27T22:18:03.183843Z"
+                },
+                {
                   "id": "ALPINE-CVE-2026-22795",
                   "modified": "2026-07-08T04:32:28.331714Z"
                 },
@@ -681,8 +733,36 @@ interactions:
                   "modified": "2026-07-08T04:32:30.331733Z"
                 },
                 {
+                  "id": "ALPINE-CVE-2026-54874",
+                  "modified": "2026-08-27T22:18:03.623511Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-63072",
+                  "modified": "2026-08-27T22:18:03.713856Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-63073",
+                  "modified": "2026-09-01T08:30:02.741346Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-63074",
+                  "modified": "2026-08-27T22:18:03.714336Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-63075",
+                  "modified": "2026-08-27T22:18:03.714405Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-63076",
+                  "modified": "2026-08-27T22:18:03.714894Z"
+                },
+                {
                   "id": "ALPINE-CVE-2026-7383",
                   "modified": "2026-07-08T04:32:25.409598Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-75803",
+                  "modified": "2026-09-02T08:30:02.735460Z"
                 },
                 {
                   "id": "ALPINE-CVE-2026-9076",
@@ -765,7 +845,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "5978"
+          - "7418"
         Content-Type:
           - application/json
       status: 200 OK

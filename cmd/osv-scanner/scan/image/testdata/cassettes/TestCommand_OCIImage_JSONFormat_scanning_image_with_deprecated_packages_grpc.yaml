@@ -248,6 +248,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2024-06-30T21:51:42Z"
+                },
                 "licenseDetails": [
                   {
                     "license": "Apache-2.0 OR MIT",
@@ -308,6 +311,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-08-31T08:47:43Z"
+                },
                 "isDefault": true,
                 "licenseDetails": [
                   {
@@ -361,6 +367,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-11-07T18:04:11Z"
+                },
                 "licenseDetails": [
                   {
                     "license": "Unicode-3.0",
@@ -417,6 +426,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-11-07T18:03:53Z"
+                },
                 "licenseDetails": [
                   {
                     "license": "Unicode-3.0",
@@ -473,6 +485,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-11-07T18:06:17Z"
+                },
                 "licenseDetails": [
                   {
                     "license": "Unicode-3.0",
@@ -529,6 +544,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-11-07T18:06:02Z"
+                },
                 "licenseDetails": [
                   {
                     "license": "Unicode-3.0",
@@ -585,6 +603,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-11-07T18:05:30Z"
+                },
                 "licenseDetails": [
                   {
                     "license": "Unicode-3.0",
@@ -641,6 +662,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-11-07T18:05:16Z"
+                },
                 "licenseDetails": [
                   {
                     "license": "Unicode-3.0",
@@ -697,6 +721,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-11-07T18:04:29Z"
+                },
                 "licenseDetails": [
                   {
                     "license": "Unicode-3.0",
@@ -753,6 +780,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-08-31T08:48:20Z"
+                },
                 "isDefault": true,
                 "licenseDetails": [
                   {
@@ -806,6 +836,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-05-18T15:25:54Z"
+                },
                 "licenseDetails": [
                   {
                     "license": "Apache-2.0 OR MIT",
@@ -866,6 +899,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-11-07T15:56:37Z"
+                },
                 "licenseDetails": [
                   {
                     "license": "Unicode-3.0",
@@ -922,6 +958,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-08-31T08:46:50Z"
+                },
                 "isDefault": true,
                 "licenseDetails": [
                   {
@@ -975,6 +1014,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-11-07T15:57:27Z"
+                },
                 "licenseDetails": [
                   {
                     "license": "Unicode-3.0",
@@ -1031,6 +1073,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-11-02T22:30:16Z"
+                },
                 "licenseDetails": [
                   {
                     "license": "Apache-2.0 OR MIT",
@@ -1087,6 +1132,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-11-16T18:34:45Z"
+                },
                 "licenseDetails": [
                   {
                     "license": "Apache-2.0 OR MIT",
@@ -1152,6 +1200,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-06-16T17:14:20Z"
+                },
                 "licenseDetails": [
                   {
                     "license": "Apache-2.0 OR MIT",
@@ -1208,6 +1259,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-10-19T05:24:54Z"
+                },
                 "isDefault": true,
                 "licenseDetails": [
                   {
@@ -1265,6 +1319,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-12-03T04:14:16Z"
+                },
                 "licenseDetails": [
                   {
                     "license": "Apache-2.0 OR MIT",
@@ -1321,7 +1378,9 @@ interactions:
                 }
               },
               "version": {
-                "isDefault": true,
+                "cooldown": {
+                  "end": "2025-05-10T16:37:46Z"
+                },
                 "licenseDetails": [
                   {
                     "license": "MIT",
@@ -1378,6 +1437,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-11-07T15:57:03Z"
+                },
                 "licenseDetails": [
                   {
                     "license": "Unicode-3.0",
@@ -1430,6 +1492,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-11-09T04:16:48Z"
+                },
                 "licenseDetails": [
                   {
                     "license": "Unicode-3.0 AND (Apache-2.0 OR MIT)",
@@ -1486,6 +1551,10 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2024-11-14T10:14:38Z"
+                },
+                "deprecatedReason": "yanked",
                 "isDeprecated": true,
                 "licenseDetails": [
                   {
@@ -1543,6 +1612,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2023-12-11T17:26:51Z"
+                },
                 "isDefault": true,
                 "licenseDetails": [
                   {
@@ -1604,6 +1676,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-11-07T15:57:09Z"
+                },
                 "licenseDetails": [
                   {
                     "license": "Unicode-3.0",
@@ -1656,6 +1731,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-11-07T15:56:29Z"
+                },
                 "licenseDetails": [
                   {
                     "license": "Unicode-3.0",
@@ -1708,6 +1786,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-11-07T15:56:24Z"
+                },
                 "licenseDetails": [
                   {
                     "license": "Unicode-3.0",
@@ -1760,6 +1841,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-03-08T18:22:02Z"
+                },
                 "licenseDetails": [
                   {
                     "license": "Unicode-3.0",
@@ -1812,6 +1896,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-03-08T18:21:58Z"
+                },
                 "licenseDetails": [
                   {
                     "license": "Unicode-3.0",
@@ -1864,6 +1951,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-11-07T15:58:06Z"
+                },
                 "licenseDetails": [
                   {
                     "license": "Unicode-3.0",
@@ -1920,6 +2010,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-11-07T15:56:52Z"
+                },
                 "licenseDetails": [
                   {
                     "license": "Unicode-3.0",
@@ -1972,6 +2065,9 @@ interactions:
                 }
               },
               "version": {
+                "cooldown": {
+                  "end": "2025-11-07T15:56:46Z"
+                },
                 "licenseDetails": [
                   {
                     "license": "Unicode-3.0",
