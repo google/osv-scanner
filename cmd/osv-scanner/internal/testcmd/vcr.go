@@ -765,10 +765,29 @@ func findRepoRoot() string {
 	return ""
 }
 
+func getSafeLocalDBPath(repoRoot, ecosystem string) (string, error) {
+	if ecosystem == "" || ecosystem == "." || strings.Contains(ecosystem, "..") || strings.ContainsAny(ecosystem, `/\`) {
+		return "", fmt.Errorf("invalid ecosystem name: %q", ecosystem)
+	}
+
+	baseDir := filepath.Join(repoRoot, offlineDBRelativePath)
+	targetPath := filepath.Join(baseDir, ecosystem)
+
+	rel, err := filepath.Rel(baseDir, targetPath)
+	if err != nil || strings.HasPrefix(rel, "..") || rel == "." {
+		return "", fmt.Errorf("ecosystem path escapes base directory: %q", ecosystem)
+	}
+
+	return targetPath, nil
+}
+
 func (t *vcrResponseNormalizingTransport) handleOfflineDBDownload(req *http.Request) (*http.Response, error) {
 	repoRoot := findRepoRoot()
 	ecosystem := filepath.Base(filepath.Dir(req.URL.Path)) // e.g. "Alpine", "Packagist"
-	localDBPath := filepath.Join(repoRoot, offlineDBRelativePath, ecosystem)
+	localDBPath, err := getSafeLocalDBPath(repoRoot, ecosystem)
+	if err != nil {
+		return nil, err
+	}
 
 	if os.Getenv("VCR_UPDATE_OFFLINE_DBS") == "true" {
 		if err := t.updateOfflineDB(req.URL.String(), localDBPath, ecosystem); err != nil {
@@ -800,6 +819,9 @@ func (t *vcrResponseNormalizingTransport) handleOfflineDBDownload(req *http.Requ
 
 func (t *vcrResponseNormalizingTransport) handleOfflineDBHead(req *http.Request) (*http.Response, error) {
 	ecosystem := filepath.Base(filepath.Dir(req.URL.Path))
+	if ecosystem == "" || ecosystem == "." || strings.Contains(ecosystem, "..") || strings.ContainsAny(ecosystem, `/\`) {
+		return nil, fmt.Errorf("invalid ecosystem: %q", ecosystem)
+	}
 
 	if os.Getenv("VCR_UPDATE_OFFLINE_DBS") == "true" {
 		return t.underlying.RoundTrip(req)
@@ -876,6 +898,12 @@ func (t *vcrResponseNormalizingTransport) updateOfflineDB(url string, localDBPat
 		return err
 	}
 
+	baseDir := filepath.Join(findRepoRoot(), offlineDBRelativePath)
+	rel, err := filepath.Rel(baseDir, localDBPath)
+	if err != nil || strings.HasPrefix(rel, "..") || rel == "." {
+		return fmt.Errorf("invalid localDBPath: %q", localDBPath)
+	}
+
 	// Delete existing directory to start clean
 	if err := os.RemoveAll(localDBPath); err != nil {
 		return err
@@ -885,6 +913,9 @@ func (t *vcrResponseNormalizingTransport) updateOfflineDB(url string, localDBPat
 	}
 
 	for _, file := range zipReader.File {
+		if strings.Contains(file.Name, "..") || strings.ContainsAny(file.Name, `/\`) {
+			return fmt.Errorf("archive entry contains invalid characters: %q", file.Name)
+		}
 		if !strings.HasSuffix(file.Name, ".json") {
 			continue
 		}
@@ -910,6 +941,10 @@ func (t *vcrResponseNormalizingTransport) updateOfflineDB(url string, localDBPat
 		}
 
 		targetFilePath := filepath.Join(localDBPath, vulnID+".json")
+		fileRel, err := filepath.Rel(localDBPath, targetFilePath)
+		if err != nil || strings.HasPrefix(fileRel, "..") {
+			return fmt.Errorf("target file path escapes target directory: %q", targetFilePath)
+		}
 		if err := os.WriteFile(targetFilePath, prettyJSON.Bytes(), 0644); err != nil { //nolint:gosec
 			return err
 		}
@@ -922,7 +957,10 @@ func (t *vcrResponseNormalizingTransport) updateOfflineDB(url string, localDBPat
 
 func buildZipInMemory(ecosystem string) ([]byte, error) {
 	repoRoot := findRepoRoot()
-	localDBPath := filepath.Join(repoRoot, offlineDBRelativePath, ecosystem)
+	localDBPath, err := getSafeLocalDBPath(repoRoot, ecosystem)
+	if err != nil {
+		return nil, err
+	}
 
 	files, err := os.ReadDir(localDBPath)
 	if err != nil {
@@ -943,24 +981,34 @@ func buildZipInMemory(ecosystem string) ([]byte, error) {
 	zipWriter := zip.NewWriter(&buf)
 
 	for _, file := range files {
-		if !strings.HasSuffix(file.Name(), ".json") {
-			continue
+		if file.IsDir() {
+			return nil, fmt.Errorf("unexpected directory in local offline database %s: %s", localDBPath, file.Name())
 		}
 
-		filePath := filepath.Join(localDBPath, file.Name())
+		fileName := file.Name()
+		if !strings.HasSuffix(fileName, ".json") {
+			return nil, fmt.Errorf("unexpected non-JSON file in local offline database %s: %s", localDBPath, fileName)
+		}
+
+		if strings.Contains(fileName, "..") || strings.ContainsAny(fileName, `/\`) {
+			return nil, fmt.Errorf("invalid filename %q in %s", fileName, localDBPath)
+		}
+
+		filePath := filepath.Join(localDBPath, fileName)
+		fileRel, err := filepath.Rel(localDBPath, filePath)
+		if err != nil || strings.HasPrefix(fileRel, "..") {
+			return nil, fmt.Errorf("file path %q escapes directory %s", filePath, localDBPath)
+		}
 		content, err := os.ReadFile(filePath)
 		if err != nil {
-			zipWriter.Close()
 			return nil, err
 		}
 
-		w, err := zipWriter.Create(file.Name())
+		w, err := zipWriter.Create(fileName)
 		if err != nil {
-			zipWriter.Close()
 			return nil, err
 		}
 		if _, err := w.Write(content); err != nil {
-			zipWriter.Close()
 			return nil, err
 		}
 	}
