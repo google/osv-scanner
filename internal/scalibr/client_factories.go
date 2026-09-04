@@ -10,7 +10,6 @@ import (
 	"sync"
 
 	"github.com/google/osv-scalibr/plugin/config"
-	"github.com/google/osv-scanner/v2/internal/grpcvcr"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 )
@@ -26,7 +25,6 @@ type ClientFactories struct {
 	baseHTTPClient   *http.Client
 	grpcClientConns  map[string]grpcClientConnCloser
 	defaultUserAgent string
-	grpcRecorder     *grpcvcr.Recorder
 }
 
 var _ config.ClientFactories = (*ClientFactories)(nil)
@@ -80,13 +78,6 @@ func (c *ClientFactories) GoogleHTTPClient(_ context.Context, _ ...string) (*htt
 	return nil, errors.New("unimplemented, this should not be used from osv-scanner")
 }
 
-// SetGRPCRecorder sets a gRPC recorder on the ClientFactories.
-func (c *ClientFactories) SetGRPCRecorder(r *grpcvcr.Recorder) {
-	c.mu.Lock()
-	defer c.mu.Unlock()
-	c.grpcRecorder = r
-}
-
 // GRPCClientConn returns a cached gRPC client connection from a package-level connection cache.
 func (c *ClientFactories) GRPCClientConn(url string, dialOpts ...grpc.DialOption) (grpc.ClientConnInterface, error) {
 	c.mu.Lock()
@@ -126,16 +117,9 @@ func (c *ClientFactories) GRPCClientConn(url string, dialOpts ...grpc.DialOption
 		return conn, nil
 	}
 
-	var conn grpcClientConnCloser
-	if c.grpcRecorder != nil {
-		conn = grpcvcr.NewClientConn(realConn, c.grpcRecorder)
-	} else {
-		conn = realConn
-	}
+	c.grpcClientConns[url] = realConn
 
-	c.grpcClientConns[url] = conn
-
-	return conn, nil
+	return realConn, nil
 }
 
 // Close closes all open cached gRPC connections.

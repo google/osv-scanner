@@ -21,6 +21,7 @@ import (
 	"strings"
 	"sync"
 	"testing"
+	"time"
 
 	gocmp "github.com/google/go-cmp/cmp"
 	scalibrconfig "github.com/google/osv-scalibr/plugin/config"
@@ -65,33 +66,6 @@ func determineRecorderMode() recorder.Mode {
 	}
 
 	return recorder.ModeReplayWithNewEpisodes
-}
-
-// withHeadersTripper adds extra headers to requests before they're done by the wrapped http.Client
-type withHeadersTripper struct {
-	wrapper http.Client
-	headers map[string]string
-}
-
-func (wht withHeadersTripper) RoundTrip(request *http.Request) (*http.Response, error) {
-	for key, value := range wht.headers {
-		request.Header.Set(key, value)
-	}
-
-	return wht.wrapper.Do(request)
-}
-
-var _ http.RoundTripper = withHeadersTripper{}
-
-// WithTestNameHeader wraps the given http.Client with an http.RoundTripper that
-// adds a custom header to every request with the name of the test being run
-func WithTestNameHeader(t *testing.T, client http.Client) *http.Client {
-	t.Helper()
-
-	return &http.Client{Transport: withHeadersTripper{
-		wrapper: client,
-		headers: map[string]string{"X-Test-Name": t.Name()},
-	}}
 }
 
 // this is cassette.Interaction without its ID field
@@ -298,8 +272,7 @@ func InsertCassetteWithName(t *testing.T, name string) *http.Client {
 	return client
 }
 
-// sortCassetteInteractions reorders the interactions in the given cassette, based
-// on the X-Test-Name header to help reduce the diff when interactions are changed
+// sortCassetteInteractions reorders the interactions in the given cassette to help reduce the diff when interactions are changed
 func sortCassetteInteractions(t *testing.T, path string) {
 	t.Helper()
 
@@ -313,7 +286,6 @@ func sortCassetteInteractions(t *testing.T, path string) {
 	// we don't need to worry about the interaction ids as they get updated as part of saving
 	slices.SortFunc(cass.Interactions, func(a, b *cassette.Interaction) int {
 		return cmp.Or(
-			cmp.Compare(a.Request.Headers.Get("X-Test-Name"), b.Request.Headers.Get("X-Test-Name")),
 			cmp.Compare(a.Request.Method, b.Request.Method),
 			cmp.Compare(a.Request.URL, b.Request.URL),
 			cmp.Compare(a.Request.Body, b.Request.Body),
@@ -472,10 +444,9 @@ func (t *vcrErrorWrappingTransport) logRequestMismatch(req *http.Request) {
 		return
 	}
 
-	testName := req.Header.Get("X-Test-Name")
 	var candidates []*cassette.Interaction
 	for _, inter := range cass.Interactions {
-		if inter.Request.Headers.Get("X-Test-Name") == testName {
+		if inter.Request.URL == actual.URL {
 			candidates = append(candidates, inter)
 		}
 	}
@@ -484,10 +455,10 @@ func (t *vcrErrorWrappingTransport) logRequestMismatch(req *http.Request) {
 	sb.WriteString("\n=================== VCR CASSETTE REQUEST MISMATCH ===================\n")
 	fmt.Fprintf(&sb, "Incoming request did not match any stored cassette interaction in %s.yaml\n", t.cassettePath)
 	fmt.Fprintf(&sb, "Incoming Request URL:    %s %s\n", actual.Method, actual.URL)
-	fmt.Fprintf(&sb, "Incoming Test Name:      %s\n", testName)
+	fmt.Fprintf(&sb, "Test:                    %s\n", t.t.Name())
 
 	if len(candidates) > 0 {
-		fmt.Fprintf(&sb, "\nFound %d candidate(s) in the cassette matching this test name:\n", len(candidates))
+		fmt.Fprintf(&sb, "\nFound %d candidate(s) in the cassette matching this URL:\n", len(candidates))
 		for i, cand := range candidates {
 			fmt.Fprintf(&sb, "\n--- Candidate %d ---\n", i+1)
 			fmt.Fprintf(&sb, "Recorded URL:       %s %s\n", cand.Request.Method, cand.Request.URL)
@@ -498,12 +469,11 @@ func (t *vcrErrorWrappingTransport) logRequestMismatch(req *http.Request) {
 			sb.WriteString(diff)
 		}
 	} else {
-		fmt.Fprintf(&sb, "\nNo candidate requests found matching the test name: %s\n", testName)
+		fmt.Fprintf(&sb, "\nNo candidate requests found matching the URL: %s\n", actual.URL)
 		sb.WriteString("Recorded interactions in this cassette:\n")
 		seen := make(map[string]bool)
 		for _, inter := range cass.Interactions {
-			name := inter.Request.Headers.Get("X-Test-Name")
-			key := fmt.Sprintf("%s %s (Test: %s)", inter.Request.Method, inter.Request.URL, name)
+			key := fmt.Sprintf("%s %s", inter.Request.Method, inter.Request.URL)
 			if !seen[key] {
 				seen[key] = true
 				fmt.Fprintf(&sb, "  - %s\n", key)
@@ -828,8 +798,17 @@ func (t *vcrResponseNormalizingTransport) handleOfflineDBDownload(req *http.Requ
 	}
 	resp.Header.Set("Content-Type", "application/zip")
 	resp.Header.Set("Content-Length", strconv.Itoa(len(zipBytes)))
+	resp.Header.Set("X-Goog-Hash", "crc32c="+computeCRC32CBase64(zipBytes))
 
 	return resp, nil
+}
+
+func computeCRC32CBase64(data []byte) string {
+	checksum := crc32.Checksum(data, crc32.MakeTable(crc32.Castagnoli))
+	buf := make([]byte, 4)
+	binary.BigEndian.PutUint32(buf, checksum)
+
+	return base64.StdEncoding.EncodeToString(buf)
 }
 
 func (t *vcrResponseNormalizingTransport) handleOfflineDBHead(req *http.Request) (*http.Response, error) {
@@ -847,11 +826,6 @@ func (t *vcrResponseNormalizingTransport) handleOfflineDBHead(req *http.Request)
 		return nil, fmt.Errorf("local offline database not found for %s: %w", ecosystem, err)
 	}
 
-	checksum := crc32.Checksum(zipBytes, crc32.MakeTable(crc32.Castagnoli))
-	buf := make([]byte, 4)
-	binary.BigEndian.PutUint32(buf, checksum)
-	base64Hash := base64.StdEncoding.EncodeToString(buf)
-
 	resp := &http.Response{
 		Status:        "200 OK",
 		StatusCode:    http.StatusOK,
@@ -863,7 +837,7 @@ func (t *vcrResponseNormalizingTransport) handleOfflineDBHead(req *http.Request)
 		Header:        make(http.Header),
 		Request:       req,
 	}
-	resp.Header.Set("X-Goog-Hash", "crc32c="+base64Hash)
+	resp.Header.Set("X-Goog-Hash", "crc32c="+computeCRC32CBase64(zipBytes))
 
 	return resp, nil
 }
@@ -1019,7 +993,11 @@ func buildZipInMemory(ecosystem string) ([]byte, error) {
 			return nil, err
 		}
 
-		w, err := zipWriter.Create(fileName)
+		w, err := zipWriter.CreateHeader(&zip.FileHeader{
+			Name:     fileName,
+			Method:   zip.Deflate,
+			Modified: time.Date(2025, 1, 1, 0, 0, 0, 0, time.UTC),
+		})
 		if err != nil {
 			return nil, err
 		}

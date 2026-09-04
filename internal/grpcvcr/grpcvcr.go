@@ -60,9 +60,8 @@ type Matcher func(method string, req proto.Message, recordedReqJSON string) bool
 
 // DefaultMatcher matches requests by deserializing them to clones and comparing with proto.Equal.
 func DefaultMatcher(_ string, req proto.Message, recordedReqJSON string) bool {
-	clone := proto.Clone(req)
-	proto.Reset(clone)
-	if err := protojson.Unmarshal([]byte(recordedReqJSON), clone); err != nil {
+	clone := req.ProtoReflect().Type().New().Interface()
+	if err := unmarshalOptions.Unmarshal([]byte(recordedReqJSON), clone); err != nil {
 		return false
 	}
 
@@ -72,6 +71,10 @@ func DefaultMatcher(_ string, req proto.Message, recordedReqJSON string) bool {
 var marshalOptions = protojson.MarshalOptions{
 	Multiline: true,
 	Indent:    "  ",
+}
+
+var unmarshalOptions = protojson.UnmarshalOptions{
+	DiscardUnknown: true,
 }
 
 // Recorder manages the VCR recording and replaying.
@@ -203,7 +206,7 @@ func (r *Recorder) Intercept(_ context.Context, method string, args, reply any, 
 				return status.Error(codes.Code(matched.Error.Code), matched.Error.Message)
 			}
 
-			return protojson.Unmarshal([]byte(matched.Response), respProto)
+			return unmarshalOptions.Unmarshal([]byte(matched.Response), respProto)
 		}
 		if r.mode == ModeReplayOnly {
 			if r.OnMiss != nil {
@@ -324,8 +327,10 @@ func (c *ClientConn) Close() error {
 
 // CleanJSON formats the JSON the same way it's formatted in the cassettes
 func CleanJSON(jsonStr string) (string, error) {
+	dec := json.NewDecoder(strings.NewReader(jsonStr))
+	dec.UseNumber()
 	var val any
-	if err := json.Unmarshal([]byte(jsonStr), &val); err != nil {
+	if err := dec.Decode(&val); err != nil {
 		return "", err
 	}
 	b, err := json.MarshalIndent(val, "", "  ")
