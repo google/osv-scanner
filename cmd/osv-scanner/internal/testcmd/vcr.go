@@ -78,7 +78,7 @@ func (wht withHeadersTripper) RoundTrip(request *http.Request) (*http.Response, 
 		request.Header.Set(key, value)
 	}
 
-	return wht.wrapper.Do(request) //nolint:gosec // Safe in tests
+	return wht.wrapper.Do(request)
 }
 
 var _ http.RoundTripper = withHeadersTripper{}

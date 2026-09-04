@@ -1,6 +1,6 @@
 module github.com/google/osv-scanner/v2
 
-go 1.26.5
+go 1.27.0
 
 require (
 	charm.land/glamour/v2 v2.0.1
@@ -20,8 +20,8 @@ require (
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/ossf/osv-schema/bindings/go v0.0.0-20260730052020-9509daabeece
 	github.com/owenrumney/go-sarif/v3 v3.3.1
-	github.com/package-url/packageurl-go v0.1.6
-	github.com/pandatix/go-cvss v0.6.2
+	github.com/package-url/packageurl-go v0.1.7
+	github.com/pandatix/go-cvss v0.6.4
 	github.com/tidwall/gjson v1.19.0
 	github.com/tidwall/pretty v1.2.1
 	github.com/tidwall/sjson v1.2.5
@@ -29,7 +29,7 @@ require (
 	go.yaml.in/yaml/v4 v4.0.0-rc.6
 	golang.org/x/term v0.45.0
 	golang.org/x/vuln v1.6.0
-	google.golang.org/grpc v1.83.0
+	google.golang.org/grpc v1.83.1
 	google.golang.org/protobuf v1.36.12
 	gopkg.in/dnaeon/go-vcr.v4 v4.0.7
 	osv.dev/bindings/go v0.0.0-20260805021707-3a57b89df3b6
