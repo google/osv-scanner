@@ -86,7 +86,7 @@ func Command(stdout, _ io.Writer, clientFactories config.ClientFactories) *cli.C
 				Name:  "interactive",
 				Usage: "run in the interactive mode",
 				Action: func(_ context.Context, _ *cli.Command, b bool) error {
-					if b && !term.IsTerminal(int(os.Stdin.Fd())) { //nolint:gosec // Fd() is safe to convert to int
+					if b && !term.IsTerminal(int(os.Stdin.Fd())) {
 						return errors.New("interactive mode only to be run in a terminal")
 					}
 
@@ -218,17 +218,13 @@ func action(ctx context.Context, cmd *cli.Command, stdout io.Writer, clientFacto
 	}
 
 	opts := options.FixVulnsOptions{
-		RemediationOptions: options.RemediationOptions{
-			ResolutionOptions: options.ResolutionOptions{
-				MavenManagement: cmd.Bool("maven-fix-management"),
-			},
-			IgnoreVulns:   cmd.StringSlice("ignore-vulns"),
-			ExplicitVulns: cmd.StringSlice("vulns"),
-			DevDeps:       !cmd.Bool("ignore-dev"),
-			MinSeverity:   cmd.Float64("min-severity"),
-			MaxDepth:      cmd.Int("max-depth"),
-			UpgradeConfig: upgrade.NewConfigFromStrings(cmd.StringSlice("upgrade-config")),
-		},
+		MavenManagement:   cmd.Bool("maven-fix-management"),
+		IgnoreVulns:       cmd.StringSlice("ignore-vulns"),
+		ExplicitVulns:     cmd.StringSlice("vulns"),
+		DevDeps:           !cmd.Bool("ignore-dev"),
+		MinSeverity:       cmd.Float64("min-severity"),
+		MaxDepth:          cmd.Int("max-depth"),
+		UpgradeConfig:     upgrade.NewConfigFromStrings(cmd.StringSlice("upgrade-config")),
 		Manifest:          cmd.String("manifest"),
 		Lockfile:          cmd.String("lockfile"),
 		Strategy:          strategy.Strategy(cmd.String("strategy")),

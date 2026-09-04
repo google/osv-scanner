@@ -121,9 +121,7 @@ func handleScan(_ context.Context, _ *mcp.CallToolRequest, input *scanVulnerable
 	action := osvscanner.ScannerActions{
 		DirectoryPaths:      input.Paths,
 		ScanLicensesSummary: false,
-		ExperimentalScannerActions: osvscanner.ExperimentalScannerActions{
-			StatsCollector: &statsCollector,
-		},
+		StatsCollector:      &statsCollector,
 		CallAnalysisStates: map[string]bool{
 			"go": true,
 		},
