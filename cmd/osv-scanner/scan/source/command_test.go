@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 	"runtime"
 	"strings"
+	"sync/atomic"
 	"testing"
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/testcmd"
@@ -1804,7 +1805,7 @@ func TestCommand_Transitive_IgnoredTransitiveBypass(t *testing.T) {
   <version>2.14.1</version>
 </project>`
 
-	transitiveCalled := false
+	var transitiveCalled atomic.Bool
 
 	mockClient := &http.Client{
 		Transport: &mockRoundTripper{
@@ -1818,7 +1819,7 @@ func TestCommand_Transitive_IgnoredTransitiveBypass(t *testing.T) {
 						Header:     make(http.Header),
 					}, nil
 				case "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-core/2.14.1/log4j-core-2.14.1.pom":
-					transitiveCalled = true
+					transitiveCalled.Store(true)
 					return &http.Response{
 						StatusCode: http.StatusOK,
 						Body:       io.NopCloser(strings.NewReader(mockPOMTransitive)),
@@ -1862,7 +1863,7 @@ func TestCommand_Transitive_IgnoredTransitiveBypass(t *testing.T) {
 	}
 
 	// 4. Assert that the mock client was NOT called for the transitive dependency!
-	if transitiveCalled {
+	if transitiveCalled.Load() {
 		t.Error("expected transitive dependency log4j-core POM to NOT be requested, but it was requested!")
 	}
 }

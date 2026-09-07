@@ -281,6 +281,8 @@ type ClientConn struct {
 	recorder   *Recorder
 }
 
+var _ grpc.ClientConnInterface = (*ClientConn)(nil)
+
 // NewClientConn creates a new ClientConn wrapping the underlying connection.
 func NewClientConn(underlying grpc.ClientConnInterface, recorder *Recorder) *ClientConn {
 	return &ClientConn{
