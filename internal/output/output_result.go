@@ -581,13 +581,17 @@ func getNextFixVersion(allAffected []*osvschema.Affected, installedVersion strin
 		}
 		for _, affectedRange := range affected.GetRanges() {
 			for _, affectedEvent := range affectedRange.GetEvents() {
+				fixedVersion, err := semantic.Parse(affectedEvent.GetFixed(), ecosystemPrefix)
+				if err != nil {
+					continue
+				}
 				order, _ := vp.CompareStr(affectedEvent.GetFixed())
 				// Skip if it's not a fix version event or the installed version is greater than the fix version.
 				if affectedEvent.GetFixed() == "" || order > 0 {
 					continue
 				}
 
-				order, _ = semantic.MustParse(affectedEvent.GetFixed(), ecosystemPrefix).CompareStr(minFixVersion)
+				order, _ = fixedVersion.CompareStr(minFixVersion)
 				// Find the minimum fix version
 				if minFixVersion == UnfixedDescription || order < 0 {
 					minFixVersion = affectedEvent.GetFixed()
