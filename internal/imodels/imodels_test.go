@@ -8,7 +8,22 @@ import (
 	rpmmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/rpm/metadata"
 	"github.com/google/osv-scalibr/purl"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
+
+func Test_Version_SBOMPURLWithoutVersionFallsBackToPackageVersion(t *testing.T) {
+	pkg := &extractor.Package{
+		Name:    "lodash",
+		Version: "4.17.16",
+		Plugins: []string{"sbom/cdx"},
+	}
+	cache.Store(pkg, &models.PackageInfo{})
+	t.Cleanup(func() { cache.Delete(pkg) })
+
+	if got := Version(pkg); got != "4.17.16" {
+		t.Errorf("Version() = %q, want %q", got, "4.17.16")
+	}
+}
 
 func Test_Name(t *testing.T) {
 	t.Parallel()
