@@ -39,8 +39,15 @@ import (
 )
 
 const (
-	gcsBucketHost         = "osv-vulnerabilities.storage.googleapis.com"
-	offlineDBRelativePath = "cmd/osv-scanner/internal/testcmd/testdata/offline-dbs"
+	gcsBucketHost              = "osv-vulnerabilities.storage.googleapis.com"
+	offlineDBRelativePath      = "cmd/osv-scanner/internal/testcmd/testdata/offline-dbs"
+	vulnSeveritiesRelativePath = "cmd/osv-scanner/internal/testcmd/testdata/vuln_severities.json"
+)
+
+var (
+	vulnSeveritiesMu   sync.RWMutex
+	vulnSeveritiesMap  map[string][]any
+	vulnSeveritiesOnce sync.Once
 )
 
 var globalPassthroughGRPCMethods = []string{
@@ -618,6 +625,8 @@ func (t *vcrResponseNormalizingTransport) RoundTrip(req *http.Request) (*http.Re
 		path := req.URL.Path
 		if path == "/v1/querybatch" {
 			resp, err = t.normalizeQueryBatchResponse(req, reqBodyBytes, resp)
+		} else if strings.HasPrefix(path, "/v1/vulns/") {
+			resp, err = t.normalizeVulnResponse(req, resp)
 		}
 	}
 
@@ -726,6 +735,132 @@ func (t *vcrResponseNormalizingTransport) normalizeQueryBatchResponse(req *http.
 	resp.Body = io.NopCloser(bytes.NewBuffer(finalRespBytes))
 	resp.ContentLength = int64(len(finalRespBytes))
 	resp.Header.Set("Content-Length", strconv.Itoa(len(finalRespBytes)))
+
+	return resp, nil
+}
+
+// loadVulnSeverities loads pinned vulnerability severities from disk.
+func loadVulnSeverities() {
+	vulnSeveritiesMu.Lock()
+	defer vulnSeveritiesMu.Unlock()
+
+	vulnSeveritiesMap = make(map[string][]any)
+
+	repoRoot := findRepoRoot()
+	if repoRoot == "" {
+		return
+	}
+	filePath := filepath.Join(repoRoot, vulnSeveritiesRelativePath)
+
+	data, err := os.ReadFile(filePath)
+	if err != nil {
+		return
+	}
+
+	_ = json.Unmarshal(data, &vulnSeveritiesMap)
+}
+
+// saveVulnSeverities persists the in-memory severity map to disk, merging with on-disk changes.
+func saveVulnSeverities() error {
+	repoRoot := findRepoRoot()
+	if repoRoot == "" {
+		return errors.New("cannot determine repo root to save vuln severities")
+	}
+	filePath := filepath.Join(repoRoot, vulnSeveritiesRelativePath)
+
+	if diskData, err := os.ReadFile(filePath); err == nil {
+		var diskMap map[string][]any
+		if err := json.Unmarshal(diskData, &diskMap); err == nil {
+			for k, v := range diskMap {
+				if _, exists := vulnSeveritiesMap[k]; !exists {
+					vulnSeveritiesMap[k] = v
+				}
+			}
+		}
+	}
+
+	if err := os.MkdirAll(filepath.Dir(filePath), 0750); err != nil {
+		return err
+	}
+
+	data, err := json.MarshalIndent(vulnSeveritiesMap, "", "  ")
+	if err != nil {
+		return err
+	}
+
+	data = append(data, '\n')
+
+	return os.WriteFile(filePath, data, 0600)
+}
+
+// normalizeVulnResponse normalizes the severity of /v1/vulns/ responses to match stored baselines.
+func (t *vcrResponseNormalizingTransport) normalizeVulnResponse(req *http.Request, resp *http.Response) (*http.Response, error) {
+	mode := determineRecorderMode()
+	if mode == recorder.ModePassthrough {
+		return resp, nil
+	}
+
+	vulnSeveritiesOnce.Do(loadVulnSeverities)
+
+	bodyBytes, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+	_ = resp.Body.Close()
+
+	// Extract the vulnerability ID from the response payload
+	vulnID := gjson.GetBytes(bodyBytes, "id").String()
+	if vulnID == "" {
+		return nil, fmt.Errorf("vulnerability response missing 'id' field from %s", req.URL.Path)
+	}
+
+	// Extract live severity from the response body (defaulting to empty array if omitted)
+	var liveSev []any
+	if sevVal := gjson.GetBytes(bodyBytes, "severity"); sevVal.Exists() {
+		if err := json.Unmarshal([]byte(sevVal.Raw), &liveSev); err != nil {
+			return nil, fmt.Errorf("failed to parse live severity for %s: %w", vulnID, err)
+		}
+	}
+	if liveSev == nil {
+		liveSev = []any{}
+	}
+
+	vulnSeveritiesMu.Lock()
+	defer vulnSeveritiesMu.Unlock()
+
+	baselineSev, exists := vulnSeveritiesMap[vulnID]
+
+	// Overwrite existing severities when re-recording, or record new severities in record-if-new modes
+	if mode == recorder.ModeRecordOnly || (!exists && (mode == recorder.ModeReplayWithNewEpisodes || mode == recorder.ModeRecordOnce)) {
+		vulnSeveritiesMap[vulnID] = liveSev
+		if err := saveVulnSeverities(); err != nil {
+			return nil, err
+		}
+
+		resp.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
+
+		return resp, nil
+	}
+
+	// In replay/CI mode, all vulnerabilities must be present in the baseline file
+	if !exists {
+		return nil, fmt.Errorf("vulnerability %s not found in %s; run in a recording mode to record", vulnID, vulnSeveritiesRelativePath)
+	}
+
+	// Replace the response's severity field with the recorded baseline
+	baselineBytes, err := json.Marshal(baselineSev)
+	if err != nil {
+		return nil, err
+	}
+
+	finalBytes, err := sjson.SetRawBytes(bodyBytes, "severity", baselineBytes)
+	if err != nil {
+		return nil, fmt.Errorf("failed to set normalized severity for %s: %w", vulnID, err)
+	}
+
+	resp.Body = io.NopCloser(bytes.NewBuffer(finalBytes))
+	resp.ContentLength = int64(len(finalBytes))
+	resp.Header.Set("Content-Length", strconv.Itoa(len(finalBytes)))
 
 	return resp, nil
 }
