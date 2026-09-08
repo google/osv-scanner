@@ -4684,9 +4684,9 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
           },
           "groups": 7,
           "vulnerabilities": [
+            "USN-7980-1",
             "USN-8678-1",
             "USN-8414-1",
-            "USN-7980-1",
             "USN-8155-1",
             "USN-7786-1",
             "USN-7278-1",
@@ -5974,9 +5974,9 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           },
           "groups": 7,
           "vulnerabilities": [
+            "USN-7980-1",
             "USN-8678-1",
             "USN-8414-1",
-            "USN-7980-1",
             "USN-8155-1",
             "USN-7786-1",
             "USN-7278-1",
