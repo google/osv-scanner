@@ -6,9 +6,7 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
-	"sync"
 
-	"github.com/google/osv-scalibr/converter"
 	"github.com/google/osv-scalibr/extractor"
 	archivemetadata "github.com/google/osv-scalibr/extractor/filesystem/language/java/archive/metadata"
 	apkmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/apk/metadata"
@@ -20,7 +18,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 	"github.com/google/osv-scanner/v2/internal/scalibrplugin"
-	"github.com/google/osv-scanner/v2/internal/utility/purl"
 	"github.com/google/osv-scanner/v2/internal/utility/semverlike"
 
 	scalibrosv "github.com/google/osv-scalibr/extractor/filesystem/osv"
@@ -30,36 +27,6 @@ import (
 
 var gitExtractors = map[string]struct{}{
 	gitrepo.Name: {},
-}
-
-// todo: SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-var cache = sync.Map{} // map[*extractor.Package]*models.PackageInfo
-
-func toCachedPackageInfo(pkg *extractor.Package) *models.PackageInfo {
-	if SourceType(pkg) != models.SourceTypeSBOM {
-		return nil
-	}
-
-	v, ok := cache.Load(pkg)
-
-	if !ok {
-		purlStruct := converter.ToPURL(pkg)
-
-		if purlStruct == nil {
-			return nil
-		}
-
-		purlCache, _ := purl.ToPackage(purlStruct.String())
-		cache.Store(pkg, &purlCache)
-
-		return &purlCache
-	}
-
-	if v == nil {
-		return nil
-	}
-
-	return v.(*models.PackageInfo)
 }
 
 // Name patches the SCALIBR package name to something used by OSV.
@@ -125,11 +92,6 @@ func Ecosystem(pkg *extractor.Package) osvecosystem.Parsed {
 }
 
 func Version(pkg *extractor.Package) string {
-	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-	if purlCache := toCachedPackageInfo(pkg); purlCache != nil {
-		return purlCache.Version
-	}
-
 	// Assume Go stdlib patch version as the latest version
 	//
 	// This is done because go1.20 and earlier do not support patch
