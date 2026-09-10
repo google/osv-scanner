@@ -53,6 +53,12 @@ func TestAnnotator_Annotate(t *testing.T) {
 		Version:  "1.2.3",
 		PURLType: purl.TypeNPM,
 	}
+	pkgSBOMVersionlessPURL := &extractor.Package{
+		Name:     "lodash",
+		Version:  "4.17.16",
+		PURLType: purl.TypeNPM,
+		Plugins:  []string{"sbom/cdx"},
+	}
 
 	tests := []struct {
 		name                 string
@@ -117,6 +123,13 @@ func TestAnnotator_Annotate(t *testing.T) {
 			},
 			inputPackages: []*extractor.Package{pkgScannable, pkgIgnored},
 			wantPackages:  []*extractor.Package{pkgScannable},
+		},
+		{
+			name:            "sbom_with_version_and_versionless_purl_is_scannable",
+			isContainerScan: false,
+			showAllPackages: false,
+			inputPackages:   []*extractor.Package{pkgSBOMVersionlessPURL},
+			wantPackages:    []*extractor.Package{pkgSBOMVersionlessPURL},
 		},
 	}
 
