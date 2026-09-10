@@ -338,38 +338,12 @@ SBOMLoop:
 		})
 
 		// --- Check status of the run ---
-		if sr.Status.Status == plugin.ScanStatusFailed {
+		if sr.Status != nil && sr.Status.Status == plugin.ScanStatusFailed {
 			return nil, nil, errors.New(sr.Status.FailureReason)
 		}
 
-		for _, status := range sr.PluginStatus {
-			if status.Status.Status != plugin.ScanStatusSucceeded {
-				builder := strings.Builder{}
-				criticalError := false
-				for _, fileError := range status.Status.FileErrors {
-					if len(status.Status.FileErrors) > 1 {
-						// If there is more than 1 file error, write them on new lines
-						builder.WriteString("\n\t")
-					}
-					fmt.Fprintf(&builder, "%s: %s", fileError.FilePath, fileError.ErrorMessage)
-
-					// Check if the erroring file was a path specifically passed in (not a result of a file walk)
-					if slices.Contains(specificPaths, filepath.Join(root, fileError.FilePath)) {
-						criticalError = true
-					}
-				}
-
-				msg := status.Status.FailureReason
-
-				if len(status.Status.FileErrors) > 0 {
-					msg = builder.String()
-				}
-
-				cmdlogger.Errorf("Error during extraction: (extracting as %s) %s", status.Name, msg)
-				if criticalError {
-					return nil, nil, errors.New("extraction failed on specified lockfile")
-				}
-			}
+		if err := logPluginStatus(sr.PluginStatus, specificPaths, root); err != nil {
+			return nil, nil, err
 		}
 
 		slices.SortFunc(sr.Inventory.Packages, inventorySort)
@@ -563,4 +537,40 @@ func dedupPackageVulns(vulns []*inventory.PackageVuln) []*inventory.PackageVuln 
 	})
 
 	return result
+}
+
+func logPluginStatus(statuses []*plugin.Status, specificPaths []string, root string) error {
+	var criticalError bool
+	for _, status := range statuses {
+		if status == nil || status.Status == nil || status.Status.Status == plugin.ScanStatusSucceeded {
+			continue
+		}
+
+		builder := strings.Builder{}
+		for _, fileError := range status.Status.FileErrors {
+			if len(status.Status.FileErrors) > 1 {
+				// If there is more than 1 file error, write them on new lines
+				builder.WriteString("\n\t")
+			}
+			fmt.Fprintf(&builder, "%s: %s", fileError.FilePath, fileError.ErrorMessage)
+
+			// Check if the erroring file was a path specifically passed in (not a result of a file walk)
+			if len(specificPaths) > 0 && slices.Contains(specificPaths, filepath.Join(root, fileError.FilePath)) {
+				criticalError = true
+			}
+		}
+
+		msg := status.Status.FailureReason
+
+		if len(status.Status.FileErrors) > 0 {
+			msg = builder.String()
+		}
+
+		cmdlogger.Errorf("Error during extraction: (extracting as %s) %s", status.Name, msg)
+		if criticalError {
+			return errors.New("extraction failed on specified lockfile")
+		}
+	}
+
+	return nil
 }

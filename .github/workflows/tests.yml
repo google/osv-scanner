@@ -17,21 +17,9 @@ name: Tests
 on:
   push:
     branches: ["main", "v1", "mcp"]
-    paths-ignore:
-      - "**/*.md"
-      - "docs/**"
-      - ".github/workflows/*"
-      - "!.github/workflows/tests.yml"
-
   pull_request:
     # The branches below must be a subset of the branches above
     branches: ["main", "v1", "mcp"]
-    paths-ignore:
-      - "**/*.md"
-      - "docs/**"
-      - ".github/workflows/*"
-      - "!.github/workflows/tests.yml"
-
   workflow_dispatch:
 
 concurrency:
@@ -44,9 +32,33 @@ concurrency:
 permissions: {}
 
 jobs:
+  changes:
+    permissions:
+      contents: read # to fetch code (actions/checkout)
+    runs-on: ubuntu-latest
+    outputs:
+      should_run: ${{ steps.filter.outputs.should_run }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Check for relevant file changes
+        uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4.0.3
+        id: filter
+        with:
+          predicate-quantifier: "every"
+          filters: |
+            should_run:
+              - '**'
+              - '!**/*.md'
+              - '!docs/**'
+              - '!.github/workflows/!(tests.yml)'
   prepare_test_image_testdata:
     permissions:
       contents: read # to fetch code (actions/checkout)
+    needs: changes
+    if: github.event_name == 'workflow_dispatch' || needs.changes.outputs.should_run == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
@@ -71,7 +83,9 @@ jobs:
     permissions:
       contents: read # to fetch code (actions/checkout)
     needs:
+      - changes
       - prepare_test_image_testdata
+    if: github.event_name == 'workflow_dispatch' || needs.changes.outputs.should_run == 'true'
     name: Run unit tests
     strategy:
       fail-fast: false
@@ -100,6 +114,8 @@ jobs:
   docker:
     permissions:
       contents: read # to fetch code (actions/checkout)
+    needs: changes
+    if: github.event_name == 'workflow_dispatch' || needs.changes.outputs.should_run == 'true'
     runs-on: ubuntu-latest
     env:
       # Required for buildx on docker 19.x
@@ -117,7 +133,7 @@ jobs:
           check-latest: true
           cache: false
       - uses: docker/setup-qemu-action@96fe6ef7f33517b61c61be40b68a1882f3264fb8 # v4.2.0
-      - uses: docker/setup-buildx-action@bb05f3f5519dd87d3ba754cc423b652a5edd6d2c # v4.2.0
+      - uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e # v4.3.0
       - name: Run GoReleaser
         id: run-goreleaser
         uses: goreleaser/goreleaser-action@f06c13b6b1a9625abc9e6e439d9c05a8f2190e94 # v7.2.3
@@ -145,3 +161,25 @@ jobs:
               exit $exit_code
             fi
           done
+  tests-pass:
+    name: All Tests Passed
+    permissions: {}
+    needs:
+      - changes
+      - prepare_test_image_testdata
+      - tests
+      - docker
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Status
+        env:
+          NEEDS_JSON: ${{ toJson(needs) }}
+        run: |
+          if jq --exit-status 'all(.result == "success" or .result == "skipped")' <<< "$NEEDS_JSON"; then
+            echo "All test jobs passed or were skipped."
+            exit 0
+          else
+            echo "One or more test jobs failed."
+            exit 1
+          fi

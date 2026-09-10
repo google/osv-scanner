@@ -55,8 +55,17 @@ func (n nodeLeaf) satisfiedBy(licenses []string) bool {
 
 var _ node = nodeLeaf{}
 
+// maxDepth bounds how deeply nested the parser will recurse into bracketed
+// sub-expressions. License expressions are supplied by scanned package
+// metadata, which is untrusted; without a limit a deeply nested expression
+// (e.g. many "(") recurses until the goroutine stack overflows, which is a
+// fatal error that recover cannot catch. Real SPDX expressions nest only a
+// handful of levels, so this ceiling is far above any legitimate input.
+const maxDepth = 1000
+
 type tokens struct {
 	tokens []string
+	depth  int
 }
 
 // peek returns the next token in the list of tokens, or otherwise an empty string
@@ -219,10 +228,16 @@ func parseExpression(tokens *tokens) (node, error) {
 	}
 
 	if next == "(" {
+		tokens.depth++
+		if tokens.depth > maxDepth {
+			return nil, fmt.Errorf("license expression nested too deeply (limit %d)", maxDepth)
+		}
+
 		expr, err := parseOr(tokens)
 		if err != nil {
 			return nil, err
 		}
+		tokens.depth--
 
 		if tokens.peek() != ")" {
 			return nil, errors.New("missing closing bracket")

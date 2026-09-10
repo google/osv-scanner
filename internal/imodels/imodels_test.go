@@ -6,6 +6,8 @@ import (
 	"github.com/google/osv-scalibr/extractor"
 	dpkgmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/dpkg/metadata"
 	rpmmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/rpm/metadata"
+	cdxmetadata "github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx/metadata"
+	spdxmetadata "github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx/metadata"
 	"github.com/google/osv-scalibr/purl"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
 )
@@ -111,6 +113,57 @@ func Test_Version(t *testing.T) {
 			name: "dpkg_version_unchanged",
 			pkg:  &extractor.Package{Version: "2:1.0-1", PURLType: purl.TypeDebian, Metadata: &dpkgmetadata.Metadata{OSID: "ubuntu", OSVersionID: "22.04"}},
 			want: "2:1.0-1",
+		},
+		{
+			name: "sbom_cyclonedx_versionless_purl",
+			pkg: &extractor.Package{
+				Name:     "lodash",
+				Version:  "4.17.16",
+				PURLType: purl.TypeNPM,
+				Plugins:  []string{"sbom/cdx"},
+				Metadata: &cdxmetadata.Metadata{
+					PURL: &purl.PackageURL{
+						Type: purl.TypeNPM,
+						Name: "lodash",
+					},
+				},
+			},
+			want: "4.17.16",
+		},
+		{
+			name: "sbom_spdx_versionless_purl",
+			pkg: &extractor.Package{
+				Name:     "lodash",
+				Version:  "4.17.16",
+				PURLType: purl.TypeNPM,
+				Plugins:  []string{"sbom/spdx"},
+				Metadata: &spdxmetadata.Metadata{
+					PURL: &purl.PackageURL{
+						Type: purl.TypeNPM,
+						Name: "lodash",
+					},
+				},
+			},
+			want: "4.17.16",
+		},
+		{
+			name: "sbom_without_version",
+			pkg: &extractor.Package{
+				Name:     "lodash",
+				Version:  "",
+				PURLType: purl.TypeNPM,
+				Plugins:  []string{"sbom/cdx"},
+			},
+			want: "",
+		},
+		{
+			name: "go_stdlib_patch_version",
+			pkg: &extractor.Package{
+				Name:     "go",
+				Version:  "1.20",
+				PURLType: purl.TypeGolang,
+			},
+			want: "1.20.99",
 		},
 	}
 
