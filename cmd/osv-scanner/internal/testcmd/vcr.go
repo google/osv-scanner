@@ -14,6 +14,7 @@ import (
 	"strings"
 	"testing"
 
+	gocmp "github.com/google/go-cmp/cmp"
 	"github.com/tidwall/pretty"
 	"go.yaml.in/yaml/v4"
 	"gopkg.in/dnaeon/go-vcr.v4/pkg/cassette"
@@ -52,7 +53,7 @@ func (wht withHeadersTripper) RoundTrip(request *http.Request) (*http.Response, 
 		request.Header.Set(key, value)
 	}
 
-	return wht.wrapper.Do(request) //nolint:gosec // Safe in tests
+	return wht.wrapper.Do(request)
 }
 
 var _ http.RoundTripper = withHeadersTripper{}
@@ -121,7 +122,14 @@ func InsertCassette(t *testing.T) *http.Client {
 			// exclude requests for info on a specific vuln since they can be quite large
 			// and their changes should be less impactful to our snapshots than the query
 			// endpoint, as those reqs are what results in specific vulns being looked up
-			return strings.HasPrefix(req.URL.Path, "/v1/vulns/")
+			if strings.HasPrefix(req.URL.Path, "/v1/vulns/") {
+				return true
+			}
+			// exclude requests for binary file downloads from cassettes (e.g. zip databases, jar files)
+			ext := strings.ToLower(filepath.Ext(req.URL.Path))
+			binaryExts := []string{".zip", ".gz", ".bin", ".db", ".tar", ".tgz", ".jar", ".aar", ".whl"}
+
+			return slices.Contains(binaryExts, ext)
 		}),
 		recorder.WithMatcher(matcher),
 		recorder.WithHook(func(i *cassette.Interaction) error {
@@ -136,6 +144,13 @@ func InsertCassette(t *testing.T) *http.Client {
 				"X-Cloud-Trace-Context",
 				"X-Envoy-Decorator-Operation",
 				"Date",
+				"Etag",
+				"X-Cache",
+				"X-Cache-Hits",
+				"X-Served-By",
+				"X-Timer",
+				"X-Pypi-Last-Serial",
+				"Age",
 			} {
 				delete(i.Response.Headers, header)
 			}
@@ -152,12 +167,16 @@ func InsertCassette(t *testing.T) *http.Client {
 			prettyOptions := *pretty.DefaultOptions
 			prettyOptions.SortKeys = true
 
-			i.Request.Body = string(pretty.PrettyOptions([]byte(i.Request.Body), &prettyOptions))
-			i.Request.ContentLength = int64(len(i.Request.Body))
+			if strings.Contains(strings.ToLower(i.Request.Headers.Get("Content-Type")), "json") {
+				i.Request.Body = string(pretty.PrettyOptions([]byte(i.Request.Body), &prettyOptions))
+				i.Request.ContentLength = int64(len(i.Request.Body))
+			}
 
 			// use a static duration since we don't care about replicating latency
 			i.Response.Duration = 0
-			i.Response.Body = string(pretty.PrettyOptions([]byte(i.Response.Body), &prettyOptions))
+			if strings.Contains(strings.ToLower(i.Response.Headers.Get("Content-Type")), "json") {
+				i.Response.Body = string(pretty.PrettyOptions([]byte(i.Response.Body), &prettyOptions))
+			}
 
 			return nil
 		}, recorder.AfterCaptureHook),
@@ -175,7 +194,11 @@ func InsertCassette(t *testing.T) *http.Client {
 	})
 
 	client := r.GetDefaultClient()
-	client.Transport = &vcrErrorWrappingTransport{wrapper: client.Transport}
+	client.Transport = &vcrErrorWrappingTransport{
+		t:            t,
+		wrapper:      client.Transport,
+		cassettePath: path,
+	}
 
 	return client
 }
@@ -194,7 +217,12 @@ func sortCassetteInteractions(t *testing.T, path string) {
 
 	// we don't need to worry about the interaction ids as they get updated as part of saving
 	slices.SortFunc(cass.Interactions, func(a, b *cassette.Interaction) int {
-		return cmp.Compare(a.Request.Headers.Get("X-Test-Name"), b.Request.Headers.Get("X-Test-Name"))
+		return cmp.Or(
+			cmp.Compare(a.Request.Headers.Get("X-Test-Name"), b.Request.Headers.Get("X-Test-Name")),
+			cmp.Compare(a.Request.Method, b.Request.Method),
+			cmp.Compare(a.Request.URL, b.Request.URL),
+			cmp.Compare(a.Request.Body, b.Request.Body),
+		)
 	})
 
 	if err = cass.Save(); err != nil {
@@ -261,12 +289,16 @@ func matchBody(r *http.Request, i cassette.Request) bool {
 }
 
 type vcrErrorWrappingTransport struct {
-	wrapper http.RoundTripper
+	t            *testing.T
+	wrapper      http.RoundTripper
+	cassettePath string
 }
 
 func (t *vcrErrorWrappingTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 	resp, err := t.wrapper.RoundTrip(req)
 	if err != nil && errors.Is(err, cassette.ErrInteractionNotFound) {
+		t.logRequestMismatch(req)
+
 		// Convert VCR error to a 404 response to avoid retries by the client
 		return &http.Response{
 			StatusCode: http.StatusNotFound,
@@ -278,4 +310,112 @@ func (t *vcrErrorWrappingTransport) RoundTrip(req *http.Request) (*http.Response
 	}
 
 	return resp, err
+}
+
+type comparableRequest struct {
+	Method  string      `yaml:"method"`
+	URL     string      `yaml:"url"`
+	Headers http.Header `yaml:"headers"`
+	Body    string      `yaml:"body"`
+}
+
+func toComparableRequest(r *http.Request) (comparableRequest, error) {
+	var body string
+	if r.Body != nil {
+		var buffer bytes.Buffer
+		if _, err := buffer.ReadFrom(r.Body); err != nil {
+			return comparableRequest{}, err
+		}
+		r.Body = io.NopCloser(bytes.NewBuffer(buffer.Bytes()))
+		prettyOptions := *pretty.DefaultOptions
+		prettyOptions.SortKeys = true
+		body = string(pretty.PrettyOptions(buffer.Bytes(), &prettyOptions))
+	}
+
+	headers := r.Header.Clone()
+	for _, header := range []string{"User-Agent", "Content-Length"} {
+		headers.Del(header)
+	}
+
+	return comparableRequest{
+		Method:  r.Method,
+		URL:     r.URL.String(),
+		Headers: headers,
+		Body:    body,
+	}, nil
+}
+
+func cassetteToComparableRequest(i cassette.Request) comparableRequest {
+	headers := i.Headers.Clone()
+	for _, header := range []string{"User-Agent", "Content-Length"} {
+		headers.Del(header)
+	}
+	prettyOptions := *pretty.DefaultOptions
+	prettyOptions.SortKeys = true
+	body := string(pretty.PrettyOptions([]byte(i.Body), &prettyOptions))
+
+	return comparableRequest{
+		Method:  i.Method,
+		URL:     i.URL,
+		Headers: headers,
+		Body:    body,
+	}
+}
+
+func (t *vcrErrorWrappingTransport) logRequestMismatch(req *http.Request) {
+	t.t.Helper()
+
+	cass, err := cassette.Load(strings.TrimSuffix(t.cassettePath, ".yaml"))
+	if err != nil {
+		t.t.Logf("VCR Miss: failed to load cassette %s: %v", t.cassettePath, err)
+		return
+	}
+
+	actual, err := toComparableRequest(req)
+	if err != nil {
+		t.t.Logf("VCR Miss: failed to parse incoming request: %v", err)
+		return
+	}
+
+	testName := req.Header.Get("X-Test-Name")
+	var candidates []*cassette.Interaction
+	for _, inter := range cass.Interactions {
+		if inter.Request.Headers.Get("X-Test-Name") == testName {
+			candidates = append(candidates, inter)
+		}
+	}
+
+	var sb strings.Builder
+	sb.WriteString("\n=================== VCR CASSETTE REQUEST MISMATCH ===================\n")
+	fmt.Fprintf(&sb, "Incoming request did not match any stored cassette interaction in %s.yaml\n", t.cassettePath)
+	fmt.Fprintf(&sb, "Incoming Request URL:    %s %s\n", actual.Method, actual.URL)
+	fmt.Fprintf(&sb, "Incoming Test Name:      %s\n", testName)
+
+	if len(candidates) > 0 {
+		fmt.Fprintf(&sb, "\nFound %d candidate(s) in the cassette matching this test name:\n", len(candidates))
+		for i, cand := range candidates {
+			fmt.Fprintf(&sb, "\n--- Candidate %d ---\n", i+1)
+			fmt.Fprintf(&sb, "Recorded URL:       %s %s\n", cand.Request.Method, cand.Request.URL)
+
+			candComparable := cassetteToComparableRequest(cand.Request)
+			diff := gocmp.Diff(candComparable, actual)
+			sb.WriteString("Diff (-recorded +actual):\n")
+			sb.WriteString(diff)
+		}
+	} else {
+		fmt.Fprintf(&sb, "\nNo candidate requests found matching the test name: %s\n", testName)
+		sb.WriteString("Recorded interactions in this cassette:\n")
+		seen := make(map[string]bool)
+		for _, inter := range cass.Interactions {
+			name := inter.Request.Headers.Get("X-Test-Name")
+			key := fmt.Sprintf("%s %s (Test: %s)", inter.Request.Method, inter.Request.URL, name)
+			if !seen[key] {
+				seen[key] = true
+				fmt.Fprintf(&sb, "  - %s\n", key)
+			}
+		}
+	}
+	sb.WriteString("=====================================================================\n")
+
+	t.t.Errorf("%s", sb.String())
 }

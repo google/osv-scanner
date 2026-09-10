@@ -1,5 +1,7 @@
 const selectedTypeFilterValue = new Set(["all"]);
 let selectedLayer = "all";
+let showLicenseViolations = false;
+const tabScrollPositions = {};
 
 function toggleDetails(summaryID) {
   const detailsElementID = `${summaryID}-details`;
@@ -38,6 +40,19 @@ function showPackageDetails(detailsId) {
 
   const hidBlock = detailsElement.classList.toggle("hide-block");
   icon.classList.toggle("expanded", !hidBlock);
+}
+
+function handleVulnClick(event, vulnId) {
+  if (
+    event.button === 0 &&
+    !event.ctrlKey &&
+    !event.metaKey &&
+    !event.shiftKey &&
+    !event.altKey
+  ) {
+    event.preventDefault();
+    openVulnInNewTab(vulnId);
+  }
 }
 
 function openVulnInNewTab(inputString) {
@@ -122,6 +137,7 @@ function closeVulnTab(inputString) {
 
     tabs.removeChild(tabToRemove);
     tabSwitches.removeChild(buttonToRemove);
+    delete tabScrollPositions[inputString];
 
     if (nextTabButton) {
       const nextTabId = nextTabButton.id.replace("-button", "");
@@ -133,12 +149,30 @@ function closeVulnTab(inputString) {
 function openTab(activeTabId) {
   const tabs = document.getElementsByClassName("tab");
   const tabButtons = document.getElementsByClassName("tab-switch-button");
+
+  let currentActiveTabId = null;
+  for (let i = 0; i < tabs.length; i += 1) {
+    if (!tabs[i].classList.contains("hide-block")) {
+      currentActiveTabId = tabs[i].id;
+      break;
+    }
+  }
+  if (currentActiveTabId) {
+    tabScrollPositions[currentActiveTabId] = window.scrollY;
+  }
+
   for (let i = 0; i < tabs.length; i += 1) {
     tabs[i].classList.toggle("hide-block", tabs[i].id !== activeTabId);
     tabButtons[i].classList.toggle(
       "tab-switch-button-selected",
       tabs[i].id === activeTabId
     );
+  }
+
+  if (tabScrollPositions[activeTabId] !== undefined) {
+    window.scrollTo(0, tabScrollPositions[activeTabId]);
+  } else {
+    window.scrollTo(0, 0);
   }
 }
 
@@ -180,11 +214,13 @@ function showAndHideParentSections() {
           `${packageRow.id}-details`
         );
         const vulnRows = packageDetails.querySelectorAll(".vuln-tr");
-        if (
-          Array.from(vulnRows).some(
-            row => !row.classList.contains("hide-block")
-          )
-        ) {
+        const hasVisibleVuln = Array.from(vulnRows).some(
+          row => !row.classList.contains("hide-block")
+        );
+        const hasLicenseViolation =
+          packageRow.getAttribute("data-has-license-violation") === "true";
+
+        if (hasVisibleVuln || (showLicenseViolations && hasLicenseViolation)) {
           sourceHasVisibleRows = true;
           packageRow.classList.remove("hide-block");
           return;
@@ -376,6 +412,13 @@ function resetTypeCheckbox() {
     }
     uncalledTypeCheckbox.checked = false;
   }
+  const licenseViolationCheckbox = document.getElementById(
+    "license-violation-type-checkbox"
+  );
+  if (licenseViolationCheckbox) {
+    licenseViolationCheckbox.checked = false;
+  }
+  showLicenseViolations = false;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -394,6 +437,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const projectCheckbox = document.getElementById("project-type-checkbox"); // Project vulnerabilities
     const osCheckbox = document.getElementById("os-type-checkbox"); // OS vulnerabilities
     const uncalledCheckbox = document.getElementById("uncalled-type-checkbox"); // OS vulnerabilities
+    const licenseViolationCheckbox = document.getElementById(
+      "license-violation-type-checkbox"
+    );
+
     selectedTypeFilterValue.clear();
 
     if (allTypesCheckbox !== null) {
@@ -419,6 +466,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (uncalledCheckbox.checked) {
       selectedTypeFilterValue.add("uncalled");
+    }
+
+    if (licenseViolationCheckbox) {
+      showLicenseViolations = licenseViolationCheckbox.checked;
     }
 
     applyFilters(selectedTypeFilterValue, selectedLayer);

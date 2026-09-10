@@ -1,3 +1,61 @@
+# v2.5.1
+
+### Fixes:
+
+- Preserve package namespaces when querying osv.dev API (fixes [#2978](https://github.com/google/osv-scanner/issues/2978)).
+- Re-add support for the `OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY` environment variable (fixes [#2983](https://github.com/google/osv-scanner/issues/2983)).
+- Fix local vulnerability matching (`--offline-vulnerabilities`) not working when network capability is `NetworkOnline`.
+
+# v2.5.0
+
+### Features & Refactors:
+
+- **Full OSV-Scalibr pipeline**: Migrated scanning, filtering, and matching in `osv-scanner` to use `osv-scalibr` end-to-end, so most plugins that's supported in osv-scalibr should be supported via the `--experimental-plugins` flag ([#2935](https://github.com/google/osv-scanner/pull/2935)).
+- **New extractors and ecosystem support via `osv-scalibr`**:
+  - Add `javascript/vsix` extractor to support scanning VS Code extension (`.vsix`) packages.
+  - Extend ecosystem mapping for:
+    - SUSE
+    - Azure Linux / Mariner
+    - Alpaquita
+    - Mageia
+    - openSUSE Leap
+    - Debian and Ubuntu PURL
+
+- **PURL Type Resolution**: Updated `osvscannerjson` extractor to map ecosystem names to valid PURL types (golang, gem, cargo, npm, etc.).
+
+### Fixes:
+
+- [Bug #2915](https://github.com/google/osv-scanner/pull/2915) Fix issue where osv-scanner reported already-fixed advisories as unfixed for RHEL-family RPM packages (Red Hat, AlmaLinux, Rocky Linux) with epochs by sending epoch-qualified versions.
+- Fix Python requirements.txt extractor in `osv-scalibr`, specifically regular expressions used to extract package names and per-requirement options (Fixes #2940, #2931)
+- Fix NPM and Composer PURL generation in `osv-scalibr`, separating package namespace (scope) from package name
+
+# v2.4.0
+
+### Features:
+
+- [Feature #2815](https://github.com/google/osv-scanner/pull/2815) Add support for the CycloneDX 1.7 specification (bumps `cyclonedx-go` to v0.11.0).
+- [Feature #2799](https://github.com/google/osv-scanner/pull/2799) Enable `.csproj` and Central Package Management (`nugetcpm`) source scanning plugins by default.
+- [Feature #2871](https://github.com/google/osv-scanner/pull/2871) Extract and parse Alpine OS distro version (e.g. `Alpine:v3.17`, `Alpine:edge`) from PURL `distro` qualifiers to scan packages under their respective Alpine ecosystems.
+- [Feature #2801](https://github.com/google/osv-scanner/pull/2801) Enable the `swift/packageresolved` plugin by default to support SwiftURL vulnerability scans.
+- [Feature #2666](https://github.com/google/osv-scanner/pull/2666) Add a Docker-based variant of the pre-commit hook in `.pre-commit-hooks.yaml` to avoid local compilation.
+- [Feature #2637](https://github.com/google/osv-scanner/pull/2637) Add a new configuration setting `ScanGoModVersion` (disabled by default) to avoid parsing toolchain version directives directly from `go.mod`, preventing misleading warnings.
+- [Feature #2772](https://github.com/google/osv-scanner/pull/2772) Scan container images built with Canonical Chisel by enabling the `os/chisel` extractor plugin.
+
+### Fixes:
+
+- [Bug #2807](https://github.com/google/osv-scanner/pull/2807) Sanitize package name, source, and version fields in the vertical output format to prevent GitHub Actions workflow command injection vulnerabilities from crafted lock files.
+- [Bug #2876](https://github.com/google/osv-scanner/pull/2876) Improve HTML scan report usability by supporting standard click modifiers (Ctrl/Cmd/middle click) to open vulnerabilities in new tabs, and preserving scroll position when switching tabs.
+- [Bug #2783](https://github.com/google/osv-scanner/pull/2783) Keep transitive dependency scanning enabled when specifying the `--offline-vulnerabilities` flag.
+- [Bug #2808](https://github.com/google/osv-scanner/pull/2808) Deduplicate equivalent OSV matcher requests before executing bulk queries to reduce API overhead.
+- [Bug #2837](https://github.com/google/osv-scanner/pull/2837) Prevent panics during offline matcher scans (e.g. on unsupported `GitHub Actions` ecosystem) by avoiding parsing errors when checking version ranges.
+- [Bug #2836](https://github.com/google/osv-scanner/pull/2836) Ensure the scanner returns an exit code of `0` when `--help` or `-h` is explicitly requested.
+
+### Misc:
+
+- Update Go version to 1.26.4.
+- Update `osv-scalibr` to `v0.4.6-0.20260612031204-164402d9140e`.
+- Tag built Docker and GitHub Action images with the major version (e.g. `:v2`) to allow users to pin to a major version (#2857).
+
 # v2.3.7/v2.3.8
 
 ### Fixes:
@@ -422,12 +480,13 @@ A significant new feature is a rewritten, layer-aware container scanning support
 - OS/Distro the container is running on
 
 This layer analysis leverages [OSV-Scalibr](https://github.com/google/osv-scalibr), and supports the following OSes and languages:
+
 | Distro Support | Language Artifacts Support |
 | -------------- | -------------------------- |
-| Alpine OS | Go |
-| Debian | Java |
-| Ubuntu | Node |
-| | Python |
+| Alpine OS      | Go                         |
+| Debian         | Java                       |
+| Ubuntu         | Node                       |
+|                | Python                     |
 
 Base image identification also leverages a new experimental API provided by https://deps.dev.
 

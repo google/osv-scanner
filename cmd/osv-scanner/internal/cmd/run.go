@@ -5,9 +5,10 @@ import (
 	"errors"
 	"io"
 	"log/slog"
-	"net/http"
+	"sync"
 	"testing"
 
+	scalibrconfig "github.com/google/osv-scalibr/plugin/config"
 	scalibr "github.com/google/osv-scalibr/version"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/testlogger"
@@ -19,11 +20,40 @@ import (
 var (
 	commit = "n/a"
 	date   = "n/a"
+
+	initCliPrintersOnce sync.Once
 )
 
-type CommandBuilder = func(stdout, stderr io.Writer, client *http.Client) *cli.Command
+func initCliPrinters() {
+	cli.HelpPrinter = func(w io.Writer, templ string, data any) {
+		if cmd, ok := data.(*cli.Command); ok && cmd != nil {
+			root := cmd.Root()
+			if root != nil && root.Metadata != nil {
+				if explicit, _ := root.Metadata["isExplicitHelp"].(bool); !explicit {
+					cmdlogger.SetHasErrored()
+				}
+			} else {
+				cmdlogger.SetHasErrored()
+			}
+		} else {
+			cmdlogger.SetHasErrored()
+		}
+		cli.HelpPrinterCustom(w, templ, data, nil)
+	}
 
-func Run(args []string, stdout, stderr io.Writer, client *http.Client, commands []CommandBuilder) int {
+	cli.VersionPrinter = func(cmd *cli.Command) {
+		cmdlogger.Infof("osv-scanner version: %s", cmd.Version)
+		cmdlogger.Infof("osv-scalibr version: %s", scalibr.ScannerVersion)
+		cmdlogger.Infof("commit: %s", commit)
+		cmdlogger.Infof("built at: %s", date)
+	}
+}
+
+type CommandBuilder = func(stdout, stderr io.Writer, clientFactories scalibrconfig.ClientFactories) *cli.Command
+
+func Run(args []string, stdout, stderr io.Writer, clientFactories scalibrconfig.ClientFactories, commands []CommandBuilder) int {
+	initCliPrintersOnce.Do(initCliPrinters)
+
 	// --- Setup Logger ---
 	logHandler := cmdlogger.New(stdout, stderr)
 
@@ -42,23 +72,9 @@ func Run(args []string, stdout, stderr io.Writer, client *http.Client, commands 
 	}
 	// ---
 
-	cli.HelpPrinter = func(w io.Writer, templ string, data any) {
-		if !isExplicitHelp(args) {
-			cmdlogger.SetHasErrored()
-		}
-		cli.HelpPrinterCustom(w, templ, data, nil)
-	}
-
-	cli.VersionPrinter = func(cmd *cli.Command) {
-		cmdlogger.Infof("osv-scanner version: %s", cmd.Version)
-		cmdlogger.Infof("osv-scalibr version: %s", scalibr.ScannerVersion)
-		cmdlogger.Infof("commit: %s", commit)
-		cmdlogger.Infof("built at: %s", date)
-	}
-
 	cmds := make([]*cli.Command, 0, len(commands))
 	for _, cmd := range commands {
-		cmds = append(cmds, cmd(stdout, stderr, client))
+		cmds = append(cmds, cmd(stdout, stderr, clientFactories))
 	}
 
 	app := &cli.Command{
@@ -70,6 +86,9 @@ func Run(args []string, stdout, stderr io.Writer, client *http.Client, commands 
 		ErrWriter:      stderr,
 		DefaultCommand: "scan",
 		Commands:       cmds,
+		Metadata: map[string]any{
+			"isExplicitHelp": isExplicitHelp(args),
+		},
 
 		CustomRootCommandHelpTemplate: getCustomHelpTemplate(),
 	}

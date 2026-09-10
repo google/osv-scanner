@@ -3,10 +3,10 @@ package imodels
 
 import (
 	"fmt"
+	"path/filepath"
+	"strconv"
 	"strings"
-	"sync"
 
-	"github.com/google/osv-scalibr/converter"
 	"github.com/google/osv-scalibr/extractor"
 	archivemetadata "github.com/google/osv-scalibr/extractor/filesystem/language/java/archive/metadata"
 	apkmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/apk/metadata"
@@ -18,7 +18,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 	"github.com/google/osv-scanner/v2/internal/scalibrplugin"
-	"github.com/google/osv-scanner/v2/internal/utility/purl"
 	"github.com/google/osv-scanner/v2/internal/utility/semverlike"
 
 	scalibrosv "github.com/google/osv-scalibr/extractor/filesystem/osv"
@@ -30,49 +29,15 @@ var gitExtractors = map[string]struct{}{
 	gitrepo.Name: {},
 }
 
-// todo: SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-var cache = sync.Map{} // map[*extractor.Package]*models.PackageInfo
-
-func toCachedPackageInfo(pkg *extractor.Package) *models.PackageInfo {
-	if SourceType(pkg) != models.SourceTypeSBOM {
-		return nil
-	}
-
-	v, ok := cache.Load(pkg)
-
-	if !ok {
-		purlStruct := converter.ToPURL(pkg)
-
-		if purlStruct == nil {
-			return nil
-		}
-
-		purlCache, _ := purl.ToPackage(purlStruct.String())
-		cache.Store(pkg, &purlCache)
-
-		return &purlCache
-	}
-
-	if v == nil {
-		return nil
-	}
-
-	return v.(*models.PackageInfo)
-}
-
+// Name patches the SCALIBR package name to something used by OSV.
+// This does not affect matching. It is only used for reporting and filtering.
 func Name(pkg *extractor.Package) string {
-	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-	if purlCache := toCachedPackageInfo(pkg); purlCache != nil {
-		return purlCache.Name
-	}
-
 	// --- Make specific patches to names as necessary ---
 	// Patch Go package to stdlib
 	if Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo && pkg.Name == "go" {
 		return "stdlib"
 	}
 
-	// TODO: Move the normalization to another place where matching logic happens.
 	// Patch python package names to be normalized
 	if Ecosystem(pkg).Ecosystem == osvconstants.EcosystemPyPI {
 		// per https://peps.python.org/pep-0503/#normalized-names
@@ -118,35 +83,15 @@ func Ecosystem(pkg *extractor.Package) osvecosystem.Parsed {
 			return eco
 		}
 
-		eco = newEco
-	}
-
-	// If ecosystem is empty and the source code repo is set we set the ecosystem to GIT
-	// since it's likely that the vulnerabilities will be associated with the source code repo
-	if eco.Ecosystem == "" && pkg.SourceCode != nil {
-		eco = osvecosystem.MustParse("GIT")
-	}
-
-	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-	if purlCache := toCachedPackageInfo(pkg); purlCache != nil {
-		newEco, err := osvecosystem.Parse(purlCache.Ecosystem)
-		if err != nil {
-			cmdlogger.Warnf("Warning: error parsing osvscanner.json ecosystem: %s", err.Error())
-			return eco
+		if !newEco.IsEmpty() {
+			eco = newEco
 		}
-
-		eco = newEco
 	}
 
 	return eco
 }
 
 func Version(pkg *extractor.Package) string {
-	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-	if purlCache := toCachedPackageInfo(pkg); purlCache != nil {
-		return purlCache.Version
-	}
-
 	// Assume Go stdlib patch version as the latest version
 	//
 	// This is done because go1.20 and earlier do not support patch
@@ -167,11 +112,42 @@ func Version(pkg *extractor.Package) string {
 		}
 	}
 
+	// scalibr stores the RPM epoch separately from the version string. For
+	// ecosystems whose OSV records encode it, prepend the epoch when non-zero
+	// (e.g. "3.2.2-7.el9_6" -> "1:3.2.2-7.el9_6"); otherwise a missing epoch is
+	// read as 0 and already-fixed advisories are reported as unfixed.
+	if m, ok := pkg.Metadata.(*rpmmetadata.Metadata); ok && m.Epoch > 0 && ecosystemEncodesEpoch(Ecosystem(pkg).String()) {
+		return strconv.Itoa(m.Epoch) + ":" + pkg.Version
+	}
+
 	return pkg.Version
 }
 
+// rhelFamilyEpochEcosystems lists the RPM ecosystems whose OSV records encode
+// the package epoch (verified against api.osv.dev). Others (e.g. openEuler)
+// store epoch-less records, so prepending an epoch there would hide real
+// vulnerabilities; add entries only once epoch-encoding is confirmed.
+var rhelFamilyEpochEcosystems = map[string]bool{
+	"Red Hat":     true,
+	"AlmaLinux":   true,
+	"Rocky Linux": true,
+}
+
+// ecosystemEncodesEpoch reports whether the ecosystem's OSV records carry the
+// RPM epoch, so its version must be epoch-qualified to compare correctly.
+func ecosystemEncodesEpoch(ecosystem string) bool {
+	distro, _, _ := strings.Cut(ecosystem, ":")
+	return rhelFamilyEpochEcosystems[distro]
+}
+
 func Location(pkg *extractor.Package) string {
-	return pkg.Location.PathOrEmpty()
+	// Use the scan root, defaulting to / for virtual filesystems (e.g. container images)
+	scanRoot := pkg.ScanRoot
+	if scanRoot == "" {
+		scanRoot = "/"
+	}
+
+	return filepath.Join(scanRoot, pkg.Location.PathOrEmpty())
 }
 
 func Commit(pkg *extractor.Package) string {

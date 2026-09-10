@@ -178,6 +178,7 @@ header {
   padding: 5px;
   border-radius: 4px;
   width: fit-content;
+  text-decoration: none;
 }
 
 .open-in-tab-cell {
@@ -647,6 +648,7 @@ div.title {
 
 .clickable {
   cursor: pointer;
+  text-decoration: none;
 }
 
 .clickable-layer:hover {

@@ -3,10 +3,10 @@
 <tr class="table-tr vuln-tr {{ if .IsHidden }}uncalled-tr{{ end }}" id="table-tr-{{ $index }}" data-vuln-id="{{ $element.ID }}">
   <td {{ if .IsHidden }}class="uncalled-text"{{ end }}>
     {{ if eq (len $element.GroupIDs) 1 }}
-    <div class="clickable" onclick="openVulnInNewTab('{{ $element.ID }}')">{{ $element.ID }}</div>
+    <a class="clickable" href="https://osv.dev/{{ $element.ID }}" target="_blank" onclick="handleVulnClick(event, '{{ $element.ID }}')">{{ $element.ID }}</a>
     {{ else }}
     <div class="tooltip">
-      <div class="clickable" onclick="openVulnInNewTab('{{ $element.ID }}')">{{ $element.ID }}</div>
+      <a class="clickable" href="https://osv.dev/{{ $element.ID }}" target="_blank" onclick="handleVulnClick(event, '{{ $element.ID }}')">{{ $element.ID }}</a>
       <span class="tooltiptext">Group IDs: <br>
       {{ range $rowIndex, $alias := $element.GroupIDs }}
           {{ $alias }}<br>
@@ -42,6 +42,6 @@
     </div>
   </td>
   <td class="open-in-tab-cell">
-    <p class="open-in-tab-tag" onclick="openVulnInNewTab('{{ $element.ID }}')">Open in tab</p>
+    <a class="open-in-tab-tag" href="https://osv.dev/{{ $element.ID }}" target="_blank" onclick="handleVulnClick(event, '{{ $element.ID }}')">Open in tab</a>
   </td>
 </tr>
