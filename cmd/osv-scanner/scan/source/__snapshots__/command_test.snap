@@ -1394,6 +1394,25 @@ failed to resolve path: stat <rootdir>/testdata/locks-none-does-not-exist: no su
 
 ---
 
+[TestCommand/no_lockfiles_with_json_and_allow_flag_still_have_results_property - 1]
+{
+  "results": [],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
+[TestCommand/no_lockfiles_with_json_and_allow_flag_still_have_results_property - 2]
+Scanning dir ./testdata/locks-none
+No package sources found
+
+---
+
 [TestCommand/no_lockfiles_with_recursion_and_with_allow_flag_are_fine - 1]
 Scanning dir ./testdata/locks-none
 Scanned <rootdir>/testdata/locks-none/nested/composer.lock file and found 1 package
