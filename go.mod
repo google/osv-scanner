@@ -5,8 +5,6 @@ go 1.27.0
 require (
 	charm.land/glamour/v2 v2.0.1
 	charm.land/lipgloss/v2 v2.0.6
-	deps.dev/api/v3 v3.0.0-20260827000537-dc936a45c657
-	deps.dev/api/v3alpha v0.0.0-20260827000537-dc936a45c657
 	github.com/BurntSushi/toml v1.6.0
 	github.com/CycloneDX/cyclonedx-go v0.12.0
 	github.com/gkampitakis/go-snaps v0.5.23
@@ -39,6 +37,8 @@ require (
 	bitbucket.org/creachadair/stringset v0.0.14 // indirect
 	cloud.google.com/go/compute/metadata v0.9.0 // indirect
 	dario.cat/mergo v1.0.2 // indirect
+	deps.dev/api/v3 v3.0.0-20260811035547-133c155ce203 // indirect
+	deps.dev/api/v3alpha v0.0.0-20260811035547-133c155ce203 // indirect
 	deps.dev/util/maven v0.0.0-20260727054525-2946ae4a6141 // indirect
 	deps.dev/util/pypi v0.0.0-20260727054525-2946ae4a6141 // indirect
 	deps.dev/util/resolve v0.0.0-20260727054525-2946ae4a6141 // indirect

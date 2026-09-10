@@ -27,7 +27,6 @@ import (
 	"github.com/google/osv-scalibr/guidedremediation/upgrade"
 	"github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
-	"github.com/google/osv-scanner/v2/internal/depsdev"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
 	"github.com/urfave/cli/v3"
@@ -40,6 +39,7 @@ const (
 	vulnCategory     = "Vulnerability Selection Options:"
 	upgradeCategory  = "Dependency Upgrade Options:"
 	autoModeCategory = "non-interactive options:" // intentionally lowercase to force it to sort after the other categories
+	depsdevAPI       = "api.deps.dev:443"
 )
 
 func Command(stdout, _ io.Writer, clientFactories config.ClientFactories) *cli.Command {
@@ -253,7 +253,7 @@ func action(ctx context.Context, cmd *cli.Command, stdout io.Writer, clientFacto
 
 	switch cmd.String("data-source") {
 	case "deps.dev":
-		conn, err := cf.GRPCClientConn(depsdev.DepsdevAPI)
+		conn, err := cf.GRPCClientConn(depsdevAPI)
 		if err != nil {
 			return err
 		}
