@@ -1,37 +1,40 @@
-// Package testcmd provides utilities for testing osv-scanner CLI commands.
+// Package testcmd provides test utilities for osv-scanner commands.
 package testcmd
 
 import (
 	"net/http"
 	"strings"
 
+	scalibrconfig "github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
 type Case struct {
 	Name string
 	Args []string
-	Exit int
-
-	// If Skip is not empty, the test will be skipped with the following reason.
 	Skip string
+	Exit int
 
 	// ReplaceRules are only used for JSON output
 	ReplaceRules []testutility.JSONReplaceRule
 
-	HTTPClient *http.Client
+	HTTPClient      *http.Client
+	ClientFactories scalibrconfig.ClientFactories
+}
+
+func (tc Case) findFirstValueOfFlag(flag string) string {
+	return findFirstValueOfFlag(tc.Args, flag)
 }
 
 // findFirstValueOfFlag returns the value of the first instance of the given flag
-// in the test case arguments, if it is present at all
-func (c Case) findFirstValueOfFlag(f string) string {
-	for i, arg := range c.Args {
-		if after, ok := strings.CutPrefix(arg, f+"="); ok {
-			return after
+func findFirstValueOfFlag(args []string, flag string) string {
+	for i, arg := range args {
+		if value, ok := strings.CutPrefix(arg, flag+"="); ok {
+			return value
 		}
 
-		if arg == f && i < len(c.Args) {
-			return c.Args[i+1]
+		if arg == flag && i+1 < len(args) {
+			return args[i+1]
 		}
 	}
 

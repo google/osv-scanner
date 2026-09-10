@@ -2,6 +2,7 @@ package fix_test
 
 import (
 	"os"
+	"runtime"
 	"testing"
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/testcmd"
@@ -130,6 +131,10 @@ func TestCommand(t *testing.T) {
 func TestCommand_OfflineDatabase(t *testing.T) {
 	t.Parallel()
 
+	if runtime.GOOS == "darwin" && os.Getenv("CI") != "" {
+		testutility.Skip(t, "Skipping this test on CI because of APFS issues causing the test to time out.")
+	}
+
 	testutility.SkipIfShort(t)
 
 	tests := []testcmd.Case{
@@ -154,6 +159,8 @@ func TestCommand_OfflineDatabase(t *testing.T) {
 			lockfile := testcmd.CopyFileFlagTo(t, tt, "-L", testDir)
 			manifest := testcmd.CopyFileFlagTo(t, tt, "-M", testDir)
 
+			// Set different dir for local db to avoid race conditions and deadlocking.
+			tt.Args = append(tt.Args, "--local-db-path", testDir)
 			testcmd.RunAndMatchSnapshots(t, tt)
 
 			if lockfile != "" {

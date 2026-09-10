@@ -112,6 +112,41 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/path/to/my/second/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/path/to/my/third/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -129,6 +164,11 @@
       "relationshipType": "CONTAINS"
     },
     {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
       "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
       "relationshipType": "CONTAINS"
@@ -137,6 +177,11 @@
       "spdxElementId": "SPDXRef-Package-mine2-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
@@ -149,14 +194,9 @@
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
-      "relationshipType": "CONTAINS"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
-      "relatedSpdxElement": "NOASSERTION",
-      "relationshipType": "CONTAINS"
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
@@ -167,6 +207,26 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -286,6 +346,41 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/path/to/my/second/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/path/to/my/third/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -303,6 +398,11 @@
       "relationshipType": "CONTAINS"
     },
     {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
       "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
       "relationshipType": "CONTAINS"
@@ -311,6 +411,11 @@
       "spdxElementId": "SPDXRef-Package-mine2-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
@@ -323,14 +428,9 @@
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
-      "relationshipType": "CONTAINS"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
-      "relatedSpdxElement": "NOASSERTION",
-      "relationshipType": "CONTAINS"
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
@@ -341,6 +441,26 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -460,6 +580,41 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/path/to/my/second/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/path/to/my/third/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -477,6 +632,11 @@
       "relationshipType": "CONTAINS"
     },
     {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
       "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
       "relationshipType": "CONTAINS"
@@ -485,6 +645,11 @@
       "spdxElementId": "SPDXRef-Package-mine2-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
@@ -497,14 +662,9 @@
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
-      "relationshipType": "CONTAINS"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
-      "relatedSpdxElement": "NOASSERTION",
-      "relationshipType": "CONTAINS"
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
@@ -515,6 +675,26 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -544,8 +724,8 @@
       "filesAnalyzed": false
     },
     {
-      "name": "author1/mine1",
-      "SPDXID": "SPDXRef-Package-author1-mine1-<uuid>",
+      "name": "mine1",
+      "SPDXID": "SPDXRef-Package-mine1-<uuid>",
       "versionInfo": "1.2.3",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -557,7 +737,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:composer/author1%2Fmine1@1.2.3"
+          "referenceLocator": "pkg:composer/author1/mine1@1.2.3"
         }
       ]
     },
@@ -616,8 +796,8 @@
       ]
     },
     {
-      "name": "author1/mine1",
-      "SPDXID": "SPDXRef-Package-author1-mine1-<uuid>",
+      "name": "mine1",
+      "SPDXID": "SPDXRef-Package-mine1-<uuid>",
       "versionInfo": "1.2.3",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -629,9 +809,44 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:composer/author1%2Fmine1@1.2.3"
+          "referenceLocator": "pkg:composer/author1/mine1@1.2.3"
         }
       ]
+    }
+  ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/path/to/my/second/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/path/to/my/third/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
     }
   ],
   "relationships": [
@@ -639,36 +854,6 @@
       "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-author1-mine1-<uuid>",
-      "relationshipType": "CONTAINS"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-author1-mine1-<uuid>",
-      "relatedSpdxElement": "NOASSERTION",
-      "relationshipType": "CONTAINS"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
-      "relationshipType": "CONTAINS"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-mine2-<uuid>",
-      "relatedSpdxElement": "NOASSERTION",
-      "relationshipType": "CONTAINS"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
-      "relationshipType": "CONTAINS"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-mine3-<uuid>",
-      "relatedSpdxElement": "NOASSERTION",
-      "relationshipType": "CONTAINS"
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
@@ -681,14 +866,69 @@
       "relationshipType": "CONTAINS"
     },
     {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-author1-mine1-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-Package-author1-mine1-<uuid>",
+      "spdxElementId": "SPDXRef-Package-mine2-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine3-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -808,6 +1048,41 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/path/to/my/second/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/path/to/my/third/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -825,6 +1100,11 @@
       "relationshipType": "CONTAINS"
     },
     {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
       "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
       "relationshipType": "CONTAINS"
@@ -833,6 +1113,11 @@
       "spdxElementId": "SPDXRef-Package-mine2-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
@@ -845,14 +1130,9 @@
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
-      "relationshipType": "CONTAINS"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
-      "relatedSpdxElement": "NOASSERTION",
-      "relationshipType": "CONTAINS"
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
@@ -863,6 +1143,26 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -1012,6 +1312,19 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -1027,6 +1340,11 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -1074,6 +1392,19 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -1089,6 +1420,11 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -1136,6 +1472,19 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -1151,6 +1500,11 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -1198,6 +1552,19 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -1213,6 +1580,11 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -1260,6 +1632,19 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -1275,6 +1660,11 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -1322,6 +1712,19 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -1337,6 +1740,11 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -1384,6 +1792,19 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -1399,6 +1820,11 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -1426,6 +1852,36 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false
+    },
+    {
+      "name": "mine1",
+      "SPDXID": "SPDXRef-Package-mine1-<uuid>",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/mine1"
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
     }
   ],
   "relationships": [
@@ -1433,6 +1889,21 @@
       "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -1498,6 +1969,30 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/path/to/my/second/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -1515,6 +2010,11 @@
       "relationshipType": "CONTAINS"
     },
     {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
       "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
       "relationshipType": "CONTAINS"
@@ -1523,6 +2023,11 @@
       "spdxElementId": "SPDXRef-Package-mine2-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -1642,6 +2147,41 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/path/to/my/second/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/path/to/my/third/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -1659,6 +2199,11 @@
       "relationshipType": "CONTAINS"
     },
     {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
       "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
       "relationshipType": "CONTAINS"
@@ -1667,6 +2212,11 @@
       "spdxElementId": "SPDXRef-Package-mine2-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
@@ -1679,14 +2229,9 @@
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
-      "relationshipType": "CONTAINS"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
-      "relatedSpdxElement": "NOASSERTION",
-      "relationshipType": "CONTAINS"
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
@@ -1697,6 +2242,26 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -1816,6 +2381,41 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/path/to/my/second/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/path/to/my/third/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -1833,6 +2433,11 @@
       "relationshipType": "CONTAINS"
     },
     {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
       "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
       "relationshipType": "CONTAINS"
@@ -1841,6 +2446,11 @@
       "spdxElementId": "SPDXRef-Package-mine2-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
@@ -1853,14 +2463,9 @@
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
-      "relationshipType": "CONTAINS"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
-      "relatedSpdxElement": "NOASSERTION",
-      "relationshipType": "CONTAINS"
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
@@ -1871,6 +2476,26 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -1914,6 +2539,23 @@
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
           "referenceLocator": "pkg:npm/mine1@1.2.3"
+        }
+      ]
+    },
+    {
+      "name": "mine2",
+      "SPDXID": "SPDXRef-Package-mine2-<uuid>",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/mine2"
         }
       ]
     },
@@ -1972,6 +2614,41 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/path/to/my/second/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/path/to/my/third/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -1989,6 +2666,26 @@
       "relationshipType": "CONTAINS"
     },
     {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine2-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
       "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
       "relationshipType": "CONTAINS"
@@ -1999,14 +2696,9 @@
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
-      "relationshipType": "CONTAINS"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
-      "relatedSpdxElement": "NOASSERTION",
-      "relationshipType": "CONTAINS"
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
@@ -2017,6 +2709,26 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -2064,6 +2776,19 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -2079,6 +2804,11 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -2126,6 +2856,19 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -2141,6 +2884,11 @@
       "spdxElementId": "SPDXRef-Package-deprecated-pkg-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-deprecated-pkg-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -2188,6 +2936,19 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -2203,6 +2964,11 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -2250,6 +3016,19 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -2265,6 +3044,11 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -2312,6 +3096,19 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -2327,6 +3124,11 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -2392,6 +3194,30 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/path/to/my/second/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -2409,6 +3235,11 @@
       "relationshipType": "CONTAINS"
     },
     {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
       "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
       "relationshipType": "CONTAINS"
@@ -2417,6 +3248,11 @@
       "spdxElementId": "SPDXRef-Package-mine2-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -2694,6 +3530,30 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/path/to/my/second/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -2711,6 +3571,11 @@
       "relationshipType": "CONTAINS"
     },
     {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
       "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
       "relationshipType": "CONTAINS"
@@ -2719,6 +3584,11 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
@@ -2731,6 +3601,11 @@
       "relationshipType": "CONTAINS"
     },
     {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
       "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
       "relationshipType": "CONTAINS"
@@ -2739,6 +3614,11 @@
       "spdxElementId": "SPDXRef-Package-mine3-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -2840,6 +3720,30 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/path/to/my/second/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -2857,6 +3761,11 @@
       "relationshipType": "CONTAINS"
     },
     {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
       "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
       "relationshipType": "CONTAINS"
@@ -2865,6 +3774,11 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
@@ -2877,6 +3791,11 @@
       "relationshipType": "CONTAINS"
     },
     {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
       "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
       "relationshipType": "CONTAINS"
@@ -2885,6 +3804,11 @@
       "spdxElementId": "SPDXRef-Package-mine3-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -3004,6 +3928,41 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/path/to/my/second/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/path/to/my/third/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -3021,6 +3980,11 @@
       "relationshipType": "CONTAINS"
     },
     {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
       "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
       "relationshipType": "CONTAINS"
@@ -3029,6 +3993,11 @@
       "spdxElementId": "SPDXRef-Package-mine2-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
@@ -3041,14 +4010,9 @@
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
-      "relationshipType": "CONTAINS"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
-      "relatedSpdxElement": "NOASSERTION",
-      "relationshipType": "CONTAINS"
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
@@ -3059,6 +4023,26 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -3178,6 +4162,41 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/path/to/my/second/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/path/to/my/third/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -3195,6 +4214,11 @@
       "relationshipType": "CONTAINS"
     },
     {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
       "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
       "relationshipType": "CONTAINS"
@@ -3203,6 +4227,11 @@
       "spdxElementId": "SPDXRef-Package-mine2-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
@@ -3215,14 +4244,9 @@
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
-      "relationshipType": "CONTAINS"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
-      "relatedSpdxElement": "NOASSERTION",
-      "relationshipType": "CONTAINS"
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
@@ -3233,6 +4257,26 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-third-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -3262,8 +4306,8 @@
       "filesAnalyzed": false
     },
     {
-      "name": "author1/mine1",
-      "SPDXID": "SPDXRef-Package-author1-mine1-<uuid>",
+      "name": "mine1",
+      "SPDXID": "SPDXRef-Package-mine1-<uuid>",
       "versionInfo": "1.2.3",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -3275,7 +4319,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:composer/author1%2Fmine1@1.2.3"
+          "referenceLocator": "pkg:composer/author1/mine1@1.2.3"
         }
       ]
     },
@@ -3316,8 +4360,8 @@
       ]
     },
     {
-      "name": "author3/mine3",
-      "SPDXID": "SPDXRef-Package-author3-mine3-<uuid>",
+      "name": "mine3",
+      "SPDXID": "SPDXRef-Package-mine3-<uuid>",
       "versionInfo": "0.4.1",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -3329,9 +4373,33 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:composer/author3%2Fmine3@0.4.1"
+          "referenceLocator": "pkg:composer/author3/mine3@0.4.1"
         }
       ]
+    }
+  ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/path/to/my/second/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
     }
   ],
   "relationships": [
@@ -3339,16 +4407,6 @@
       "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-author1-mine1-<uuid>",
-      "relationshipType": "CONTAINS"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-author1-mine1-<uuid>",
-      "relatedSpdxElement": "NOASSERTION",
-      "relationshipType": "CONTAINS"
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
@@ -3361,6 +4419,26 @@
       "relationshipType": "CONTAINS"
     },
     {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
       "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
       "relationshipType": "CONTAINS"
@@ -3371,14 +4449,24 @@
       "relationshipType": "CONTAINS"
     },
     {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-author3-mine3-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-Package-author3-mine3-<uuid>",
+      "spdxElementId": "SPDXRef-Package-mine3-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -3408,8 +4496,8 @@
       "filesAnalyzed": false
     },
     {
-      "name": "author1/mine1",
-      "SPDXID": "SPDXRef-Package-author1-mine1-<uuid>",
+      "name": "mine1",
+      "SPDXID": "SPDXRef-Package-mine1-<uuid>",
       "versionInfo": "1.2.3",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -3421,7 +4509,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:composer/author1%2Fmine1@1.2.3"
+          "referenceLocator": "pkg:composer/author1/mine1@1.2.3"
         }
       ]
     },
@@ -3462,8 +4550,8 @@
       ]
     },
     {
-      "name": "author3/mine3",
-      "SPDXID": "SPDXRef-Package-author3-mine3-<uuid>",
+      "name": "mine3",
+      "SPDXID": "SPDXRef-Package-mine3-<uuid>",
       "versionInfo": "0.4.1",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -3475,9 +4563,33 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:composer/author3%2Fmine3@0.4.1"
+          "referenceLocator": "pkg:composer/author3/mine3@0.4.1"
         }
       ]
+    }
+  ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/path/to/my/second/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
     }
   ],
   "relationships": [
@@ -3485,16 +4597,6 @@
       "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-author1-mine1-<uuid>",
-      "relationshipType": "CONTAINS"
-    },
-    {
-      "spdxElementId": "SPDXRef-Package-author1-mine1-<uuid>",
-      "relatedSpdxElement": "NOASSERTION",
-      "relationshipType": "CONTAINS"
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
@@ -3507,6 +4609,26 @@
       "relationshipType": "CONTAINS"
     },
     {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
       "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
       "relationshipType": "CONTAINS"
@@ -3517,14 +4639,24 @@
       "relationshipType": "CONTAINS"
     },
     {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-author3-mine3-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-Package-author3-mine3-<uuid>",
+      "spdxElementId": "SPDXRef-Package-mine3-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -3554,8 +4686,8 @@
       "filesAnalyzed": false
     },
     {
-      "name": "author1/mine1",
-      "SPDXID": "SPDXRef-Package-author1-mine1-<uuid>",
+      "name": "mine1",
+      "SPDXID": "SPDXRef-Package-mine1-<uuid>",
       "versionInfo": "1.2.3",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -3567,7 +4699,24 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:composer/author1%2Fmine1@1.2.3"
+          "referenceLocator": "pkg:composer/author1/mine1@1.2.3"
+        }
+      ]
+    },
+    {
+      "name": "mine1",
+      "SPDXID": "SPDXRef-Package-mine1-<uuid>",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/mine1"
         }
       ]
     },
@@ -3590,8 +4739,8 @@
       ]
     },
     {
-      "name": "author3/mine3",
-      "SPDXID": "SPDXRef-Package-author3-mine3-<uuid>",
+      "name": "mine3",
+      "SPDXID": "SPDXRef-Package-mine3-<uuid>",
       "versionInfo": "0.4.1",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -3603,9 +4752,33 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:composer/author3%2Fmine3@0.4.1"
+          "referenceLocator": "pkg:composer/author3/mine3@0.4.1"
         }
       ]
+    }
+  ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/path/to/my/second/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
     }
   ],
   "relationships": [
@@ -3616,13 +4789,33 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-author1-mine1-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-Package-author1-mine1-<uuid>",
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     },
     {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
@@ -3635,14 +4828,24 @@
       "relationshipType": "CONTAINS"
     },
     {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
-      "relatedSpdxElement": "SPDXRef-Package-author3-mine3-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
       "relationshipType": "CONTAINS"
     },
     {
-      "spdxElementId": "SPDXRef-Package-author3-mine3-<uuid>",
+      "spdxElementId": "SPDXRef-Package-mine3-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -3792,6 +4995,19 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -3807,6 +5023,11 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -3854,6 +5075,19 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -3869,6 +5103,11 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -3916,6 +5155,19 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -3931,6 +5183,11 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -3978,6 +5235,19 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -3993,6 +5263,11 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -4040,6 +5315,19 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -4055,6 +5343,11 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -4102,6 +5395,19 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -4117,6 +5423,11 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -4164,6 +5475,19 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -4179,6 +5503,11 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -4226,6 +5555,19 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -4241,6 +5583,11 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -4288,6 +5635,19 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -4303,6 +5663,11 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -4350,6 +5715,19 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -4365,6 +5743,11 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -4412,6 +5795,19 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -4427,6 +5823,11 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -4454,6 +5855,36 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false
+    },
+    {
+      "name": "mine1",
+      "SPDXID": "SPDXRef-Package-mine1-<uuid>",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/mine1"
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
     }
   ],
   "relationships": [
@@ -4461,6 +5892,21 @@
       "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -4526,6 +5972,19 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -4543,6 +6002,11 @@
       "relationshipType": "CONTAINS"
     },
     {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
       "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
       "relationshipType": "CONTAINS"
@@ -4551,6 +6015,11 @@
       "spdxElementId": "SPDXRef-Package-mine3-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -4598,6 +6067,19 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "dir/r::stop-commands::T/r::error::INJECTED/n::warning::pwn/lockfile",
+      "SPDXID": "SPDXRef-File-dir---stop-commands--T---error--INJECTED---warning--pwn-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -4613,6 +6095,11 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-dir---stop-commands--T---error--INJECTED---warning--pwn-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -4678,6 +6165,30 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/path/to/my/second/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -4695,6 +6206,11 @@
       "relationshipType": "CONTAINS"
     },
     {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
       "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
       "relationshipType": "CONTAINS"
@@ -4703,6 +6219,11 @@
       "spdxElementId": "SPDXRef-Package-mine2-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }
@@ -4768,6 +6289,30 @@
       ]
     }
   ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "<rootdir>/path/to/my/second/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
   "relationships": [
     {
       "spdxElementId": "SPDXRef-DOCUMENT",
@@ -4785,6 +6330,11 @@
       "relationshipType": "CONTAINS"
     },
     {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
       "spdxElementId": "SPDXRef-Package-main-<uuid>",
       "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
       "relationshipType": "CONTAINS"
@@ -4793,6 +6343,11 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-second-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
     }
   ]
 }

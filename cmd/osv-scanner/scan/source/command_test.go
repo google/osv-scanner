@@ -287,6 +287,9 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "--format", "spdx-2-3", "--all-packages", "./testdata/locks-insecure"},
 			ReplaceRules: []testutility.JSONReplaceRule{
 				testutility.NormalizeCreateDateSPDX,
+				testutility.NormalizeFileIDsSPDX,
+				testutility.NormalizeRelationshipFileIDsSPDX,
+				testutility.NormalizeChecksumsSPDX,
 			},
 			Exit: 1,
 		},
@@ -451,7 +454,8 @@ func TestCommand_Config_UnusedIgnores(t *testing.T) {
 func TestCommand_JavareachArchive(t *testing.T) {
 	t.Parallel()
 
-	testutility.SkipIfShort(t)
+	// testutility.SkipIfShort(t)
+	testutility.Skip(t, "Skipping for now as Maven is enforcing stricter 429s")
 
 	client := testcmd.InsertCassette(t)
 
@@ -486,8 +490,8 @@ func TestCommand_JavareachArchive(t *testing.T) {
 func TestCommand_HomebrewWithAnnotators(t *testing.T) {
 	t.Parallel()
 
-	if runtime.GOOS != "darwin" {
-		testutility.Skip(t, "The detector in this test only works on Darwin")
+	if runtime.GOOS == "windows" {
+		testutility.Skip(t, "The detector in this test does not work on windows")
 	}
 
 	client := testcmd.InsertCassette(t)
@@ -1068,6 +1072,10 @@ func TestCommand_GithubActions(t *testing.T) {
 func TestCommand_LocalDatabases(t *testing.T) {
 	t.Parallel()
 
+	if runtime.GOOS == "darwin" && os.Getenv("CI") != "" {
+		testutility.Skip(t, "Skipping this test on CI because of APFS issues causing the test to time out.")
+	}
+
 	testutility.SkipIfShort(t)
 
 	client := testcmd.InsertCassette(t)
@@ -1170,6 +1178,9 @@ func TestCommand_LocalDatabases_AlwaysOffline(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
+
+			// Setup a custom test dir instead of relying on the testDir created in testcmd/run.go
+			// as this way we can keep the same db path for both runs.
 			testDir := testutility.CreateTestDir(t)
 			old := tt.Args
 			tt.Args = []string{"", "source", "--local-db-path", testDir}

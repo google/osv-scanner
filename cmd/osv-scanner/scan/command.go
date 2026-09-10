@@ -3,8 +3,8 @@ package scan
 
 import (
 	"io"
-	"net/http"
 
+	scalibrconfig "github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/scan/image"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/scan/source"
 	"github.com/urfave/cli/v3"
@@ -16,14 +16,14 @@ const DefaultSubcommand = sourceSubCommand
 
 var Subcommands = []string{sourceSubCommand, "image"}
 
-func Command(stdout, stderr io.Writer, client *http.Client) *cli.Command {
+func Command(stdout, stderr io.Writer, clientFactories scalibrconfig.ClientFactories) *cli.Command {
 	return &cli.Command{
 		Name:        "scan",
 		Usage:       "scans projects and container images for dependencies, and checks them against the OSV database.",
 		Description: "scans projects and container images for dependencies, and checks them against the OSV database.",
 		Commands: []*cli.Command{
-			source.Command(stdout, stderr, client),
-			image.Command(stdout, stderr, client),
+			source.Command(stdout, stderr, clientFactories),
+			image.Command(stdout, stderr, clientFactories),
 		},
 	}
 }

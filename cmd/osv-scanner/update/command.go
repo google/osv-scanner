@@ -6,7 +6,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"net/http"
 	"os"
 	"path/filepath"
 
@@ -16,12 +15,14 @@ import (
 	"github.com/google/osv-scalibr/guidedremediation"
 	"github.com/google/osv-scalibr/guidedremediation/options"
 	"github.com/google/osv-scalibr/guidedremediation/upgrade"
+	scalibrconfig "github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/version"
+	"github.com/google/osv-scanner/v2/pkg/osvscanner"
 	"github.com/urfave/cli/v3"
 )
 
-func Command(_, _ io.Writer, _ *http.Client) *cli.Command {
+func Command(_, _ io.Writer, clientFactories scalibrconfig.ClientFactories) *cli.Command {
 	return &cli.Command{
 		Hidden: true,
 		Name:   "update",
@@ -56,11 +57,13 @@ func Command(_, _ io.Writer, _ *http.Client) *cli.Command {
 				},
 			},
 		},
-		Action: action,
+		Action: func(ctx context.Context, cmd *cli.Command) error {
+			return action(ctx, cmd, clientFactories)
+		},
 	}
 }
 
-func action(ctx context.Context, cmd *cli.Command) error {
+func action(ctx context.Context, cmd *cli.Command, clientFactories scalibrconfig.ClientFactories) error {
 	cmdlogger.Warnf("Version updates (the update command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.")
 
 	opts := options.UpdateOptions{
@@ -75,24 +78,29 @@ func action(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
+	userAgent := "osv-scanner_update/" + version.OSVVersion
+	cf, cleanup := osvscanner.SetupClientFactories(clientFactories, nil, userAgent)
+	defer cleanup()
+
+	httpClient := cf.HTTPClient()
+
 	// MavenClient is required for Maven projects
 	mc, err := datasource.NewMavenRegistryAPIClient(ctx, datasource.MavenRegistry{
 		URL:             cmd.String("maven-registry"),
 		ReleasesEnabled: true,
-	}, "", false)
+	}, "", false, httpClient, nil)
 	if err != nil {
 		return err
 	}
 	opts.MavenClient = mc
 
-	userAgent := "osv-scanner_update/" + version.OSVVersion
 	switch cmd.String("data-source") {
 	case "deps.dev":
-		cl, err := resolution.NewDepsDevClient(depsdev.DepsdevAPI, userAgent)
+		conn, err := cf.GRPCClientConn(depsdev.DepsdevAPI)
 		if err != nil {
 			return err
 		}
-		opts.ResolveClient = cl
+		opts.ResolveClient = resolution.NewDepsDevClientWithConn(conn)
 	case "native":
 		cl, err := resolution.NewCombinedNativeClient(resolution.CombinedNativeClientOptions{
 			ProjectDir:  filepath.Dir(opts.Manifest),
