@@ -80,7 +80,7 @@ func TestSatisfies(t *testing.T) {
 			},
 		},
 		// empty expression licenses contain no tokens and can never satisfy an
-		// allowlist, but must not panic (regression for #2968)
+		// allowlist.
 		{
 			license: "",
 			fail: [][]string{
