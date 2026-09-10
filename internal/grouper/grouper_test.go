@@ -152,3 +152,46 @@ func TestGroup(t *testing.T) {
 		}
 	}
 }
+
+func TestGroupIsAliasTransitive(t *testing.T) {
+	t.Parallel()
+
+	// GHSA-aaaa and GHSA-bbbb are linked through a CVE that is not part of the
+	// results, and GHSA-cccc links that pair back to CVE-2024-1111, so all four
+	// belong to the same group.
+	v1 := grouper.IDAliases{
+		ID:      "CVE-2024-1111",
+		Aliases: []string{"GHSA-cccc"},
+	}
+	v2 := grouper.IDAliases{
+		ID:      "GHSA-aaaa",
+		Aliases: []string{"CVE-2024-9999"},
+	}
+	v3 := grouper.IDAliases{
+		ID:      "GHSA-bbbb",
+		Aliases: []string{"CVE-2024-9999"},
+	}
+	v4 := grouper.IDAliases{
+		ID:      "GHSA-cccc",
+		Aliases: []string{"CVE-2024-1111", "GHSA-aaaa"},
+	}
+
+	want := []models.GroupInfo{
+		{
+			IDs:     []string{v1.ID, v2.ID, v3.ID, v4.ID},
+			Aliases: []string{v1.ID, "CVE-2024-9999", v2.ID, v3.ID, v4.ID},
+		},
+	}
+
+	// The result must not depend on the order the vulnerabilities were scanned in.
+	for _, vulns := range [][]grouper.IDAliases{
+		{v1, v2, v3, v4},
+		{v2, v3, v4, v1},
+		{v4, v3, v2, v1},
+	} {
+		grouped := grouper.Group(vulns)
+		if diff := cmp.Diff(want, grouped); diff != "" {
+			t.Errorf("GroupedVulns() returned an unexpected result (-want +got):\n%s", diff)
+		}
+	}
+}
