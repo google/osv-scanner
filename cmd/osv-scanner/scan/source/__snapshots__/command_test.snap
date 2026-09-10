@@ -2771,8 +2771,7 @@ could not determine extractor, requested package-lock.json
           "package": {
             "name": "toolchain",
             "version": "1.24.4",
-            "ecosystem": "",
-            "purl": "pkg:placeholder/toolchain@1.24.4"
+            "ecosystem": ""
           }
         }
       ]
