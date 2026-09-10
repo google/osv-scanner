@@ -10,11 +10,12 @@ import (
 )
 
 func GetScanLicensesAllowlist(cmd *cli.Command) ([]string, error) {
-	if !cmd.IsSet("licenses") {
+	licenses := cmd.Generic("licenses").(*allowedLicencesFlag)
+	if !licenses.enabled {
 		return []string{}, nil
 	}
 
-	allowlist := cmd.Generic("licenses").(*allowedLicencesFlag).allowlist
+	allowlist := licenses.allowlist
 
 	if len(allowlist) == 0 {
 		return []string{}, nil
@@ -33,6 +34,7 @@ func GetScanLicensesAllowlist(cmd *cli.Command) ([]string, error) {
 
 func GetCommonScannerActions(cmd *cli.Command, scanLicensesAllowlist []string) osvscanner.ScannerActions {
 	callAnalysisStates := CreateCallAnalysisStates(cmd.StringSlice("call-analysis"), cmd.StringSlice("no-call-analysis"))
+	licenses := cmd.Generic("licenses").(*allowedLicencesFlag)
 
 	return osvscanner.ScannerActions{
 		IncludeGitRoot:        cmd.Bool("include-git-root"),
@@ -43,7 +45,7 @@ func GetCommonScannerActions(cmd *cli.Command, scanLicensesAllowlist []string) o
 		DownloadDatabases:     cmd.Bool("download-offline-databases"),
 		LocalDBPath:           cmd.String("local-db-path"),
 		PluginNetworkDisabled: cmd.Bool("offline"),
-		ScanLicensesSummary:   cmd.IsSet("licenses"),
+		ScanLicensesSummary:   licenses.enabled,
 		ScanLicensesAllowlist: scanLicensesAllowlist,
 		CallAnalysisStates:    callAnalysisStates,
 	}
