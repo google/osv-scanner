@@ -2809,7 +2809,7 @@ Scanned <rootdir>/testdata/locks-insecure/osv-scanner-with-unscannables.json fil
 Scanning dir ./testdata/locks-bun-shorthash
 Filtered 1 local/unscannable package/s from the scan.
 Scanned <rootdir>/testdata/locks-bun-shorthash/bun.lock file and found 1 package
-Skipping some-git-dep: short commit hash "bca26e4" cannot be queried; OSV API requires a full 40-character SHA.
+Skipping https://github.com/org/repo: short commit hash "bca26e4" cannot be queried; OSV API requires a full 40-character SHA.
 
 ---
 
@@ -2824,9 +2824,9 @@ Skipping some-git-dep: short commit hash "bca26e4" cannot be queried; OSV API re
       "packages": [
         {
           "package": {
-            "name": "some-git-dep",
+            "name": "https://github.com/org/repo",
             "version": "",
-            "ecosystem": "npm",
+            "ecosystem": "GIT",
             "commit": "bca26e4"
           }
         }
@@ -2847,7 +2847,7 @@ Skipping some-git-dep: short commit hash "bca26e4" cannot be queried; OSV API re
 Scanning dir ./testdata/locks-bun-shorthash
 Filtered 1 local/unscannable package/s from the scan.
 Scanned <rootdir>/testdata/locks-bun-shorthash/bun.lock file and found 1 package
-Skipping some-git-dep: short commit hash "bca26e4" cannot be queried; OSV API requires a full 40-character SHA.
+Skipping https://github.com/org/repo: short commit hash "bca26e4" cannot be queried; OSV API requires a full 40-character SHA.
 
 ---
 
