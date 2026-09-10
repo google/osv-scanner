@@ -31,13 +31,32 @@ func Group(vulns []IDAliases) []models.GroupInfo {
 		groups[i] = i
 	}
 
+	// find returns the representative of the group holding i, following and
+	// shortening the chain as it goes.
+	find := func(i int) int {
+		for groups[i] != i {
+			groups[i] = groups[groups[i]]
+			i = groups[i]
+		}
+
+		return i
+	}
+
 	// Do a pair-wise (n^2) comparison and merge all intersecting vulns.
 	for i := range vulns {
 		for j := i + 1; j < len(vulns); j++ {
 			if hasAliasIntersection(vulns[i], vulns[j]) {
 				// Merge the two groups. Use the smaller index as the representative ID.
-				groups[i] = min(groups[i], groups[j])
-				groups[j] = groups[i]
+				rootI, rootJ := find(i), find(j)
+				if rootI == rootJ {
+					continue
+				}
+
+				if rootI < rootJ {
+					groups[rootJ] = rootI
+				} else {
+					groups[rootI] = rootJ
+				}
 			}
 		}
 	}
@@ -45,7 +64,8 @@ func Group(vulns []IDAliases) []models.GroupInfo {
 	// Extract groups into the final result structure.
 	extractedGroups := map[int][]string{}
 	extractedAliases := map[int][]string{}
-	for i, gid := range groups {
+	for i := range groups {
+		gid := find(i)
 		extractedGroups[gid] = append(extractedGroups[gid], vulns[i].ID)
 		extractedAliases[gid] = append(extractedAliases[gid], vulns[i].Aliases...)
 	}
