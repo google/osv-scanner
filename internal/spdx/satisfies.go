@@ -98,6 +98,10 @@ var allowed = map[string][]string{
 
 // nextAndIsNextNextValid returns both the next token, and checks if the token after that one is valid
 func (ts *tokens) nextAndIsNextNextValid() (string, error) {
+	if len(ts.tokens) == 0 {
+		return "", errors.New("unexpected end of expression")
+	}
+
 	next := ts.next()
 
 	return next, ts.isNextValid(next)
@@ -266,6 +270,13 @@ func parseExpression(tokens *tokens) (node, error) {
 
 // Satisfies checks if the given license expression is satisfied by the allowed licenses
 func Satisfies(license models.License, allowlist []string) (bool, error) {
+	// An empty expression (e.g. a package license field that was never set)
+	// contains no tokens, meaning it cannot be satisfied by anything on the
+	// allowlist. Handle it explicitly so it never reaches the tokenizer.
+	if strings.TrimSpace(string(license)) == "" {
+		return false, nil
+	}
+
 	tokens := tokenise(license)
 	nod, err := parse(&tokens)
 
