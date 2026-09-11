@@ -11,7 +11,6 @@
 - **New extractors and plugin support via `osv-scalibr`**:
   - Many additional filetypes are supported. These are not enabled by default yet, so if you need a particular new filetype, use `--experimental-plugins` flag. See ["Supported Inventory Types"](https://github.com/google/osv-scalibr/blob/3f6473abebb329f3e0dc7e9e0d9c91e0c6e51277/docs/supported_inventory_types.md) for the extractor name.
 
-
 ### Fixes:
 
 - [Bug #3075](https://github.com/google/osv-scanner/pull/3075) Ensure `results` property in JSON output is an empty array `[]` instead of `null` when scanning with `--allow-no-lockfiles` and no lockfiles are found.
