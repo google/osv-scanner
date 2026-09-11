@@ -111,6 +111,27 @@ No issues found
 
 ---
 
+[TestCommand_Docker/real_empty_image_with_tag_and_allow_no_lockfiles_flag_json - 1]
+{
+  "results": [],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
+[TestCommand_Docker/real_empty_image_with_tag_and_allow_no_lockfiles_flag_json - 2]
+Checking if docker image ("hello-world:linux") exists locally...
+Saving docker image ("hello-world:linux") to temporary file...
+Scanning image "hello-world:linux"
+No package sources found
+
+---
+
 [TestCommand_ExplicitExtractors_WithDefaults/add_extractors - 1]
 Scanning local image tarball "testdata/test-alpine-sbom.tar"
 

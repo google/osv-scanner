@@ -147,6 +147,12 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 	//nolint:contextcheck // passing the context in would be a breaking change
 	vulnResult, err = osvscanner.DoScan(scannerAction)
 
+	// ensure that the results property is always an array
+	//goland:noinspection GoDfaErrorMayBeNotNil // false positive
+	if vulnResult.Results == nil {
+		vulnResult.Results = []models.PackageSource{}
+	}
+
 	if cmd.Bool("allow-no-lockfiles") && errors.Is(err, osvscanner.ErrNoPackagesFound) {
 		cmdlogger.Warnf("No package sources found")
 		err = nil
