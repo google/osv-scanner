@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.7.3",
+  "id": "GHSA-whgm-jr23-g3j9",
+  "published": "2021-09-02T17:15:24Z",
+  "modified": "2023-11-08T04:05:08.868477Z",
+  "aliases": [
+    "CVE-2021-23424"
+  ],
+  "summary": "Uncontrolled Resource Consumption in ansi-html",
+  "details": "This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time.",
+  "affected": [
+    {
+      "package": {
+        "name": "ansi-html",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/ansi-html"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.8"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2021/09/GHSA-whgm-jr23-g3j9/GHSA-whgm-jr23-g3j9.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/ioet/time-tracker-ui/security/advisories/GHSA-4fjc-8q3h-8r69"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-23424"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/Tjatse/ansi-html/issues/19"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/Tjatse/ansi-html/commit/8142b25bca3133ea060bcc1889277dc482327a63"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/Tjatse/ansi-html"
+    },
+    {
+      "type": "WEB",
+      "url": "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-1567198"
+    },
+    {
+      "type": "WEB",
+      "url": "https://snyk.io/vuln/SNYK-JS-ANSIHTML-1296849"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-400"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2021-08-26T14:50:45Z",
+    "nvd_published_at": "2021-08-18T17:15:00Z",
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+    }
+  ]
+}

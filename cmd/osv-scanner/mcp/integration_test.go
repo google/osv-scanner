@@ -23,9 +23,7 @@ import (
 //
 //nolint:paralleltest // This test is not parallelizable
 func TestIntegration_MCP_SSE_Subprocess(t *testing.T) {
-	if testing.Short() {
-		testutility.Skip(t, "skipping integration test in short mode")
-	}
+	testutility.SkipIfShort(t)
 
 	binPath := buildTestBinary(t)
 	addr := findFreePort(t)

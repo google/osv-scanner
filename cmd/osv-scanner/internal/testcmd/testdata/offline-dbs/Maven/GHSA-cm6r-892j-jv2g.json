@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.7.3",
+  "id": "GHSA-cm6r-892j-jv2g",
+  "published": "2022-08-13T00:00:43Z",
+  "modified": "2023-11-08T04:08:28.014834Z",
+  "aliases": [
+    "CVE-2022-2390"
+  ],
+  "summary": "Google Play Services SDK leads to apps having incorrectly set mutability flag",
+  "details": "Apps developed with Google Play Services SDK incorrectly had the mutability flag set to PendingIntents that were passed to the Notification service. As Google Play services SDK is so widely used, this bug affects many applications. For an application affected, this bug will let the attacker, gain the access to all non-exported providers and/or gain the access to other providers the victim has permissions. We recommend upgrading to version 18.0.2 of the Play Service SDK as well as rebuilding and redeploying apps.",
+  "affected": [
+    {
+      "package": {
+        "name": "com.google.android.gms:play-services-basement",
+        "ecosystem": "Maven",
+        "purl": "pkg:maven/com.google.android.gms/play-services-basement"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "18.0.2"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "10.0.0",
+        "10.0.1",
+        "10.2.0",
+        "10.2.1",
+        "10.2.4",
+        "10.2.6",
+        "11.0.0",
+        "11.0.1",
+        "11.0.2",
+        "11.0.4",
+        "11.2.0",
+        "11.2.2",
+        "11.4.0",
+        "11.4.2",
+        "11.6.0",
+        "11.6.2",
+        "11.8.0",
+        "12.0.0",
+        "12.0.1",
+        "15.0.0",
+        "15.0.1",
+        "16.0.1",
+        "16.1.0",
+        "16.2.0",
+        "17.0.0",
+        "17.1.0",
+        "17.1.1",
+        "17.2.0",
+        "17.2.1",
+        "17.3.0",
+        "17.4.0",
+        "17.5.0",
+        "17.6.0",
+        "18.0.0",
+        "18.0.1",
+        "8.1.0",
+        "8.3.0",
+        "8.4.0",
+        "9.0.0",
+        "9.0.1",
+        "9.0.2",
+        "9.2.0",
+        "9.2.1",
+        "9.4.0",
+        "9.6.0",
+        "9.6.1",
+        "9.8.0"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2022/08/GHSA-cm6r-892j-jv2g/GHSA-cm6r-892j-jv2g.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-2390"
+    },
+    {
+      "type": "WEB",
+      "url": "https://developers.google.com/android/guides/releases#may_03_2022"
+    },
+    {
+      "type": "WEB",
+      "url": "https://mvnrepository.com/artifact/com.google.android.gms/play-services-basement/18.0.2"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-471"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2022-08-18T19:13:34Z",
+    "nvd_published_at": "2022-08-12T11:15:00Z",
+    "severity": "MODERATE"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:C/C:H/I:L/A:N"
+    }
+  ]
+}

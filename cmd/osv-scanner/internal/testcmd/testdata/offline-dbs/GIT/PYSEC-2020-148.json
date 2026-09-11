@@ -1,0 +1,131 @@
+{
+  "schema_version": "1.7.3",
+  "id": "PYSEC-2020-148",
+  "published": "2020-09-30T18:15:00Z",
+  "modified": "2023-11-08T04:03:14.251187Z",
+  "aliases": [
+    "CVE-2020-26137",
+    "GHSA-wqvq-5m8c-6g24"
+  ],
+  "details": "urllib3 before 1.25.9 allows CRLF injection if the attacker controls the HTTP request method, as demonstrated by inserting CR and LF control characters in the first argument of putrequest(). NOTE: this is similar to CVE-2020-26116.",
+  "affected": [
+    {
+      "package": {
+        "name": "urllib3",
+        "ecosystem": "PyPI",
+        "purl": "pkg:pypi/urllib3"
+      },
+      "ranges": [
+        {
+          "type": "GIT",
+          "repo": "https://github.com/urllib3/urllib3",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1dd69c5c5982fae7c87a620d487c2ebf7a6b436b"
+            }
+          ]
+        },
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.25.9"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "0.2",
+        "0.3",
+        "0.3.1",
+        "0.4.0",
+        "0.4.1",
+        "1.0",
+        "1.0.1",
+        "1.0.2",
+        "1.1",
+        "1.2",
+        "1.2.1",
+        "1.2.2",
+        "1.3",
+        "1.4",
+        "1.5",
+        "1.6",
+        "1.7",
+        "1.7.1",
+        "1.8",
+        "1.8.2",
+        "1.8.3",
+        "1.9",
+        "1.9.1",
+        "1.10",
+        "1.10.1",
+        "1.10.2",
+        "1.10.3",
+        "1.10.4",
+        "1.11",
+        "1.12",
+        "1.13",
+        "1.13.1",
+        "1.14",
+        "1.15",
+        "1.15.1",
+        "1.16",
+        "1.17",
+        "1.18",
+        "1.18.1",
+        "1.19",
+        "1.19.1",
+        "1.20",
+        "1.21",
+        "1.21.1",
+        "1.22",
+        "1.23",
+        "1.24",
+        "1.24.1",
+        "1.24.2",
+        "1.24.3",
+        "1.25",
+        "1.25.1",
+        "1.25.2",
+        "1.25.3",
+        "1.25.4",
+        "1.25.5",
+        "1.25.6",
+        "1.25.7",
+        "1.25.8"
+      ],
+      "database_specific": {
+        "source": "https://github.com/pypa/advisory-database/blob/main/vulns/urllib3/PYSEC-2020-148.yaml"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://bugs.python.org/issue39603"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/urllib3/urllib3/commit/1dd69c5c5982fae7c87a620d487c2ebf7a6b436b"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/urllib3/urllib3/pull/1800"
+    },
+    {
+      "type": "WEB",
+      "url": "https://usn.ubuntu.com/4570-1/"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-wqvq-5m8c-6g24"
+    }
+  ]
+}

@@ -6,6 +6,7 @@ import (
 	"context"
 	"fmt"
 	"slices"
+	"sync"
 
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/annotator"
@@ -27,6 +28,7 @@ const (
 
 // Annotator implements annotator.Annotator to filter packages.
 type Annotator struct {
+	mu                      sync.Mutex
 	configManager           *config.Manager
 	isContainerScan         bool
 	showAllPackages         bool
@@ -62,6 +64,9 @@ func (a *Annotator) Requirements() *plugin.Capabilities {
 
 // Annotate filters the package list inside the inventory.
 func (a *Annotator) Annotate(_ context.Context, _ *annotator.ScanInput, results *inventory.Inventory) error {
+	a.mu.Lock()
+	defer a.mu.Unlock()
+
 	a.preFilteredPackageCount += len(results.Packages)
 
 	packageResults := make([]*extractor.Package, 0, len(results.Packages))
@@ -172,10 +177,16 @@ func (a *Annotator) Annotate(_ context.Context, _ *annotator.ScanInput, results 
 
 // FilteredPackages returns the list of packages filtered out that should be preserved.
 func (a *Annotator) FilteredPackages() []*extractor.Package {
+	a.mu.Lock()
+	defer a.mu.Unlock()
+
 	return a.filteredPackages
 }
 
 // PreFilteredPackageCount returns the number of packages found before filtering.
 func (a *Annotator) PreFilteredPackageCount() int {
+	a.mu.Lock()
+	defer a.mu.Unlock()
+
 	return a.preFilteredPackageCount
 }

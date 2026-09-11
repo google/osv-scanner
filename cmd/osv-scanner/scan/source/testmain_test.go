@@ -15,11 +15,14 @@ import (
 func TestMain(m *testing.M) {
 	config.OSVScannerConfigName = "osv-scanner-test.toml"
 
+	cf := testcmd.NewClientFactories(nil)
+	testcmd.SharedClientFactories = cf
+
 	cleanupGitFixtures, err := testcmd.SetupGitFixtures()
 
 	if err != nil {
 		cleanupGitFixtures()
-
+		_ = cf.Close()
 		panic(err)
 	}
 
@@ -28,6 +31,7 @@ func TestMain(m *testing.M) {
 	m.Run()
 
 	cleanupGitFixtures()
+	_ = cf.Close()
 
 	testutility.CleanSnapshots(m)
 }
