@@ -26,10 +26,12 @@
   - Fix false-positive Go standard library matches for packages with module paths ending in `/go` (e.g. `pkg:golang/github.com/json-iterator/go`) ([#3017](https://github.com/google/osv-scanner/issues/3017)).
   - Secure guided remediation file operations with `os.Root` to prevent path traversal attacks ([google/osv-scalibr#2363](https://github.com/google/osv-scalibr/pull/2363)).
   - Prevent OOM and disk exhaustion issues with tar bombs during archive extraction.
+  - Strip platform suffix from RubyGems versions in CycloneDX ([google/osv-scalibr#2313](https://github.com/google/osv-scalibr/pull/2313)).
+  - Ignore `.deps.json` files that don't have an object as their root in `dotnet/depsjson` extractor ([google/osv-scalibr#2423](https://github.com/google/osv-scalibr/pull/2423)).
 
 ### Misc:
 
-- Update `osv-scalibr` to `v0.5.3-0.20260910092712-0c60682b8737` ([#3074](https://github.com/google/osv-scanner/pull/3074)).
+- Update `osv-scalibr` to `v0.5.3-0.20260911045259-c80543c50172` ([#3078](https://github.com/google/osv-scanner/pull/3078)).
 - Update Go to v1.27 and `golangci-lint` to v2.13 ([#3046](https://github.com/google/osv-scanner/pull/3046)).
   - This now supports call analysis on go v1.27 projects.
 - Update `google.golang.org/grpc` to v1.83.2 ([#3062](https://github.com/google/osv-scanner/pull/3062)).
