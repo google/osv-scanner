@@ -9,7 +9,6 @@ SNAPS ?= false
 ACC ?= false
 VCR ?= ReplayWithNewEpisodes
 UPDATE_DBS ?= false
-UPDATE_MODIFIED ?= false
 
 help: ## Show this help message
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} \
@@ -47,7 +46,6 @@ test: ## Run tests
 ##    ACC=true             Run acceptance tests (Default: false)
 ##    SHORT=false          Run full tests (Default: true)
 ##    UPDATE_DBS=true      Update local offline database mocks from live GCS (Default: false)
-##    UPDATE_MODIFIED=true Bypass modified date normalization during cassette updates (Default: false)
 ##    VCR=mode             VCR mode (Default: ReplayWithNewEpisodes):
 ##      - 0|RecordOnly:            Record new cassettes
 ##      - 1|ReplayOnly:            Replay cassettes, error if missing
@@ -58,7 +56,6 @@ test: ## Run tests
 	if [ "$(SNAPS)" = "true" ]; then export UPDATE_SNAPS=true; fi; \
 	if [ "$(ACC)" = "true" ]; then export TEST_ACCEPTANCE=true; fi; \
 	if [ "$(UPDATE_DBS)" = "true" ]; then export VCR_UPDATE_OFFLINE_DBS=true; fi; \
-	if [ "$(UPDATE_MODIFIED)" = "true" ]; then export VCR_UPDATE_MODIFIED=true; fi; \
 	ARGS=""; \
 	if [ "$(SHORT)" = "true" ]; then ARGS="$$ARGS -short"; fi; \
 	scripts/run_tests.sh $$ARGS
