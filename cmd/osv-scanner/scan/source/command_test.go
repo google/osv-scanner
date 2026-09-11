@@ -137,6 +137,11 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "--recursive", "--allow-no-lockfiles", "./testdata/locks-none"},
 			Exit: 0,
 		},
+		{
+			Name: "no_lockfiles_with_json_and_allow_flag_still_have_results_property",
+			Args: []string{"", "source", "--format", "json", "--allow-no-lockfiles", "./testdata/locks-none"},
+			Exit: 0,
+		},
 		// only the files in the given directories are checked by default (no recursion)
 		{
 			Name: "only_the_files_in_the_given_directories_are_checked_by_default_no_recursion",

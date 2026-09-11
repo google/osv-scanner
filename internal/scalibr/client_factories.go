@@ -78,6 +78,19 @@ func (c *ClientFactories) GoogleHTTPClient(_ context.Context, _ ...string) (*htt
 	return nil, errors.New("unimplemented, this should not be used from osv-scanner")
 }
 
+const defaultGRPCServiceConfig = `{
+	"methodConfig": [{
+		"name": [{}],
+		"retryPolicy": {
+			"maxAttempts": 4,
+			"initialBackoff": "0.1s",
+			"maxBackoff": "1s",
+			"backoffMultiplier": 2.0,
+			"retryableStatusCodes": ["UNAVAILABLE", "RESOURCE_EXHAUSTED"]
+		}
+	}]
+}`
+
 // GRPCClientConn returns a cached gRPC client connection from a package-level connection cache.
 func (c *ClientFactories) GRPCClientConn(url string, dialOpts ...grpc.DialOption) (grpc.ClientConnInterface, error) {
 	c.mu.Lock()
@@ -97,6 +110,7 @@ func (c *ClientFactories) GRPCClientConn(url string, dialOpts ...grpc.DialOption
 
 	ourDialOpts := []grpc.DialOption{
 		grpc.WithTransportCredentials(creds),
+		grpc.WithDefaultServiceConfig(defaultGRPCServiceConfig),
 	}
 	if c.defaultUserAgent != "" {
 		ourDialOpts = append(ourDialOpts, grpc.WithUserAgent(c.defaultUserAgent))

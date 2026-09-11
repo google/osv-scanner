@@ -255,6 +255,15 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to scan container image: %w", err)
 	}
 
+	// --- Check status of the run ---
+	if scalibrSR.Status != nil && scalibrSR.Status.Status == plugin.ScanStatusFailed {
+		return models.VulnerabilityResults{}, errors.New(scalibrSR.Status.FailureReason)
+	}
+
+	if err := logPluginStatus(scalibrSR.PluginStatus, nil, ""); err != nil {
+		return models.VulnerabilityResults{}, err
+	}
+
 	if inventoryIsEmpty(scalibrSR.Inventory) {
 		return models.VulnerabilityResults{}, ErrNoPackagesFound
 	}
