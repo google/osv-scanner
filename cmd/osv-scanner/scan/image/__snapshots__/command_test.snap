@@ -111,6 +111,27 @@ No issues found
 
 ---
 
+[TestCommand_Docker/real_empty_image_with_tag_and_allow_no_lockfiles_flag_json - 1]
+{
+  "results": [],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
+[TestCommand_Docker/real_empty_image_with_tag_and_allow_no_lockfiles_flag_json - 2]
+Checking if docker image ("hello-world:linux") exists locally...
+Saving docker image ("hello-world:linux") to temporary file...
+Scanning image "hello-world:linux"
+No package sources found
+
+---
+
 [TestCommand_ExplicitExtractors_WithDefaults/add_extractors - 1]
 Scanning local image tarball "testdata/test-alpine-sbom.tar"
 
@@ -459,7 +480,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 30 packages affected by 94 known vulnerabilities (12 Critical, 31 High, 37 Medium, 7 Low, 7 Unknown) from 1 ecosystem.
-55 vulnerabilities can be fixed.
+62 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -516,7 +537,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 30 packages affected by 94 known vulnerabilities (12 Critical, 31 High, 37 Medium, 7 Low, 7 Unknown) from 1 ecosystem.
-55 vulnerabilities can be fixed.
+62 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -592,7 +613,7 @@ Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 31 packages affected by 96 known vulnerabilities (12 Critical, 33 High, 37 Medium, 7 Low, 7 Unknown) from 1 ecosystem.
-55 vulnerabilities can be fixed.
+62 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -4715,9 +4736,9 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
           },
           "groups": 7,
           "vulnerabilities": [
+            "USN-7980-1",
             "USN-8678-1",
             "USN-8414-1",
-            "USN-7980-1",
             "USN-8155-1",
             "USN-7786-1",
             "USN-7278-1",
@@ -6045,9 +6066,9 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           },
           "groups": 7,
           "vulnerabilities": [
+            "USN-7980-1",
             "USN-8678-1",
             "USN-8414-1",
-            "USN-7980-1",
             "USN-8155-1",
             "USN-7786-1",
             "USN-7278-1",

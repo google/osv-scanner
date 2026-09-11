@@ -1392,6 +1392,25 @@ failed to resolve path: stat <rootdir>/testdata/locks-none-does-not-exist: no su
 
 ---
 
+[TestCommand/no_lockfiles_with_json_and_allow_flag_still_have_results_property - 1]
+{
+  "results": [],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
+[TestCommand/no_lockfiles_with_json_and_allow_flag_still_have_results_property - 2]
+Scanning dir ./testdata/locks-none
+No package sources found
+
+---
+
 [TestCommand/no_lockfiles_with_recursion_and_with_allow_flag_are_fine - 1]
 Scanning dir ./testdata/locks-none
 Scanned <rootdir>/testdata/locks-none/nested/composer.lock file and found 1 package
@@ -2755,7 +2774,7 @@ Filtered 1 local/unscannable package/s from the scan.
 [TestCommand_Filter/bun_lock_with_short_commit_hash_skipped - 2]
 Scanning dir ./testdata/locks-bun-shorthash
 Scanned <rootdir>/testdata/locks-bun-shorthash/bun.lock file and found 1 package
-Skipping some-git-dep: short commit hash "bca26e4" cannot be queried; OSV API requires a full 40-character SHA.
+Skipping https://github.com/org/repo: short commit hash "bca26e4" cannot be queried; OSV API requires a full 40-character SHA.
 Filtered 1 local/unscannable package/s from the scan.
 
 ---
@@ -2771,9 +2790,9 @@ Filtered 1 local/unscannable package/s from the scan.
       "packages": [
         {
           "package": {
-            "name": "some-git-dep",
+            "name": "https://github.com/org/repo",
             "version": "",
-            "ecosystem": "npm",
+            "ecosystem": "GIT",
             "commit": "bca26e4"
           }
         }
@@ -2793,7 +2812,7 @@ Filtered 1 local/unscannable package/s from the scan.
 [TestCommand_Filter/bun_lock_with_short_commit_hash_skipped_show_all - 2]
 Scanning dir ./testdata/locks-bun-shorthash
 Scanned <rootdir>/testdata/locks-bun-shorthash/bun.lock file and found 1 package
-Skipping some-git-dep: short commit hash "bca26e4" cannot be queried; OSV API requires a full 40-character SHA.
+Skipping https://github.com/org/repo: short commit hash "bca26e4" cannot be queried; OSV API requires a full 40-character SHA.
 Filtered 1 local/unscannable package/s from the scan.
 
 ---
