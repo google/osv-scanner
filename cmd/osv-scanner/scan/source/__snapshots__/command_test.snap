@@ -1002,6 +1002,49 @@ Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found
 
 ---
 
+[TestCommand/cyclonedx_go_module_ending_in_go_not_stdlib - 1]
+Scanning dir ./testdata/sbom-insecure/cyclonedx-go-module-ending-in-go.cdx.json
+Scanned <rootdir>/testdata/sbom-insecure/cyclonedx-go-module-ending-in-go.cdx.json file and found 1 package
+
+No issues found
+
+---
+
+[TestCommand/cyclonedx_go_module_ending_in_go_not_stdlib - 2]
+
+---
+
+[TestCommand/cyclonedx_scoped_npm_detects_vuln - 1]
+Scanning dir ./testdata/sbom-insecure/cyclonedx-scoped-npm-vuln.cdx.json
+Scanned <rootdir>/testdata/sbom-insecure/cyclonedx-scoped-npm-vuln.cdx.json file and found 1 package
+
+Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
++-------------------------------------+------+-----------+----------+---------+---------------+-----------------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | FIXED VERSION | SOURCE                                                    |
++-------------------------------------+------+-----------+----------+---------+---------------+-----------------------------------------------------------+
+| https://osv.dev/GHSA-67hx-6x53-jw92 | 9.3  | npm       | traverse | 7.23.0  | --            | testdata/sbom-insecure/cyclonedx-scoped-npm-vuln.cdx.json |
++-------------------------------------+------+-----------+----------+---------+---------------+-----------------------------------------------------------+
+
+---
+
+[TestCommand/cyclonedx_scoped_npm_detects_vuln - 2]
+
+---
+
+[TestCommand/cyclonedx_scoped_npm_no_false_positive - 1]
+Scanning dir ./testdata/sbom-insecure/cyclonedx-scoped-npm.cdx.json
+Scanned <rootdir>/testdata/sbom-insecure/cyclonedx-scoped-npm.cdx.json file and found 1 package
+
+No issues found
+
+---
+
+[TestCommand/cyclonedx_scoped_npm_no_false_positive - 2]
+
+---
+
 [TestCommand/exclude_with_exact_directory_name - 1]
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
@@ -1116,11 +1159,17 @@ Filtered 10 local/unscannable package/s from the scan.
 Scanned <rootdir>/testdata/sbom-insecure/alpine-zlib-16.cdx.json file and found 1 package
 Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/testdata/sbom-insecure/bad-purls.cdx.xml file and found 15 packages
+Scanned <rootdir>/testdata/sbom-insecure/cyclonedx-go-module-ending-in-go.cdx.json file and found 1 package
+Scanned <rootdir>/testdata/sbom-insecure/cyclonedx-scoped-npm-vuln.cdx.json file and found 1 package
+Scanned <rootdir>/testdata/sbom-insecure/cyclonedx-scoped-npm.cdx.json file and found 1 package
 Scanned <rootdir>/testdata/sbom-insecure/only-unimportant.spdx.json file and found 1 package
 Scanned <rootdir>/testdata/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
+Scanned <rootdir>/testdata/sbom-insecure/spdx-go-module-ending-in-go.spdx.json file and found 1 package
+Scanned <rootdir>/testdata/sbom-insecure/spdx-scoped-npm-vuln.spdx.json file and found 1 package
+Scanned <rootdir>/testdata/sbom-insecure/spdx-scoped-npm.spdx.json file and found 1 package
 Scanned <rootdir>/testdata/sbom-insecure/with-duplicates.cdx.xml file and found 17 packages
 
-Total 11 packages affected by 26 known vulnerabilities (3 Critical, 10 High, 7 Medium, 1 Low, 5 Unknown) from 5 ecosystems.
+Total 13 packages affected by 28 known vulnerabilities (5 Critical, 10 High, 7 Medium, 1 Low, 5 Unknown) from 6 ecosystems.
 26 vulnerabilities can be fixed.
 
 +---------------------------------------+------+--------------+--------------------------------+------------------------------------+-----------------------------------+---------------------------------------------------------------------+
@@ -1151,6 +1200,8 @@ Total 11 packages affected by 26 known vulnerabilities (3 Critical, 10 High, 7 M
 | https://osv.dev/GO-2022-0493          | 5.3  | Go           | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | 0.0.0-20220412211240-33da011f77ad | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/GHSA-p782-xgp4-8hr8   |      |              |                                |                                    |                                   |                                                                     |
 | https://osv.dev/GO-2026-5024          |      | Go           | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | 0.44.0                            | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/GHSA-67hx-6x53-jw92   | 9.3  | npm          | traverse                       | 7.23.0                             | --                                | testdata/sbom-insecure/cyclonedx-scoped-npm-vuln.cdx.json           |
+| https://osv.dev/GHSA-67hx-6x53-jw92   | 9.3  | npm          | traverse                       | 7.23.0                             | --                                | testdata/sbom-insecure/spdx-scoped-npm-vuln.spdx.json               |
 | https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine:v3.17 | musl                           | 1.2.3-r4                           | 1.2.3-r6                          | testdata/sbom-insecure/alpine.cdx.xml                               |
 | https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine:v3.17 | zlib                           | 1.2.10-r0                          | 1.2.11-r4                         | testdata/sbom-insecure/alpine.cdx.xml                               |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine:v3.17 | zlib                           | 1.2.10-r0                          | 1.2.12-r2                         | testdata/sbom-insecure/alpine.cdx.xml                               |
@@ -1665,6 +1716,8 @@ unsupported output format "unknown" - must be one of: table, html, vertical, jso
 Scanning dir ./testdata/locks-requirements
 Scanned <rootdir>/testdata/locks-requirements/my-requirements.txt file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/requirements-dev.txt file and found 1 package
+Scanned <rootdir>/testdata/locks-requirements/requirements-dotted-names.txt file and found 2 packages
+Scanned <rootdir>/testdata/locks-requirements/requirements-flag-like-names.txt file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/requirements-transitive.txt file and found 4 packages
 Scanned <rootdir>/testdata/locks-requirements/requirements.prod.txt file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
@@ -2037,6 +2090,49 @@ Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found
 
 ---
 
+[TestCommand/spdx_go_module_ending_in_go_not_stdlib - 1]
+Scanning dir ./testdata/sbom-insecure/spdx-go-module-ending-in-go.spdx.json
+Scanned <rootdir>/testdata/sbom-insecure/spdx-go-module-ending-in-go.spdx.json file and found 1 package
+
+No issues found
+
+---
+
+[TestCommand/spdx_go_module_ending_in_go_not_stdlib - 2]
+
+---
+
+[TestCommand/spdx_scoped_npm_detects_vuln - 1]
+Scanning dir ./testdata/sbom-insecure/spdx-scoped-npm-vuln.spdx.json
+Scanned <rootdir>/testdata/sbom-insecure/spdx-scoped-npm-vuln.spdx.json file and found 1 package
+
+Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
++-------------------------------------+------+-----------+----------+---------+---------------+-------------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | FIXED VERSION | SOURCE                                                |
++-------------------------------------+------+-----------+----------+---------+---------------+-------------------------------------------------------+
+| https://osv.dev/GHSA-67hx-6x53-jw92 | 9.3  | npm       | traverse | 7.23.0  | --            | testdata/sbom-insecure/spdx-scoped-npm-vuln.spdx.json |
++-------------------------------------+------+-----------+----------+---------+---------------+-------------------------------------------------------+
+
+---
+
+[TestCommand/spdx_scoped_npm_detects_vuln - 2]
+
+---
+
+[TestCommand/spdx_scoped_npm_no_false_positive - 1]
+Scanning dir ./testdata/sbom-insecure/spdx-scoped-npm.spdx.json
+Scanned <rootdir>/testdata/sbom-insecure/spdx-scoped-npm.spdx.json file and found 1 package
+
+No issues found
+
+---
+
+[TestCommand/spdx_scoped_npm_no_false_positive - 2]
+
+---
+
 [TestCommand/verbosity_level_=_error - 1]
 
 No issues found
@@ -2342,8 +2438,14 @@ Filtered 10 local/unscannable package/s from the scan.
 Scanned <rootdir>/testdata/sbom-insecure/alpine-zlib-16.cdx.json file and found 1 package
 Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/testdata/sbom-insecure/bad-purls.cdx.xml file and found 15 packages
+Scanned <rootdir>/testdata/sbom-insecure/cyclonedx-go-module-ending-in-go.cdx.json file and found 1 package
+Scanned <rootdir>/testdata/sbom-insecure/cyclonedx-scoped-npm-vuln.cdx.json file and found 1 package
+Scanned <rootdir>/testdata/sbom-insecure/cyclonedx-scoped-npm.cdx.json file and found 1 package
 Scanned <rootdir>/testdata/sbom-insecure/only-unimportant.spdx.json file and found 1 package
 Scanned <rootdir>/testdata/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
+Scanned <rootdir>/testdata/sbom-insecure/spdx-go-module-ending-in-go.spdx.json file and found 1 package
+Scanned <rootdir>/testdata/sbom-insecure/spdx-scoped-npm-vuln.spdx.json file and found 1 package
+Scanned <rootdir>/testdata/sbom-insecure/spdx-scoped-npm.spdx.json file and found 1 package
 Scanned <rootdir>/testdata/sbom-insecure/with-duplicates.cdx.xml file and found 17 packages
 CVE-2025-26519 and 1 alias have been filtered out because: (no reason given)
 CVE-2018-25032 and 1 alias have been filtered out because: (no reason given)
@@ -2355,7 +2457,7 @@ testdata/osv-scanner-partial-ignores-config.toml has unused ignores:
  - CVE-2019-5188
  - CVE-2022-1304
 
-Total 9 packages affected by 21 known vulnerabilities (3 Critical, 6 High, 6 Medium, 1 Low, 5 Unknown) from 5 ecosystems.
+Total 11 packages affected by 23 known vulnerabilities (5 Critical, 6 High, 6 Medium, 1 Low, 5 Unknown) from 6 ecosystems.
 21 vulnerabilities can be fixed.
 
 +---------------------------------------+------+--------------+--------------------------------+------------------------------------+-----------------------------------+---------------------------------------------------------------------+
@@ -2384,6 +2486,8 @@ Total 9 packages affected by 21 known vulnerabilities (3 Critical, 6 High, 6 Med
 | https://osv.dev/GO-2022-0493          | 5.3  | Go           | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | 0.0.0-20220412211240-33da011f77ad | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/GHSA-p782-xgp4-8hr8   |      |              |                                |                                    |                                   |                                                                     |
 | https://osv.dev/GO-2026-5024          |      | Go           | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | 0.44.0                            | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/GHSA-67hx-6x53-jw92   | 9.3  | npm          | traverse                       | 7.23.0                             | --                                | testdata/sbom-insecure/cyclonedx-scoped-npm-vuln.cdx.json           |
+| https://osv.dev/GHSA-67hx-6x53-jw92   | 9.3  | npm          | traverse                       | 7.23.0                             | --                                | testdata/sbom-insecure/spdx-scoped-npm-vuln.spdx.json               |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine:v3.17 | zlib                           | 1.2.10-r0                          | 1.2.12-r2                         | testdata/sbom-insecure/alpine.cdx.xml                               |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine:v3.17 | zlib                           | 1.2.10-r0                          | 1.2.12-r2                         | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine:v3.22 | zlib                           | 1.2.12-r1                          | 1.2.12-r2                         | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
@@ -4812,12 +4916,14 @@ Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and f
 Scanned <rootdir>/testdata/locks-many-with-insecure/yarn.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/my-requirements.txt file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/requirements-dev.txt file and found 1 package
+Scanned <rootdir>/testdata/locks-requirements/requirements-dotted-names.txt file and found 2 packages
+Scanned <rootdir>/testdata/locks-requirements/requirements-flag-like-names.txt file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/requirements-transitive.txt file and found 4 packages
 Scanned <rootdir>/testdata/locks-requirements/requirements.prod.txt file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
 Scanned <rootdir>/testdata/locks-requirements/the_requirements_for_test.txt file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/unresolvable-requirements.txt file and found 3 packages
-could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for PyPI ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
 0 vulnerabilities can be fixed.
@@ -4841,12 +4947,14 @@ Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and f
 Scanned <rootdir>/testdata/locks-many-with-insecure/yarn.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/my-requirements.txt file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/requirements-dev.txt file and found 1 package
+Scanned <rootdir>/testdata/locks-requirements/requirements-dotted-names.txt file and found 2 packages
+Scanned <rootdir>/testdata/locks-requirements/requirements-flag-like-names.txt file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/requirements-transitive.txt file and found 4 packages
 Scanned <rootdir>/testdata/locks-requirements/requirements.prod.txt file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
 Scanned <rootdir>/testdata/locks-requirements/the_requirements_for_test.txt file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/unresolvable-requirements.txt file and found 3 packages
-could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for PyPI ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
 0 vulnerabilities can be fixed.
@@ -5422,6 +5530,18 @@ Total 2 packages affected by 8 known vulnerabilities (2 Critical, 1 High, 5 Medi
 
 ---
 
+[TestCommand_Transitive/requirements.txt_dotted_names_transitive_default - 1]
+Scanning dir ./testdata/locks-requirements/requirements-dotted-names.txt
+Scanned <rootdir>/testdata/locks-requirements/requirements-dotted-names.txt file and found 2 packages
+
+No issues found
+
+---
+
+[TestCommand_Transitive/requirements.txt_dotted_names_transitive_default - 2]
+
+---
+
 [TestCommand_Transitive/requirements.txt_enricher_requires_extractor - 1]
 Scanning dir ./testdata/locks-requirements/requirements-transitive.txt
 
@@ -5429,6 +5549,42 @@ Scanning dir ./testdata/locks-requirements/requirements-transitive.txt
 
 [TestCommand_Transitive/requirements.txt_enricher_requires_extractor - 2]
 No package sources found, --help for usage information.
+
+---
+
+[TestCommand_Transitive/requirements.txt_flag_like_names_transitive_default - 1]
+Scanning dir ./testdata/locks-requirements/requirements-flag-like-names.txt
+Scanned <rootdir>/testdata/locks-requirements/requirements-flag-like-names.txt file and found 1 package
+
+No issues found
+
+---
+
+[TestCommand_Transitive/requirements.txt_flag_like_names_transitive_default - 2]
+
+---
+
+[TestCommand_Transitive/requirements.txt_no_resolve_dotted_names - 1]
+Scanning dir ./testdata/locks-requirements/requirements-dotted-names.txt
+Scanned <rootdir>/testdata/locks-requirements/requirements-dotted-names.txt file and found 2 packages
+
+No issues found
+
+---
+
+[TestCommand_Transitive/requirements.txt_no_resolve_dotted_names - 2]
+
+---
+
+[TestCommand_Transitive/requirements.txt_no_resolve_flag_like_names - 1]
+Scanning dir ./testdata/locks-requirements/requirements-flag-like-names.txt
+Scanned <rootdir>/testdata/locks-requirements/requirements-flag-like-names.txt file and found 1 package
+
+No issues found
+
+---
+
+[TestCommand_Transitive/requirements.txt_no_resolve_flag_like_names - 2]
 
 ---
 

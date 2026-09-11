@@ -1,0 +1,23 @@
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "test-spdx-go",
+  "documentNamespace": "https://spdx.google/test-spdx-go",
+  "packages": [
+    {
+      "name": "go",
+      "SPDXID": "SPDXRef-Package-go-module-json-iterator",
+      "versionInfo": "1.1.12",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:golang/github.com/json-iterator/go@1.1.12"
+        }
+      ]
+    }
+  ]
+}

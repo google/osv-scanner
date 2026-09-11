@@ -80,6 +80,40 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "-L", "./testdata/sbom-insecure/with-duplicates.cdx.xml"},
 			Exit: 1,
 		},
+		// cyclonedx scoped npm
+		{
+			Name: "cyclonedx_scoped_npm_detects_vuln",
+			Args: []string{"", "source", "./testdata/sbom-insecure/cyclonedx-scoped-npm-vuln.cdx.json"},
+			Exit: 1,
+		},
+		{
+			Name: "cyclonedx_scoped_npm_no_false_positive",
+			Args: []string{"", "source", "./testdata/sbom-insecure/cyclonedx-scoped-npm.cdx.json"},
+			Exit: 0,
+		},
+		// spdx scoped npm
+		{
+			Name: "spdx_scoped_npm_detects_vuln",
+			Args: []string{"", "source", "./testdata/sbom-insecure/spdx-scoped-npm-vuln.spdx.json"},
+			Exit: 1,
+		},
+		{
+			Name: "spdx_scoped_npm_no_false_positive",
+			Args: []string{"", "source", "./testdata/sbom-insecure/spdx-scoped-npm.spdx.json"},
+			Exit: 0,
+		},
+		// spdx go module ending in /go
+		{
+			Name: "spdx_go_module_ending_in_go_not_stdlib",
+			Args: []string{"", "source", "./testdata/sbom-insecure/spdx-go-module-ending-in-go.spdx.json"},
+			Exit: 0,
+		},
+		// cyclonedx go module ending in /go
+		{
+			Name: "cyclonedx_go_module_ending_in_go_not_stdlib",
+			Args: []string{"", "source", "./testdata/sbom-insecure/cyclonedx-go-module-ending-in-go.cdx.json"},
+			Exit: 0,
+		},
 		// one file that does not match the supported sbom file names
 		{
 			Name: "one_file_that_does_not_match_the_supported_sbom_file_names",
@@ -1426,6 +1460,26 @@ func TestCommand_Transitive(t *testing.T) {
 			Name: "requirements.txt_resolution_fallback",
 			Args: []string{"", "source", "./testdata/locks-requirements/unresolvable-requirements.txt"},
 			Exit: 1,
+		},
+		{
+			Name: "requirements.txt_dotted_names_transitive_default",
+			Args: []string{"", "source", "./testdata/locks-requirements/requirements-dotted-names.txt"},
+			Exit: 0,
+		},
+		{
+			Name: "requirements.txt_no_resolve_dotted_names",
+			Args: []string{"", "source", "--no-resolve", "./testdata/locks-requirements/requirements-dotted-names.txt"},
+			Exit: 0,
+		},
+		{
+			Name: "requirements.txt_flag_like_names_transitive_default",
+			Args: []string{"", "source", "./testdata/locks-requirements/requirements-flag-like-names.txt"},
+			Exit: 0,
+		},
+		{
+			Name: "requirements.txt_no_resolve_flag_like_names",
+			Args: []string{"", "source", "--no-resolve", "./testdata/locks-requirements/requirements-flag-like-names.txt"},
+			Exit: 0,
 		},
 	}
 
