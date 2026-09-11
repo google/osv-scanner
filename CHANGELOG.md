@@ -1,3 +1,41 @@
+# v2.6.0
+
+### Features:
+
+- [Feature #2888](https://github.com/google/osv-scanner/pull/2888) Publish multi-arch (`linux/arm64`) image for `osv-scanner-action`.
+- [Feature #3066](https://github.com/google/osv-scanner/pull/3066) Configure retry policy with exponential backoff for transient gRPC errors in scalibr plugins.
+- **Dependency scanning & lockfile improvements via `osv-scalibr`**:
+  - Extract Git repository URLs and support local OSV tag matching for Git-based dependencies in JavaScript lockfiles (`package-lock.json`, `yarn.lock`, `pnpm-lock.yaml`, `bun.lock`).
+  - Assign `pkg:git` PURL type to Git commit-pinned dependencies across JS and Cargo lockfiles to avoid false positives against registry packages ([#2863](https://github.com/google/osv-scanner/pull/2863)).
+  - Retain packages without a version or PURL in SPDX output ([google/osv-scalibr#2375](https://github.com/google/osv-scalibr/pull/2375)) and merge related packages based on lineage relationships.
+- **New extractors and plugin support via `osv-scalibr`**:
+  - Many additional filetypes are supported. These are not enabled by default yet, so if you need a particular new filetype, use `--experimental-plugins` flag. See ["Supported Inventory Types"](https://github.com/google/osv-scalibr/blob/3f6473abebb329f3e0dc7e9e0d9c91e0c6e51277/docs/supported_inventory_types.md) for the extractor name.
+
+### Fixes:
+
+- [Bug #3075](https://github.com/google/osv-scanner/pull/3075) Ensure `results` property in JSON output is an empty array `[]` instead of `null` when scanning with `--allow-no-lockfiles` and no lockfiles are found.
+- [Bug #3071](https://github.com/google/osv-scanner/pull/3071) Preserve valid UTF-8 sequences when truncating multibyte text in vertical output.
+- [Bug #2919](https://github.com/google/osv-scanner/pull/2919) Add filter to show packages with license violations but no vulnerabilities in the HTML report.
+- [Bug #3049](https://github.com/google/osv-scanner/pull/3049) Keep filter dropdown checklist open when clicking options in the HTML report.
+- [Bug #3023](https://github.com/google/osv-scanner/pull/3023) Guard against panic on empty or whitespace-only license expressions in SPDX license evaluation.
+- [Bug #3032](https://github.com/google/osv-scanner/pull/3032) Bound recursion depth when parsing SPDX license expressions to prevent stack overflow on deeply nested expressions.
+- [Bug #3061](https://github.com/google/osv-scanner/pull/3061) Remove purl caching in scan filtering to avoid dropping SBOM packages without purls.
+- [Bug #3063](https://github.com/google/osv-scanner/pull/3063) Log plugin and enricher errors during container scans instead of failing silently.
+- [Bug #2977](https://github.com/google/osv-scanner/pull/2977) Return an error instead of aborting the process (`log.Fatalf`) when an `rlib` archive has no object file during Rust source analysis.
+- **Fixes via `osv-scalibr`**:
+  - Fix false-positive Go standard library matches for packages with module paths ending in `/go` (e.g. `pkg:golang/github.com/json-iterator/go`) ([#3017](https://github.com/google/osv-scanner/issues/3017)).
+  - Secure guided remediation file operations with `os.Root` to prevent path traversal attacks ([google/osv-scalibr#2363](https://github.com/google/osv-scalibr/pull/2363)).
+  - Prevent OOM and disk exhaustion issues with tar bombs during archive extraction.
+  - Strip platform suffix from RubyGems versions in CycloneDX ([google/osv-scalibr#2313](https://github.com/google/osv-scalibr/pull/2313)).
+  - Ignore `.deps.json` files that don't have an object as their root in `dotnet/depsjson` extractor ([google/osv-scalibr#2423](https://github.com/google/osv-scalibr/pull/2423)).
+
+### Misc:
+
+- Update `osv-scalibr` to `v0.5.3-0.20260911045259-c80543c50172` ([#3078](https://github.com/google/osv-scanner/pull/3078)).
+- Update Go to v1.27 and `golangci-lint` to v2.13 ([#3046](https://github.com/google/osv-scanner/pull/3046)).
+  - This now supports call analysis on go v1.27 projects.
+- Update `google.golang.org/grpc` to v1.83.2 ([#3062](https://github.com/google/osv-scanner/pull/3062)).
+
 # v2.5.1
 
 ### Fixes:
