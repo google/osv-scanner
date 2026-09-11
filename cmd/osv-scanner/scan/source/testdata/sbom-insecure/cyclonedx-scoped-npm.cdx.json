@@ -1,0 +1,16 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "version": 1,
+  "components": [
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/%40aws-sdk/client-lambda@3.1037.0",
+      "group": "@aws-sdk",
+      "name": "client-lambda",
+      "version": "3.1037.0",
+      "purl": "pkg:npm/%40aws-sdk/client-lambda@3.1037.0"
+    }
+  ]
+}

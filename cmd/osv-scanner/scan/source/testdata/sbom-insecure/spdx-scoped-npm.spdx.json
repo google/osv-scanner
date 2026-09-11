@@ -1,0 +1,23 @@
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "test-spdx-scoped-npm",
+  "documentNamespace": "https://spdx.google/test-spdx-scoped-npm",
+  "packages": [
+    {
+      "name": "@aws-sdk/client-lambda",
+      "SPDXID": "SPDXRef-Package-client-lambda",
+      "versionInfo": "3.1037.0",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/%40aws-sdk/client-lambda@3.1037.0"
+        }
+      ]
+    }
+  ]
+}
