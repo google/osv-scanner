@@ -106,7 +106,7 @@ func ecosystemToPURLType(eco string) string {
 	case "pub":
 		return "pub"
 	default:
-		return "placeholder"
+		return ""
 	}
 }
 
