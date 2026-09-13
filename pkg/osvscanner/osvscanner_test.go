@@ -2,6 +2,7 @@ package osvscanner_test
 
 import (
 	"bytes"
+	"errors"
 	"log/slog"
 	"testing"
 
@@ -50,5 +51,36 @@ func TestDoScan_LogHandlerOverride(t *testing.T) {
 	// altOutput should contain data now instead.
 	if altOutput.Len() == 0 {
 		t.Errorf("altOutput.Len() = %d, want %d", altOutput.Len(), 0)
+	}
+}
+
+func TestDoContainerScan_EmptyImage(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name    string
+		actions osvscanner.ScannerActions
+	}{
+		{
+			name:    "empty actions",
+			actions: osvscanner.ScannerActions{},
+		},
+		{
+			name: "image archive with empty image",
+			actions: osvscanner.ScannerActions{
+				IsImageArchive: true,
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			_, err := osvscanner.DoContainerScan(tt.actions)
+			if !errors.Is(err, osvscanner.ErrNoImageSpecified) {
+				t.Errorf("DoContainerScan() error = %v, want %v", err, osvscanner.ErrNoImageSpecified)
+			}
+		})
 	}
 }

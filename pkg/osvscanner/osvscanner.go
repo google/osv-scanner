@@ -114,6 +114,9 @@ var ErrVulnerabilitiesFound = errors.New("vulnerabilities found")
 // TODO(v2): Actually use this error
 var ErrAPIFailed = errors.New("API query failed")
 
+// ErrNoImageSpecified is returned when a container scan is requested without an image.
+var ErrNoImageSpecified = errors.New("no container image specified")
+
 // DoScan performs the osv scanner action, with optional reporter to output information
 func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 	// --- Sanity check flags ----
@@ -167,6 +170,10 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 }
 
 func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error) {
+	if actions.Image == "" {
+		return models.VulnerabilityResults{}, ErrNoImageSpecified
+	}
+
 	scanResults := results.ScanResults{
 		ConfigManager: config.Manager{
 			DefaultConfig: config.Config{},
@@ -227,9 +234,11 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	}
 
 	defer func() {
-		err := img.CleanUp()
-		if err != nil {
-			cmdlogger.Errorf("Failed to clean up image: %s", err)
+		if img != nil {
+			err := img.CleanUp()
+			if err != nil {
+				cmdlogger.Errorf("Failed to clean up image: %s", err)
+			}
 		}
 	}()
 
