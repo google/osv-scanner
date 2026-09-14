@@ -7,9 +7,9 @@ import (
 	"strings"
 
 	"github.com/google/osv-scalibr/inventory/osvecosystem"
-	depgroups "github.com/google/osv-scanner/v2/internal/utility/depgroup"
 	"github.com/google/osv-scanner/v2/internal/utility/results"
 	"github.com/google/osv-scanner/v2/internal/utility/severity"
+	depgroups "github.com/google/osv-scanner/v2/pkg/depgroups"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 

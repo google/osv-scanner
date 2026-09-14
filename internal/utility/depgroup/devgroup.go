@@ -1,26 +1,16 @@
 // Package depgroups provides functionality for working with dependency groups.
+//
+// Deprecated: Use github.com/google/osv-scanner/v2/pkg/depgroups instead.
 package depgroups
 
 import (
-	"slices"
-
+	"github.com/google/osv-scanner/v2/pkg/depgroups"
 	"github.com/ossf/osv-schema/bindings/go/osvconstants"
 )
 
 // IsDevGroup returns if any string in groups indicates the development dependency group for the specified ecosystem.
+//
+// Deprecated: Use github.com/google/osv-scanner/v2/pkg/depgroups.IsDevGroup instead.
 func IsDevGroup(sys osvconstants.Ecosystem, groups []string) bool {
-	var dev string
-	switch sys {
-	case osvconstants.EcosystemPackagist, osvconstants.EcosystemNPM, osvconstants.EcosystemPyPI, osvconstants.EcosystemPub:
-		dev = "dev"
-	case osvconstants.EcosystemConanCenter:
-		dev = "build-requires"
-	case osvconstants.EcosystemMaven:
-		dev = "test"
-	default:
-		// We are not able to report development dependencies for these ecosystems.
-		return false
-	}
-
-	return slices.Contains(groups, dev)
+	return depgroups.IsDevGroup(sys, groups)
 }
