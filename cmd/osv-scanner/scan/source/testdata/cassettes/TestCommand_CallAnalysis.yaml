@@ -52,7 +52,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-c3h9-896r-86jm",
-                  "modified": "2026-02-04T02:43:17.273837Z"
+                  "modified": "2026-09-10T03:49:28.264074Z"
                 },
                 {
                   "id": "GO-2021-0053",
@@ -64,7 +64,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-2h6c-j3gf-xp9r",
-                  "modified": "2023-11-08T04:11:41.796349Z"
+                  "modified": "2026-09-10T03:49:51.750951Z"
                 },
                 {
                   "id": "GO-2023-1558",
@@ -76,11 +76,11 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-44p7-9xx4-hf2g",
-                  "modified": "2026-05-05T15:55:51.702873Z"
+                  "modified": "2026-09-10T03:50:36.938186Z"
                 },
                 {
                   "id": "GHSA-9phm-fm57-rhg8",
-                  "modified": "2026-02-04T03:56:37.185672Z"
+                  "modified": "2026-09-10T03:50:15.096258Z"
                 },
                 {
                   "id": "GHSA-j3p8-6mrq-6g7h",
@@ -88,7 +88,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-q675-qj96-32m9",
-                  "modified": "2026-08-15T21:41:51.372728Z"
+                  "modified": "2026-09-10T03:51:11.816647Z"
                 },
                 {
                   "id": "GHSA-qgc7-mgm3-q253",
@@ -199,7 +199,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-c3h9-896r-86jm",
-                  "modified": "2026-02-04T02:43:17.273837Z"
+                  "modified": "2026-09-10T03:49:28.264074Z"
                 },
                 {
                   "id": "GO-2021-0053",
@@ -254,7 +254,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-c3h9-896r-86jm",
-                  "modified": "2026-02-04T02:43:17.273837Z"
+                  "modified": "2026-09-10T03:49:28.264074Z"
                 },
                 {
                   "id": "GO-2021-0053",
