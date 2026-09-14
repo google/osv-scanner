@@ -22,6 +22,7 @@
 - [Bug #3061](https://github.com/google/osv-scanner/pull/3061) Remove purl caching in scan filtering to avoid dropping SBOM packages without purls.
 - [Bug #3063](https://github.com/google/osv-scanner/pull/3063) Log plugin and enricher errors during container scans instead of failing silently.
 - [Bug #2977](https://github.com/google/osv-scanner/pull/2977) Return an error instead of aborting the process (`log.Fatalf`) when an `rlib` archive has no object file during Rust source analysis.
+- [Bug #3083](https://github.com/google/osv-scanner/pull/3083) Return a descriptive error from `DoContainerScan` when `ScannerActions.Image` is empty instead of panicking.
 - **Fixes via `osv-scalibr`**:
   - Fix false-positive Go standard library matches for packages with module paths ending in `/go` (e.g. `pkg:golang/github.com/json-iterator/go`) ([#3017](https://github.com/google/osv-scanner/issues/3017)).
   - Secure guided remediation file operations with `os.Root` to prevent path traversal attacks ([google/osv-scalibr#2363](https://github.com/google/osv-scalibr/pull/2363)).
@@ -31,7 +32,7 @@
 
 ### Misc:
 
-- Update `osv-scalibr` to `v0.5.3-0.20260911045259-c80543c50172` ([#3078](https://github.com/google/osv-scanner/pull/3078)).
+- Update `osv-scalibr` to `v0.5.3-0.20260911142458-3090dbb7aaa2` ([#3079](https://github.com/google/osv-scanner/pull/3079)).
 - Update Go to v1.27 and `golangci-lint` to v2.13 ([#3046](https://github.com/google/osv-scanner/pull/3046)).
   - This now supports call analysis on go v1.27 projects.
 - Update `google.golang.org/grpc` to v1.83.2 ([#3062](https://github.com/google/osv-scanner/pull/3062)).
