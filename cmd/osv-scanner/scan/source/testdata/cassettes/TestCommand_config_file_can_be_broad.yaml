@@ -1,0 +1,367 @@
+---
+version: 2
+interactions:
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 3456
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.17",
+                "name": "alpine-baselayout"
+              },
+              "version": "3.4.0-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.17",
+                "name": "alpine-baselayout-data"
+              },
+              "version": "3.4.0-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.17",
+                "name": "alpine-keys"
+              },
+              "version": "2.4-r1"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.17",
+                "name": "apk-tools"
+              },
+              "version": "2.12.10-r1"
+            },
+            {
+              "package": {
+                "ecosystem": "RubyGems",
+                "name": "ast"
+              },
+              "version": "2.4.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.17",
+                "name": "busybox-binsh"
+              },
+              "version": "1.36.1-r27"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.17",
+                "name": "ca-certificates-bundle"
+              },
+              "version": "20220614-r4"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "drupal/core"
+              },
+              "version": "10.4.5"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "drupal/simple_sitemap"
+              },
+              "version": "4.2.1"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "drupal/tfa"
+              },
+              "version": "2.0.0-alpha4"
+            },
+            {
+              "commit": "4579d5538f06c5ef615a15bc67ebb9ac0523a973"
+            },
+            {
+              "commit": "6fc3b89fcdb89b593402e0dabc13a7d7fd3f762d"
+            },
+            {
+              "commit": "5d60bd2eb4642b64d00c845e5ca9f1ea41fd6db6"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "league/flysystem"
+              },
+              "version": "1.0.8"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "league/flysystem"
+              },
+              "version": "1.0.8"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.17",
+                "name": "libc-utils"
+              },
+              "version": "0.7.2-r3"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.17",
+                "name": "libcrypto3"
+              },
+              "version": "3.0.8-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.17",
+                "name": "libssl3"
+              },
+              "version": "3.0.8-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.17",
+                "name": "musl"
+              },
+              "version": "1.2.3-r4"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.17",
+                "name": "musl-utils"
+              },
+              "version": "1.2.3-r4"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.17",
+                "name": "scanelf"
+              },
+              "version": "1.3.5-r1"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "sentry/sdk"
+              },
+              "version": "2.0.4"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.17",
+                "name": "ssl_client"
+              },
+              "version": "1.36.1-r27"
+            },
+            {
+              "package": {
+                "ecosystem": "Go",
+                "name": "stdlib"
+              },
+              "version": "1.99.9"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "theseer/tokenizer"
+              },
+              "version": "1.1.3"
+            },
+            {
+              "package": {
+                "ecosystem": "Go",
+                "name": "toolchain"
+              },
+              "version": "1.99.9"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine:v3.17",
+                "name": "zlib"
+              },
+              "version": "1.2.13-r0"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 2048
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "DRUPAL-CORE-2025-005",
+                  "modified": "2025-12-10T23:41:07.744028Z"
+                },
+                {
+                  "id": "DRUPAL-CORE-2025-006",
+                  "modified": "2025-12-10T23:41:16.689525Z"
+                },
+                {
+                  "id": "DRUPAL-CORE-2025-007",
+                  "modified": "2025-12-10T23:41:19.050806Z"
+                },
+                {
+                  "id": "DRUPAL-CORE-2025-008",
+                  "modified": "2025-12-10T23:41:00.167393Z"
+                },
+                {
+                  "id": "DRUPAL-CORE-2026-001",
+                  "modified": "2026-06-17T19:30:04.962465Z"
+                },
+                {
+                  "id": "DRUPAL-CORE-2026-002",
+                  "modified": "2026-06-05T18:42:20.611283Z"
+                },
+                {
+                  "id": "DRUPAL-CORE-2026-004",
+                  "modified": "2026-06-18T20:26:07.761498Z"
+                },
+                {
+                  "id": "DRUPAL-CORE-2026-005",
+                  "modified": "2026-06-19T19:15:05.088567Z"
+                },
+                {
+                  "id": "DRUPAL-CORE-2026-006",
+                  "modified": "2026-06-17T19:41:28.377726Z"
+                },
+                {
+                  "id": "DRUPAL-CORE-2026-007",
+                  "modified": "2026-06-17T19:41:28.960353Z"
+                },
+                {
+                  "id": "DRUPAL-CORE-2026-008",
+                  "modified": "2026-06-17T19:41:28.520824Z"
+                },
+                {
+                  "id": "DRUPAL-CORE-2026-009",
+                  "modified": "2026-06-17T19:41:28.298817Z"
+                },
+                {
+                  "id": "DRUPAL-CORE-2026-010",
+                  "modified": "2026-07-15T20:45:04.893268Z"
+                },
+                {
+                  "id": "DRUPAL-CORE-2026-012",
+                  "modified": "2026-07-15T20:45:04.895006Z"
+                },
+                {
+                  "id": "GHSA-83v7-c2cf-p9c2",
+                  "modified": "2025-12-10T23:41:07.744028Z"
+                },
+                {
+                  "id": "GHSA-f3cj-mjqm-fhvj",
+                  "modified": "2026-06-05T18:42:12.797816Z"
+                },
+                {
+                  "id": "GHSA-ghwc-95x2-682j",
+                  "modified": "2026-06-18T20:26:07.761498Z"
+                },
+                {
+                  "id": "GHSA-h89p-5896-f4q8",
+                  "modified": "2025-12-10T23:41:19.050806Z"
+                },
+                {
+                  "id": "GHSA-m6vv-vcj8-w8m7",
+                  "modified": "2025-12-10T23:41:16.689525Z"
+                },
+                {
+                  "id": "GHSA-mhpg-hpj5-73r2",
+                  "modified": "2026-02-03T03:15:35.495869Z"
+                },
+                {
+                  "id": "GHSA-xmjc-63pr-2mpg",
+                  "modified": "2026-06-05T18:42:20.611283Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "DRUPAL-CONTRIB-2025-083",
+                  "modified": "2025-12-10T23:41:32.857305Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "CVE-2023-39137",
+                  "modified": "2026-07-15T01:48:52.379755Z"
+                },
+                {
+                  "id": "CVE-2023-39139",
+                  "modified": "2026-07-15T01:49:21.869281Z"
+                }
+              ]
+            },
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-9f46-5r25-5wfm",
+                  "modified": "2026-07-08T06:28:00.604230Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-9f46-5r25-5wfm",
+                  "modified": "2026-07-08T06:28:00.604230Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "ALPINE-CVE-2025-26519",
+                  "modified": "2026-07-08T04:32:24.548042Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "2048"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s

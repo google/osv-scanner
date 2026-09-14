@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.7.3",
+  "id": "DRUPAL-CONTRIB-2025-083",
+  "published": "2025-06-25T18:42:38Z",
+  "modified": "2025-12-10T23:41:32.857305Z",
+  "aliases": [
+    "CVE-2025-6676"
+  ],
+  "details": "[Simple XML sitemap](https://www.drupal.org/project/simple_sitemap) is a SEO module that allows creating various XML sitemaps of the site's content and submitting them to search engines.  \nThe module doesn't sufficiently sanitize input when administering it, which leads to a Cross-site scripting (XSS) attack vector.  \nThis vulnerability is mitigated by the fact that an attacker must have the administrative permission 'administer sitemap settings'.",
+  "affected": [
+    {
+      "package": {
+        "name": "drupal/simple_sitemap",
+        "ecosystem": "Packagist:https://packages.drupal.org/8",
+        "purl": "pkg:composer/drupal/simple_sitemap"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.2.2"
+            }
+          ],
+          "database_specific": {
+            "constraint": "< 4.2.2"
+          }
+        }
+      ],
+      "database_specific": {
+        "affected_versions": "< 4.2.2",
+        "source": "https://github.com/DrupalSecurityTeam/drupal-advisory-database/blob/main/advisories/simple_sitemap/DRUPAL-CONTRIB-2025-083.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://www.drupal.org/sa-contrib-2025-083"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Nick Vanpraet (grayle)",
+      "contact": [
+        "https://www.drupal.org/u/grayle"
+      ]
+    }
+  ]
+}
