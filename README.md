@@ -41,6 +41,21 @@ The above all results in accurate and actionable vulnerability notifications, wh
 To install OSV-Scanner, please refer to the [installation section](https://google.github.io/osv-scanner/installation) of our documentation. OSV-Scanner releases can be found on the [releases page](https://github.com/google/osv-scanner/releases) of the GitHub repository. The recommended method is to download a prebuilt binary for your platform. Alternatively, you can use
 `go install github.com/google/osv-scanner/v2/cmd/osv-scanner@latest` to build it from source.
 
+### GitHub Actions
+
+To scan every pull request without installing Go in your workflow, add:
+
+```yaml
+- name: Scan dependencies
+  uses: google/osv-scanner-action/osv-scanner-action@v2.0.2
+  with:
+    scan-args: |
+      -r
+      .
+```
+
+The action returns a non-zero status when vulnerabilities are found, so the workflow can block a pull request until dependencies are reviewed. See the [action repository](https://github.com/google/osv-scanner-action) for available versions and options.
+
 ## Key Features
 
 For more information, please read our [detailed documentation](https://google.github.io/osv-scanner) to learn how to use OSV-Scanner. For detailed information about each feature, click their titles in this README.
