@@ -6,6 +6,7 @@ import (
 	"strconv"
 	"strings"
 	"unicode"
+	"unicode/utf8"
 
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/jedib0t/go-pretty/v6/text"
@@ -305,7 +306,12 @@ func truncate(str string, limit int) string {
 			// ideally we want to keep words whole when truncating,
 			// but if we can't find a space just truncate at the limit
 			if truncateAt == -1 {
-				truncateAt = limit
+				if limit <= 0 {
+					truncateAt = 0
+				} else {
+					_, size := utf8.DecodeRuneInString(str[i:])
+					truncateAt = i + size
+				}
 			}
 
 			return str[:truncateAt] + "..."

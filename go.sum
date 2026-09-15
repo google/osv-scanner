@@ -8,10 +8,10 @@ cloud.google.com/go/compute/metadata v0.9.0 h1:pDUj4QMoPejqq20dK0Pg2N4yG9zIkYGdB
 cloud.google.com/go/compute/metadata v0.9.0/go.mod h1:E0bWwX5wTnLPedCKqk3pJmVgCBSM6qQI1yTBdEb3C10=
 dario.cat/mergo v1.0.2 h1:85+piFYR1tMbRrLcDwR18y4UKJ3aH1Tbzi24VRW1TK8=
 dario.cat/mergo v1.0.2/go.mod h1:E/hbnu0NxMFBjpMIE34DRGLWqDy0g5FuKDhCb31ngxA=
-deps.dev/api/v3 v3.0.0-20260827000537-dc936a45c657 h1:2LTjiWHsdqVdk71Fg3PmHZhGgxS+kZngXlLyEZWwzEM=
-deps.dev/api/v3 v3.0.0-20260827000537-dc936a45c657/go.mod h1:FgTfOQ+48N7mQVyNUIrqIfF6Rqc908ePHxK/Rm/WlUY=
-deps.dev/api/v3alpha v0.0.0-20260827000537-dc936a45c657 h1:OVIURgQ0YuakdD95zT8id/CbyXzWF0K9SZqtNqslXsY=
-deps.dev/api/v3alpha v0.0.0-20260827000537-dc936a45c657/go.mod h1:5Iw+VT2vQp1VnAah8Pa2yTBY+kBh8++WsinL+6At35I=
+deps.dev/api/v3 v3.0.0-20260811035547-133c155ce203 h1:609W3fMlUT5DRVkVUFSpA3a8FvWp0NCAF5auaspsews=
+deps.dev/api/v3 v3.0.0-20260811035547-133c155ce203/go.mod h1:n0QKltoCRUXfDqQ6xH3zIIID/QrZ86mglBZvcdqTrCo=
+deps.dev/api/v3alpha v0.0.0-20260811035547-133c155ce203 h1:W5ZqGOPq1Yz7nrAXKznIsYjsgjG84jBG5seCaNtaSlI=
+deps.dev/api/v3alpha v0.0.0-20260811035547-133c155ce203/go.mod h1:exryK+my03jfhf920mxleMs7s/dwUdVNaRml2Hrbf/w=
 deps.dev/util/maven v0.0.0-20260727054525-2946ae4a6141 h1:QohImycI6wNWSXvso9b4e0Lbr7n82D9pZVLMW3+ItMk=
 deps.dev/util/maven v0.0.0-20260727054525-2946ae4a6141/go.mod h1:eGrXziwI7scSGrwIj+5EBHtTeSxAZD/yi8Hb3nFXesA=
 deps.dev/util/pypi v0.0.0-20260727054525-2946ae4a6141 h1:WEYLTUP83k5nruc5a8FrgNyWP2s+ArFL308X4tVgX38=
@@ -240,8 +240,8 @@ github.com/google/go-cpy v0.0.0-20211218193943-a9c933c06932 h1:5/4TSDzpDnHQ8rKEE
 github.com/google/go-cpy v0.0.0-20211218193943-a9c933c06932/go.mod h1:cC6EdPbj/17GFCPDK39NRarlMI+kt+O60S12cNB5J9Y=
 github.com/google/jsonschema-go v0.4.3 h1:/DBOLZTfDow7pe2GmaJNhltueGTtDKICi8V8p+DQPd0=
 github.com/google/jsonschema-go v0.4.3/go.mod h1:r5quNTdLOYEz95Ru18zA0ydNbBuYoo9tgaYcxEYhJVE=
-github.com/google/osv-scalibr v0.5.3-0.20260910001702-d6ac14eabea7 h1:kP6zPMjDXcF09D1Ti1OoYe06gOpR6PjR2D0n118kafM=
-github.com/google/osv-scalibr v0.5.3-0.20260910001702-d6ac14eabea7/go.mod h1:zwpKksQMgyYI0lwFZ5ImtfPnHSt4BUXw6O+AHgrGC+s=
+github.com/google/osv-scalibr v0.5.3-0.20260911142458-3090dbb7aaa2 h1:IzIAw7u+lWEYUOociMhK8vCvniHs9KWfAuNch+i94a0=
+github.com/google/osv-scalibr v0.5.3-0.20260911142458-3090dbb7aaa2/go.mod h1:zwpKksQMgyYI0lwFZ5ImtfPnHSt4BUXw6O+AHgrGC+s=
 github.com/google/pprof v0.0.0-20260802141513-ef3492d7dac3 h1:LMLX+LgTNWpfvCBdFebv6EsYotImrt/Ppc5cXIriCSo=
 github.com/google/pprof v0.0.0-20260802141513-ef3492d7dac3/go.mod h1:jl5iWTm0/hd5PjEYEOuwAJ57L/CibdZfrqZ5XA5GrCk=
 github.com/google/uuid v1.6.0 h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=

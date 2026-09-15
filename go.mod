@@ -5,15 +5,13 @@ go 1.27.0
 require (
 	charm.land/glamour/v2 v2.0.1
 	charm.land/lipgloss/v2 v2.0.6
-	deps.dev/api/v3 v3.0.0-20260827000537-dc936a45c657
-	deps.dev/api/v3alpha v0.0.0-20260827000537-dc936a45c657
 	github.com/BurntSushi/toml v1.6.0
 	github.com/CycloneDX/cyclonedx-go v0.12.0
 	github.com/gkampitakis/go-snaps v0.5.23
 	github.com/go-git/go-git/v5 v5.19.2
 	github.com/gobwas/glob v0.2.3
 	github.com/google/go-cmp v0.7.0
-	github.com/google/osv-scalibr v0.5.3-0.20260910001702-d6ac14eabea7
+	github.com/google/osv-scalibr v0.5.3-0.20260911142458-3090dbb7aaa2
 	github.com/ianlancetaylor/demangle v0.0.0-20260724033716-83e58baca724
 	github.com/jedib0t/go-pretty/v6 v6.8.3
 	github.com/modelcontextprotocol/go-sdk v1.7.0
@@ -39,6 +37,8 @@ require (
 	bitbucket.org/creachadair/stringset v0.0.14 // indirect
 	cloud.google.com/go/compute/metadata v0.9.0 // indirect
 	dario.cat/mergo v1.0.2 // indirect
+	deps.dev/api/v3 v3.0.0-20260811035547-133c155ce203 // indirect
+	deps.dev/api/v3alpha v0.0.0-20260811035547-133c155ce203 // indirect
 	deps.dev/util/maven v0.0.0-20260727054525-2946ae4a6141 // indirect
 	deps.dev/util/pypi v0.0.0-20260727054525-2946ae4a6141 // indirect
 	deps.dev/util/resolve v0.0.0-20260727054525-2946ae4a6141 // indirect

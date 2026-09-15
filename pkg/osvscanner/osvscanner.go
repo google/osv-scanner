@@ -167,6 +167,10 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 }
 
 func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error) {
+	if actions.Image == "" {
+		return models.VulnerabilityResults{}, errors.New("container image must be provided")
+	}
+
 	scanResults := results.ScanResults{
 		ConfigManager: config.Manager{
 			DefaultConfig: config.Config{},
