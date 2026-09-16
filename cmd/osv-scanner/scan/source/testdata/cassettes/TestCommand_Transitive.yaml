@@ -66809,10 +66809,42 @@ interactions:
               "upload-time": "2026-05-07T16:13:18.596909Z",
               "url": "https://files.pythonhosted.org/packages/53/0c/06f8b233b8fd13b9e5ee11424ef85419ba0d8ba0b3138bf360be2ff56953/urllib3-2.7.0.tar.gz",
               "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "10898c620e8007c030e07fa5622b68358a43010025dfbd78a1cb797699de2bb4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "10898c620e8007c030e07fa5622b68358a43010025dfbd78a1cb797699de2bb4"
+              },
+              "filename": "urllib3-2.8.0-py3-none-any.whl",
+              "hashes": {
+                "sha256": "0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3"
+              },
+              "provenance": "https://pypi.org/integrity/urllib3/2.8.0/urllib3-2.8.0-py3-none-any.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 135717,
+              "upload-time": "2026-09-15T19:29:34.577402Z",
+              "url": "https://files.pythonhosted.org/packages/92/9d/c4e665119135114480843e7ab388fa94d8480650450e6f8e26b70d323a4c/urllib3-2.8.0-py3-none-any.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": false,
+              "data-dist-info-metadata": false,
+              "filename": "urllib3-2.8.0.tar.gz",
+              "hashes": {
+                "sha256": "63bf2ead4c879426ebf22ef2a781eeb4aa3b4ae798a0435506f8687fd5bb9b63"
+              },
+              "provenance": "https://pypi.org/integrity/urllib3/2.8.0/urllib3-2.8.0.tar.gz/provenance",
+              "requires-python": ">=3.10",
+              "size": 458972,
+              "upload-time": "2026-09-15T19:29:36.253420Z",
+              "url": "https://files.pythonhosted.org/packages/e3/05/b17359e1cefb4f909b5e40b1b90a496d987258916dbbf88e842c729f510e/urllib3-2.8.0.tar.gz",
+              "yanked": false
             }
           ],
           "meta": {
-            "_last-serial": 36836170,
+            "_last-serial": 41105803,
             "api-version": "1.4"
           },
           "name": "urllib3",
@@ -66923,7 +66955,8 @@ interactions:
             "2.6.1",
             "2.6.2",
             "2.6.3",
-            "2.7.0"
+            "2.7.0",
+            "2.8.0"
           ]
         }
       headers:
