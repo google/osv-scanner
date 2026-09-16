@@ -4107,6 +4107,7 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
             "os_package_name": "bsdutils",
             "version": "1:2.37.2-4ubuntu3.4",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/bsdutils@1:2.37.2-4ubuntu3.4?arch=amd64/u0026distro=jammy/u0026source=util-linux/u0026sourceversion=2.37.2-4ubuntu3.4",
             "image_origin_details": {
               "index": 4
             }
@@ -5256,6 +5257,7 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
             "os_package_name": "zlib1g",
             "version": "1:1.2.11.dfsg-2ubuntu9.2",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/zlib1g@1:1.2.11.dfsg-2ubuntu9.2?arch=amd64/u0026distro=jammy/u0026source=zlib",
             "image_origin_details": {
               "index": 4
             }
@@ -5491,6 +5493,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "bsdutils",
             "version": "1:2.37.2-4ubuntu3.4",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/bsdutils@1:2.37.2-4ubuntu3.4?arch=amd64/u0026distro=jammy/u0026source=util-linux/u0026sourceversion=2.37.2-4ubuntu3.4",
             "image_origin_details": {
               "index": 4
             }
@@ -6657,6 +6660,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "os_package_name": "zlib1g",
             "version": "1:1.2.11.dfsg-2ubuntu9.2",
             "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/zlib1g@1:1.2.11.dfsg-2ubuntu9.2?arch=amd64/u0026distro=jammy/u0026source=zlib",
             "image_origin_details": {
               "index": 4
             }
