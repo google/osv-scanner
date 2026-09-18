@@ -12406,7 +12406,7 @@ interactions:
         Strict-Transport-Security:
           - max-age=31536000; includeSubDomains; preload
         Vary:
-          - Accept, Accept-Encoding
+          - Accept-Encoding, Accept
         X-Content-Type-Options:
           - nosniff
         X-Frame-Options:
@@ -30911,10 +30911,42 @@ interactions:
               "upload-time": "2026-08-18T05:14:24.270231Z",
               "url": "https://files.pythonhosted.org/packages/5f/f7/abb373e5757eaec4b922b92f97ec8d6d7e057cf06778247604fbc4e7c3f3/idna-3.19.tar.gz",
               "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "dbd8c14c1e4ca1e0c9824a6dbc7cbbf78884f38eb52d91148cd3025f671e4b85"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "dbd8c14c1e4ca1e0c9824a6dbc7cbbf78884f38eb52d91148cd3025f671e4b85"
+              },
+              "filename": "idna-3.20-py3-none-any.whl",
+              "hashes": {
+                "sha256": "ab7ae7122974553370f0bdb919e1a960b2cd1bc1ef0276416d896db81c14582c"
+              },
+              "provenance": "https://pypi.org/integrity/idna/3.20/idna-3.20-py3-none-any.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 69583,
+              "upload-time": "2026-09-17T14:11:03.168153Z",
+              "url": "https://files.pythonhosted.org/packages/58/a2/bb081bab032533a855d44de1d56f8e8426114ff1ba5d1f07a438a0a654f8/idna-3.20-py3-none-any.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": false,
+              "data-dist-info-metadata": false,
+              "filename": "idna-3.20.tar.gz",
+              "hashes": {
+                "sha256": "a7db850025b95ded1eae8a46181a1a6c56c92c96f0e2b005d9ff8dc0210cab44"
+              },
+              "provenance": "https://pypi.org/integrity/idna/3.20/idna-3.20.tar.gz/provenance",
+              "requires-python": ">=3.9",
+              "size": 216463,
+              "upload-time": "2026-09-17T14:11:04.752193Z",
+              "url": "https://files.pythonhosted.org/packages/f5/08/8eea9d4b8302028f3abb2c0813953f7aec26d33b7a8960ed760e65ff29fa/idna-3.20.tar.gz",
+              "yanked": false
             }
           ],
           "meta": {
-            "_last-serial": 40127705,
+            "_last-serial": 41170495,
             "api-version": "1.4"
           },
           "name": "idna",
@@ -30962,7 +30994,8 @@ interactions:
             "3.16",
             "3.17",
             "3.18",
-            "3.19"
+            "3.19",
+            "3.20"
           ]
         }
       headers:
@@ -30991,7 +31024,7 @@ interactions:
         Strict-Transport-Security:
           - max-age=31536000; includeSubDomains; preload
         Vary:
-          - Accept, Accept-Encoding
+          - Accept-Encoding, Accept
         X-Content-Type-Options:
           - nosniff
         X-Frame-Options:
