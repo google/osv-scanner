@@ -710,7 +710,7 @@ func (d *Decoder) rawToken() (Token, error) {
 
 		case '[': // <![
 			// Probably <![CDATA[.
-			for i := 0; i < 6; i++ {
+			for i := range 6 {
 				if b, ok = d.mustgetc(); !ok {
 					return nil, d.err
 				}

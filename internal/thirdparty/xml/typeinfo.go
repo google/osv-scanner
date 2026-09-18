@@ -7,6 +7,7 @@ package xml
 import (
 	"fmt"
 	"reflect"
+	"slices"
 	"strings"
 	"sync"
 )
@@ -58,7 +59,7 @@ func getTypeInfo(typ reflect.Type) (*typeInfo, error) {
 	tinfo := &typeInfo{}
 	if typ.Kind() == reflect.Struct && typ != nameType {
 		n := typ.NumField()
-		for i := 0; i < n; i++ {
+		for i := range n {
 			f := typ.Field(i)
 			if (!f.IsExported() && !f.Anonymous) || f.Tag.Get("xml") == "-" {
 				continue // Private field
@@ -271,7 +272,7 @@ Loop:
 			continue
 		}
 		minl := min(len(newf.parents), len(oldf.parents))
-		for p := 0; p < minl; p++ {
+		for p := range minl {
 			if oldf.parents[p] != newf.parents[p] {
 				continue Loop
 			}
@@ -316,8 +317,7 @@ Loop:
 
 	// Otherwise, the new field is shallower, and thus takes precedence,
 	// so drop the conflicting fields from tinfo and append the new one.
-	for c := len(conflicts) - 1; c >= 0; c-- {
-		i := conflicts[c]
+	for _, i := range slices.Backward(conflicts) {
 		copy(tinfo.fields[i:], tinfo.fields[i+1:])
 		tinfo.fields = tinfo.fields[:len(tinfo.fields)-1]
 	}

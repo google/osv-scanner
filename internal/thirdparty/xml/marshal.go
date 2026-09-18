@@ -648,7 +648,7 @@ func (p *printer) marshalAttr(start *StartElement, name Name, val reflect.Value)
 	// Walk slices.
 	if val.Kind() == reflect.Slice && val.Type().Elem().Kind() != reflect.Uint8 {
 		n := val.Len()
-		for i := 0; i < n; i++ {
+		for i := range n {
 			if err := p.marshalAttr(start, name, val.Index(i)); err != nil {
 				return err
 			}
@@ -1123,7 +1123,7 @@ func (s *parentStack) trim(parents []string) error {
 
 // push adds parent elements to the stack and writes open tags.
 func (s *parentStack) push(parents []string) error {
-	for i := 0; i < len(parents); i++ {
+	for i := range parents {
 		if err := s.p.writeStart(&StartElement{Name: Name{Local: parents[i]}}); err != nil {
 			return err
 		}
