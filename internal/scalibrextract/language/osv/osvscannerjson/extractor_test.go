@@ -59,7 +59,6 @@ func TestExtractor_Extract(t *testing.T) {
 			WantPackages: []*extractor.Package{
 				{
 					Location: extractor.LocationFromPath("testdata/one-package-commit.json"),
-					PURLType: "placeholder",
 					Plugins:  []string{"osv/osvscannerjson"},
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "9a6bd55c9d0722cb101fe85a3b22d89e4ff4fe52",

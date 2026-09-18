@@ -346,6 +346,7 @@ type PackageInfo struct {
 	OSPackageName string              `json:"os_package_name,omitempty"`
 	Version       string              `json:"version"`
 	Ecosystem     string              `json:"ecosystem"`
+	PURL          string              `json:"purl,omitempty"`
 	Commit        string              `json:"commit,omitempty"`
 	Deprecated    bool                `json:"deprecated,omitempty"`
 	ImageOrigin   *ImageOriginDetails `json:"image_origin_details,omitempty"`
