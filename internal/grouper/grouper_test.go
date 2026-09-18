@@ -72,6 +72,24 @@ func TestGroup(t *testing.T) {
 	v10 := grouper.IDAliases{
 		ID: "UNRELATED-4",
 	}
+	// Transitive chain: v11-v13 share CVE-10, v12-v14 share CVE-11, v13-v14 share each other's IDs.
+	v11 := grouper.IDAliases{
+		ID:      "CHAIN-1",
+		Aliases: []string{"CVE-10"},
+	}
+	v12 := grouper.IDAliases{
+		ID:      "CHAIN-2",
+		Aliases: []string{"CVE-11"},
+	}
+	v13 := grouper.IDAliases{
+		ID:      "CHAIN-3",
+		Aliases: []string{"CVE-10", "CHAIN-4"},
+	}
+	v14 := grouper.IDAliases{
+		ID:      "CHAIN-4",
+		Aliases: []string{"CVE-11"},
+	}
+
 	for _, tc := range []struct {
 		vulns []grouper.IDAliases
 		want  []models.GroupInfo
@@ -127,6 +145,20 @@ func TestGroup(t *testing.T) {
 				{
 					IDs:     []string{v10.ID},
 					Aliases: []string{v10.ID},
+				},
+			},
+		},
+		{
+			// Transitive chain where the link that joins the two halves is only
+			// discovered after both halves have already been given group IDs:
+			// v11 <-> v13 and v12 <-> v14 are linked first, then v13 <-> v14.
+			vulns: []grouper.IDAliases{
+				v11, v12, v13, v14,
+			},
+			want: []models.GroupInfo{
+				{
+					IDs:     []string{v11.ID, v12.ID, v13.ID, v14.ID},
+					Aliases: []string{v11.ID, v12.ID, v13.ID, v14.ID, v13.Aliases[0], v14.Aliases[0]},
 				},
 			},
 		},

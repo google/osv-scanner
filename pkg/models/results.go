@@ -3,7 +3,6 @@ package models
 import (
 	"encoding/json"
 	"fmt"
-	"slices"
 	"strings"
 
 	"github.com/google/osv-scalibr/extractor"
@@ -43,13 +42,14 @@ func (vulns *VulnerabilityResults) Flatten() []VulnerabilityFlattened {
 	results := []VulnerabilityFlattened{}
 	for _, res := range vulns.Results {
 		for _, pkg := range res.Packages {
+			groupsByVulnID := indexGroupsByVulnID(pkg.Groups)
 			for _, v := range pkg.Vulnerabilities {
 				results = append(results, VulnerabilityFlattened{
 					Source:        res.Source,
 					Package:       pkg.Package,
 					DepGroups:     pkg.DepGroups,
 					Vulnerability: v,
-					GroupInfo:     getGroupInfoForVuln(pkg.Groups, v.GetId()),
+					GroupInfo:     groupsByVulnID[v.GetId()],
 				})
 			}
 			if len(pkg.LicenseViolations) > 0 {
@@ -74,10 +74,17 @@ func (vulns *VulnerabilityResults) Flatten() []VulnerabilityFlattened {
 	return results
 }
 
-func getGroupInfoForVuln(groups []GroupInfo, vulnID string) GroupInfo {
-	// groupIdx should never be -1 since vulnerabilities should always be in one group
-	groupIdx := slices.IndexFunc(groups, func(g GroupInfo) bool { return slices.Contains(g.IDs, vulnID) })
-	return groups[groupIdx]
+// indexGroupsByVulnID maps every vulnerability ID to the group that contains it.
+// Every vulnerability should always be in exactly one group.
+func indexGroupsByVulnID(groups []GroupInfo) map[string]GroupInfo {
+	index := make(map[string]GroupInfo, len(groups))
+	for _, group := range groups {
+		for _, id := range group.IDs {
+			index[id] = group
+		}
+	}
+
+	return index
 }
 
 // VulnerabilityFlattened is a flattened version of the VulnerabilityResults

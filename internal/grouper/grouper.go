@@ -10,36 +10,59 @@ import (
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
-func hasAliasIntersection(v1, v2 IDAliases) bool {
-	// Check if any aliases intersect.
-	for _, alias := range v1.Aliases {
-		if slices.Contains(v2.Aliases, alias) {
-			return true
-		}
-	}
-	// Check if either IDs are in the others' aliases.
-	return slices.Contains(v1.Aliases, v2.ID) || slices.Contains(v2.Aliases, v1.ID)
-}
-
 // Group groups vulnerabilities by aliases.
 func Group(vulns []IDAliases) []models.GroupInfo {
 	// Mapping of `vulns` index to a group ID. A group ID is just another index in the `vulns` slice.
 	groups := make([]int, len(vulns))
 
-	// Initially make every vulnerability its own group.
-	for i := range vulns {
-		groups[i] = i
+	// Union-find over vulnerability indexes: two vulnerabilities belong to the
+	// same group when they share an identifier (either ID or alias). Each
+	// identifier is mapped to the first vulnerability it was seen on and any
+	// later vulnerability carrying the same identifier is merged into it. This
+	// is linear in the total number of identifiers rather than quadratic in the
+	// number of vulnerabilities, and merges transitive chains correctly.
+	parent := make([]int, len(vulns))
+	for i := range parent {
+		parent[i] = i
+	}
+	find := func(i int) int {
+		for parent[i] != i {
+			parent[i] = parent[parent[i]]
+			i = parent[i]
+		}
+
+		return i
+	}
+	union := func(a, b int) {
+		ra, rb := find(a), find(b)
+		if ra == rb {
+			return
+		}
+		// Keep the smaller index as the root so the root is also the group ID.
+		if rb < ra {
+			ra, rb = rb, ra
+		}
+		parent[rb] = ra
 	}
 
-	// Do a pair-wise (n^2) comparison and merge all intersecting vulns.
-	for i := range vulns {
-		for j := i + 1; j < len(vulns); j++ {
-			if hasAliasIntersection(vulns[i], vulns[j]) {
-				// Merge the two groups. Use the smaller index as the representative ID.
-				groups[i] = min(groups[i], groups[j])
-				groups[j] = groups[i]
-			}
+	seen := make(map[string]int)
+	link := func(identifier string, i int) {
+		if j, ok := seen[identifier]; ok {
+			union(i, j)
+		} else {
+			seen[identifier] = i
 		}
+	}
+	for i, vuln := range vulns {
+		link(vuln.ID, i)
+		for _, alias := range vuln.Aliases {
+			link(alias, i)
+		}
+	}
+
+	// Resolve every vulnerability to its group's smallest index.
+	for i := range vulns {
+		groups[i] = find(i)
 	}
 
 	// Extract groups into the final result structure.

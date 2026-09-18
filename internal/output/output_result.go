@@ -547,16 +547,18 @@ func processVulnGroups(vulnPkg models.PackageVulns) (map[string]VulnResult, map[
 // updateVuln updates each vulnerability info in vulnMap from the details of vulnPkg.Vulnerabilities.
 func updateVuln(vulnMap map[string]VulnResult, vulnPkg models.PackageVulns) {
 	for _, vuln := range vulnPkg.Vulnerabilities {
-		fixable, fixedVersion := getNextFixVersion(vuln.GetAffected(), vulnPkg.Package.Version, vulnPkg.Package.Name, vulnPkg.Package.Ecosystem)
-		if outputVuln, exist := vulnMap[vuln.GetId()]; exist {
-			outputVuln.FixedVersion = fixedVersion
-			outputVuln.IsFixable = fixable
-			outputVuln.Description = vuln.GetSummary()
-			if outputVuln.Description == "" {
-				outputVuln.Description = vuln.GetDetails()
-			}
-			vulnMap[vuln.GetId()] = outputVuln
+		outputVuln, exist := vulnMap[vuln.GetId()]
+		if !exist {
+			// Only group representatives are in the map; skip the (comparatively
+			// expensive) fix version calculation for every other vulnerability.
+			continue
 		}
+		outputVuln.IsFixable, outputVuln.FixedVersion = getNextFixVersion(vuln.GetAffected(), vulnPkg.Package.Version, vulnPkg.Package.Name, vulnPkg.Package.Ecosystem)
+		outputVuln.Description = vuln.GetSummary()
+		if outputVuln.Description == "" {
+			outputVuln.Description = vuln.GetDetails()
+		}
+		vulnMap[vuln.GetId()] = outputVuln
 	}
 }
 

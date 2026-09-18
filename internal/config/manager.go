@@ -19,6 +19,18 @@ type Manager struct {
 	DefaultConfig Config
 	// Cache to store loaded configs
 	ConfigMap map[string]Config
+
+	// configPaths caches the result of resolving a target path to the path of
+	// the config file that applies to it. Resolving requires a stat syscall,
+	// and Get is called once per package, so this avoids repeating the syscall
+	// for the many packages that share the same manifest or scan root.
+	configPaths map[string]configPathResult
+}
+
+// configPathResult is the memoized outcome of normalizeConfigLoadPath.
+type configPathResult struct {
+	path string
+	ok   bool
 }
 
 // UseOverride updates the Manager to use the config at the given path in place
@@ -39,8 +51,8 @@ func (m *Manager) Get(targetPath string) Config {
 		return *m.OverrideConfig
 	}
 
-	configPath, err := normalizeConfigLoadPath(targetPath)
-	if err != nil {
+	configPath, ok := m.resolveConfigPath(targetPath)
+	if !ok {
 		// TODO: This can happen when target is not a file (e.g. Docker container, git hash...etc.)
 		// Figure out a more robust way to load config from non files
 		// r.PrintErrorf("Can't find config path: %s\n", err)
@@ -66,6 +78,24 @@ func (m *Manager) Get(targetPath string) Config {
 	m.ConfigMap[configPath] = config
 
 	return config
+}
+
+// resolveConfigPath returns the config file path that applies to targetPath,
+// memoizing the result so each distinct target is only stat'd once.
+func (m *Manager) resolveConfigPath(targetPath string) (string, bool) {
+	if cached, ok := m.configPaths[targetPath]; ok {
+		return cached.path, cached.ok
+	}
+
+	configPath, err := normalizeConfigLoadPath(targetPath)
+	result := configPathResult{path: configPath, ok: err == nil}
+
+	if m.configPaths == nil {
+		m.configPaths = make(map[string]configPathResult)
+	}
+	m.configPaths[targetPath] = result
+
+	return result.path, result.ok
 }
 
 func (m *Manager) GetUnusedIgnoreEntries() map[string][]*IgnoreEntry {

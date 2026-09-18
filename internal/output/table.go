@@ -367,24 +367,35 @@ func tableBuilderInner(result Result, vulnAnalysisType VulnAnalysisType) []tbInn
 	return allOutputRows
 }
 
-func MaxSeverity(group models.GroupInfo, pkg models.PackageVulns) string {
-	var maxSeverity float64 = -1
-	for _, vulnID := range group.IDs {
-		var severities []*osvschema.Severity
-		for _, vuln := range pkg.Vulnerabilities {
-			if vuln.GetId() == vulnID {
-				severities = vuln.GetSeverity()
+// SetMaxSeverities computes the maximum severity score of each group from the
+// severities of its member vulnerabilities and stores it in group.MaxSeverity.
+func SetMaxSeverities(groups []models.GroupInfo, vulns []*osvschema.Vulnerability) {
+	if len(groups) == 0 {
+		return
+	}
+
+	// Compute each vulnerability's overall score once, keyed by ID.
+	scores := make(map[string]float64, len(vulns))
+	for _, vuln := range vulns {
+		score, _, _ := severity.CalculateOverallScore(vuln.GetSeverity())
+		scores[vuln.GetId()] = score
+	}
+
+	for i := range groups {
+		var maxSeverity float64 = -1
+		for _, vulnID := range groups[i].IDs {
+			// IDs without a matching vulnerability contribute no score, as before.
+			if score, ok := scores[vulnID]; ok {
+				maxSeverity = max(maxSeverity, score)
 			}
 		}
-		score, _, _ := severity.CalculateOverallScore(severities)
-		maxSeverity = max(maxSeverity, score)
-	}
 
-	if maxSeverity < 0 {
-		return ""
+		if maxSeverity < 0 {
+			groups[i].MaxSeverity = ""
+		} else {
+			groups[i].MaxSeverity = fmt.Sprintf("%.1f", maxSeverity)
+		}
 	}
-
-	return fmt.Sprintf("%.1f", maxSeverity)
 }
 
 func buildLicenseSummaryTable(outputWriter io.Writer, terminalWidth int, vulnResult *models.VulnerabilityResults) {
