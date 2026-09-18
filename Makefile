@@ -68,4 +68,4 @@ update-offline-dbs: ## Update local offline database mocks and update snapshots
 
 refresh-all: ## Refresh all snaps, matching CI test (Usage: make refresh-all REBUILD_IMAGES=true)
 	@if [ "$(REBUILD_IMAGES)" = "true" ]; then $(MAKE) clean; fi
-	$(MAKE) test ACC=true SHORT=false VCR=RecordOnly SNAPS=true
+	$(MAKE) test ACC=true SHORT=false VCR=RecordOnly SNAPS=true UPDATE_DBS=true

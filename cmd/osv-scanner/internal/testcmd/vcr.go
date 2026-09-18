@@ -615,6 +615,36 @@ func (t *vcrResponseNormalizingTransport) RoundTrip(req *http.Request) (*http.Re
 	return resp, err
 }
 
+func acquireFileLock(lockPath string, timeout time.Duration) (func(), error) {
+	deadline := time.Now().Add(timeout)
+	for {
+		f, err := os.OpenFile(lockPath, os.O_CREATE|os.O_EXCL|os.O_WRONLY, 0600)
+		if err == nil {
+			_ = f.Close()
+			return func() {
+				_ = os.Remove(lockPath)
+			}, nil
+		}
+		if !errors.Is(err, os.ErrExist) {
+			return nil, err
+		}
+
+		// Check if stale lock (older than 30s)
+		if fi, statErr := os.Stat(lockPath); statErr == nil {
+			if time.Since(fi.ModTime()) > 30*time.Second {
+				fmt.Printf("Removing stale file lock %s (age: %v)\n", lockPath, time.Since(fi.ModTime()))
+				_ = os.Remove(lockPath)
+				continue
+			}
+		}
+
+		if time.Now().After(deadline) {
+			return nil, fmt.Errorf("timed out waiting for file lock %s: %w", lockPath, err)
+		}
+		time.Sleep(10 * time.Millisecond)
+	}
+}
+
 // loadVulnSeverities loads pinned vulnerability severities from disk.
 func loadVulnSeverities() {
 	vulnSeveritiesMu.Lock()
@@ -627,6 +657,12 @@ func loadVulnSeverities() {
 		return
 	}
 	filePath := filepath.Join(repoRoot, vulnSeveritiesRelativePath)
+
+	unlock, err := acquireFileLock(filePath+".lock", 10*time.Second)
+	if err != nil {
+		return
+	}
+	defer unlock()
 
 	data, err := os.ReadFile(filePath)
 	if err != nil {
@@ -643,6 +679,12 @@ func saveVulnSeverities() error {
 		return errors.New("cannot determine repo root to save vuln severities")
 	}
 	filePath := filepath.Join(repoRoot, vulnSeveritiesRelativePath)
+
+	unlock, err := acquireFileLock(filePath+".lock", 10*time.Second)
+	if err != nil {
+		return fmt.Errorf("failed to acquire file lock for %s: %w", filePath, err)
+	}
+	defer unlock()
 
 	if diskData, err := os.ReadFile(filePath); err == nil {
 		var diskMap map[string][]any
@@ -872,7 +914,7 @@ func (t *vcrResponseNormalizingTransport) updateOfflineDB(url string, localDBPat
 		return nil
 	}
 
-	println("Updating offline database for:", ecosystem)
+	fmt.Println("Updating offline database for:", ecosystem)
 
 	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, url, nil) //nolint:gosec
 	if err != nil {
