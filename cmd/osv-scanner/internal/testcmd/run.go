@@ -85,14 +85,24 @@ func run(t *testing.T, tc Case) (string, string) {
 	}) {
 		if slices.Contains(tc.Args, "--download-offline-databases") || slices.Contains(tc.Args, "--offline-vulnerabilities") {
 			dbDir := testutility.CreateTestDir(t)
-			subcmd := "source"
-			if len(tc.Args) >= 2 {
-				subcmd = tc.Args[1]
+			// In urfave/cli, flags for subcommands must be placed after the subcommand name.
+			// Check if tc.Args[1] is an explicit subcommand name (e.g. "scan", "source") rather
+			// than a flag (e.g. "--offline") or missing when tc.Args has fewer than 2 elements.
+			// For example:
+			//   With subcommand:    ["", "scan", "--download-offline-databases", "dir/"]
+			//                    -> ["", "scan", "--local-db-path", dbDir, "--download-offline-databases", "dir/"]
+			//   Without subcommand: ["", "--download-offline-databases", "dir/"] or [""]
+			//                    -> ["", "--download-offline-databases", "dir/", "--local-db-path", dbDir]
+			// This avoids an out-of-bounds slice panic and avoids misinterpreting flags as subcommands.
+			if len(tc.Args) >= 2 && !strings.HasPrefix(tc.Args[1], "-") {
+				subcmd := tc.Args[1]
+				newArgs := make([]string, 0, len(tc.Args)+2)
+				newArgs = append(newArgs, "", subcmd, "--local-db-path", dbDir)
+				newArgs = append(newArgs, tc.Args[2:]...)
+				tc.Args = newArgs
+			} else {
+				tc.Args = append(slices.Clone(tc.Args), "--local-db-path", dbDir)
 			}
-			newArgs := make([]string, 0, len(tc.Args)+2)
-			newArgs = append(newArgs, "", subcmd, "--local-db-path", dbDir)
-			newArgs = append(newArgs, tc.Args[2:]...)
-			tc.Args = newArgs
 		}
 	}
 	ec := cmd.Run(tc.Args, stdout, stderr, cf, fetchCommandsToTest())

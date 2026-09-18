@@ -162,10 +162,10 @@ func (r *Recorder) findInteraction(method string, req proto.Message) (*Interacti
 	r.mu.Lock()
 	defer r.mu.Unlock()
 
-	for _, inter := range r.cassette.Interactions {
-		if inter.Method == method {
-			if r.matcher(method, req, inter.Request) {
-				return &inter, true
+	for i := range r.cassette.Interactions {
+		if r.cassette.Interactions[i].Method == method {
+			if r.matcher(method, req, r.cassette.Interactions[i].Request) {
+				return &r.cassette.Interactions[i], true
 			}
 		}
 	}
@@ -307,24 +307,13 @@ func (c *ClientConn) NewStream(_ context.Context, _ *grpc.StreamDesc, _ string, 
 	return nil, status.Error(codes.Unimplemented, "gRPC VCR: streaming RPCs are not supported")
 }
 
-// Close closes the underlying connection if it implements io.Closer, and closes the recorder.
+// Close closes the recorder.
 func (c *ClientConn) Close() error {
-	var errs []error
 	if c.recorder != nil {
-		if err := c.recorder.Close(); err != nil {
-			errs = append(errs, err)
-		}
+		return c.recorder.Close()
 	}
 
-	if c.underlying != nil {
-		if closer, ok := c.underlying.(interface{ Close() error }); ok {
-			if err := closer.Close(); err != nil {
-				errs = append(errs, err)
-			}
-		}
-	}
-
-	return errors.Join(errs...)
+	return nil
 }
 
 // CleanJSON formats the JSON the same way it's formatted in the cassettes
