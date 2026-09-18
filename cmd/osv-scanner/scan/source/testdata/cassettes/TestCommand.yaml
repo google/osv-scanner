@@ -5951,6 +5951,445 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
+      content_length: 1418
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "RubyGems",
+                "name": "mini_portile2"
+              },
+              "version": "2.8.9"
+            },
+            {
+              "package": {
+                "ecosystem": "RubyGems",
+                "name": "nokogiri"
+              },
+              "version": "1.19.3"
+            },
+            {
+              "package": {
+                "ecosystem": "RubyGems",
+                "name": "nokogiri"
+              },
+              "version": "1.19.3"
+            },
+            {
+              "package": {
+                "ecosystem": "RubyGems",
+                "name": "nokogiri"
+              },
+              "version": "1.19.3"
+            },
+            {
+              "package": {
+                "ecosystem": "RubyGems",
+                "name": "nokogiri"
+              },
+              "version": "1.19.3"
+            },
+            {
+              "package": {
+                "ecosystem": "RubyGems",
+                "name": "nokogiri"
+              },
+              "version": "1.19.3"
+            },
+            {
+              "package": {
+                "ecosystem": "RubyGems",
+                "name": "nokogiri"
+              },
+              "version": "1.19.3"
+            },
+            {
+              "package": {
+                "ecosystem": "RubyGems",
+                "name": "nokogiri"
+              },
+              "version": "1.19.3"
+            },
+            {
+              "package": {
+                "ecosystem": "RubyGems",
+                "name": "nokogiri"
+              },
+              "version": "1.19.3"
+            },
+            {
+              "package": {
+                "ecosystem": "RubyGems",
+                "name": "nokogiri"
+              },
+              "version": "1.19.3"
+            },
+            {
+              "package": {
+                "ecosystem": "RubyGems",
+                "name": "racc"
+              },
+              "version": "1.8.1"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand/one_specific_supported_cdx_sbom_with_ruby_native_gems
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 5167
+      body: |
+        {
+          "results": [
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-5prr-v3j2-97mh",
+                  "modified": "2026-09-10T03:51:07.875324Z"
+                },
+                {
+                  "id": "GHSA-5v8h-3h3q-446p",
+                  "modified": "2026-09-10T03:50:48.442454Z"
+                },
+                {
+                  "id": "GHSA-8678-w3jw-xfc2",
+                  "modified": "2026-09-10T03:51:08.233410Z"
+                },
+                {
+                  "id": "GHSA-9cv2-cfxc-v4v2",
+                  "modified": "2026-09-10T03:50:49.239685Z"
+                },
+                {
+                  "id": "GHSA-p67v-3w7g-wjg7",
+                  "modified": "2026-09-10T03:51:09.256741Z"
+                },
+                {
+                  "id": "GHSA-phwj-rprq-35pp",
+                  "modified": "2026-09-10T03:51:09.239115Z"
+                },
+                {
+                  "id": "GHSA-wfpw-mmfh-qq69",
+                  "modified": "2026-09-10T03:51:09.647017Z"
+                },
+                {
+                  "id": "GHSA-wjv4-x9w8-wm3h",
+                  "modified": "2026-09-10T03:50:50.907992Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-5prr-v3j2-97mh",
+                  "modified": "2026-09-10T03:51:07.875324Z"
+                },
+                {
+                  "id": "GHSA-5v8h-3h3q-446p",
+                  "modified": "2026-09-10T03:50:48.442454Z"
+                },
+                {
+                  "id": "GHSA-8678-w3jw-xfc2",
+                  "modified": "2026-09-10T03:51:08.233410Z"
+                },
+                {
+                  "id": "GHSA-9cv2-cfxc-v4v2",
+                  "modified": "2026-09-10T03:50:49.239685Z"
+                },
+                {
+                  "id": "GHSA-p67v-3w7g-wjg7",
+                  "modified": "2026-09-10T03:51:09.256741Z"
+                },
+                {
+                  "id": "GHSA-phwj-rprq-35pp",
+                  "modified": "2026-09-10T03:51:09.239115Z"
+                },
+                {
+                  "id": "GHSA-wfpw-mmfh-qq69",
+                  "modified": "2026-09-10T03:51:09.647017Z"
+                },
+                {
+                  "id": "GHSA-wjv4-x9w8-wm3h",
+                  "modified": "2026-09-10T03:50:50.907992Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-5prr-v3j2-97mh",
+                  "modified": "2026-09-10T03:51:07.875324Z"
+                },
+                {
+                  "id": "GHSA-5v8h-3h3q-446p",
+                  "modified": "2026-09-10T03:50:48.442454Z"
+                },
+                {
+                  "id": "GHSA-8678-w3jw-xfc2",
+                  "modified": "2026-09-10T03:51:08.233410Z"
+                },
+                {
+                  "id": "GHSA-9cv2-cfxc-v4v2",
+                  "modified": "2026-09-10T03:50:49.239685Z"
+                },
+                {
+                  "id": "GHSA-p67v-3w7g-wjg7",
+                  "modified": "2026-09-10T03:51:09.256741Z"
+                },
+                {
+                  "id": "GHSA-phwj-rprq-35pp",
+                  "modified": "2026-09-10T03:51:09.239115Z"
+                },
+                {
+                  "id": "GHSA-wfpw-mmfh-qq69",
+                  "modified": "2026-09-10T03:51:09.647017Z"
+                },
+                {
+                  "id": "GHSA-wjv4-x9w8-wm3h",
+                  "modified": "2026-09-10T03:50:50.907992Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-5prr-v3j2-97mh",
+                  "modified": "2026-09-10T03:51:07.875324Z"
+                },
+                {
+                  "id": "GHSA-5v8h-3h3q-446p",
+                  "modified": "2026-09-10T03:50:48.442454Z"
+                },
+                {
+                  "id": "GHSA-8678-w3jw-xfc2",
+                  "modified": "2026-09-10T03:51:08.233410Z"
+                },
+                {
+                  "id": "GHSA-9cv2-cfxc-v4v2",
+                  "modified": "2026-09-10T03:50:49.239685Z"
+                },
+                {
+                  "id": "GHSA-p67v-3w7g-wjg7",
+                  "modified": "2026-09-10T03:51:09.256741Z"
+                },
+                {
+                  "id": "GHSA-phwj-rprq-35pp",
+                  "modified": "2026-09-10T03:51:09.239115Z"
+                },
+                {
+                  "id": "GHSA-wfpw-mmfh-qq69",
+                  "modified": "2026-09-10T03:51:09.647017Z"
+                },
+                {
+                  "id": "GHSA-wjv4-x9w8-wm3h",
+                  "modified": "2026-09-10T03:50:50.907992Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-5prr-v3j2-97mh",
+                  "modified": "2026-09-10T03:51:07.875324Z"
+                },
+                {
+                  "id": "GHSA-5v8h-3h3q-446p",
+                  "modified": "2026-09-10T03:50:48.442454Z"
+                },
+                {
+                  "id": "GHSA-8678-w3jw-xfc2",
+                  "modified": "2026-09-10T03:51:08.233410Z"
+                },
+                {
+                  "id": "GHSA-9cv2-cfxc-v4v2",
+                  "modified": "2026-09-10T03:50:49.239685Z"
+                },
+                {
+                  "id": "GHSA-p67v-3w7g-wjg7",
+                  "modified": "2026-09-10T03:51:09.256741Z"
+                },
+                {
+                  "id": "GHSA-phwj-rprq-35pp",
+                  "modified": "2026-09-10T03:51:09.239115Z"
+                },
+                {
+                  "id": "GHSA-wfpw-mmfh-qq69",
+                  "modified": "2026-09-10T03:51:09.647017Z"
+                },
+                {
+                  "id": "GHSA-wjv4-x9w8-wm3h",
+                  "modified": "2026-09-10T03:50:50.907992Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-5prr-v3j2-97mh",
+                  "modified": "2026-09-10T03:51:07.875324Z"
+                },
+                {
+                  "id": "GHSA-5v8h-3h3q-446p",
+                  "modified": "2026-09-10T03:50:48.442454Z"
+                },
+                {
+                  "id": "GHSA-8678-w3jw-xfc2",
+                  "modified": "2026-09-10T03:51:08.233410Z"
+                },
+                {
+                  "id": "GHSA-9cv2-cfxc-v4v2",
+                  "modified": "2026-09-10T03:50:49.239685Z"
+                },
+                {
+                  "id": "GHSA-p67v-3w7g-wjg7",
+                  "modified": "2026-09-10T03:51:09.256741Z"
+                },
+                {
+                  "id": "GHSA-phwj-rprq-35pp",
+                  "modified": "2026-09-10T03:51:09.239115Z"
+                },
+                {
+                  "id": "GHSA-wfpw-mmfh-qq69",
+                  "modified": "2026-09-10T03:51:09.647017Z"
+                },
+                {
+                  "id": "GHSA-wjv4-x9w8-wm3h",
+                  "modified": "2026-09-10T03:50:50.907992Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-5prr-v3j2-97mh",
+                  "modified": "2026-09-10T03:51:07.875324Z"
+                },
+                {
+                  "id": "GHSA-5v8h-3h3q-446p",
+                  "modified": "2026-09-10T03:50:48.442454Z"
+                },
+                {
+                  "id": "GHSA-8678-w3jw-xfc2",
+                  "modified": "2026-09-10T03:51:08.233410Z"
+                },
+                {
+                  "id": "GHSA-9cv2-cfxc-v4v2",
+                  "modified": "2026-09-10T03:50:49.239685Z"
+                },
+                {
+                  "id": "GHSA-p67v-3w7g-wjg7",
+                  "modified": "2026-09-10T03:51:09.256741Z"
+                },
+                {
+                  "id": "GHSA-phwj-rprq-35pp",
+                  "modified": "2026-09-10T03:51:09.239115Z"
+                },
+                {
+                  "id": "GHSA-wfpw-mmfh-qq69",
+                  "modified": "2026-09-10T03:51:09.647017Z"
+                },
+                {
+                  "id": "GHSA-wjv4-x9w8-wm3h",
+                  "modified": "2026-09-10T03:50:50.907992Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-5prr-v3j2-97mh",
+                  "modified": "2026-09-10T03:51:07.875324Z"
+                },
+                {
+                  "id": "GHSA-5v8h-3h3q-446p",
+                  "modified": "2026-09-10T03:50:48.442454Z"
+                },
+                {
+                  "id": "GHSA-8678-w3jw-xfc2",
+                  "modified": "2026-09-10T03:51:08.233410Z"
+                },
+                {
+                  "id": "GHSA-9cv2-cfxc-v4v2",
+                  "modified": "2026-09-10T03:50:49.239685Z"
+                },
+                {
+                  "id": "GHSA-p67v-3w7g-wjg7",
+                  "modified": "2026-09-10T03:51:09.256741Z"
+                },
+                {
+                  "id": "GHSA-phwj-rprq-35pp",
+                  "modified": "2026-09-10T03:51:09.239115Z"
+                },
+                {
+                  "id": "GHSA-wfpw-mmfh-qq69",
+                  "modified": "2026-09-10T03:51:09.647017Z"
+                },
+                {
+                  "id": "GHSA-wjv4-x9w8-wm3h",
+                  "modified": "2026-09-10T03:50:50.907992Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-5prr-v3j2-97mh",
+                  "modified": "2026-09-10T03:51:07.875324Z"
+                },
+                {
+                  "id": "GHSA-5v8h-3h3q-446p",
+                  "modified": "2026-09-10T03:50:48.442454Z"
+                },
+                {
+                  "id": "GHSA-8678-w3jw-xfc2",
+                  "modified": "2026-09-10T03:51:08.233410Z"
+                },
+                {
+                  "id": "GHSA-9cv2-cfxc-v4v2",
+                  "modified": "2026-09-10T03:50:49.239685Z"
+                },
+                {
+                  "id": "GHSA-p67v-3w7g-wjg7",
+                  "modified": "2026-09-10T03:51:09.256741Z"
+                },
+                {
+                  "id": "GHSA-phwj-rprq-35pp",
+                  "modified": "2026-09-10T03:51:09.239115Z"
+                },
+                {
+                  "id": "GHSA-wfpw-mmfh-qq69",
+                  "modified": "2026-09-10T03:51:09.647017Z"
+                },
+                {
+                  "id": "GHSA-wjv4-x9w8-wm3h",
+                  "modified": "2026-09-10T03:50:50.907992Z"
+                }
+              ]
+            },
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "5167"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
       content_length: 151
       host: api.osv.dev
       body: |
