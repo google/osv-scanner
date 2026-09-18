@@ -80,6 +80,12 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "-L", "./testdata/sbom-insecure/with-duplicates.cdx.xml"},
 			Exit: 1,
 		},
+		// one specific supported cyclonedx sbom with ruby platform-specific gems
+		{
+			Name: "one_specific_supported_cdx_sbom_with_ruby_native_gems",
+			Args: []string{"", "source", "-L", "./testdata/sbom-gem-platform/bom.json"},
+			Exit: 1,
+		},
 		// one file that does not match the supported sbom file names
 		{
 			Name: "one_file_that_does_not_match_the_supported_sbom_file_names",

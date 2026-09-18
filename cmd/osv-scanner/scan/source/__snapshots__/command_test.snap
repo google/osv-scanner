@@ -1480,6 +1480,31 @@ could not determine extractor, requested spdx
 
 ---
 
+[TestCommand/one_specific_supported_cdx_sbom_with_ruby_native_gems - 1]
+Scanned <rootdir>/testdata/sbom-gem-platform/bom.json file and found 11 packages
+
+Total 1 package affected by 8 known vulnerabilities (0 Critical, 0 High, 1 Medium, 6 Low, 1 Unknown) from 1 ecosystem.
+8 vulnerabilities can be fixed.
+
++-------------------------------------+------+-----------+----------+---------+---------------+-------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | FIXED VERSION | SOURCE                              |
++-------------------------------------+------+-----------+----------+---------+---------------+-------------------------------------+
+| https://osv.dev/GHSA-5prr-v3j2-97mh | 6.3  | RubyGems  | nokogiri | 1.19.3  | 1.19.4        | testdata/sbom-gem-platform/bom.json |
+| https://osv.dev/GHSA-5v8h-3h3q-446p | 1.7  | RubyGems  | nokogiri | 1.19.3  | 1.19.4        | testdata/sbom-gem-platform/bom.json |
+| https://osv.dev/GHSA-8678-w3jw-xfc2 | 2.6  | RubyGems  | nokogiri | 1.19.3  | 1.19.4        | testdata/sbom-gem-platform/bom.json |
+| https://osv.dev/GHSA-9cv2-cfxc-v4v2 | 1.7  | RubyGems  | nokogiri | 1.19.3  | 1.19.4        | testdata/sbom-gem-platform/bom.json |
+| https://osv.dev/GHSA-p67v-3w7g-wjg7 | 1.7  | RubyGems  | nokogiri | 1.19.3  | 1.19.4        | testdata/sbom-gem-platform/bom.json |
+| https://osv.dev/GHSA-phwj-rprq-35pp | 1.7  | RubyGems  | nokogiri | 1.19.3  | 1.19.4        | testdata/sbom-gem-platform/bom.json |
+| https://osv.dev/GHSA-wfpw-mmfh-qq69 |      | RubyGems  | nokogiri | 1.19.3  | 1.19.4        | testdata/sbom-gem-platform/bom.json |
+| https://osv.dev/GHSA-wjv4-x9w8-wm3h | 1.7  | RubyGems  | nokogiri | 1.19.3  | 1.19.4        | testdata/sbom-gem-platform/bom.json |
++-------------------------------------+------+-----------+----------+---------+---------------+-------------------------------------+
+
+---
+
+[TestCommand/one_specific_supported_cdx_sbom_with_ruby_native_gems - 2]
+
+---
+
 [TestCommand/one_specific_supported_lockfile - 1]
 Scanning dir ./testdata/locks-many/composer.lock
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
