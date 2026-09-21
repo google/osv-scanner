@@ -3117,6 +3117,14 @@ interactions:
               }
             },
             {
+              "publishedAt": "2026-09-04T10:06:55Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "2.0.19"
+              }
+            },
+            {
               "publishedAt": "2022-09-20T19:42:05Z",
               "versionKey": {
                 "name": "org.slf4j:slf4j-migrator",

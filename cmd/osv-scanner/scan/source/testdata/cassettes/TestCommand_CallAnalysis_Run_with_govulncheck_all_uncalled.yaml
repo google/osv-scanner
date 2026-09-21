@@ -36,7 +36,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-c3h9-896r-86jm",
-                  "modified": "2026-02-04T02:43:17.273837Z"
+                  "modified": "2026-09-10T03:49:28.264074Z"
                 },
                 {
                   "id": "GO-2021-0053",

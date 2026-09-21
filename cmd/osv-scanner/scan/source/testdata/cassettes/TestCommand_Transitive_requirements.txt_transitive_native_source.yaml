@@ -29374,10 +29374,42 @@ interactions:
               "upload-time": "2026-08-18T05:14:24.270231Z",
               "url": "https://files.pythonhosted.org/packages/5f/f7/abb373e5757eaec4b922b92f97ec8d6d7e057cf06778247604fbc4e7c3f3/idna-3.19.tar.gz",
               "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "dbd8c14c1e4ca1e0c9824a6dbc7cbbf78884f38eb52d91148cd3025f671e4b85"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "dbd8c14c1e4ca1e0c9824a6dbc7cbbf78884f38eb52d91148cd3025f671e4b85"
+              },
+              "filename": "idna-3.20-py3-none-any.whl",
+              "hashes": {
+                "sha256": "ab7ae7122974553370f0bdb919e1a960b2cd1bc1ef0276416d896db81c14582c"
+              },
+              "provenance": "https://pypi.org/integrity/idna/3.20/idna-3.20-py3-none-any.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 69583,
+              "upload-time": "2026-09-17T14:11:03.168153Z",
+              "url": "https://files.pythonhosted.org/packages/58/a2/bb081bab032533a855d44de1d56f8e8426114ff1ba5d1f07a438a0a654f8/idna-3.20-py3-none-any.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": false,
+              "data-dist-info-metadata": false,
+              "filename": "idna-3.20.tar.gz",
+              "hashes": {
+                "sha256": "a7db850025b95ded1eae8a46181a1a6c56c92c96f0e2b005d9ff8dc0210cab44"
+              },
+              "provenance": "https://pypi.org/integrity/idna/3.20/idna-3.20.tar.gz/provenance",
+              "requires-python": ">=3.9",
+              "size": 216463,
+              "upload-time": "2026-09-17T14:11:04.752193Z",
+              "url": "https://files.pythonhosted.org/packages/f5/08/8eea9d4b8302028f3abb2c0813953f7aec26d33b7a8960ed760e65ff29fa/idna-3.20.tar.gz",
+              "yanked": false
             }
           ],
           "meta": {
-            "_last-serial": 40127705,
+            "_last-serial": 41170495,
             "api-version": "1.4"
           },
           "name": "idna",
@@ -29425,7 +29457,8 @@ interactions:
             "3.16",
             "3.17",
             "3.18",
-            "3.19"
+            "3.19",
+            "3.20"
           ]
         }
       headers:
@@ -29454,7 +29487,7 @@ interactions:
         Strict-Transport-Security:
           - max-age=31536000; includeSubDomains; preload
         Vary:
-          - Accept, Accept-Encoding
+          - Accept-Encoding, Accept
         X-Content-Type-Options:
           - nosniff
         X-Frame-Options:
@@ -65260,10 +65293,42 @@ interactions:
               "upload-time": "2026-05-07T16:13:18.596909Z",
               "url": "https://files.pythonhosted.org/packages/53/0c/06f8b233b8fd13b9e5ee11424ef85419ba0d8ba0b3138bf360be2ff56953/urllib3-2.7.0.tar.gz",
               "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "10898c620e8007c030e07fa5622b68358a43010025dfbd78a1cb797699de2bb4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "10898c620e8007c030e07fa5622b68358a43010025dfbd78a1cb797699de2bb4"
+              },
+              "filename": "urllib3-2.8.0-py3-none-any.whl",
+              "hashes": {
+                "sha256": "0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3"
+              },
+              "provenance": "https://pypi.org/integrity/urllib3/2.8.0/urllib3-2.8.0-py3-none-any.whl/provenance",
+              "requires-python": ">=3.10",
+              "size": 135717,
+              "upload-time": "2026-09-15T19:29:34.577402Z",
+              "url": "https://files.pythonhosted.org/packages/92/9d/c4e665119135114480843e7ab388fa94d8480650450e6f8e26b70d323a4c/urllib3-2.8.0-py3-none-any.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": false,
+              "data-dist-info-metadata": false,
+              "filename": "urllib3-2.8.0.tar.gz",
+              "hashes": {
+                "sha256": "63bf2ead4c879426ebf22ef2a781eeb4aa3b4ae798a0435506f8687fd5bb9b63"
+              },
+              "provenance": "https://pypi.org/integrity/urllib3/2.8.0/urllib3-2.8.0.tar.gz/provenance",
+              "requires-python": ">=3.10",
+              "size": 458972,
+              "upload-time": "2026-09-15T19:29:36.253420Z",
+              "url": "https://files.pythonhosted.org/packages/e3/05/b17359e1cefb4f909b5e40b1b90a496d987258916dbbf88e842c729f510e/urllib3-2.8.0.tar.gz",
+              "yanked": false
             }
           ],
           "meta": {
-            "_last-serial": 36836170,
+            "_last-serial": 41105803,
             "api-version": "1.4"
           },
           "name": "urllib3",
@@ -65374,7 +65439,8 @@ interactions:
             "2.6.1",
             "2.6.2",
             "2.6.3",
-            "2.7.0"
+            "2.7.0",
+            "2.8.0"
           ]
         }
       headers:
@@ -65403,7 +65469,7 @@ interactions:
         Strict-Transport-Security:
           - max-age=31536000; includeSubDomains; preload
         Vary:
-          - Accept, Accept-Encoding
+          - Accept-Encoding, Accept
         X-Content-Type-Options:
           - nosniff
         X-Frame-Options:
@@ -68726,7 +68792,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-3h9f-r86x-qvjx",
-                  "modified": "2026-08-10T15:39:09.350867Z"
+                  "modified": "2026-09-10T03:51:10.140141Z"
                 },
                 {
                   "id": "GHSA-68w8-qjq3-2gfm",
@@ -68734,19 +68800,19 @@ interactions:
                 },
                 {
                   "id": "GHSA-6w2r-r2m5-xq5w",
-                  "modified": "2026-06-05T14:45:50.840275Z"
+                  "modified": "2026-09-10T03:50:27.987884Z"
                 },
                 {
                   "id": "GHSA-7xr5-9hcq-chf9",
-                  "modified": "2026-02-04T03:48:05.224740Z"
+                  "modified": "2026-09-10T03:50:25.160016Z"
                 },
                 {
                   "id": "GHSA-8cjm-8mp7-r2xf",
-                  "modified": "2026-08-10T21:42:00.414871Z"
+                  "modified": "2026-09-10T03:50:48.806230Z"
                 },
                 {
                   "id": "GHSA-8qcx-xf44-272x",
-                  "modified": "2026-08-10T15:39:09.597833Z"
+                  "modified": "2026-09-10T03:51:11.070082Z"
                 },
                 {
                   "id": "GHSA-8x94-hmjh-97hq",
@@ -68754,11 +68820,11 @@ interactions:
                 },
                 {
                   "id": "GHSA-923m-gv2p-w5qp",
-                  "modified": "2026-08-10T21:41:59.451183Z"
+                  "modified": "2026-09-10T03:50:48.942703Z"
                 },
                 {
                   "id": "GHSA-crhf-3pfg-w68w",
-                  "modified": "2026-08-10T15:39:09.502515Z"
+                  "modified": "2026-09-10T03:51:11.475072Z"
                 },
                 {
                   "id": "GHSA-frmv-pr5f-9mcr",
@@ -68766,11 +68832,11 @@ interactions:
                 },
                 {
                   "id": "GHSA-h7pc-vwp9-298g",
-                  "modified": "2026-08-10T21:42:01.687516Z"
+                  "modified": "2026-09-10T03:50:49.784603Z"
                 },
                 {
                   "id": "GHSA-qw25-v68c-qjf3",
-                  "modified": "2026-06-05T14:45:50.558008Z"
+                  "modified": "2026-09-10T03:50:58.508072Z"
                 },
                 {
                   "id": "GHSA-rrqc-c2jx-6jgv",
@@ -68794,11 +68860,11 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-68rp-wp8r-4726",
-                  "modified": "2026-07-13T07:26:21.445447Z"
+                  "modified": "2026-09-10T03:49:54.354981Z"
                 },
                 {
                   "id": "GHSA-m2qf-hxjv-5gpq",
-                  "modified": "2025-02-21T05:42:17.337040Z"
+                  "modified": "2026-09-10T03:50:01.763387Z"
                 },
                 {
                   "id": "PYSEC-2023-62",
@@ -68814,11 +68880,11 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-65pc-fj4g-8rjx",
-                  "modified": "2026-07-08T17:45:15.021597Z"
+                  "modified": "2026-09-10T03:50:45.700124Z"
                 },
                 {
                   "id": "GHSA-jjg7-2v4v-x38h",
-                  "modified": "2026-02-04T03:49:45.087439Z"
+                  "modified": "2026-09-10T03:50:12.774088Z"
                 },
                 {
                   "id": "PYSEC-2024-60",
@@ -68838,19 +68904,19 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-9hjg-9r4m-mvj7",
-                  "modified": "2026-07-07T17:56:56.234172Z"
+                  "modified": "2026-09-10T03:50:25.139398Z"
                 },
                 {
                   "id": "GHSA-9wx4-h78v-vm56",
-                  "modified": "2026-07-07T17:57:17.012984Z"
+                  "modified": "2026-09-10T03:50:13.740879Z"
                 },
                 {
                   "id": "GHSA-gc5v-m9x4-r6x2",
-                  "modified": "2026-07-13T07:26:34.091663Z"
+                  "modified": "2026-09-10T03:50:39.207922Z"
                 },
                 {
                   "id": "GHSA-j8r2-6x86-q33q",
-                  "modified": "2026-02-04T03:34:13.807518Z"
+                  "modified": "2026-09-10T03:50:01.756149Z"
                 },
                 {
                   "id": "PYSEC-2023-74",
@@ -68874,35 +68940,35 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-2xpw-w6gg-jr37",
-                  "modified": "2026-07-07T17:56:33.872074Z"
+                  "modified": "2026-09-10T03:50:31.327173Z"
                 },
                 {
                   "id": "GHSA-34jh-p97f-mpxf",
-                  "modified": "2026-07-07T17:56:53.715123Z"
+                  "modified": "2026-09-10T03:50:14.811193Z"
                 },
                 {
                   "id": "GHSA-38jv-5279-wg99",
-                  "modified": "2026-07-07T17:56:31.346111Z"
+                  "modified": "2026-09-10T03:50:32.562010Z"
                 },
                 {
                   "id": "GHSA-g4mx-q9vg-27p4",
-                  "modified": "2026-02-04T03:30:16.767903Z"
+                  "modified": "2026-09-10T03:50:03.706889Z"
                 },
                 {
                   "id": "GHSA-gm62-xv2j-4w53",
-                  "modified": "2026-07-07T17:57:28.931610Z"
+                  "modified": "2026-09-10T03:50:58.741847Z"
                 },
                 {
                   "id": "GHSA-pq67-6m6q-mj2v",
-                  "modified": "2026-07-07T17:56:41.872294Z"
+                  "modified": "2026-09-10T03:50:25.299291Z"
                 },
                 {
                   "id": "GHSA-qccp-gfcp-xxvc",
-                  "modified": "2026-05-20T08:11:43.145797Z"
+                  "modified": "2026-09-10T03:50:47.272765Z"
                 },
                 {
                   "id": "GHSA-v845-jxx5-vc9f",
-                  "modified": "2026-02-04T02:58:30.152562Z"
+                  "modified": "2026-09-10T03:49:24.753610Z"
                 },
                 {
                   "id": "GHSA-wqvq-5m8c-6g24",

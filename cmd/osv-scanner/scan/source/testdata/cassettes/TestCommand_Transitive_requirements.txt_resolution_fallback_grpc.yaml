@@ -4887,12 +4887,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-07-22T22:18:57Z",
               "versionKey": {
                 "name": "pandas",
                 "system": "PYPI",
                 "version": "3.0.5"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-09-17T23:21:50Z",
+              "versionKey": {
+                "name": "pandas",
+                "system": "PYPI",
+                "version": "3.0.6"
               }
             }
           ]

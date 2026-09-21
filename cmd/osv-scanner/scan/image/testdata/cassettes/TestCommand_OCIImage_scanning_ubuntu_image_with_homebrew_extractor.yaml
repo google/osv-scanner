@@ -28,7 +28,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 480
+      content_length: 545
       body: |
         {
           "results": [
@@ -36,15 +36,15 @@ interactions:
               "vulns": [
                 {
                   "id": "CVE-2023-53154",
-                  "modified": "2026-07-15T01:49:00.910390Z"
+                  "modified": "2026-08-12T03:51:35.811525Z"
                 },
                 {
                   "id": "CVE-2024-31755",
-                  "modified": "2026-07-15T01:49:12.341839Z"
+                  "modified": "2026-08-12T03:51:22.351930Z"
                 },
                 {
                   "id": "CVE-2025-57052",
-                  "modified": "2026-07-15T01:49:08.744027Z"
+                  "modified": "2026-08-12T03:51:33.522113Z"
                 },
                 {
                   "id": "CVE-2026-29036",
@@ -61,6 +61,10 @@ interactions:
                 {
                   "id": "CVE-2026-67217",
                   "modified": "2026-08-12T03:51:18.748400Z"
+                },
+                {
+                  "id": "CVE-2026-87933",
+                  "modified": "2026-09-12T03:30:58.542724Z"
                 }
               ]
             }
@@ -68,7 +72,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "480"
+          - "545"
         Content-Type:
           - application/json
       status: 200 OK

@@ -1,8 +1,8 @@
 {
-  "schema_version": "1.7.5",
+  "schema_version": "1.9.0",
   "id": "DRUPAL-CORE-2026-001",
   "published": "2026-04-15T19:24:30Z",
-  "modified": "2026-06-17T19:30:04.962465313Z",
+  "modified": "2026-09-10T03:45:13.636759663Z",
   "aliases": [
     "BIT-drupal-2026-6365",
     "CVE-2026-6365",
@@ -14,7 +14,7 @@
       "package": {
         "name": "drupal/core",
         "ecosystem": "Packagist",
-        "purl": "pkg:composer/drupal%2Fcore"
+        "purl": "pkg:composer/drupal/core"
       },
       "ranges": [
         {

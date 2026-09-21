@@ -4713,11 +4713,35 @@ interactions:
               }
             },
             {
+              "publishedAt": "2026-09-14T21:39:36Z",
+              "versionKey": {
+                "name": "brace-expansion",
+                "system": "NPM",
+                "version": "1.1.19"
+              }
+            },
+            {
               "publishedAt": "2015-11-28T12:58:57Z",
               "versionKey": {
                 "name": "brace-expansion",
                 "system": "NPM",
                 "version": "1.1.2"
+              }
+            },
+            {
+              "publishedAt": "2026-09-14T21:49:58Z",
+              "versionKey": {
+                "name": "brace-expansion",
+                "system": "NPM",
+                "version": "1.1.20"
+              }
+            },
+            {
+              "publishedAt": "2026-09-14T21:59:28Z",
+              "versionKey": {
+                "name": "brace-expansion",
+                "system": "NPM",
+                "version": "1.1.21"
               }
             },
             {
@@ -4849,6 +4873,30 @@ interactions:
               }
             },
             {
+              "publishedAt": "2026-09-14T21:40:14Z",
+              "versionKey": {
+                "name": "brace-expansion",
+                "system": "NPM",
+                "version": "2.1.5"
+              }
+            },
+            {
+              "publishedAt": "2026-09-14T21:51:19Z",
+              "versionKey": {
+                "name": "brace-expansion",
+                "system": "NPM",
+                "version": "2.1.6"
+              }
+            },
+            {
+              "publishedAt": "2026-09-14T22:02:58Z",
+              "versionKey": {
+                "name": "brace-expansion",
+                "system": "NPM",
+                "version": "2.1.7"
+              }
+            },
+            {
               "publishedAt": "2023-10-07T13:31:03Z",
               "versionKey": {
                 "name": "brace-expansion",
@@ -4907,6 +4955,30 @@ interactions:
               }
             },
             {
+              "publishedAt": "2026-09-14T21:41:02Z",
+              "versionKey": {
+                "name": "brace-expansion",
+                "system": "NPM",
+                "version": "3.0.7"
+              }
+            },
+            {
+              "publishedAt": "2026-09-14T21:51:10Z",
+              "versionKey": {
+                "name": "brace-expansion",
+                "system": "NPM",
+                "version": "3.0.8"
+              }
+            },
+            {
+              "publishedAt": "2026-09-14T21:59:58Z",
+              "versionKey": {
+                "name": "brace-expansion",
+                "system": "NPM",
+                "version": "3.0.9"
+              }
+            },
+            {
               "publishedAt": "2024-02-27T11:56:43Z",
               "versionKey": {
                 "name": "brace-expansion",
@@ -4920,6 +4992,31 @@ interactions:
                 "name": "brace-expansion",
                 "system": "NPM",
                 "version": "4.0.1"
+              }
+            },
+            {
+              "publishedAt": "2026-09-14T21:37:19Z",
+              "versionKey": {
+                "name": "brace-expansion",
+                "system": "NPM",
+                "version": "5.0.10"
+              }
+            },
+            {
+              "publishedAt": "2026-09-14T21:49:31Z",
+              "versionKey": {
+                "name": "brace-expansion",
+                "system": "NPM",
+                "version": "5.0.11"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-09-14T21:59:00Z",
+              "versionKey": {
+                "name": "brace-expansion",
+                "system": "NPM",
+                "version": "5.0.12"
               }
             },
             {
@@ -4979,7 +5076,6 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-07-30T10:00:32Z",
               "versionKey": {
                 "name": "brace-expansion",
@@ -6733,12 +6829,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2025-10-13T08:13:51Z",
               "versionKey": {
                 "name": "emoji-regex",
                 "system": "NPM",
                 "version": "10.6.0"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-09-15T17:11:44Z",
+              "versionKey": {
+                "name": "emoji-regex",
+                "system": "NPM",
+                "version": "11.0.0"
               }
             },
             {
@@ -28559,12 +28663,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-02-20T23:02:57Z",
               "versionKey": {
                 "name": "spdx-license-ids",
                 "system": "NPM",
                 "version": "3.0.23"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-09-17T03:50:39Z",
+              "versionKey": {
+                "name": "spdx-license-ids",
+                "system": "NPM",
+                "version": "3.0.24"
               }
             },
             {
@@ -32848,7 +32960,7 @@ interactions:
           "versionKey": {
             "name": "brace-expansion",
             "system": "NPM",
-            "version": "1.1.18"
+            "version": "1.1.21"
           }
         }
       response: |-
@@ -36963,7 +37075,7 @@ interactions:
           "versionKey": {
             "name": "spdx-license-ids",
             "system": "NPM",
-            "version": "3.0.23"
+            "version": "3.0.24"
           }
         }
       response: |-
@@ -38817,7 +38929,7 @@ interactions:
           "versionKey": {
             "name": "spdx-license-ids",
             "system": "NPM",
-            "version": "3.0.23"
+            "version": "3.0.24"
           }
         }
       response: |-
@@ -38837,14 +38949,14 @@ interactions:
             },
             {
               "label": "ORIGIN",
-              "url": "https://registry.npmjs.org/spdx-license-ids/3.0.23"
+              "url": "https://registry.npmjs.org/spdx-license-ids/3.0.24"
             },
             {
               "label": "SOURCE_REPO",
               "url": "git+https://github.com/jslicense/spdx-license-ids.git"
             }
           ],
-          "publishedAt": "2026-02-20T23:02:57Z",
+          "publishedAt": "2026-09-17T03:50:39Z",
           "registries": [
             "https://registry.npmjs.org/"
           ],
@@ -38867,7 +38979,7 @@ interactions:
           "versionKey": {
             "name": "spdx-license-ids",
             "system": "NPM",
-            "version": "3.0.23"
+            "version": "3.0.24"
           }
         }
     - method: /deps_dev.v3.Insights/GetVersion

@@ -44,11 +44,11 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-7gcm-g887-7qv7",
-                  "modified": "2026-07-07T17:56:36.712428Z"
+                  "modified": "2026-09-10T03:50:32.795512Z"
                 },
                 {
                   "id": "GHSA-8qvm-5x2c-j2w7",
-                  "modified": "2026-07-07T17:57:09.877491Z"
+                  "modified": "2026-09-10T03:50:25.255076Z"
                 },
                 {
                   "id": "PYSEC-2026-1805",

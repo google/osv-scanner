@@ -1,8 +1,8 @@
 {
-  "schema_version": "1.7.3",
+  "schema_version": "1.9.0",
   "id": "DRUPAL-CONTRIB-2025-083",
   "published": "2025-06-25T18:42:38Z",
-  "modified": "2025-12-10T23:41:32.857305Z",
+  "modified": "2026-09-10T03:46:13.130902744Z",
   "aliases": [
     "CVE-2025-6676"
   ],
@@ -12,7 +12,7 @@
       "package": {
         "name": "drupal/simple_sitemap",
         "ecosystem": "Packagist:https://packages.drupal.org/8",
-        "purl": "pkg:composer/drupal/simple_sitemap"
+        "purl": "pkg:composer/drupal/simple_sitemap?repository_url=https:%2F%2Fpackages.drupal.org%2F8"
       },
       "ranges": [
         {
