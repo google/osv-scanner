@@ -673,7 +673,7 @@ Scanning local image tarball "./testdata/test-java-full.tar"
 
 
 Container Scanning Result (Alpine Linux v3.21) (Based on "eclipse-temurin" image):
-Total 42 packages affected by 198 known vulnerabilities (8 Critical, 97 High, 83 Medium, 9 Low, 1 Unknown) from 2 ecosystems.
+Total 42 packages affected by 198 known vulnerabilities (8 Critical, 95 High, 85 Medium, 9 Low, 1 Unknown) from 2 ecosystems.
 198 vulnerabilities can be fixed.
 
 

@@ -634,6 +634,7 @@ func acquireFileLock(lockPath string, timeout time.Duration) (func(), error) {
 			if time.Since(fi.ModTime()) > 30*time.Second {
 				fmt.Printf("Removing stale file lock %s (age: %v)\n", lockPath, time.Since(fi.ModTime()))
 				_ = os.Remove(lockPath)
+
 				continue
 			}
 		}
