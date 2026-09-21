@@ -8,6 +8,19 @@ import (
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
 )
 
+func TestDoContainerScan_NoImage(t *testing.T) {
+	t.Parallel()
+
+	_, err := osvscanner.DoContainerScan(osvscanner.ScannerActions{})
+	if err == nil {
+		t.Fatal("DoContainerScan() error = nil, want an error")
+	}
+
+	if got, want := err.Error(), "container image must be provided"; got != want {
+		t.Errorf("DoContainerScan() error = %q, want %q", got, want)
+	}
+}
+
 // TestDoScan_LogHandlerOverride tests that the SetLogger override works correctly
 //
 //nolint:paralleltest // No parallel test since slog.SetDefault sets global behavior
