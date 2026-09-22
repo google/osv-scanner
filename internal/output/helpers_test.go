@@ -1323,9 +1323,11 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
+									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}, {IDs: []string{"OSV-3"}}, {IDs: []string{"OSV-4"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{Id: "OSV-1", Details: "This vulnerability allows for some very scary stuff to happen - seriously, you'd not believe it!"},
+										{Id: "OSV-3", Details: "界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界"},
+										{Id: "OSV-4", Details: "界界界界界界界界界界界界界界界界界界界界界界界界界界 語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語"},
 									},
 								},
 								{

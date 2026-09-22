@@ -6299,6 +6299,32 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
+                },
+                {
+                  "ID": "OSV-3",
+                  "GroupIDs": [
+                    "OSV-3"
+                  ],
+                  "Aliases": null,
+                  "Description": "界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界",
+                  "IsFixable": false,
+                  "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
+                  "SeverityRating": "UNKNOWN",
+                  "SeverityScore": "N/A"
+                },
+                {
+                  "ID": "OSV-4",
+                  "GroupIDs": [
+                    "OSV-4"
+                  ],
+                  "Aliases": null,
+                  "Description": "界界界界界界界界界界界界界界界界界界界界界界界界界界 語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語",
+                  "IsFixable": false,
+                  "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
+                  "SeverityRating": "UNKNOWN",
+                  "SeverityScore": "N/A"
                 }
               ],
               "HiddenVulns": [],
@@ -6355,7 +6381,7 @@
               },
               "VulnCount": {
                 "AnalysisCount": {
-                  "Regular": 1,
+                  "Regular": 3,
                   "Hidden": 0
                 },
                 "SeverityCount": {
@@ -6363,11 +6389,11 @@
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
-                  "Unknown": 1
+                  "Unknown": 3
                 },
                 "FixableCount": {
                   "Fixed": 0,
-                  "UnFixed": 1
+                  "UnFixed": 3
                 }
               },
               "Licenses": null,
@@ -6471,7 +6497,7 @@
           ],
           "VulnCount": {
             "AnalysisCount": {
-              "Regular": 2,
+              "Regular": 4,
               "Hidden": 0
             },
             "SeverityCount": {
@@ -6479,11 +6505,11 @@
               "High": 0,
               "Medium": 0,
               "Low": 0,
-              "Unknown": 2
+              "Unknown": 4
             },
             "FixableCount": {
               "Fixed": 0,
-              "UnFixed": 2
+              "UnFixed": 4
             }
           },
           "LicenseViolationsCount": 0
@@ -6504,9 +6530,9 @@
     "LicenseCount": null
   },
   "VulnTypeSummary": {
-    "All": 2,
+    "All": 4,
     "OS": 0,
-    "Project": 2,
+    "Project": 4,
     "Hidden": 0
   },
   "PackageTypeCount": {
@@ -6515,7 +6541,7 @@
   },
   "VulnCount": {
     "AnalysisCount": {
-      "Regular": 2,
+      "Regular": 4,
       "Hidden": 0
     },
     "SeverityCount": {
@@ -6523,11 +6549,11 @@
       "High": 0,
       "Medium": 0,
       "Low": 0,
-      "Unknown": 2
+      "Unknown": 4
     },
     "FixableCount": {
       "Fixed": 0,
-      "UnFixed": 2
+      "UnFixed": 4
     }
   }
 }

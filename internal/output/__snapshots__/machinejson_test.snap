@@ -3623,12 +3623,34 @@
               ],
               "aliases": null,
               "max_severity": ""
+            },
+            {
+              "ids": [
+                "OSV-3"
+              ],
+              "aliases": null,
+              "max_severity": ""
+            },
+            {
+              "ids": [
+                "OSV-4"
+              ],
+              "aliases": null,
+              "max_severity": ""
             }
           ],
           "vulnerabilities": [
             {
               "details": "This vulnerability allows for some very scary stuff to happen - seriously, you'd not believe it!",
               "id": "OSV-1"
+            },
+            {
+              "details": "界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界",
+              "id": "OSV-3"
+            },
+            {
+              "details": "界界界界界界界界界界界界界界界界界界界界界界界界界界 語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語",
+              "id": "OSV-4"
             }
           ]
         },
