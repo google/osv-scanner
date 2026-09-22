@@ -5638,3 +5638,14 @@ No issues found
 [TestCommand_WithDetector_OnLinux/ssh_version_is_before_first_vuln_version - 2]
 
 ---
+
+[TestCommand_MoreLockfiles/Dart_package_config_json - 1]
+Scanned <rootdir>/testdata/locks-scalibr/dart/package_config.json file and found 1 package
+
+No issues found
+
+---
+
+[TestCommand_MoreLockfiles/Dart_package_config_json - 2]
+
+---

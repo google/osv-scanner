@@ -13,6 +13,7 @@ import (
 	transitivedependencyrequirements "github.com/google/osv-scalibr/enricher/transitivedependency/requirements"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/cpp/conanlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dart/pubspec"
+        "github.com/google/osv-scalibr/extractor/filesystem/language/dart/packageconfig"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/csproj"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/depsjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/nugetcpm"
@@ -81,6 +82,7 @@ var ExtractorPresets = map[string]extractors.InitMap{
 
 		// Flutter
 		pubspec.Name: {protoCfg(pubspec.New)},
+                packageconfig.Name:   {protoCfg(packageconfig.New)},
 
 		// Go
 		gomod.Name: {protoCfg(gomod.New)},
