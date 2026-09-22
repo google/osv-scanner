@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.7.3",
+  "id": "DLA-3051-1",
+  "published": "2022-06-15T00:00:00Z",
+  "modified": "2025-05-26T07:01:56.257796Z",
+  "summary": "tzdata - new timezone database",
+  "affected": [
+    {
+      "package": {
+        "name": "tzdata",
+        "ecosystem": "Debian:9",
+        "purl": "pkg:deb/debian/tzdata?arch=source"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2021a-0+deb9u4"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "2017b-1",
+        "2017b-2",
+        "2017c-0+deb9u1",
+        "2017c-1",
+        "2018b-1",
+        "2018c-0+deb9u1",
+        "2018c-1",
+        "2018d-0+deb9u1",
+        "2018d-1",
+        "2018e-0+deb9u1",
+        "2018e-1",
+        "2018f-0+deb9u1",
+        "2018f-1",
+        "2018g-0+deb9u1",
+        "2018g-1",
+        "2018h-0+deb9u1",
+        "2018h-1",
+        "2018i-0+deb9u1",
+        "2018i-1",
+        "2018i-2",
+        "2019a-0+deb9u1",
+        "2019a-1",
+        "2019b-0+deb9u1",
+        "2019b-1",
+        "2019b-2",
+        "2019c-0+deb9u1",
+        "2019c-1",
+        "2019c-2",
+        "2019c-3",
+        "2020a-0+deb9u1",
+        "2020a-1",
+        "2020b-1",
+        "2020c-1",
+        "2020d-0+deb9u1",
+        "2020d-1",
+        "2020e-0+deb9u1",
+        "2020e-1",
+        "2020f-1",
+        "2021a-0+deb9u1",
+        "2021a-0+deb9u2",
+        "2021a-0+deb9u3"
+      ],
+      "database_specific": {
+        "source": "https://storage.googleapis.com/debian-osv/dla-osv/DLA-3051-1.json"
+      }
+    }
+  ]
+}

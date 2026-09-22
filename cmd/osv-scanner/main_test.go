@@ -11,19 +11,22 @@ import (
 func Test_run(t *testing.T) {
 	tests := []testcmd.Case{
 		{
-			Name: "",
-			Args: []string{""},
-			Exit: 127,
+			Name:  "",
+			Args:  []string{""},
+			Exit:  127,
+			NoVCR: true,
 		},
 		{
-			Name: "",
-			Args: []string{"--help"},
-			Exit: 0,
+			Name:  "",
+			Args:  []string{"--help"},
+			Exit:  0,
+			NoVCR: true,
 		},
 		{
-			Name: "version",
-			Args: []string{"", "--version"},
-			Exit: 0,
+			Name:  "version",
+			Args:  []string{"", "--version"},
+			Exit:  0,
+			NoVCR: true,
 		},
 	}
 
@@ -37,8 +40,6 @@ func Test_run(t *testing.T) {
 
 func Test_run_SubCommands(t *testing.T) {
 	t.Parallel()
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		// without subcommands
@@ -64,8 +65,6 @@ func Test_run_SubCommands(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
-
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
 
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})

@@ -1,0 +1,92 @@
+---
+version: 2
+interactions:
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 774
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Hackage",
+                "name": "AC-Angle"
+              },
+              "version": "1.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Hackage",
+                "name": "ALUT"
+              },
+              "version": "2.4.0.3"
+            },
+            {
+              "package": {
+                "ecosystem": "Hackage",
+                "name": "ANum"
+              },
+              "version": "0.2.0.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Hackage",
+                "name": "Agda"
+              },
+              "version": "2.6.4.3"
+            },
+            {
+              "package": {
+                "ecosystem": "Hackage",
+                "name": "Allure"
+              },
+              "version": "0.11.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Hackage",
+                "name": "biscuit-haskell"
+              },
+              "version": "0.3.0.0"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 105
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "HSEC-2024-0009",
+                  "modified": "2025-11-14T18:15:43.110342Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "105"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s

@@ -15,7 +15,6 @@ import (
 	scalibrconfig "github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/cmd"
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
-	"github.com/google/osv-scanner/v2/internal/scalibr"
 	"github.com/google/osv-scanner/v2/internal/testlogger"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 	"github.com/urfave/cli/v3"
@@ -53,7 +52,31 @@ func run(t *testing.T, tc Case) (string, string) {
 
 	cf := tc.ClientFactories
 	if cf == nil {
-		cf = scalibr.NewClientFactories(tc.HTTPClient, "")
+		if SharedClientFactories == nil {
+			t.Fatalf("testcmd.SharedClientFactories is not initialized. Please initialize it in TestMain using testcmd.NewClientFactories(nil).")
+		}
+
+		httpClient := tc.HTTPClient
+		grpcRecorder := tc.GRPCRecorder
+
+		if !tc.NoVCR {
+			cassetteName := t.Name()
+			if tc.CassetteName != "" {
+				cassetteName = tc.CassetteName
+			}
+			if httpClient == nil {
+				httpClient = InsertCassetteWithName(t, cassetteName)
+			}
+			if grpcRecorder == nil {
+				grpcRecorder = InsertGRPCRecorderWithName(t, cassetteName)
+			}
+		}
+
+		cf = &TestClientFactories{
+			ClientFactories:      SharedClientFactories,
+			HTTPClientOverride:   httpClient,
+			GRPCRecorderOverride: grpcRecorder,
+		}
 	}
 
 	// Inject a per-test --local-db-path tempdir if offline databases are used without an explicit --local-db-path flag
@@ -62,17 +85,26 @@ func run(t *testing.T, tc Case) (string, string) {
 	}) {
 		if slices.Contains(tc.Args, "--download-offline-databases") || slices.Contains(tc.Args, "--offline-vulnerabilities") {
 			dbDir := testutility.CreateTestDir(t)
-			subcmd := "source"
-			if len(tc.Args) >= 2 {
-				subcmd = tc.Args[1]
+			// In urfave/cli, flags for subcommands must be placed after the subcommand name.
+			// Check if tc.Args[1] is an explicit subcommand name (e.g. "scan", "source") rather
+			// than a flag (e.g. "--offline") or missing when tc.Args has fewer than 2 elements.
+			// For example:
+			//   With subcommand:    ["", "scan", "--download-offline-databases", "dir/"]
+			//                    -> ["", "scan", "--local-db-path", dbDir, "--download-offline-databases", "dir/"]
+			//   Without subcommand: ["", "--download-offline-databases", "dir/"] or [""]
+			//                    -> ["", "--download-offline-databases", "dir/", "--local-db-path", dbDir]
+			// This avoids an out-of-bounds slice panic and avoids misinterpreting flags as subcommands.
+			if len(tc.Args) >= 2 && !strings.HasPrefix(tc.Args[1], "-") {
+				subcmd := tc.Args[1]
+				newArgs := make([]string, 0, len(tc.Args)+2)
+				newArgs = append(newArgs, "", subcmd, "--local-db-path", dbDir)
+				newArgs = append(newArgs, tc.Args[2:]...)
+				tc.Args = newArgs
+			} else {
+				tc.Args = append(slices.Clone(tc.Args), "--local-db-path", dbDir)
 			}
-			newArgs := make([]string, 0, len(tc.Args)+2)
-			newArgs = append(newArgs, "", subcmd, "--local-db-path", dbDir)
-			newArgs = append(newArgs, tc.Args[2:]...)
-			tc.Args = newArgs
 		}
 	}
-
 	ec := cmd.Run(tc.Args, stdout, stderr, cf, fetchCommandsToTest())
 
 	if ec != tc.Exit {
@@ -146,7 +178,8 @@ func normalizeDirScanOrder(t *testing.T, input string) string {
 	inputLines := strings.Split(input, "\n")
 
 	var completeOutput = make([]string, 0, len(inputLines))
-	var dirScanHolder []string
+	var toSort []string
+	var toKeep []string
 	printingDirScanLogs := false
 
 	for _, line := range inputLines {
@@ -165,15 +198,22 @@ func normalizeDirScanOrder(t *testing.T, input string) string {
 			}
 
 			printingDirScanLogs = false
-			sort.Strings(dirScanHolder)
-			completeOutput = append(completeOutput, dirScanHolder...)
-			dirScanHolder = nil
+			sort.Strings(toSort)
+			completeOutput = append(completeOutput, toSort...)
+			completeOutput = append(completeOutput, toKeep...)
+			toSort = nil
+			toKeep = nil
 
 			continue
 		}
 
 		if printingDirScanLogs {
-			dirScanHolder = append(dirScanHolder, line)
+			trimmed := strings.TrimSpace(line)
+			if strings.HasPrefix(trimmed, "Scanned ") || strings.HasPrefix(trimmed, "Scanning ") {
+				toSort = append(toSort, line)
+			} else {
+				toKeep = append(toKeep, line)
+			}
 
 			continue
 		}

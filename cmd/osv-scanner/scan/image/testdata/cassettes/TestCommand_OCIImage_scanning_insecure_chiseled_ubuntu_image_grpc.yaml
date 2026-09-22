@@ -1,0 +1,9 @@
+interactions:
+    - method: /deps_dev.v3alpha.Insights/QueryContainerImages
+      request: |-
+        {
+          "chainId": "sha256:f807795a15bfcc040bc664605d53fe82c814a34af36e638c7c692d13f8f36eda"
+        }
+      error:
+        code: 5
+        message: chain ID not found

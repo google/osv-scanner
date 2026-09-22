@@ -1,0 +1,84 @@
+---
+version: 2
+interactions:
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 648
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "RubyGems",
+                "name": "ast"
+              },
+              "version": "2.4.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "league/flysystem"
+              },
+              "version": "1.0.8"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "sentry/sdk"
+              },
+              "version": "2.0.4"
+            },
+            {
+              "package": {
+                "ecosystem": "Go",
+                "name": "stdlib"
+              },
+              "version": "1.99.9"
+            },
+            {
+              "package": {
+                "ecosystem": "Go",
+                "name": "toolchain"
+              },
+              "version": "1.99.9"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 107
+      body: |
+        {
+          "results": [
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-9f46-5r25-5wfm",
+                  "modified": "2026-07-08T06:28:00.604230Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "107"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s

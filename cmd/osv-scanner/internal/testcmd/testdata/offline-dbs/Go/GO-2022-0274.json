@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.7.3",
+  "id": "GO-2022-0274",
+  "published": "2022-07-15T23:08:20Z",
+  "modified": "2026-02-04T02:26:28.343240Z",
+  "aliases": [
+    "CVE-2021-43784",
+    "GHSA-v95c-p5hm-xq8f"
+  ],
+  "related": [
+    "CGA-544p-2622-xf73"
+  ],
+  "summary": "Namespace restriction bypass in github.com/opencontainers/runc",
+  "details": "An attacker with partial control over the bind mount sources of a new container can bypass namespace restrictions.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/opencontainers/runc",
+        "ecosystem": "Go",
+        "purl": "pkg:golang/github.com/opencontainers/runc"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.0.1-0.20211012131345-9c444070ec7b"
+            },
+            {
+              "fixed": "1.1.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/opencontainers/runc/libcontainer",
+            "symbols": [
+              "Bytemsg.Serialize",
+              "LinuxFactory.StartInitialization",
+              "linuxContainer.Run",
+              "linuxContainer.Start",
+              "linuxStandardInit.Init"
+            ]
+          }
+        ]
+      },
+      "database_specific": {
+        "source": "https://vuln.go.dev/ID/GO-2022-0274.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://github.com/opencontainers/runc/commit/f50369af4b571e358f20b139eea52d612eb55eed"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/opencontainers/runc/commit/dde509df4e28cec33b3c99c6cda3d4fd5beafc77"
+    },
+    {
+      "type": "WEB",
+      "url": "https://bugs.chromium.org/p/project-zero/issues/detail?id=2241"
+    }
+  ],
+  "database_specific": {
+    "review_status": "REVIEWED",
+    "url": "https://pkg.go.dev/vuln/GO-2022-0274"
+  }
+}
