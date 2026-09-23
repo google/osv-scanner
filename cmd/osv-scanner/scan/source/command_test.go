@@ -1450,7 +1450,7 @@ func TestCommand_MoreLockfiles(t *testing.T) {
 			Args: []string{"", "source", "-L", "./testdata/locks-scalibr/Package.resolved"},
 			Exit: 1,
 		},
-                {
+		{
 			Name: "Dart_package_config_json",
 			Args: []string{"", "source", "-L", "./testdata/locks-scalibr/dart/package_config.json"},
 			Exit: 0,
