@@ -3,6 +3,7 @@
 package filter
 
 import (
+	"cmp"
 	"context"
 	"fmt"
 	"slices"
@@ -79,7 +80,14 @@ func (a *Annotator) Annotate(_ context.Context, _ *annotator.ScanInput, results 
 	var warnings []string
 	var infos []string
 
-	for _, psr := range results.Packages {
+	sorted := results.Packages
+
+	// ensure packages are ordered by their location, for a stable output
+	slices.SortFunc(results.Packages, func(a, b *extractor.Package) int {
+		return cmp.Compare(a.Location.PathOrEmpty(), b.Location.PathOrEmpty())
+	})
+
+	for _, psr := range sorted {
 		// 1. Filter Unscannable Packages
 		isScannable := false
 		switch {

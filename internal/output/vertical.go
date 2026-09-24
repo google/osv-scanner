@@ -306,12 +306,8 @@ func truncate(str string, limit int) string {
 			// ideally we want to keep words whole when truncating,
 			// but if we can't find a space just truncate at the limit
 			if truncateAt == -1 {
-				if limit <= 0 {
-					truncateAt = 0
-				} else {
-					_, size := utf8.DecodeRuneInString(str[i:])
-					truncateAt = i + size
-				}
+				_, size := utf8.DecodeRuneInString(str[i:])
+				truncateAt = i + size
 			}
 
 			return str[:truncateAt] + "..."

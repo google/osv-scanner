@@ -1,9 +1,9 @@
 
-[TestCommand/errors_with_invalid_data_source - 1]
+[TestCommand/errors_with_invalid_data_source - 1 - stdout]
 
 ---
 
-[TestCommand/errors_with_invalid_data_source - 2]
+[TestCommand/errors_with_invalid_data_source - 2 - stderr]
 unsupported data-source "github" - must be one of: deps.dev, native
 
 ---
@@ -71,22 +71,22 @@ unsupported data-source "github" - must be one of: deps.dev, native
 
 ---
 
-[TestCommand/file_does_not_exist - 1]
+[TestCommand/file_does_not_exist - 1 - stdout]
 Version updates (the update command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
 
 ---
 
-[TestCommand/file_does_not_exist - 2]
+[TestCommand/file_does_not_exist - 2 - stderr]
 file not found: ./testdata/does_not_exist.xml
 
 ---
 
-[TestCommand/update_pom.xml_with_in-place_changes - 1]
+[TestCommand/update_pom.xml_with_in-place_changes - 1 - stdout]
 Version updates (the update command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
 
 ---
 
-[TestCommand/update_pom.xml_with_in-place_changes - 2]
+[TestCommand/update_pom.xml_with_in-place_changes - 2 - stderr]
 
 ---
 
@@ -153,12 +153,12 @@ Version updates (the update command) can be risky when run on untrusted projects
 
 ---
 
-[TestCommand/update_pom_with_in_place_changes_using_deps_dev_data_source - 1]
+[TestCommand/update_pom_with_in_place_changes_using_deps_dev_data_source - 1 - stdout]
 Version updates (the update command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
 
 ---
 
-[TestCommand/update_pom_with_in_place_changes_using_deps_dev_data_source - 2]
+[TestCommand/update_pom_with_in_place_changes_using_deps_dev_data_source - 2 - stderr]
 
 ---
 
@@ -297,7 +297,7 @@ Version updates (the update command) can be risky when run on untrusted projects
 
 ---
 
-[TestCommand/with_no_arguments - 1]
+[TestCommand/with_no_arguments - 1 - stdout]
 NAME:
    osv-scanner update - [EXPERIMENTAL] scans a manifest file then updates dependencies
 
@@ -313,7 +313,7 @@ OPTIONS:
 
 ---
 
-[TestCommand/with_no_arguments - 2]
+[TestCommand/with_no_arguments - 2 - stderr]
 Incorrect Usage: Required flag "manifest" not set
 
 Required flag "manifest" not set

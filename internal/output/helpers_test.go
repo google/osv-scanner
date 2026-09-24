@@ -2,6 +2,7 @@ package output_test
 
 import (
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/google/osv-scalibr/extractor"
@@ -1323,9 +1324,13 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
+									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}, {IDs: []string{"OSV-3"}}, {IDs: []string{"OSV-4"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{Id: "OSV-1", Details: "This vulnerability allows for some very scary stuff to happen - seriously, you'd not believe it!"},
+
+										// these ensure we're truncating multibyte characters properly
+										{Id: "OSV-3", Details: strings.Repeat("\u754c", 61)},
+										{Id: "OSV-4", Details: strings.Repeat("\u754c", 26) + " " + strings.Repeat("\u8a9e", 34)},
 									},
 								},
 								{

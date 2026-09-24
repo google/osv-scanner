@@ -1,10 +1,10 @@
 
-[TestCommand_Docker/Fake_alpine_image - 1]
+[TestCommand_Docker/Fake_alpine_image - 1 - stdout]
 Checking if docker image ("alpine:non-existent-tag") exists locally...
 
 ---
 
-[TestCommand_Docker/Fake_alpine_image - 2]
+[TestCommand_Docker/Fake_alpine_image - 2 - stderr]
 Docker command exited with code ("/usr/bin/docker pull -q alpine:non-existent-tag"): 1
 STDERR:
 > Error response from daemon: manifest for alpine:non-existent-tag not found: manifest unknown: manifest unknown
@@ -12,12 +12,12 @@ failed to pull container image: failed to run docker command
 
 ---
 
-[TestCommand_Docker/Fake_image_entirely - 1]
+[TestCommand_Docker/Fake_image_entirely - 1 - stdout]
 Checking if docker image ("this-image-definitely-does-not-exist-abcde:with-tag") exists locally...
 
 ---
 
-[TestCommand_Docker/Fake_image_entirely - 2]
+[TestCommand_Docker/Fake_image_entirely - 2 - stderr]
 Docker command exited with code ("/usr/bin/docker pull -q this-image-definitely-does-not-exist-abcde:with-tag"): 1
 STDERR:
 > Error response from daemon: pull access denied for this-image-definitely-does-not-exist-abcde, repository does not exist or may require 'docker login': denied: requested access to the resource is denied
@@ -25,7 +25,7 @@ failed to pull container image: failed to run docker command
 
 ---
 
-[TestCommand_Docker/Real_Alpine_image - 1]
+[TestCommand_Docker/Real_Alpine_image - 1 - stdout]
 Checking if docker image ("alpine:3.18.9") exists locally...
 Saving docker image ("alpine:3.18.9") to temporary file...
 Scanning image "alpine:3.18.9"
@@ -51,53 +51,53 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_Docker/Real_Alpine_image - 2]
+[TestCommand_Docker/Real_Alpine_image - 2 - stderr]
 
 ---
 
-[TestCommand_Docker/Real_empty_image_with_no_tag_invalid_scan_target - 1]
+[TestCommand_Docker/Real_empty_image_with_no_tag_invalid_scan_target - 1 - stdout]
 
 ---
 
-[TestCommand_Docker/Real_empty_image_with_no_tag_invalid_scan_target - 2]
+[TestCommand_Docker/Real_empty_image_with_no_tag_invalid_scan_target - 2 - stderr]
 "hello-world" is not a tagged image name
 
 ---
 
-[TestCommand_Docker/Real_empty_image_with_tag - 1]
+[TestCommand_Docker/Real_empty_image_with_tag - 1 - stdout]
 Checking if docker image ("hello-world:linux") exists locally...
 Saving docker image ("hello-world:linux") to temporary file...
 Scanning image "hello-world:linux"
 
 ---
 
-[TestCommand_Docker/Real_empty_image_with_tag - 2]
+[TestCommand_Docker/Real_empty_image_with_tag - 2 - stderr]
 No package sources found, --help for usage information.
 
 ---
 
-[TestCommand_Docker/no_image_argument - 1]
+[TestCommand_Docker/no_image_argument - 1 - stdout]
 
 ---
 
-[TestCommand_Docker/no_image_argument - 2]
+[TestCommand_Docker/no_image_argument - 2 - stderr]
 please provide an image name or see the help document
 
 ---
 
-[TestCommand_Docker/real_alpine_image_without_apk_extractor_enabled - 1]
+[TestCommand_Docker/real_alpine_image_without_apk_extractor_enabled - 1 - stdout]
 Checking if docker image ("alpine:3.18.9") exists locally...
 Saving docker image ("alpine:3.18.9") to temporary file...
 Scanning image "alpine:3.18.9"
 
 ---
 
-[TestCommand_Docker/real_alpine_image_without_apk_extractor_enabled - 2]
+[TestCommand_Docker/real_alpine_image_without_apk_extractor_enabled - 2 - stderr]
 No package sources found, --help for usage information.
 
 ---
 
-[TestCommand_Docker/real_empty_image_with_tag_and_allow_no_lockfiles_flag - 1]
+[TestCommand_Docker/real_empty_image_with_tag_and_allow_no_lockfiles_flag - 1 - stdout]
 Checking if docker image ("hello-world:linux") exists locally...
 Saving docker image ("hello-world:linux") to temporary file...
 Scanning image "hello-world:linux"
@@ -107,11 +107,11 @@ No issues found
 
 ---
 
-[TestCommand_Docker/real_empty_image_with_tag_and_allow_no_lockfiles_flag - 2]
+[TestCommand_Docker/real_empty_image_with_tag_and_allow_no_lockfiles_flag - 2 - stderr]
 
 ---
 
-[TestCommand_Docker/real_empty_image_with_tag_and_allow_no_lockfiles_flag_json - 1]
+[TestCommand_Docker/real_empty_image_with_tag_and_allow_no_lockfiles_flag_json - 1 - stdout]
 {
   "results": [],
   "experimental_config": {
@@ -124,7 +124,7 @@ No issues found
 
 ---
 
-[TestCommand_Docker/real_empty_image_with_tag_and_allow_no_lockfiles_flag_json - 2]
+[TestCommand_Docker/real_empty_image_with_tag_and_allow_no_lockfiles_flag_json - 2 - stderr]
 Checking if docker image ("hello-world:linux") exists locally...
 Saving docker image ("hello-world:linux") to temporary file...
 Scanning image "hello-world:linux"
@@ -132,7 +132,7 @@ No package sources found
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/add_extractors - 1]
+[TestCommand_ExplicitExtractors_WithDefaults/add_extractors - 1 - stdout]
 Scanning local image tarball "testdata/test-alpine-sbom.tar"
 
 
@@ -163,11 +163,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/add_extractors - 2]
+[TestCommand_ExplicitExtractors_WithDefaults/add_extractors - 2 - stderr]
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out - 1]
+[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out - 1 - stdout]
 Scanning local image tarball "testdata/test-alpine-sbom.tar"
 
 
@@ -190,11 +190,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out - 2]
+[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out - 2 - stderr]
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out#01 - 1]
+[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out#01 - 1 - stdout]
 Scanning local image tarball "testdata/test-alpine-sbom.tar"
 
 
@@ -217,11 +217,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out#01 - 2]
+[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out#01 - 2 - stderr]
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_with_presets - 1]
+[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_with_presets - 1 - stdout]
 Scanning local image tarball "testdata/test-alpine-sbom.tar"
 
 
@@ -244,11 +244,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_with_presets - 2]
+[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_with_presets - 2 - stderr]
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/add_extractors - 1]
+[TestCommand_ExplicitExtractors_WithoutDefaults/add_extractors - 1 - stdout]
 Scanning local image tarball "testdata/test-alpine-sbom.tar"
 
 Total 1 package affected by 3 known vulnerabilities (1 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -264,33 +264,33 @@ Total 1 package affected by 3 known vulnerabilities (1 Critical, 1 High, 1 Mediu
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/add_extractors - 2]
+[TestCommand_ExplicitExtractors_WithoutDefaults/add_extractors - 2 - stderr]
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out - 1]
+[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out - 1 - stdout]
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out - 2]
+[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out - 2 - stderr]
 at least one extractor must be enabled
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out#01 - 1]
+[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out#01 - 1 - stdout]
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out#01 - 2]
+[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out#01 - 2 - stderr]
 at least one extractor must be enabled
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out_with_presets - 1]
+[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out_with_presets - 1 - stdout]
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out_with_presets - 2]
+[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out_with_presets - 2 - stderr]
 at least one extractor must be enabled
 
 ---
@@ -301,7 +301,7 @@ HTML output available at: <tempdir>/report.html
 
 ---
 
-[TestCommand_OCIImage/Alpine_3.10_image_tar_with_3.18_version_file - 1]
+[TestCommand_OCIImage/Alpine_3.10_image_tar_with_3.18_version_file - 1 - stdout]
 Scanning local image tarball "./testdata/test-alpine.tar"
 
 
@@ -328,11 +328,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_OCIImage/Alpine_3.10_image_tar_with_3.18_version_file - 2]
+[TestCommand_OCIImage/Alpine_3.10_image_tar_with_3.18_version_file - 2 - stderr]
 
 ---
 
-[TestCommand_OCIImage/Empty_Ubuntu_20.04_image_tar_with_no_vulns_shown - 1]
+[TestCommand_OCIImage/Empty_Ubuntu_20.04_image_tar_with_no_vulns_shown - 1 - stdout]
 Scanning local image tarball "./testdata/test-ubuntu-20-04.tar"
 Package Ubuntu:20.04/acl/2.2.53-6 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/attr/1:2.4.48-5 has been filtered out because: Just want to test only unimportant vulns
@@ -396,11 +396,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_OCIImage/Empty_Ubuntu_20.04_image_tar_with_no_vulns_shown - 2]
+[TestCommand_OCIImage/Empty_Ubuntu_20.04_image_tar_with_no_vulns_shown - 2 - stderr]
 
 ---
 
-[TestCommand_OCIImage/Empty_Ubuntu_20.04_image_tar_with_only_unimportant_vulns_shown - 1]
+[TestCommand_OCIImage/Empty_Ubuntu_20.04_image_tar_with_only_unimportant_vulns_shown - 1 - stdout]
 Scanning local image tarball "./testdata/test-ubuntu-20-04.tar"
 Package Ubuntu:20.04/acl/2.2.53-6 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/attr/1:2.4.48-5 has been filtered out because: Just want to test only unimportant vulns
@@ -470,11 +470,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_OCIImage/Empty_Ubuntu_20.04_image_tar_with_only_unimportant_vulns_shown - 2]
+[TestCommand_OCIImage/Empty_Ubuntu_20.04_image_tar_with_only_unimportant_vulns_shown - 2 - stderr]
 
 ---
 
-[TestCommand_OCIImage/Empty_Ubuntu_22.04_image_tar - 1]
+[TestCommand_OCIImage/Empty_Ubuntu_22.04_image_tar - 1 - stdout]
 Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 
@@ -528,11 +528,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_OCIImage/Empty_Ubuntu_22.04_image_tar - 2]
+[TestCommand_OCIImage/Empty_Ubuntu_22.04_image_tar - 2 - stderr]
 
 ---
 
-[TestCommand_OCIImage/Empty_Ubuntu_22.04_image_tar_with_unimportant_vulns - 1]
+[TestCommand_OCIImage/Empty_Ubuntu_22.04_image_tar_with_unimportant_vulns - 1 - stdout]
 Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 
@@ -595,21 +595,21 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_OCIImage/Empty_Ubuntu_22.04_image_tar_with_unimportant_vulns - 2]
+[TestCommand_OCIImage/Empty_Ubuntu_22.04_image_tar_with_unimportant_vulns - 2 - stderr]
 
 ---
 
-[TestCommand_OCIImage/Invalid_path - 1]
+[TestCommand_OCIImage/Invalid_path - 1 - stdout]
 Scanning local image tarball "../../testdata/locks-manyoci-image/no-file-here.tar"
 
 ---
 
-[TestCommand_OCIImage/Invalid_path - 2]
+[TestCommand_OCIImage/Invalid_path - 2 - stderr]
 failed to load image from tarball with path "../../testdata/locks-manyoci-image/no-file-here.tar": open ../../testdata/locks-manyoci-image/no-file-here.tar: no such file or directory
 
 ---
 
-[TestCommand_OCIImage/Scanning_Ubuntu_image_with_go_OS_packages_json - 1]
+[TestCommand_OCIImage/Scanning_Ubuntu_image_with_go_OS_packages_json - 1 - stdout]
 Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
 
@@ -664,11 +664,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_OCIImage/Scanning_Ubuntu_image_with_go_OS_packages_json - 2]
+[TestCommand_OCIImage/Scanning_Ubuntu_image_with_go_OS_packages_json - 2 - stderr]
 
 ---
 
-[TestCommand_OCIImage/Scanning_java_image_with_some_packages - 1]
+[TestCommand_OCIImage/Scanning_java_image_with_some_packages - 1 - stdout]
 Scanning local image tarball "./testdata/test-java-full.tar"
 
 
@@ -739,11 +739,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_OCIImage/Scanning_java_image_with_some_packages - 2]
+[TestCommand_OCIImage/Scanning_java_image_with_some_packages - 2 - stderr]
 
 ---
 
-[TestCommand_OCIImage/Scanning_openSUSE_Leap_15.5_image - 1]
+[TestCommand_OCIImage/Scanning_openSUSE_Leap_15.5_image - 1 - stdout]
 Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
 
 
@@ -767,11 +767,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_OCIImage/Scanning_openSUSE_Leap_15.5_image - 2]
+[TestCommand_OCIImage/Scanning_openSUSE_Leap_15.5_image - 2 - stderr]
 
 ---
 
-[TestCommand_OCIImage/Scanning_python_image_with_no_packages - 1]
+[TestCommand_OCIImage/Scanning_python_image_with_no_packages - 1 - stdout]
 Scanning local image tarball "./testdata/test-python-empty.tar"
 
 
@@ -839,11 +839,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_OCIImage/Scanning_python_image_with_no_packages - 2]
+[TestCommand_OCIImage/Scanning_python_image_with_no_packages - 2 - stderr]
 
 ---
 
-[TestCommand_OCIImage/Scanning_python_image_with_some_packages - 1]
+[TestCommand_OCIImage/Scanning_python_image_with_some_packages - 1 - stdout]
 Scanning local image tarball "./testdata/test-python-full.tar"
 
 
@@ -960,11 +960,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_OCIImage/Scanning_python_image_with_some_packages - 2]
+[TestCommand_OCIImage/Scanning_python_image_with_some_packages - 2 - stderr]
 
 ---
 
-[TestCommand_OCIImage/scanning_image_with_go_binary - 1]
+[TestCommand_OCIImage/scanning_image_with_go_binary - 1 - stdout]
 Scanning local image tarball "./testdata/test-package-tracing.tar"
 
 
@@ -1033,11 +1033,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_OCIImage/scanning_image_with_go_binary - 2]
+[TestCommand_OCIImage/scanning_image_with_go_binary - 2 - stderr]
 
 ---
 
-[TestCommand_OCIImage/scanning_insecure_alpine_image_with_detector_preset - 1]
+[TestCommand_OCIImage/scanning_insecure_alpine_image_with_detector_preset - 1 - stdout]
 Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
 
 
@@ -1060,11 +1060,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_OCIImage/scanning_insecure_alpine_image_with_detector_preset - 2]
+[TestCommand_OCIImage/scanning_insecure_alpine_image_with_detector_preset - 2 - stderr]
 
 ---
 
-[TestCommand_OCIImage/scanning_insecure_alpine_image_with_specific_detector_disabled - 1]
+[TestCommand_OCIImage/scanning_insecure_alpine_image_with_specific_detector_disabled - 1 - stdout]
 Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
 
 
@@ -1087,11 +1087,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_OCIImage/scanning_insecure_alpine_image_with_specific_detector_disabled - 2]
+[TestCommand_OCIImage/scanning_insecure_alpine_image_with_specific_detector_disabled - 2 - stderr]
 
 ---
 
-[TestCommand_OCIImage/scanning_insecure_alpine_image_with_specific_detector_enabled - 1]
+[TestCommand_OCIImage/scanning_insecure_alpine_image_with_specific_detector_enabled - 1 - stdout]
 Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
 
 
@@ -1114,11 +1114,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_OCIImage/scanning_insecure_alpine_image_with_specific_detector_enabled - 2]
+[TestCommand_OCIImage/scanning_insecure_alpine_image_with_specific_detector_enabled - 2 - stderr]
 
 ---
 
-[TestCommand_OCIImage/scanning_insecure_alpine_image_without_detectors - 1]
+[TestCommand_OCIImage/scanning_insecure_alpine_image_without_detectors - 1 - stdout]
 Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
 
 
@@ -1141,11 +1141,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_OCIImage/scanning_insecure_alpine_image_without_detectors - 2]
+[TestCommand_OCIImage/scanning_insecure_alpine_image_without_detectors - 2 - stderr]
 
 ---
 
-[TestCommand_OCIImage/scanning_insecure_chiseled_ubuntu_image - 1]
+[TestCommand_OCIImage/scanning_insecure_chiseled_ubuntu_image - 1 - stdout]
 Scanning local image tarball "./testdata/test-chisel.tar"
 
 
@@ -1211,11 +1211,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_OCIImage/scanning_insecure_chiseled_ubuntu_image - 2]
+[TestCommand_OCIImage/scanning_insecure_chiseled_ubuntu_image - 2 - stderr]
 
 ---
 
-[TestCommand_OCIImage/scanning_node_modules_using_npm_with_no_packages - 1]
+[TestCommand_OCIImage/scanning_node_modules_using_npm_with_no_packages - 1 - stdout]
 Scanning local image tarball "./testdata/test-node_modules-npm-empty.tar"
 
 
@@ -1240,11 +1240,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_OCIImage/scanning_node_modules_using_npm_with_no_packages - 2]
+[TestCommand_OCIImage/scanning_node_modules_using_npm_with_no_packages - 2 - stderr]
 
 ---
 
-[TestCommand_OCIImage/scanning_node_modules_using_npm_with_some_packages - 1]
+[TestCommand_OCIImage/scanning_node_modules_using_npm_with_some_packages - 1 - stdout]
 Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
 
 
@@ -1278,11 +1278,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_OCIImage/scanning_node_modules_using_npm_with_some_packages - 2]
+[TestCommand_OCIImage/scanning_node_modules_using_npm_with_some_packages - 2 - stderr]
 
 ---
 
-[TestCommand_OCIImage/scanning_node_modules_using_pnpm_with_no_packages - 1]
+[TestCommand_OCIImage/scanning_node_modules_using_pnpm_with_no_packages - 1 - stdout]
 Scanning local image tarball "./testdata/test-node_modules-pnpm-empty.tar"
 
 
@@ -1307,11 +1307,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_OCIImage/scanning_node_modules_using_pnpm_with_no_packages - 2]
+[TestCommand_OCIImage/scanning_node_modules_using_pnpm_with_no_packages - 2 - stderr]
 
 ---
 
-[TestCommand_OCIImage/scanning_node_modules_using_pnpm_with_some_packages - 1]
+[TestCommand_OCIImage/scanning_node_modules_using_pnpm_with_some_packages - 1 - stdout]
 Scanning local image tarball "./testdata/test-node_modules-pnpm-full.tar"
 
 
@@ -1336,11 +1336,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_OCIImage/scanning_node_modules_using_pnpm_with_some_packages - 2]
+[TestCommand_OCIImage/scanning_node_modules_using_pnpm_with_some_packages - 2 - stderr]
 
 ---
 
-[TestCommand_OCIImage/scanning_node_modules_using_yarn_with_no_packages - 1]
+[TestCommand_OCIImage/scanning_node_modules_using_yarn_with_no_packages - 1 - stdout]
 Scanning local image tarball "./testdata/test-node_modules-yarn-empty.tar"
 
 
@@ -1365,11 +1365,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_OCIImage/scanning_node_modules_using_yarn_with_no_packages - 2]
+[TestCommand_OCIImage/scanning_node_modules_using_yarn_with_no_packages - 2 - stderr]
 
 ---
 
-[TestCommand_OCIImage/scanning_node_modules_using_yarn_with_some_packages - 1]
+[TestCommand_OCIImage/scanning_node_modules_using_yarn_with_some_packages - 1 - stdout]
 Scanning local image tarball "./testdata/test-node_modules-yarn-full.tar"
 
 
@@ -1394,11 +1394,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_OCIImage/scanning_node_modules_using_yarn_with_some_packages - 2]
+[TestCommand_OCIImage/scanning_node_modules_using_yarn_with_some_packages - 2 - stderr]
 
 ---
 
-[TestCommand_OCIImage/scanning_ubuntu_image_with_homebrew_extractor - 1]
+[TestCommand_OCIImage/scanning_ubuntu_image_with_homebrew_extractor - 1 - stdout]
 Scanning local image tarball "./testdata/test-ubuntu-homebrew.tar"
 skipping file "home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/homebrew/homebrew-core/.git/objects/pack/pack-0113dab039640255baab5438994e90f67a4c482c.pack" because its size (1155620741 bytes) is larger than the max size (1073741824 bytes)
 
@@ -1422,11 +1422,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_OCIImage/scanning_ubuntu_image_with_homebrew_extractor - 2]
+[TestCommand_OCIImage/scanning_ubuntu_image_with_homebrew_extractor - 2 - stderr]
 
 ---
 
-[TestCommand_OCIImage_JSONFormat/Scanning_python_image_with_some_packages - 1]
+[TestCommand_OCIImage_JSONFormat/Scanning_python_image_with_some_packages - 1 - stdout]
 {
   "results": [
     {
@@ -2294,12 +2294,12 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_OCIImage_JSONFormat/Scanning_python_image_with_some_packages - 2]
+[TestCommand_OCIImage_JSONFormat/Scanning_python_image_with_some_packages - 2 - stderr]
 Scanning local image tarball "./testdata/test-python-full.tar"
 
 ---
 
-[TestCommand_OCIImage_JSONFormat/scanning_image_with_deprecated_packages - 1]
+[TestCommand_OCIImage_JSONFormat/scanning_image_with_deprecated_packages - 1 - stdout]
 {
   "results": [
     {
@@ -2594,12 +2594,12 @@ Scanning local image tarball "./testdata/test-python-full.tar"
 
 ---
 
-[TestCommand_OCIImage_JSONFormat/scanning_image_with_deprecated_packages - 2]
+[TestCommand_OCIImage_JSONFormat/scanning_image_with_deprecated_packages - 2 - stderr]
 Scanning local image tarball "./testdata/test-image-with-deprecated.tar"
 
 ---
 
-[TestCommand_OCIImage_JSONFormat/scanning_image_with_go_binary - 1]
+[TestCommand_OCIImage_JSONFormat/scanning_image_with_go_binary - 1 - stdout]
 {
   "results": [
     {
@@ -3009,12 +3009,12 @@ Scanning local image tarball "./testdata/test-image-with-deprecated.tar"
 
 ---
 
-[TestCommand_OCIImage_JSONFormat/scanning_image_with_go_binary - 2]
+[TestCommand_OCIImage_JSONFormat/scanning_image_with_go_binary - 2 - stderr]
 Scanning local image tarball "./testdata/test-go-binary.tar"
 
 ---
 
-[TestCommand_OCIImage_JSONFormat/scanning_insecure_alpine_image_with_detector_preset - 1]
+[TestCommand_OCIImage_JSONFormat/scanning_insecure_alpine_image_with_detector_preset - 1 - stdout]
 {
   "results": [
     {
@@ -3113,12 +3113,12 @@ Scanning local image tarball "./testdata/test-go-binary.tar"
 
 ---
 
-[TestCommand_OCIImage_JSONFormat/scanning_insecure_alpine_image_with_detector_preset - 2]
+[TestCommand_OCIImage_JSONFormat/scanning_insecure_alpine_image_with_detector_preset - 2 - stderr]
 Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
 
 ---
 
-[TestCommand_OCIImage_JSONFormat/scanning_insecure_alpine_image_with_specific_detector_enabled - 1]
+[TestCommand_OCIImage_JSONFormat/scanning_insecure_alpine_image_with_specific_detector_enabled - 1 - stdout]
 {
   "results": [
     {
@@ -3217,12 +3217,12 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
 
 ---
 
-[TestCommand_OCIImage_JSONFormat/scanning_insecure_alpine_image_with_specific_detector_enabled - 2]
+[TestCommand_OCIImage_JSONFormat/scanning_insecure_alpine_image_with_specific_detector_enabled - 2 - stderr]
 Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
 
 ---
 
-[TestCommand_OCIImage_JSONFormat/scanning_insecure_chiseled_ubuntu_image - 1]
+[TestCommand_OCIImage_JSONFormat/scanning_insecure_chiseled_ubuntu_image - 1 - stdout]
 {
   "results": [
     {
@@ -3599,12 +3599,12 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
 
 ---
 
-[TestCommand_OCIImage_JSONFormat/scanning_insecure_chiseled_ubuntu_image - 2]
+[TestCommand_OCIImage_JSONFormat/scanning_insecure_chiseled_ubuntu_image - 2 - stderr]
 Scanning local image tarball "./testdata/test-chisel.tar"
 
 ---
 
-[TestCommand_OCIImage_JSONFormat/scanning_node_modules_using_npm_with_some_packages - 1]
+[TestCommand_OCIImage_JSONFormat/scanning_node_modules_using_npm_with_some_packages - 1 - stdout]
 {
   "results": [
     {
@@ -3930,12 +3930,12 @@ Scanning local image tarball "./testdata/test-chisel.tar"
 
 ---
 
-[TestCommand_OCIImage_JSONFormat/scanning_node_modules_using_npm_with_some_packages - 2]
+[TestCommand_OCIImage_JSONFormat/scanning_node_modules_using_npm_with_some_packages - 2 - stderr]
 Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
 
 ---
 
-[TestCommand_OCIImage_JSONFormat/scanning_opensuse_leap_15.5_image - 1]
+[TestCommand_OCIImage_JSONFormat/scanning_opensuse_leap_15.5_image - 1 - stdout]
 {
   "results": [
     {
@@ -4006,12 +4006,12 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
 
 ---
 
-[TestCommand_OCIImage_JSONFormat/scanning_opensuse_leap_15.5_image - 2]
+[TestCommand_OCIImage_JSONFormat/scanning_opensuse_leap_15.5_image - 2 - stderr]
 Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
 
 ---
 
-[TestCommand_OCIImage_JSONFormat/scanning_ubuntu_image - 1]
+[TestCommand_OCIImage_JSONFormat/scanning_ubuntu_image - 1 - stdout]
 {
   "results": [
     {
@@ -5209,12 +5209,12 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
 
 ---
 
-[TestCommand_OCIImage_JSONFormat/scanning_ubuntu_image - 2]
+[TestCommand_OCIImage_JSONFormat/scanning_ubuntu_image - 2 - stderr]
 Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 ---
 
-[TestCommand_OCIImage_JSONFormat/ubuntu_image_with_go_OS_packages_json - 1]
+[TestCommand_OCIImage_JSONFormat/ubuntu_image_with_go_OS_packages_json - 1 - stdout]
 {
   "results": [
     {
@@ -6580,7 +6580,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 ---
 
-[TestCommand_OCIImage_JSONFormat/ubuntu_image_with_go_OS_packages_json - 2]
+[TestCommand_OCIImage_JSONFormat/ubuntu_image_with_go_OS_packages_json - 2 - stderr]
 Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
 ---
