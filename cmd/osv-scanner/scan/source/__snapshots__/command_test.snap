@@ -4942,6 +4942,17 @@ Total 2 packages affected by 2 known vulnerabilities (1 Critical, 1 High, 0 Medi
 
 ---
 
+[TestCommand_MoreLockfiles/Dart_package_config_json - 1]
+Scanned <rootdir>/testdata/locks-scalibr/dart/package_config.json file and found 1 package
+
+No issues found
+
+---
+
+[TestCommand_MoreLockfiles/Dart_package_config_json - 2]
+
+---
+
 [TestCommand_MoreLockfiles/Package.resolved_-_SwiftURL_ecosystem_vulnerabilities_detected - 1]
 Scanned <rootdir>/testdata/locks-scalibr/Package.resolved file and found 2 packages
 
@@ -5636,16 +5647,5 @@ No issues found
 ---
 
 [TestCommand_WithDetector_OnLinux/ssh_version_is_before_first_vuln_version - 2]
-
----
-
-[TestCommand_MoreLockfiles/Dart_package_config_json - 1]
-Scanned <rootdir>/testdata/locks-scalibr/dart/package_config.json file and found 1 package
-
-No issues found
-
----
-
-[TestCommand_MoreLockfiles/Dart_package_config_json - 2]
 
 ---
