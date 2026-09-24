@@ -684,3 +684,7 @@ div.title {
     transform: rotate(360deg);
   }
 }
+body:has(#filter-fix-available:checked).vuln-tr.no-fix
+{
+  display:none;
+}
