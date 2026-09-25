@@ -32,9 +32,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Setup Ruby
-        uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
+        uses: ruby/setup-ruby@a0102e0972be65f351c307e2d64b9314a57c8073 # v1.324.0
         with:
-          ruby-version: "4.0.6" # Not needed with a .ruby-version file
+          ruby-version: "4.0.7" # Not needed with a .ruby-version file
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
           cache-version: 0 # Increment this number if you need to re-download cached gems
       - name: Setup Pages
@@ -63,4 +63,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5.0.0
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
