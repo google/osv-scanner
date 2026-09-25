@@ -11,6 +11,7 @@ import (
 
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/cpp/conanlock"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/dart/packageconfig"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dart/pubspec"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/depsjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/packagesconfig"
@@ -47,6 +48,7 @@ var osvscannerScalibrExtractionMapping = map[string][]string{
 	"apk-installed":               {apk.Name},
 	"dpkg-status":                 {dpkg.Name},
 	"pubspec.lock":                {pubspec.Name},
+	"package_config.json":         {packageconfig.Name},
 	"pnpm-lock.yaml":              {pnpmlock.Name},
 	"yarn.lock":                   {yarnlock.Name},
 	"package-lock.json":           {packagelockjson.Name},

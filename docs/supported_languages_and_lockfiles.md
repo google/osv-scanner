@@ -48,7 +48,7 @@ When scanning source code (`osv-scanner scan source ...`), OSV-Scanner automatic
 | Language   | Compatible Lockfile(s)                                                                                                                                 |
 | :--------- | :----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | C/C++      | `conan.lock`<br>[C/C++ commit scanning](#cc-scanning)                                                                                                  |
-| Dart       | `pubspec.lock`                                                                                                                                         |
+| Dart       | `package_config.json`<br>`pubspec.lock`                                                                                                                |
 | Elixir     | `mix.lock`                                                                                                                                             |
 | Go         | `go.mod`                                                                                                                                               |
 | Haskell    | `cabal.project.freeze`<br> `stack.yaml.lock`                                                                                                           |
