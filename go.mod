@@ -14,7 +14,7 @@ require (
 	github.com/google/osv-scalibr v0.5.3-0.20260922010152-e06387b971bf
 	github.com/ianlancetaylor/demangle v0.0.0-20260724033716-83e58baca724
 	github.com/jedib0t/go-pretty/v6 v6.8.3
-	github.com/modelcontextprotocol/go-sdk v1.7.0
+	github.com/modelcontextprotocol/go-sdk v1.8.0
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/ossf/osv-schema/bindings/go v0.0.0-20260902031056-b388a18021a3
 	github.com/owenrumney/go-sarif/v3 v3.3.1
@@ -23,11 +23,11 @@ require (
 	github.com/tidwall/gjson v1.19.0
 	github.com/tidwall/pretty v1.2.1
 	github.com/tidwall/sjson v1.2.5
-	github.com/urfave/cli/v3 v3.11.0
+	github.com/urfave/cli/v3 v3.12.0
 	go.yaml.in/yaml/v4 v4.0.0-rc.6
 	golang.org/x/term v0.46.0
 	golang.org/x/vuln v1.6.0
-	google.golang.org/grpc v1.83.2
+	google.golang.org/grpc v1.84.0
 	google.golang.org/protobuf v1.36.12
 	gopkg.in/dnaeon/go-vcr.v4 v4.0.7
 	osv.dev/bindings/go v0.0.0-20260805021707-3a57b89df3b6
