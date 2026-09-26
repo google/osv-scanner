@@ -5,7 +5,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 1610
+      content_length: 1604
       host: api.osv.dev
       body: |
         {
@@ -78,7 +78,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "pytz"
               },
-              "version": "2026.3.0.post1"
+              "version": "2026.4.0"
             },
             {
               "package": {
@@ -271,7 +271,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-2xpw-w6gg-jr37",
-                  "modified": "2026-09-10T03:50:31.327173Z"
+                  "modified": "2026-09-25T17:15:05.968189Z"
                 },
                 {
                   "id": "GHSA-34jh-p97f-mpxf",

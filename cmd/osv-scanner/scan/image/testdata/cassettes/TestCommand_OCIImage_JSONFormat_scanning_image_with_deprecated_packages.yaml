@@ -462,7 +462,7 @@ interactions:
                 },
                 {
                   "id": "ALPINE-CVE-2026-18798",
-                  "modified": "2026-09-14T16:18:08.119878Z"
+                  "modified": "2026-09-24T08:30:02.509219Z"
                 },
                 {
                   "id": "ALPINE-CVE-2026-22795",
@@ -642,7 +642,7 @@ interactions:
                 },
                 {
                   "id": "ALPINE-CVE-2026-18798",
-                  "modified": "2026-09-14T16:18:08.119878Z"
+                  "modified": "2026-09-24T08:30:02.509219Z"
                 },
                 {
                   "id": "ALPINE-CVE-2026-22795",

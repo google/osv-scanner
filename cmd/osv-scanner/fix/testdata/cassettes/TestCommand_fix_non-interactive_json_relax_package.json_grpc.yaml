@@ -29773,12 +29773,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-07-08T20:46:47Z",
               "versionKey": {
                 "name": "string-width",
                 "system": "NPM",
                 "version": "8.2.2"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-09-24T14:37:52Z",
+              "versionKey": {
+                "name": "string-width",
+                "system": "NPM",
+                "version": "8.3.0"
               }
             }
           ]

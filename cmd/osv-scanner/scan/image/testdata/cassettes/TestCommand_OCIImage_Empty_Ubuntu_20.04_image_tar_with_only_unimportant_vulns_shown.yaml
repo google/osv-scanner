@@ -336,7 +336,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 229
+      content_length: 310
       body: |
         {
           "results": [
@@ -345,7 +345,14 @@ interactions:
             {},
             {},
             {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "UBUNTU-CVE-2026-91187",
+                  "modified": "2026-09-25T17:46:07.872321Z"
+                }
+              ]
+            },
             {},
             {},
             {},
@@ -396,7 +403,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "229"
+          - "310"
         Content-Type:
           - application/json
       status: 200 OK
