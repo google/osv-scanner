@@ -2118,6 +2118,12 @@
       "type": "CVSS_V3"
     }
   ],
+  "GHSA-5q95-hrpc-m3w3": [
+    {
+      "score": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    }
+  ],
   "GHSA-5rjg-fvgr-3xxf": [
     {
       "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N/E:P",
@@ -3063,6 +3069,12 @@
       "type": "CVSS_V3"
     }
   ],
+  "GHSA-ph9c-7hw9-vhhw": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    }
+  ],
   "GHSA-phwj-rprq-35pp": [
     {
       "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N/E:U",
@@ -3179,6 +3191,12 @@
     {
       "score": "CVSS:4.0/AV:N/AC:H/AT:P/PR:H/UI:A/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N",
       "type": "CVSS_V4"
+    }
+  ],
+  "GHSA-r2xf-8xr9-62gw": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
     }
   ],
   "GHSA-r7pg-v2c8-mfg3": [
@@ -5719,6 +5737,16 @@
       "type": "Ubuntu"
     }
   ],
+  "UBUNTU-CVE-2026-82560": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
   "UBUNTU-CVE-2026-8376": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
@@ -5758,6 +5786,16 @@
     }
   ],
   "UBUNTU-CVE-2026-8674": [
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-86805": [
+    {
+      "score": "CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:U/C:H/I:H/A:L",
+      "type": "CVSS_V3"
+    },
     {
       "score": "medium",
       "type": "Ubuntu"
@@ -5867,6 +5905,16 @@
       "type": "Ubuntu"
     }
   ],
+  "UBUNTU-CVE-2026-91187": [
+    {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:N/VA:N/SC:H/SI:H/SA:N",
+      "type": "CVSS_V4"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
   "UBUNTU-CVE-2026-9538": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
@@ -5874,6 +5922,26 @@
     },
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-95619": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:H/A:H",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-95818": [
+    {
+      "score": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:N",
       "type": "CVSS_V3"
     },
     {

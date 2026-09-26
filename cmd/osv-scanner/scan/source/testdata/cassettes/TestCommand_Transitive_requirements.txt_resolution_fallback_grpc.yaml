@@ -9056,12 +9056,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-07-25T15:12:05Z",
               "versionKey": {
                 "name": "pytz",
                 "system": "PYPI",
                 "version": "2026.3.0.post1"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-09-24T03:58:38Z",
+              "versionKey": {
+                "name": "pytz",
+                "system": "PYPI",
+                "version": "2026.4.0"
               }
             }
           ]
