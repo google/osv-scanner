@@ -1362,7 +1362,7 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "vector": "high"
         }
       ],
       "description": "Something less scary!",
@@ -1377,7 +1377,8 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:N"
         }
       ],
       "description": "Something mildly scary!",
@@ -2013,7 +2014,8 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv2",
+          "vector": "AV:N/AC:L/Au:N/C:P/I:P/A:P"
         }
       ],
       "description": "Something scary!",
@@ -2087,7 +2089,11 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H"
+        },
+        {
+          "vector": "medium"
         }
       ],
       "description": "Something scary!",
@@ -2124,7 +2130,11 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv4",
+          "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N"
+        },
+        {
+          "vector": "high"
         }
       ],
       "description": "Something scary!",
@@ -2280,7 +2290,8 @@
       ],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:L/AC:H/PR:H/UI:R/S:U/C:L/I:N/A:N"
         }
       ],
       "description": "Something scary!",
@@ -2295,7 +2306,7 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "vector": "negligible"
         }
       ],
       "description": "Something scary!",
@@ -2332,7 +2343,8 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
         }
       ],
       "description": "Something scary!",
@@ -2368,7 +2380,8 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv3",
+          "vector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
         }
       ],
       "description": "Something scary!",
@@ -2519,7 +2532,12 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+        },
+        {
+          "method": "CVSSv4",
+          "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N"
         }
       ],
       "description": "Something scary!",
@@ -3934,7 +3952,7 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "vector": "high"
         }
       ],
       "description": "Something less scary!",
@@ -3949,7 +3967,8 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:N"
         }
       ],
       "description": "Something mildly scary!",
@@ -4585,7 +4604,8 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv2",
+          "vector": "AV:N/AC:L/Au:N/C:P/I:P/A:P"
         }
       ],
       "description": "Something scary!",
@@ -4659,7 +4679,11 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H"
+        },
+        {
+          "vector": "medium"
         }
       ],
       "description": "Something scary!",
@@ -4696,7 +4720,11 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv4",
+          "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N"
+        },
+        {
+          "vector": "high"
         }
       ],
       "description": "Something scary!",
@@ -4852,7 +4880,8 @@
       ],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:L/AC:H/PR:H/UI:R/S:U/C:L/I:N/A:N"
         }
       ],
       "description": "Something scary!",
@@ -4867,7 +4896,7 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "vector": "negligible"
         }
       ],
       "description": "Something scary!",
@@ -4904,7 +4933,8 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
         }
       ],
       "description": "Something scary!",
@@ -4940,7 +4970,8 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv3",
+          "vector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
         }
       ],
       "description": "Something scary!",
@@ -5091,7 +5122,12 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+        },
+        {
+          "method": "CVSSv4",
+          "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N"
         }
       ],
       "description": "Something scary!",
@@ -6506,7 +6542,7 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "vector": "high"
         }
       ],
       "description": "Something less scary!",
@@ -6521,7 +6557,8 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:N"
         }
       ],
       "description": "Something mildly scary!",
@@ -7157,7 +7194,8 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv2",
+          "vector": "AV:N/AC:L/Au:N/C:P/I:P/A:P"
         }
       ],
       "description": "Something scary!",
@@ -7231,7 +7269,11 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H"
+        },
+        {
+          "vector": "medium"
         }
       ],
       "description": "Something scary!",
@@ -7268,7 +7310,11 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv4",
+          "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N"
+        },
+        {
+          "vector": "high"
         }
       ],
       "description": "Something scary!",
@@ -7424,7 +7470,8 @@
       ],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:L/AC:H/PR:H/UI:R/S:U/C:L/I:N/A:N"
         }
       ],
       "description": "Something scary!",
@@ -7439,7 +7486,7 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "vector": "negligible"
         }
       ],
       "description": "Something scary!",
@@ -7476,7 +7523,8 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
         }
       ],
       "description": "Something scary!",
@@ -7512,7 +7560,8 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv3",
+          "vector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
         }
       ],
       "description": "Something scary!",
@@ -7663,7 +7712,12 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+        },
+        {
+          "method": "CVSSv4",
+          "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N"
         }
       ],
       "description": "Something scary!",
@@ -9078,7 +9132,7 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "vector": "high"
         }
       ],
       "description": "Something less scary!",
@@ -9093,7 +9147,8 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:N"
         }
       ],
       "description": "Something mildly scary!",
@@ -9729,7 +9784,8 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv2",
+          "vector": "AV:N/AC:L/Au:N/C:P/I:P/A:P"
         }
       ],
       "description": "Something scary!",
@@ -9803,7 +9859,11 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H"
+        },
+        {
+          "vector": "medium"
         }
       ],
       "description": "Something scary!",
@@ -9840,7 +9900,11 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv4",
+          "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N"
+        },
+        {
+          "vector": "high"
         }
       ],
       "description": "Something scary!",
@@ -9996,7 +10060,8 @@
       ],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:L/AC:H/PR:H/UI:R/S:U/C:L/I:N/A:N"
         }
       ],
       "description": "Something scary!",
@@ -10011,7 +10076,7 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "vector": "negligible"
         }
       ],
       "description": "Something scary!",
@@ -10048,7 +10113,8 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
         }
       ],
       "description": "Something scary!",
@@ -10084,7 +10150,8 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv3",
+          "vector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
         }
       ],
       "description": "Something scary!",
@@ -10235,7 +10302,12 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+        },
+        {
+          "method": "CVSSv4",
+          "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N"
         }
       ],
       "description": "Something scary!",
