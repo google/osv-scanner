@@ -25,6 +25,7 @@ import (
 	"github.com/google/osv-scalibr/stats"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/config"
+	dryrun "github.com/google/osv-scanner/v2/internal/http"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/imodels/results"
 	"github.com/google/osv-scanner/v2/internal/output"
@@ -33,6 +34,7 @@ import (
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/imagehelpers"
 	"github.com/ossf/osv-schema/bindings/go/osvconstants"
+	"google.golang.org/grpc"
 	"osv.dev/bindings/go/osvdev"
 )
 
@@ -51,6 +53,7 @@ type ScannerActions struct {
 	CallAnalysisStates map[string]bool
 	ShowAllPackages    bool
 	ShowAllVulns       bool
+	DryRun             bool
 
 	// local databases
 	CompareOffline    bool
@@ -119,6 +122,9 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 	// --- Sanity check flags ----
 	// TODO(v2): Move the logic of the offline flag changing other flags into here from the main.go/scan.go
 	if actions.CompareOffline {
+		if actions.DryRun {
+			return models.VulnerabilityResults{}, errors.New("cannot use --dry-run with --offline-vulnerabilities")
+		}
 		if actions.ScanLicensesSummary {
 			return models.VulnerabilityResults{}, errors.New("cannot retrieve licenses locally")
 		}
@@ -494,8 +500,18 @@ func setupAccessors(actions ScannerActions) (*scalibrconfig.PluginConfig, Extern
 
 	if actions.ScalibrConfig != nil {
 		scalibrConfig = actions.ScalibrConfig
+		if actions.DryRun {
+			scalibrConfig = &scalibrconfig.PluginConfig{
+				ProtoConfig:     actions.ScalibrConfig.ProtoConfig,
+				ClientFactories: dryRunClientFactories{ClientFactories: actions.ScalibrConfig.ClientFactories},
+			}
+		}
 	} else {
-		cf := localscalibr.NewClientFactories(actions.HTTPClient, actions.RequestUserAgent)
+		httpClient := actions.HTTPClient
+		if actions.DryRun {
+			httpClient = dryrun.WrapClient(httpClient)
+		}
+		cf := localscalibr.NewClientFactories(httpClient, actions.RequestUserAgent)
 		scalibrConfig = &scalibrconfig.PluginConfig{
 			ClientFactories: cf,
 		}
@@ -530,6 +546,22 @@ func setupAccessors(actions ScannerActions) (*scalibrconfig.PluginConfig, Extern
 	}
 
 	return scalibrConfig, accessors, cleanup
+}
+
+type dryRunClientFactories struct {
+	scalibrconfig.ClientFactories
+}
+
+func (c dryRunClientFactories) HTTPClient() *http.Client {
+	return dryrun.WrapClient(c.ClientFactories.HTTPClient())
+}
+
+func (c dryRunClientFactories) GRPCClientConn(url string, dialOpts ...grpc.DialOption) (grpc.ClientConnInterface, error) {
+	return c.ClientFactories.GRPCClientConn(url, dialOpts...)
+}
+
+func (c dryRunClientFactories) GoogleHTTPClient(ctx context.Context, scope ...string) (*http.Client, error) {
+	return c.ClientFactories.GoogleHTTPClient(ctx, scope...)
 }
 
 func findFilterAnnotator(plugins []plugin.Plugin) *filter.Annotator {

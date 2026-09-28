@@ -106,6 +106,17 @@ The `--offline-vulnerabilities` flag can be used to check for vulnerabilities us
 osv-scanner --offline-vulnerabilities --download-offline-databases ./path/to/your/dir
 ```
 
+### Preview OSV.dev requests
+
+Use `--dry-run` to print the method, URL, headers, and JSON body of requests
+that would be sent to OSV.dev without sending them. Sensitive headers are
+redacted. Requests to other services used for dependency extraction are
+unchanged.
+
+```shell
+osv-scanner scan source --dry-run ./path/to/your/dir
+```
+
 See [offline vulnerabilities](./offline-mode.md) for more details.
 
 ### Licenses scanning
