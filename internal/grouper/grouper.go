@@ -20,7 +20,10 @@ func (d disjointSet) find(n int) int {
 		return n
 	}
 
-	return d.find(d[n])
+	// point n straight at its leader, to save time in future lookups
+	d[n] = d.find(d[n])
+
+	return d[n]
 }
 
 // union merges the sets that a and b are in, by making the larger leader follow
