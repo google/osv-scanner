@@ -4294,14 +4294,13 @@ Scanning dir ./testdata/sbom-grouping/debian-vlc.cdx.json
 Scanned <rootdir>/testdata/sbom-grouping/debian-vlc.cdx.json file and found 1 package
 Loaded Debian local db from <tempdir>/osv-scalibr/Debian/all.zip
 
-Total 1 package affected by 2 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 2 Unknown) from 1 ecosystem.
+Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +----------------------------+------+-----------+---------+---------+---------------+--------------------------------------------+
 | OSV URL                    | CVSS | ECOSYSTEM | PACKAGE | VERSION | FIXED VERSION | SOURCE                                     |
 +----------------------------+------+-----------+---------+---------+---------------+--------------------------------------------+
 | https://osv.dev/DSA-1543-1 |      | Debian    | vlc     | 0.8.5-1 | --            | testdata/sbom-grouping/debian-vlc.cdx.json |
-| https://osv.dev/DTSA-125-1 |      | Debian    | vlc     | 0.8.5-1 | --            | testdata/sbom-grouping/debian-vlc.cdx.json |
 +----------------------------+------+-----------+---------+---------+---------------+--------------------------------------------+
 
 ---
@@ -4315,14 +4314,13 @@ Scanning dir ./testdata/sbom-grouping/debian-vlc.cdx.json
 Scanned <rootdir>/testdata/sbom-grouping/debian-vlc.cdx.json file and found 1 package
 Loaded Debian local db from <tempdir>/osv-scalibr/Debian/all.zip
 
-Total 1 package affected by 2 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 2 Unknown) from 1 ecosystem.
+Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +----------------------------+------+-----------+---------+---------+---------------+--------------------------------------------+
 | OSV URL                    | CVSS | ECOSYSTEM | PACKAGE | VERSION | FIXED VERSION | SOURCE                                     |
 +----------------------------+------+-----------+---------+---------+---------------+--------------------------------------------+
 | https://osv.dev/DSA-1543-1 |      | Debian    | vlc     | 0.8.5-1 | --            | testdata/sbom-grouping/debian-vlc.cdx.json |
-| https://osv.dev/DTSA-125-1 |      | Debian    | vlc     | 0.8.5-1 | --            | testdata/sbom-grouping/debian-vlc.cdx.json |
 +----------------------------+------+-----------+---------+---------+---------------+--------------------------------------------+
 
 ---
