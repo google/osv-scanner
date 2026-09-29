@@ -1060,6 +1060,12 @@ func TestCommand_LocalDatabases(t *testing.T) {
 			Exit: 1,
 		},
 		{
+			// these advisories are only connected through a chain of shared upstream vulnerabilities
+			Name: "advisories_connected_through_a_chain_of_upstreams",
+			Args: []string{"", "source", "--offline", "--download-offline-databases", "./testdata/sbom-grouping/debian-vlc.cdx.json"},
+			Exit: 1,
+		},
+		{
 			Name: "one_specific_unsupported_lockfile",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "./testdata/locks-many/not-a-lockfile.toml"},
 			Exit: 128,

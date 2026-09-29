@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.7.3",
+  "id": "DSA-1543-1",
+  "published": "2008-04-09T00:00:00Z",
+  "modified": "2026-03-09T01:02:04.488111Z",
+  "upstream": [
+    "CVE-2007-6681",
+    "CVE-2007-6682",
+    "CVE-2007-6683",
+    "CVE-2008-0073",
+    "CVE-2008-0295",
+    "CVE-2008-0296",
+    "CVE-2008-0984",
+    "CVE-2008-1489",
+    "DEBIAN-CVE-2007-6681",
+    "DEBIAN-CVE-2007-6682",
+    "DEBIAN-CVE-2007-6683",
+    "DEBIAN-CVE-2008-0073",
+    "DEBIAN-CVE-2008-0295",
+    "DEBIAN-CVE-2008-0296",
+    "DEBIAN-CVE-2008-0984",
+    "DEBIAN-CVE-2008-1489"
+  ],
+  "summary": "vlc - several vulnerabilities",
+  "affected": [
+    {
+      "package": {
+        "name": "vlc",
+        "ecosystem": "Debian:4.0",
+        "purl": "pkg:deb/debian/vlc?arch=source"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.8.6-svn20061012.debian-5.1+etch2"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "0.8.6-svn20061012.debian-5",
+        "0.8.6-svn20061012.debian-5etch1"
+      ],
+      "database_specific": {
+        "source": "https://storage.googleapis.com/debian-osv/dsa-osv/DSA-1543-1.json"
+      }
+    }
+  ]
+}
