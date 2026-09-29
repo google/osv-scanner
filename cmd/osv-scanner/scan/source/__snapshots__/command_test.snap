@@ -4289,6 +4289,48 @@ No issues found
 
 ---
 
+[TestCommand_LocalDatabases/advisories_connected_through_a_chain_of_upstreams - 1 - stdout]
+Scanning dir ./testdata/sbom-grouping/debian-vlc.cdx.json
+Scanned <rootdir>/testdata/sbom-grouping/debian-vlc.cdx.json file and found 1 package
+Loaded Debian local db from <tempdir>/osv-scalibr/Debian/all.zip
+
+Total 1 package affected by 2 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 2 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
++----------------------------+------+-----------+---------+---------+---------------+--------------------------------------------+
+| OSV URL                    | CVSS | ECOSYSTEM | PACKAGE | VERSION | FIXED VERSION | SOURCE                                     |
++----------------------------+------+-----------+---------+---------+---------------+--------------------------------------------+
+| https://osv.dev/DSA-1543-1 |      | Debian    | vlc     | 0.8.5-1 | --            | testdata/sbom-grouping/debian-vlc.cdx.json |
+| https://osv.dev/DTSA-125-1 |      | Debian    | vlc     | 0.8.5-1 | --            | testdata/sbom-grouping/debian-vlc.cdx.json |
++----------------------------+------+-----------+---------+---------+---------------+--------------------------------------------+
+
+---
+
+[TestCommand_LocalDatabases/advisories_connected_through_a_chain_of_upstreams - 2 - stderr]
+
+---
+
+[TestCommand_LocalDatabases/advisories_connected_through_a_chain_of_upstreams - 3 - stdout]
+Scanning dir ./testdata/sbom-grouping/debian-vlc.cdx.json
+Scanned <rootdir>/testdata/sbom-grouping/debian-vlc.cdx.json file and found 1 package
+Loaded Debian local db from <tempdir>/osv-scalibr/Debian/all.zip
+
+Total 1 package affected by 2 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 2 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
++----------------------------+------+-----------+---------+---------+---------------+--------------------------------------------+
+| OSV URL                    | CVSS | ECOSYSTEM | PACKAGE | VERSION | FIXED VERSION | SOURCE                                     |
++----------------------------+------+-----------+---------+---------+---------------+--------------------------------------------+
+| https://osv.dev/DSA-1543-1 |      | Debian    | vlc     | 0.8.5-1 | --            | testdata/sbom-grouping/debian-vlc.cdx.json |
+| https://osv.dev/DTSA-125-1 |      | Debian    | vlc     | 0.8.5-1 | --            | testdata/sbom-grouping/debian-vlc.cdx.json |
++----------------------------+------+-----------+---------+---------+---------------+--------------------------------------------+
+
+---
+
+[TestCommand_LocalDatabases/advisories_connected_through_a_chain_of_upstreams - 4 - stderr]
+
+---
+
 [TestCommand_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked - 1 - stdout]
 Scanning dir ./testdata/locks-many-with-insecure
 Scanned <rootdir>/testdata/locks-many-with-insecure/Gemfile.lock file and found 1 package

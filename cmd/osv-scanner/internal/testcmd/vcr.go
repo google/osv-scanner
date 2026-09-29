@@ -1079,6 +1079,10 @@ var allowedVulnIDs = map[string]bool{
 	"DRUPAL-CONTRIB-2025-083": true, // Packagist - drupal/simple_sitemap @ 4.2.1 in testdata/locks-many-with-insecure/composer.lock
 	"DRUPAL-CORE-2025-005":    true, // Packagist - drupal/core @ 10.4.5 in testdata/locks-many-with-insecure/composer.lock
 	"DRUPAL-CORE-2026-001":    true, // Packagist - drupal/core @ 10.4.5 in testdata/locks-many-with-insecure/composer.lock
+	"DSA-1543-1":              true, // Debian - vlc @ 0.8.5-1 in testdata/sbom-grouping/debian-vlc.cdx.json
+	"DSA-1819-1":              true, // Debian - vlc @ 0.8.5-1 in testdata/sbom-grouping/debian-vlc.cdx.json
+	"DTSA-125-1":              true, // Debian - vlc @ 0.8.5-1 in testdata/sbom-grouping/debian-vlc.cdx.json
+	"DTSA-132-1":              true, // Debian - vlc @ 0.8.5-1 in testdata/sbom-grouping/debian-vlc.cdx.json
 	"GHSA-269g-pwp5-87pp":     true, // Maven - junit:junit @ 4.12 in testdata/maven-transitive/encoding.xml
 	"GHSA-3pxv-7cmr-fjr4":     true, // Maven - org.apache.logging.log4j:log4j-core @ 2.14.1 in testdata/maven-transitive/registry.xml
 	"GHSA-9f46-5r25-5wfm":     true, // Packagist - league/flysystem @ 1.0.8 in testdata/locks-many-with-insecure/composer.lock
