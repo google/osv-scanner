@@ -1015,6 +1015,26 @@ func TestConfig_ShouldIgnorePackage_NameIsRegex(t *testing.T) {
 			wantEntry: PackageOverrideEntry{},
 		},
 		{
+			name: "Regex_with_top_level_alternation_is_anchored_and_does_not_partial_match",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:        "lib|other",
+						NameIsRegex: true,
+						Ignore:      true,
+						Reason:      "anchored alternation",
+					},
+				},
+			},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.0",
+				PURLType: purl.TypeGolang,
+			},
+			wantOk:    false,
+			wantEntry: PackageOverrideEntry{},
+		},
+		{
 			name: "Regex_combined_with_ecosystem_filter",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
