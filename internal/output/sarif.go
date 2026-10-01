@@ -264,11 +264,21 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 	}
 	slices.Sort(vulnIDs)
 
+	// vulnIDMap holds one entry per vulnerability ID, and every ID of an alias
+	// group points at the same *groupedSARIFFinding. Track the groups we have
+	// already emitted so a group matched by several advisories still produces a
+	// single result, rather than one result per ID in the group.
+	emittedGroups := make(map[*groupedSARIFFinding]bool, len(vulnIDMap))
+
 	for _, vulnID := range vulnIDs {
 		gv := vulnIDMap[vulnID]
 		if gv == nil {
 			continue
 		}
+		if emittedGroups[gv] {
+			continue
+		}
+		emittedGroups[gv] = true
 
 		helpText := createSARIFHelpText(gv)
 

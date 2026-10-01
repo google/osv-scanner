@@ -108,42 +108,6 @@
           "ruleIndex": 1,
           "stacks": [],
           "taxa": []
-        },
-        {
-          "attachments": [],
-          "codeFlows": [],
-          "fixes": [],
-          "graphTraversals": [],
-          "graphs": [],
-          "kind": "fail",
-          "level": "warning",
-          "locations": [
-            {
-              "annotations": [],
-              "id": -1,
-              "logicalLocations": [],
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": -1,
-                  "uri": "file:///path/to/sub-rust-project/Cargo.lock"
-                }
-              },
-              "relationships": []
-            }
-          ],
-          "message": {
-            "arguments": [],
-            "text": "Package 'regex@1.5.1' is vulnerable to 'CVE-2022-24713' (also known as 'RUSTSEC-2022-0013', 'GHSA-m5pq-gvj9-9vr8')."
-          },
-          "partialFingerprints": {
-            "primaryLocationLineHash": "[line-hash]"
-          },
-          "rank": -1,
-          "relatedLocations": [],
-          "ruleId": "CVE-2022-24713",
-          "ruleIndex": 0,
-          "stacks": [],
-          "taxa": []
         }
       ],
       "runAggregates": [],
@@ -5573,42 +5537,6 @@
           "ruleIndex": 0,
           "stacks": [],
           "taxa": []
-        },
-        {
-          "attachments": [],
-          "codeFlows": [],
-          "fixes": [],
-          "graphTraversals": [],
-          "graphs": [],
-          "kind": "fail",
-          "level": "warning",
-          "locations": [
-            {
-              "annotations": [],
-              "id": -1,
-              "logicalLocations": [],
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": -1,
-                  "uri": "file://<rootdir>/path/to/my/first/lockfile"
-                }
-              },
-              "relationships": []
-            }
-          ],
-          "message": {
-            "arguments": [],
-            "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1' (also known as 'GHSA-123')."
-          },
-          "partialFingerprints": {
-            "primaryLocationLineHash": "[line-hash]"
-          },
-          "rank": -1,
-          "relatedLocations": [],
-          "ruleId": "OSV-1",
-          "ruleIndex": 0,
-          "stacks": [],
-          "taxa": []
         }
       ],
       "runAggregates": [],
@@ -5729,42 +5657,6 @@
           "ruleIndex": 0,
           "stacks": [],
           "taxa": []
-        },
-        {
-          "attachments": [],
-          "codeFlows": [],
-          "fixes": [],
-          "graphTraversals": [],
-          "graphs": [],
-          "kind": "fail",
-          "level": "warning",
-          "locations": [
-            {
-              "annotations": [],
-              "id": -1,
-              "logicalLocations": [],
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": -1,
-                  "uri": "file://<rootdir>/path/to/my/first/lockfile"
-                }
-              },
-              "relationships": []
-            }
-          ],
-          "message": {
-            "arguments": [],
-            "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1' (also known as 'GHSA-123')."
-          },
-          "partialFingerprints": {
-            "primaryLocationLineHash": "[line-hash]"
-          },
-          "rank": -1,
-          "relatedLocations": [],
-          "ruleId": "OSV-1",
-          "ruleIndex": 0,
-          "stacks": [],
-          "taxa": []
         }
       ],
       "runAggregates": [],
@@ -5850,42 +5742,6 @@
       "policies": [],
       "redactionTokens": [],
       "results": [
-        {
-          "attachments": [],
-          "codeFlows": [],
-          "fixes": [],
-          "graphTraversals": [],
-          "graphs": [],
-          "kind": "fail",
-          "level": "warning",
-          "locations": [
-            {
-              "annotations": [],
-              "id": -1,
-              "logicalLocations": [],
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": -1,
-                  "uri": "file://<rootdir>/path/to/my/first/lockfile"
-                }
-              },
-              "relationships": []
-            }
-          ],
-          "message": {
-            "arguments": [],
-            "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1' (also known as 'GHSA-123')."
-          },
-          "partialFingerprints": {
-            "primaryLocationLineHash": "[line-hash]"
-          },
-          "rank": -1,
-          "relatedLocations": [],
-          "ruleId": "OSV-1",
-          "ruleIndex": 0,
-          "stacks": [],
-          "taxa": []
-        },
         {
           "attachments": [],
           "codeFlows": [],
