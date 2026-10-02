@@ -2594,6 +2594,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "name": "pip",
             "version": "21.2.3",
             "ecosystem": "PyPI",
+            "purl": "pkg:pypi/pip@21.2.3",
             "image_origin_details": {
               "index": 0
             }
@@ -2629,6 +2630,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "name": "setuptools",
             "version": "53.0.0",
             "ecosystem": "PyPI",
+            "purl": "pkg:pypi/setuptools@53.0.0",
             "image_origin_details": {
               "index": 0
             }
@@ -2659,6 +2661,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "acl",
             "version": "2.3.1-3.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/acl@2.3.1-3.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=acl-2.3.1-3.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -2674,6 +2677,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "bash",
             "version": "5.1.8-4.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/bash@5.1.8-4.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=bash-5.1.8-4.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -2689,6 +2693,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "binutils",
             "version": "2.35.2-17.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/binutils@2.35.2-17.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=binutils-2.35.2-17.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -2705,6 +2710,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "binutils-gold",
             "version": "2.35.2-17.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/binutils-gold@2.35.2-17.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=binutils-2.35.2-17.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -2721,6 +2727,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "bzip2-libs",
             "version": "1.0.8-8.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/bzip2-libs@1.0.8-8.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=bzip2-1.0.8-8.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -2736,6 +2743,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "coreutils-single",
             "version": "8.32-31.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/coreutils-single@8.32-31.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=coreutils-8.32-31.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -2752,6 +2760,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "curl-minimal",
             "version": "7.76.1-14.el9_0.5",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/curl-minimal@7.76.1-14.el9_0.5?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=curl-7.76.1-14.el9_0.5.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -2780,6 +2789,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "dbus",
             "version": "1:1.12.20-5.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/dbus@1.12.20-5.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026epoch=1/u0026sourcerpm=dbus-1.12.20-5.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -2796,6 +2806,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "dbus-broker",
             "version": "28-5.1.el9_0",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/dbus-broker@28-5.1.el9_0?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=dbus-broker-28-5.1.el9_0.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -2811,6 +2822,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "dbus-common",
             "version": "1:1.12.20-5.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/dbus-common@1.12.20-5.el9?arch=noarch/u0026distro=almalinux-9.0/u0026epoch=1/u0026sourcerpm=dbus-1.12.20-5.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -2827,6 +2839,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "expat",
             "version": "2.2.10-12.el9_0.3",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/expat@2.2.10-12.el9_0.3?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=expat-2.2.10-12.el9_0.3.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -2851,6 +2864,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "file-libs",
             "version": "5.39-8.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/file-libs@5.39-8.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=file-5.39-8.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -2866,6 +2880,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "gawk",
             "version": "5.1.0-6.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/gawk@5.1.0-6.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=gawk-5.1.0-6.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -2881,6 +2896,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "glib2",
             "version": "2.68.4-5.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/glib2@2.68.4-5.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=glib2-2.68.4-5.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -2904,6 +2920,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "glibc",
             "version": "2.34-28.el9_0.2",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/glibc@2.34-28.el9_0.2?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=glibc-2.34-28.el9_0.2.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -2927,6 +2944,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "glibc-common",
             "version": "2.34-28.el9_0.2",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/glibc-common@2.34-28.el9_0.2?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=glibc-2.34-28.el9_0.2.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -2950,6 +2968,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "glibc-minimal-langpack",
             "version": "2.34-28.el9_0.2",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/glibc-minimal-langpack@2.34-28.el9_0.2?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=glibc-2.34-28.el9_0.2.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -2973,6 +2992,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "gmp",
             "version": "1:6.2.0-10.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/gmp@6.2.0-10.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026epoch=1/u0026sourcerpm=gmp-6.2.0-10.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -2988,6 +3008,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "gnupg2",
             "version": "2.3.3-2.el9_0",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/gnupg2@2.3.3-2.el9_0?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=gnupg2-2.3.3-2.el9_0.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3003,6 +3024,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "gnutls",
             "version": "3.7.6-12.el9_0",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/gnutls@3.7.6-12.el9_0?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=gnutls-3.7.6-12.el9_0.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3025,6 +3047,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "gzip",
             "version": "1.10-9.el9_0",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/gzip@1.10-9.el9_0?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=gzip-1.10-9.el9_0.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3040,6 +3063,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "iputils",
             "version": "20210202-7.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/iputils@20210202-7.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=iputils-20210202-7.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3056,6 +3080,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "krb5-libs",
             "version": "1.19.1-15.el9_0",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/krb5-libs@1.19.1-15.el9_0?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=krb5-1.19.1-15.el9_0.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3079,6 +3104,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "less",
             "version": "590-1.el9_0",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/less@590-1.el9_0?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=less-590-1.el9_0.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3096,6 +3122,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "libacl",
             "version": "2.3.1-3.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/libacl@2.3.1-3.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=acl-2.3.1-3.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3111,6 +3138,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "libarchive",
             "version": "3.5.3-2.el9_0",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/libarchive@3.5.3-2.el9_0?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=libarchive-3.5.3-2.el9_0.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3131,6 +3159,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "libattr",
             "version": "2.5.1-3.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/libattr@2.5.1-3.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=attr-2.5.1-3.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3146,6 +3175,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "libblkid",
             "version": "2.37.4-3.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/libblkid@2.37.4-3.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=util-linux-2.37.4-3.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3161,6 +3191,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "libcap",
             "version": "2.48-8.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/libcap@2.48-8.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=libcap-2.48-8.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3178,6 +3209,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "libcom_err",
             "version": "1.46.5-2.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/libcom_err@1.46.5-2.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=e2fsprogs-1.46.5-2.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3193,6 +3225,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "libcurl-minimal",
             "version": "7.76.1-14.el9_0.5",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/libcurl-minimal@7.76.1-14.el9_0.5?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=curl-7.76.1-14.el9_0.5.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3221,6 +3254,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "libeconf",
             "version": "0.4.1-2.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/libeconf@0.4.1-2.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=libeconf-0.4.1-2.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3236,6 +3270,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "libevent",
             "version": "2.1.12-6.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/libevent@2.1.12-6.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=libevent-2.1.12-6.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3251,6 +3286,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "libfdisk",
             "version": "2.37.4-3.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/libfdisk@2.37.4-3.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=util-linux-2.37.4-3.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3266,6 +3302,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "libgcc",
             "version": "11.2.1-9.4.el9.alma",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/libgcc@11.2.1-9.4.el9.alma?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=gcc-11.2.1-9.4.el9.alma.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3281,6 +3318,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "libgcrypt",
             "version": "1.10.0-5.el9_0",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/libgcrypt@1.10.0-5.el9_0?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=libgcrypt-1.10.0-5.el9_0.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3297,6 +3335,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "libgomp",
             "version": "11.2.1-9.4.el9.alma",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/libgomp@11.2.1-9.4.el9.alma?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=gcc-11.2.1-9.4.el9.alma.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3312,6 +3351,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "libksba",
             "version": "1.5.1-5.el9_0",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/libksba@1.5.1-5.el9_0?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=libksba-1.5.1-5.el9_0.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3327,6 +3367,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "libmount",
             "version": "2.37.4-3.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/libmount@2.37.4-3.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=util-linux-2.37.4-3.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3342,6 +3383,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "libnghttp2",
             "version": "1.43.0-5.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/libnghttp2@1.43.0-5.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=nghttp2-1.43.0-5.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3361,6 +3403,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "libsmartcols",
             "version": "2.37.4-3.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/libsmartcols@2.37.4-3.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=util-linux-2.37.4-3.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3376,6 +3419,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "libsolv",
             "version": "0.7.20-2.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/libsolv@0.7.20-2.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=libsolv-0.7.20-2.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3391,6 +3435,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "libstdc++",
             "version": "11.2.1-9.4.el9.alma",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/libstdc%2B%2B@11.2.1-9.4.el9.alma?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=gcc-11.2.1-9.4.el9.alma.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3406,6 +3451,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "libtasn1",
             "version": "4.16.0-7.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/libtasn1@4.16.0-7.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=libtasn1-4.16.0-7.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3423,6 +3469,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "libuuid",
             "version": "2.37.4-3.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/libuuid@2.37.4-3.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=util-linux-2.37.4-3.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3438,6 +3485,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "libxml2",
             "version": "2.9.13-1.el9_0.1",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/libxml2@2.9.13-1.el9_0.1?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=libxml2-2.9.13-1.el9_0.1.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3466,6 +3514,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "lua-libs",
             "version": "5.4.2-4.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/lua-libs@5.4.2-4.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=lua-5.4.2-4.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3483,6 +3532,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "ncurses-base",
             "version": "6.2-8.20210508.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/ncurses-base@6.2-8.20210508.el9?arch=noarch/u0026distro=almalinux-9.0/u0026sourcerpm=ncurses-6.2-8.20210508.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3498,6 +3548,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "ncurses-libs",
             "version": "6.2-8.20210508.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/ncurses-libs@6.2-8.20210508.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=ncurses-6.2-8.20210508.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3513,6 +3564,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "openssl",
             "version": "1:3.0.1-43.el9_0",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/openssl@3.0.1-43.el9_0?arch=x86_64/u0026distro=almalinux-9.0/u0026epoch=1/u0026sourcerpm=openssl-3.0.1-43.el9_0.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3541,6 +3593,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "openssl-libs",
             "version": "1:3.0.1-43.el9_0",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/openssl-libs@3.0.1-43.el9_0?arch=x86_64/u0026distro=almalinux-9.0/u0026epoch=1/u0026sourcerpm=openssl-3.0.1-43.el9_0.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3569,6 +3622,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "p11-kit",
             "version": "0.24.1-2.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/p11-kit@0.24.1-2.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=p11-kit-0.24.1-2.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3585,6 +3639,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "p11-kit-trust",
             "version": "0.24.1-2.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/p11-kit-trust@0.24.1-2.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=p11-kit-0.24.1-2.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3601,6 +3656,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "pam",
             "version": "1.5.1-9.el9_0.1",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/pam@1.5.1-9.el9_0.1?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=pam-1.5.1-9.el9_0.1.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3621,6 +3677,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "python3",
             "version": "3.9.10-2.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/python3@3.9.10-2.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=python3.9-3.9.10-2.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3661,6 +3718,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "python3-libs",
             "version": "3.9.10-2.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/python3-libs@3.9.10-2.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=python3.9-3.9.10-2.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3701,6 +3759,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "python3-pip-wheel",
             "version": "21.2.3-6.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/python3-pip-wheel@21.2.3-6.el9?arch=noarch/u0026distro=almalinux-9.0/u0026sourcerpm=python-pip-21.2.3-6.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3716,6 +3775,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "python3-rpm",
             "version": "4.16.1.3-12.el9_0",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/python3-rpm@4.16.1.3-12.el9_0?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=rpm-4.16.1.3-12.el9_0.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3731,6 +3791,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "python3-setuptools-wheel",
             "version": "53.0.0-10.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/python3-setuptools-wheel@53.0.0-10.el9?arch=noarch/u0026distro=almalinux-9.0/u0026sourcerpm=python-setuptools-53.0.0-10.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3748,6 +3809,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "rpm",
             "version": "4.16.1.3-12.el9_0",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/rpm@4.16.1.3-12.el9_0?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=rpm-4.16.1.3-12.el9_0.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3763,6 +3825,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "rpm-build-libs",
             "version": "4.16.1.3-12.el9_0",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/rpm-build-libs@4.16.1.3-12.el9_0?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=rpm-4.16.1.3-12.el9_0.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3778,6 +3841,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "rpm-libs",
             "version": "4.16.1.3-12.el9_0",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/rpm-libs@4.16.1.3-12.el9_0?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=rpm-4.16.1.3-12.el9_0.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3793,6 +3857,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "rpm-sign-libs",
             "version": "4.16.1.3-12.el9_0",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/rpm-sign-libs@4.16.1.3-12.el9_0?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=rpm-4.16.1.3-12.el9_0.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3808,6 +3873,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "shadow-utils",
             "version": "2:4.9-3.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/shadow-utils@4.9-3.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026epoch=2/u0026sourcerpm=shadow-utils-4.9-3.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3824,6 +3890,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "sqlite-libs",
             "version": "3.34.1-5.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/sqlite-libs@3.34.1-5.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=sqlite-3.34.1-5.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3843,6 +3910,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "systemd",
             "version": "250-6.el9_0.1",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/systemd@250-6.el9_0.1?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=systemd-250-6.el9_0.1.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3863,6 +3931,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "systemd-libs",
             "version": "250-6.el9_0.1",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/systemd-libs@250-6.el9_0.1?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=systemd-250-6.el9_0.1.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3883,6 +3952,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "systemd-pam",
             "version": "250-6.el9_0.1",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/systemd-pam@250-6.el9_0.1?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=systemd-250-6.el9_0.1.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3903,6 +3973,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "systemd-rpm-macros",
             "version": "250-6.el9_0.1",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/systemd-rpm-macros@250-6.el9_0.1?arch=noarch/u0026distro=almalinux-9.0/u0026sourcerpm=systemd-250-6.el9_0.1.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3923,6 +3994,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "tar",
             "version": "2:1.34-3.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/tar@1.34-3.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026epoch=2/u0026sourcerpm=tar-1.34-3.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3940,6 +4012,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "tpm2-tss",
             "version": "3.0.3-7.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/tpm2-tss@3.0.3-7.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=tpm2-tss-3.0.3-7.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3955,6 +4028,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "util-linux",
             "version": "2.37.4-3.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/util-linux@2.37.4-3.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=util-linux-2.37.4-3.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3970,6 +4044,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "util-linux-core",
             "version": "2.37.4-3.el9",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/util-linux-core@2.37.4-3.el9?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=util-linux-2.37.4-3.el9.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -3985,6 +4060,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "vim-minimal",
             "version": "2:8.2.2637-16.el9_0.3",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/vim-minimal@8.2.2637-16.el9_0.3?arch=x86_64/u0026distro=almalinux-9.0/u0026epoch=2/u0026sourcerpm=vim-8.2.2637-16.el9_0.3.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -4013,6 +4089,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "os_package_name": "zlib",
             "version": "1.2.11-31.el9_0.1",
             "ecosystem": "AlmaLinux:9",
+            "purl": "pkg:rpm/almalinux/zlib@1.2.11-31.el9_0.1?arch=x86_64/u0026distro=almalinux-9.0/u0026sourcerpm=zlib-1.2.11-31.el9_0.1.src.rpm",
             "image_origin_details": {
               "index": 0
             }
@@ -5580,7 +5657,7 @@ Scanning local image tarball "./testdata/test-chisel.tar"
             "name": "cryo",
             "version": "0.0.6",
             "ecosystem": "npm",
-            "purl": "pkg:npm/cryo@0.0.6",
+            "purl": "pkg:npm/cryo@0.0.6?source=PUBLIC_REGISTRY",
             "image_origin_details": {
               "index": 14
             }
@@ -5595,7 +5672,7 @@ Scanning local image tarball "./testdata/test-chisel.tar"
             "name": "minimist",
             "version": "0.0.8",
             "ecosystem": "npm",
-            "purl": "pkg:npm/minimist@0.0.8",
+            "purl": "pkg:npm/minimist@0.0.8?source=PUBLIC_REGISTRY",
             "image_origin_details": {
               "index": 13
             }
