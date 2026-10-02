@@ -609,6 +609,122 @@ failed to load image from tarball with path "../../testdata/locks-manyoci-image/
 
 ---
 
+[TestCommand_OCIImage/Scanning_AlmaLinux_9_image - 1 - stdout]
+Scanning local image tarball "./testdata/test-almalinux-9.tar"
+
+
+Container Scanning Result (AlmaLinux 9.0 (Emerald Puma)) (Based on "almalinux" image):
+Total 77 packages affected by 330 known vulnerabilities (0 Critical, 4 High, 6 Medium, 1 Low, 319 Unknown) from 2 ecosystems.
+330 vulnerabilities can be fixed.
+
+
+AlmaLinux:9
++------------------------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/var/lib/rpm/rpmdb.sqlite                                                                                                            |
++--------------------------+-----------------------+---------------+------------+-----------------------------+------------------+---------------+
+| SOURCE PACKAGE           | INSTALLED VERSION     | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT)     | INTRODUCED LAYER | IN BASE IMAGE |
++--------------------------+-----------------------+---------------+------------+-----------------------------+------------------+---------------+
+| acl                      | 2.3.1-3.el9           | Fix Available |          1 | acl                         | # 0 Layer        | almalinux     |
+| bash                     | 5.1.8-4.el9           | Fix Available |          1 | bash                        | # 0 Layer        | almalinux     |
+| binutils                 | 2.35.2-17.el9         | Fix Available |          2 | binutils                    | # 0 Layer        | almalinux     |
+| binutils-gold            | 2.35.2-17.el9         | Fix Available |          2 | binutils-gold               | # 0 Layer        | almalinux     |
+| bzip2-libs               | 1.0.8-8.el9           | Fix Available |          1 | bzip2-libs                  | # 0 Layer        | almalinux     |
+| coreutils-single         | 8.32-31.el9           | Fix Available |          2 | coreutils-single            | # 0 Layer        | almalinux     |
+| curl-minimal             | 7.76.1-14.el9_0.5     | Fix Available |         14 | curl-minimal                | # 0 Layer        | almalinux     |
+| dbus                     | 1:1.12.20-5.el9       | Fix Available |          2 | dbus                        | # 0 Layer        | almalinux     |
+| dbus-broker              | 28-5.1.el9_0          | Fix Available |          1 | dbus-broker                 | # 0 Layer        | almalinux     |
+| dbus-common              | 1:1.12.20-5.el9       | Fix Available |          2 | dbus-common                 | # 0 Layer        | almalinux     |
+| expat                    | 2.2.10-12.el9_0.3     | Fix Available |         10 | expat                       | # 0 Layer        | almalinux     |
+| file-libs                | 5.39-8.el9            | Fix Available |          1 | file-libs                   | # 0 Layer        | almalinux     |
+| gawk                     | 5.1.0-6.el9           | Fix Available |          1 | gawk                        | # 0 Layer        | almalinux     |
+| glib2                    | 2.68.4-5.el9          | Fix Available |          9 | glib2                       | # 0 Layer        | almalinux     |
+| glibc                    | 2.34-28.el9_0.2       | Fix Available |          9 | glibc                       | # 0 Layer        | almalinux     |
+| glibc-common             | 2.34-28.el9_0.2       | Fix Available |          9 | glibc-common                | # 0 Layer        | almalinux     |
+| glibc-minimal-langpack   | 2.34-28.el9_0.2       | Fix Available |          9 | glibc-minimal-langpa... (1) | # 0 Layer        | almalinux     |
+| gmp                      | 1:6.2.0-10.el9        | Fix Available |          1 | gmp                         | # 0 Layer        | almalinux     |
+| gnupg2                   | 2.3.3-2.el9_0         | Fix Available |          1 | gnupg2                      | # 0 Layer        | almalinux     |
+| gnutls                   | 3.7.6-12.el9_0        | Fix Available |          8 | gnutls                      | # 0 Layer        | almalinux     |
+| gzip                     | 1.10-9.el9_0          | Fix Available |          1 | gzip                        | # 0 Layer        | almalinux     |
+| iputils                  | 20210202-7.el9        | Fix Available |          2 | iputils                     | # 0 Layer        | almalinux     |
+| krb5-libs                | 1.19.1-15.el9_0       | Fix Available |          9 | krb5-libs                   | # 0 Layer        | almalinux     |
+| less                     | 590-1.el9_0           | Fix Available |          3 | less                        | # 0 Layer        | almalinux     |
+| libacl                   | 2.3.1-3.el9           | Fix Available |          1 | libacl                      | # 0 Layer        | almalinux     |
+| libarchive               | 3.5.3-2.el9_0         | Fix Available |          6 | libarchive                  | # 0 Layer        | almalinux     |
+| libattr                  | 2.5.1-3.el9           | Fix Available |          1 | libattr                     | # 0 Layer        | almalinux     |
+| libblkid                 | 2.37.4-3.el9          | Fix Available |          1 | libblkid                    | # 0 Layer        | almalinux     |
+| libcap                   | 2.48-8.el9            | Fix Available |          3 | libcap                      | # 0 Layer        | almalinux     |
+| libcom_err               | 1.46.5-2.el9          | Fix Available |          1 | libcom_err                  | # 0 Layer        | almalinux     |
+| libcurl-minimal          | 7.76.1-14.el9_0.5     | Fix Available |         14 | libcurl-minimal             | # 0 Layer        | almalinux     |
+| libeconf                 | 0.4.1-2.el9           | Fix Available |          1 | libeconf                    | # 0 Layer        | almalinux     |
+| libevent                 | 2.1.12-6.el9          | Fix Available |          1 | libevent                    | # 0 Layer        | almalinux     |
+| libfdisk                 | 2.37.4-3.el9          | Fix Available |          1 | libfdisk                    | # 0 Layer        | almalinux     |
+| libgcc                   | 11.2.1-9.4.el9.alma   | Fix Available |          1 | libgcc                      | # 0 Layer        | almalinux     |
+| libgcrypt                | 1.10.0-5.el9_0        | Fix Available |          2 | libgcrypt                   | # 0 Layer        | almalinux     |
+| libgomp                  | 11.2.1-9.4.el9.alma   | Fix Available |          1 | libgomp                     | # 0 Layer        | almalinux     |
+| libksba                  | 1.5.1-5.el9_0         | Fix Available |          1 | libksba                     | # 0 Layer        | almalinux     |
+| libmount                 | 2.37.4-3.el9          | Fix Available |          1 | libmount                    | # 0 Layer        | almalinux     |
+| libnghttp2               | 1.43.0-5.el9          | Fix Available |          5 | libnghttp2                  | # 0 Layer        | almalinux     |
+| libsmartcols             | 2.37.4-3.el9          | Fix Available |          1 | libsmartcols                | # 0 Layer        | almalinux     |
+| libsolv                  | 0.7.20-2.el9          | Fix Available |          1 | libsolv                     | # 0 Layer        | almalinux     |
+| libstdc++                | 11.2.1-9.4.el9.alma   | Fix Available |          1 | libstdc++                   | # 0 Layer        | almalinux     |
+| libtasn1                 | 4.16.0-7.el9          | Fix Available |          3 | libtasn1                    | # 0 Layer        | almalinux     |
+| libuuid                  | 2.37.4-3.el9          | Fix Available |          1 | libuuid                     | # 0 Layer        | almalinux     |
+| libxml2                  | 2.9.13-1.el9_0.1      | Fix Available |         14 | libxml2                     | # 0 Layer        | almalinux     |
+| lua-libs                 | 5.4.2-4.el9           | Fix Available |          3 | lua-libs                    | # 0 Layer        | almalinux     |
+| ncurses-base             | 6.2-8.20210508.el9    | Fix Available |          1 | ncurses-base                | # 0 Layer        | almalinux     |
+| ncurses-libs             | 6.2-8.20210508.el9    | Fix Available |          1 | ncurses-libs                | # 0 Layer        | almalinux     |
+| openssl                  | 1:3.0.1-43.el9_0      | Fix Available |         14 | openssl                     | # 0 Layer        | almalinux     |
+| openssl-libs             | 1:3.0.1-43.el9_0      | Fix Available |         14 | openssl-libs                | # 0 Layer        | almalinux     |
+| p11-kit                  | 0.24.1-2.el9          | Fix Available |          2 | p11-kit                     | # 0 Layer        | almalinux     |
+| p11-kit-trust            | 0.24.1-2.el9          | Fix Available |          2 | p11-kit-trust               | # 0 Layer        | almalinux     |
+| pam                      | 1.5.1-9.el9_0.1       | Fix Available |          6 | pam                         | # 0 Layer        | almalinux     |
+| python3                  | 3.9.10-2.el9          | Fix Available |         26 | python3                     | # 0 Layer        | almalinux     |
+| python3-libs             | 3.9.10-2.el9          | Fix Available |         26 | python3-libs                | # 0 Layer        | almalinux     |
+| python3-pip-wheel        | 21.2.3-6.el9          | Fix Available |          1 | python3-pip-wheel           | # 0 Layer        | almalinux     |
+| python3-rpm              | 4.16.1.3-12.el9_0     | Fix Available |          1 | python3-rpm                 | # 0 Layer        | almalinux     |
+| python3-setuptools-wheel | 53.0.0-10.el9         | Fix Available |          3 | python3-setuptools-w... (1) | # 0 Layer        | almalinux     |
+| rpm                      | 4.16.1.3-12.el9_0     | Fix Available |          1 | rpm                         | # 0 Layer        | almalinux     |
+| rpm-build-libs           | 4.16.1.3-12.el9_0     | Fix Available |          1 | rpm-build-libs              | # 0 Layer        | almalinux     |
+| rpm-libs                 | 4.16.1.3-12.el9_0     | Fix Available |          1 | rpm-libs                    | # 0 Layer        | almalinux     |
+| rpm-sign-libs            | 4.16.1.3-12.el9_0     | Fix Available |          1 | rpm-sign-libs               | # 0 Layer        | almalinux     |
+| shadow-utils             | 2:4.9-3.el9           | Fix Available |          2 | shadow-utils                | # 0 Layer        | almalinux     |
+| sqlite-libs              | 3.34.1-5.el9          | Fix Available |          5 | sqlite-libs                 | # 0 Layer        | almalinux     |
+| systemd                  | 250-6.el9_0.1         | Fix Available |          6 | systemd                     | # 0 Layer        | almalinux     |
+| systemd-libs             | 250-6.el9_0.1         | Fix Available |          6 | systemd-libs                | # 0 Layer        | almalinux     |
+| systemd-pam              | 250-6.el9_0.1         | Fix Available |          6 | systemd-pam                 | # 0 Layer        | almalinux     |
+| systemd-rpm-macros       | 250-6.el9_0.1         | Fix Available |          6 | systemd-rpm-macros          | # 0 Layer        | almalinux     |
+| tar                      | 2:1.34-3.el9          | Fix Available |          3 | tar                         | # 0 Layer        | almalinux     |
+| tpm2-tss                 | 3.0.3-7.el9           | Fix Available |          1 | tpm2-tss                    | # 0 Layer        | almalinux     |
+| util-linux               | 2.37.4-3.el9          | Fix Available |          1 | util-linux                  | # 0 Layer        | almalinux     |
+| util-linux-core          | 2.37.4-3.el9          | Fix Available |          1 | util-linux-core             | # 0 Layer        | almalinux     |
+| vim-minimal              | 2:8.2.2637-16.el9_0.3 | Fix Available |         14 | vim-minimal                 | # 0 Layer        | almalinux     |
+| zlib                     | 1.2.11-31.el9_0.1     | Fix Available |          1 | zlib                        | # 0 Layer        | almalinux     |
++--------------------------+-----------------------+---------------+------------+-----------------------------+------------------+---------------+
+PyPI
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/share/python3-wheels/pip-21.2.3-py3-none-any.whl                       |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| pip     | 21.2.3            | Fix Available |          7 | # 0 Layer        | almalinux     |
++---------+-------------------+---------------+------------+------------------+---------------+
++------------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/share/python3-wheels/setuptools-53.0.0-py3-none-any.whl                   |
++------------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE    | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++------------+-------------------+---------------+------------+------------------+---------------+
+| setuptools | 53.0.0            | Fix Available |          4 | # 0 Layer        | almalinux     |
++------------+-------------------+---------------+------------+------------------+---------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
+
+---
+
+[TestCommand_OCIImage/Scanning_AlmaLinux_9_image - 2 - stderr]
+
+---
+
 [TestCommand_OCIImage/Scanning_Ubuntu_image_with_go_OS_packages_json - 1 - stdout]
 Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
@@ -2426,6 +2542,1490 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 [TestCommand_OCIImage_JSONFormat/Scanning_python_image_with_some_packages - 2 - stderr]
 Scanning local image tarball "./testdata/test-python-full.tar"
+
+---
+
+[TestCommand_OCIImage_JSONFormat/scanning_almalinux_9_image - 1 - stdout]
+{
+  "results": [
+    {
+      "source": {
+        "path": "/usr/share/python3-wheels/pip-21.2.3-py3-none-any.whl",
+        "type": "artifact"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "pip",
+            "version": "21.2.3",
+            "ecosystem": "PyPI",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 7,
+          "vulnerabilities": [
+            "PYSEC-2023-228",
+            "PYSEC-2026-1795",
+            "PYSEC-2026-1796",
+            "PYSEC-2026-196",
+            "PYSEC-2026-2875",
+            "PYSEC-2026-2876",
+            "PYSEC-2026-3721",
+            "GHSA-4xh5-x5gv-qwph",
+            "GHSA-58qw-9mgm-455v",
+            "GHSA-6vgw-5pg2-w6jp",
+            "GHSA-jp4c-xjxw-mgf9",
+            "GHSA-mq26-g339-26xf",
+            "GHSA-qwm4-qh6w-59xr",
+            "GHSA-wf93-45jw-7689"
+          ]
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "/usr/share/python3-wheels/setuptools-53.0.0-py3-none-any.whl",
+        "type": "artifact"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "setuptools",
+            "version": "53.0.0",
+            "ecosystem": "PyPI",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 4,
+          "vulnerabilities": [
+            "PYSEC-2022-43012",
+            "PYSEC-2025-49",
+            "PYSEC-2026-1918",
+            "PYSEC-2026-3447",
+            "GHSA-5rjg-fvgr-3xxf",
+            "GHSA-cx63-2mw6-8hw5",
+            "GHSA-h35f-9h28-mq5c",
+            "GHSA-r9hx-vwmv-q579"
+          ]
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "/var/lib/rpm/rpmdb.sqlite",
+        "type": "os"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "acl",
+            "os_package_name": "acl",
+            "version": "2.3.1-3.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2026:42736"
+          ]
+        },
+        {
+          "package": {
+            "name": "bash",
+            "os_package_name": "bash",
+            "version": "5.1.8-4.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2023:0340"
+          ]
+        },
+        {
+          "package": {
+            "name": "binutils",
+            "os_package_name": "binutils",
+            "version": "2.35.2-17.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "ALSA-2023:6593",
+            "ALSA-2025:23343"
+          ]
+        },
+        {
+          "package": {
+            "name": "binutils-gold",
+            "os_package_name": "binutils-gold",
+            "version": "2.35.2-17.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "ALSA-2023:6593",
+            "ALSA-2025:23343"
+          ]
+        },
+        {
+          "package": {
+            "name": "bzip2-libs",
+            "os_package_name": "bzip2-libs",
+            "version": "1.0.8-8.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2025:0925"
+          ]
+        },
+        {
+          "package": {
+            "name": "coreutils-single",
+            "os_package_name": "coreutils-single",
+            "version": "8.32-31.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "ALSA-2026:28911",
+            "ALSA-2026:66403"
+          ]
+        },
+        {
+          "package": {
+            "name": "curl-minimal",
+            "os_package_name": "curl-minimal",
+            "version": "7.76.1-14.el9_0.5",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 14,
+          "vulnerabilities": [
+            "ALSA-2022:8299",
+            "ALSA-2023:0333",
+            "ALSA-2023:1701",
+            "ALSA-2023:2478",
+            "ALSA-2023:2650",
+            "ALSA-2023:4354",
+            "ALSA-2023:5763",
+            "ALSA-2023:6679",
+            "ALSA-2023:6745",
+            "ALSA-2024:1129",
+            "ALSA-2024:5529",
+            "ALSA-2026:1350",
+            "ALSA-2026:55439",
+            "ALSA-2026:69126"
+          ]
+        },
+        {
+          "package": {
+            "name": "dbus",
+            "os_package_name": "dbus",
+            "version": "1:1.12.20-5.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "ALSA-2023:0335",
+            "ALSA-2023:4569"
+          ]
+        },
+        {
+          "package": {
+            "name": "dbus-broker",
+            "os_package_name": "dbus-broker",
+            "version": "28-5.1.el9_0",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2026:61355"
+          ]
+        },
+        {
+          "package": {
+            "name": "dbus-common",
+            "os_package_name": "dbus-common",
+            "version": "1:1.12.20-5.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "ALSA-2023:0335",
+            "ALSA-2023:4569"
+          ]
+        },
+        {
+          "package": {
+            "name": "expat",
+            "os_package_name": "expat",
+            "version": "2.2.10-12.el9_0.3",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 10,
+          "vulnerabilities": [
+            "ALSA-2023:0337",
+            "ALSA-2024:1530",
+            "ALSA-2024:6754",
+            "ALSA-2024:9541",
+            "ALSA-2025:22175",
+            "ALSA-2025:3531",
+            "ALSA-2025:7444",
+            "ALSA-2026:23230",
+            "ALSA-2026:64812",
+            "ALSA-2026:72663"
+          ]
+        },
+        {
+          "package": {
+            "name": "file-libs",
+            "os_package_name": "file-libs",
+            "version": "5.39-8.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2024:2512"
+          ]
+        },
+        {
+          "package": {
+            "name": "gawk",
+            "os_package_name": "gawk",
+            "version": "5.1.0-6.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2026:73512"
+          ]
+        },
+        {
+          "package": {
+            "name": "glib2",
+            "os_package_name": "glib2",
+            "version": "2.68.4-5.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 9,
+          "vulnerabilities": [
+            "ALSA-2023:6631",
+            "ALSA-2024:6464",
+            "ALSA-2025:11140",
+            "ALSA-2026:0936",
+            "ALSA-2026:15971",
+            "ALSA-2026:19361",
+            "ALSA-2026:42089",
+            "ALSA-2026:55440",
+            "ALSA-2026:64800"
+          ]
+        },
+        {
+          "package": {
+            "name": "glibc",
+            "os_package_name": "glibc",
+            "version": "2.34-28.el9_0.2",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 9,
+          "vulnerabilities": [
+            "ALSA-2023:5453",
+            "ALSA-2024:3339",
+            "ALSA-2025:4244",
+            "ALSA-2025:8655",
+            "ALSA-2025:9877",
+            "ALSA-2026:20597",
+            "ALSA-2026:2786",
+            "ALSA-2026:33226",
+            "ALSA-2026:42952"
+          ]
+        },
+        {
+          "package": {
+            "name": "glibc-common",
+            "os_package_name": "glibc-common",
+            "version": "2.34-28.el9_0.2",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 9,
+          "vulnerabilities": [
+            "ALSA-2023:5453",
+            "ALSA-2024:3339",
+            "ALSA-2025:4244",
+            "ALSA-2025:8655",
+            "ALSA-2025:9877",
+            "ALSA-2026:20597",
+            "ALSA-2026:2786",
+            "ALSA-2026:33226",
+            "ALSA-2026:42952"
+          ]
+        },
+        {
+          "package": {
+            "name": "glibc-minimal-langpack",
+            "os_package_name": "glibc-minimal-langpack",
+            "version": "2.34-28.el9_0.2",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 9,
+          "vulnerabilities": [
+            "ALSA-2023:5453",
+            "ALSA-2024:3339",
+            "ALSA-2025:4244",
+            "ALSA-2025:8655",
+            "ALSA-2025:9877",
+            "ALSA-2026:20597",
+            "ALSA-2026:2786",
+            "ALSA-2026:33226",
+            "ALSA-2026:42952"
+          ]
+        },
+        {
+          "package": {
+            "name": "gmp",
+            "os_package_name": "gmp",
+            "version": "1:6.2.0-10.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2023:6661"
+          ]
+        },
+        {
+          "package": {
+            "name": "gnupg2",
+            "os_package_name": "gnupg2",
+            "version": "2.3.3-2.el9_0",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2026:0719"
+          ]
+        },
+        {
+          "package": {
+            "name": "gnutls",
+            "os_package_name": "gnutls",
+            "version": "3.7.6-12.el9_0",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 8,
+          "vulnerabilities": [
+            "ALSA-2023:1141",
+            "ALSA-2024:0533",
+            "ALSA-2024:1879",
+            "ALSA-2024:2570",
+            "ALSA-2025:16116",
+            "ALSA-2025:7076",
+            "ALSA-2026:20612",
+            "ALSA-2026:4188"
+          ]
+        },
+        {
+          "package": {
+            "name": "gzip",
+            "os_package_name": "gzip",
+            "version": "1.10-9.el9_0",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2026:61623"
+          ]
+        },
+        {
+          "package": {
+            "name": "iputils",
+            "os_package_name": "iputils",
+            "version": "20210202-7.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "ALSA-2025:17558",
+            "ALSA-2025:9432"
+          ]
+        },
+        {
+          "package": {
+            "name": "krb5-libs",
+            "os_package_name": "krb5-libs",
+            "version": "1.19.1-15.el9_0",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 9,
+          "vulnerabilities": [
+            "ALSA-2022:8637",
+            "ALSA-2023:2570",
+            "ALSA-2023:6699",
+            "ALSA-2024:6166",
+            "ALSA-2024:9331",
+            "ALSA-2024:9474",
+            "ALSA-2025:7067",
+            "ALSA-2025:9430",
+            "ALSA-2026:19357"
+          ]
+        },
+        {
+          "package": {
+            "name": "less",
+            "os_package_name": "less",
+            "version": "590-1.el9_0",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 3,
+          "vulnerabilities": [
+            "ALSA-2023:3725",
+            "ALSA-2024:1692",
+            "ALSA-2024:3513"
+          ]
+        },
+        {
+          "package": {
+            "name": "libacl",
+            "os_package_name": "libacl",
+            "version": "2.3.1-3.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2026:42736"
+          ]
+        },
+        {
+          "package": {
+            "name": "libarchive",
+            "os_package_name": "libarchive",
+            "version": "3.5.3-2.el9_0",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 6,
+          "vulnerabilities": [
+            "ALSA-2023:2532",
+            "ALSA-2025:14130",
+            "ALSA-2025:9431",
+            "ALSA-2026:5080",
+            "ALSA-2026:52674",
+            "ALSA-2026:8510"
+          ]
+        },
+        {
+          "package": {
+            "name": "libattr",
+            "os_package_name": "libattr",
+            "version": "2.5.1-3.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2026:60226"
+          ]
+        },
+        {
+          "package": {
+            "name": "libblkid",
+            "os_package_name": "libblkid",
+            "version": "2.37.4-3.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2026:1913"
+          ]
+        },
+        {
+          "package": {
+            "name": "libcap",
+            "os_package_name": "libcap",
+            "version": "2.48-8.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 3,
+          "vulnerabilities": [
+            "ALSA-2023:5071",
+            "ALSA-2026:12441",
+            "ALSA-2026:19346"
+          ]
+        },
+        {
+          "package": {
+            "name": "libcom_err",
+            "os_package_name": "libcom_err",
+            "version": "1.46.5-2.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2022:8361"
+          ]
+        },
+        {
+          "package": {
+            "name": "libcurl-minimal",
+            "os_package_name": "libcurl-minimal",
+            "version": "7.76.1-14.el9_0.5",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 14,
+          "vulnerabilities": [
+            "ALSA-2022:8299",
+            "ALSA-2023:0333",
+            "ALSA-2023:1701",
+            "ALSA-2023:2478",
+            "ALSA-2023:2650",
+            "ALSA-2023:4354",
+            "ALSA-2023:5763",
+            "ALSA-2023:6679",
+            "ALSA-2023:6745",
+            "ALSA-2024:1129",
+            "ALSA-2024:5529",
+            "ALSA-2026:1350",
+            "ALSA-2026:55439",
+            "ALSA-2026:69126"
+          ]
+        },
+        {
+          "package": {
+            "name": "libeconf",
+            "os_package_name": "libeconf",
+            "version": "0.4.1-2.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2023:4347"
+          ]
+        },
+        {
+          "package": {
+            "name": "libevent",
+            "os_package_name": "libevent",
+            "version": "2.1.12-6.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2026:67910"
+          ]
+        },
+        {
+          "package": {
+            "name": "libfdisk",
+            "os_package_name": "libfdisk",
+            "version": "2.37.4-3.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2026:1913"
+          ]
+        },
+        {
+          "package": {
+            "name": "libgcc",
+            "os_package_name": "libgcc",
+            "version": "11.2.1-9.4.el9.alma",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2025:1346"
+          ]
+        },
+        {
+          "package": {
+            "name": "libgcrypt",
+            "os_package_name": "libgcrypt",
+            "version": "1.10.0-5.el9_0",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "ALSA-2024:9404",
+            "ALSA-2026:50147"
+          ]
+        },
+        {
+          "package": {
+            "name": "libgomp",
+            "os_package_name": "libgomp",
+            "version": "11.2.1-9.4.el9.alma",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2025:1346"
+          ]
+        },
+        {
+          "package": {
+            "name": "libksba",
+            "os_package_name": "libksba",
+            "version": "1.5.1-5.el9_0",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2023:0626"
+          ]
+        },
+        {
+          "package": {
+            "name": "libmount",
+            "os_package_name": "libmount",
+            "version": "2.37.4-3.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2026:1913"
+          ]
+        },
+        {
+          "package": {
+            "name": "libnghttp2",
+            "os_package_name": "libnghttp2",
+            "version": "1.43.0-5.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 5,
+          "vulnerabilities": [
+            "ALSA-2023:5838",
+            "ALSA-2023:6746",
+            "ALSA-2024:3501",
+            "ALSA-2026:54662",
+            "ALSA-2026:7668"
+          ]
+        },
+        {
+          "package": {
+            "name": "libsmartcols",
+            "os_package_name": "libsmartcols",
+            "version": "2.37.4-3.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2026:1913"
+          ]
+        },
+        {
+          "package": {
+            "name": "libsolv",
+            "os_package_name": "libsolv",
+            "version": "0.7.20-2.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2026:39315"
+          ]
+        },
+        {
+          "package": {
+            "name": "libstdc++",
+            "os_package_name": "libstdc++",
+            "version": "11.2.1-9.4.el9.alma",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2025:1346"
+          ]
+        },
+        {
+          "package": {
+            "name": "libtasn1",
+            "os_package_name": "libtasn1",
+            "version": "4.16.0-7.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 3,
+          "vulnerabilities": [
+            "ALSA-2023:0343",
+            "ALSA-2025:7077",
+            "ALSA-2026:28253"
+          ]
+        },
+        {
+          "package": {
+            "name": "libuuid",
+            "os_package_name": "libuuid",
+            "version": "2.37.4-3.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2026:1913"
+          ]
+        },
+        {
+          "package": {
+            "name": "libxml2",
+            "os_package_name": "libxml2",
+            "version": "2.9.13-1.el9_0.1",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 14,
+          "vulnerabilities": [
+            "ALSA-2023:0338",
+            "ALSA-2023:4349",
+            "ALSA-2023:7747",
+            "ALSA-2024:2679",
+            "ALSA-2025:10699",
+            "ALSA-2025:12447",
+            "ALSA-2025:13428",
+            "ALSA-2025:1350",
+            "ALSA-2025:22376",
+            "ALSA-2025:2679",
+            "ALSA-2026:28254",
+            "ALSA-2026:39317",
+            "ALSA-2026:61247",
+            "ALSA-2026:71585"
+          ]
+        },
+        {
+          "package": {
+            "name": "lua-libs",
+            "os_package_name": "lua-libs",
+            "version": "5.4.2-4.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 3,
+          "vulnerabilities": [
+            "ALSA-2022:7329",
+            "ALSA-2023:0957",
+            "ALSA-2023:2582"
+          ]
+        },
+        {
+          "package": {
+            "name": "ncurses-base",
+            "os_package_name": "ncurses-base",
+            "version": "6.2-8.20210508.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2023:6698"
+          ]
+        },
+        {
+          "package": {
+            "name": "ncurses-libs",
+            "os_package_name": "ncurses-libs",
+            "version": "6.2-8.20210508.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2023:6698"
+          ]
+        },
+        {
+          "package": {
+            "name": "openssl",
+            "os_package_name": "openssl",
+            "version": "1:3.0.1-43.el9_0",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 14,
+          "vulnerabilities": [
+            "ALSA-2023:0946",
+            "ALSA-2023:2523",
+            "ALSA-2023:3722",
+            "ALSA-2024:0310",
+            "ALSA-2024:2447",
+            "ALSA-2024:6783",
+            "ALSA-2024:9333",
+            "ALSA-2025:1330",
+            "ALSA-2025:21255",
+            "ALSA-2026:1473",
+            "ALSA-2026:19218",
+            "ALSA-2026:22312",
+            "ALSA-2026:25239",
+            "ALSA-2026:67165"
+          ]
+        },
+        {
+          "package": {
+            "name": "openssl-libs",
+            "os_package_name": "openssl-libs",
+            "version": "1:3.0.1-43.el9_0",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 14,
+          "vulnerabilities": [
+            "ALSA-2023:0946",
+            "ALSA-2023:2523",
+            "ALSA-2023:3722",
+            "ALSA-2024:0310",
+            "ALSA-2024:2447",
+            "ALSA-2024:6783",
+            "ALSA-2024:9333",
+            "ALSA-2025:1330",
+            "ALSA-2025:21255",
+            "ALSA-2026:1473",
+            "ALSA-2026:19218",
+            "ALSA-2026:22312",
+            "ALSA-2026:25239",
+            "ALSA-2026:67165"
+          ]
+        },
+        {
+          "package": {
+            "name": "p11-kit",
+            "os_package_name": "p11-kit",
+            "version": "0.24.1-2.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "ALSA-2026:18599",
+            "ALSA-2026:49667"
+          ]
+        },
+        {
+          "package": {
+            "name": "p11-kit-trust",
+            "os_package_name": "p11-kit-trust",
+            "version": "0.24.1-2.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "ALSA-2026:18599",
+            "ALSA-2026:49667"
+          ]
+        },
+        {
+          "package": {
+            "name": "pam",
+            "os_package_name": "pam",
+            "version": "1.5.1-9.el9_0.1",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 6,
+          "vulnerabilities": [
+            "ALSA-2024:10244",
+            "ALSA-2024:11250",
+            "ALSA-2024:2438",
+            "ALSA-2025:15099",
+            "ALSA-2025:9526",
+            "ALSA-2026:64815"
+          ]
+        },
+        {
+          "package": {
+            "name": "python3",
+            "os_package_name": "python3",
+            "version": "3.9.10-2.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 26,
+          "vulnerabilities": [
+            "ALSA-2022:7323",
+            "ALSA-2022:8353",
+            "ALSA-2022:8493",
+            "ALSA-2023:0953",
+            "ALSA-2023:3595",
+            "ALSA-2023:5462",
+            "ALSA-2023:6659",
+            "ALSA-2024:0466",
+            "ALSA-2024:10983",
+            "ALSA-2024:4078",
+            "ALSA-2024:4779",
+            "ALSA-2024:6163",
+            "ALSA-2024:8446",
+            "ALSA-2024:9371",
+            "ALSA-2024:9468",
+            "ALSA-2025:10136",
+            "ALSA-2025:15019",
+            "ALSA-2025:23342",
+            "ALSA-2025:6977",
+            "ALSA-2026:10949",
+            "ALSA-2026:1478",
+            "ALSA-2026:19216",
+            "ALSA-2026:39798",
+            "ALSA-2026:4168",
+            "ALSA-2026:54268",
+            "ALSA-2026:6766"
+          ]
+        },
+        {
+          "package": {
+            "name": "python3-libs",
+            "os_package_name": "python3-libs",
+            "version": "3.9.10-2.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 26,
+          "vulnerabilities": [
+            "ALSA-2022:7323",
+            "ALSA-2022:8353",
+            "ALSA-2022:8493",
+            "ALSA-2023:0953",
+            "ALSA-2023:3595",
+            "ALSA-2023:5462",
+            "ALSA-2023:6659",
+            "ALSA-2024:0466",
+            "ALSA-2024:10983",
+            "ALSA-2024:4078",
+            "ALSA-2024:4779",
+            "ALSA-2024:6163",
+            "ALSA-2024:8446",
+            "ALSA-2024:9371",
+            "ALSA-2024:9468",
+            "ALSA-2025:10136",
+            "ALSA-2025:15019",
+            "ALSA-2025:23342",
+            "ALSA-2025:6977",
+            "ALSA-2026:10949",
+            "ALSA-2026:1478",
+            "ALSA-2026:19216",
+            "ALSA-2026:39798",
+            "ALSA-2026:4168",
+            "ALSA-2026:54268",
+            "ALSA-2026:6766"
+          ]
+        },
+        {
+          "package": {
+            "name": "python3-pip-wheel",
+            "os_package_name": "python3-pip-wheel",
+            "version": "21.2.3-6.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2023:6694"
+          ]
+        },
+        {
+          "package": {
+            "name": "python3-rpm",
+            "os_package_name": "python3-rpm",
+            "version": "4.16.1.3-12.el9_0",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2024:0463"
+          ]
+        },
+        {
+          "package": {
+            "name": "python3-setuptools-wheel",
+            "os_package_name": "python3-setuptools-wheel",
+            "version": "53.0.0-10.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 3,
+          "vulnerabilities": [
+            "ALSA-2023:0952",
+            "ALSA-2024:5534",
+            "ALSA-2025:10407"
+          ]
+        },
+        {
+          "package": {
+            "name": "rpm",
+            "os_package_name": "rpm",
+            "version": "4.16.1.3-12.el9_0",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2024:0463"
+          ]
+        },
+        {
+          "package": {
+            "name": "rpm-build-libs",
+            "os_package_name": "rpm-build-libs",
+            "version": "4.16.1.3-12.el9_0",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2024:0463"
+          ]
+        },
+        {
+          "package": {
+            "name": "rpm-libs",
+            "os_package_name": "rpm-libs",
+            "version": "4.16.1.3-12.el9_0",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2024:0463"
+          ]
+        },
+        {
+          "package": {
+            "name": "rpm-sign-libs",
+            "os_package_name": "rpm-sign-libs",
+            "version": "4.16.1.3-12.el9_0",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2024:0463"
+          ]
+        },
+        {
+          "package": {
+            "name": "shadow-utils",
+            "os_package_name": "shadow-utils",
+            "version": "2:4.9-3.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "ALSA-2023:6632",
+            "ALSA-2025:20559"
+          ]
+        },
+        {
+          "package": {
+            "name": "sqlite-libs",
+            "os_package_name": "sqlite-libs",
+            "version": "3.34.1-5.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 5,
+          "vulnerabilities": [
+            "ALSA-2023:0339",
+            "ALSA-2024:0465",
+            "ALSA-2025:11992",
+            "ALSA-2025:20936",
+            "ALSA-2026:58936"
+          ]
+        },
+        {
+          "package": {
+            "name": "systemd",
+            "os_package_name": "systemd",
+            "version": "250-6.el9_0.1",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 6,
+          "vulnerabilities": [
+            "ALSA-2023:0336",
+            "ALSA-2023:0954",
+            "ALSA-2024:2463",
+            "ALSA-2025:22660",
+            "ALSA-2026:13677",
+            "ALSA-2026:19213"
+          ]
+        },
+        {
+          "package": {
+            "name": "systemd-libs",
+            "os_package_name": "systemd-libs",
+            "version": "250-6.el9_0.1",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 6,
+          "vulnerabilities": [
+            "ALSA-2023:0336",
+            "ALSA-2023:0954",
+            "ALSA-2024:2463",
+            "ALSA-2025:22660",
+            "ALSA-2026:13677",
+            "ALSA-2026:19213"
+          ]
+        },
+        {
+          "package": {
+            "name": "systemd-pam",
+            "os_package_name": "systemd-pam",
+            "version": "250-6.el9_0.1",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 6,
+          "vulnerabilities": [
+            "ALSA-2023:0336",
+            "ALSA-2023:0954",
+            "ALSA-2024:2463",
+            "ALSA-2025:22660",
+            "ALSA-2026:13677",
+            "ALSA-2026:19213"
+          ]
+        },
+        {
+          "package": {
+            "name": "systemd-rpm-macros",
+            "os_package_name": "systemd-rpm-macros",
+            "version": "250-6.el9_0.1",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 6,
+          "vulnerabilities": [
+            "ALSA-2023:0336",
+            "ALSA-2023:0954",
+            "ALSA-2024:2463",
+            "ALSA-2025:22660",
+            "ALSA-2026:13677",
+            "ALSA-2026:19213"
+          ]
+        },
+        {
+          "package": {
+            "name": "tar",
+            "os_package_name": "tar",
+            "version": "2:1.34-3.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 3,
+          "vulnerabilities": [
+            "ALSA-2023:0959",
+            "ALSA-2026:0067",
+            "ALSA-2026:61581"
+          ]
+        },
+        {
+          "package": {
+            "name": "tpm2-tss",
+            "os_package_name": "tpm2-tss",
+            "version": "3.0.3-7.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2023:6685"
+          ]
+        },
+        {
+          "package": {
+            "name": "util-linux",
+            "os_package_name": "util-linux",
+            "version": "2.37.4-3.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2026:1913"
+          ]
+        },
+        {
+          "package": {
+            "name": "util-linux-core",
+            "os_package_name": "util-linux-core",
+            "version": "2.37.4-3.el9",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2026:1913"
+          ]
+        },
+        {
+          "package": {
+            "name": "vim-minimal",
+            "os_package_name": "vim-minimal",
+            "version": "2:8.2.2637-16.el9_0.3",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 14,
+          "vulnerabilities": [
+            "ALSA-2023:0958",
+            "ALSA-2024:9405",
+            "ALSA-2025:17742",
+            "ALSA-2025:20945",
+            "ALSA-2025:7440",
+            "ALSA-2026:11510",
+            "ALSA-2026:19224",
+            "ALSA-2026:22717",
+            "ALSA-2026:28209",
+            "ALSA-2026:38511",
+            "ALSA-2026:47982",
+            "ALSA-2026:5602",
+            "ALSA-2026:66366",
+            "ALSA-2026:8259"
+          ]
+        },
+        {
+          "package": {
+            "name": "zlib",
+            "os_package_name": "zlib",
+            "version": "1.2.11-31.el9_0.1",
+            "ecosystem": "AlmaLinux:9",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALSA-2022:7314"
+          ]
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  },
+  "image_metadata": {
+    "os": "AlmaLinux 9.0 (Emerald Puma)",
+    "layer_metadata": [
+      {
+        "diff_id": "sha256:...",
+        "command": "/bin/sh -c #(nop) ADD file:cdf5c88acfb05424d5a6583dd0a107526beb2cd9fda2ac5d4a586b74630305a2 in / ",
+        "is_empty": false,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "",
+        "command": "/bin/sh -c #(nop)  CMD [/"/bin/bash/"]",
+        "is_empty": true,
+        "base_image_index": 1
+      }
+    ],
+    "base_images": [
+      {},
+      {
+        "name": "almalinux",
+        "tags": null
+      }
+    ]
+  }
+}
+
+---
+
+[TestCommand_OCIImage_JSONFormat/scanning_almalinux_9_image - 2 - stderr]
+Scanning local image tarball "./testdata/test-almalinux-9.tar"
 
 ---
 
