@@ -180,8 +180,8 @@ github.com/emirpasic/gods v1.18.1 h1:FXtiHYKDGKCW2KzwZKx0iC0PQmdlorYgdFG9jPXJ1Bc
 github.com/emirpasic/gods v1.18.1/go.mod h1:8tpGGwCnJ5H4r6BWwaV6OrWmMoPhUl5jm/FMNAnJvWQ=
 github.com/erikgeiser/coninput v0.0.0-20211004153227-1c3628e74d0f h1:Y/CXytFA4m6baUTXGLOoWe4PQhGxaX0KpnayAqC48p4=
 github.com/erikgeiser/coninput v0.0.0-20211004153227-1c3628e74d0f/go.mod h1:vw97MGsxSvLiUE2X8qFplwetxpGLQrlU1Q9AUEIzCaM=
-github.com/erikvarga/go-rpmdb v0.0.0-20250523120114-a15a62cd4593 h1:cIQ/Ziclb/qreqg1nqGEtH4V9UJCTaNSKz9gBRaeZlA=
-github.com/erikvarga/go-rpmdb v0.0.0-20250523120114-a15a62cd4593/go.mod h1:MiEorPk0IChAoCwpg2FXyqVgbNvOlPWZAYHqqIoDNoY=
+github.com/erikvarga/go-rpmdb v0.0.0-20261001143808-1a11b79cbdd3 h1:rX5hmz+Oru8THw9NJp4pF2P/VPeosuF33nUXS3hD1Lw=
+github.com/erikvarga/go-rpmdb v0.0.0-20261001143808-1a11b79cbdd3/go.mod h1:MiEorPk0IChAoCwpg2FXyqVgbNvOlPWZAYHqqIoDNoY=
 github.com/felixge/httpsnoop v1.1.0 h1:3YtUj32ZZkqZtt3sZZsClsymw/QDuVfpNhoA31zeORc=
 github.com/felixge/httpsnoop v1.1.0/go.mod h1:Zqxgdd+1Rkcz8euOqdr7lqgCRJztwr5hp9vDSi5UZCE=
 github.com/gkampitakis/ciinfo v0.3.4 h1:5eBSibVuSMbb/H6Elc0IIEFbkzCJi3lm94n0+U7Z0KY=
@@ -240,8 +240,8 @@ github.com/google/go-cpy v0.0.0-20211218193943-a9c933c06932 h1:5/4TSDzpDnHQ8rKEE
 github.com/google/go-cpy v0.0.0-20211218193943-a9c933c06932/go.mod h1:cC6EdPbj/17GFCPDK39NRarlMI+kt+O60S12cNB5J9Y=
 github.com/google/jsonschema-go v0.4.3 h1:/DBOLZTfDow7pe2GmaJNhltueGTtDKICi8V8p+DQPd0=
 github.com/google/jsonschema-go v0.4.3/go.mod h1:r5quNTdLOYEz95Ru18zA0ydNbBuYoo9tgaYcxEYhJVE=
-github.com/google/osv-scalibr v0.5.4-0.20261001171654-3690fe35c1fe h1:EVm9ysze4Lw42rQtLYmSTV0ZgICUVig0iX7Bhg610VA=
-github.com/google/osv-scalibr v0.5.4-0.20261001171654-3690fe35c1fe/go.mod h1:/zJNyqX0igWW1tL0TJCWezHfSGBTYay/TTveBbde4c4=
+github.com/google/osv-scalibr v0.5.4-0.20261002042032-484c657b8ae9 h1:sKE9P+P2pTY4k7kOsLczQz+Km9rmhw8p4gY+RUIufjw=
+github.com/google/osv-scalibr v0.5.4-0.20261002042032-484c657b8ae9/go.mod h1:rihL22GqgUv42jUlgm2yWy/iSlAY0a2VVNQIAWuID2s=
 github.com/google/pprof v0.0.0-20260802141513-ef3492d7dac3 h1:LMLX+LgTNWpfvCBdFebv6EsYotImrt/Ppc5cXIriCSo=
 github.com/google/pprof v0.0.0-20260802141513-ef3492d7dac3/go.mod h1:jl5iWTm0/hd5PjEYEOuwAJ57L/CibdZfrqZ5XA5GrCk=
 github.com/google/uuid v1.6.0 h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=
