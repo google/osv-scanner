@@ -23,12 +23,12 @@ The `deprecated` field is a boolean value indicating if a package is flagged as 
 
 ## Usage
 
-To enable package deprecation reporting, use the `--experimental-flag-deprecated-packages` flag. The feature is not available in the `spdx` format.
+To enable package deprecation reporting, use the `--x-flag-deprecated-packages` flag. The feature is not available in the `spdx` format.
 
 ### Project Source Scanning
 
 ```bash
-osv-scanner scan source --experimental-flag-deprecated-packages -r /path/to/project
+osv-scanner scan source --x-flag-deprecated-packages -r /path/to/project
 ```
 
 For more details on source scanning, see [Project Source Scanning](./scan-source.md).
@@ -37,10 +37,10 @@ For more details on source scanning, see [Project Source Scanning](./scan-source
 
 ```bash
 # Scan a local or remote image by name
-osv-scanner scan image --experimental-flag-deprecated-packages my-image:tag
+osv-scanner scan image --x-flag-deprecated-packages my-image:tag
 
 # Scan an exported image archive
-osv-scanner scan image --experimental-flag-deprecated-packages --archive ./path/to/my-image.tar
+osv-scanner scan image --x-flag-deprecated-packages --archive ./path/to/my-image.tar
 ```
 
 For more details on image scanning, see [Container Image Scanning](./scan-image.md).
