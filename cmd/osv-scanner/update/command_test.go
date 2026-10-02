@@ -13,9 +13,10 @@ func TestCommand(t *testing.T) {
 
 	tests := []testcmd.Case{
 		{
-			Name: "with_no_arguments",
-			Args: []string{"", "update"},
-			Exit: 127,
+			Name:  "with_no_arguments",
+			Args:  []string{"", "update"},
+			Exit:  127,
+			NoVCR: true,
 		},
 		{
 			Name: "update_pom.xml_with_in-place_changes",
@@ -35,14 +36,16 @@ func TestCommand(t *testing.T) {
 			Skip: "Skipping for now as Maven is enforcing stricter 429s. (This is returning 0 even though it failed to get any versions as well)",
 		},
 		{
-			Name: "errors_with_invalid_data_source",
-			Args: []string{"", "update", "--data-source", "github", "-M", "./testdata/pom.xml"},
-			Exit: 127,
+			Name:  "errors_with_invalid_data_source",
+			Args:  []string{"", "update", "--data-source", "github", "-M", "./testdata/pom.xml"},
+			Exit:  127,
+			NoVCR: true,
 		},
 		{
-			Name: "file_does_not_exist",
-			Args: []string{"", "update", "-M", "./testdata/does_not_exist.xml"},
-			Exit: 127,
+			Name:  "file_does_not_exist",
+			Args:  []string{"", "update", "-M", "./testdata/does_not_exist.xml"},
+			Exit:  127,
+			NoVCR: true,
 		},
 		// TODO: add other test cases.
 	}

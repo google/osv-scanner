@@ -85,10 +85,18 @@ func action(ctx context.Context, cmd *cli.Command, clientFactories scalibrconfig
 	httpClient := cf.HTTPClient()
 
 	// MavenClient is required for Maven projects
-	mc, err := datasource.NewMavenRegistryAPIClient(ctx, datasource.MavenRegistry{
-		URL:             cmd.String("maven-registry"),
-		ReleasesEnabled: true,
-	}, "", false, httpClient, nil)
+	mc, err := datasource.NewMavenRegistryAPIClient(
+		ctx,
+		datasource.MavenRegistry{
+			URL:             cmd.String("maven-registry"),
+			ReleasesEnabled: true,
+		},
+		"",
+		false,
+		false,
+		httpClient,
+		nil,
+	)
 	if err != nil {
 		return err
 	}

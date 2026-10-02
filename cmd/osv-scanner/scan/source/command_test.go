@@ -1,10 +1,14 @@
 package source_test
 
 import (
+	"fmt"
+	"io"
 	"net/http"
 	"os"
 	"path/filepath"
 	"runtime"
+	"strings"
+	"sync/atomic"
 	"testing"
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/testcmd"
@@ -13,8 +17,6 @@ import (
 
 func TestCommand(t *testing.T) {
 	t.Parallel()
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		// one specific supported lockfile
@@ -142,13 +144,13 @@ func TestCommand(t *testing.T) {
 		},
 		// only the files in the given directories are checked by default (no recursion)
 		{
-			Name: "only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion)",
+			Name: "only_the_files_in_the_given_directories_are_checked_by_default_no_recursion",
 			Args: []string{"", "source", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
 		// nested directories are checked when `--recursive` is passed
 		{
-			Name: "nested_directories_are_checked_when_`--recursive`_is_passed",
+			Name: "nested_directories_are_checked_when_--recursive_is_passed",
 			Args: []string{"", "source", "--recursive", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
@@ -167,32 +169,37 @@ func TestCommand(t *testing.T) {
 		// experimental exclude flag tests
 		{
 			Name: "exclude_with_exact_directory_name",
+			Args: []string{"", "source", "--recursive", "--x-exclude=nested", "./testdata/locks-one-with-nested"},
+			Exit: 0,
+		},
+		{
+			Name: "exclude_with_exact_directory_name_using_deprecated_flag",
 			Args: []string{"", "source", "--recursive", "--experimental-exclude=nested", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
 		{
 			Name: "exclude_with_glob_pattern",
-			Args: []string{"", "source", "--recursive", "--experimental-exclude=g:**/nested/**", "./testdata/locks-one-with-nested"},
+			Args: []string{"", "source", "--recursive", "--x-exclude=g:**/nested/**", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
 		{
 			Name: "exclude_with_regex_pattern",
-			Args: []string{"", "source", "--recursive", "--experimental-exclude=r:/nested$", "./testdata/locks-one-with-nested"},
+			Args: []string{"", "source", "--recursive", "--x-exclude=r:/nested$", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
 		{
 			Name: "exclude_with_invalid_regex_returns_error",
-			Args: []string{"", "source", "--experimental-exclude=r:[invalid", "./testdata/locks-many"},
+			Args: []string{"", "source", "--x-exclude=r:[invalid", "./testdata/locks-many"},
 			Exit: 127,
 		},
 		{
 			Name: "exclude_with_multiple_exact_directories",
-			Args: []string{"", "source", "--recursive", "--experimental-exclude=nested", "--experimental-exclude=other", "./testdata/locks-one-with-nested"},
+			Args: []string{"", "source", "--recursive", "--x-exclude=nested", "--x-exclude=other", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
 		{
 			Name: "exclude_with_multiple_pattern_types",
-			Args: []string{"", "source", "--recursive", "--experimental-exclude=nested", "--experimental-exclude=g:**/vendor/**", "--experimental-exclude=r:\\.cache$", "./testdata/locks-one-with-nested"},
+			Args: []string{"", "source", "--recursive", "--x-exclude=nested", "--x-exclude=g:**/vendor/**", "--x-exclude=r:\\.cache$", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
 		{
@@ -230,7 +237,7 @@ func TestCommand(t *testing.T) {
 		},
 		// output format: markdown table
 		{
-			Name: "output_format:_markdown_table",
+			Name: "output_format_markdown_table",
 			Args: []string{"", "source", "--format", "markdown", "./testdata/locks-many-with-insecure/package-lock.json"},
 			Exit: 1,
 		},
@@ -300,7 +307,7 @@ func TestCommand(t *testing.T) {
 		},
 		// output format: unsupported
 		{
-			Name: "output_format:_unsupported",
+			Name: "output_format_unsupported",
 			Args: []string{"", "source", "--format", "unknown", "./testdata/locks-many/composer.lock"},
 			Exit: 127,
 		},
@@ -316,22 +323,22 @@ func TestCommand(t *testing.T) {
 			Exit: 127,
 		},
 		{
-			Name: "verbosity_level_=_error",
+			Name: "verbosity_level_error",
 			Args: []string{"", "source", "--verbosity", "error", "--format", "table", "./testdata/locks-many/composer.lock"},
 			Exit: 0,
 		},
 		{
-			Name: "verbosity_level_=_info",
+			Name: "verbosity_level_info",
 			Args: []string{"", "source", "--verbosity", "info", "--format", "table", "./testdata/locks-many/composer.lock"},
 			Exit: 0,
 		},
 		{
-			Name: "PURL_SBOM_case_sensitivity_(api)",
+			Name: "PURL_SBOM_case_sensitivity_api",
 			Args: []string{"", "source", "--format", "table", "./testdata/sbom-insecure/alpine.cdx.xml"},
 			Exit: 1,
 		},
 		{
-			Name: "PURL_SBOM_case_sensitivity_(local)",
+			Name: "PURL_SBOM_case_sensitivity_local",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "--format", "table", "./testdata/sbom-insecure/alpine.cdx.xml"},
 			Exit: 1,
 		},
@@ -349,7 +356,7 @@ func TestCommand(t *testing.T) {
 		},
 		// Go project with an overridden go version, recursive
 		{
-			Name: "Go_project_with_an_overridden_go_version,_recursive",
+			Name: "Go_project_with_an_overridden_go_version_recursive",
 			Args: []string{"", "source", "--config=./testdata/go-project/go-version-config.toml", "-r", "./testdata/go-project"},
 			Exit: 0,
 		},
@@ -416,8 +423,6 @@ func TestCommand(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -425,8 +430,6 @@ func TestCommand(t *testing.T) {
 
 func TestCommand_Config_UnusedIgnores(t *testing.T) {
 	t.Parallel()
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -449,8 +452,6 @@ func TestCommand_Config_UnusedIgnores(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -462,30 +463,26 @@ func TestCommand_JavareachArchive(t *testing.T) {
 	// testutility.SkipIfShort(t)
 	testutility.Skip(t, "Skipping for now as Maven is enforcing stricter 429s")
 
-	client := testcmd.InsertCassette(t)
-
 	tests := []testcmd.Case{
 		{
 			Name: "jars_can_be_scanned_without_call_analysis",
-			Args: []string{"", "source", "--all-vulns", "--experimental-plugins=artifact", "./testdata/artifact/javareach_test.jar"},
+			Args: []string{"", "source", "--all-vulns", "--x-plugins=artifact", "./testdata/artifact/javareach_test.jar"},
 			Exit: 1,
 		},
 		{
 			Name: "jars_can_be_scanned_with_call_analysis",
-			Args: []string{"", "source", "--call-analysis=jar", "--all-vulns", "--experimental-plugins=artifact", "./testdata/artifact/javareach_test.jar"},
+			Args: []string{"", "source", "--call-analysis=jar", "--all-vulns", "--x-plugins=artifact", "./testdata/artifact/javareach_test.jar"},
 			Exit: 1,
 		},
 		{
 			Name: "jars_can_be_scanned_with_call_analysis_and_disabled_enricher",
-			Args: []string{"", "source", "--call-analysis=jar", "--experimental-disable-plugins=reachability/java", "--all-vulns", "--experimental-plugins=artifact", "./testdata/artifact/javareach_test.jar"},
+			Args: []string{"", "source", "--call-analysis=jar", "--x-disable-plugins=reachability/java", "--all-vulns", "--x-plugins=artifact", "./testdata/artifact/javareach_test.jar"},
 			Exit: 1,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
-
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
 
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
@@ -499,25 +496,21 @@ func TestCommand_HomebrewWithAnnotators(t *testing.T) {
 		testutility.Skip(t, "The detector in this test does not work on windows")
 	}
 
-	client := testcmd.InsertCassette(t)
-
 	tests := []testcmd.Case{
 		{
 			Name: "homebrew_extractor_via_artifact_plugin",
-			Args: []string{"", "source", "-r", "--no-ignore", "--experimental-plugins=artifact", "./testdata/homebrew/Cellar/"},
+			Args: []string{"", "source", "-r", "--no-ignore", "--x-plugins=artifact", "./testdata/homebrew/Cellar/"},
 			Exit: 1,
 		},
 		{
 			Name: "homebrew_extractor_explicitly_enabled_with_annotator",
-			Args: []string{"", "source", "-r", "--no-ignore", "--experimental-plugins=os/homebrew", "--experimental-plugins=misc/brew-source", "./testdata/homebrew/Cellar/"},
+			Args: []string{"", "source", "-r", "--no-ignore", "--x-plugins=os/homebrew", "--x-plugins=misc/brew-source", "./testdata/homebrew/Cellar/"},
 			Exit: 1,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
-
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
 
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
@@ -527,21 +520,19 @@ func TestCommand_HomebrewWithAnnotators(t *testing.T) {
 func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 	t.Parallel()
 
-	client := testcmd.InsertCassette(t)
-
 	tests := []testcmd.Case{
 		{
 			Name: "empty_plugins_flag_does_default",
-			Args: []string{"", "source", "--experimental-plugins="},
+			Args: []string{"", "source", "--x-plugins="},
 			Exit: 128,
 		},
 		{
 			Name: "extractors_cancelled_out_specified_individually",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=sbom/spdx",
-				"--experimental-plugins=sbom/cdx",
-				"--experimental-disable-plugins=sbom",
+				"--x-plugins=sbom/spdx",
+				"--x-plugins=sbom/cdx",
+				"--x-disable-plugins=sbom",
 			},
 			Exit: 128,
 		},
@@ -549,8 +540,8 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 			Name: "extractors_cancelled_out_specified_together",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=sbom/spdx,sbom/cdx",
-				"--experimental-disable-plugins=sbom",
+				"--x-plugins=sbom/spdx,sbom/cdx",
+				"--x-disable-plugins=sbom",
 			},
 			Exit: 128,
 		},
@@ -558,8 +549,8 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 			Name: "extractors_cancelled_out_with_presets",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=sbom",
-				"--experimental-disable-plugins=sbom",
+				"--x-plugins=sbom",
+				"--x-disable-plugins=sbom",
 			},
 			Exit: 128,
 		},
@@ -569,7 +560,7 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 			Name: "scanning_directory_with_one_specific_extractor_enabled_and_the_defaults",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=javascript/packagelockjson",
+				"--x-plugins=javascript/packagelockjson",
 				"./testdata/locks-many",
 			},
 			Exit: 0,
@@ -578,9 +569,9 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 			Name: "scanning_directory_with_an_extractor_that_does_not_exist",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=javascript/packagelockjson",
-				"--experimental-plugins=custom/extractor",
-				"--experimental-disable-plugins=custom/anotherextractor",
+				"--x-plugins=javascript/packagelockjson",
+				"--x-plugins=custom/extractor",
+				"--x-disable-plugins=custom/anotherextractor",
 				"./testdata/locks-many",
 			},
 			Exit: 127,
@@ -591,8 +582,8 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 			Name: "scanning_directory_with_a_couple_of_specific_extractors_enabled_individually",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=javascript/packagelockjson",
-				"--experimental-plugins=php/composerlock",
+				"--x-plugins=javascript/packagelockjson",
+				"--x-plugins=php/composerlock",
 				"./testdata/locks-many",
 			},
 			Exit: 0,
@@ -603,7 +594,7 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 			Name: "scanning_directory_with_a_couple_of_specific_extractors_enabled_specified_together",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=javascript/packagelockjson,php/composerlock",
+				"--x-plugins=javascript/packagelockjson,php/composerlock",
 				"./testdata/locks-many",
 			},
 			Exit: 0,
@@ -614,7 +605,7 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 			Name: "scanning_directory_with_one_specific_extractor_disabled",
 			Args: []string{
 				"", "source",
-				"--experimental-disable-plugins=javascript/packagelockjson",
+				"--x-disable-plugins=javascript/packagelockjson",
 				"./testdata/locks-many",
 			},
 			Exit: 0,
@@ -624,7 +615,7 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 			Name: "scanning_file_with_one_specific_extractor_enabled",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=javascript/packagelockjson",
+				"--x-plugins=javascript/packagelockjson",
 				"./testdata/locks-many/package-lock.json",
 			},
 			Exit: 0,
@@ -634,7 +625,7 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 			Name: "scanning_file_with_one_different_extractor_enabled",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=javascript/packagelockjson",
+				"--x-plugins=javascript/packagelockjson",
 				"./testdata/locks-many/composer.lock",
 			},
 			Exit: 0,
@@ -646,17 +637,31 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 			Name: "scanning_file_with_parse_as_but_specific_extractor_disabled",
 			Args: []string{
 				"", "source",
-				"--experimental-disable-plugins=javascript/packagelockjson",
+				"--x-disable-plugins=javascript/packagelockjson",
 				"-L", "package-lock.json:./testdata/locks-many/composer.lock",
 			},
 			Exit: 127,
+		},
+		// when using deprecated versions of the flags
+		{
+			Name: "deprecated_empty_plugins_flag_does_nothing",
+			Args: []string{"", "source", "--experimental-plugins="},
+			Exit: 128,
+		},
+		{
+			Name: "deprecated_extractors_cancelled_out_specified_individually",
+			Args: []string{
+				"", "source",
+				"--experimental-plugins=sbom/spdx",
+				"--x-plugins=sbom/cdx",
+				"--experimental-disable-plugins=sbom",
+			},
+			Exit: 128,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
-
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
 
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
@@ -666,22 +671,20 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 	t.Parallel()
 
-	client := testcmd.InsertCassette(t)
-
 	tests := []testcmd.Case{
 		{
 			Name: "empty_plugins_flag_does_nothing",
-			Args: []string{"", "source", "--experimental-no-default-plugins", "--experimental-plugins="},
+			Args: []string{"", "source", "--x-no-default-plugins", "--x-plugins="},
 			Exit: 127,
 		},
 		{
 			Name: "extractors_cancelled_out_specified_individually",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=sbom/spdx",
-				"--experimental-plugins=sbom/cdx",
-				"--experimental-disable-plugins=sbom",
-				"--experimental-no-default-plugins",
+				"--x-plugins=sbom/spdx",
+				"--x-plugins=sbom/cdx",
+				"--x-disable-plugins=sbom",
+				"--x-no-default-plugins",
 			},
 			Exit: 127,
 		},
@@ -689,9 +692,9 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 			Name: "extractors_cancelled_out_specified_together",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=sbom/spdx,sbom/cdx",
-				"--experimental-disable-plugins=sbom",
-				"--experimental-no-default-plugins",
+				"--x-plugins=sbom/spdx,sbom/cdx",
+				"--x-disable-plugins=sbom",
+				"--x-no-default-plugins",
 			},
 			Exit: 127,
 		},
@@ -699,9 +702,9 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 			Name: "extractors_cancelled_out_with_presets",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=sbom",
-				"--experimental-disable-plugins=sbom",
-				"--experimental-no-default-plugins",
+				"--x-plugins=sbom",
+				"--x-disable-plugins=sbom",
+				"--x-no-default-plugins",
 			},
 			Exit: 127,
 		},
@@ -711,8 +714,8 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 			Name: "scanning_directory_with_one_specific_extractor_enabled_and_no_defaults",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=javascript/packagelockjson",
-				"--experimental-no-default-plugins",
+				"--x-plugins=javascript/packagelockjson",
+				"--x-no-default-plugins",
 				"./testdata/locks-many",
 			},
 			Exit: 0,
@@ -721,10 +724,10 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 			Name: "scanning_directory_with_an_extractor_that_does_not_exist",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=javascript/packagelockjson",
-				"--experimental-plugins=custom/extractor",
-				"--experimental-disable-plugins=custom/anotherextractor",
-				"--experimental-no-default-plugins",
+				"--x-plugins=javascript/packagelockjson",
+				"--x-plugins=custom/extractor",
+				"--x-disable-plugins=custom/anotherextractor",
+				"--x-no-default-plugins",
 				"./testdata/locks-many",
 			},
 			Exit: 127,
@@ -735,9 +738,9 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 			Name: "scanning_directory_with_a_couple_of_specific_extractors_enabled_individually",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=javascript/packagelockjson",
-				"--experimental-plugins=php/composerlock",
-				"--experimental-no-default-plugins",
+				"--x-plugins=javascript/packagelockjson",
+				"--x-plugins=php/composerlock",
+				"--x-no-default-plugins",
 				"./testdata/locks-many",
 			},
 			Exit: 0,
@@ -748,8 +751,8 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 			Name: "scanning_directory_with_a_couple_of_specific_extractors_enabled_specified_together",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=javascript/packagelockjson,php/composerlock",
-				"--experimental-no-default-plugins",
+				"--x-plugins=javascript/packagelockjson,php/composerlock",
+				"--x-no-default-plugins",
 				"./testdata/locks-many",
 			},
 			Exit: 0,
@@ -760,8 +763,8 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 			Name: "scanning_directory_with_one_specific_extractor_disabled",
 			Args: []string{
 				"", "source",
-				"--experimental-disable-plugins=javascript/packagelockjson",
-				"--experimental-no-default-plugins",
+				"--x-disable-plugins=javascript/packagelockjson",
+				"--x-no-default-plugins",
 				"./testdata/locks-many",
 			},
 			Exit: 0,
@@ -772,8 +775,8 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 			Name: "scanning_file_with_one_specific_extractor_enabled",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=javascript/packagelockjson",
-				"--experimental-no-default-plugins",
+				"--x-plugins=javascript/packagelockjson",
+				"--x-no-default-plugins",
 				"./testdata/locks-many/package-lock.json",
 			},
 			Exit: 0,
@@ -784,8 +787,8 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 			Name: "scanning_file_with_one_different_extractor_enabled",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=javascript/packagelockjson",
-				"--experimental-no-default-plugins",
+				"--x-plugins=javascript/packagelockjson",
+				"--x-no-default-plugins",
 				"./testdata/locks-many/composer.lock",
 			},
 			Exit: 128,
@@ -797,9 +800,26 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 			Name: "scanning_file_with_parse_as_but_specific_extractor_disabled",
 			Args: []string{
 				"", "source",
-				"--experimental-disable-plugins=javascript/packagelockjson",
-				"--experimental-no-default-plugins",
+				"--x-disable-plugins=javascript/packagelockjson",
+				"--x-no-default-plugins",
 				"-L", "package-lock.json:./testdata/locks-many/composer.lock",
+			},
+			Exit: 127,
+		},
+		// when using deprecated versions of the flags
+		{
+			Name: "deprecated_empty_plugins_flag_does_nothing",
+			Args: []string{"", "source", "--experimental-no-default-plugins", "--experimental-plugins="},
+			Exit: 127,
+		},
+		{
+			Name: "deprecated_extractors_cancelled_out_specified_individually",
+			Args: []string{
+				"", "source",
+				"--experimental-plugins=sbom/spdx",
+				"--x-plugins=sbom/cdx",
+				"--experimental-disable-plugins=sbom",
+				"--experimental-no-default-plugins",
 			},
 			Exit: 127,
 		},
@@ -807,8 +827,6 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
-
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
 
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
@@ -820,8 +838,6 @@ func TestCommand_CallAnalysis(t *testing.T) {
 
 	// This does require Go toolchain, but the whole project requires go toolchain,
 	// so not an external dependency
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -854,8 +870,6 @@ func TestCommand_CallAnalysis(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -865,7 +879,6 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 	t.Parallel()
 
 	cwd := testutility.GetCurrentWorkingDirectory(t)
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -884,7 +897,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			Exit: 0,
 		},
 		{
-			Name: "empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows)",
+			Name: "empty_works_as_an_escape_no_fixture_because_its_not_valid_on_Windows",
 			Args: []string{
 				"",
 				"source",
@@ -894,7 +907,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			Exit: 127,
 		},
 		{
-			Name: "empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows)",
+			Name: "empty_works_as_an_escape_no_fixture_because_its_not_valid_on_Windows",
 			Args: []string{
 				"",
 				"source",
@@ -909,7 +922,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			Exit: 0,
 		},
 		{
-			Name: "when_an_explicit_parse-as_is_given,_it's_applied_to_that_file",
+			Name: "when_an_explicit_parse-as_is_given_its_applied_to_that_file",
 			Args: []string{
 				"",
 				"source",
@@ -920,7 +933,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			Exit: 1,
 		},
 		{
-			Name: "multiple,_+_output_order_is_deterministic",
+			Name: "multiple_output_order_is_deterministic",
 			Args: []string{
 				"",
 				"source",
@@ -931,7 +944,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			Exit: 1,
 		},
 		{
-			Name: "multiple,_+_output_order_is_deterministic_2",
+			Name: "multiple_output_order_is_deterministic_2",
 			Args: []string{
 				"",
 				"source",
@@ -954,7 +967,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			Exit: 127,
 		},
 		{
-			Name: "parse-as_takes_priority,_even_if_it's_wrong",
+			Name: "parse-as_takes_priority_even_if_its_wrong",
 			Args: []string{
 				"",
 				"source",
@@ -964,7 +977,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			Exit: 127,
 		},
 		{
-			Name: "\"apk-installed\" is supported",
+			Name: "apk-installed is supported",
 			Args: []string{
 				"",
 				"source",
@@ -978,7 +991,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			HTTPClient: http.DefaultClient,
 		},
 		{
-			Name: "\"dpkg-status\" is supported",
+			Name: "dpkg-status is supported",
 			Args: []string{
 				"",
 				"source",
@@ -1028,10 +1041,6 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			if tt.HTTPClient == nil {
-				tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-			}
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -1040,8 +1049,6 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 // TestCommand_GithubActions tests common actions the github actions reusable workflow will run
 func TestCommand_GithubActions(t *testing.T) {
 	t.Parallel()
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -1067,8 +1074,6 @@ func TestCommand_GithubActions(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -1081,10 +1086,6 @@ func TestCommand_LocalDatabases(t *testing.T) {
 		testutility.Skip(t, "Skipping this test on CI because of APFS issues causing the test to time out.")
 	}
 
-	testutility.SkipIfShort(t)
-
-	client := testcmd.InsertCassette(t)
-
 	tests := []testcmd.Case{
 		{
 			Name: "one_specific_supported_lockfile",
@@ -1094,6 +1095,12 @@ func TestCommand_LocalDatabases(t *testing.T) {
 		{
 			Name: "one_specific_supported_sbom_with_vulns",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "./testdata/sbom-insecure/postgres-stretch.cdx.xml"},
+			Exit: 1,
+		},
+		{
+			// these advisories are only connected through a chain of shared upstream vulnerabilities
+			Name: "advisories_connected_through_a_chain_of_upstreams",
+			Args: []string{"", "source", "--offline", "--download-offline-databases", "./testdata/sbom-grouping/debian-vlc.cdx.json"},
 			Exit: 1,
 		},
 		{
@@ -1112,12 +1119,12 @@ func TestCommand_LocalDatabases(t *testing.T) {
 			Exit: 127,
 		},
 		{
-			Name: "only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion)",
+			Name: "only_the_files_in_the_given_directories_are_checked_by_default_no_recursion",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
 		{
-			Name: "nested_directories_are_checked_when_`--recursive`_is_passed",
+			Name: "nested_directories_are_checked_when_--recursive_is_passed",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "--recursive", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
@@ -1137,7 +1144,7 @@ func TestCommand_LocalDatabases(t *testing.T) {
 			Exit: 0,
 		},
 		{
-			Name: "output_format:_markdown_table",
+			Name: "output_format_markdown_table",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "--format", "markdown", "./testdata/locks-many/composer.lock"},
 			Exit: 0,
 		},
@@ -1157,8 +1164,6 @@ func TestCommand_LocalDatabases(t *testing.T) {
 			tt.Args = []string{"", "source", "--local-db-path", testDir}
 			tt.Args = append(tt.Args, old[2:]...)
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			// run each test twice since they should provide the same output,
 			// and the second run should be fast as the db is already available
 			testcmd.RunAndMatchSnapshots(t, tt)
@@ -1169,8 +1174,6 @@ func TestCommand_LocalDatabases(t *testing.T) {
 
 func TestCommand_LocalDatabases_AlwaysOffline(t *testing.T) {
 	t.Parallel()
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -1191,8 +1194,6 @@ func TestCommand_LocalDatabases_AlwaysOffline(t *testing.T) {
 			tt.Args = []string{"", "source", "--local-db-path", testDir}
 			tt.Args = append(tt.Args, old[2:]...)
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			// run each test twice since they should provide the same output,
 			// and the second run should be fast as the db is already available
 			testcmd.RunAndMatchSnapshots(t, tt)
@@ -1203,10 +1204,6 @@ func TestCommand_LocalDatabases_AlwaysOffline(t *testing.T) {
 
 func TestCommand_CommitSupport(t *testing.T) {
 	t.Parallel()
-
-	testutility.SkipIfShort(t)
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -1225,7 +1222,10 @@ func TestCommand_CommitSupport(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
+			testDir := testutility.CreateTestDir(t)
+			old := tt.Args
+			tt.Args = []string{"", "source", "--local-db-path", testDir}
+			tt.Args = append(tt.Args, old[2:]...)
 
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
@@ -1234,8 +1234,6 @@ func TestCommand_CommitSupport(t *testing.T) {
 
 func TestCommand_Licenses(t *testing.T) {
 	t.Parallel()
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -1334,8 +1332,6 @@ func TestCommand_Licenses(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -1343,10 +1339,6 @@ func TestCommand_Licenses(t *testing.T) {
 
 func TestCommand_Transitive(t *testing.T) {
 	t.Parallel()
-
-	testutility.SkipIfShort(t)
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -1393,8 +1385,13 @@ func TestCommand_Transitive(t *testing.T) {
 			Exit: 1,
 		},
 		{
+			Name: "pom.xml_ignore_direct_prevents_transitive",
+			Args: []string{"", "source", "--config", "./testdata/osv-scanner-ignore-log4j-web.toml", "./testdata/maven-transitive/pom.xml"},
+			Exit: 0,
+		},
+		{
 			Name: "pom.xml_enricher_requires_extractor",
-			Args: []string{"", "source", "--experimental-disable-plugins=java/pomxml", "./testdata/maven-transitive/abc.xml"},
+			Args: []string{"", "source", "--x-disable-plugins=java/pomxml", "./testdata/maven-transitive/abc.xml"},
 			Exit: 128,
 		},
 		{
@@ -1424,7 +1421,7 @@ func TestCommand_Transitive(t *testing.T) {
 		},
 		{
 			Name: "requirements.txt_enricher_requires_extractor",
-			Args: []string{"", "source", "--experimental-disable-plugins=python/requirements", "./testdata/locks-requirements/requirements-transitive.txt"},
+			Args: []string{"", "source", "--x-disable-plugins=python/requirements", "./testdata/locks-requirements/requirements-transitive.txt"},
 			Exit: 128,
 		},
 		{
@@ -1438,7 +1435,10 @@ func TestCommand_Transitive(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
+			testDir := testutility.CreateTestDir(t)
+			old := tt.Args
+			tt.Args = []string{"", "source", "--local-db-path", testDir}
+			tt.Args = append(tt.Args, old[2:]...)
 
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
@@ -1447,8 +1447,6 @@ func TestCommand_Transitive(t *testing.T) {
 
 func TestCommand_MoreLockfiles(t *testing.T) {
 	t.Parallel()
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -1487,7 +1485,7 @@ func TestCommand_MoreLockfiles(t *testing.T) {
 			Exit: 1,
 		},
 		{
-			Name: "Podfile.lock_-_Unsupported_ecosystem,_should_not_be_scanned",
+			Name: "Podfile.lock_-_Unsupported_ecosystem_should_not_be_scanned",
 			Args: []string{"", "source", "-L", "./testdata/locks-scalibr/Podfile.lock"},
 			Exit: 127,
 		},
@@ -1496,13 +1494,16 @@ func TestCommand_MoreLockfiles(t *testing.T) {
 			Args: []string{"", "source", "-L", "./testdata/locks-scalibr/Package.resolved"},
 			Exit: 1,
 		},
+		{
+			Name: "Dart_package_config_json",
+			Args: []string{"", "source", "-L", "./testdata/locks-scalibr/dart/package_config.json"},
+			Exit: 0,
+		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
-
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
 
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
@@ -1518,8 +1519,6 @@ func TestCommandNonGit(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	client := testcmd.InsertCassette(t)
-
 	tests := []testcmd.Case{
 		// one specific supported lockfile
 		{
@@ -1532,8 +1531,6 @@ func TestCommandNonGit(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -1543,14 +1540,11 @@ func TestCommand_HtmlFile(t *testing.T) {
 	t.Parallel()
 
 	testDir := testutility.CreateTestDir(t)
-	client := testcmd.InsertCassette(t)
 
 	testcmd.RunAndMatchSnapshots(t, testcmd.Case{
 		Name: "one_specific_supported_lockfile",
 		Args: []string{"", "source", "--format=html", "--output-file", testDir + "/report.html", "./testdata/locks-many/composer.lock"},
 		Exit: 0,
-
-		HTTPClient: testcmd.WithTestNameHeader(t, *client),
 	})
 
 	_, err := os.Stat(testDir + "/report.html")
@@ -1564,14 +1558,11 @@ func TestCommand_HtmlFile_Deprecated(t *testing.T) {
 	t.Parallel()
 
 	testDir := testutility.CreateTestDir(t)
-	client := testcmd.InsertCassette(t)
 
 	testcmd.RunAndMatchSnapshots(t, testcmd.Case{
 		Name: "one_specific_supported_lockfile",
 		Args: []string{"", "source", "--format=html", "--output", testDir + "/report.html", "./testdata/locks-many/composer.lock"},
 		Exit: 0,
-
-		HTTPClient: testcmd.WithTestNameHeader(t, *client),
 	})
 
 	_, err := os.Stat(testDir + "/report.html")
@@ -1597,8 +1588,6 @@ func TestCommand_WithDetector_OnLinux(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	client := testcmd.InsertCassette(t)
-
 	tests := []struct {
 		Name string
 		Args []string
@@ -1609,8 +1598,8 @@ func TestCommand_WithDetector_OnLinux(t *testing.T) {
 			Name: "ssh_version_is_before_first_vuln_version",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins", "php/composerlock",
-				"--experimental-plugins", "cve/cve-2023-38408",
+				"--x-plugins", "php/composerlock",
+				"--x-plugins", "cve/cve-2023-38408",
 				filepath.Join(testDir, "composer.lock"),
 			},
 			Exit: 0,
@@ -1620,8 +1609,8 @@ func TestCommand_WithDetector_OnLinux(t *testing.T) {
 			Name: "ssh_version_is_after_last_vuln_version",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins", "php/composerlock",
-				"--experimental-plugins", "cve/cve-2023-38408",
+				"--x-plugins", "php/composerlock",
+				"--x-plugins", "cve/cve-2023-38408",
 				filepath.Join(testDir, "composer.lock"),
 			},
 			Exit: 0,
@@ -1631,8 +1620,8 @@ func TestCommand_WithDetector_OnLinux(t *testing.T) {
 			Name: "ssh_version_errors",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins", "php/composerlock",
-				"--experimental-plugins", "cve/cve-2023-38408",
+				"--x-plugins", "php/composerlock",
+				"--x-plugins", "cve/cve-2023-38408",
 				filepath.Join(testDir, "composer.lock"),
 			},
 			Exit: 0,
@@ -1647,11 +1636,10 @@ func TestCommand_WithDetector_OnLinux(t *testing.T) {
 			t.Setenv("OSV_SCANNER_TEST_SSH_VERSION_OUTPUT", tt.SSHV)
 
 			testcmd.RunAndMatchSnapshots(t, testcmd.Case{
-				Name: tt.Name,
-				Args: tt.Args,
-				Exit: tt.Exit,
-
-				HTTPClient: testcmd.WithTestNameHeader(t, *client),
+				Name:         tt.Name,
+				Args:         tt.Args,
+				Exit:         tt.Exit,
+				CassetteName: "TestCommand_WithDetector_AllPlatforms/" + tt.Name,
 			})
 		})
 	}
@@ -1673,8 +1661,6 @@ func TestCommand_WithDetector_OffLinux(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	client := testcmd.InsertCassette(t)
-
 	tests := []struct {
 		Name string
 		Args []string
@@ -1685,8 +1671,8 @@ func TestCommand_WithDetector_OffLinux(t *testing.T) {
 			Name: "ssh_version_is_before_first_vuln_version",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins", "php/composerlock",
-				"--experimental-plugins", "cve/cve-2023-38408",
+				"--x-plugins", "php/composerlock",
+				"--x-plugins", "cve/cve-2023-38408",
 				filepath.Join(testDir, "composer.lock"),
 			},
 			Exit: 0,
@@ -1696,8 +1682,8 @@ func TestCommand_WithDetector_OffLinux(t *testing.T) {
 			Name: "ssh_version_is_after_last_vuln_version",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins", "php/composerlock",
-				"--experimental-plugins", "cve/cve-2023-38408",
+				"--x-plugins", "php/composerlock",
+				"--x-plugins", "cve/cve-2023-38408",
 				filepath.Join(testDir, "composer.lock"),
 			},
 			Exit: 0,
@@ -1707,8 +1693,8 @@ func TestCommand_WithDetector_OffLinux(t *testing.T) {
 			Name: "ssh_version_errors",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins", "php/composerlock",
-				"--experimental-plugins", "cve/cve-2023-38408",
+				"--x-plugins", "php/composerlock",
+				"--x-plugins", "cve/cve-2023-38408",
 				filepath.Join(testDir, "composer.lock"),
 			},
 			Exit: 0,
@@ -1723,11 +1709,10 @@ func TestCommand_WithDetector_OffLinux(t *testing.T) {
 			t.Setenv("OSV_SCANNER_TEST_SSH_VERSION_OUTPUT", tt.SSHV)
 
 			testcmd.RunAndMatchSnapshots(t, testcmd.Case{
-				Name: tt.Name,
-				Args: tt.Args,
-				Exit: tt.Exit,
-
-				HTTPClient: testcmd.WithTestNameHeader(t, *client),
+				Name:         tt.Name,
+				Args:         tt.Args,
+				Exit:         tt.Exit,
+				CassetteName: "TestCommand_WithDetector_AllPlatforms/" + tt.Name,
 			})
 		})
 	}
@@ -1770,7 +1755,7 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 			Name: "package_deprecated_false_no_vuln_json",
 			Args: []string{
 				"", "source", "--format=json",
-				"--experimental-flag-deprecated-packages",
+				"--x-flag-deprecated-packages",
 				"./testdata/exp-plugins-pkgdeprecate/clean/Cargo.lock",
 			},
 			Exit: 0,
@@ -1779,7 +1764,7 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 			Name: "package_deprecated_true_no_vuln_json",
 			Args: []string{
 				"", "source", "--format=json",
-				"--experimental-flag-deprecated-packages",
+				"--x-flag-deprecated-packages",
 				"./testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock",
 			},
 			Exit: 1,
@@ -1792,7 +1777,7 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 			Name: "package_deprecated_true_with_vuln_json",
 			Args: []string{
 				"", "source", "--format=json",
-				"--experimental-flag-deprecated-packages",
+				"--x-flag-deprecated-packages",
 				"./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock",
 			},
 			Exit: 1,
@@ -1805,7 +1790,7 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 			Name: "package_deprecated_npm_json",
 			Args: []string{
 				"", "source", "--format=json",
-				"--experimental-flag-deprecated-packages",
+				"--x-flag-deprecated-packages",
 				"./testdata/exp-plugins-pkgdeprecate/deprecated-npm/package-lock.json",
 			},
 			Exit: 1,
@@ -1818,7 +1803,7 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 			Name: "package_deprecated_true_no_vuln_table",
 			Args: []string{
 				"", "source", "--format=table",
-				"--experimental-flag-deprecated-packages",
+				"--x-flag-deprecated-packages",
 				"./testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock",
 			},
 			Exit: 1,
@@ -1827,7 +1812,37 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 			Name: "package_deprecated_true_with_vuln_table",
 			Args: []string{
 				"", "source", "--format=table",
+				"--x-flag-deprecated-packages",
+				"./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock",
+			},
+			Exit: 1,
+		},
+		// covers both the deprecated flag, and the general logic for deprecated (bool) flags
+		{
+			Name: "package_deprecated_true_with_vuln_table_using_old_flag",
+			Args: []string{
+				"", "source", "--format=table",
 				"--experimental-flag-deprecated-packages",
+				"./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock",
+			},
+			Exit: 1,
+		},
+		{
+			Name: "package_deprecated_true_with_vuln_table_and_new_flag_false",
+			Args: []string{
+				"", "source", "--format=table",
+				"--x-flag-deprecated-packages=false",
+				"--experimental-flag-deprecated-packages",
+				"./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock",
+			},
+			Exit: 1,
+		},
+		{
+			Name: "package_deprecated_true_with_vuln_table_and_old_flag_false",
+			Args: []string{
+				"", "source", "--format=table",
+				"--experimental-flag-deprecated-packages=false",
+				"--x-flag-deprecated-packages",
 				"./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock",
 			},
 			Exit: 1,
@@ -1838,5 +1853,101 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 			t.Parallel()
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
+	}
+}
+
+type mockRoundTripper struct {
+	roundTrip func(req *http.Request) (*http.Response, error)
+}
+
+func (m *mockRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
+	return m.roundTrip(req)
+}
+
+func TestCommand_Transitive_IgnoredTransitiveBypass(t *testing.T) {
+	t.Parallel()
+
+	// 1. Create mock POMs
+	mockPOMDirect := `<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.apache.logging.log4j</groupId>
+  <artifactId>log4j-web</artifactId>
+  <version>2.14.1</version>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.14.1</version>
+    </dependency>
+  </dependencies>
+</project>`
+
+	mockPOMTransitive := `<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.apache.logging.log4j</groupId>
+  <artifactId>log4j-core</artifactId>
+  <version>2.14.1</version>
+</project>`
+
+	var transitiveCalled atomic.Bool
+
+	mockClient := &http.Client{
+		Transport: &mockRoundTripper{
+			roundTrip: func(req *http.Request) (*http.Response, error) {
+				url := req.URL.String()
+				switch url {
+				case "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-web/2.14.1/log4j-web-2.14.1.pom":
+					return &http.Response{
+						StatusCode: http.StatusOK,
+						Body:       io.NopCloser(strings.NewReader(mockPOMDirect)),
+						Header:     make(http.Header),
+					}, nil
+				case "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-core/2.14.1/log4j-core-2.14.1.pom":
+					transitiveCalled.Store(true)
+					return &http.Response{
+						StatusCode: http.StatusOK,
+						Body:       io.NopCloser(strings.NewReader(mockPOMTransitive)),
+						Header:     make(http.Header),
+					}, nil
+				default:
+					if strings.Contains(url, "osv.dev") {
+						return &http.Response{
+							StatusCode: http.StatusOK,
+							Body:       io.NopCloser(strings.NewReader(`{"results":[]}`)),
+							Header:     make(http.Header),
+						}, nil
+					}
+
+					return nil, fmt.Errorf("unexpected request: %s", url)
+				}
+			},
+		},
+	}
+
+	// 2. Define the test case
+	tc := testcmd.Case{
+		Name: "pom.xml_ignore_direct_prevents_transitive_mocked",
+		Args: []string{
+			"", "source",
+			"--x-no-default-plugins",
+			"--x-plugins=java/pomxml,transitive",
+			"--config", "./testdata/osv-scanner-ignore-log4j-web.toml",
+			"./testdata/maven-transitive/pom.xml",
+		},
+		Exit:       0,
+		HTTPClient: mockClient,
+	}
+
+	// 3. Run the test
+	stdout, _ := testcmd.RunAndNormalize(t, tc)
+
+	// Verify the output matches what we expect
+	if !strings.Contains(stdout, "No issues found") {
+		t.Errorf("expected output to contain 'No issues found', got:\n%s", stdout)
+	}
+
+	// 4. Assert that the mock client was NOT called for the transitive dependency!
+	if transitiveCalled.Load() {
+		t.Error("expected transitive dependency log4j-core POM to NOT be requested, but it was requested!")
 	}
 }

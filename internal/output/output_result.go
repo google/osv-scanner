@@ -370,7 +370,12 @@ func processSource(packageSource models.PackageSource) map[string]SourceResult {
 	// Handle potential duplicate source packages with different OS package names.
 	// This map ensures each package is processed only once,
 	// with subsequent occurrences only adding their OSPackageName to the list.
-	packageMap := make(map[string]PackageResult)
+	type packageKey struct {
+		ecosystem string
+		name      string
+		version   string
+	}
+	packageMap := make(map[packageKey]PackageResult)
 	// Use a map to handle one source contains packages form multiple ecosystems
 	sourceResults := make(map[string]SourceResult)
 
@@ -393,9 +398,13 @@ func processSource(packageSource models.PackageSource) map[string]SourceResult {
 			}
 		}
 
-		// Use a unique identifier (package name + version) to deduplicate packages (same version),
+		// Use a unique identifier (ecosystem + package name + version) to deduplicate packages (same version),
 		// ensuring each is processed only once.
-		key := vulnPkg.Package.Ecosystem + ":" + vulnPkg.Package.Name + ":" + vulnPkg.Package.Version
+		key := packageKey{
+			ecosystem: vulnPkg.Package.Ecosystem,
+			name:      vulnPkg.Package.Name,
+			version:   vulnPkg.Package.Version,
+		}
 		if _, exist := packageMap[key]; exist {
 			pkgTemp := packageMap[key]
 			pkgTemp.OSPackageNames = append(pkgTemp.OSPackageNames, vulnPkg.Package.OSPackageName)
@@ -416,7 +425,7 @@ func processSource(packageSource models.PackageSource) map[string]SourceResult {
 	for ecosystem, sourceResult := range sourceResults {
 		var packages []PackageResult
 		for key, pkg := range packageMap {
-			if !strings.HasPrefix(key, ecosystem) {
+			if key.ecosystem != ecosystem {
 				continue
 			}
 

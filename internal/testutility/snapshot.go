@@ -9,11 +9,19 @@ import (
 
 type Snapshot struct {
 	windowsReplacements map[string]string
+	label               string
 }
 
 // NewSnapshot creates a snapshot that can be passed around within tests
 func NewSnapshot() Snapshot {
 	return Snapshot{windowsReplacements: map[string]string{}}
+}
+
+func (s Snapshot) WithLabel(label string) Snapshot {
+	return Snapshot{
+		windowsReplacements: s.windowsReplacements,
+		label:               label,
+	}
 }
 
 // WithWindowsReplacements adds a map of strings with values that they should be
@@ -43,12 +51,16 @@ func (s Snapshot) MatchJSON(t *testing.T, got any) {
 		t.Fatalf("Failed to marshal JSON: %s", err)
 	}
 
-	snaps.MatchSnapshot(t, normalizeRootDirectory(t, applyWindowsReplacements(string(j), s.windowsReplacements)))
+	snaps.
+		WithConfig(snaps.Label(s.label)).
+		MatchSnapshot(t, normalizeRootDirectory(t, applyWindowsReplacements(string(j), s.windowsReplacements)))
 }
 
 // MatchText asserts the existing snapshot matches what was gotten in the test
 func (s Snapshot) MatchText(t *testing.T, got string) {
 	t.Helper()
 
-	snaps.MatchSnapshot(t, normalizeSnapshot(t, applyWindowsReplacements(got, s.windowsReplacements)))
+	snaps.
+		WithConfig(snaps.Label(s.label)).
+		MatchSnapshot(t, normalizeSnapshot(t, applyWindowsReplacements(got, s.windowsReplacements)))
 }

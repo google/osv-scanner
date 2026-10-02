@@ -1,0 +1,13 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "components": [
+    {
+      "type": "library",
+      "name": "vlc",
+      "version": "0.8.5-1",
+      "purl": "pkg:deb/debian/vlc@0.8.5-1"
+    }
+  ]
+}

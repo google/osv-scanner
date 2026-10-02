@@ -131,7 +131,7 @@ func tryLoadConfig(configPath string) (Config, error) {
 
 		for _, override := range config.PackageOverrides {
 			if override.NameIsRegex && override.Name != "" {
-				if _, err := cachedregexp.Compile("^" + override.Name + "$"); err != nil {
+				if _, err := cachedregexp.Compile("^(?:" + override.Name + ")$"); err != nil {
 					return Config{}, fmt.Errorf("invalid regex %q in package override: %w", override.Name, err)
 				}
 			}

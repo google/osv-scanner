@@ -8,6 +8,7 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/testcmd"
+	"github.com/google/osv-scanner/v2/internal/grpcvcr"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
@@ -15,16 +16,14 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 	t.Parallel()
 	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker to build the images")
 
-	client := testcmd.InsertCassette(t)
-
 	tests := []testcmd.Case{
 		{
 			Name: "add_extractors",
 			Args: []string{
 				"", "image",
 				"--archive",
-				"--experimental-plugins=sbom/spdx",
-				"--experimental-plugins=sbom/cdx",
+				"--x-plugins=sbom/spdx",
+				"--x-plugins=sbom/cdx",
 				"testdata/test-alpine-sbom.tar",
 			},
 			Exit: 1,
@@ -34,9 +33,9 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 			Args: []string{
 				"", "image",
 				"--archive",
-				"--experimental-plugins=sbom/spdx",
-				"--experimental-plugins=sbom/cdx",
-				"--experimental-disable-plugins=sbom",
+				"--x-plugins=sbom/spdx",
+				"--x-plugins=sbom/cdx",
+				"--x-disable-plugins=sbom",
 				"testdata/test-alpine-sbom.tar",
 			},
 			Exit: 1,
@@ -46,8 +45,8 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 			Args: []string{
 				"", "image",
 				"--archive",
-				"--experimental-plugins=sbom",
-				"--experimental-disable-plugins=sbom",
+				"--x-plugins=sbom",
+				"--x-disable-plugins=sbom",
 				"testdata/test-alpine-sbom.tar",
 			},
 			Exit: 1,
@@ -57,8 +56,8 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 			Args: []string{
 				"", "image",
 				"--archive",
-				"--experimental-plugins=sbom/spdx,sbom/cdx",
-				"--experimental-disable-plugins=sbom",
+				"--x-plugins=sbom/spdx,sbom/cdx",
+				"--x-disable-plugins=sbom",
 				"testdata/test-alpine-sbom.tar",
 			},
 			Exit: 1,
@@ -67,8 +66,6 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
-
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
 
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
@@ -80,17 +77,15 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 
 	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker to build the images")
 
-	client := testcmd.InsertCassette(t)
-
 	tests := []testcmd.Case{
 		{
 			Name: "add_extractors",
 			Args: []string{
 				"", "image",
 				"--archive",
-				"--experimental-plugins=sbom/spdx",
-				"--experimental-plugins=sbom/cdx",
-				"--experimental-no-default-plugins",
+				"--x-plugins=sbom/spdx",
+				"--x-plugins=sbom/cdx",
+				"--x-no-default-plugins",
 				"testdata/test-alpine-sbom.tar",
 			},
 			Exit: 1,
@@ -100,10 +95,10 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 			Args: []string{
 				"", "image",
 				"--archive",
-				"--experimental-plugins=sbom/spdx",
-				"--experimental-plugins=sbom/cdx",
-				"--experimental-disable-plugins=sbom",
-				"--experimental-no-default-plugins",
+				"--x-plugins=sbom/spdx",
+				"--x-plugins=sbom/cdx",
+				"--x-disable-plugins=sbom",
+				"--x-no-default-plugins",
 				"testdata/test-alpine-sbom.tar",
 			},
 			Exit: 127,
@@ -113,9 +108,9 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 			Args: []string{
 				"", "image",
 				"--archive",
-				"--experimental-plugins=sbom",
-				"--experimental-disable-plugins=sbom",
-				"--experimental-no-default-plugins",
+				"--x-plugins=sbom",
+				"--x-disable-plugins=sbom",
+				"--x-no-default-plugins",
 				"testdata/test-alpine-sbom.tar",
 			},
 			Exit: 127,
@@ -125,9 +120,9 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 			Args: []string{
 				"", "image",
 				"--archive",
-				"--experimental-plugins=sbom/spdx,sbom/cdx",
-				"--experimental-disable-plugins=sbom",
-				"--experimental-no-default-plugins",
+				"--x-plugins=sbom/spdx,sbom/cdx",
+				"--x-disable-plugins=sbom",
+				"--x-no-default-plugins",
 				"testdata/test-alpine-sbom.tar",
 			},
 			Exit: 127,
@@ -136,8 +131,6 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
-
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
 
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
@@ -148,9 +141,6 @@ func TestCommand_Docker(t *testing.T) {
 	t.Parallel()
 
 	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker (also takes a long time to pull images)")
-	testutility.SkipIfShort(t)
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -169,7 +159,7 @@ func TestCommand_Docker(t *testing.T) {
 			Exit: 127,
 		},
 		{
-			Name: "Real_empty_image_with_no_tag,_invalid_scan_target",
+			Name: "Real_empty_image_with_no_tag_invalid_scan_target",
 			Args: []string{"", "image", "hello-world"},
 			Exit: 127, // Invalid scan target
 		},
@@ -198,7 +188,7 @@ func TestCommand_Docker(t *testing.T) {
 			// since we've requested the os/apk extractor disabled, and there's nothing else
 			// in the image that we support extracting
 			Name: "real_alpine_image_without_apk_extractor_enabled",
-			Args: []string{"", "image", "--experimental-disable-plugins=os/apk", "alpine:3.18.9"},
+			Args: []string{"", "image", "--x-disable-plugins=os/apk", "alpine:3.18.9"},
 			Exit: 128,
 		},
 	}
@@ -211,8 +201,6 @@ func TestCommand_Docker(t *testing.T) {
 				testutility.Skip(t, "Skipping Docker-based test as only Linux has Docker installed in CI")
 			}
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -221,8 +209,7 @@ func TestCommand_Docker(t *testing.T) {
 func TestCommand_OCIImage(t *testing.T) {
 	t.Parallel()
 	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker to build the images")
-
-	client := testcmd.InsertCassette(t)
+	passthroughRecorder, _ := grpcvcr.NewRecorder("", grpcvcr.ModePassthrough, t.Name())
 
 	tests := []testcmd.Case{
 		{
@@ -238,6 +225,11 @@ func TestCommand_OCIImage(t *testing.T) {
 		{
 			Name: "Empty_Ubuntu_22.04_image_tar",
 			Args: []string{"", "image", "--archive", "./testdata/test-ubuntu.tar"},
+			Exit: 1,
+		},
+		{
+			Name: "Scanning_AlmaLinux_9_image",
+			Args: []string{"", "image", "--archive", "./testdata/test-almalinux-9.tar"},
 			Exit: 1,
 		},
 		{
@@ -266,6 +258,16 @@ func TestCommand_OCIImage(t *testing.T) {
 			// This tests that the fzf go binary is not being reported because it's a OS package
 			Name: "Scanning_Ubuntu_image_with_go_OS_packages_json",
 			Args: []string{"", "image", "--archive", "./testdata/test-ubuntu-with-packages.tar"},
+			Exit: 1,
+		},
+		{
+			Name: "rockylinux_empty_image",
+			Args: []string{"", "image", "--archive", "./testdata/test-rockylinux.tar"},
+			Exit: 1,
+		},
+		{
+			Name: "rockylinux_empty_image_all_vulns",
+			Args: []string{"", "image", "--all-vulns", "--archive", "./testdata/test-rockylinux.tar"},
 			Exit: 1,
 		},
 		{
@@ -330,8 +332,8 @@ func TestCommand_OCIImage(t *testing.T) {
 			Name: "scanning_insecure_alpine_image_with_specific_detector_enabled",
 			Args: []string{
 				"", "image",
-				"--experimental-plugins", "os/apk",
-				"--experimental-plugins", "weakcredentials/etcshadow",
+				"--x-plugins", "os/apk",
+				"--x-plugins", "weakcredentials/etcshadow",
 				"--archive", "./testdata/test-alpine-etcshadow.tar",
 			},
 			Exit: 1,
@@ -340,9 +342,9 @@ func TestCommand_OCIImage(t *testing.T) {
 			Name: "scanning_insecure_alpine_image_with_specific_detector_disabled",
 			Args: []string{
 				"", "image",
-				"--experimental-plugins", "os/apk",
-				"--experimental-plugins", "weakcreds",
-				"--experimental-disable-plugins", "weakcredentials/etcshadow",
+				"--x-plugins", "os/apk",
+				"--x-plugins", "weakcreds",
+				"--x-disable-plugins", "weakcredentials/etcshadow",
 				"--archive", "./testdata/test-alpine-etcshadow.tar",
 			},
 			Exit: 1,
@@ -351,8 +353,8 @@ func TestCommand_OCIImage(t *testing.T) {
 			Name: "scanning_insecure_alpine_image_with_detector_preset",
 			Args: []string{
 				"", "image",
-				"--experimental-plugins", "os/apk",
-				"--experimental-plugins", "weakcreds",
+				"--x-plugins", "os/apk",
+				"--x-plugins", "weakcreds",
 				"--archive", "./testdata/test-alpine-etcshadow.tar",
 			},
 			Exit: 1,
@@ -361,9 +363,9 @@ func TestCommand_OCIImage(t *testing.T) {
 			Name: "scanning_ubuntu_image_with_homebrew_extractor",
 			Args: []string{
 				"", "image",
-				"--experimental-plugins", "os/homebrew",
-				"--experimental-plugins", "misc/brew-source",
-				"--experimental-no-default-plugins",
+				"--x-plugins", "os/homebrew",
+				"--x-plugins", "misc/brew-source",
+				"--x-no-default-plugins",
 				"--archive", "./testdata/test-ubuntu-homebrew.tar",
 			},
 			Exit: 1,
@@ -374,7 +376,8 @@ func TestCommand_OCIImage(t *testing.T) {
 				"", "image",
 				"--archive", "./testdata/test-chisel.tar",
 			},
-			Exit: 1,
+			GRPCRecorder: passthroughRecorder,
+			Exit:         1,
 		},
 		{
 			Name: "Scanning_openSUSE_Leap_15.5_image",
@@ -389,7 +392,7 @@ func TestCommand_OCIImage(t *testing.T) {
 			// the os/rpm extractor has a Windows-only stub implementation upstream
 			// (osv-scalibr's rpm_dummy.go) that never finds any packages, so
 			// RPM-based image tests can't pass there yet
-			if runtime.GOOS == "windows" && strings.Contains(strings.ToLower(tt.Name), "opensuse") {
+			if runtime.GOOS == "windows" && (strings.Contains(strings.ToLower(tt.Name), "opensuse") || strings.Contains(strings.ToLower(tt.Name), "almalinux")) {
 				testutility.Skip(t, "Skipping RPM-based test as os/rpm extraction is not supported on Windows")
 			}
 
@@ -402,8 +405,6 @@ func TestCommand_OCIImage(t *testing.T) {
 				}
 			}
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -412,8 +413,6 @@ func TestCommand_OCIImage(t *testing.T) {
 func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 	t.Parallel()
 	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker to build the images")
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -466,6 +465,17 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 			},
 		},
 		{
+			Name: "scanning_almalinux_9_image",
+			Args: []string{"", "image", "--archive", "--format=json", "./testdata/test-almalinux-9.tar"},
+			Exit: 1,
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.GroupsAsArrayLen,
+				testutility.OnlyIDVulnsRule,
+				testutility.OnlyFirstBaseImage,
+				testutility.AnyDiffID,
+			},
+		},
+		{
 			// This tests that the fzf go binary is not being reported because it's a OS package
 			Name: "ubuntu_image_with_go_OS_packages_json",
 			Args: []string{"", "image", "--archive", "--format=json", "./testdata/test-ubuntu-with-packages.tar"},
@@ -481,8 +491,8 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 			Name: "scanning_insecure_alpine_image_with_specific_detector_enabled",
 			Args: []string{
 				"", "image", "--format=json",
-				"--experimental-plugins", "os/apk",
-				"--experimental-plugins", "weakcredentials/etcshadow",
+				"--x-plugins", "os/apk",
+				"--x-plugins", "weakcredentials/etcshadow",
 				"--archive", "./testdata/test-alpine-etcshadow.tar",
 			},
 			Exit: 1,
@@ -497,8 +507,8 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 			Name: "scanning_insecure_alpine_image_with_detector_preset",
 			Args: []string{
 				"", "image", "--format=json",
-				"--experimental-plugins", "os/apk",
-				"--experimental-plugins", "weakcreds",
+				"--x-plugins", "os/apk",
+				"--x-plugins", "weakcreds",
 				"--archive", "./testdata/test-alpine-etcshadow.tar",
 			},
 			Exit: 1,
@@ -513,7 +523,7 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 			Name: "scanning_image_with_deprecated_packages",
 			Args: []string{
 				"", "image", "--format=json",
-				"--experimental-flag-deprecated-packages",
+				"--x-flag-deprecated-packages",
 				"--archive", "./testdata/test-image-with-deprecated.tar",
 			},
 			Exit: 1,
@@ -557,7 +567,7 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 			// the os/rpm extractor has a Windows-only stub implementation upstream
 			// (osv-scalibr's rpm_dummy.go) that never finds any packages, so
 			// RPM-based image tests can't pass there yet
-			if runtime.GOOS == "windows" && strings.Contains(strings.ToLower(tt.Name), "opensuse") {
+			if runtime.GOOS == "windows" && (strings.Contains(strings.ToLower(tt.Name), "opensuse") || strings.Contains(strings.ToLower(tt.Name), "almalinux")) {
 				testutility.Skip(t, "Skipping RPM-based test as os/rpm extraction is not supported on Windows")
 			}
 
@@ -570,8 +580,6 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 				}
 			}
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -582,7 +590,6 @@ func TestCommand_HtmlFile(t *testing.T) {
 	testutility.SkipIfNotAcceptanceTesting(t, "Needs built container images")
 
 	testDir := testutility.CreateTestDir(t)
-	client := testcmd.InsertCassette(t)
 
 	_, stderr := testcmd.RunAndNormalize(t, testcmd.Case{
 		Name: "one_specific_supported_lockfile",
@@ -591,8 +598,6 @@ func TestCommand_HtmlFile(t *testing.T) {
 			"--archive", "./testdata/test-alpine.tar",
 		},
 		Exit: 1,
-
-		HTTPClient: testcmd.WithTestNameHeader(t, *client),
 	})
 
 	testutility.NewSnapshot().WithWindowsReplacements(map[string]string{

@@ -2,6 +2,7 @@ package output_test
 
 import (
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/google/osv-scalibr/extractor"
@@ -229,9 +230,18 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
-											Id:       "OSV-1",
-											Summary:  "Something scary!",
-											Severity: []*osvschema.Severity{{Score: "1"}},
+											Id:      "OSV-1",
+											Summary: "Something scary!",
+											Severity: []*osvschema.Severity{
+												{
+													Type:  osvschema.Severity_CVSS_V3,
+													Score: "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+												},
+												{
+													Type:  osvschema.Severity_Ubuntu,
+													Score: "medium",
+												},
+											},
 										},
 									},
 								},
@@ -290,9 +300,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
-											Id:       "OSV-1",
-											Summary:  "Something scary!",
-											Severity: []*osvschema.Severity{{Score: "1"}},
+											Id:      "OSV-1",
+											Summary: "Something scary!",
+											Severity: []*osvschema.Severity{{
+												Type:  osvschema.Severity_CVSS_V3,
+												Score: "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+											}},
 										},
 									},
 								},
@@ -320,9 +333,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
-											Id:       "OSV-1",
-											Summary:  "Something scary!",
-											Severity: []*osvschema.Severity{{Score: "1"}},
+											Id:      "OSV-1",
+											Summary: "Something scary!",
+											Severity: []*osvschema.Severity{{
+												Type:  osvschema.Severity_CVSS_V3,
+												Score: "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+											}},
 										},
 									},
 								},
@@ -355,9 +371,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
-											Id:       "OSV-1",
-											Summary:  "Something scary!",
-											Severity: []*osvschema.Severity{{Score: "1"}},
+											Id:      "OSV-1",
+											Summary: "Something scary!",
+											Severity: []*osvschema.Severity{{
+												Type:  osvschema.Severity_CVSS_V2,
+												Score: "AV:N/AC:L/Au:N/C:P/I:P/A:P",
+											}},
 										},
 									},
 								},
@@ -469,9 +488,18 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									Groups:    []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
-											Id:       "OSV-1",
-											Summary:  "Something scary!",
-											Severity: []*osvschema.Severity{{Score: "1"}},
+											Id:      "OSV-1",
+											Summary: "Something scary!",
+											Severity: []*osvschema.Severity{
+												{
+													Type:  osvschema.Severity_CVSS_V4,
+													Score: "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N",
+												},
+												{
+													Type:  osvschema.Severity_Ubuntu,
+													Score: "high",
+												},
+											},
 										},
 									},
 								},
@@ -554,15 +582,21 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
-											Id:       "OSV-1",
-											Summary:  "Something scary!",
-											Severity: []*osvschema.Severity{{Score: "1"}},
+											Id:      "OSV-1",
+											Summary: "Something scary!",
+											Severity: []*osvschema.Severity{{
+												Type:  osvschema.Severity_Ubuntu,
+												Score: "negligible",
+											}},
 										},
 										{
-											Id:       "GHSA-123",
-											Summary:  "Something scary!",
-											Aliases:  []string{"OSV-1"},
-											Severity: []*osvschema.Severity{{Score: "1"}},
+											Id:      "GHSA-123",
+											Summary: "Something scary!",
+											Aliases: []string{"OSV-1"},
+											Severity: []*osvschema.Severity{{
+												Type:  osvschema.Severity_CVSS_V3,
+												Score: "CVSS:3.1/AV:L/AC:H/PR:H/UI:R/S:U/C:L/I:N/A:N",
+											}},
 										},
 									},
 								},
@@ -672,9 +706,18 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
-											Id:       "OSV-1",
-											Summary:  "Something scary!",
-											Severity: []*osvschema.Severity{{Score: "1"}},
+											Id:      "OSV-1",
+											Summary: "Something scary!",
+											Severity: []*osvschema.Severity{
+												{
+													Type:  osvschema.Severity_CVSS_V3,
+													Score: "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+												},
+												{
+													Type:  osvschema.Severity_CVSS_V4,
+													Score: "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+												},
+											},
 										},
 									},
 								},
@@ -851,9 +894,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									Groups: []models.GroupInfo{{IDs: []string{"OSV-2"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
-											Id:       "OSV-2",
-											Summary:  "Something less scary!",
-											Severity: []*osvschema.Severity{{Score: "1"}},
+											Id:      "OSV-2",
+											Summary: "Something less scary!",
+											Severity: []*osvschema.Severity{{
+												Type:  osvschema.Severity_Ubuntu,
+												Score: "high",
+											}},
 										},
 									},
 								},
@@ -870,9 +916,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
-											Id:       "OSV-3",
-											Summary:  "Something mildly scary!",
-											Severity: []*osvschema.Severity{{Score: "1"}},
+											Id:      "OSV-3",
+											Summary: "Something mildly scary!",
+											Severity: []*osvschema.Severity{{
+												Type:  osvschema.Severity_CVSS_V3,
+												Score: "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:N",
+											}},
 										},
 										{
 											Id:       "OSV-5",
@@ -1323,9 +1372,13 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
+									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}, {IDs: []string{"OSV-3"}}, {IDs: []string{"OSV-4"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{Id: "OSV-1", Details: "This vulnerability allows for some very scary stuff to happen - seriously, you'd not believe it!"},
+
+										// these ensure we're truncating multibyte characters properly
+										{Id: "OSV-3", Details: strings.Repeat("\u754c", 61)},
+										{Id: "OSV-4", Details: strings.Repeat("\u754c", 26) + " " + strings.Repeat("\u8a9e", 34)},
 									},
 								},
 								{

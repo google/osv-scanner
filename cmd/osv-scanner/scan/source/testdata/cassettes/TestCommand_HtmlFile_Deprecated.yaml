@@ -22,8 +22,6 @@ interactions:
       headers:
         Content-Type:
           - application/json
-        X-Test-Name:
-          - TestCommand_HtmlFile_Deprecated
       url: https://api.osv.dev/v1/querybatch
       method: POST
     response:

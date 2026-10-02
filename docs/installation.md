@@ -10,7 +10,10 @@ You may download the [SLSA3](https://slsa.dev) compliant binaries for Linux, mac
 
 ## Package Managers
 
-[![Packaging status](https://repology.org/badge/vertical-allrepos/osv-scanner.svg)](https://repology.org/project/osv-scanner/versions)
+<!-- markdown-link-check-disable -->
+<!-- TODO: Re-enable once repology.org domain issue is resolved. See: https://github.com/repology/repology-rs/issues/560 -->
+<!-- [![Packaging status](https://repology.org/badge/vertical-allrepos/osv-scanner.svg)](https://repology.org/project/osv-scanner/versions) -->
+<!-- markdown-link-check-enable -->
 
 ### Windows Scoop
 
@@ -104,4 +107,5 @@ slsa-verifier verify-artifact ./osv-scanner_1.2.0_linux_amd64 --provenance-path 
 ## SemVer Adherence
 
 All releases on the same Major version will be guaranteed to have backward compatible JSON output and CLI arguments.
-However, features prefixed with `experimental` (e.g. `--experimental-call-analysis`) might be changed or removed with only a Minor version change.
+However, features prefixed with `x` (e.g. `--x-call-analysis`) are experimental and might be changed or removed with
+only a Minor version change.

@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.7.3",
+  "id": "GO-2022-0493",
+  "published": "2022-07-15T23:30:12Z",
+  "modified": "2026-02-04T03:42:54.589715Z",
+  "aliases": [
+    "BIT-golang-2022-29526",
+    "CVE-2022-29526",
+    "GHSA-p782-xgp4-8hr8"
+  ],
+  "related": [
+    "CGA-5393-78xh-45fv"
+  ],
+  "summary": "Incorrect privilege reporting in syscall and golang.org/x/sys/unix",
+  "details": "When called with a non-zero flags parameter, the Faccessat function can incorrectly report that a file is accessible.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go",
+        "purl": "pkg:golang/stdlib"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.17.10"
+            },
+            {
+              "introduced": "1.18.0-0"
+            },
+            {
+              "fixed": "1.18.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "syscall",
+            "symbols": [
+              "Faccessat"
+            ]
+          }
+        ]
+      },
+      "database_specific": {
+        "source": "https://vuln.go.dev/ID/GO-2022-0493.json"
+      }
+    },
+    {
+      "package": {
+        "name": "golang.org/x/sys",
+        "ecosystem": "Go",
+        "purl": "pkg:golang/golang.org/x/sys"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20220412211240-33da011f77ad"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "golang.org/x/sys/unix",
+            "symbols": [
+              "Faccessat"
+            ]
+          }
+        ]
+      },
+      "database_specific": {
+        "source": "https://vuln.go.dev/ID/GO-2022-0493.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/399539"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/52313"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/400074"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/Y5qrqw_lWdU"
+    }
+  ],
+  "database_specific": {
+    "review_status": "REVIEWED",
+    "url": "https://pkg.go.dev/vuln/GO-2022-0493"
+  },
+  "credits": [
+    {
+      "name": "Joël Gähwiler (@256dpi)"
+    }
+  ]
+}

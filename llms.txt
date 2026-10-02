@@ -21,7 +21,7 @@
 - **Explicit Enablement:** Plugins from `osv-scalibr` are NOT automatically used by `osv-scanner`. They must be explicitly imported and added to the `Plugins` slice within the `scalibr.ScanConfig`.
 - **Plugin Configuration:** The primary logic for configuring which osv-scalibr plugins to run is within `pkg/osvscanner/scan.go` (and related files like `pkg/osvscanner/osvscanner.go`). Look for where `scalibr.ScanConfig` is created and populated.
 - **Default Plugins:** `osv-scanner` maintains a list of default `osv-scalibr` extractors and enrichers it considers essential for a good baseline scan. This list is hardcoded in the `osv-scanner` codebase.
-- **Experimental Plugins:** New or less stable plugins from `osv-scalibr` might be gated behind `osv-scanner` CLI flags (e.g., an `--experimental` flag) before being enabled by default.
+- **Experimental Plugins:** New or less stable plugins from `osv-scalibr` might be gated behind `osv-scanner` CLI flags (e.g., an `--x` flag) before being enabled by default.
 
 ### Example Workflow: Adding a new osv-scalibr plugin and using it in osv-scanner
 1.  **Develop in `osv-scalibr`:**

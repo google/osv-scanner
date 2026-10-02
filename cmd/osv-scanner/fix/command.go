@@ -242,10 +242,18 @@ func action(ctx context.Context, cmd *cli.Command, stdout io.Writer, clientFacto
 	defer cleanup()
 
 	// MavenClient is required for Maven projects
-	mc, err := datasource.NewMavenRegistryAPIClient(ctx, datasource.MavenRegistry{
-		URL:             cmd.String("maven-registry"),
-		ReleasesEnabled: true,
-	}, "", false, cf.HTTPClient(), nil)
+	mc, err := datasource.NewMavenRegistryAPIClient(
+		ctx,
+		datasource.MavenRegistry{
+			URL:             cmd.String("maven-registry"),
+			ReleasesEnabled: true,
+		},
+		"",
+		false,
+		false,
+		cf.HTTPClient(),
+		nil,
+	)
 	if err != nil {
 		return err
 	}

@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.7.3",
+  "id": "DTSA-132-1",
+  "published": "2008-05-17T00:00:00Z",
+  "modified": "2026-03-09T01:00:53.369869Z",
+  "upstream": [
+    "CVE-2007-6683",
+    "CVE-2008-2147",
+    "DEBIAN-CVE-2007-6683",
+    "DEBIAN-CVE-2008-2147"
+  ],
+  "summary": "vlc - multiple vulnerabilities",
+  "affected": [
+    {
+      "package": {
+        "name": "vlc",
+        "ecosystem": "Debian:5.0",
+        "purl": "pkg:deb/debian/vlc?arch=source"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.8.6.c-6+lenny5"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://storage.googleapis.com/debian-osv/dtsa-osv/DTSA-132-1.json"
+      }
+    }
+  ]
+}

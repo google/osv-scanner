@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/CycloneDX/cyclonedx-go"
+	"github.com/google/osv-scanner/v2/internal/utility/severity"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"google.golang.org/protobuf/types/known/timestamppb"
@@ -146,12 +147,32 @@ func buildAffectedPackages(vulnerability *osvschema.Vulnerability) *[]cyclonedx.
 	return &affectedPackages
 }
 
+var severityRatingMapper = map[string]cyclonedx.Severity{
+	"critical": cyclonedx.SeverityCritical,
+	"high":     cyclonedx.SeverityHigh,
+	"medium":   cyclonedx.SeverityMedium,
+	"low":      cyclonedx.SeverityLow,
+	"none":     cyclonedx.SeverityNone,
+}
+
 func buildRatings(vulnerability *osvschema.Vulnerability) *[]cyclonedx.VulnerabilityRating {
 	ratings := make([]cyclonedx.VulnerabilityRating, len(vulnerability.GetSeverity()))
-	for index, severity := range vulnerability.GetSeverity() {
+	for index, sev := range vulnerability.GetSeverity() {
 		ratings[index] = cyclonedx.VulnerabilityRating{
-			Method: SeverityMapper[severity.GetType()],
-			Vector: severity.GetScore(),
+			Method: SeverityMapper[sev.GetType()],
+			Vector: sev.GetScore(),
+		}
+
+		score, r, err := severity.CalculateScore(sev)
+		if err != nil {
+			continue
+		}
+
+		if s, ok := severityRatingMapper[strings.ToLower(r)]; ok {
+			ratings[index].Severity = s
+		}
+		if score >= 0 {
+			ratings[index].Score = &score
 		}
 	}
 

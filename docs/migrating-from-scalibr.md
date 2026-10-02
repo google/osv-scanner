@@ -49,18 +49,18 @@ https://github.com/google/osv-scalibr/blob/main/docs/supported_inventory_types.m
 scalibr --plugins python/pip,go/gomod --detectors go/govulncheck /path/to/your/project
 ```
 
-In `osv-scanner`, you can achieve the same by using the `--experimental-plugins` flag. This is an experimental feature.
+In `osv-scanner`, you can achieve the same by using the `--x-plugins` flag. This is an experimental feature.
 
 **osv-scanner:**
 
 ```sh
-osv-scanner --experimental-plugins python/pip,go/gomod,go/govulncheck /path/to/your/project
+osv-scanner --x-plugins python/pip,go/gomod,go/govulncheck /path/to/your/project
 ```
 
-`osv-scanner` lets you exclude its default plugins with `--experimental-no-default-plugins`, for when you want to only
+`osv-scanner` lets you exclude its default plugins with `--x-no-default-plugins`, for when you want to only
 run specific plugins.
 
-`osv-scanner` also allows you to disable specific plugins with `--experimental-disable-plugins`.
+`osv-scanner` also allows you to disable specific plugins with `--x-disable-plugins`.
 
 For more details on manual plugin selection in `osv-scanner`, see the [manual plugin selection documentation](manual-plugin-selection.md).
 
@@ -80,45 +80,45 @@ and a separate `--output-file` flag if you wish to save the output into a file.
 **osv-scanner:**
 
 ```sh
-osv-scanner --format spdx-2.3-json /path/to/your/project > result.spdx.json
+osv-scanner --format spdx-2-3 /path/to/your/project > result.spdx.json
 ```
 
 For more details on `osv-scanner` output formats, see the [output documentation](output.md).
 
 ## Flag Translation Table
 
-| `osv-scalibr` Flag                | `osv-scanner` Flag        | Notes                                                                                                      |
-| --------------------------------- | ------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `--version`                       | `--version`               | `osv-scanner version`                                                                                      |
-| `--root`                          | `[directory]` (argument)  | `osv-scanner scan source [directory]`                                                                      |
-| `--result`                        | `--output`                | `osv-scanner --output <file>`                                                                              |
-| `-o`                              | `--format` and `--output` | e.g. `osv-scalibr -o spdx23-json=r.json` becomes `osv-scanner --format spdx-2.3-json --output-file r.json` |
-| `--plugins`                       | `--experimental-plugins`  |                                                                                                            |
-| `--extractors`                    | `--experimental-plugins`  |                                                                                                            |
-| `--detectors`                     | `--experimental-plugins`  |                                                                                                            |
-| `--annotators`                    | `--experimental-plugins`  |                                                                                                            |
-| `--ignore-sub-dirs`               | (no direct equivalent)    | `osv-scanner` is not recursive by default. Use `--recursive` to enable.                                    |
-| `--skip-dirs`                     | Not yet available         |                                                                                                            |
-| `--skip-dir-regex`                | Not yet available         |                                                                                                            |
-| `--skip-dir-glob`                 | Not yet available         |                                                                                                            |
-| `--max-file-size`                 | Not yet available         |                                                                                                            |
-| `--use-gitignore`                 | (default behavior)        | Use `--no-ignore` to disable.                                                                              |
-| `--remote-image`                  | `[image]` (argument)      | `osv-scanner scan image [image]`                                                                           |
-| `--image-tarball`                 | `--archive`               | `osv-scanner scan image --archive [tarball]`                                                               |
-| `--image-local-docker`            | `[image]` (argument)      | `osv-scanner scan image [image]` (it will look for local images first)                                     |
-| `--image-platform`                | Not yet available         |                                                                                                            |
-| `--gobinary-version-from-content` | Not yet available         |                                                                                                            |
-| `--govulncheck-db`                | Not yet available         |                                                                                                            |
-| `--spdx-document-name`            | Not yet available         |                                                                                                            |
-| `--spdx-document-namespace`       | Not yet available         |                                                                                                            |
-| `--spdx-creators`                 | Not yet available         |                                                                                                            |
-| `--cdx-component-name`            | Not yet available         |                                                                                                            |
-| `--cdx-component-type`            | Not yet available         |                                                                                                            |
-| `--cdx-component-version`         | Not yet available         |                                                                                                            |
-| `--cdx-authors`                   | Not yet available         |                                                                                                            |
-| `--verbose`                       | `--verbosity`             | `osv-scanner --verbosity <level>`, e.g. `debug`.                                                           |
-| `--explicit-extractors`           | (default behavior)        |                                                                                                            |
-| `--filter-by-capabilities`        | (default behavior)        | `osv-scanner` automatically filters plugins.                                                               |
-| `--windows-all-drives`            | Not yet available         |                                                                                                            |
-| `--offline`                       | `--offline`               |                                                                                                            |
-| `--local-registry`                | `--maven-registry`        | Only for Maven.                                                                                            |
+| `osv-scalibr` Flag                | `osv-scanner` Flag             | Notes                                                                                                 |
+| --------------------------------- | ------------------------------ | ----------------------------------------------------------------------------------------------------- |
+| `--version`                       | `--version`                    | `osv-scanner --version`                                                                               |
+| `--root`                          | `[directory]` (argument)       | `osv-scanner scan source [directory]`                                                                 |
+| `--result`                        | `--output-file`                | `osv-scanner --output-file <file>`                                                                    |
+| `-o`                              | `--format` and `--output-file` | e.g. `osv-scalibr -o spdx23-json=r.json` becomes `osv-scanner --format spdx-2-3 --output-file r.json` |
+| `--plugins`                       | `--x-plugins`                  |                                                                                                       |
+| `--extractors`                    | `--x-plugins`                  |                                                                                                       |
+| `--detectors`                     | `--x-plugins`                  |                                                                                                       |
+| `--annotators`                    | `--x-plugins`                  |                                                                                                       |
+| `--ignore-sub-dirs`               | (no direct equivalent)         | `osv-scanner` is not recursive by default. Use `--recursive` to enable.                               |
+| `--skip-dirs`                     | `--x-exclude`                  | `osv-scanner --x-exclude <dir>`                                                                       |
+| `--skip-dir-regex`                | `--x-exclude`                  | `osv-scanner --x-exclude r:<regex>`                                                                   |
+| `--skip-dir-glob`                 | `--x-exclude`                  | `osv-scanner --x-exclude g:<glob>`                                                                    |
+| `--max-file-size`                 | Not yet available              |                                                                                                       |
+| `--use-gitignore`                 | (default behavior)             | Use `--no-ignore` to disable.                                                                         |
+| `--remote-image`                  | `[image]` (argument)           | `osv-scanner scan image [image]`                                                                      |
+| `--image-tarball`                 | `--archive`                    | `osv-scanner scan image --archive [tarball]`                                                          |
+| `--image-local-docker`            | `[image]` (argument)           | `osv-scanner scan image [image]` (it will look for local images first)                                |
+| `--image-platform`                | Not yet available              |                                                                                                       |
+| `--gobinary-version-from-content` | Not yet available              |                                                                                                       |
+| `--govulncheck-db`                | Not yet available              |                                                                                                       |
+| `--spdx-document-name`            | Not yet available              |                                                                                                       |
+| `--spdx-document-namespace`       | Not yet available              |                                                                                                       |
+| `--spdx-creators`                 | Not yet available              |                                                                                                       |
+| `--cdx-component-name`            | Not yet available              |                                                                                                       |
+| `--cdx-component-type`            | Not yet available              |                                                                                                       |
+| `--cdx-component-version`         | Not yet available              |                                                                                                       |
+| `--cdx-authors`                   | Not yet available              |                                                                                                       |
+| `--verbose`                       | `--verbosity`                  | `osv-scanner --verbosity <level>`, e.g. `info`.                                                       |
+| `--explicit-extractors`           | (default behavior)             |                                                                                                       |
+| `--filter-by-capabilities`        | (default behavior)             | `osv-scanner` automatically filters plugins.                                                          |
+| `--windows-all-drives`            | Not yet available              |                                                                                                       |
+| `--offline`                       | `--offline`                    |                                                                                                       |
+| `--local-registry`                | `--maven-registry`             | Only for Maven.                                                                                       |
