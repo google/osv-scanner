@@ -1,0 +1,83 @@
+interactions:
+    - method: /deps_dev.v3.Insights/GetVersion
+      request: |-
+        {
+          "versionKey": {
+            "name": "ast",
+            "system": "RUBYGEMS",
+            "version": "2.4.2"
+          }
+        }
+      response: |-
+        {
+          "licenses": [
+            "MIT"
+          ],
+          "links": [
+            {
+              "label": "SOURCE_REPO",
+              "url": "https://github.com/whitequark/ast"
+            },
+            {
+              "label": "ISSUE_TRACKER",
+              "url": "https://github.com/whitequark/ast/issues"
+            },
+            {
+              "label": "HOMEPAGE",
+              "url": "https://whitequark.github.io/ast/"
+            },
+            {
+              "label": "DOCUMENTATION",
+              "url": "http://whitequark.github.io/ast"
+            }
+          ],
+          "publishedAt": "2021-01-23T18:56:53Z",
+          "registries": [
+            "https://rubygems.org/"
+          ],
+          "relatedProjects": [
+            {
+              "projectKey": {
+                "id": "github.com/whitequark/ast"
+              },
+              "relationProvenance": "UNVERIFIED_METADATA",
+              "relationType": "SOURCE_REPO"
+            },
+            {
+              "projectKey": {
+                "id": "github.com/whitequark/ast"
+              },
+              "relationProvenance": "UNVERIFIED_METADATA",
+              "relationType": "ISSUE_TRACKER"
+            }
+          ],
+          "versionKey": {
+            "name": "ast",
+            "system": "RUBYGEMS",
+            "version": "2.4.2"
+          }
+        }
+    - method: /deps_dev.v3.Insights/GetVersion
+      request: |-
+        {
+          "versionKey": {
+            "name": "stdlib",
+            "system": "GO",
+            "version": "go1.99.9"
+          }
+        }
+      error:
+        code: 5
+        message: version not found
+    - method: /deps_dev.v3.Insights/GetVersion
+      request: |-
+        {
+          "versionKey": {
+            "name": "toolchain",
+            "system": "GO",
+            "version": "v1.99.9"
+          }
+        }
+      error:
+        code: 5
+        message: version not found

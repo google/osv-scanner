@@ -370,7 +370,12 @@ func processSource(packageSource models.PackageSource) map[string]SourceResult {
 	// Handle potential duplicate source packages with different OS package names.
 	// This map ensures each package is processed only once,
 	// with subsequent occurrences only adding their OSPackageName to the list.
-	packageMap := make(map[string]PackageResult)
+	type packageKey struct {
+		ecosystem string
+		name      string
+		version   string
+	}
+	packageMap := make(map[packageKey]PackageResult)
 	// Use a map to handle one source contains packages form multiple ecosystems
 	sourceResults := make(map[string]SourceResult)
 
@@ -393,9 +398,13 @@ func processSource(packageSource models.PackageSource) map[string]SourceResult {
 			}
 		}
 
-		// Use a unique identifier (package name + version) to deduplicate packages (same version),
+		// Use a unique identifier (ecosystem + package name + version) to deduplicate packages (same version),
 		// ensuring each is processed only once.
-		key := vulnPkg.Package.Ecosystem + ":" + vulnPkg.Package.Name + ":" + vulnPkg.Package.Version
+		key := packageKey{
+			ecosystem: vulnPkg.Package.Ecosystem,
+			name:      vulnPkg.Package.Name,
+			version:   vulnPkg.Package.Version,
+		}
 		if _, exist := packageMap[key]; exist {
 			pkgTemp := packageMap[key]
 			pkgTemp.OSPackageNames = append(pkgTemp.OSPackageNames, vulnPkg.Package.OSPackageName)
@@ -416,7 +425,7 @@ func processSource(packageSource models.PackageSource) map[string]SourceResult {
 	for ecosystem, sourceResult := range sourceResults {
 		var packages []PackageResult
 		for key, pkg := range packageMap {
-			if !strings.HasPrefix(key, ecosystem) {
+			if key.ecosystem != ecosystem {
 				continue
 			}
 
@@ -568,7 +577,7 @@ func getVulnList(vulnMap map[string]VulnResult) []VulnResult {
 // getNextFixVersion finds the next fixed version for a given vulnerability.
 // returns a boolean value indicating whether a fixed version is available.
 func getNextFixVersion(allAffected []*osvschema.Affected, installedVersion string, installedPackage string, ecosystem string) (bool, string) {
-	ecosystemPrefix := strings.Split(ecosystem, ":")[0]
+	ecosystemPrefix, _, _ := strings.Cut(ecosystem, ":")
 	vp, err := semantic.Parse(installedVersion, ecosystemPrefix)
 	if err != nil {
 		return false, VersionUnsupported
@@ -603,7 +612,7 @@ func getNextFixVersion(allAffected []*osvschema.Affected, installedVersion strin
 
 // calculatePackageFixedVersion determines the highest version that resolves the most known vulnerabilities for a package.
 func calculatePackageFixedVersion(ecosystem string, allVulns []VulnResult) string {
-	ecosystemPrefix := strings.Split(ecosystem, ":")[0]
+	ecosystemPrefix, _, _ := strings.Cut(ecosystem, ":")
 	maxFixVersion := ""
 	var vp semantic.Version
 	for _, vuln := range allVulns {

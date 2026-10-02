@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.7.3",
+  "id": "DLA-3012-1",
+  "published": "2022-05-17T00:00:00Z",
+  "modified": "2026-03-09T01:20:46.878115Z",
+  "upstream": [
+    "CVE-2022-29824",
+    "DEBIAN-CVE-2022-29824"
+  ],
+  "summary": "libxml2 - security update",
+  "affected": [
+    {
+      "package": {
+        "name": "libxml2",
+        "ecosystem": "Debian:9",
+        "purl": "pkg:deb/debian/libxml2?arch=source"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.9.4+dfsg1-2.2+deb9u7"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "2.9.4+dfsg1-2.2",
+        "2.9.4+dfsg1-2.2+deb9u1",
+        "2.9.4+dfsg1-2.2+deb9u2",
+        "2.9.4+dfsg1-2.2+deb9u3",
+        "2.9.4+dfsg1-2.2+deb9u4",
+        "2.9.4+dfsg1-2.2+deb9u5",
+        "2.9.4+dfsg1-2.2+deb9u6"
+      ],
+      "database_specific": {
+        "source": "https://storage.googleapis.com/debian-osv/dla-osv/DLA-3012-1.json"
+      }
+    }
+  ]
+}

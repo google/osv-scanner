@@ -9,6 +9,7 @@ cve/cve-2022-33891
 cve/cve-2023-38408
 cve/cve-2023-6019
 cve/cve-2024-2912
+dart/packageconfig
 dart/pubspec
 dotnet/csproj
 dotnet/depsjson
@@ -162,6 +163,7 @@ vcs/gitrepo
 
 [TestResolve_Extractors_Presets/lockfile - 1]
 cpp/conanlock
+dart/packageconfig
 dart/pubspec
 dotnet/csproj
 dotnet/depsjson

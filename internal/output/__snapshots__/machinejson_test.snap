@@ -2048,7 +2048,8 @@
               "id": "OSV-2",
               "severity": [
                 {
-                  "score": "1"
+                  "score": "high",
+                  "type": "Ubuntu"
                 }
               ],
               "summary": "Something less scary!"
@@ -2082,7 +2083,8 @@
               "id": "OSV-3",
               "severity": [
                 {
-                  "score": "1"
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:N",
+                  "type": "CVSS_V3"
                 }
               ],
               "summary": "Something mildly scary!"
@@ -3124,7 +3126,8 @@
               "id": "OSV-1",
               "severity": [
                 {
-                  "score": "1"
+                  "score": "AV:N/AC:L/Au:N/C:P/I:P/A:P",
+                  "type": "CVSS_V2"
                 }
               ],
               "summary": "Something scary!"
@@ -3228,7 +3231,12 @@
               "id": "OSV-1",
               "severity": [
                 {
-                  "score": "1"
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "medium",
+                  "type": "Ubuntu"
                 }
               ],
               "summary": "Something scary!"
@@ -3280,7 +3288,12 @@
               "id": "OSV-1",
               "severity": [
                 {
-                  "score": "1"
+                  "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N",
+                  "type": "CVSS_V4"
+                },
+                {
+                  "score": "high",
+                  "type": "Ubuntu"
                 }
               ],
               "summary": "Something scary!"
@@ -3469,7 +3482,8 @@
               "id": "OSV-1",
               "severity": [
                 {
-                  "score": "1"
+                  "score": "negligible",
+                  "type": "Ubuntu"
                 }
               ],
               "summary": "Something scary!"
@@ -3481,7 +3495,8 @@
               "id": "GHSA-123",
               "severity": [
                 {
-                  "score": "1"
+                  "score": "CVSS:3.1/AV:L/AC:H/PR:H/UI:R/S:U/C:L/I:N/A:N",
+                  "type": "CVSS_V3"
                 }
               ],
               "summary": "Something scary!"
@@ -3531,7 +3546,8 @@
               "id": "OSV-1",
               "severity": [
                 {
-                  "score": "1"
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                  "type": "CVSS_V3"
                 }
               ],
               "summary": "Something scary!"
@@ -3581,7 +3597,8 @@
               "id": "OSV-1",
               "severity": [
                 {
-                  "score": "1"
+                  "score": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+                  "type": "CVSS_V3"
                 }
               ],
               "summary": "Something scary!"
@@ -3623,12 +3640,34 @@
               ],
               "aliases": null,
               "max_severity": ""
+            },
+            {
+              "ids": [
+                "OSV-3"
+              ],
+              "aliases": null,
+              "max_severity": ""
+            },
+            {
+              "ids": [
+                "OSV-4"
+              ],
+              "aliases": null,
+              "max_severity": ""
             }
           ],
           "vulnerabilities": [
             {
               "details": "This vulnerability allows for some very scary stuff to happen - seriously, you'd not believe it!",
               "id": "OSV-1"
+            },
+            {
+              "details": "界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界",
+              "id": "OSV-3"
+            },
+            {
+              "details": "界界界界界界界界界界界界界界界界界界界界界界界界界界 語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語",
+              "id": "OSV-4"
             }
           ]
         },
@@ -3739,7 +3778,12 @@
               "id": "OSV-1",
               "severity": [
                 {
-                  "score": "1"
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+                  "type": "CVSS_V4"
                 }
               ],
               "summary": "Something scary!"

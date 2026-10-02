@@ -1,0 +1,11 @@
+{
+  "configVersion": 2,
+  "packages": [
+    {
+      "name": "http",
+      "rootUri": "file:///home/user/.pub-cache/hosted/pub.dev/http-1.1.0",
+      "packageUri": "lib/",
+      "version": "1.1.0"
+    }
+  ]
+}

@@ -7,6 +7,7 @@ linters:
     - cyclop           #
     - err113           # will re-add later (another-rex)
     - exhaustruct      # overkill (g-rath)
+    - exhaustruct_v5   # overkill
     - forcetypeassert  # too hard (g-rath)
     - funlen           #
     - funcorder        #
@@ -16,6 +17,7 @@ linters:
     - gocyclo          #
     - godot            # comments are fine without full stops (g-rath)
     - godox            # to-do comments are fine (g-rath)
+    - gomodguard       # deprecated
     - ireturn          # disagree with, sort of (g-rath)
     - lll              # line length is hard (g-rath)
     - maintidx         #

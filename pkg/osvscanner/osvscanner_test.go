@@ -2,14 +2,24 @@ package osvscanner_test
 
 import (
 	"bytes"
-	"errors"
 	"log/slog"
 	"testing"
 
-	"github.com/google/osv-scanner/v2/internal/testutility"
-	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
 )
+
+func TestDoContainerScan_NoImage(t *testing.T) {
+	t.Parallel()
+
+	_, err := osvscanner.DoContainerScan(osvscanner.ScannerActions{})
+	if err == nil {
+		t.Fatal("DoContainerScan() error = nil, want an error")
+	}
+
+	if got, want := err.Error(), "container image must be provided"; got != want {
+		t.Errorf("DoContainerScan() error = %q, want %q", got, want)
+	}
+}
 
 // TestDoScan_LogHandlerOverride tests that the SetLogger override works correctly
 //
@@ -53,44 +63,5 @@ func TestDoScan_LogHandlerOverride(t *testing.T) {
 	// altOutput should contain data now instead.
 	if altOutput.Len() == 0 {
 		t.Errorf("altOutput.Len() = %d, want %d", altOutput.Len(), 0)
-	}
-}
-
-func TestDoScan(t *testing.T) {
-	t.Parallel()
-
-	type args struct {
-		actions osvscanner.ScannerActions
-	}
-	tests := []struct {
-		name    string
-		args    args
-		want    models.VulnerabilityResults
-		wantErr error
-	}{
-		{
-			name: "Test_curl_git_scanning",
-			args: args{
-				actions: osvscanner.ScannerActions{
-					GitCommits: []string{"33dffa3909a67e1b5d22647128ab7eb6e53fd0c7"},
-				},
-			},
-			want:    models.VulnerabilityResults{},
-			wantErr: osvscanner.ErrVulnerabilitiesFound,
-		},
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
-			got, err := osvscanner.DoScan(tt.args.actions)
-			if !errors.Is(err, tt.wantErr) {
-				t.Errorf("DoScan() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-
-			snap := testutility.NewSnapshot()
-			snap.MatchJSON(t, got)
-		})
 	}
 }

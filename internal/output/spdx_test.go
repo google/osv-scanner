@@ -2,6 +2,8 @@ package output_test
 
 import (
 	"bytes"
+	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
@@ -17,6 +19,25 @@ func normalizeSPDXOutput(t *testing.T, str string) string {
 	str = text.StripEscape(str)
 	str = cachedregexp.MustCompile(`[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}`).ReplaceAllString(str, `<uuid>`)
 	str = cachedregexp.MustCompile(`"created": ".+T.+Z"`).ReplaceAllString(str, `"created": "<timestamp>"`)
+
+	// Replace hyphenated working directory path in SPDXRef-File IDs
+	cwd := filepath.ToSlash(testutility.GetCurrentWorkingDirectory(t))
+	invalidCharsRegex := cachedregexp.MustCompile(`[^a-zA-Z0-9.-]`)
+	cwdHyphenated := invalidCharsRegex.ReplaceAllString(cwd, "-")
+
+	str = strings.ReplaceAll(str, cwdHyphenated, "-<rootdir>")
+	str = strings.ReplaceAll(str, strings.TrimPrefix(cwdHyphenated, "-"), "<rootdir>")
+
+	spdxPrefixRegex := cachedregexp.MustCompile(`SPDXRef-File-*<rootdir>`)
+	str = spdxPrefixRegex.ReplaceAllString(str, "SPDXRef-File-<rootdir>")
+
+	// Normalize 8-character path hashes in SPDXRef-File IDs
+	spdxHashRegex := cachedregexp.MustCompile(`(SPDXRef-File.*?)-[a-f0-9]{8}\b`)
+	str = spdxHashRegex.ReplaceAllString(str, "${1}-<hash>")
+
+	// Normalize file content SHA256 checksums (which differ on Windows due to CRLF line endings)
+	spdxChecksumRegex := cachedregexp.MustCompile(`("checksumValue":\s*")[a-f0-9]{64}(")`)
+	str = spdxChecksumRegex.ReplaceAllString(str, "${1}<checksum>${2}")
 
 	return str
 }

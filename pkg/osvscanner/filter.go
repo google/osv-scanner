@@ -1,119 +1,11 @@
-// Package osvscanner provides the main logic for the OSV-Scanner.
 package osvscanner
 
 import (
-	"fmt"
-
-	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/config"
-	"github.com/google/osv-scanner/v2/internal/imodels"
-	"github.com/google/osv-scanner/v2/internal/imodels/results"
 	"github.com/google/osv-scanner/v2/pkg/models"
-	"github.com/ossf/osv-schema/bindings/go/osvconstants"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
-
-// filterUnscannablePackages removes packages that don't have enough information to be scanned or
-// are not a supported ecosystem, and returns the list of removed packages (if --all-packages flag is passed in)
-// e,g, local packages that specified by path
-func filterUnscannablePackages(scanResults *results.ScanResults, actions ScannerActions) []*extractor.Package {
-	packageResults := make([]*extractor.Package, 0, len(scanResults.Inventory.Packages))
-	filteredPsr := make([]*extractor.Package, 0, len(scanResults.Inventory.Packages))
-	for _, psr := range scanResults.Inventory.Packages {
-		switch {
-		// If **none** of the cases match, skip this package since it's not scannable
-		case !imodels.Ecosystem(psr).IsEmpty() && imodels.Name(psr) != "" && imodels.Version(psr) != "":
-		case imodels.Commit(psr) != "":
-		default:
-			if actions.ShowAllPackages {
-				filteredPsr = append(filteredPsr, psr)
-			}
-
-			continue
-		}
-
-		switch {
-		// If **any** of the following cases are true, skip this package
-		case imodels.Ecosystem(psr).Ecosystem == osvconstants.EcosystemMaven && imodels.Name(psr) == "unknown", // Is Maven with package name unknown
-			imodels.Ecosystem(psr).GetValidity() != nil && !imodels.Ecosystem(psr).IsEmpty(): // Is invalid and not empty
-			if actions.ShowAllPackages {
-				filteredPsr = append(filteredPsr, psr)
-			}
-
-			continue
-		// Short commit hashes (< 40 hex chars) are rejected by the OSV API with
-		// "Invalid hash". Skip them with a warning rather than aborting the scan.
-		case imodels.Commit(psr) != "" && len(imodels.Commit(psr)) < 40:
-			cmdlogger.Warnf("Skipping %s: short commit hash %q cannot be queried; OSV API requires a full 40-character SHA.", imodels.Name(psr), imodels.Commit(psr))
-
-			if actions.ShowAllPackages {
-				filteredPsr = append(filteredPsr, psr)
-			}
-
-			continue
-		}
-
-		packageResults = append(packageResults, psr)
-	}
-
-	if len(packageResults) != len(scanResults.Inventory.Packages) {
-		cmdlogger.Infof("Filtered %d local/unscannable package/s from the scan.", len(scanResults.Inventory.Packages)-len(packageResults))
-	}
-
-	scanResults.Inventory.Packages = packageResults
-
-	return filteredPsr
-}
-
-// filterNonContainerRelevantPackages removes packages that are not relevant when doing container scanning
-func filterNonContainerRelevantPackages(scanResults *results.ScanResults) {
-	packageResults := make([]*extractor.Package, 0, len(scanResults.Inventory.Packages))
-	for _, psr := range scanResults.Inventory.Packages {
-		// Almost all packages with linux as a SourceName are kernel packages
-		// which does not apply within a container, as containers use the host's kernel
-		if imodels.Name(psr) == "linux" {
-			continue
-		}
-
-		packageResults = append(packageResults, psr)
-	}
-
-	if len(packageResults) != len(scanResults.Inventory.Packages) {
-		cmdlogger.Infof("Filtered %d non container relevant package/s from the scan.", len(scanResults.Inventory.Packages)-len(packageResults))
-	}
-
-	scanResults.Inventory.Packages = packageResults
-}
-
-// filterIgnoredPackages removes ignore scanned packages according to config. Returns filtered scanned packages.
-func filterIgnoredPackages(scanResults *results.ScanResults) {
-	configManager := &scanResults.ConfigManager
-
-	out := make([]*extractor.Package, 0, len(scanResults.Inventory.Packages))
-	for _, psr := range scanResults.Inventory.Packages {
-		configToUse := configManager.Get(imodels.Location(psr))
-
-		if ignore, ignoreLine := configToUse.ShouldIgnorePackage(psr); ignore {
-			pkgString := fmt.Sprintf("%s/%s/%s", imodels.Ecosystem(psr).String(), imodels.Name(psr), imodels.Version(psr))
-
-			reason := ignoreLine.Reason
-			if reason == "" {
-				reason = "(no reason given)"
-			}
-			cmdlogger.Infof("Package %s has been filtered out because: %s", pkgString, reason)
-
-			continue
-		}
-		out = append(out, psr)
-	}
-
-	if len(out) != len(scanResults.Inventory.Packages) {
-		cmdlogger.Infof("Filtered %d ignored package/s from the scan.", len(scanResults.Inventory.Packages)-len(out))
-	}
-
-	scanResults.Inventory.Packages = out
-}
 
 // Filters results according to config, preserving order. Returns total number of vulnerabilities removed.
 func filterResults(vulnResults *models.VulnerabilityResults, configManager *config.Manager, allPackages bool) int {

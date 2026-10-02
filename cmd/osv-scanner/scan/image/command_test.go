@@ -8,14 +8,13 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/testcmd"
+	"github.com/google/osv-scanner/v2/internal/grpcvcr"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
 func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 	t.Parallel()
 	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker to build the images")
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -67,8 +66,6 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
-
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
 
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
@@ -80,8 +77,6 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 
 	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker to build the images")
 
-	client := testcmd.InsertCassette(t)
-
 	tests := []testcmd.Case{
 		{
 			Name: "add_extractors",
@@ -137,8 +132,6 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -148,9 +141,6 @@ func TestCommand_Docker(t *testing.T) {
 	t.Parallel()
 
 	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker (also takes a long time to pull images)")
-	testutility.SkipIfShort(t)
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -169,7 +159,7 @@ func TestCommand_Docker(t *testing.T) {
 			Exit: 127,
 		},
 		{
-			Name: "Real_empty_image_with_no_tag,_invalid_scan_target",
+			Name: "Real_empty_image_with_no_tag_invalid_scan_target",
 			Args: []string{"", "image", "hello-world"},
 			Exit: 127, // Invalid scan target
 		},
@@ -181,6 +171,11 @@ func TestCommand_Docker(t *testing.T) {
 		{
 			Name: "real_empty_image_with_tag_and_allow_no_lockfiles_flag",
 			Args: []string{"", "image", "--allow-no-lockfiles", "hello-world:linux"},
+			Exit: 0,
+		},
+		{
+			Name: "real_empty_image_with_tag_and_allow_no_lockfiles_flag_json",
+			Args: []string{"", "image", "--format", "json", "--allow-no-lockfiles", "hello-world:linux"},
 			Exit: 0,
 		},
 		{
@@ -206,8 +201,6 @@ func TestCommand_Docker(t *testing.T) {
 				testutility.Skip(t, "Skipping Docker-based test as only Linux has Docker installed in CI")
 			}
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -216,8 +209,7 @@ func TestCommand_Docker(t *testing.T) {
 func TestCommand_OCIImage(t *testing.T) {
 	t.Parallel()
 	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker to build the images")
-
-	client := testcmd.InsertCassette(t)
+	passthroughRecorder, _ := grpcvcr.NewRecorder("", grpcvcr.ModePassthrough, t.Name())
 
 	tests := []testcmd.Case{
 		{
@@ -374,12 +366,25 @@ func TestCommand_OCIImage(t *testing.T) {
 				"", "image",
 				"--archive", "./testdata/test-chisel.tar",
 			},
+			GRPCRecorder: passthroughRecorder,
+			Exit:         1,
+		},
+		{
+			Name: "Scanning_openSUSE_Leap_15.5_image",
+			Args: []string{"", "image", "--archive", "./testdata/test-opensuse-leap-15.5.tar"},
 			Exit: 1,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
+
+			// the os/rpm extractor has a Windows-only stub implementation upstream
+			// (osv-scalibr's rpm_dummy.go) that never finds any packages, so
+			// RPM-based image tests can't pass there yet
+			if runtime.GOOS == "windows" && (strings.Contains(strings.ToLower(tt.Name), "opensuse") || strings.Contains(strings.ToLower(tt.Name), "almalinux")) {
+				testutility.Skip(t, "Skipping RPM-based test as os/rpm extraction is not supported on Windows")
+			}
 
 			// point out that we need the images to be built and saved separately
 			for _, arg := range tt.Args {
@@ -390,8 +395,6 @@ func TestCommand_OCIImage(t *testing.T) {
 				}
 			}
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -400,8 +403,6 @@ func TestCommand_OCIImage(t *testing.T) {
 func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 	t.Parallel()
 	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker to build the images")
-
-	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -537,10 +538,28 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 				testutility.AnyDiffID,
 			},
 		},
+		{
+			Name: "scanning_opensuse_leap_15.5_image",
+			Args: []string{"", "image", "--archive", "--format=json", "./testdata/test-opensuse-leap-15.5.tar"},
+			Exit: 1,
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.GroupsAsArrayLen,
+				testutility.OnlyIDVulnsRule,
+				testutility.OnlyFirstBaseImage,
+				testutility.AnyDiffID,
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
+
+			// the os/rpm extractor has a Windows-only stub implementation upstream
+			// (osv-scalibr's rpm_dummy.go) that never finds any packages, so
+			// RPM-based image tests can't pass there yet
+			if runtime.GOOS == "windows" && (strings.Contains(strings.ToLower(tt.Name), "opensuse") || strings.Contains(strings.ToLower(tt.Name), "almalinux")) {
+				testutility.Skip(t, "Skipping RPM-based test as os/rpm extraction is not supported on Windows")
+			}
 
 			// point out that we need the images to be built and saved separately
 			for _, arg := range tt.Args {
@@ -550,8 +569,6 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 					}
 				}
 			}
-
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
 
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
@@ -563,7 +580,6 @@ func TestCommand_HtmlFile(t *testing.T) {
 	testutility.SkipIfNotAcceptanceTesting(t, "Needs built container images")
 
 	testDir := testutility.CreateTestDir(t)
-	client := testcmd.InsertCassette(t)
 
 	_, stderr := testcmd.RunAndNormalize(t, testcmd.Case{
 		Name: "one_specific_supported_lockfile",
@@ -572,8 +588,6 @@ func TestCommand_HtmlFile(t *testing.T) {
 			"--archive", "./testdata/test-alpine.tar",
 		},
 		Exit: 1,
-
-		HTTPClient: testcmd.WithTestNameHeader(t, *client),
 	})
 
 	testutility.NewSnapshot().WithWindowsReplacements(map[string]string{

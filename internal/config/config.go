@@ -52,7 +52,7 @@ type PackageOverrideEntry struct {
 func (e PackageOverrideEntry) matches(pkg *extractor.Package) bool {
 	if e.Name != "" {
 		if e.NameIsRegex {
-			re, err := cachedregexp.Compile("^" + e.Name + "$")
+			re, err := cachedregexp.Compile("^(?:" + e.Name + ")$")
 			if err != nil {
 				// This should not happen as regex is validated at config load time
 				return false

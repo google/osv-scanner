@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"path/filepath"
+	"strings"
 
 	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
 	"github.com/google/osv-scalibr/extractor"
@@ -63,7 +64,7 @@ func (e Extractor) Extract(_ context.Context, input *filesystem.ScanInput) (inve
 					Ecosystem:  pkg.Package.Ecosystem,
 					SourceInfo: res.Source,
 				},
-				PURLType: "placeholder",
+				PURLType: ecosystemToPURLType(pkg.Package.Ecosystem),
 				Location: extractor.LocationFromPath(input.Path),
 				Plugins:  []string{"osv/osvscannerjson"},
 			}
@@ -80,6 +81,33 @@ func (e Extractor) Extract(_ context.Context, input *filesystem.ScanInput) (inve
 	return inventory.Inventory{
 		Packages: packages,
 	}, nil
+}
+
+func ecosystemToPURLType(eco string) string {
+	switch strings.ToLower(eco) {
+	case "go":
+		return "golang"
+	case "git":
+		return "git"
+	case "npm":
+		return "npm"
+	case "pypi":
+		return "pypi"
+	case "maven":
+		return "maven"
+	case "packagist":
+		return "composer"
+	case "crates.io":
+		return "cargo"
+	case "rubygems":
+		return "gem"
+	case "nuget":
+		return "nuget"
+	case "pub":
+		return "pub"
+	default:
+		return "placeholder"
+	}
 }
 
 var _ filesystem.Extractor = Extractor{}

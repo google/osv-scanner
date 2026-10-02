@@ -1100,7 +1100,7 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
 [TestPrintVerticalResults_WithVulnerabilities/one_source_with_vulnerabilities,_some_missing_content - 1]
 
-Total 2 packages affected by 2 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 2 Unknown) from 1 ecosystem.
+Total 2 packages affected by 4 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 4 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 npm
@@ -1110,11 +1110,15 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 2 packages with issues
   mine1@1.2.3 has the following known vulnerabilities:
     OSV-1: This vulnerability allows for some very scary stuff to happen - seriously,...
       Severity: 'N/A'; Minimal Fix Version: 'No fix available';
+    OSV-3: 界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
+    OSV-4: 界界界界界界界界界界界界界界界界界界界界界界界界界界 語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
   mine3@0.10.2-rc has the following known vulnerabilities:
     OSV-2: (no details available)
       Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
-  2 known vulnerabilities found in lockfile:<rootdir>/path/to/my/first/lockfile
+  4 known vulnerabilities found in lockfile:<rootdir>/path/to/my/first/lockfile
 
 ---
 

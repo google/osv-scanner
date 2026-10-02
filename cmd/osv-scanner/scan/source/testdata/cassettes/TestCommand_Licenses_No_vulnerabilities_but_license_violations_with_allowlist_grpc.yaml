@@ -1,0 +1,59 @@
+interactions:
+    - method: /deps_dev.v3.Insights/GetVersion
+      request: |-
+        {
+          "versionKey": {
+            "name": "balanced-match",
+            "system": "NPM",
+            "version": "1.0.2"
+          }
+        }
+      response: |-
+        {
+          "licenses": [
+            "MIT"
+          ],
+          "links": [
+            {
+              "label": "HOMEPAGE",
+              "url": "https://github.com/juliangruber/balanced-match"
+            },
+            {
+              "label": "ISSUE_TRACKER",
+              "url": "https://github.com/juliangruber/balanced-match/issues"
+            },
+            {
+              "label": "ORIGIN",
+              "url": "https://registry.npmjs.org/balanced-match/1.0.2"
+            },
+            {
+              "label": "SOURCE_REPO",
+              "url": "git://github.com/juliangruber/balanced-match.git"
+            }
+          ],
+          "publishedAt": "2021-04-06T12:51:09Z",
+          "registries": [
+            "https://registry.npmjs.org/"
+          ],
+          "relatedProjects": [
+            {
+              "projectKey": {
+                "id": "github.com/juliangruber/balanced-match"
+              },
+              "relationProvenance": "UNVERIFIED_METADATA",
+              "relationType": "ISSUE_TRACKER"
+            },
+            {
+              "projectKey": {
+                "id": "github.com/juliangruber/balanced-match"
+              },
+              "relationProvenance": "UNVERIFIED_METADATA",
+              "relationType": "SOURCE_REPO"
+            }
+          ],
+          "versionKey": {
+            "name": "balanced-match",
+            "system": "NPM",
+            "version": "1.0.2"
+          }
+        }

@@ -142,7 +142,7 @@ func printSummaryResult(result Result, outputWriter io.Writer, terminalWidth int
 			outputTable := newTable(outputWriter, terminalWidth)
 			// source.Name is user-controlled; sanitize \r/\n before printing to
 			// prevent GitHub Actions workflow command injection.
-			outputTable.SetTitle("Source:" + SanitizeForWorkflowCommand(source.Name))
+			outputTable.SetTitle("Source:" + SanitizeForWorkflowCommand(simplifySourcePath(source.Name, source.Type)))
 			sourcePackageHeader := "Package"
 			if isOSResult(source.Type) {
 				sourcePackageHeader = "Source Package"
@@ -499,4 +499,23 @@ func formatBinaryPackages(slice []string) string {
 	}
 
 	return fmt.Sprintf("%s... (%d)", truncatedResult, len(slice))
+}
+
+func simplifySourcePath(sourceName string, sourceType models.SourceType) string {
+	workingDir := mustGetWorkingDirectory()
+	typePrefix := ""
+	path := sourceName
+
+	if sourceType != "" && strings.HasPrefix(sourceName, string(sourceType)+":") {
+		typePrefix = string(sourceType) + ":"
+		path = strings.TrimPrefix(sourceName, typePrefix)
+	}
+
+	if filepath.IsAbs(path) {
+		if rel, err := filepath.Rel(workingDir, path); err == nil && !strings.HasPrefix(rel, "..") {
+			path = filepath.ToSlash(rel)
+		}
+	}
+
+	return typePrefix + path
 }

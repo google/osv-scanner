@@ -1,0 +1,325 @@
+---
+version: 2
+interactions:
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 4721
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "displaydoc"
+              },
+              "version": "0.2.5"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "form_urlencoded"
+              },
+              "version": "1.2.2"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "icu_collections"
+              },
+              "version": "2.1.1"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "icu_locale_core"
+              },
+              "version": "2.1.1"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "icu_normalizer"
+              },
+              "version": "2.1.1"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "icu_normalizer_data"
+              },
+              "version": "2.1.1"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "icu_properties"
+              },
+              "version": "2.1.1"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "icu_properties_data"
+              },
+              "version": "2.1.1"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "icu_provider"
+              },
+              "version": "2.1.1"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "idna"
+              },
+              "version": "1.1.0"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "idna_adapter"
+              },
+              "version": "1.2.1"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "litemap"
+              },
+              "version": "0.8.1"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "percent-encoding"
+              },
+              "version": "2.3.2"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "potential_utf"
+              },
+              "version": "0.1.4"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "proc-macro2"
+              },
+              "version": "1.0.103"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "quote"
+              },
+              "version": "1.0.42"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "rust_novuln_deprecated"
+              },
+              "version": "0.1.0"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "serde"
+              },
+              "version": "1.0.228"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "serde_core"
+              },
+              "version": "1.0.228"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "serde_derive"
+              },
+              "version": "1.0.228"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "smallvec"
+              },
+              "version": "1.15.1"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "stable_deref_trait"
+              },
+              "version": "1.2.1"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "syn"
+              },
+              "version": "2.0.111"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "synstructure"
+              },
+              "version": "0.13.2"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "tinystr"
+              },
+              "version": "0.8.2"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "unicode-ident"
+              },
+              "version": "1.0.22"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "url"
+              },
+              "version": "2.5.3"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "utf8_iter"
+              },
+              "version": "1.0.4"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "writeable"
+              },
+              "version": "0.6.2"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "yoke"
+              },
+              "version": "0.8.1"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "yoke-derive"
+              },
+              "version": "0.8.1"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "zerofrom"
+              },
+              "version": "0.1.6"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "zerofrom-derive"
+              },
+              "version": "0.1.6"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "zerotrie"
+              },
+              "version": "0.2.3"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "zerovec"
+              },
+              "version": "0.11.5"
+            },
+            {
+              "package": {
+                "ecosystem": "crates.io",
+                "name": "zerovec-derive"
+              },
+              "version": "0.11.2"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 121
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "121"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s

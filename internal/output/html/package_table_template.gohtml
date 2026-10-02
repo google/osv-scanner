@@ -30,15 +30,21 @@
   {{ range $rowIndex, $element := .Packages }}
   {{ $index := uniqueID }}
   {{ $isUncalled := false }}
-  {{ if eq $element.VulnCount.AnalysisCount.Regular 0 }}
+  {{ if and (eq $element.VulnCount.AnalysisCount.Regular 0) (gt (len $element.HiddenVulns) 0) }}
   {{ $isUncalled = true }}
+  {{ end }}
+  {{ $hasNoVulns := false }}
+  {{ if and (eq $element.VulnCount.AnalysisCount.Regular 0) (eq (len $element.HiddenVulns) 0) }}
+  {{ $hasNoVulns = true }}
   {{ end }}
   {{ $hasLicenseViolations := false }}
   {{ if gt (len .LicenseViolations) 0 }}
   {{ $hasLicenseViolations = true }}
   {{ end }}
   <tr class="table-tr package-tr {{if $element.LayerDetail }}has-layer-info"
-    data-layer="{{ $element.LayerDetail.LayerInfo.LayerMetadata.DiffID }}{{ end }}" id="table-tr-{{ $index }}" onclick="showPackageDetails('{{ $index }}')">
+    data-layer="{{ $element.LayerDetail.LayerInfo.LayerMetadata.DiffID }}{{ end }}"
+    data-has-license-violation="{{ $hasLicenseViolations }}"
+    id="table-tr-{{ $index }}" onclick="showPackageDetails('{{ $index }}')">
     <td class="icon-td">
       <div class="expand-icon">
         <i class="material-icons">play_arrow</i>
@@ -56,6 +62,14 @@
     {{ end }}
     </td>
     {{ if not $isUncalled }}
+    {{ if $hasNoVulns }}
+    <td>
+      <p class="fixable-tag has-fix">No known vulnerabilities</p>
+    </td>
+    <td>
+      <p>--</p>
+    </td>
+    {{ else }}    
     <td>
       <div class="tooltip no-underline">
       {{ if ne $element.VulnCount.FixableCount.UnFixed 0 }}
@@ -76,6 +90,7 @@
     <td>
       {{ template "severity_summary_template.gohtml" $element.VulnCount.SeverityCount }}
     </td>
+    {{ end }}
     {{ else }}
     <td>
       <p class="fixable-tag no-fix">Filtered out</p>

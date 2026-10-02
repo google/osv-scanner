@@ -1,0 +1,67 @@
+---
+version: 2
+interactions:
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 298
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "NuGet",
+                "name": "Newtonsoft.Json"
+              },
+              "version": "12.0.1"
+            },
+            {
+              "package": {
+                "ecosystem": "NuGet",
+                "name": "System.Text.RegularExpressions"
+              },
+              "version": "4.3.0"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 177
+      body: |
+        {
+          "results": [
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-5crp-9r3c-p9vr",
+                  "modified": "2026-07-08T06:53:11.583483Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-cmhx-cq75-c4mj",
+                  "modified": "2023-11-08T04:00:33.819349Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "177"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s

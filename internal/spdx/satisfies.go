@@ -55,8 +55,17 @@ func (n nodeLeaf) satisfiedBy(licenses []string) bool {
 
 var _ node = nodeLeaf{}
 
+// maxDepth bounds how deeply nested the parser will recurse into bracketed
+// sub-expressions. License expressions are supplied by scanned package
+// metadata, which is untrusted; without a limit a deeply nested expression
+// (e.g. many "(") recurses until the goroutine stack overflows, which is a
+// fatal error that recover cannot catch. Real SPDX expressions nest only a
+// handful of levels, so this ceiling is far above any legitimate input.
+const maxDepth = 1000
+
 type tokens struct {
 	tokens []string
+	depth  int
 }
 
 // peek returns the next token in the list of tokens, or otherwise an empty string
@@ -89,6 +98,10 @@ var allowed = map[string][]string{
 
 // nextAndIsNextNextValid returns both the next token, and checks if the token after that one is valid
 func (ts *tokens) nextAndIsNextNextValid() (string, error) {
+	if len(ts.tokens) == 0 {
+		return "", errors.New("unexpected end of expression")
+	}
+
 	next := ts.next()
 
 	return next, ts.isNextValid(next)
@@ -219,10 +232,16 @@ func parseExpression(tokens *tokens) (node, error) {
 	}
 
 	if next == "(" {
+		tokens.depth++
+		if tokens.depth > maxDepth {
+			return nil, fmt.Errorf("license expression nested too deeply (limit %d)", maxDepth)
+		}
+
 		expr, err := parseOr(tokens)
 		if err != nil {
 			return nil, err
 		}
+		tokens.depth--
 
 		if tokens.peek() != ")" {
 			return nil, errors.New("missing closing bracket")
@@ -251,6 +270,13 @@ func parseExpression(tokens *tokens) (node, error) {
 
 // Satisfies checks if the given license expression is satisfied by the allowed licenses
 func Satisfies(license models.License, allowlist []string) (bool, error) {
+	// An empty expression (e.g. a package license field that was never set)
+	// contains no tokens, meaning it cannot be satisfied by anything on the
+	// allowlist. Handle it explicitly so it never reaches the tokenizer.
+	if strings.TrimSpace(string(license)) == "" {
+		return false, nil
+	}
+
 	tokens := tokenise(license)
 	nod, err := parse(&tokens)
 
