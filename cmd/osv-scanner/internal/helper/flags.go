@@ -23,6 +23,7 @@ var offlineFlags = map[string]string{
 // that should be considered allowed
 type allowedLicencesFlag struct {
 	allowlist []string
+	enabled   bool
 }
 
 func (g *allowedLicencesFlag) Get() any {
@@ -30,6 +31,7 @@ func (g *allowedLicencesFlag) Get() any {
 }
 
 func (g *allowedLicencesFlag) Set(value string) error {
+	g.enabled = value != "false"
 	if value == "" || value == "false" || value == "true" {
 		g.allowlist = nil
 	} else {
