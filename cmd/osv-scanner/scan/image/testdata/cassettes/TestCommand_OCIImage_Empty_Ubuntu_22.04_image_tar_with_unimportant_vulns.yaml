@@ -728,7 +728,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 27855
+      content_length: 29501
       body: |
         {
           "results": [
@@ -773,7 +773,18 @@ interactions:
                 }
               ]
             },
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "UBUNTU-CVE-2026-102473",
+                  "modified": "2026-10-01T00:21:05.816443Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2026-102474",
+                  "modified": "2026-10-01T00:21:05.853301Z"
+                }
+              ]
+            },
             {},
             {},
             {
@@ -811,6 +822,14 @@ interactions:
                 {
                   "id": "UBUNTU-CVE-2023-4039",
                   "modified": "2026-05-20T16:17:03.256749Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2026-102010",
+                  "modified": "2026-09-30T21:41:53Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2026-95619",
+                  "modified": "2026-09-28T22:45:21.914592Z"
                 },
                 {
                   "id": "USN-7700-1",
@@ -851,11 +870,11 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2026-41991",
-                  "modified": "2026-09-08T19:56:32.361533Z"
+                  "modified": "2026-09-23T14:41:41.495696Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2026-41992",
-                  "modified": "2026-09-08T19:56:32.589837Z"
+                  "modified": "2026-09-23T14:41:41.556540Z"
                 },
                 {
                   "id": "USN-8512-1",
@@ -1016,19 +1035,31 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2026-77117",
-                  "modified": "2026-09-17T13:30:16.099512Z"
+                  "modified": "2026-09-24T02:00:46.627022Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2026-80489",
-                  "modified": "2026-09-17T13:30:15.900757Z"
+                  "modified": "2026-09-24T02:01:00.347236Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2026-8674",
-                  "modified": "2026-09-18T12:30:37.358381Z"
+                  "modified": "2026-09-24T02:00:39.581152Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2026-86805",
+                  "modified": "2026-09-25T00:41:26.805780Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2026-89092",
-                  "modified": "2026-09-16T11:43:12Z"
+                  "modified": "2026-09-25T00:41:27.846316Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2026-95818",
+                  "modified": "2026-09-25T00:40:28.014244Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2026-97399",
+                  "modified": "2026-10-01T19:11:28.548573Z"
                 },
                 {
                   "id": "USN-7259-1",
@@ -1124,19 +1155,31 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2026-77117",
-                  "modified": "2026-09-17T13:30:16.099512Z"
+                  "modified": "2026-09-24T02:00:46.627022Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2026-80489",
-                  "modified": "2026-09-17T13:30:15.900757Z"
+                  "modified": "2026-09-24T02:01:00.347236Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2026-8674",
-                  "modified": "2026-09-18T12:30:37.358381Z"
+                  "modified": "2026-09-24T02:00:39.581152Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2026-86805",
+                  "modified": "2026-09-25T00:41:26.805780Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2026-89092",
-                  "modified": "2026-09-16T11:43:12Z"
+                  "modified": "2026-09-25T00:41:27.846316Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2026-95818",
+                  "modified": "2026-09-25T00:40:28.014244Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2026-97399",
+                  "modified": "2026-10-01T19:11:28.548573Z"
                 },
                 {
                   "id": "USN-7259-1",
@@ -1202,6 +1245,14 @@ interactions:
                   "modified": "2026-05-20T16:17:03.256749Z"
                 },
                 {
+                  "id": "UBUNTU-CVE-2026-102010",
+                  "modified": "2026-09-30T21:41:53Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2026-95619",
+                  "modified": "2026-09-28T22:45:21.914592Z"
+                },
+                {
                   "id": "USN-7700-1",
                   "modified": "2026-04-27T18:13:01.606435Z"
                 }
@@ -1211,7 +1262,7 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2024-2236",
-                  "modified": "2026-09-01T21:00:05.384618Z"
+                  "modified": "2026-09-25T17:45:09.209245Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2026-41989",
@@ -1793,8 +1844,12 @@ interactions:
                   "modified": "2026-04-22T13:23:47.523941Z"
                 },
                 {
+                  "id": "UBUNTU-CVE-2026-103111",
+                  "modified": "2026-10-01T00:21:06.066438Z"
+                },
+                {
                   "id": "UBUNTU-CVE-2026-86145",
-                  "modified": "2026-09-16T14:03:45.335998Z"
+                  "modified": "2026-09-25T12:00:09.871164Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2026-89156",
@@ -1814,7 +1869,7 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2026-89161",
-                  "modified": "2026-09-18T12:30:21.784423Z"
+                  "modified": "2026-09-25T12:00:09.182943Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2026-89162",
@@ -1885,11 +1940,11 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2024-13176",
-                  "modified": "2026-08-26T01:55:50.472936Z"
+                  "modified": "2026-09-30T05:36:15.168022Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2024-9143",
-                  "modified": "2026-08-26T01:58:08.993514Z"
+                  "modified": "2026-09-30T05:36:41.481565Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-15467",
@@ -1960,6 +2015,10 @@ interactions:
                   "modified": "2026-09-15T08:30:54.177985Z"
                 },
                 {
+                  "id": "UBUNTU-CVE-2026-35189",
+                  "modified": "2026-10-02T12:17:55.561748Z"
+                },
+                {
                   "id": "UBUNTU-CVE-2026-42766",
                   "modified": "2026-09-15T08:30:54.530918Z"
                 },
@@ -1984,20 +2043,24 @@ interactions:
                   "modified": "2026-09-15T08:30:56.327442Z"
                 },
                 {
+                  "id": "UBUNTU-CVE-2026-54872",
+                  "modified": "2026-10-01T00:21:34.949989Z"
+                },
+                {
                   "id": "UBUNTU-CVE-2026-54874",
-                  "modified": "2026-09-15T08:30:56.236163Z"
+                  "modified": "2026-09-24T02:00:33.792740Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2026-63072",
-                  "modified": "2026-09-15T08:30:57.094112Z"
+                  "modified": "2026-10-01T00:21:35.284676Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2026-63074",
-                  "modified": "2026-09-15T08:30:56.731967Z"
+                  "modified": "2026-10-01T00:21:35.529781Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2026-63076",
-                  "modified": "2026-09-15T08:30:55.622872Z"
+                  "modified": "2026-10-01T00:21:35.713469Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2026-7383",
@@ -2005,7 +2068,23 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2026-75803",
-                  "modified": "2026-09-15T08:30:56.531806Z"
+                  "modified": "2026-10-01T00:22:09.146808Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2026-75805",
+                  "modified": "2026-10-01T00:22:09.329218Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2026-75806",
+                  "modified": "2026-10-01T00:22:10.967864Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2026-77696",
+                  "modified": "2026-10-01T00:22:09.115980Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2026-84782",
+                  "modified": "2026-10-01T00:22:18.930671Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2026-9076",
@@ -2038,6 +2117,10 @@ interactions:
                 {
                   "id": "USN-8678-1",
                   "modified": "2026-09-03T16:02:11.857934Z"
+                },
+                {
+                  "id": "USN-8847-1",
+                  "modified": "2026-10-02T12:17:34.659927Z"
                 }
               ]
             },
@@ -2050,6 +2133,14 @@ interactions:
                 {
                   "id": "UBUNTU-CVE-2023-4039",
                   "modified": "2026-05-20T16:17:03.256749Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2026-102010",
+                  "modified": "2026-09-30T21:41:53Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2026-95619",
+                  "modified": "2026-09-28T22:45:21.914592Z"
                 },
                 {
                   "id": "USN-7700-1",
@@ -2443,6 +2534,10 @@ interactions:
                   "modified": "2026-09-09T19:45:04.560774Z"
                 },
                 {
+                  "id": "UBUNTU-CVE-2026-82560",
+                  "modified": "2026-09-23T23:36:44Z"
+                },
+                {
                   "id": "UBUNTU-CVE-2026-8376",
                   "modified": "2026-09-16T14:03:32.212829Z"
                 },
@@ -2577,7 +2672,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "27855"
+          - "29501"
         Content-Type:
           - application/json
       status: 200 OK

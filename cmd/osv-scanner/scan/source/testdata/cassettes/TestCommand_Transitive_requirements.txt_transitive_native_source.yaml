@@ -10877,7 +10877,7 @@ interactions:
         Strict-Transport-Security:
           - max-age=31536000; includeSubDomains; preload
         Vary:
-          - Accept-Encoding, Accept
+          - Accept, Accept-Encoding
         X-Content-Type-Options:
           - nosniff
         X-Frame-Options:
@@ -47351,10 +47351,2724 @@ interactions:
               "upload-time": "2025-09-27T18:37:40.426446Z",
               "url": "https://files.pythonhosted.org/packages/7e/99/7690b6d4034fffd95959cbe0c02de8deb3098cc577c67bb6a24fe5d7caa7/markupsafe-3.0.3.tar.gz",
               "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp310-cp310-macosx_10_9_x86_64.whl",
+              "hashes": {
+                "sha256": "dd8ea6ebee7aedbf7c749fa80521d9ccf1ba473e0d1e14805caafbaad281c889"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp310-cp310-macosx_10_9_x86_64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 11521,
+              "upload-time": "2026-10-02T23:04:20.141728Z",
+              "url": "https://files.pythonhosted.org/packages/41/aa/9a65962e364bf19745f6bec7bde398fb1f5ca53ad2e734258e6198cc32ba/markupsafe-3.0.4-cp310-cp310-macosx_10_9_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp310-cp310-macosx_11_0_arm64.whl",
+              "hashes": {
+                "sha256": "dff05cb7016dff1e9fd68f4122c127b65dfc59de5306cfb7ad92f956f230bee2"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp310-cp310-macosx_11_0_arm64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 12066,
+              "upload-time": "2026-10-02T23:04:21.275705Z",
+              "url": "https://files.pythonhosted.org/packages/14/36/927999a34b7d1def6957de89153d327fedc4030061940b5a468584e6c5a8/markupsafe-3.0.4-cp310-cp310-macosx_11_0_arm64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "hashes": {
+                "sha256": "cf63c214fe879a65e69a386f915e36104fc84254ab141240f8854602d8e0be2a"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 22081,
+              "upload-time": "2026-10-02T23:04:22.221619Z",
+              "url": "https://files.pythonhosted.org/packages/17/54/69e7b0db9bd687bfd83451eed5666384d67cfed3be062bfc59a06a15474e/markupsafe-3.0.4-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp310-cp310-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl",
+              "hashes": {
+                "sha256": "2a6ef68ae94aed8721934072b27a3b654ea2100b97e4ab864cf1489c90926fbc"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp310-cp310-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 26079,
+              "upload-time": "2026-10-02T23:04:23.346166Z",
+              "url": "https://files.pythonhosted.org/packages/bd/14/f6f5c97903f7d2db76bbfaced31509a47d360a103b3aaf4849f6536591ec/markupsafe-3.0.4-cp310-cp310-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp310-cp310-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+              "hashes": {
+                "sha256": "fd9f8797427910198f95bced71ddfed61130d7e349213bfb8466c9c99e2c46a8"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp310-cp310-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 22611,
+              "upload-time": "2026-10-02T23:04:24.401965Z",
+              "url": "https://files.pythonhosted.org/packages/d0/04/c3cc9b75f94f8b54d7e503c44cebd4b4a115ec1d6f1b996b999807daba99/markupsafe-3.0.4-cp310-cp310-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "hashes": {
+                "sha256": "d1aca03ede943eb80ab3d63bb082c84b7aab85ea83bd0fd0c200260945fb49d9"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 20712,
+              "upload-time": "2026-10-02T23:04:25.386168Z",
+              "url": "https://files.pythonhosted.org/packages/00/26/c4708ed3b0f08e8e6d7cbce3314ac130cb5352d1f62951b6fef7878f2b1e/markupsafe-3.0.4-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp310-cp310-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "hashes": {
+                "sha256": "0764a13d34cae40db7bbf3a09b7e9b491bf4603e20b263a7a9d6b8e324975d0a"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp310-cp310-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 20742,
+              "upload-time": "2026-10-02T23:04:26.403759Z",
+              "url": "https://files.pythonhosted.org/packages/d9/b9/f3894d6aae3d7a52c9363317f4baf2fcadc052163d6dbc871266e32639ed/markupsafe-3.0.4-cp310-cp310-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp310-cp310-musllinux_1_2_aarch64.whl",
+              "hashes": {
+                "sha256": "9388003072b95f2f1e3fd908604194d653ba21330d811961a78b7da1a77e9e36"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp310-cp310-musllinux_1_2_aarch64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 21560,
+              "upload-time": "2026-10-02T23:04:27.522150Z",
+              "url": "https://files.pythonhosted.org/packages/59/7c/8e248ddbfe286ab6bddb462bdac0851cbb1510d2cbbb815a415fcb0511af/markupsafe-3.0.4-cp310-cp310-musllinux_1_2_aarch64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp310-cp310-musllinux_1_2_armv7l.whl",
+              "hashes": {
+                "sha256": "8698d70a8081ee8c090dbb394768b5789a1da8b131b5499f89d071dd3cfaf6be"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp310-cp310-musllinux_1_2_armv7l.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 20973,
+              "upload-time": "2026-10-02T23:04:28.573465Z",
+              "url": "https://files.pythonhosted.org/packages/df/26/2353fef7d4bcf2b18e16bad81979fcecff2915156ca6882447917205b8e2/markupsafe-3.0.4-cp310-cp310-musllinux_1_2_armv7l.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp310-cp310-musllinux_1_2_ppc64le.whl",
+              "hashes": {
+                "sha256": "bf053da3c97a4bc5ecfbb218cdd2983febd91c617be8367d139882aa11e490aa"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp310-cp310-musllinux_1_2_ppc64le.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 22036,
+              "upload-time": "2026-10-02T23:04:29.568779Z",
+              "url": "https://files.pythonhosted.org/packages/67/6f/a9561d98d9a6ee3494b0b970a1c766e58bab128cc84841d56ec009456dbd/markupsafe-3.0.4-cp310-cp310-musllinux_1_2_ppc64le.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp310-cp310-musllinux_1_2_riscv64.whl",
+              "hashes": {
+                "sha256": "9438a2648b2195980cb2dd8e53ed7b8df91319e2d0b70ae61a9e1d1bc8d3bec9"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp310-cp310-musllinux_1_2_riscv64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 20314,
+              "upload-time": "2026-10-02T23:04:30.881306Z",
+              "url": "https://files.pythonhosted.org/packages/55/83/6217df9192eca95af3ff0cad955c9854a93fa43b288cf7411ae24713eb52/markupsafe-3.0.4-cp310-cp310-musllinux_1_2_riscv64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp310-cp310-musllinux_1_2_x86_64.whl",
+              "hashes": {
+                "sha256": "88d59b473bfb03259722600839af9bbd7fa13a2eb514beefeedb95997882f69a"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp310-cp310-musllinux_1_2_x86_64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 20780,
+              "upload-time": "2026-10-02T23:04:31.975237Z",
+              "url": "https://files.pythonhosted.org/packages/35/7c/9cd8081dae70e17fdab3558121fa618d459c7950c8abd8fc10fc024486d7/markupsafe-3.0.4-cp310-cp310-musllinux_1_2_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "filename": "markupsafe-3.0.4-cp310-cp310-win32.whl",
+              "hashes": {
+                "sha256": "4a540e2d3192792fc84eced57bef37851ccb2b41f73291bb17408eea77bcd278"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp310-cp310-win32.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 14096,
+              "upload-time": "2026-10-02T23:04:33.129061Z",
+              "url": "https://files.pythonhosted.org/packages/44/37/c5f2f45f4d8f0c24e4af7b9dc711640c888044cbf5f7e2ba2c0bb74cbb55/markupsafe-3.0.4-cp310-cp310-win32.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "filename": "markupsafe-3.0.4-cp310-cp310-win_amd64.whl",
+              "hashes": {
+                "sha256": "5c22873ad1f0532ba40fa1727f3c0fc1bbbaab6d373d4cbe3f0dc74b2e2521c7"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp310-cp310-win_amd64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 14329,
+              "upload-time": "2026-10-02T23:04:34.168635Z",
+              "url": "https://files.pythonhosted.org/packages/50/50/394a1c61c9b9972cb4f76875c332af7109bd39bdad09d3a0ec5327a339dc/markupsafe-3.0.4-cp310-cp310-win_amd64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "filename": "markupsafe-3.0.4-cp310-cp310-win_arm64.whl",
+              "hashes": {
+                "sha256": "3d23795802fc8bd72534836d64489bbf0f67c088959091bdb22e10735a5107bf"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp310-cp310-win_arm64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 14196,
+              "upload-time": "2026-10-02T23:04:35.201236Z",
+              "url": "https://files.pythonhosted.org/packages/d1/9a/86d03d2f32ba41a57baa124a7bcb76d0a6d39b1622e9bd4d550074e8b61a/markupsafe-3.0.4-cp310-cp310-win_arm64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp311-cp311-macosx_10_9_x86_64.whl",
+              "hashes": {
+                "sha256": "9e25feb9e330b63edb0278a0acdf85e50d0cb0fbf49c3084abbe4e24ae195346"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp311-cp311-macosx_10_9_x86_64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 11520,
+              "upload-time": "2026-10-02T23:04:36.299119Z",
+              "url": "https://files.pythonhosted.org/packages/32/55/18dbb4778b30ada5ce071608503cc3edc9e14e13d868c17a6d178fc30f7a/markupsafe-3.0.4-cp311-cp311-macosx_10_9_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp311-cp311-macosx_11_0_arm64.whl",
+              "hashes": {
+                "sha256": "7d3391b2188d18737cb2fa147028b1096236eaa7e156446c650a489fa2cadc91"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp311-cp311-macosx_11_0_arm64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 12063,
+              "upload-time": "2026-10-02T23:04:37.291430Z",
+              "url": "https://files.pythonhosted.org/packages/6c/14/0b05f79b4733e264a18d08fe08fa1df7347630ff32a6cb82180d9dccec55/markupsafe-3.0.4-cp311-cp311-macosx_11_0_arm64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "hashes": {
+                "sha256": "849dd2bb0e5e4ab2b71c7191726a4a8d5aa8a610daa584728cbee0b710ddc4ef"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 24321,
+              "upload-time": "2026-10-02T23:04:38.262367Z",
+              "url": "https://files.pythonhosted.org/packages/ca/3a/63ba10b6c1463216b3e4df669a9f0e5a3b0c3071557d2e8229e3968c79fb/markupsafe-3.0.4-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp311-cp311-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl",
+              "hashes": {
+                "sha256": "befb4158af32106b9a93db8d6d1d1cbbd418c0d5aca0cabb7b1780abf0c89169"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp311-cp311-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 28845,
+              "upload-time": "2026-10-02T23:04:39.295471Z",
+              "url": "https://files.pythonhosted.org/packages/1a/2e/5f015261b76ad633d187ef6f388b413aedd64a8773c4df59e530a0be5525/markupsafe-3.0.4-cp311-cp311-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp311-cp311-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+              "hashes": {
+                "sha256": "71f88e749ea29f67f21f3b36433c1dc54c7729ed2a6d9e2da2e0d9e0d7b224eb"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp311-cp311-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 24701,
+              "upload-time": "2026-10-02T23:04:40.348575Z",
+              "url": "https://files.pythonhosted.org/packages/33/cf/26e594b26be40c2f1fec63ccf8a8b99d0335a5b2cbe84835c7d82a994375/markupsafe-3.0.4-cp311-cp311-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "hashes": {
+                "sha256": "6da83a088f8ef93b2d483a8232a4dbf4d69d3d8496b568a03c56becac43e1808"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 22961,
+              "upload-time": "2026-10-02T23:04:41.372406Z",
+              "url": "https://files.pythonhosted.org/packages/81/a5/a513b76c139a3915b43404324e55c0b7979ae4f0d39eb6f075b0282e90a8/markupsafe-3.0.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp311-cp311-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "hashes": {
+                "sha256": "8f0fac8b13d14bb06c68195f849371924ae53dd7b1c00fed24650f704383b692"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp311-cp311-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 21920,
+              "upload-time": "2026-10-02T23:04:42.429581Z",
+              "url": "https://files.pythonhosted.org/packages/46/cf/4c66192c100b4542bcbe392ae06696b670f66927be3ac38a213234778ff9/markupsafe-3.0.4-cp311-cp311-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp311-cp311-musllinux_1_2_aarch64.whl",
+              "hashes": {
+                "sha256": "4a7cdc2a420ca01058182da4253329764d4bfa055564d1eced90e6ba1e8b1d3d"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp311-cp311-musllinux_1_2_aarch64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 23726,
+              "upload-time": "2026-10-02T23:04:43.531333Z",
+              "url": "https://files.pythonhosted.org/packages/cb/17/ac3662678bfbad649893117ada2ba44dc30bf56884e84f13154a792b10f1/markupsafe-3.0.4-cp311-cp311-musllinux_1_2_aarch64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp311-cp311-musllinux_1_2_armv7l.whl",
+              "hashes": {
+                "sha256": "83b3944fea42a8400edf92fd1770fb8d0d4f7de651353bd2d8525a92dba69a21"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp311-cp311-musllinux_1_2_armv7l.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 22539,
+              "upload-time": "2026-10-02T23:04:44.618612Z",
+              "url": "https://files.pythonhosted.org/packages/f7/af/fe47cee339180a69ebca3c57fb3483d0f5cbd1e8337d1871fb1d9c1aebee/markupsafe-3.0.4-cp311-cp311-musllinux_1_2_armv7l.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp311-cp311-musllinux_1_2_ppc64le.whl",
+              "hashes": {
+                "sha256": "8138eb83940ec7299024d92d4dee45f601b9e6c5ffde9d25f4e35e326203c707"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp311-cp311-musllinux_1_2_ppc64le.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 23963,
+              "upload-time": "2026-10-02T23:04:45.656688Z",
+              "url": "https://files.pythonhosted.org/packages/12/32/d55440ba140442800e02d799c9cb5ab597bf6ebdb1177b5ea39a11f797bd/markupsafe-3.0.4-cp311-cp311-musllinux_1_2_ppc64le.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp311-cp311-musllinux_1_2_riscv64.whl",
+              "hashes": {
+                "sha256": "811d02d5122171c1941357efd8f9bf4ffe907b7f0a1a4e729a880e4be3f46e3e"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp311-cp311-musllinux_1_2_riscv64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 21506,
+              "upload-time": "2026-10-02T23:04:46.671918Z",
+              "url": "https://files.pythonhosted.org/packages/50/9d/9c86042cb364c2ad4c971e6d1247929effd25f714cd7ee11b05e6316445b/markupsafe-3.0.4-cp311-cp311-musllinux_1_2_riscv64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp311-cp311-musllinux_1_2_x86_64.whl",
+              "hashes": {
+                "sha256": "50b5bedc9ed8a94fc8857a42ef4f84a81ea88f8d4f05dc8705fb23ee6d8dcca7"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp311-cp311-musllinux_1_2_x86_64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 22955,
+              "upload-time": "2026-10-02T23:04:47.698592Z",
+              "url": "https://files.pythonhosted.org/packages/75/ef/5b824f03ba40c3b3652b6272d083d2fc4fcdd440de519a3a39ba2c3e7262/markupsafe-3.0.4-cp311-cp311-musllinux_1_2_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "filename": "markupsafe-3.0.4-cp311-cp311-win32.whl",
+              "hashes": {
+                "sha256": "2e5a7cd7fdd14fcb1ae5d7d8bf23d24fbd1daefd1fbca2580132e1ea75f098b5"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp311-cp311-win32.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 14094,
+              "upload-time": "2026-10-02T23:04:48.788290Z",
+              "url": "https://files.pythonhosted.org/packages/1e/e8/44cfcb5ea40e5e43cec7793ef90704ed0c475280839076c4345757eb8e59/markupsafe-3.0.4-cp311-cp311-win32.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "filename": "markupsafe-3.0.4-cp311-cp311-win_amd64.whl",
+              "hashes": {
+                "sha256": "fdb4ca07ab75ffadab4a8b135ad59cdbb3156b99310f3d565370da74a15d6bd3"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp311-cp311-win_amd64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 14328,
+              "upload-time": "2026-10-02T23:04:49.801387Z",
+              "url": "https://files.pythonhosted.org/packages/91/89/f2b509f7bf79352e40117824c1070dbeafd4df67031d3fa98165a3134228/markupsafe-3.0.4-cp311-cp311-win_amd64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "filename": "markupsafe-3.0.4-cp311-cp311-win_arm64.whl",
+              "hashes": {
+                "sha256": "569d65055d367e3dcdf30c3f41119467b73d9ee9faf332bdf40402644f5ac08e"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp311-cp311-win_arm64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 14188,
+              "upload-time": "2026-10-02T23:04:50.847884Z",
+              "url": "https://files.pythonhosted.org/packages/2b/5a/ccf22672a0f64dc682306e288f0dabcb06c7a201f3bb6e6cbf86d9e8ad03/markupsafe-3.0.4-cp311-cp311-win_arm64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp312-cp312-macosx_10_13_x86_64.whl",
+              "hashes": {
+                "sha256": "61631e08084be9e21a8967ec3139c7616ed7c5e9368e05c86d1b39562c8a57b6"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp312-cp312-macosx_10_13_x86_64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 11658,
+              "upload-time": "2026-10-02T23:04:51.876593Z",
+              "url": "https://files.pythonhosted.org/packages/81/09/4c59d56b8461ae8eb0d8ba34bb25b7e618547044679d58a82ef9b2479fc1/markupsafe-3.0.4-cp312-cp312-macosx_10_13_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp312-cp312-macosx_11_0_arm64.whl",
+              "hashes": {
+                "sha256": "0930db9bdc62d22944e10b066448bb65dc9abe9112880c7cab8da54db4284d5f"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp312-cp312-macosx_11_0_arm64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 12050,
+              "upload-time": "2026-10-02T23:04:52.931524Z",
+              "url": "https://files.pythonhosted.org/packages/a2/f0/d6613774d86fbf6d145751d43c59875e47a6f9f17daee0aef173bd36d90e/markupsafe-3.0.4-cp312-cp312-macosx_11_0_arm64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "hashes": {
+                "sha256": "6a45c3d514f2436064db00d7fc8778d888f0236ebfed649b53d13a59e69ad51b"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 24363,
+              "upload-time": "2026-10-02T23:04:53.895397Z",
+              "url": "https://files.pythonhosted.org/packages/0d/f2/8f18e0b806eb13c1f8d07d917a720831ead54253a6dec011fbc78098a6f8/markupsafe-3.0.4-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp312-cp312-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl",
+              "hashes": {
+                "sha256": "1e1451fab512d1bcc3dc26988ec1edb0b82c2db909132872cd9356070a6b63df"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp312-cp312-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 28525,
+              "upload-time": "2026-10-02T23:04:54.905484Z",
+              "url": "https://files.pythonhosted.org/packages/60/ce/fa07dbe8a5675558fa36dea033e19995bc783de2dec5f540ccb9030b06aa/markupsafe-3.0.4-cp312-cp312-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp312-cp312-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+              "hashes": {
+                "sha256": "bd3ce56ae2cbae3ba82b683bc425cd7e48d2ed8b10f3e818186b6f5646d9271c"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp312-cp312-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 24733,
+              "upload-time": "2026-10-02T23:04:56.229779Z",
+              "url": "https://files.pythonhosted.org/packages/85/40/be87c01f3868ec217f8a2015089d71c22c8c5a75324822e5ed1cdd87210d/markupsafe-3.0.4-cp312-cp312-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "hashes": {
+                "sha256": "8e124f974786f831d6043728e38296969d3579db8896fe004682f5758e613581"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 22985,
+              "upload-time": "2026-10-02T23:04:57.521810Z",
+              "url": "https://files.pythonhosted.org/packages/4f/a7/aeedb5140afa41fc74c225e9184ab96723a6e873b6ee1c9fede7283456d8/markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp312-cp312-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "hashes": {
+                "sha256": "c02e8f18bdedba082cef725942ac823b9b60656db07f7e265cb31618dfd00d77"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp312-cp312-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 22001,
+              "upload-time": "2026-10-02T23:04:58.597966Z",
+              "url": "https://files.pythonhosted.org/packages/c3/fc/e91352bb08c6a59da3ef0909d457bf95a5f5908fbf151b30a06d9dbcfbb4/markupsafe-3.0.4-cp312-cp312-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp312-cp312-musllinux_1_2_aarch64.whl",
+              "hashes": {
+                "sha256": "9f098115c247e11d138ab83a28fa0323c77015007ea2df73ba5fd714dfefd67c"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp312-cp312-musllinux_1_2_aarch64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 23793,
+              "upload-time": "2026-10-02T23:04:59.686950Z",
+              "url": "https://files.pythonhosted.org/packages/5d/f8/bffee5e7d2a3deb59748a797650a48af7e672025cf641a79344a771ad106/markupsafe-3.0.4-cp312-cp312-musllinux_1_2_aarch64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp312-cp312-musllinux_1_2_armv7l.whl",
+              "hashes": {
+                "sha256": "d5f93ebbeb8032d47e349328ec8662d973d9b05a70b3c35df1f91fe419b84749"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp312-cp312-musllinux_1_2_armv7l.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 22640,
+              "upload-time": "2026-10-02T23:05:00.768127Z",
+              "url": "https://files.pythonhosted.org/packages/ed/59/b853d6628ecb4d658e1d637224846d5e9bb4adf4f8df97f3be9f29dce2ec/markupsafe-3.0.4-cp312-cp312-musllinux_1_2_armv7l.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp312-cp312-musllinux_1_2_ppc64le.whl",
+              "hashes": {
+                "sha256": "64511c54db4e4987aef4c41923235927428729e8174c5dba488429be70a998ed"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp312-cp312-musllinux_1_2_ppc64le.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 24074,
+              "upload-time": "2026-10-02T23:05:01.813976Z",
+              "url": "https://files.pythonhosted.org/packages/09/b2/1506df394f0f075797c418d0301498f49e43be194e3ffcb49e6fe6ccf022/markupsafe-3.0.4-cp312-cp312-musllinux_1_2_ppc64le.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp312-cp312-musllinux_1_2_riscv64.whl",
+              "hashes": {
+                "sha256": "e1a622f13970d81f95d0c72f9dc090dce9085fccfa4c9f2174377ee32bd15786"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp312-cp312-musllinux_1_2_riscv64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 21563,
+              "upload-time": "2026-10-02T23:05:03.239401Z",
+              "url": "https://files.pythonhosted.org/packages/c7/81/5ed69cda630ac69ef60d06c09ba5a7f84ff66a2e28cf986fd5614ab3c6e6/markupsafe-3.0.4-cp312-cp312-musllinux_1_2_riscv64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp312-cp312-musllinux_1_2_x86_64.whl",
+              "hashes": {
+                "sha256": "c9a7f43c0b202b334cc9184af09bb8f21d3a209e038efaf106936fb69e6b026e"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp312-cp312-musllinux_1_2_x86_64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 23048,
+              "upload-time": "2026-10-02T23:05:04.479876Z",
+              "url": "https://files.pythonhosted.org/packages/0c/fe/fb1e79be0fea60aa32602ebefc9c35a82bb42b4df157285ab7dfec12341a/markupsafe-3.0.4-cp312-cp312-musllinux_1_2_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "filename": "markupsafe-3.0.4-cp312-cp312-win32.whl",
+              "hashes": {
+                "sha256": "f0ec3b750b59375eab5b0fb2b9254810c00a3375be6d789899f1055a1d556237"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp312-cp312-win32.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 14108,
+              "upload-time": "2026-10-02T23:05:05.513222Z",
+              "url": "https://files.pythonhosted.org/packages/c8/52/7632a53360671a9b750cdbabaf9cdd89f18b42248b8e4cb42c0b0296e459/markupsafe-3.0.4-cp312-cp312-win32.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "filename": "markupsafe-3.0.4-cp312-cp312-win_amd64.whl",
+              "hashes": {
+                "sha256": "11935df9bf455ed0c04eb87bcd720f02b1fe5e02128a9430f23aed6f93336fc7"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp312-cp312-win_amd64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 14303,
+              "upload-time": "2026-10-02T23:05:06.538516Z",
+              "url": "https://files.pythonhosted.org/packages/3f/bf/62495e180b7000aaf30000fff849e933f74264638057176cf46852500adc/markupsafe-3.0.4-cp312-cp312-win_amd64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "filename": "markupsafe-3.0.4-cp312-cp312-win_arm64.whl",
+              "hashes": {
+                "sha256": "a4bbd2d87dd233b9fc5812160c3d0ffbe42edc22a26ce0469f58479ede633fe9"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp312-cp312-win_arm64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 14174,
+              "upload-time": "2026-10-02T23:05:07.617260Z",
+              "url": "https://files.pythonhosted.org/packages/c5/8e/4c24208776a65878d656996945aacfbfe010d3720d1a98fc0eb8491fc03b/markupsafe-3.0.4-cp312-cp312-win_arm64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp313-cp313-android_24_arm64_v8a.whl",
+              "hashes": {
+                "sha256": "de8b364c423ef0a4bad9069657d617f9a5d2b2062457a89b1fa16ee199c399c1"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp313-cp313-android_24_arm64_v8a.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 12786,
+              "upload-time": "2026-10-02T23:05:08.709065Z",
+              "url": "https://files.pythonhosted.org/packages/6d/18/4bc5ba32499e87bb2b0ef5b3a9bb9c00a131fa961ddf0be548cb550f548b/markupsafe-3.0.4-cp313-cp313-android_24_arm64_v8a.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp313-cp313-android_24_x86_64.whl",
+              "hashes": {
+                "sha256": "34bdde374c5932765d7dc685c4a1d191a3207852d67e8e0a9eb6ea85156181f1"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp313-cp313-android_24_x86_64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 12510,
+              "upload-time": "2026-10-02T23:05:09.930358Z",
+              "url": "https://files.pythonhosted.org/packages/4e/6f/17f0c099bf25f3e31e63cc19244d9f6af861a9a4ab778c203997903cfdd0/markupsafe-3.0.4-cp313-cp313-android_24_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp313-cp313-ios_13_0_arm64_iphoneos.whl",
+              "hashes": {
+                "sha256": "6bd9e1788e15bfcf6a9082de42e30387e7b85d211ab21e57a939bb8cfaaf8d96"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp313-cp313-ios_13_0_arm64_iphoneos.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 11583,
+              "upload-time": "2026-10-02T23:05:10.884149Z",
+              "url": "https://files.pythonhosted.org/packages/11/af/1a141081b905036ee904ec4bd945e1f70b4e1b32d33c4e59e8cf1d58b247/markupsafe-3.0.4-cp313-cp313-ios_13_0_arm64_iphoneos.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp313-cp313-ios_13_0_arm64_iphonesimulator.whl",
+              "hashes": {
+                "sha256": "5066b244f576f91afc8ee3ba029a89f99d39c79b1853fe9d39bea9f0afbec148"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp313-cp313-ios_13_0_arm64_iphonesimulator.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 11801,
+              "upload-time": "2026-10-02T23:05:11.913592Z",
+              "url": "https://files.pythonhosted.org/packages/e7/0a/a89385ae590232622a03e091805cff12f24fabe6c11e0e8bae096cece81c/markupsafe-3.0.4-cp313-cp313-ios_13_0_arm64_iphonesimulator.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp313-cp313-ios_13_0_x86_64_iphonesimulator.whl",
+              "hashes": {
+                "sha256": "7a83aa6e4805df46fed18e989d3d16f86ef60cb50bbc8d9ce3a6be89165fbf6e"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp313-cp313-ios_13_0_x86_64_iphonesimulator.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 11443,
+              "upload-time": "2026-10-02T23:05:12.887070Z",
+              "url": "https://files.pythonhosted.org/packages/ed/85/ea548dc013962eb73653124bc595635fbf9e0fa41d1f181a967ccb784dfb/markupsafe-3.0.4-cp313-cp313-ios_13_0_x86_64_iphonesimulator.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp313-cp313-macosx_10_13_x86_64.whl",
+              "hashes": {
+                "sha256": "2d1b7d9308288661f56672b1b157d75fc536714d3638487bbea17b6318a78248"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp313-cp313-macosx_10_13_x86_64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 11665,
+              "upload-time": "2026-10-02T23:05:13.829812Z",
+              "url": "https://files.pythonhosted.org/packages/cc/72/15f2e5ec9cf2eb00d5cdfe968d94e4156a7bd7303832c3f3b2c403a36839/markupsafe-3.0.4-cp313-cp313-macosx_10_13_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp313-cp313-macosx_11_0_arm64.whl",
+              "hashes": {
+                "sha256": "73e77980c7207854f00fc4e71fb1626868d5740ab4012623d55c7a99ad122a72"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp313-cp313-macosx_11_0_arm64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 12061,
+              "upload-time": "2026-10-02T23:05:14.807879Z",
+              "url": "https://files.pythonhosted.org/packages/ca/e0/4030bea613677e333c8a2c901fd405055f657f9d06acba5b7357984b6ef7/markupsafe-3.0.4-cp313-cp313-macosx_11_0_arm64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "hashes": {
+                "sha256": "7018d4af1cd272e847aa5917983ab5e83e4f6579f9dbfecd4a79c0ca80b144c2"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 24395,
+              "upload-time": "2026-10-02T23:05:15.909871Z",
+              "url": "https://files.pythonhosted.org/packages/f3/a5/28b76a7449eb702966b88bef599e2360b411fbb3afeee8fe560939be06ec/markupsafe-3.0.4-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp313-cp313-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl",
+              "hashes": {
+                "sha256": "c90d5b3d4e944e065a301d741b3c1d784f6bd1f503aa68b4967e32b2ba313d85"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp313-cp313-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 27183,
+              "upload-time": "2026-10-02T23:05:16.976649Z",
+              "url": "https://files.pythonhosted.org/packages/07/6c/21232811afc3a063b5e934b1ae2efda52f46154ec382f585149c020e61fe/markupsafe-3.0.4-cp313-cp313-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp313-cp313-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+              "hashes": {
+                "sha256": "18a801868a884f216e784d7d14db2a4077143ce7610440aee2ce8f734e7cfcde"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp313-cp313-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 24772,
+              "upload-time": "2026-10-02T23:05:18.209837Z",
+              "url": "https://files.pythonhosted.org/packages/14/38/6ccdfa5b59049cb36fb80cbc80aee9cf1fc9bb77d1335ad435f2070b08cf/markupsafe-3.0.4-cp313-cp313-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "hashes": {
+                "sha256": "434139499bb20b502ed3baa1f169e618f924a97e7a777fea1a49446d80106cf6"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 23017,
+              "upload-time": "2026-10-02T23:05:19.286064Z",
+              "url": "https://files.pythonhosted.org/packages/63/e0/cec6865dfe88cb48fedd4b20aed6af5158e41092adcbf3e028bcc6ec2108/markupsafe-3.0.4-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp313-cp313-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "hashes": {
+                "sha256": "9e227f3dbe6bde7491cf0a9965d00b88c6b1a4a95d11480ddf88bb96d397c19f"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp313-cp313-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 22036,
+              "upload-time": "2026-10-02T23:05:20.352342Z",
+              "url": "https://files.pythonhosted.org/packages/ee/76/6ed4940bb7648a9aac457c14f870cfdd5105f139a0fb1f29cd61fafa47d1/markupsafe-3.0.4-cp313-cp313-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp313-cp313-musllinux_1_2_aarch64.whl",
+              "hashes": {
+                "sha256": "b8cd1f918b26fd7b1832ece557cc18f2d8747309ff8b3f0ef9d4250c5ad67a39"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp313-cp313-musllinux_1_2_aarch64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 23786,
+              "upload-time": "2026-10-02T23:05:21.576319Z",
+              "url": "https://files.pythonhosted.org/packages/a1/4f/ed476226d4fe46a09090a36025bf319296810028df55eb12f1253b540f3a/markupsafe-3.0.4-cp313-cp313-musllinux_1_2_aarch64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp313-cp313-musllinux_1_2_armv7l.whl",
+              "hashes": {
+                "sha256": "a5fcffb37e602b0b3c1638a97746b9b96125caa9bcf6fa41d337a9261de231ee"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp313-cp313-musllinux_1_2_armv7l.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 22672,
+              "upload-time": "2026-10-02T23:05:22.922882Z",
+              "url": "https://files.pythonhosted.org/packages/9a/35/66ff30450e35ef5fba9ebc930c9411747e537fd9447b65e44f5007e2b84d/markupsafe-3.0.4-cp313-cp313-musllinux_1_2_armv7l.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp313-cp313-musllinux_1_2_ppc64le.whl",
+              "hashes": {
+                "sha256": "5989cb26b2e1efc6a42216a9f6b5ee495ce5ace2e5b352a9af489976b32d1ee2"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp313-cp313-musllinux_1_2_ppc64le.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 24107,
+              "upload-time": "2026-10-02T23:05:24.175549Z",
+              "url": "https://files.pythonhosted.org/packages/32/0b/72f45ce4b4efcbca4b80cf1b06703eff0be8d37e82abb78f66c85a7ead1e/markupsafe-3.0.4-cp313-cp313-musllinux_1_2_ppc64le.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp313-cp313-musllinux_1_2_riscv64.whl",
+              "hashes": {
+                "sha256": "add96447a86d205ab616665d53b2950ee81083757f56e6ea833c8b2917646b46"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp313-cp313-musllinux_1_2_riscv64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 21615,
+              "upload-time": "2026-10-02T23:05:25.215103Z",
+              "url": "https://files.pythonhosted.org/packages/d2/03/71776e5fdcba04614b384cc102e8a4198208579d896fd1394cb7cb9aa900/markupsafe-3.0.4-cp313-cp313-musllinux_1_2_riscv64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp313-cp313-musllinux_1_2_x86_64.whl",
+              "hashes": {
+                "sha256": "2628d3a8cb648ecebb3c5d6b0a1052d400e4d8b7ac0fb786be8d285b50040d17"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp313-cp313-musllinux_1_2_x86_64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 23076,
+              "upload-time": "2026-10-02T23:05:26.423125Z",
+              "url": "https://files.pythonhosted.org/packages/ab/5f/801ce02a02e7aee0f784b1ec7843026178f6adeb9c93ac67eb1992a9a84d/markupsafe-3.0.4-cp313-cp313-musllinux_1_2_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "filename": "markupsafe-3.0.4-cp313-cp313-win32.whl",
+              "hashes": {
+                "sha256": "672d207103e6b16ca098611b0f9efad6bc00afd47c03d6ef62186495ca677dc0"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp313-cp313-win32.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 14118,
+              "upload-time": "2026-10-02T23:05:27.716558Z",
+              "url": "https://files.pythonhosted.org/packages/4a/85/c43776625428f3bb4a61e8633940400e3efe6409e3c6f5bff26de5e45618/markupsafe-3.0.4-cp313-cp313-win32.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "filename": "markupsafe-3.0.4-cp313-cp313-win_amd64.whl",
+              "hashes": {
+                "sha256": "1f1f9477e174582b0a1b583d60b66e1f2cf5d3fe12cee985e4aedf44766600e5"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp313-cp313-win_amd64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 14313,
+              "upload-time": "2026-10-02T23:05:28.749548Z",
+              "url": "https://files.pythonhosted.org/packages/6f/36/163da64de88a13db79214ef75fa041be7fa13bdb42261cf5b7484de14bfb/markupsafe-3.0.4-cp313-cp313-win_amd64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "filename": "markupsafe-3.0.4-cp313-cp313-win_arm64.whl",
+              "hashes": {
+                "sha256": "06de8ef6331f6e822c28d577dc8bf43fe398800477c49498f38fc38b67ff33fc"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp313-cp313-win_arm64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 14189,
+              "upload-time": "2026-10-02T23:05:29.917866Z",
+              "url": "https://files.pythonhosted.org/packages/9f/a8/9b662783ffaa1149221432a923cee562f78b9cbbb8baa3df9b3753e63e1e/markupsafe-3.0.4-cp313-cp313-win_arm64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314-android_24_arm64_v8a.whl",
+              "hashes": {
+                "sha256": "4ed644d75aa94a2baf7ec3a96eaa160ea58c742eb9d27c6506053c5c40fc84ed"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314-android_24_arm64_v8a.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 12787,
+              "upload-time": "2026-10-02T23:05:30.971155Z",
+              "url": "https://files.pythonhosted.org/packages/5c/c3/a944f3b0df22bd129e96915b9f4e98d2eeca6516687d7618304a966c3c74/markupsafe-3.0.4-cp314-cp314-android_24_arm64_v8a.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314-android_24_x86_64.whl",
+              "hashes": {
+                "sha256": "6d2a9efe686f9de00d0d1ea32a4a5a86d558a2277501bd78d964214eab625e59"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314-android_24_x86_64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 12525,
+              "upload-time": "2026-10-02T23:05:32.263955Z",
+              "url": "https://files.pythonhosted.org/packages/d4/d6/a44863f69d88b6c7e27889108f70d47aed259edf89d5df3c5fca1eac87d6/markupsafe-3.0.4-cp314-cp314-android_24_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314-ios_13_0_arm64_iphoneos.whl",
+              "hashes": {
+                "sha256": "8781a792a070cf2bd1b86d3aa943894115faaba6e88122a7bf32d62072742453"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314-ios_13_0_arm64_iphoneos.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 11589,
+              "upload-time": "2026-10-02T23:05:33.251670Z",
+              "url": "https://files.pythonhosted.org/packages/17/8f/168ba80e532dd6a93f96f8f706f1ad41d7990b6e1aeedc1cc0d211a33497/markupsafe-3.0.4-cp314-cp314-ios_13_0_arm64_iphoneos.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314-ios_13_0_arm64_iphonesimulator.whl",
+              "hashes": {
+                "sha256": "971a3bbb75d97ae4e2e8f7d4834236f86f85f0c85e04ab2e191db1123b04f80b"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314-ios_13_0_arm64_iphonesimulator.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 11801,
+              "upload-time": "2026-10-02T23:05:34.315804Z",
+              "url": "https://files.pythonhosted.org/packages/32/b3/aa2c95a574d3af39403a469b295886eb9b6d448da568cbebb5a2cbfdc2e5/markupsafe-3.0.4-cp314-cp314-ios_13_0_arm64_iphonesimulator.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314-ios_13_0_x86_64_iphonesimulator.whl",
+              "hashes": {
+                "sha256": "8909c2f1c6dd65e054ac4b573a91c8384d1492281e55d82d159d653f7a13adf6"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314-ios_13_0_x86_64_iphonesimulator.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 11447,
+              "upload-time": "2026-10-02T23:05:35.302450Z",
+              "url": "https://files.pythonhosted.org/packages/60/d0/34b810107d83840e768bf485de795893ebbae35b26ab061b487adfa0a692/markupsafe-3.0.4-cp314-cp314-ios_13_0_x86_64_iphonesimulator.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314-macosx_10_15_x86_64.whl",
+              "hashes": {
+                "sha256": "4cf3468d5ec187ffffcaca8e61929a37448f215dafc1386a12c750a72fe53634"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314-macosx_10_15_x86_64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 11722,
+              "upload-time": "2026-10-02T23:05:36.363965Z",
+              "url": "https://files.pythonhosted.org/packages/6c/ab/2f8488f0f817a39fca068d2b17daf446bf5cdb3eae28c3720af534d873b4/markupsafe-3.0.4-cp314-cp314-macosx_10_15_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314-macosx_11_0_arm64.whl",
+              "hashes": {
+                "sha256": "52704c5d36eb6dda8866493decd61111fff86244c9b1ad225ca01b9e91e5970f"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314-macosx_11_0_arm64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 12061,
+              "upload-time": "2026-10-02T23:05:37.397531Z",
+              "url": "https://files.pythonhosted.org/packages/ad/40/e2d117b048d47282ade906fbfd92814cbee5647afc13fda88a3406039372/markupsafe-3.0.4-cp314-cp314-macosx_11_0_arm64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "hashes": {
+                "sha256": "1caa2fa5a6184fb233153b35f654e6687bd555476f6170f29d8ee9be1a8b0af9"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 24434,
+              "upload-time": "2026-10-02T23:05:38.407076Z",
+              "url": "https://files.pythonhosted.org/packages/9a/a8/73a81135e85ba66217f5af7facb03bbb386807e1a729ab64532e4c802652/markupsafe-3.0.4-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl",
+              "hashes": {
+                "sha256": "387d8cd30e69b3f0a72877b9ae717033396404e19095b17fe89753a981fda44f"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 27183,
+              "upload-time": "2026-10-02T23:05:39.581901Z",
+              "url": "https://files.pythonhosted.org/packages/ac/ca/fa9216dd01efee2dfdacafe7df32b4d0170fbac694b0c258a193d6e53999/markupsafe-3.0.4-cp314-cp314-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+              "hashes": {
+                "sha256": "051417f74bcaaefa316276e0ff723f541616ca51043d070da00249d9bddd3e3c"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 24813,
+              "upload-time": "2026-10-02T23:05:40.671411Z",
+              "url": "https://files.pythonhosted.org/packages/fa/4e/a469509e538d37af51103b17b073126973f2b1cbf197ff32c7ddf025cfe5/markupsafe-3.0.4-cp314-cp314-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "hashes": {
+                "sha256": "a8e9f292fcda89b324f2f5c91d13f1424a153e40fc2756f38ee23b15835ff300"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 23049,
+              "upload-time": "2026-10-02T23:05:41.864507Z",
+              "url": "https://files.pythonhosted.org/packages/8f/db/d7282caf7ab03af44d5d6fdbaa019b35c7d7f1c90588b839c07cba640d6a/markupsafe-3.0.4-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "hashes": {
+                "sha256": "df1ae86ff54725a01fa1a0510b914ca53a161b7050be74f6204e24aded5971d0"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 22088,
+              "upload-time": "2026-10-02T23:05:43.014124Z",
+              "url": "https://files.pythonhosted.org/packages/30/f3/b6a425206e6964efda6acee544d0eb01d1501784d0b8e2dcc74986f33b17/markupsafe-3.0.4-cp314-cp314-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314-musllinux_1_2_aarch64.whl",
+              "hashes": {
+                "sha256": "8965520ac587c94a4ac48b729be3d8b8de00af39699b17585dfb599babe77977"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314-musllinux_1_2_aarch64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 23846,
+              "upload-time": "2026-10-02T23:05:44.098732Z",
+              "url": "https://files.pythonhosted.org/packages/ea/8a/84d3582fc1f0d5bd466cdf2eebf175e172158a6e70701aacec1de1b35430/markupsafe-3.0.4-cp314-cp314-musllinux_1_2_aarch64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314-musllinux_1_2_armv7l.whl",
+              "hashes": {
+                "sha256": "340cbb1957ba99929cbf19a75626d36ba1ae21d1730b287d1cf7f824a20c4fc7"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314-musllinux_1_2_armv7l.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 22674,
+              "upload-time": "2026-10-02T23:05:45.230679Z",
+              "url": "https://files.pythonhosted.org/packages/1c/65/db101cce51b7ba4864ac491a9859d297dd1adf0e55b103fee9db9c47c527/markupsafe-3.0.4-cp314-cp314-musllinux_1_2_armv7l.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314-musllinux_1_2_ppc64le.whl",
+              "hashes": {
+                "sha256": "3a93d9616ddecfb393727a0041a562cf0b15a244e20f2bd25efc7949be4c4f17"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314-musllinux_1_2_ppc64le.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 24104,
+              "upload-time": "2026-10-02T23:05:46.398039Z",
+              "url": "https://files.pythonhosted.org/packages/e0/49/ddee9813d71db0c7a5c9d97c832125e6758a0c844777f1cf076569bb0e22/markupsafe-3.0.4-cp314-cp314-musllinux_1_2_ppc64le.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314-musllinux_1_2_riscv64.whl",
+              "hashes": {
+                "sha256": "d2e56fd3b00222722abfb3f5f0759ddbae4b90811b5ad4343c64030ad1bde70c"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314-musllinux_1_2_riscv64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 21637,
+              "upload-time": "2026-10-02T23:05:47.480913Z",
+              "url": "https://files.pythonhosted.org/packages/aa/0e/7d8518d726726870a2399d69fd30d0fa36c5e57a2132c336b58d7c491073/markupsafe-3.0.4-cp314-cp314-musllinux_1_2_riscv64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314-musllinux_1_2_x86_64.whl",
+              "hashes": {
+                "sha256": "0d9c47709875fdb321452056622e930c52afbc07a7d780762fbb8b4d91ce6fa4"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314-musllinux_1_2_x86_64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 23081,
+              "upload-time": "2026-10-02T23:05:48.611501Z",
+              "url": "https://files.pythonhosted.org/packages/b4/b0/b505e8a361ba557dbf3b3aa7331ea39b00d2022a26e925ff8463b9714bb3/markupsafe-3.0.4-cp314-cp314-musllinux_1_2_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314-win32.whl",
+              "hashes": {
+                "sha256": "38fc55594dab834470b6733dead2ee9e3f657fb0608c769dcafa0ba5ab52f45c"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314-win32.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 14272,
+              "upload-time": "2026-10-02T23:05:49.707851Z",
+              "url": "https://files.pythonhosted.org/packages/1c/ea/9cc3cea873f980c75cbdb6f4277ce30ee955de38be0b3d02f14c108e0698/markupsafe-3.0.4-cp314-cp314-win32.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314-win_amd64.whl",
+              "hashes": {
+                "sha256": "c1bc67752d5f21013cfe430df4062441714eab79f65a6a05e01505957e9c35fe"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314-win_amd64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 14501,
+              "upload-time": "2026-10-02T23:05:50.788834Z",
+              "url": "https://files.pythonhosted.org/packages/80/f0/5792ff768a410f93ee3f84fc19345295ffc352d2c936b424cb37e514714c/markupsafe-3.0.4-cp314-cp314-win_amd64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314-win_arm64.whl",
+              "hashes": {
+                "sha256": "7e1636da3d8dfc220b6dd10264db5f2b165e4888c4518594898fbe381049af8a"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314-win_arm64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 14364,
+              "upload-time": "2026-10-02T23:05:51.857341Z",
+              "url": "https://files.pythonhosted.org/packages/5f/cf/3d074a8edffcc6899355232ff2543ae8d929733239596423b7db79698bc9/markupsafe-3.0.4-cp314-cp314-win_arm64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314t-macosx_10_15_x86_64.whl",
+              "hashes": {
+                "sha256": "805c8b84534fa10891890f0e4be39f3a99e94615d93e8836bf9fa1fdca2feeb2"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314t-macosx_10_15_x86_64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 11759,
+              "upload-time": "2026-10-02T23:05:52.951538Z",
+              "url": "https://files.pythonhosted.org/packages/d9/31/87ce42159aae2163cf3bbbd0c44bc87780510eecab1ea3859099aed95dcb/markupsafe-3.0.4-cp314-cp314t-macosx_10_15_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314t-macosx_11_0_arm64.whl",
+              "hashes": {
+                "sha256": "fa95848c929b6a75f6848d3c9793e59db365ee436776e57db835cdbfa79ba977"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314t-macosx_11_0_arm64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 12096,
+              "upload-time": "2026-10-02T23:05:54.066389Z",
+              "url": "https://files.pythonhosted.org/packages/5f/53/b047207eeb7752e960aca3eb1df5fb7eefa7dd4c62ac49bb156456c8a702/markupsafe-3.0.4-cp314-cp314t-macosx_11_0_arm64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "hashes": {
+                "sha256": "e916035e3e9930cbdfdd10abf48861340221857f45509565898e012263f7b289"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 25699,
+              "upload-time": "2026-10-02T23:05:55.150718Z",
+              "url": "https://files.pythonhosted.org/packages/ee/51/4326c88a13c7b755657d44b4bb986f8c3d9843ecba7e22d98661d87f9a57/markupsafe-3.0.4-cp314-cp314t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314t-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl",
+              "hashes": {
+                "sha256": "b4d12837e0203bbace818ff4a7461afdcd78bcd782351cea148139180d7bcffe"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314t-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 27804,
+              "upload-time": "2026-10-02T23:05:56.290486Z",
+              "url": "https://files.pythonhosted.org/packages/f2/bb/990581b7474bfcf2cf34bed6ba5ea23bd87adb9d671213d68e88620e7a6b/markupsafe-3.0.4-cp314-cp314t-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314t-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+              "hashes": {
+                "sha256": "5086f9975abb1ab531ee6afca1761e4b59a19b446f3f6522ed776963228cfe5a"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314t-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 25912,
+              "upload-time": "2026-10-02T23:05:57.416962Z",
+              "url": "https://files.pythonhosted.org/packages/6b/89/89491878c28e8291f5aa2fffe2c2d57230d10ae366d55dd810b840513d78/markupsafe-3.0.4-cp314-cp314t-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314t-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "hashes": {
+                "sha256": "b4a635a0487774f841cb1fb62e907e7195cc95bc761e053184b8acc3ceb20733"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314t-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 23623,
+              "upload-time": "2026-10-02T23:05:58.557032Z",
+              "url": "https://files.pythonhosted.org/packages/30/77/680998b54efdea06fc114565cd739b6d059f826a0279219b218dfa750d29/markupsafe-3.0.4-cp314-cp314t-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314t-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "hashes": {
+                "sha256": "cb96e6e088d6cf71c1ea977510948320234824cf226e32f6f6e044f7a9c82b34"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314t-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 23301,
+              "upload-time": "2026-10-02T23:05:59.940048Z",
+              "url": "https://files.pythonhosted.org/packages/ae/75/2709f5ac5de9467b40b10e2bb8f89cc63dfb74582e09aa734b1124a217de/markupsafe-3.0.4-cp314-cp314t-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314t-musllinux_1_2_aarch64.whl",
+              "hashes": {
+                "sha256": "8b5d563170ff8ba3181caa967c99a3c804d1dedb702c7cb93a6a7c32247da978"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314t-musllinux_1_2_aarch64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 24950,
+              "upload-time": "2026-10-02T23:06:01.289818Z",
+              "url": "https://files.pythonhosted.org/packages/a0/c8/39eadc6c5b14c9c7679bfb98f4d4c6a97863b5beb91839aca4d2d6e16e55/markupsafe-3.0.4-cp314-cp314t-musllinux_1_2_aarch64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314t-musllinux_1_2_armv7l.whl",
+              "hashes": {
+                "sha256": "396ec4e65cc889f69786b3b89478b471cee5a3bcf468b9d9bb03e1a30fb291fc"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314t-musllinux_1_2_armv7l.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 23330,
+              "upload-time": "2026-10-02T23:06:02.441977Z",
+              "url": "https://files.pythonhosted.org/packages/1a/5e/01037f8a43e8ccb0bffb4fbdc5212db05bf080fdd7286cd392332d58128a/markupsafe-3.0.4-cp314-cp314t-musllinux_1_2_armv7l.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314t-musllinux_1_2_ppc64le.whl",
+              "hashes": {
+                "sha256": "15ba9e28640feef770374b116a6f019c21f52404aeabe516aa7f800587b98cfc"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314t-musllinux_1_2_ppc64le.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 25239,
+              "upload-time": "2026-10-02T23:06:03.579664Z",
+              "url": "https://files.pythonhosted.org/packages/d4/f4/23e83ce0596bb0cbe670502d31df8f757bbd01a392aa486fa3b40d1ed399/markupsafe-3.0.4-cp314-cp314t-musllinux_1_2_ppc64le.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314t-musllinux_1_2_riscv64.whl",
+              "hashes": {
+                "sha256": "d920abdfa61279ba1a2ef9484aab07bf03331f8c08a10120fa332353d06e6932"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314t-musllinux_1_2_riscv64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 22767,
+              "upload-time": "2026-10-02T23:06:04.699074Z",
+              "url": "https://files.pythonhosted.org/packages/88/5b/3708897368073cc683d524750474f41a77d2986152c380dcc55b20fdf340/markupsafe-3.0.4-cp314-cp314t-musllinux_1_2_riscv64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314t-musllinux_1_2_x86_64.whl",
+              "hashes": {
+                "sha256": "a9f54054101545a9a9cccefddf54316aa6e4491611fcbef9e91b3b6bebec04f6"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314t-musllinux_1_2_x86_64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 23668,
+              "upload-time": "2026-10-02T23:06:05.900555Z",
+              "url": "https://files.pythonhosted.org/packages/c6/61/ebda1307864b409e6b3115757a3d4a09cca46cfb6cc65191b5de226b424b/markupsafe-3.0.4-cp314-cp314t-musllinux_1_2_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314t-win32.whl",
+              "hashes": {
+                "sha256": "12a606a492de952afcb43b59a14aaaaad120e708d3663dd0fdf2d738d427a691"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314t-win32.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 14301,
+              "upload-time": "2026-10-02T23:06:07.109365Z",
+              "url": "https://files.pythonhosted.org/packages/09/15/98075cceac3b5ba0dbb8e4762a847be967d2befc349a2cf2d0ac77f62c9d/markupsafe-3.0.4-cp314-cp314t-win32.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314t-win_amd64.whl",
+              "hashes": {
+                "sha256": "a18f38cafc329bac5e3c2b96c765b4c96d3d103421ed22ab7988c1e3fce27464"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314t-win_amd64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 14526,
+              "upload-time": "2026-10-02T23:06:08.276184Z",
+              "url": "https://files.pythonhosted.org/packages/0b/a3/768b560fcc4156685cb563d922b217810cfa7bc135773367f62f1f9d2078/markupsafe-3.0.4-cp314-cp314t-win_amd64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "filename": "markupsafe-3.0.4-cp314-cp314t-win_arm64.whl",
+              "hashes": {
+                "sha256": "eba154571c16e032112afac0dc2dfe9e63c2ceb7aedd07bb7eecf2ce26d4dd4c"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp314-cp314t-win_arm64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 14421,
+              "upload-time": "2026-10-02T23:06:09.402362Z",
+              "url": "https://files.pythonhosted.org/packages/93/63/da554b4c97a6b0ea3229ca7fe8cbfb620be81613d517f482e85958550537/markupsafe-3.0.4-cp314-cp314t-win_arm64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315-android_24_arm64_v8a.whl",
+              "hashes": {
+                "sha256": "737c9c3981998eba27f11786f84fddcbabc74068b72a4a1f454ea02094b57b65"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315-android_24_arm64_v8a.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 12791,
+              "upload-time": "2026-10-02T23:06:10.485118Z",
+              "url": "https://files.pythonhosted.org/packages/a9/30/54d11c8ca027114898cab97421fb39e4ffd9ddf47cdbc44df2ec76722da9/markupsafe-3.0.4-cp315-cp315-android_24_arm64_v8a.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315-android_24_x86_64.whl",
+              "hashes": {
+                "sha256": "489505b03f692c3f376394e49194fa7a7f9e8558d6e293a7056a0032b0c38163"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315-android_24_x86_64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 12527,
+              "upload-time": "2026-10-02T23:06:11.834551Z",
+              "url": "https://files.pythonhosted.org/packages/10/6d/97c913e253a14bd3cd0e15a5c56d13203b823fa7ee32498342896a072dc4/markupsafe-3.0.4-cp315-cp315-android_24_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315-ios_13_0_arm64_iphoneos.whl",
+              "hashes": {
+                "sha256": "077293e425f28ec737dbcad442a71752e28f8ae27cde3d68acd1fb212091cd92"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315-ios_13_0_arm64_iphoneos.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 11602,
+              "upload-time": "2026-10-02T23:06:13.122996Z",
+              "url": "https://files.pythonhosted.org/packages/26/f9/b86d032042a4d597d9e1997f0e5f63a3eedaf11258e0a05760b0a0a826ea/markupsafe-3.0.4-cp315-cp315-ios_13_0_arm64_iphoneos.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315-ios_13_0_arm64_iphonesimulator.whl",
+              "hashes": {
+                "sha256": "9348cbb300d224fe3b89793262cb093504d4ae927004468463f745188a193e4a"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315-ios_13_0_arm64_iphonesimulator.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 11817,
+              "upload-time": "2026-10-02T23:06:14.227912Z",
+              "url": "https://files.pythonhosted.org/packages/f2/dc/73c14c1eedf0ac5fa3292ba43435e6c49d2c2050f33cebde541f8f4807f1/markupsafe-3.0.4-cp315-cp315-ios_13_0_arm64_iphonesimulator.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315-ios_13_0_x86_64_iphonesimulator.whl",
+              "hashes": {
+                "sha256": "b807e598953730f82e4eae3bd30f6a122cf6b31c398c6b504c0e04c13c170429"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315-ios_13_0_x86_64_iphonesimulator.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 11446,
+              "upload-time": "2026-10-02T23:06:15.574064Z",
+              "url": "https://files.pythonhosted.org/packages/8f/69/2c2fcaa5fcee22d72c7819c0d536fd181c74a688e6143845419579cd2863/markupsafe-3.0.4-cp315-cp315-ios_13_0_x86_64_iphonesimulator.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315-macosx_10_15_x86_64.whl",
+              "hashes": {
+                "sha256": "799c39bdf5e2f1292fedd3009f7b3c9e760f10b2420cb9638d56920840ff6db8"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315-macosx_10_15_x86_64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 11719,
+              "upload-time": "2026-10-02T23:06:16.701372Z",
+              "url": "https://files.pythonhosted.org/packages/88/54/9e5ec76c62e6e2834d5a93623018c943e8b3bb41d663e3fd4c03303b9b85/markupsafe-3.0.4-cp315-cp315-macosx_10_15_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315-macosx_11_0_arm64.whl",
+              "hashes": {
+                "sha256": "ae9dcb8fbe244cb82f8a6458b455b927a03685e383d9bacf1ea5ce180b96dc97"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315-macosx_11_0_arm64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 12075,
+              "upload-time": "2026-10-02T23:06:17.855823Z",
+              "url": "https://files.pythonhosted.org/packages/96/24/3ec292b44064c16229e064d770b2625bd8ea941aa61f44905a9fa44942c0/markupsafe-3.0.4-cp315-cp315-macosx_11_0_arm64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "hashes": {
+                "sha256": "4bced6e2a6dba6a28f7dd3c6ce14df1b2dd495923f16ea484cad03decd463b2b"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 24656,
+              "upload-time": "2026-10-02T23:06:18.963942Z",
+              "url": "https://files.pythonhosted.org/packages/aa/85/b64fdb1f304848518742136983c24e96d967bfb59a0ea160e92736901ab0/markupsafe-3.0.4-cp315-cp315-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl",
+              "hashes": {
+                "sha256": "3882fb412298575bae3b9c46868251f15cc69307359f87bb1b382e53d6e5a2c9"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 27737,
+              "upload-time": "2026-10-02T23:06:20.117059Z",
+              "url": "https://files.pythonhosted.org/packages/9c/18/23997d4c65b355da6390d61cd56e0ab3befd6ba8dda25cb40c602bd0fa6b/markupsafe-3.0.4-cp315-cp315-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+              "hashes": {
+                "sha256": "04e7902ba80ee4bac1d50a549606527a1dcf0476cd81403db41099d3b60ec653"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 25003,
+              "upload-time": "2026-10-02T23:06:21.284770Z",
+              "url": "https://files.pythonhosted.org/packages/d4/36/35998dead3c6af88c38265a56e58100211f036234ab88eb2283fd4cbce44/markupsafe-3.0.4-cp315-cp315-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "hashes": {
+                "sha256": "925f929d6b59a8b3f8b8c6ac363cd0af7eecc81efb3071770b3c6717c450a369"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 23111,
+              "upload-time": "2026-10-02T23:06:22.524416Z",
+              "url": "https://files.pythonhosted.org/packages/82/96/ef49135ce260db4ca4a12b119ed468449cd248db6b1468e2112b546d7a2e/markupsafe-3.0.4-cp315-cp315-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "hashes": {
+                "sha256": "f68edfc67aabac33708941f26f22a7b8e9f81429bc0cf249fcf7d66b23af8d19"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 22403,
+              "upload-time": "2026-10-02T23:06:23.785254Z",
+              "url": "https://files.pythonhosted.org/packages/50/7d/83126e338bd88c17a220668235368ad719fd4638e426739858cbb8508f77/markupsafe-3.0.4-cp315-cp315-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315-musllinux_1_2_aarch64.whl",
+              "hashes": {
+                "sha256": "e5c802729725bd07e2bc3ab7b76dc7e0bbfc53129d8f1eb1c002c24cf774717e"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315-musllinux_1_2_aarch64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 24083,
+              "upload-time": "2026-10-02T23:06:25.037767Z",
+              "url": "https://files.pythonhosted.org/packages/83/dd/daf7e420de23c8206c365204e7b85e1251d8e19d34196a56336f316e5ed2/markupsafe-3.0.4-cp315-cp315-musllinux_1_2_aarch64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315-musllinux_1_2_armv7l.whl",
+              "hashes": {
+                "sha256": "55ffd6ce583d97dc71dc92e930324c8c0d25aea7e3ade6ae54ef77cedb096811"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315-musllinux_1_2_armv7l.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 22931,
+              "upload-time": "2026-10-02T23:06:26.328018Z",
+              "url": "https://files.pythonhosted.org/packages/19/3c/11eecdc06bc44ad5570350085b572ebf049e8f9a38d1ece6d76640b739cd/markupsafe-3.0.4-cp315-cp315-musllinux_1_2_armv7l.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315-musllinux_1_2_ppc64le.whl",
+              "hashes": {
+                "sha256": "2cb3dd71fc6be918ad4264346a8ed69485f9b7ed7bf35495d8e22807cd6b8bea"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315-musllinux_1_2_ppc64le.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 24299,
+              "upload-time": "2026-10-02T23:06:27.742524Z",
+              "url": "https://files.pythonhosted.org/packages/0d/9e/ac0fd77f2a726e56ecc3ca0235d095feace1358d1b822406c2a2ef26a4dc/markupsafe-3.0.4-cp315-cp315-musllinux_1_2_ppc64le.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315-musllinux_1_2_riscv64.whl",
+              "hashes": {
+                "sha256": "94f5407f7bc64fa6463906b896f9904beeeb7dd8dc116ee8e9056c8714ff9916"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315-musllinux_1_2_riscv64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 21948,
+              "upload-time": "2026-10-02T23:06:29.274129Z",
+              "url": "https://files.pythonhosted.org/packages/d7/09/c6bd842ad58ff5b3bc76eeed7e9a42a6f11adc5d090ec697b72c9672731e/markupsafe-3.0.4-cp315-cp315-musllinux_1_2_riscv64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315-musllinux_1_2_x86_64.whl",
+              "hashes": {
+                "sha256": "2dad610540cb2e6272855c178f08ae9a1c7ac258a7fb71660553a5f104b42741"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315-musllinux_1_2_x86_64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 23150,
+              "upload-time": "2026-10-02T23:06:30.583508Z",
+              "url": "https://files.pythonhosted.org/packages/a3/46/82f586711fed61e86faa1ee1bc317d68cd45a10c8bdbe3f7d1fdf9026ad8/markupsafe-3.0.4-cp315-cp315-musllinux_1_2_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315-win32.whl",
+              "hashes": {
+                "sha256": "03470d1a8268e692ecf79ecd565593e59d44219377a7ead61f1f1b94c1f7ff6b"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315-win32.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 14269,
+              "upload-time": "2026-10-02T23:06:31.949732Z",
+              "url": "https://files.pythonhosted.org/packages/19/2d/2dfdce99318abbfa26925195fbc17db188c46a1ec6457be121b6f9cfeb42/markupsafe-3.0.4-cp315-cp315-win32.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315-win_amd64.whl",
+              "hashes": {
+                "sha256": "d882a373d8093c2941e01291b7ced96e9cbe4781da9a7751ca7e6c70385e5214"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315-win_amd64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 14496,
+              "upload-time": "2026-10-02T23:06:33.258900Z",
+              "url": "https://files.pythonhosted.org/packages/5b/ec/6000fd82e8791e58fcd0456ec20f098957e2b03d5ed02eb73241a577c0ba/markupsafe-3.0.4-cp315-cp315-win_amd64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315-win_arm64.whl",
+              "hashes": {
+                "sha256": "353bd63081912ab8cfa6a0c7d185934cdf8426f04c618bba6bc4b394f2069b67"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315-win_arm64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 14361,
+              "upload-time": "2026-10-02T23:06:34.539930Z",
+              "url": "https://files.pythonhosted.org/packages/bc/66/e73bd5016421d5d6e2fb6de7dd609f9de020942ac8c626526bd8c6eeaf82/markupsafe-3.0.4-cp315-cp315-win_arm64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315t-macosx_10_15_x86_64.whl",
+              "hashes": {
+                "sha256": "c61750fadcd119d0825bcb7d7d675dd264dcc89cc05292aab5be68ebdbb374ad"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315t-macosx_10_15_x86_64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 11760,
+              "upload-time": "2026-10-02T23:06:35.807718Z",
+              "url": "https://files.pythonhosted.org/packages/90/df/cb8c3dc98d313a951df2f8968f44e4cb5643df6d3cab749a530ce2f7d972/markupsafe-3.0.4-cp315-cp315t-macosx_10_15_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315t-macosx_11_0_arm64.whl",
+              "hashes": {
+                "sha256": "1c0df495a977d10460a94941799c72d5b5ab03d3858d949b55b5a66c8f371c99"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315t-macosx_11_0_arm64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 12108,
+              "upload-time": "2026-10-02T23:06:37.089349Z",
+              "url": "https://files.pythonhosted.org/packages/d6/bb/4af9b3ca0753d654ac75f9531d5bd741bb77ca6e696f36807c475ffc099a/markupsafe-3.0.4-cp315-cp315t-macosx_11_0_arm64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "hashes": {
+                "sha256": "02fa4acbc6a3fc5c693c34d4dd8c1130b7fe99cc915181b0ddd6f72aeb296002"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 25762,
+              "upload-time": "2026-10-02T23:06:38.419890Z",
+              "url": "https://files.pythonhosted.org/packages/3f/d4/b56429313aee5fd59b079c3df5615299959e25e7113eb6d8caadbdd7d38a/markupsafe-3.0.4-cp315-cp315t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315t-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl",
+              "hashes": {
+                "sha256": "05295589e619b9bed252a86b532b8e27350abc372d18ba89b59375325e91ec1e"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315t-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 28400,
+              "upload-time": "2026-10-02T23:06:39.819492Z",
+              "url": "https://files.pythonhosted.org/packages/65/f5/34c181e891aa4f7d59c918584672e0c5eb7fffe76c1387d1246008bf4081/markupsafe-3.0.4-cp315-cp315t-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315t-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+              "hashes": {
+                "sha256": "be6cb0c799abb0e2ba3e618e6d28ddddf7e485f6c2ce938dfa237daf3905072c"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315t-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 25946,
+              "upload-time": "2026-10-02T23:06:41.381194Z",
+              "url": "https://files.pythonhosted.org/packages/ce/b5/ad14694fd0ac9a5ce30bc6498f2999378f418583dd1679cca5a1b512957e/markupsafe-3.0.4-cp315-cp315t-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315t-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "hashes": {
+                "sha256": "26e9867520db70d37f7fb421a7f0d8adb40171011fb84ce869afa1a83370dfa8"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315t-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 23634,
+              "upload-time": "2026-10-02T23:06:42.748071Z",
+              "url": "https://files.pythonhosted.org/packages/d6/a8/26b606445387d0ceb1eb1f21840094b84e4e3c3c3983d80d10b89823b490/markupsafe-3.0.4-cp315-cp315t-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315t-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "hashes": {
+                "sha256": "f03460ff076f70ab595bb45a0205ccea1971443575b6920c52e755dec2b3fbfe"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315t-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 23488,
+              "upload-time": "2026-10-02T23:06:44.176221Z",
+              "url": "https://files.pythonhosted.org/packages/39/a2/b8814de672f1f0094d498bf646f2fec9d6356b503d28ef500b71c5095377/markupsafe-3.0.4-cp315-cp315t-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315t-musllinux_1_2_aarch64.whl",
+              "hashes": {
+                "sha256": "436e3ffc6310d3c41878c601db29098102fe5d8a467c49da4a4125254e0980f2"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315t-musllinux_1_2_aarch64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 25037,
+              "upload-time": "2026-10-02T23:06:45.646323Z",
+              "url": "https://files.pythonhosted.org/packages/db/c7/287223376fb73335a3cc5d6eb22c6ab01358cf33945a9c39c06b9dac3f4b/markupsafe-3.0.4-cp315-cp315t-musllinux_1_2_aarch64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315t-musllinux_1_2_armv7l.whl",
+              "hashes": {
+                "sha256": "4e2c4809c14559aa7ef426f27fb35afbb38104c349a903bf8f3600456764bb38"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315t-musllinux_1_2_armv7l.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 23543,
+              "upload-time": "2026-10-02T23:06:47.264712Z",
+              "url": "https://files.pythonhosted.org/packages/f9/29/4df8355e313426d19e62ba33e0253c009ca12a0894ee77d67fa67255361c/markupsafe-3.0.4-cp315-cp315t-musllinux_1_2_armv7l.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315t-musllinux_1_2_ppc64le.whl",
+              "hashes": {
+                "sha256": "da2af0d7aebfc2074080d72efa6ab8317c62481ef1f896f65d9999c1c01f4494"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315t-musllinux_1_2_ppc64le.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 25282,
+              "upload-time": "2026-10-02T23:06:48.795098Z",
+              "url": "https://files.pythonhosted.org/packages/71/e5/8377731e8495668dcc768f645e717df18318c841edaf023a99395f6da9b4/markupsafe-3.0.4-cp315-cp315t-musllinux_1_2_ppc64le.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315t-musllinux_1_2_riscv64.whl",
+              "hashes": {
+                "sha256": "aa2c838cc024642cc04c6854232f32b43e5e22833dd11119c1766c7873b8370d"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315t-musllinux_1_2_riscv64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 22993,
+              "upload-time": "2026-10-02T23:06:50.310491Z",
+              "url": "https://files.pythonhosted.org/packages/ed/5f/373456e37ceb1478d657d6fe769cbe0a39f0a8dfc1548eeb19c471eefdd9/markupsafe-3.0.4-cp315-cp315t-musllinux_1_2_riscv64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315t-musllinux_1_2_x86_64.whl",
+              "hashes": {
+                "sha256": "b91cc9d336957239ff200f30097e6fea2dc6d6fb3c81e853eaa09eac904fd894"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315t-musllinux_1_2_x86_64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 23712,
+              "upload-time": "2026-10-02T23:06:51.759043Z",
+              "url": "https://files.pythonhosted.org/packages/d7/93/2cbd5628435afb6f541bbaced4bce0c2edac4b09a142e6e928b8b0da9858/markupsafe-3.0.4-cp315-cp315t-musllinux_1_2_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315t-win32.whl",
+              "hashes": {
+                "sha256": "e49fb0d1ce92cfa0cb198cc5b1b11cdf9d0638658e2a2db2687e39db7c87fc78"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315t-win32.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 14300,
+              "upload-time": "2026-10-02T23:06:53.241877Z",
+              "url": "https://files.pythonhosted.org/packages/81/99/157e10966b033b363aeda5263e82596ee232a0b1d082fdbf90aa417ff083/markupsafe-3.0.4-cp315-cp315t-win32.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315t-win_amd64.whl",
+              "hashes": {
+                "sha256": "4f6e0852a0283b1b1fd776eeb7b766a5f440b3e2bd31ab51af3b400585f3965c"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315t-win_amd64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 14522,
+              "upload-time": "2026-10-02T23:06:54.729627Z",
+              "url": "https://files.pythonhosted.org/packages/33/05/55884815414c9706a23deca150b72c25a62109e65b0b6ce232077802c719/markupsafe-3.0.4-cp315-cp315t-win_amd64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "filename": "markupsafe-3.0.4-cp315-cp315t-win_arm64.whl",
+              "hashes": {
+                "sha256": "39dbacefc411633db5b4378b066a9aca70a3d7e2922c9e578d825f844026eeba"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp315-cp315t-win_arm64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 14417,
+              "upload-time": "2026-10-02T23:06:56.246193Z",
+              "url": "https://files.pythonhosted.org/packages/92/f9/ecbde7149e95b8a0f18e16d5d747f7dc06049d5da2e4f77f6f5e4a1f46a8/markupsafe-3.0.4-cp315-cp315t-win_arm64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp39-cp39-macosx_10_9_x86_64.whl",
+              "hashes": {
+                "sha256": "f291bcf42ae98eb5107edb162c3c998b4a89648fd8e99ed4cbd12705292788cd"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp39-cp39-macosx_10_9_x86_64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 11515,
+              "upload-time": "2026-10-02T23:06:57.721159Z",
+              "url": "https://files.pythonhosted.org/packages/2d/2e/a974ab7076b0272a20f3b01af857c5c78a5c7304125ac39d9eacad3fb1d8/markupsafe-3.0.4-cp39-cp39-macosx_10_9_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp39-cp39-macosx_11_0_arm64.whl",
+              "hashes": {
+                "sha256": "ac0c7c9f1609b0c4c114feb1d7a3409564c7fb77e360bed9e97e5d25dfeaf868"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp39-cp39-macosx_11_0_arm64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 12060,
+              "upload-time": "2026-10-02T23:06:59.149854Z",
+              "url": "https://files.pythonhosted.org/packages/91/e5/1f4a9b31bc89d08150aa1211d8187d69e240decc09aa92575087f12c5ded/markupsafe-3.0.4-cp39-cp39-macosx_11_0_arm64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp39-cp39-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "hashes": {
+                "sha256": "6768d67d1bce64270e0fdc2e69309d68b9b18ae56ddf6c711d168e9d051c2cac"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp39-cp39-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 21956,
+              "upload-time": "2026-10-02T23:07:00.573006Z",
+              "url": "https://files.pythonhosted.org/packages/98/fe/dbcabd91abdb382f9fbd2ae1b02354c727d90bbdcce79db98cfb687d70b0/markupsafe-3.0.4-cp39-cp39-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp39-cp39-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl",
+              "hashes": {
+                "sha256": "14bd2d845d62ab678eaf81da89d7b621b51756c72346745c1a594c09d49207a2"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp39-cp39-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 25915,
+              "upload-time": "2026-10-02T23:07:02.007738Z",
+              "url": "https://files.pythonhosted.org/packages/6f/b9/b39a16a1fc3111cce4a6d74ae19b696757503300f410abfc75f5fc9043be/markupsafe-3.0.4-cp39-cp39-manylinux2014_armv7l.manylinux_2_17_armv7l.manylinux_2_31_armv7l.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp39-cp39-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+              "hashes": {
+                "sha256": "007e1ffd9bf65bb6ee96df7b258fc632a4868dd5566037986c64781f35a36e98"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp39-cp39-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 22464,
+              "upload-time": "2026-10-02T23:07:03.394332Z",
+              "url": "https://files.pythonhosted.org/packages/ee/35/53eef45f90496d9b5ff3c2cc2b1f66a92f7cc1361a80ce6723ace426b375/markupsafe-3.0.4-cp39-cp39-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp39-cp39-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "hashes": {
+                "sha256": "5e8b3d0b18fd623afa12ecb2ce8d8becef69f9b5440c6330c7972200e0bb84b0"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp39-cp39-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 20583,
+              "upload-time": "2026-10-02T23:07:05.055495Z",
+              "url": "https://files.pythonhosted.org/packages/55/a2/72769102a02abdb32faf9f10abbd4d9ba80b50949b2fe668c27e2432fa82/markupsafe-3.0.4-cp39-cp39-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp39-cp39-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "hashes": {
+                "sha256": "57f9947a7e57a081c1e3e0a2dd0d2dcf290a4531450e6f611e30084c222a7295"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp39-cp39-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 20618,
+              "upload-time": "2026-10-02T23:07:06.521558Z",
+              "url": "https://files.pythonhosted.org/packages/54/a0/6b37c580383117881616e5fa13ccfcd27b711c99d17c59247830772677c6/markupsafe-3.0.4-cp39-cp39-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp39-cp39-musllinux_1_2_aarch64.whl",
+              "hashes": {
+                "sha256": "b61687d0828e72bf5cda24a2690188f37170bd31c9359ac97e4e66569f120a16"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp39-cp39-musllinux_1_2_aarch64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 21420,
+              "upload-time": "2026-10-02T23:07:08.332924Z",
+              "url": "https://files.pythonhosted.org/packages/1b/ff/e878b3a76c9f4e6d050c6709cc36d4e5a24a817c7cb2dd2a4230348677b4/markupsafe-3.0.4-cp39-cp39-musllinux_1_2_aarch64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp39-cp39-musllinux_1_2_armv7l.whl",
+              "hashes": {
+                "sha256": "0cee7cb0f9a1b6892ea482237d9403b3d1b4603aee057d0ff01f0fac2d019a97"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp39-cp39-musllinux_1_2_armv7l.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 20826,
+              "upload-time": "2026-10-02T23:07:10.093257Z",
+              "url": "https://files.pythonhosted.org/packages/77/0e/1b9d5c3197aa7f2a993d476f4ea3fd677656c1be0f8f87b5cdf3e18c88cc/markupsafe-3.0.4-cp39-cp39-musllinux_1_2_armv7l.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp39-cp39-musllinux_1_2_ppc64le.whl",
+              "hashes": {
+                "sha256": "94e4c421742086aeee4c32a506eec8859d7634aad943f7e6aacf70f813478768"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp39-cp39-musllinux_1_2_ppc64le.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 21876,
+              "upload-time": "2026-10-02T23:07:11.583153Z",
+              "url": "https://files.pythonhosted.org/packages/5a/ea/906a72b984b8b928d596ee7f57a2051dd2cec94ca9be383fb52c9ad19418/markupsafe-3.0.4-cp39-cp39-musllinux_1_2_ppc64le.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp39-cp39-musllinux_1_2_riscv64.whl",
+              "hashes": {
+                "sha256": "9240187afb63d2f9ddc3e032c670356fe941f6e20662ea168a5dc3f1f317e1b3"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp39-cp39-musllinux_1_2_riscv64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 20167,
+              "upload-time": "2026-10-02T23:07:13.338197Z",
+              "url": "https://files.pythonhosted.org/packages/d1/3b/8099c4f4e2793ca067bdc5670e2898fedeb3f49e6d17e7810fa094aad54e/markupsafe-3.0.4-cp39-cp39-musllinux_1_2_riscv64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "66767d76388ece15d49d50dafb655891ef5d868715e7128e7f7d737a70b353c4"
+              },
+              "filename": "markupsafe-3.0.4-cp39-cp39-musllinux_1_2_x86_64.whl",
+              "hashes": {
+                "sha256": "e841068dc0be4cb6dfb5c890eb88cbdcff2f4a332393c7ec94e8e618bd32c1a8"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp39-cp39-musllinux_1_2_x86_64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 20621,
+              "upload-time": "2026-10-02T23:07:14.941799Z",
+              "url": "https://files.pythonhosted.org/packages/28/4b/085aa6f3d1572d8284a6670f66edda0cee772860f3bdc1431cceff5163e7/markupsafe-3.0.4-cp39-cp39-musllinux_1_2_x86_64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "filename": "markupsafe-3.0.4-cp39-cp39-win32.whl",
+              "hashes": {
+                "sha256": "f61efe1d2fe0de16158a5fe1d1cf3c14bdb6aecd54d8938fd26512c525c1f624"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp39-cp39-win32.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 14091,
+              "upload-time": "2026-10-02T23:07:16.399301Z",
+              "url": "https://files.pythonhosted.org/packages/e2/24/34eba90224606cf2b5327914e80c1cda8718b9dc88f7331d1b32331de71a/markupsafe-3.0.4-cp39-cp39-win32.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "filename": "markupsafe-3.0.4-cp39-cp39-win_amd64.whl",
+              "hashes": {
+                "sha256": "2b2b1e18af909b448bb3cf9e3433366f7a8726271fc214e8b10e0f62a78c724b"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp39-cp39-win_amd64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 14324,
+              "upload-time": "2026-10-02T23:07:18.982506Z",
+              "url": "https://files.pythonhosted.org/packages/d5/e9/7ae8c8656b913431eabb4e8b30aea311aa7a68217b56609ec20306732b60/markupsafe-3.0.4-cp39-cp39-win_amd64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d"
+              },
+              "filename": "markupsafe-3.0.4-cp39-cp39-win_arm64.whl",
+              "hashes": {
+                "sha256": "6669c1bf34080161ce49c589cc512ef24d4c704ac9d2b2d3667f519c60418378"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4-cp39-cp39-win_arm64.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 14190,
+              "upload-time": "2026-10-02T23:07:20.567540Z",
+              "url": "https://files.pythonhosted.org/packages/5b/7d/87ff065a4d14d8de1f462f851d9cdf903b6e1fc067d0ef3674414da444c0/markupsafe-3.0.4-cp39-cp39-win_arm64.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": false,
+              "data-dist-info-metadata": false,
+              "filename": "markupsafe-3.0.4.tar.gz",
+              "hashes": {
+                "sha256": "2e9ad7dd851bf45fab9f75cbff4cb493fee9979e8d8c7c9c3ee119022518edd6"
+              },
+              "provenance": "https://pypi.org/integrity/markupsafe/3.0.4/markupsafe-3.0.4.tar.gz/provenance",
+              "requires-python": ">=3.9",
+              "size": 153777,
+              "upload-time": "2026-10-02T23:07:22.290270Z",
+              "url": "https://files.pythonhosted.org/packages/38/9b/e422a865e1d5d57d0e509b4e0bf1c1a70a7f6382c29a5aa428df994c8bc8/markupsafe-3.0.4.tar.gz",
+              "yanked": false
             }
           ],
           "meta": {
-            "_last-serial": 31494714,
+            "_last-serial": 41753165,
             "api-version": "1.4"
           },
           "name": "markupsafe",
@@ -47396,7 +50110,8 @@ interactions:
             "3.0.0",
             "3.0.1",
             "3.0.2",
-            "3.0.3"
+            "3.0.3",
+            "3.0.4"
           ]
         }
       headers:
@@ -47425,7 +50140,7 @@ interactions:
         Strict-Transport-Security:
           - max-age=31536000; includeSubDomains; preload
         Vary:
-          - Accept-Encoding, Accept
+          - Accept, Accept-Encoding
         X-Content-Type-Options:
           - nosniff
         X-Frame-Options:
@@ -58118,10 +60833,42 @@ interactions:
               "upload-time": "2026-07-25T15:12:07.385487Z",
               "url": "https://files.pythonhosted.org/packages/fb/48/fb042503b6ca6cd271261dc559fd6432f7d8c713153e9ec5c591af4dfc1c/pytz-2026.3.post1.tar.gz",
               "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "45216c70eee4d558fc131d368920c36ed02a61b0774fd8dc7aa17be22edec52b"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "45216c70eee4d558fc131d368920c36ed02a61b0774fd8dc7aa17be22edec52b"
+              },
+              "filename": "pytz-2026.4-py2.py3-none-any.whl",
+              "hashes": {
+                "sha256": "9d514388fbc89ca0833203464272ac485b8828568ab73532f5020f17e892a0ff"
+              },
+              "provenance": "https://pypi.org/integrity/pytz/2026.4/pytz-2026.4-py2.py3-none-any.whl/provenance",
+              "requires-python": null,
+              "size": 506747,
+              "upload-time": "2026-09-24T03:58:38.629845Z",
+              "url": "https://files.pythonhosted.org/packages/d5/11/e3df59614bebe0ca50c905442603eda64ae7ac19811d4e4f74aa2d51ca85/pytz-2026.4-py2.py3-none-any.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": false,
+              "data-dist-info-metadata": false,
+              "filename": "pytz-2026.4.tar.gz",
+              "hashes": {
+                "sha256": "464303645bafafd72418898368b2429458f709cf1eb6a15372fbcc396b64da63"
+              },
+              "provenance": "https://pypi.org/integrity/pytz/2026.4/pytz-2026.4.tar.gz/provenance",
+              "requires-python": null,
+              "size": 318444,
+              "upload-time": "2026-09-24T03:58:40.443187Z",
+              "url": "https://files.pythonhosted.org/packages/b0/ed/fa23d28713004418bbf2407127f80f385bfb0bf4e677bef02c25c27b00ee/pytz-2026.4.tar.gz",
+              "yanked": false
             }
           ],
           "meta": {
-            "_last-serial": 39364553,
+            "_last-serial": 41394708,
             "api-version": "1.4"
           },
           "name": "pytz",
@@ -58251,7 +60998,8 @@ interactions:
             "2026.1.post1",
             "2026.2",
             "2026.3",
-            "2026.3.post1"
+            "2026.3.post1",
+            "2026.4"
           ]
         }
       headers:
@@ -58280,7 +61028,7 @@ interactions:
         Strict-Transport-Security:
           - max-age=31536000; includeSubDomains; preload
         Vary:
-          - Accept, Accept-Encoding
+          - Accept-Encoding, Accept
         X-Content-Type-Options:
           - nosniff
         X-Frame-Options:
@@ -68514,10 +71262,42 @@ interactions:
               "upload-time": "2026-04-02T18:49:14.268187Z",
               "url": "https://files.pythonhosted.org/packages/dd/b2/381be8cfdee792dd117872481b6e378f85c957dd7c5bca38897b08f765fd/werkzeug-3.1.8.tar.gz",
               "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "9f04352e946ecb0883fbf379994c1cacf6720a124acdd7fd59029a889f4eebba"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "9f04352e946ecb0883fbf379994c1cacf6720a124acdd7fd59029a889f4eebba"
+              },
+              "filename": "werkzeug-3.1.9-py3-none-any.whl",
+              "hashes": {
+                "sha256": "6392e50c78460ba618e5b21f08a71f59c99ce99cdc6cf6e3dd7e6ccca8754fab"
+              },
+              "provenance": "https://pypi.org/integrity/werkzeug/3.1.9/werkzeug-3.1.9-py3-none-any.whl/provenance",
+              "requires-python": ">=3.9",
+              "size": 228700,
+              "upload-time": "2026-09-27T18:33:39.685530Z",
+              "url": "https://files.pythonhosted.org/packages/a1/38/df03f564f43cec2684823f3cccae1a652ee7face1cbaa76fb223096e64d7/werkzeug-3.1.9-py3-none-any.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": false,
+              "data-dist-info-metadata": false,
+              "filename": "werkzeug-3.1.9.tar.gz",
+              "hashes": {
+                "sha256": "55ca7c70a75689be937aa27f8ff4b018f06ff4838fc73045560bf0f5a1291060"
+              },
+              "provenance": "https://pypi.org/integrity/werkzeug/3.1.9/werkzeug-3.1.9.tar.gz/provenance",
+              "requires-python": ">=3.9",
+              "size": 940188,
+              "upload-time": "2026-09-27T18:33:41.637920Z",
+              "url": "https://files.pythonhosted.org/packages/a4/34/4dd12fc8bb7d61c91467ec3efe415ffa7d5456f799954b40c5bbaeae470e/werkzeug-3.1.9.tar.gz",
+              "yanked": false
             }
           ],
           "meta": {
-            "_last-serial": 35738641,
+            "_last-serial": 41523922,
             "api-version": "1.4"
           },
           "name": "werkzeug",
@@ -68629,7 +71409,8 @@ interactions:
             "3.1.5",
             "3.1.6",
             "3.1.7",
-            "3.1.8"
+            "3.1.8",
+            "3.1.9"
           ]
         }
       headers:
@@ -68658,7 +71439,7 @@ interactions:
         Strict-Transport-Security:
           - max-age=31536000; includeSubDomains; preload
         Vary:
-          - Accept, Accept-Encoding
+          - Accept-Encoding, Accept
         X-Content-Type-Options:
           - nosniff
         X-Frame-Options:
@@ -68674,7 +71455,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 1604
+      content_length: 1598
       host: api.osv.dev
       body: |
         {
@@ -68740,14 +71521,14 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "markupsafe"
               },
-              "version": "3.0.3"
+              "version": "3.0.4"
             },
             {
               "package": {
                 "ecosystem": "PyPI",
                 "name": "pytz"
               },
-              "version": "2026.3.post1"
+              "version": "2026.4"
             },
             {
               "package": {
@@ -68768,7 +71549,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "werkzeug"
               },
-              "version": "3.1.8"
+              "version": "3.1.9"
             }
           ]
         }
@@ -68781,7 +71562,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 3504
+      content_length: 3846
       body: |
         {
           "results": [
@@ -68835,12 +71616,20 @@ interactions:
                   "modified": "2026-09-10T03:50:49.784603Z"
                 },
                 {
+                  "id": "GHSA-q238-5cxm-5c9h",
+                  "modified": "2026-09-30T20:40:39.481478Z"
+                },
+                {
                   "id": "GHSA-qw25-v68c-qjf3",
                   "modified": "2026-09-10T03:50:58.508072Z"
                 },
                 {
                   "id": "GHSA-rrqc-c2jx-6jgv",
                   "modified": "2026-07-07T17:57:34.018251Z"
+                },
+                {
+                  "id": "GHSA-wvqv-fj8w-qmhm",
+                  "modified": "2026-10-01T17:56:17.845009Z"
                 },
                 {
                   "id": "PYSEC-2021-98",
@@ -68852,7 +71641,11 @@ interactions:
                 },
                 {
                   "id": "PYSEC-2026-3717",
-                  "modified": "2026-08-19T13:55:32.521127Z"
+                  "modified": "2026-10-01T17:15:02.507678Z"
+                },
+                {
+                  "id": "PYSEC-2026-4035",
+                  "modified": "2026-10-01T17:56:17.845009Z"
                 }
               ]
             },
@@ -68940,7 +71733,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-2xpw-w6gg-jr37",
-                  "modified": "2026-09-10T03:50:31.327173Z"
+                  "modified": "2026-09-25T17:15:05.968189Z"
                 },
                 {
                   "id": "GHSA-34jh-p97f-mpxf",
@@ -68969,6 +71762,10 @@ interactions:
                 {
                   "id": "GHSA-v845-jxx5-vc9f",
                   "modified": "2026-09-10T03:49:24.753610Z"
+                },
+                {
+                  "id": "GHSA-vxq7-64xx-v4gw",
+                  "modified": "2026-10-01T17:55:57.514829Z"
                 },
                 {
                   "id": "GHSA-wqvq-5m8c-6g24",
@@ -69009,6 +71806,10 @@ interactions:
                 {
                   "id": "PYSEC-2026-1999",
                   "modified": "2026-07-07T17:47:54.161376Z"
+                },
+                {
+                  "id": "PYSEC-2026-4177",
+                  "modified": "2026-10-01T17:45:18.336090Z"
                 }
               ]
             },
@@ -69017,7 +71818,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "3504"
+          - "3846"
         Content-Type:
           - application/json
       status: 200 OK
