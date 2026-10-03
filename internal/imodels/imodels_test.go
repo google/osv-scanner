@@ -52,6 +52,102 @@ func Test_Name(t *testing.T) {
 			},
 			want: "openssl@3.5",
 		},
+		{
+			name: "CycloneDX_Maven_with_PURL_namespace",
+			pkg: &extractor.Package{
+				Name:     "tomcat-embed-core",
+				PURLType: purl.TypeMaven,
+				Metadata: &cdxmetadata.Metadata{
+					PURL: &purl.PackageURL{
+						Type:      purl.TypeMaven,
+						Namespace: "org.apache.tomcat.embed",
+						Name:      "tomcat-embed-core",
+						Version:   "11.0.24",
+					},
+				},
+			},
+			want: "org.apache.tomcat.embed:tomcat-embed-core",
+		},
+		{
+			name: "Maven_already_namespaced_in_Name",
+			pkg: &extractor.Package{
+				Name:     "org.apache.tomcat.embed:tomcat-embed-core",
+				PURLType: purl.TypeMaven,
+				Metadata: &cdxmetadata.Metadata{
+					PURL: &purl.PackageURL{
+						Type:      purl.TypeMaven,
+						Namespace: "org.apache.tomcat.embed",
+						Name:      "tomcat-embed-core",
+						Version:   "11.0.24",
+					},
+				},
+			},
+			want: "org.apache.tomcat.embed:tomcat-embed-core",
+		},
+		{
+			name: "SPDX_Maven_with_PURL_namespace",
+			pkg: &extractor.Package{
+				Name:     "spring-boot-starter-web",
+				PURLType: purl.TypeMaven,
+				Metadata: &spdxmetadata.Metadata{
+					PURL: &purl.PackageURL{
+						Type:      purl.TypeMaven,
+						Namespace: "org.springframework.boot",
+						Name:      "spring-boot-starter-web",
+						Version:   "3.0.0",
+					},
+				},
+			},
+			want: "org.springframework.boot:spring-boot-starter-web",
+		},
+		{
+			name: "OS_Debian_package_ignores_namespace",
+			pkg: &extractor.Package{
+				Name:     "curl",
+				PURLType: purl.TypeDebian,
+				Metadata: &cdxmetadata.Metadata{
+					PURL: &purl.PackageURL{
+						Type:      purl.TypeDebian,
+						Namespace: "debian",
+						Name:      "curl",
+						Version:   "7.88.1-10+deb12u5",
+					},
+				},
+			},
+			want: "curl",
+		},
+		{
+			name: "OS_Apk_package_ignores_namespace",
+			pkg: &extractor.Package{
+				Name:     "zlib",
+				PURLType: purl.TypeApk,
+				Metadata: &cdxmetadata.Metadata{
+					PURL: &purl.PackageURL{
+						Type:      purl.TypeApk,
+						Namespace: "alpine",
+						Name:      "zlib",
+						Version:   "1.2.13-r0",
+					},
+				},
+			},
+			want: "zlib",
+		},
+		{
+			name: "Generic_ecosystem_with_namespace",
+			pkg: &extractor.Package{
+				Name:     "gin",
+				PURLType: purl.TypeGolang,
+				Metadata: &cdxmetadata.Metadata{
+					PURL: &purl.PackageURL{
+						Type:      purl.TypeGolang,
+						Namespace: "github.com/gin-gonic",
+						Name:      "gin",
+						Version:   "v1.9.1",
+					},
+				},
+			},
+			want: "github.com/gin-gonic/gin",
+		},
 	}
 
 	for _, tt := range tests {

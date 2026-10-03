@@ -13,6 +13,7 @@ import (
 	dpkgmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/dpkg/metadata"
 	rpmmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/rpm/metadata"
 	"github.com/google/osv-scalibr/inventory/osvecosystem"
+	"github.com/google/osv-scalibr/purl"
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
@@ -32,16 +33,18 @@ var gitExtractors = map[string]struct{}{
 // Name patches the SCALIBR package name to something used by OSV.
 // This does not affect matching. It is only used for reporting and filtering.
 func Name(pkg *extractor.Package) string {
+	name := purlToName(pkg.Name, pkg.PURL(), Ecosystem(pkg))
+
 	// --- Make specific patches to names as necessary ---
 	// Patch Go package to stdlib
-	if Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo && pkg.Name == "go" {
+	if Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo && name == "go" {
 		return "stdlib"
 	}
 
 	// Patch python package names to be normalized
 	if Ecosystem(pkg).Ecosystem == osvconstants.EcosystemPyPI {
 		// per https://peps.python.org/pep-0503/#normalized-names
-		return strings.ToLower(cachedregexp.MustCompile(`[-_.]+`).ReplaceAllLiteralString(pkg.Name, "-"))
+		return strings.ToLower(cachedregexp.MustCompile(`[-_.]+`).ReplaceAllLiteralString(name, "-"))
 	}
 
 	// Patch Maven archive extractor package names
@@ -70,7 +73,54 @@ func Name(pkg *extractor.Package) string {
 		return pkg.SourceCode.Repo
 	}
 
-	return pkg.Name
+	return name
+}
+
+// purlToName formats a package name using PURL namespace metadata according to ecosystem naming conventions.
+func purlToName(pkgName string, p *purl.PackageURL, eco osvecosystem.Parsed) string {
+	if p == nil || p.Namespace == "" {
+		return pkgName
+	}
+
+	// OS distro namespaces should not prefix package name
+	if isOSPURLType(p.Type) {
+		return pkgName
+	}
+
+	purlNamespace := p.Namespace
+	switch eco.Ecosystem {
+	case osvconstants.EcosystemMaven:
+		if !strings.HasPrefix(pkgName, purlNamespace+":") {
+			return purlNamespace + ":" + pkgName
+		}
+	default:
+		// PURL namespaces may be lowercased (e.g. Go), while pkgName keeps its original case.
+		if !strings.HasPrefix(strings.ToLower(pkgName), strings.ToLower(purlNamespace)+"/") {
+			return purlNamespace + "/" + pkgName
+		}
+	}
+
+	return pkgName
+}
+
+func isOSPURLType(purlType string) bool {
+	switch purlType {
+	case purl.TypeDebian,
+		purl.TypeApk,
+		purl.TypeRPM,
+		purl.TypeAlpm,
+		purl.TypeOpkg,
+		purl.TypeFlatpak,
+		purl.TypeCOS,
+		purl.TypeSnap,
+		purl.TypePacman,
+		purl.TypePortage,
+		purl.TypeNix,
+		purl.TypeDHI:
+		return true
+	}
+
+	return false
 }
 
 func Ecosystem(pkg *extractor.Package) osvecosystem.Parsed {
