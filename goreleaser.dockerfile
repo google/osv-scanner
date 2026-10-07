@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM golang:1.27.1-alpine3.23@sha256:0908ac9b9319e09d7c238aabe914e0395c51d63c4e3d0ae8c554fda9158a5769
+FROM golang:1.27.1-alpine3.23@sha256:0908ac9b9319e09d7c238aabe914e0395c51d63c4e3d0ae8c554fda9158a5769 AS base
 RUN apk add --no-cache \
     ca-certificates \
     git
@@ -20,8 +20,22 @@ RUN apk add --no-cache \
 # Allow git to run on mounted directories
 RUN git config --global --add safe.directory '*'
 
+FROM base AS cli
 WORKDIR /
 
 COPY osv-scanner ./
 
 ENTRYPOINT ["/osv-scanner"]
+
+FROM base AS action
+RUN apk add --no-cache bash
+
+# Built binaries provided by goreleaser
+WORKDIR /root/
+COPY ./osv-scanner-action ./osv-scanner
+COPY ./osv-reporter ./
+COPY ./exit_code_redirect.sh ./
+
+ENV PATH="${PATH}:/root"
+
+ENTRYPOINT ["bash", "/root/exit_code_redirect.sh"]
