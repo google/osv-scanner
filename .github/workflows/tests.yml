@@ -145,12 +145,12 @@ jobs:
           ARTIFACTS: ${{ steps.run-goreleaser.outputs.artifacts }}
         run: |
           echo "$ARTIFACTS" > output.json
-          jq -r '.[] | select(
+          # snapshot builds produce one image per tag, so dedupe by digest
+          jq -r '[.[] | select(
             .type == "Docker Image" and
-            .goarch == "amd64" and
-            .goos == "linux" and
-            .extra.DockerConfig.dockerfile == "goreleaser.dockerfile"
-          ) | .name' output.json | while read -r image; do
+            .extra.ID == "osv-scanner" and
+            .extra.Platforms == ["linux/amd64"]
+          )] | unique_by(.extra.Digest) | .[].name' output.json | while read -r image; do
             echo "Testing image $image"
 
             exit_code=0
