@@ -149,7 +149,7 @@ jobs:
             .type == "Docker Image" and
             .goarch == "amd64" and
             .goos == "linux" and
-            .extra.DockerConfig.dockerfile == "goreleaser.dockerfile"
+            (.name | startswith("ghcr.io/google/osv-scanner:"))
           ) | .name' output.json | while read -r image; do
             echo "Testing image $image"
 
