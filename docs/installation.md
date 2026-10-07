@@ -11,8 +11,7 @@ You may download the [SLSA3](https://slsa.dev) compliant binaries for Linux, mac
 ## Package Managers
 
 <!-- markdown-link-check-disable -->
-<!-- TODO: Re-enable once repology.org domain issue is resolved. See: https://github.com/repology/repology-rs/issues/560 -->
-<!-- [![Packaging status](https://repology.org/badge/vertical-allrepos/osv-scanner.svg)](https://repology.org/project/osv-scanner/versions) -->
+[![Packaging status](https://repology.org/badge/vertical-allrepos/osv-scanner.svg)](https://repology.org/project/osv-scanner/versions)
 <!-- markdown-link-check-enable -->
 
 ### Windows Scoop
