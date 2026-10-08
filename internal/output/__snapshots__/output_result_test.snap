@@ -2449,8 +2449,8 @@
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
-                  "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityRating": "MEDIUM",
+                  "SeverityScore": "4.3"
                 },
                 {
                   "ID": "OSV-5",
@@ -2526,9 +2526,9 @@
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
-                  "Medium": 0,
+                  "Medium": 1,
                   "Low": 0,
-                  "Unknown": 2
+                  "Unknown": 1
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -2547,9 +2547,9 @@
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
-              "Medium": 0,
+              "Medium": 1,
               "Low": 0,
-              "Unknown": 2
+              "Unknown": 1
             },
             "FixableCount": {
               "Fixed": 0,
@@ -2720,9 +2720,9 @@
     "SeverityCount": {
       "Critical": 0,
       "High": 0,
-      "Medium": 0,
+      "Medium": 1,
       "Low": 0,
-      "Unknown": 6
+      "Unknown": 5
     },
     "FixableCount": {
       "Fixed": 0,
@@ -4536,8 +4536,8 @@
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
-                  "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityRating": "CRITICAL",
+                  "SeverityScore": "9.0"
                 }
               ],
               "HiddenVulns": [],
@@ -4598,11 +4598,11 @@
                   "Hidden": 0
                 },
                 "SeverityCount": {
-                  "Critical": 0,
+                  "Critical": 1,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
-                  "Unknown": 1
+                  "Unknown": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -4619,11 +4619,11 @@
               "Hidden": 0
             },
             "SeverityCount": {
-              "Critical": 0,
+              "Critical": 1,
               "High": 0,
               "Medium": 0,
               "Low": 0,
-              "Unknown": 1
+              "Unknown": 0
             },
             "FixableCount": {
               "Fixed": 0,
@@ -4663,11 +4663,11 @@
       "Hidden": 0
     },
     "SeverityCount": {
-      "Critical": 0,
+      "Critical": 1,
       "High": 0,
       "Medium": 0,
       "Low": 0,
-      "Unknown": 1
+      "Unknown": 0
     },
     "FixableCount": {
       "Fixed": 0,
@@ -5592,8 +5592,8 @@
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
-                  "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityRating": "HIGH",
+                  "SeverityScore": "8.3"
                 }
               ],
               "HiddenVulns": [],
@@ -5655,10 +5655,10 @@
                 },
                 "SeverityCount": {
                   "Critical": 0,
-                  "High": 0,
+                  "High": 1,
                   "Medium": 0,
                   "Low": 0,
-                  "Unknown": 1
+                  "Unknown": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -5676,10 +5676,10 @@
             },
             "SeverityCount": {
               "Critical": 0,
-              "High": 0,
+              "High": 1,
               "Medium": 0,
               "Low": 0,
-              "Unknown": 1
+              "Unknown": 0
             },
             "FixableCount": {
               "Fixed": 0,
@@ -5720,10 +5720,10 @@
     },
     "SeverityCount": {
       "Critical": 0,
-      "High": 0,
+      "High": 1,
       "Medium": 0,
       "Low": 0,
-      "Unknown": 1
+      "Unknown": 0
     },
     "FixableCount": {
       "Fixed": 0,

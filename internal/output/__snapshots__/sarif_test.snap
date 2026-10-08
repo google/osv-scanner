@@ -3751,6 +3751,9 @@
               },
               "id": "OSV-3",
               "name": "OSV-3",
+              "properties": {
+                "security-severity": "4.3"
+              },
               "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-3: Something mildly scary!",
@@ -5001,6 +5004,9 @@
               },
               "id": "OSV-1",
               "name": "OSV-1",
+              "properties": {
+                "security-severity": "9"
+              },
               "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-1: Something scary!",
@@ -5798,6 +5804,9 @@
               },
               "id": "OSV-1",
               "name": "OSV-1",
+              "properties": {
+                "security-severity": "8.3"
+              },
               "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-1: Something scary!",
