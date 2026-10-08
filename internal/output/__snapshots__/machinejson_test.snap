@@ -942,7 +942,7 @@
               "aliases": [
                 "OSV-1"
               ],
-              "max_severity": ""
+              "max_severity": "7.8"
             }
           ],
           "licenses": [
@@ -956,7 +956,8 @@
               "id": "OSV-1",
               "severity": [
                 {
-                  "score": "1"
+                  "score": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+                  "type": "CVSS_V3"
                 }
               ],
               "summary": "Something scary!"
@@ -2489,7 +2490,7 @@
               "aliases": [
                 "OSV-3"
               ],
-              "max_severity": ""
+              "max_severity": "4.3"
             },
             {
               "ids": [
@@ -2506,7 +2507,8 @@
               "id": "OSV-3",
               "severity": [
                 {
-                  "score": "1"
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+                  "type": "CVSS_V3"
                 }
               ],
               "summary": "Something mildly scary!"
@@ -3103,7 +3105,7 @@
               "aliases": [
                 "OSV-1"
               ],
-              "max_severity": ""
+              "max_severity": "9.0"
             }
           ],
           "vulnerabilities": [
@@ -3111,7 +3113,8 @@
               "id": "OSV-1",
               "severity": [
                 {
-                  "score": "1"
+                  "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:H",
+                  "type": "CVSS_V3"
                 }
               ],
               "summary": "Something scary!"
@@ -3439,7 +3442,7 @@
                 "GHSA-123",
                 "OSV-1"
               ],
-              "max_severity": ""
+              "max_severity": "8.3"
             }
           ],
           "vulnerabilities": [
@@ -3447,7 +3450,8 @@
               "id": "OSV-1",
               "severity": [
                 {
-                  "score": "1"
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+                  "type": "CVSS_V3"
                 }
               ],
               "summary": "Something scary!"
@@ -3459,7 +3463,8 @@
               "id": "GHSA-123",
               "severity": [
                 {
-                  "score": "1"
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:L/A:L",
+                  "type": "CVSS_V3"
                 }
               ],
               "summary": "Something scary!"

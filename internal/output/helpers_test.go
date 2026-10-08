@@ -267,12 +267,15 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}, MaxSeverity: "9"}},
+									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
-											Id:       "OSV-1",
-											Summary:  "Something scary!",
-											Severity: []*osvschema.Severity{{Score: "1"}},
+											Id:      "OSV-1",
+											Summary: "Something scary!",
+											Severity: []*osvschema.Severity{{
+												Type:  osvschema.Severity_CVSS_V3,
+												Score: "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:H",
+											}},
 										},
 									},
 								},
@@ -623,21 +626,26 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Extractor: packagelockjson.Extractor{},
 									}),
 									Groups: []models.GroupInfo{{
-										IDs:         []string{"OSV-1", "GHSA-123"},
-										Aliases:     []string{"OSV-1", "GHSA-123"},
-										MaxSeverity: "8.3",
+										IDs:     []string{"OSV-1", "GHSA-123"},
+										Aliases: []string{"OSV-1", "GHSA-123"},
 									}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
-											Id:       "OSV-1",
-											Summary:  "Something scary!",
-											Severity: []*osvschema.Severity{{Score: "1"}},
+											Id:      "OSV-1",
+											Summary: "Something scary!",
+											Severity: []*osvschema.Severity{{
+												Type:  osvschema.Severity_CVSS_V3,
+												Score: "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+											}},
 										},
 										{
-											Id:       "GHSA-123",
-											Summary:  "Something scary!",
-											Aliases:  []string{"OSV-1"},
-											Severity: []*osvschema.Severity{{Score: "1"}},
+											Id:      "GHSA-123",
+											Summary: "Something scary!",
+											Aliases: []string{"OSV-1"},
+											Severity: []*osvschema.Severity{{
+												Type:  osvschema.Severity_CVSS_V3,
+												Score: "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:L/A:L",
+											}},
 										},
 									},
 								},
@@ -1118,14 +1126,17 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									}),
 									DepGroups: []string{"build"},
 									Groups: []models.GroupInfo{
-										{IDs: []string{"OSV-3"}, MaxSeverity: "4.3"},
+										{IDs: []string{"OSV-3"}},
 										{IDs: []string{"OSV-5"}},
 									},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
-											Id:       "OSV-3",
-											Summary:  "Something mildly scary!",
-											Severity: []*osvschema.Severity{{Score: "1"}},
+											Id:      "OSV-3",
+											Summary: "Something mildly scary!",
+											Severity: []*osvschema.Severity{{
+												Type:  osvschema.Severity_CVSS_V3,
+												Score: "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+											}},
 										},
 										{
 											Id:       "OSV-5",
@@ -2560,17 +2571,19 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 										Extractor: packagelockjson.Extractor{},
 									}),
 									Groups: []models.GroupInfo{{
-										IDs:         []string{"OSV-1"},
-										MaxSeverity: "7.8",
+										IDs: []string{"OSV-1"},
 										ExperimentalAnalysis: map[string]models.AnalysisInfo{
 											"OSV-1": {Called: false},
 										},
 									}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
-											Id:       "OSV-1",
-											Summary:  "Something scary!",
-											Severity: []*osvschema.Severity{{Score: "1"}},
+											Id:      "OSV-1",
+											Summary: "Something scary!",
+											Severity: []*osvschema.Severity{{
+												Type:  osvschema.Severity_CVSS_V3,
+												Score: "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+											}},
 										},
 									},
 									Licenses:          []models.License{"MIT"},

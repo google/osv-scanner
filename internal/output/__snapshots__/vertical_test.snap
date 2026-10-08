@@ -334,7 +334,7 @@ sbom:<rootdir>/path/to/my/second/lockfile: found 0 packages with issues
 
 [TestPrintVerticalResults_WithMixedIssues/multiple_sources_with_a_mixed_count_of_packages,_some_called_vulnerabilities_and_license_violations - 1]
 
-Total 3 packages affected by 3 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 3 Unknown) from 1 ecosystem.
+Total 3 packages affected by 3 known vulnerabilities (0 Critical, 1 High, 0 Medium, 0 Low, 2 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 npm
@@ -343,7 +343,7 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   mine1@1.2.3 has the following known vulnerabilities:
     OSV-1: Something scary!
-      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
+      Severity: '7.8'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 
@@ -721,7 +721,7 @@ unknown:<rootdir>/path/to/my/third/lockfile: found 1 package with issues
 
 [TestPrintVerticalResults_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_and_multiple_vulnerabilities - 1]
 
-Total 4 packages affected by 6 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 6 Unknown) from 3 ecosystems.
+Total 4 packages affected by 6 known vulnerabilities (0 Critical, 0 High, 1 Medium, 0 Low, 5 Unknown) from 3 ecosystems.
 0 vulnerabilities can be fixed.
 
 NuGet
@@ -750,7 +750,7 @@ sbom:<rootdir>/path/to/my/second/lockfile: found 1 package with issues
 
   author3/mine3@0.4.1 has the following known vulnerabilities:
     OSV-3: Something mildly scary!
-      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
+      Severity: '4.3'; Minimal Fix Version: 'No fix available';
     OSV-5: Something scarier!
       Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
@@ -937,7 +937,7 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
 [TestPrintVerticalResults_WithVulnerabilities/one_source_with_one_package,_one_vulnerability,_and_a_max_severity - 1]
 
-Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 npm
@@ -946,7 +946,7 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   mine1@1.2.3 has the following known vulnerabilities:
     OSV-1: Something scary!
-      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
+      Severity: '9.0'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 
@@ -1039,7 +1039,7 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
 [TestPrintVerticalResults_WithVulnerabilities/one_source_with_one_package_and_two_aliases_of_a_single_vulnerability_with_a_max_severity - 1]
 
-Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 npm
@@ -1048,7 +1048,7 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   mine1@1.2.3 has the following known vulnerabilities:
     OSV-1: Something scary!
-      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
+      Severity: '8.3'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 

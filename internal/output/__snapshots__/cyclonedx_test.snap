@@ -710,7 +710,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 7.8,
+          "severity": "high",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
         }
       ],
       "description": "Something scary!",
@@ -1608,7 +1611,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 4.3,
+          "severity": "medium",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
         }
       ],
       "description": "Something mildly scary!",
@@ -1980,7 +1986,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 9,
+          "severity": "critical",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:H"
         }
       ],
       "description": "Something scary!",
@@ -2244,7 +2253,10 @@
       ],
       "ratings": [
         {
-          "vector": "1"
+          "score": 8.3,
+          "severity": "high",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:L/A:L"
         }
       ],
       "description": "Something scary!",
@@ -2259,7 +2271,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 4.3,
+          "severity": "medium",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
         }
       ],
       "description": "Something scary!",
@@ -3321,7 +3336,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 7.8,
+          "severity": "high",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
         }
       ],
       "description": "Something scary!",
@@ -4219,7 +4237,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 4.3,
+          "severity": "medium",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
         }
       ],
       "description": "Something mildly scary!",
@@ -4591,7 +4612,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 9,
+          "severity": "critical",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:H"
         }
       ],
       "description": "Something scary!",
@@ -4855,7 +4879,10 @@
       ],
       "ratings": [
         {
-          "vector": "1"
+          "score": 8.3,
+          "severity": "high",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:L/A:L"
         }
       ],
       "description": "Something scary!",
@@ -4870,7 +4897,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 4.3,
+          "severity": "medium",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
         }
       ],
       "description": "Something scary!",
@@ -5932,7 +5962,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 7.8,
+          "severity": "high",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
         }
       ],
       "description": "Something scary!",
@@ -6830,7 +6863,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 4.3,
+          "severity": "medium",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
         }
       ],
       "description": "Something mildly scary!",
@@ -7202,7 +7238,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 9,
+          "severity": "critical",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:H"
         }
       ],
       "description": "Something scary!",
@@ -7466,7 +7505,10 @@
       ],
       "ratings": [
         {
-          "vector": "1"
+          "score": 8.3,
+          "severity": "high",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:L/A:L"
         }
       ],
       "description": "Something scary!",
@@ -7481,7 +7523,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 4.3,
+          "severity": "medium",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
         }
       ],
       "description": "Something scary!",
@@ -8543,7 +8588,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 7.8,
+          "severity": "high",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
         }
       ],
       "description": "Something scary!",
@@ -9441,7 +9489,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 4.3,
+          "severity": "medium",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
         }
       ],
       "description": "Something mildly scary!",
@@ -9813,7 +9864,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 9,
+          "severity": "critical",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:H"
         }
       ],
       "description": "Something scary!",
@@ -10077,7 +10131,10 @@
       ],
       "ratings": [
         {
-          "vector": "1"
+          "score": 8.3,
+          "severity": "high",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:L/A:L"
         }
       ],
       "description": "Something scary!",
@@ -10092,7 +10149,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 4.3,
+          "severity": "medium",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
         }
       ],
       "description": "Something scary!",
