@@ -939,14 +939,10 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
-              "experimental_analysis": {
-                "OSV-1": {
-                  "called": false,
-                  "unimportant": false
-                }
-              },
-              "max_severity": "7.8"
+              "aliases": [
+                "OSV-1"
+              ],
+              "max_severity": ""
             }
           ],
           "licenses": [
@@ -986,13 +982,9 @@
               "ids": [
                 "OSV-2"
               ],
-              "aliases": null,
-              "experimental_analysis": {
-                "OSV-2": {
-                  "called": true,
-                  "unimportant": false
-                }
-              },
+              "aliases": [
+                "OSV-2"
+              ],
               "max_severity": ""
             }
           ],
@@ -1053,13 +1045,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
-              "experimental_analysis": {
-                "OSV-1": {
-                  "called": false,
-                  "unimportant": false
-                }
-              },
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -1116,7 +1104,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -1157,7 +1147,9 @@
               "ids": [
                 "OSV-2"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-2"
+              ],
               "max_severity": ""
             }
           ],
@@ -1218,7 +1210,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -1276,7 +1270,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -1318,7 +1314,9 @@
               "ids": [
                 "OSV-2"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-2"
+              ],
               "max_severity": ""
             }
           ],
@@ -1379,7 +1377,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -1436,7 +1436,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -1523,13 +1525,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
-              "experimental_analysis": {
-                "OSV-1": {
-                  "called": true,
-                  "unimportant": false
-                }
-              },
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -1586,13 +1584,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
-              "experimental_analysis": {
-                "OSV-1": {
-                  "called": false,
-                  "unimportant": false
-                }
-              },
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -1649,7 +1643,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -1706,7 +1702,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -1785,14 +1783,18 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             },
             {
               "ids": [
                 "OSV-5"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-5"
+              ],
               "max_severity": ""
             }
           ],
@@ -1828,7 +1830,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -1866,7 +1870,9 @@
               "ids": [
                 "OSV-2"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-2"
+              ],
               "max_severity": ""
             }
           ],
@@ -1896,14 +1902,18 @@
               "ids": [
                 "OSV-3"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-3"
+              ],
               "max_severity": ""
             },
             {
               "ids": [
                 "OSV-5"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-5"
+              ],
               "max_severity": ""
             }
           ],
@@ -1961,14 +1971,18 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             },
             {
               "ids": [
                 "OSV-5"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-5"
+              ],
               "max_severity": ""
             }
           ],
@@ -2004,7 +2018,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -2039,7 +2055,9 @@
               "ids": [
                 "OSV-2"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-2"
+              ],
               "max_severity": ""
             }
           ],
@@ -2067,14 +2085,18 @@
               "ids": [
                 "OSV-3"
               ],
-              "aliases": null,
-              "max_severity": ""
+              "aliases": [
+                "OSV-3"
+              ],
+              "max_severity": "0.0"
             },
             {
               "ids": [
                 "OSV-5"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-5"
+              ],
               "max_severity": ""
             }
           ],
@@ -2206,7 +2228,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -2241,7 +2265,9 @@
               "ids": [
                 "OSV-2"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-2"
+              ],
               "max_severity": ""
             }
           ],
@@ -2290,7 +2316,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -2339,14 +2367,18 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             },
             {
               "ids": [
                 "OSV-5"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-5"
+              ],
               "max_severity": ""
             }
           ],
@@ -2382,7 +2414,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -2420,7 +2454,9 @@
               "ids": [
                 "OSV-2"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-2"
+              ],
               "max_severity": ""
             }
           ],
@@ -2450,14 +2486,18 @@
               "ids": [
                 "OSV-3"
               ],
-              "aliases": null,
-              "max_severity": "4.3"
+              "aliases": [
+                "OSV-3"
+              ],
+              "max_severity": ""
             },
             {
               "ids": [
                 "OSV-5"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-5"
+              ],
               "max_severity": ""
             }
           ],
@@ -2515,26 +2555,18 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
-              "experimental_analysis": {
-                "OSV-1": {
-                  "called": false,
-                  "unimportant": false
-                }
-              },
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             },
             {
               "ids": [
                 "OSV-5"
               ],
-              "aliases": null,
-              "experimental_analysis": {
-                "OSV-5": {
-                  "called": true,
-                  "unimportant": false
-                }
-              },
+              "aliases": [
+                "OSV-5"
+              ],
               "max_severity": ""
             }
           ],
@@ -2570,7 +2602,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -2608,7 +2642,9 @@
               "ids": [
                 "OSV-2"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-2"
+              ],
               "max_severity": ""
             }
           ],
@@ -2638,20 +2674,18 @@
               "ids": [
                 "OSV-3"
               ],
-              "aliases": null,
-              "experimental_analysis": {
-                "OSV-3": {
-                  "called": true,
-                  "unimportant": false
-                }
-              },
+              "aliases": [
+                "OSV-3"
+              ],
               "max_severity": ""
             },
             {
               "ids": [
                 "OSV-5"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-5"
+              ],
               "max_severity": ""
             }
           ],
@@ -2710,14 +2744,18 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             },
             {
               "ids": [
                 "OSV-5"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-5"
+              ],
               "max_severity": ""
             }
           ],
@@ -2754,7 +2792,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -2792,7 +2832,9 @@
               "ids": [
                 "OSV-2"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-2"
+              ],
               "max_severity": ""
             }
           ],
@@ -2822,14 +2864,18 @@
               "ids": [
                 "OSV-3"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-3"
+              ],
               "max_severity": ""
             },
             {
               "ids": [
                 "OSV-5"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-5"
+              ],
               "max_severity": ""
             }
           ],
@@ -2985,26 +3031,18 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
-              "experimental_analysis": {
-                "OSV-1": {
-                  "called": true,
-                  "unimportant": false
-                }
-              },
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             },
             {
               "ids": [
                 "GHSA-123"
               ],
-              "aliases": null,
-              "experimental_analysis": {
-                "GHSA-123": {
-                  "called": false,
-                  "unimportant": false
-                }
-              },
+              "aliases": [
+                "GHSA-123"
+              ],
               "max_severity": ""
             }
           ],
@@ -3062,8 +3100,10 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
-              "max_severity": "9"
+              "aliases": [
+                "OSV-1"
+              ],
+              "max_severity": ""
             }
           ],
           "vulnerabilities": [
@@ -3111,14 +3151,10 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
-              "experimental_analysis": {
-                "OSV-1": {
-                  "called": true,
-                  "unimportant": false
-                }
-              },
-              "max_severity": ""
+              "aliases": [
+                "OSV-1"
+              ],
+              "max_severity": "7.5"
             }
           ],
           "vulnerabilities": [
@@ -3167,13 +3203,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
-              "experimental_analysis": {
-                "OSV-1": {
-                  "called": false,
-                  "unimportant": false
-                }
-              },
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -3222,8 +3254,10 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
-              "max_severity": ""
+              "aliases": [
+                "OSV-1"
+              ],
+              "max_severity": "8.8"
             }
           ],
           "vulnerabilities": [
@@ -3279,8 +3313,10 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
-              "max_severity": ""
+              "aliases": [
+                "OSV-1"
+              ],
+              "max_severity": "6.9"
             }
           ],
           "vulnerabilities": [
@@ -3335,15 +3371,9 @@
                 "GHSA-123"
               ],
               "aliases": [
-                "OSV-1",
-                "GHSA-123"
+                "GHSA-123",
+                "OSV-1"
               ],
-              "experimental_analysis": {
-                "OSV-1": {
-                  "called": false,
-                  "unimportant": false
-                }
-              },
               "max_severity": ""
             }
           ],
@@ -3406,10 +3436,10 @@
                 "GHSA-123"
               ],
               "aliases": [
-                "OSV-1",
-                "GHSA-123"
+                "GHSA-123",
+                "OSV-1"
               ],
-              "max_severity": "8.3"
+              "max_severity": ""
             }
           ],
           "vulnerabilities": [
@@ -3471,10 +3501,10 @@
                 "GHSA-123"
               ],
               "aliases": [
-                "OSV-1",
-                "GHSA-123"
+                "GHSA-123",
+                "OSV-1"
               ],
-              "max_severity": ""
+              "max_severity": "1.8"
             }
           ],
           "vulnerabilities": [
@@ -3537,8 +3567,10 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
-              "max_severity": ""
+              "aliases": [
+                "OSV-1"
+              ],
+              "max_severity": "9.8"
             }
           ],
           "vulnerabilities": [
@@ -3588,8 +3620,10 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
-              "max_severity": ""
+              "aliases": [
+                "OSV-1"
+              ],
+              "max_severity": "7.5"
             }
           ],
           "vulnerabilities": [
@@ -3638,21 +3672,27 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             },
             {
               "ids": [
                 "OSV-3"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-3"
+              ],
               "max_severity": ""
             },
             {
               "ids": [
                 "OSV-4"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-4"
+              ],
               "max_severity": ""
             }
           ],
@@ -3682,7 +3722,9 @@
               "ids": [
                 "OSV-2"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-2"
+              ],
               "max_severity": ""
             }
           ],
@@ -3725,7 +3767,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -3769,8 +3813,10 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
-              "max_severity": ""
+              "aliases": [
+                "OSV-1"
+              ],
+              "max_severity": "9.8"
             }
           ],
           "vulnerabilities": [
@@ -3838,7 +3884,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -3876,7 +3924,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],

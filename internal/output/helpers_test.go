@@ -11,6 +11,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/packagelockjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/php/composerlock"
 	"github.com/google/osv-scalibr/purl"
+	"github.com/google/osv-scanner/v2/internal/grouper"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
@@ -1435,6 +1436,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
+			for _, result := range tt.args.vulnResult.Results {
+				for j := range result.Packages {
+					result.Packages[j].Groups = grouper.Build(result.Packages[j])
+				}
+			}
+
 			run(t, tt.args)
 		})
 	}
@@ -2120,6 +2127,12 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
+			for _, result := range tt.args.vulnResult.Results {
+				for j := range result.Packages {
+					result.Packages[j].Groups = grouper.Build(result.Packages[j])
+				}
+			}
+
 			run(t, tt.args)
 		})
 	}
@@ -2675,6 +2688,12 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
+
+			for _, result := range tt.args.vulnResult.Results {
+				for j := range result.Packages {
+					result.Packages[j].Groups = grouper.Build(result.Packages[j])
+				}
+			}
 
 			run(t, tt.args)
 		})
