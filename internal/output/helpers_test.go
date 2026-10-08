@@ -228,7 +228,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:      "OSV-1",
@@ -267,7 +266,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:      "OSV-1",
@@ -301,7 +299,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Commit:    "abc123",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:      "OSV-1",
@@ -334,7 +331,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Commit:    "abc123",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:      "OSV-1",
@@ -489,7 +485,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Extractor: packagelockjson.Extractor{},
 									}),
 									DepGroups: []string{"dev"},
-									Groups:    []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:      "OSV-1",
@@ -528,7 +523,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-1",
@@ -550,7 +544,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Extractor: packagelockjson.Extractor{},
 									}),
 									DepGroups: []string{"dev"},
-									Groups:    []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-1",
@@ -580,10 +573,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{
-										IDs:     []string{"OSV-1", "GHSA-123"},
-										Aliases: []string{"OSV-1", "GHSA-123"},
-									}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:      "OSV-1",
@@ -625,10 +614,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{
-										IDs:     []string{"OSV-1", "GHSA-123"},
-										Aliases: []string{"OSV-1", "GHSA-123"},
-									}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:      "OSV-1",
@@ -712,7 +697,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:      "OSV-1",
@@ -765,7 +749,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-1",
@@ -786,7 +769,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{IDs: []string{"OSV-2"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-2",
@@ -825,7 +807,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-1",
@@ -855,10 +836,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{
-										{IDs: []string{"OSV-1"}},
-										{IDs: []string{"OSV-5"}},
-									},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-1",
@@ -879,7 +856,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-1",
@@ -900,7 +876,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{IDs: []string{"OSV-2"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:      "OSV-2",
@@ -919,10 +894,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{
-										{IDs: []string{"OSV-3"}},
-										{IDs: []string{"OSV-5"}},
-									},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:      "OSV-3",
@@ -961,10 +932,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Extractor: packagelockjson.Extractor{},
 									}),
 									DepGroups: []string{"dev", "optional"},
-									Groups: []models.GroupInfo{
-										{IDs: []string{"OSV-1"}},
-										{IDs: []string{"OSV-5"}},
-									},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-1",
@@ -985,7 +952,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-1",
@@ -1007,7 +973,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Extractor: packagelockjson.Extractor{},
 									}),
 									DepGroups: []string{"dev"},
-									Groups:    []models.GroupInfo{{IDs: []string{"OSV-2"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-2",
@@ -1024,10 +989,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Extractor: packagelockjson.Extractor{},
 									}),
 									DepGroups: []string{"build"},
-									Groups: []models.GroupInfo{
-										{IDs: []string{"OSV-3"}},
-										{IDs: []string{"OSV-5"}},
-									},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-3",
@@ -1062,10 +1023,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Ecosystem: "Packagist",
 										Extractor: composerlock.Extractor{},
 									}),
-									Groups: []models.GroupInfo{
-										{IDs: []string{"OSV-1"}},
-										{IDs: []string{"OSV-5"}},
-									},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-1",
@@ -1086,7 +1043,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-1",
@@ -1108,7 +1064,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Extractor: dotnetpe.Extractor{},
 									}),
 									DepGroups: []string{"dev"},
-									Groups:    []models.GroupInfo{{IDs: []string{"OSV-2"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-2",
@@ -1125,10 +1080,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Extractor: packagelockjson.Extractor{},
 									}),
 									DepGroups: []string{"build"},
-									Groups: []models.GroupInfo{
-										{IDs: []string{"OSV-3"}},
-										{IDs: []string{"OSV-5"}},
-									},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:      "OSV-3",
@@ -1167,10 +1118,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Commit:    "123abc",
 										Extractor: composerlock.Extractor{},
 									}),
-									Groups: []models.GroupInfo{
-										{IDs: []string{"OSV-1"}},
-										{IDs: []string{"OSV-5"}},
-									},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-1",
@@ -1191,7 +1138,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Commit:    "abcxyz",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-1",
@@ -1213,7 +1159,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Extractor: dotnetpe.Extractor{},
 									}),
 									DepGroups: []string{"dev"},
-									Groups:    []models.GroupInfo{{IDs: []string{"OSV-2"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-2",
@@ -1230,10 +1175,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Extractor: packagelockjson.Extractor{},
 									}),
 									DepGroups: []string{"build"},
-									Groups: []models.GroupInfo{
-										{IDs: []string{"OSV-3"}},
-										{IDs: []string{"OSV-5"}},
-									},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-3",
@@ -1302,7 +1243,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-1",
@@ -1324,7 +1264,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Extractor: dotnetpe.Extractor{},
 									}),
 									DepGroups: []string{"dev"},
-									Groups:    []models.GroupInfo{{IDs: []string{"OSV-2"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-2",
@@ -1384,7 +1323,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}, {IDs: []string{"OSV-3"}}, {IDs: []string{"OSV-4"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{Id: "OSV-1", Details: "This vulnerability allows for some very scary stuff to happen - seriously, you'd not believe it!"},
 
@@ -1400,7 +1338,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{IDs: []string{"OSV-2"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{Id: "OSV-2"},
 									},
@@ -1431,7 +1368,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{Id: "OSV-1", Summary: "Test vulnerability"},
 									},
@@ -2175,7 +2111,6 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-1",
@@ -2208,7 +2143,6 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-1",
@@ -2317,7 +2251,6 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-1",
@@ -2340,7 +2273,6 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups:            []models.GroupInfo{},
 									Vulnerabilities:   []*osvschema.Vulnerability{},
 									Licenses:          []models.License{"MIT"},
 									LicenseViolations: []models.License{"MIT"},
@@ -2367,7 +2299,6 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-1",
@@ -2390,7 +2321,6 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{IDs: []string{"OSV-2"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-2",
@@ -2435,7 +2365,6 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-1",
@@ -2469,7 +2398,6 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 										Commit:    "abcxzy",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-1",
@@ -2492,7 +2420,6 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 										Commit:    "abc123",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{IDs: []string{"OSV-2"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-2",
@@ -2537,7 +2464,6 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-1",
