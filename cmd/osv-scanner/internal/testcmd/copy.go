@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-func copyFile(from, to string) (string, error) {
+func CopyFile(from, to string) (string, error) {
 	b, err := os.ReadFile(from)
 	if err != nil {
 		return "", fmt.Errorf("could not read test file: %w", err)
@@ -37,7 +37,7 @@ func CopyFileFlagTo(t *testing.T, tc Case, flagName string, dir string) string {
 		return ""
 	}
 
-	newPath, err := copyFile(flagValue, filepath.Join(dir, filepath.Base(flagValue)))
+	newPath, err := CopyFile(flagValue, filepath.Join(dir, filepath.Base(flagValue)))
 
 	if err != nil {
 		t.Fatalf("%v", err)
