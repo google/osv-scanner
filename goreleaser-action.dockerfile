@@ -21,10 +21,11 @@ RUN apk --no-cache add \
 # Allow git to run on mounted directories
 RUN git config --global --add safe.directory '*'
 
-# Built binaries provided by goreleaser
+# Built binaries provided by goreleaser, under <os>/<arch>/
+ARG TARGETPLATFORM
 WORKDIR /root/
-COPY ./osv-scanner-action ./osv-scanner
-COPY ./osv-reporter ./
+COPY ./$TARGETPLATFORM/osv-scanner-action ./osv-scanner
+COPY ./$TARGETPLATFORM/osv-reporter ./
 COPY ./exit_code_redirect.sh ./
 
 ENV PATH="${PATH}:/root"
