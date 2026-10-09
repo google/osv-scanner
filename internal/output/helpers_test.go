@@ -5,11 +5,13 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/google/osv-scalibr/enricher/reachability/java"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/dotnetpe"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/packageslockjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/packagelockjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/php/composerlock"
+	"github.com/google/osv-scalibr/inventory/vex"
 	"github.com/google/osv-scalibr/purl"
 	"github.com/google/osv-scanner/v2/internal/grouper"
 	"github.com/google/osv-scanner/v2/internal/testutility"
@@ -23,6 +25,10 @@ type outputTestCaseArgs struct {
 
 type outputTestCase struct {
 	name string
+	// whether the groups should be built with exploitability signals, as when
+	// performing call analysis
+	considerExploitabilitySignals bool
+
 	args outputTestCaseArgs
 }
 
@@ -37,6 +43,9 @@ type pkginfo struct {
 	Commit        string
 	ImageOrigin   *models.ImageOriginDetails
 	Extractor     extractor.Extractor
+	// Uncalled marks the package as having code that is not in the execute path,
+	// as would be done by call analysis
+	Uncalled bool
 }
 
 func resolvePURLType(eco string) string {
@@ -70,16 +79,24 @@ func newPackageInfo(source string, pi pkginfo) models.PackageInfo {
 		},
 	}
 
+	if pi.Uncalled {
+		info.Inventory.ExploitabilitySignals = []*vex.PackageExploitabilitySignal{{
+			Plugin:          java.Name,
+			Justification:   vex.VulnerableCodeNotInExecutePath,
+			MatchesAllVulns: true,
+		}}
+	}
+
 	return info
 }
 
 // buildGroups builds the groups for each package the same way the scanner does,
 // preserving any analysis declared by the fixture's own groups since that
 // cannot be derived from the vulnerabilities alone
-func buildGroups(vulnResult *models.VulnerabilityResults) {
+func buildGroups(vulnResult *models.VulnerabilityResults, considerExploitabilitySignals bool) {
 	for _, result := range vulnResult.Results {
 		for j := range result.Packages {
-			groups := grouper.Build(result.Packages[j], false)
+			groups := grouper.Build(result.Packages[j], considerExploitabilitySignals)
 			grouper.CopyAnalysis(result.Packages[j].Groups, groups)
 
 			result.Packages[j].Groups = groups
@@ -363,6 +380,8 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
+			considerExploitabilitySignals: true,
+
 			name: "one_source_with_one_package_and_one_called_vulnerability",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
@@ -377,12 +396,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{
-										IDs: []string{"OSV-1"},
-										ExperimentalAnalysis: map[string]models.AnalysisInfo{
-											"OSV-1": {Called: true},
-										},
-									}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:      "OSV-1",
@@ -401,6 +414,8 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
+			considerExploitabilitySignals: true,
+
 			name: "one_source_with_one_package_and_one_uncalled_vulnerability",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
@@ -414,13 +429,8 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
+										Uncalled:  true,
 									}),
-									Groups: []models.GroupInfo{{
-										IDs: []string{"OSV-1"},
-										ExperimentalAnalysis: map[string]models.AnalysisInfo{
-											"OSV-1": {Called: false},
-										},
-									}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-1",
@@ -655,6 +665,8 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
+			considerExploitabilitySignals: true,
+
 			name: "one_source_with_one_package_and_two_aliases_of_a_single_uncalled_vulnerability",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
@@ -668,14 +680,8 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
+										Uncalled:  true,
 									}),
-									Groups: []models.GroupInfo{{
-										IDs:     []string{"OSV-1", "GHSA-123"},
-										Aliases: []string{"OSV-1", "GHSA-123"},
-										ExperimentalAnalysis: map[string]models.AnalysisInfo{
-											"OSV-1": {Called: false},
-										},
-									}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-1",
@@ -1397,7 +1403,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			buildGroups(tt.args.vulnResult)
+			buildGroups(tt.args.vulnResult, tt.considerExploitabilitySignals)
 
 			run(t, tt.args)
 		})
@@ -2084,7 +2090,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			buildGroups(tt.args.vulnResult)
+			buildGroups(tt.args.vulnResult, tt.considerExploitabilitySignals)
 
 			run(t, tt.args)
 		})
@@ -2166,6 +2172,8 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
+			considerExploitabilitySignals: true,
+
 			name: "one_source_with_one_package,_one_called_vulnerability,_and_one_license_violation",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
@@ -2181,12 +2189,6 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{
-										IDs: []string{"OSV-1"},
-										ExperimentalAnalysis: map[string]models.AnalysisInfo{
-											"OSV-1": {Called: true},
-										},
-									}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-1",
@@ -2204,6 +2206,8 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
+			considerExploitabilitySignals: true,
+
 			name: "one_source_with_one_package,_one_uncalled_vulnerability,_and_one_license_violation",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
@@ -2218,13 +2222,8 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
+										Uncalled:  true,
 									}),
-									Groups: []models.GroupInfo{{
-										IDs: []string{"OSV-1"},
-										ExperimentalAnalysis: map[string]models.AnalysisInfo{
-											"OSV-1": {Called: false},
-										},
-									}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-1",
@@ -2487,6 +2486,8 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
+			considerExploitabilitySignals: true,
+
 			name: "multiple_sources_with_a_mixed_count_of_packages,_some_called_vulnerabilities_and_license_violations",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
@@ -2501,13 +2502,8 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
+										Uncalled:  true,
 									}),
-									Groups: []models.GroupInfo{{
-										IDs: []string{"OSV-1"},
-										ExperimentalAnalysis: map[string]models.AnalysisInfo{
-											"OSV-1": {Called: false},
-										},
-									}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:      "OSV-1",
@@ -2533,12 +2529,6 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
 									}),
-									Groups: []models.GroupInfo{{
-										IDs: []string{"OSV-2"},
-										ExperimentalAnalysis: map[string]models.AnalysisInfo{
-											"OSV-2": {Called: true},
-										},
-									}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-2",
@@ -2582,13 +2572,8 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
+										Uncalled:  true,
 									}),
-									Groups: []models.GroupInfo{{
-										IDs: []string{"OSV-1"},
-										ExperimentalAnalysis: map[string]models.AnalysisInfo{
-											"OSV-1": {Called: false},
-										},
-									}},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-1",
@@ -2634,7 +2619,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			buildGroups(tt.args.vulnResult)
+			buildGroups(tt.args.vulnResult, tt.considerExploitabilitySignals)
 
 			run(t, tt.args)
 		})
