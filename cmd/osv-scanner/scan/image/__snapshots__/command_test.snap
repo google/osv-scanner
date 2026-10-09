@@ -1757,7 +1757,23 @@ Scanning local image tarball "./testdata/test-chisel.tar"
 Loaded Ubuntu local db from <tempdir>/osv-scalibr/Ubuntu/all.zip
 Loaded Go local db from <tempdir>/osv-scalibr/Go/all.zip
 
-No issues found
+
+Container Scanning Result (Ubuntu 26.04 LTS):
+Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
+
+Ubuntu:26.04
++----------------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/var/lib/chisel/manifest.wall                                                                                                |
++----------------+-----------------------------+---------------+------------+-------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION           | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+-----------------------------+---------------+------------+-------------------------+------------------+---------------+
+| coreutils      | 9.5-1ubuntu2+0.0.0~ubuntu25 | Fix Available |          1 | coreutils               | # 0 Layer        | --            |
++----------------+-----------------------------+---------------+------------+-------------------------+------------------+---------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
 
 ---
 
@@ -1770,7 +1786,26 @@ Scanning local image tarball "./testdata/test-chisel.tar"
 Loaded Ubuntu local db from <tempdir>/osv-scalibr/Ubuntu/all.zip
 Loaded Go local db from <tempdir>/osv-scalibr/Go/all.zip
 
-No issues found
+
+Container Scanning Result (Ubuntu 26.04 LTS):
+Total 4 packages affected by 4 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 4 Unknown) from 1 ecosystem.
+4 vulnerabilities can be fixed.
+
+
+Ubuntu:26.04
++----------------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/var/lib/chisel/manifest.wall                                                                                                |
++----------------+-----------------------------+---------------+------------+-------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION           | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+-----------------------------+---------------+------------+-------------------------+------------------+---------------+
+| coreutils      | 9.5-1ubuntu2+0.0.0~ubuntu25 | Fix Available |          1 | coreutils               | # 0 Layer        | --            |
+| coreutils      | 9.7-3ubuntu2                | Fix Available |          1 | gnu-coreutils           | # 0 Layer        | --            |
+| glibc          | 2.43-2ubuntu2               | Fix Available |          1 | libc6                   | # 0 Layer        | --            |
+| openssl        | 3.5.5-1ubuntu3              | Fix Available |          1 | libssl3t64... (2)       | # 0 Layer        | --            |
++----------------+-----------------------------+---------------+------------+-------------------------+------------------+---------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
 
 ---
 

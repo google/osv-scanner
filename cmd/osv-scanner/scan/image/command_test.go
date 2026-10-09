@@ -607,29 +607,27 @@ func TestCommand_OCIImage_ChiselBinaryToSource(t *testing.T) {
 		},
 		{
 			// Network access is still allowed, so the enricher fills in source names
-			// and the local database matcher should match against them.
-			// TODO: this should exit with 1 once osv-scalibr's local matcher handles
-			//  Ubuntu LTS ecosystems (advisories use e.g. "Ubuntu:26.04:LTS").
+			// and the local database matcher should match against them (e.g. libc6
+			// is matched against glibc advisories).
 			Name: "offline_vulnerabilities",
 			Args: []string{
 				"", "image",
 				"--offline-vulnerabilities", "--download-offline-databases",
 				"--archive", "./testdata/test-chisel.tar",
 			},
-			Exit: 0,
+			Exit: 1,
 		},
 		{
 			// The enricher must not run in offline mode, as it sends package names to
 			// osv.dev; the only network requests made should be database downloads.
-			// TODO: this should exit with 1 once osv-scalibr's local matcher handles
-			//  Ubuntu LTS ecosystems (advisories use e.g. "Ubuntu:26.04:LTS").
+			// Packages are matched by binary name, so only coreutils is matched.
 			Name: "offline",
 			Args: []string{
 				"", "image",
 				"--offline", "--download-offline-databases",
 				"--archive", "./testdata/test-chisel.tar",
 			},
-			Exit: 0,
+			Exit: 1,
 		},
 	}
 	for _, tt := range tests {
