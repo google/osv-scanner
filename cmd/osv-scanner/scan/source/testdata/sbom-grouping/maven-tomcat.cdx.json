@@ -1,0 +1,14 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "components": [
+    {
+      "type": "library",
+      "group": "org.apache.tomcat.embed",
+      "name": "tomcat-embed-core",
+      "version": "10.1.24",
+      "purl": "pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@10.1.24?type=jar"
+    }
+  ]
+}

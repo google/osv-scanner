@@ -1968,6 +1968,18 @@
       "type": "CVSS_V3"
     }
   ],
+  "GHSA-23hv-mwm6-g8jf": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N",
+      "type": "CVSS_V3"
+    }
+  ],
+  "GHSA-25xr-qj8w-c4vf": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    }
+  ],
   "GHSA-269g-pwp5-87pp": [
     {
       "score": "CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:U/C:H/I:N/A:N",
@@ -1978,6 +1990,12 @@
     {
       "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
       "type": "CVSS_V3"
+    }
+  ],
+  "GHSA-27hp-xhwr-wr2m": [
+    {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:U",
+      "type": "CVSS_V4"
     }
   ],
   "GHSA-29vq-49wr-vm6x": [
@@ -2122,6 +2140,12 @@
       "type": "CVSS_V4"
     }
   ],
+  "GHSA-3p2h-wqq4-wf4h": [
+    {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:U",
+      "type": "CVSS_V4"
+    }
+  ],
   "GHSA-3p8m-j85q-pgmj": [
     {
       "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
@@ -2163,6 +2187,12 @@
     },
     {
       "score": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:A/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+    }
+  ],
+  "GHSA-42wg-hm62-jcwg": [
+    {
+      "score": "CVSS:4.0/AV:L/AC:L/AT:P/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:U",
       "type": "CVSS_V4"
     }
   ],
@@ -2285,6 +2315,12 @@
       "type": "CVSS_V4"
     }
   ],
+  "GHSA-563x-q5rq-57qp": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+      "type": "CVSS_V3"
+    }
+  ],
   "GHSA-57rv-r2g8-2cj3": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L",
@@ -2303,6 +2339,16 @@
       "type": "CVSS_V3"
     }
   ],
+  "GHSA-5j33-cvvr-w245": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:U",
+      "type": "CVSS_V4"
+    }
+  ],
   "GHSA-5jmj-h7xm-6q6v": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
@@ -2312,6 +2358,18 @@
   "GHSA-5jpm-x58v-624v": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "type": "CVSS_V3"
+    }
+  ],
+  "GHSA-5m62-pw8w-7w9f": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "type": "CVSS_V3"
+    }
+  ],
+  "GHSA-5mp6-jrq3-r938": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
       "type": "CVSS_V3"
     }
   ],
@@ -2505,6 +2563,16 @@
       "type": "CVSS_V4"
     }
   ],
+  "GHSA-7jqf-v358-p8g7": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:H",
+      "type": "CVSS_V4"
+    }
+  ],
   "GHSA-7r82-7xv7-xcpj": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
@@ -2533,6 +2601,16 @@
     {
       "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:N/I:L/A:N",
       "type": "CVSS_V3"
+    }
+  ],
+  "GHSA-83qj-6fr2-vhqg": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H/E:H",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:A",
+      "type": "CVSS_V4"
     }
   ],
   "GHSA-83v7-c2cf-p9c2": [
@@ -2703,9 +2781,25 @@
       "type": "CVSS_V3"
     }
   ],
+  "GHSA-9m3c-qcxr-9x87": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:N/SC:L/SI:N/SA:N",
+      "type": "CVSS_V4"
+    }
+  ],
   "GHSA-9m3q-rhmv-5q44": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    }
+  ],
+  "GHSA-9m89-8frq-c98c": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N",
       "type": "CVSS_V3"
     }
   ],
@@ -2732,6 +2826,12 @@
   "GHSA-9wx4-h78v-vm56": [
     {
       "score": "CVSS:3.1/AV:L/AC:H/PR:H/UI:R/S:U/C:H/I:H/A:N",
+      "type": "CVSS_V3"
+    }
+  ],
+  "GHSA-9xv2-5v5q-p794": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
       "type": "CVSS_V3"
     }
   ],
@@ -2892,6 +2992,12 @@
       "type": "CVSS_V4"
     }
   ],
+  "GHSA-ff77-26x5-69cr": [
+    {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N/E:U",
+      "type": "CVSS_V4"
+    }
+  ],
   "GHSA-fghv-69vj-qj49": [],
   "GHSA-fjxv-7rqg-78g4": [
     {
@@ -2900,9 +3006,25 @@
     }
   ],
   "GHSA-fmj5-wv96-r2ch": [],
+  "GHSA-fpj8-gq4v-p354": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+    }
+  ],
   "GHSA-frmv-pr5f-9mcr": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "type": "CVSS_V3"
+    }
+  ],
+  "GHSA-fv25-8xcx-gqjc": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L",
       "type": "CVSS_V3"
     }
   ],
@@ -2947,6 +3069,12 @@
       "type": "CVSS_V3"
     }
   ],
+  "GHSA-gcx9-497g-6cp6": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "type": "CVSS_V3"
+    }
+  ],
   "GHSA-ghwc-95x2-682j": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
@@ -2962,6 +3090,12 @@
   "GHSA-gp7f-rwcx-9369": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+      "type": "CVSS_V3"
+    }
+  ],
+  "GHSA-gqp3-2cvr-x8m3": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
       "type": "CVSS_V3"
     }
   ],
@@ -2982,6 +3116,18 @@
       "type": "CVSS_V3"
     }
   ],
+  "GHSA-gx5v-xp9w-j4cg": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    }
+  ],
+  "GHSA-h2fw-rfh5-95r3": [
+    {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N/E:U/U:Clear",
+      "type": "CVSS_V4"
+    }
+  ],
   "GHSA-h2qv-fj59-j46j": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
@@ -2998,10 +3144,32 @@
       "type": "CVSS_V3"
     }
   ],
+  "GHSA-h3gc-qfqq-6h8f": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+    }
+  ],
+  "GHSA-h3x4-894j-xpx5": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "type": "CVSS_V3"
+    }
+  ],
   "GHSA-h46c-h94j-95f3": [
     {
       "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
       "type": "CVSS_V4"
+    }
+  ],
+  "GHSA-h6fc-48rj-7qqh": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "type": "CVSS_V3"
     }
   ],
   "GHSA-h7pc-vwp9-298g": [
@@ -3030,6 +3198,16 @@
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
       "type": "CVSS_V3"
+    }
+  ],
+  "GHSA-hgrr-935x-pq79": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:L/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:U",
+      "type": "CVSS_V4"
     }
   ],
   "GHSA-hj95-mhgf-jxc4": [
@@ -3195,6 +3373,12 @@
   "GHSA-mfg7-5gfp-c4w3": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "type": "CVSS_V3"
+    }
+  ],
+  "GHSA-mgp5-rv84-w37q": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
       "type": "CVSS_V3"
     }
   ],
@@ -3408,6 +3592,12 @@
       "type": "CVSS_V4"
     }
   ],
+  "GHSA-r29c-68gh-xp6x": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "type": "CVSS_V3"
+    }
+  ],
   "GHSA-r7pg-v2c8-mfg3": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
@@ -3468,6 +3658,12 @@
       "type": "CVSS_V4"
     }
   ],
+  "GHSA-rv64-5gf8-9qq8": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "type": "CVSS_V3"
+    }
+  ],
   "GHSA-v2fc-qm4h-8hqv": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
@@ -3525,6 +3721,16 @@
   "GHSA-vc5p-v9hr-52mj": [
     {
       "score": "CVSS:4.0/AV:N/AC:H/AT:N/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:L/SA:N",
+      "type": "CVSS_V4"
+    }
+  ],
+  "GHSA-vfww-5hm6-hx2j": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:H/A:H",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:A/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N",
       "type": "CVSS_V4"
     }
   ],
@@ -3591,6 +3797,12 @@
       "type": "CVSS_V4"
     }
   ],
+  "GHSA-wc4r-xq3c-5cf3": [
+    {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+    }
+  ],
   "GHSA-wc96-39fc-566f": [
     {
       "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
@@ -3638,6 +3850,26 @@
       "type": "CVSS_V4"
     }
   ],
+  "GHSA-wm9w-rjj3-j356": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+    }
+  ],
+  "GHSA-wmwf-9ccg-fff5": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:L/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+    }
+  ],
   "GHSA-wqvq-5m8c-6g24": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
@@ -3646,6 +3878,12 @@
     {
       "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N",
       "type": "CVSS_V4"
+    }
+  ],
+  "GHSA-wr62-c79q-cv37": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
     }
   ],
   "GHSA-wx95-c6cv-8532": [
@@ -3669,6 +3907,12 @@
   "GHSA-x4gw-5cx5-pgmh": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    }
+  ],
+  "GHSA-x4m4-345f-5h5g": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
       "type": "CVSS_V3"
     }
   ],

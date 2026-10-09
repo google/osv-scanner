@@ -82,6 +82,12 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "-L", "./testdata/sbom-insecure/with-duplicates.cdx.xml"},
 			Exit: 1,
 		},
+		// CycloneDX SBOM with Maven group namespace in PURL
+		{
+			Name: "CycloneDX_Maven_SBOM_with_group_namespace",
+			Args: []string{"", "source", "-L", "./testdata/sbom-grouping/maven-tomcat.cdx.json"},
+			Exit: 1,
+		},
 		// one file that does not match the supported sbom file names
 		{
 			Name: "one_file_that_does_not_match_the_supported_sbom_file_names",
