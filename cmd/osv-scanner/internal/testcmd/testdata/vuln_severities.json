@@ -6161,10 +6161,6 @@
   ],
   "UBUNTU-CVE-2026-19542": [
     {
-      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:L",
-      "type": "CVSS_V3"
-    },
-    {
       "score": "medium",
       "type": "Ubuntu"
     }
@@ -7359,10 +7355,6 @@
   ],
   "UBUNTU-CVE-2026-77117": [
     {
-      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
-      "type": "CVSS_V3"
-    },
-    {
       "score": "medium",
       "type": "Ubuntu"
     }
@@ -7418,10 +7410,6 @@
     }
   ],
   "UBUNTU-CVE-2026-80489": [
-    {
-      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
-      "type": "CVSS_V3"
-    },
     {
       "score": "medium",
       "type": "Ubuntu"
@@ -7486,10 +7474,6 @@
     }
   ],
   "UBUNTU-CVE-2026-8674": [
-    {
-      "score": "CVSS:3.1/AV:A/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
-      "type": "CVSS_V3"
-    },
     {
       "score": "medium",
       "type": "Ubuntu"

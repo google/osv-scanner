@@ -1396,7 +1396,7 @@ Scanning local image tarball "./testdata/test-chisel.tar"
 
 
 Container Scanning Result (Ubuntu 26.04 LTS):
-Total 17 packages affected by 320 known vulnerabilities (4 Critical, 20 High, 14 Medium, 5 Low, 277 Unknown) from 2 ecosystems.
+Total 17 packages affected by 320 known vulnerabilities (4 Critical, 20 High, 13 Medium, 5 Low, 278 Unknown) from 2 ecosystems.
 288 vulnerabilities can be fixed.
 
 
