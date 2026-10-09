@@ -22,6 +22,19 @@ func TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities(t *testing.
 	})
 }
 
+func TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities_WithoutAllVulns(t *testing.T) {
+	t.Parallel()
+
+	testOutputWithVulnerabilities(t, func(t *testing.T, args outputTestCaseArgs) {
+		t.Helper()
+
+		outputWriter := &bytes.Buffer{}
+		output.PrintTableResults(args.vulnResult, outputWriter, 80, false)
+
+		testutility.NewSnapshot().MatchText(t, text.StripEscape(outputWriter.String()))
+	})
+}
+
 func TestPrintTableResults_StandardTerminalWidth_WithLicenseViolations(t *testing.T) {
 	t.Parallel()
 
