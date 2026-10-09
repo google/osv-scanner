@@ -46,7 +46,7 @@ OPTIONS:
 ---
 
 [Test_run/version - 1 - stdout]
-osv-scanner version: 2.6.0
+osv-scanner version: 2.7.0
 osv-scalibr version: 0.5.3
 commit: n/a
 built at: n/a
