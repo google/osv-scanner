@@ -1682,6 +1682,102 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
+[TestCommand_OCIImage_ChiselBinaryToSource/binarytosource_enricher_disabled - 1 - stdout]
+Scanning local image tarball "./testdata/test-chisel.tar"
+
+
+Container Scanning Result (Ubuntu 26.04 LTS):
+Total 7 packages affected by 277 known vulnerabilities (0 Critical, 0 High, 1 Medium, 0 Low, 276 Unknown) from 2 ecosystems.
+277 vulnerabilities can be fixed.
+
+
+Go
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/lib/go-1.26/bin/go                                                     |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| stdlib  | 1.26.0            | Fix Available |         46 | # 0 Layer        | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/lib/go-1.26/bin/gofmt                                                  |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| stdlib  | 1.26.0            | Fix Available |         46 | # 0 Layer        | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/asm                                   |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| stdlib  | 1.26.0            | Fix Available |         46 | # 0 Layer        | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/compile                               |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| stdlib  | 1.26.0            | Fix Available |         46 | # 0 Layer        | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/link                                  |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| stdlib  | 1.26.0            | Fix Available |         46 | # 0 Layer        | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/vet                                   |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| stdlib  | 1.26.0            | Fix Available |         46 | # 0 Layer        | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
+Ubuntu:26.04
++----------------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/var/lib/chisel/manifest.wall                                                                                                |
++----------------+-----------------------------+---------------+------------+-------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION           | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+-----------------------------+---------------+------------+-------------------------+------------------+---------------+
+| coreutils      | 9.5-1ubuntu2+0.0.0~ubuntu25 | Fix Available |          1 | coreutils               | # 0 Layer        | --            |
++----------------+-----------------------------+---------------+------------+-------------------------+------------------+---------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
+
+---
+
+[TestCommand_OCIImage_ChiselBinaryToSource/binarytosource_enricher_disabled - 2 - stderr]
+
+---
+
+[TestCommand_OCIImage_ChiselBinaryToSource/offline - 1 - stdout]
+Scanning local image tarball "./testdata/test-chisel.tar"
+Loaded Ubuntu local db from <tempdir>/osv-scalibr/Ubuntu/all.zip
+Loaded Go local db from <tempdir>/osv-scalibr/Go/all.zip
+
+No issues found
+
+---
+
+[TestCommand_OCIImage_ChiselBinaryToSource/offline - 2 - stderr]
+
+---
+
+[TestCommand_OCIImage_ChiselBinaryToSource/offline_vulnerabilities - 1 - stdout]
+Scanning local image tarball "./testdata/test-chisel.tar"
+Loaded Ubuntu local db from <tempdir>/osv-scalibr/Ubuntu/all.zip
+Loaded Go local db from <tempdir>/osv-scalibr/Go/all.zip
+
+No issues found
+
+---
+
+[TestCommand_OCIImage_ChiselBinaryToSource/offline_vulnerabilities - 2 - stderr]
+
+---
+
 [TestCommand_OCIImage_JSONFormat/Scanning_python_image_with_some_packages - 1 - stdout]
 {
   "results": [
