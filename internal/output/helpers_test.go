@@ -79,7 +79,7 @@ func newPackageInfo(source string, pi pkginfo) models.PackageInfo {
 func buildGroups(vulnResult *models.VulnerabilityResults) {
 	for _, result := range vulnResult.Results {
 		for j := range result.Packages {
-			groups := grouper.Build(result.Packages[j])
+			groups := grouper.Build(result.Packages[j], false)
 			grouper.CopyAnalysis(result.Packages[j].Groups, groups)
 
 			result.Packages[j].Groups = groups

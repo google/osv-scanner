@@ -5,6 +5,7 @@ import (
 	"slices"
 	"strings"
 
+	"github.com/google/osv-scalibr/inventory/vex"
 	"github.com/google/osv-scanner/v2/internal/utility/severity"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvconstants"
@@ -31,7 +32,7 @@ func calculateMaxSeverity(group models.GroupInfo, pkg models.PackageVulns) strin
 	return fmt.Sprintf("%.1f", maxSeverity)
 }
 
-func Build(pkg models.PackageVulns) []models.GroupInfo {
+func Build(pkg models.PackageVulns, considerExploitabilitySignals bool) []models.GroupInfo {
 	grouped := Group(ConvertVulnerabilityToIDAliases(pkg.Vulnerabilities))
 	for i, group := range grouped {
 		grouped[i].MaxSeverity = calculateMaxSeverity(group, pkg)
@@ -42,6 +43,10 @@ func Build(pkg models.PackageVulns) []models.GroupInfo {
 	if strings.HasPrefix(pkg.Package.Ecosystem, string(osvconstants.EcosystemDebian)) ||
 		strings.HasPrefix(pkg.Package.Ecosystem, string(osvconstants.EcosystemUbuntu)) {
 		setUnimportant(pkg, grouped)
+	}
+
+	if considerExploitabilitySignals {
+		setUncalled(pkg, grouped)
 	}
 
 	return grouped
@@ -103,4 +108,30 @@ func isUnimportant(vuln *osvschema.Vulnerability) bool {
 	}
 
 	return false
+}
+
+func setUncalled(pkg models.PackageVulns, grouped []models.GroupInfo) {
+	// Use index to keep reference to original element in slice
+	for i := range grouped {
+		for _, vulnID := range grouped[i].IDs {
+			analysis := &grouped[i].ExperimentalAnalysis
+			if *analysis == nil {
+				*analysis = make(map[string]models.AnalysisInfo)
+			}
+
+			isUncalled := false
+
+			for _, e := range pkg.Package.Inventory.ExploitabilitySignals {
+				if e.Justification == vex.VulnerableCodeNotInExecutePath {
+					isUncalled = true
+					break
+				}
+			}
+
+			(*analysis)[vulnID] = models.AnalysisInfo{
+				Called:      !isUncalled,
+				Unimportant: (*analysis)[vulnID].Unimportant,
+			}
+		}
+	}
 }
