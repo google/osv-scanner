@@ -1893,7 +1893,7 @@
 
 [TestPrintCycloneDXResults/CycloneDX14_WithVulnerabilities/one_os_source_with_debian_and_ubuntu_packages,_some_with_unimportant_vulnerabilities - 2]
 unable to determine purl type of libxml2@2.9.14+dfsg-1.3 (Debian:12)
-unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04:LTS)
+unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
 ---
 
 [TestPrintCycloneDXResults/CycloneDX14_WithVulnerabilities/one_source_with_no_packages - 1]
@@ -2015,6 +2015,88 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04:LTS)
         "organizations": []
       },
       "affects": []
+    }
+  ]
+}
+
+---
+
+[TestPrintCycloneDXResults/CycloneDX14_WithVulnerabilities/one_source_with_one_package_and_multiple_vulnerabilities,_some_fixable - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.4",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1@1.2.3",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.2.3",
+      "licenses": [],
+      "purl": "pkg:npm/mine1@1.2.3"
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "id": "OSV-1",
+      "references": [],
+      "ratings": [],
+      "description": "Fixed in the next patch!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "id": "OSV-2",
+      "references": [],
+      "ratings": [],
+      "description": "Fixed in the next major!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "id": "OSV-3",
+      "references": [],
+      "ratings": [],
+      "description": "Not fixed yet!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "id": "OSV-4",
+      "references": [],
+      "ratings": [],
+      "description": "Only fixed for another package!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
     }
   ]
 }
@@ -4566,7 +4648,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04:LTS)
 
 [TestPrintCycloneDXResults/CycloneDX15_WithVulnerabilities/one_os_source_with_debian_and_ubuntu_packages,_some_with_unimportant_vulnerabilities - 2]
 unable to determine purl type of libxml2@2.9.14+dfsg-1.3 (Debian:12)
-unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04:LTS)
+unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
 ---
 
 [TestPrintCycloneDXResults/CycloneDX15_WithVulnerabilities/one_source_with_no_packages - 1]
@@ -4688,6 +4770,88 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04:LTS)
         "organizations": []
       },
       "affects": []
+    }
+  ]
+}
+
+---
+
+[TestPrintCycloneDXResults/CycloneDX15_WithVulnerabilities/one_source_with_one_package_and_multiple_vulnerabilities,_some_fixable - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1@1.2.3",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.2.3",
+      "licenses": [],
+      "purl": "pkg:npm/mine1@1.2.3"
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "id": "OSV-1",
+      "references": [],
+      "ratings": [],
+      "description": "Fixed in the next patch!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "id": "OSV-2",
+      "references": [],
+      "ratings": [],
+      "description": "Fixed in the next major!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "id": "OSV-3",
+      "references": [],
+      "ratings": [],
+      "description": "Not fixed yet!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "id": "OSV-4",
+      "references": [],
+      "ratings": [],
+      "description": "Only fixed for another package!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
     }
   ]
 }
@@ -7239,7 +7403,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04:LTS)
 
 [TestPrintCycloneDXResults/CycloneDX16_WithVulnerabilities/one_os_source_with_debian_and_ubuntu_packages,_some_with_unimportant_vulnerabilities - 2]
 unable to determine purl type of libxml2@2.9.14+dfsg-1.3 (Debian:12)
-unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04:LTS)
+unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
 ---
 
 [TestPrintCycloneDXResults/CycloneDX16_WithVulnerabilities/one_source_with_no_packages - 1]
@@ -7361,6 +7525,88 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04:LTS)
         "organizations": []
       },
       "affects": []
+    }
+  ]
+}
+
+---
+
+[TestPrintCycloneDXResults/CycloneDX16_WithVulnerabilities/one_source_with_one_package_and_multiple_vulnerabilities,_some_fixable - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1@1.2.3",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.2.3",
+      "licenses": [],
+      "purl": "pkg:npm/mine1@1.2.3"
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "id": "OSV-1",
+      "references": [],
+      "ratings": [],
+      "description": "Fixed in the next patch!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "id": "OSV-2",
+      "references": [],
+      "ratings": [],
+      "description": "Fixed in the next major!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "id": "OSV-3",
+      "references": [],
+      "ratings": [],
+      "description": "Not fixed yet!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "id": "OSV-4",
+      "references": [],
+      "ratings": [],
+      "description": "Only fixed for another package!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
     }
   ]
 }
@@ -9912,7 +10158,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04:LTS)
 
 [TestPrintCycloneDXResults/CycloneDX17_WithVulnerabilities/one_os_source_with_debian_and_ubuntu_packages,_some_with_unimportant_vulnerabilities - 2]
 unable to determine purl type of libxml2@2.9.14+dfsg-1.3 (Debian:12)
-unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04:LTS)
+unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
 ---
 
 [TestPrintCycloneDXResults/CycloneDX17_WithVulnerabilities/one_source_with_no_packages - 1]
@@ -10034,6 +10280,88 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04:LTS)
         "organizations": []
       },
       "affects": []
+    }
+  ]
+}
+
+---
+
+[TestPrintCycloneDXResults/CycloneDX17_WithVulnerabilities/one_source_with_one_package_and_multiple_vulnerabilities,_some_fixable - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.7",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1@1.2.3",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.2.3",
+      "licenses": [],
+      "purl": "pkg:npm/mine1@1.2.3"
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "id": "OSV-1",
+      "references": [],
+      "ratings": [],
+      "description": "Fixed in the next patch!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "id": "OSV-2",
+      "references": [],
+      "ratings": [],
+      "description": "Fixed in the next major!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "id": "OSV-3",
+      "references": [],
+      "ratings": [],
+      "description": "Not fixed yet!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "id": "OSV-4",
+      "references": [],
+      "ratings": [],
+      "description": "Only fixed for another package!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
     }
   ]
 }

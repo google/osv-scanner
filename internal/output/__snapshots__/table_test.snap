@@ -501,33 +501,33 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 Scanning Result (package view):
 Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-0 vulnerabilities can be fixed.
+2 vulnerabilities can be fixed.
 
 
 Debian:12
-╭──────────────────────────────────────────────────────────────────────────────────────────────╮
-│ Source:os:var/lib/dpkg/status                                                                │
-├────────────────┬───────────────────┬──────────────────┬────────────┬─────────────────────────┤
-│ SOURCE PACKAGE │ INSTALLED VERSION │ FIX AVAILABLE    │ VULN COUNT │ BINARY PACKAGES (COUNT) │
-├────────────────┼───────────────────┼──────────────────┼────────────┼─────────────────────────┤
-│ libxml2        │ 2.9.14+dfsg-1.3   │ No fix available │          1 │ libxml2                 │
-╰────────────────┴───────────────────┴──────────────────┴────────────┴─────────────────────────╯
-Ubuntu:22.04:LTS
-╭──────────────────────────────────────────────────────────────────────────────────────────────╮
-│ Source:os:var/lib/dpkg/status                                                                │
-├────────────────┬───────────────────┬──────────────────┬────────────┬─────────────────────────┤
-│ SOURCE PACKAGE │ INSTALLED VERSION │ FIX AVAILABLE    │ VULN COUNT │ BINARY PACKAGES (COUNT) │
-├────────────────┼───────────────────┼──────────────────┼────────────┼─────────────────────────┤
-│ openssl        │ 3.0.2-0ubuntu1.15 │ No fix available │          1 │ openssl                 │
-╰────────────────┴───────────────────┴──────────────────┴────────────┴─────────────────────────╯
+╭───────────────────────────────────────────────────────────────────────────────────────────╮
+│ Source:os:var/lib/dpkg/status                                                             │
+├────────────────┬───────────────────┬───────────────┬────────────┬─────────────────────────┤
+│ SOURCE PACKAGE │ INSTALLED VERSION │ FIX AVAILABLE │ VULN COUNT │ BINARY PACKAGES (COUNT) │
+├────────────────┼───────────────────┼───────────────┼────────────┼─────────────────────────┤
+│ libxml2        │ 2.9.14+dfsg-1.3   │ Fix Available │          1 │ libxml2                 │
+╰────────────────┴───────────────────┴───────────────┴────────────┴─────────────────────────╯
+Ubuntu:22.04
+╭───────────────────────────────────────────────────────────────────────────────────────────╮
+│ Source:os:var/lib/dpkg/status                                                             │
+├────────────────┬───────────────────┬───────────────┬────────────┬─────────────────────────┤
+│ SOURCE PACKAGE │ INSTALLED VERSION │ FIX AVAILABLE │ VULN COUNT │ BINARY PACKAGES (COUNT) │
+├────────────────┼───────────────────┼───────────────┼────────────┼─────────────────────────┤
+│ openssl        │ 3.0.2-0ubuntu1.15 │ Fix Available │          1 │ openssl                 │
+╰────────────────┴───────────────────┴───────────────┴────────────┴─────────────────────────╯
 
 Filtered Vulnerabilities:
-╭─────────┬──────────────────┬───────────────────┬─────────────────────┬────────────────╮
-│ PACKAGE │ ECOSYSTEM        │ INSTALLED VERSION │ FILTERED VULN COUNT │ FILTER REASONS │
-├─────────┼──────────────────┼───────────────────┼─────────────────────┼────────────────┤
-│ libxml2 │ Debian:12        │ 2.9.14+dfsg-1.3   │                   1 │ Unimportant    │
-│ openssl │ Ubuntu:22.04:LTS │ 3.0.2-0ubuntu1.15 │                   2 │ Unimportant    │
-╰─────────┴──────────────────┴───────────────────┴─────────────────────┴────────────────╯
+╭─────────┬──────────────┬───────────────────┬─────────────────────┬────────────────╮
+│ PACKAGE │ ECOSYSTEM    │ INSTALLED VERSION │ FILTERED VULN COUNT │ FILTER REASONS │
+├─────────┼──────────────┼───────────────────┼─────────────────────┼────────────────┤
+│ libxml2 │ Debian:12    │ 2.9.14+dfsg-1.3   │                   1 │ Unimportant    │
+│ openssl │ Ubuntu:22.04 │ 3.0.2-0ubuntu1.15 │                   2 │ Unimportant    │
+╰─────────┴──────────────┴───────────────────┴─────────────────────┴────────────────╯
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
 You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
@@ -576,6 +576,22 @@ Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium,
 │ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ FIXED VERSION │ SOURCE                    │
 ├───────────────────────┼──────┼───────────┼─────────┼─────────┼───────────────┼───────────────────────────┤
 │ https://osv.dev/OSV-1 │ 9.0  │ npm       │ mine1   │ 1.2.3   │ --            │ path/to/my/first/lockfile │
+╰───────────────────────┴──────┴───────────┴─────────┴─────────┴───────────────┴───────────────────────────╯
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithVulnerabilities/one_source_with_one_package_and_multiple_vulnerabilities,_some_fixable - 1]
+
+Total 1 package affected by 4 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 4 Unknown) from 1 ecosystem.
+2 vulnerabilities can be fixed.
+
+╭───────────────────────┬──────┬───────────┬─────────┬─────────┬───────────────┬───────────────────────────╮
+│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ FIXED VERSION │ SOURCE                    │
+├───────────────────────┼──────┼───────────┼─────────┼─────────┼───────────────┼───────────────────────────┤
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ 1.2.4         │ path/to/my/first/lockfile │
+│ https://osv.dev/OSV-2 │      │ npm       │ mine1   │ 1.2.3   │ 2.0.0         │ path/to/my/first/lockfile │
+│ https://osv.dev/OSV-3 │      │ npm       │ mine1   │ 1.2.3   │ --            │ path/to/my/first/lockfile │
+│ https://osv.dev/OSV-4 │      │ npm       │ mine1   │ 1.2.3   │ --            │ path/to/my/first/lockfile │
 ╰───────────────────────┴──────┴───────────┴─────────┴─────────┴───────────────┴───────────────────────────╯
 
 ---
@@ -1275,33 +1291,33 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 Scanning Result (package view):
 Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-0 vulnerabilities can be fixed.
+2 vulnerabilities can be fixed.
 
 
 Debian:12
-+----------------------------------------------------------------------------------------------+
-| Source:os:var/lib/dpkg/status                                                                |
-+----------------+-------------------+------------------+------------+-------------------------+
-| SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE    | VULN COUNT | BINARY PACKAGES (COUNT) |
-+----------------+-------------------+------------------+------------+-------------------------+
-| libxml2        | 2.9.14+dfsg-1.3   | No fix available |          1 | libxml2                 |
-+----------------+-------------------+------------------+------------+-------------------------+
-Ubuntu:22.04:LTS
-+----------------------------------------------------------------------------------------------+
-| Source:os:var/lib/dpkg/status                                                                |
-+----------------+-------------------+------------------+------------+-------------------------+
-| SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE    | VULN COUNT | BINARY PACKAGES (COUNT) |
-+----------------+-------------------+------------------+------------+-------------------------+
-| openssl        | 3.0.2-0ubuntu1.15 | No fix available |          1 | openssl                 |
-+----------------+-------------------+------------------+------------+-------------------------+
++-------------------------------------------------------------------------------------------+
+| Source:os:var/lib/dpkg/status                                                             |
++----------------+-------------------+---------------+------------+-------------------------+
+| SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) |
++----------------+-------------------+---------------+------------+-------------------------+
+| libxml2        | 2.9.14+dfsg-1.3   | Fix Available |          1 | libxml2                 |
++----------------+-------------------+---------------+------------+-------------------------+
+Ubuntu:22.04
++-------------------------------------------------------------------------------------------+
+| Source:os:var/lib/dpkg/status                                                             |
++----------------+-------------------+---------------+------------+-------------------------+
+| SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) |
++----------------+-------------------+---------------+------------+-------------------------+
+| openssl        | 3.0.2-0ubuntu1.15 | Fix Available |          1 | openssl                 |
++----------------+-------------------+---------------+------------+-------------------------+
 
 Filtered Vulnerabilities:
-+---------+------------------+-------------------+---------------------+----------------+
-| PACKAGE | ECOSYSTEM        | INSTALLED VERSION | FILTERED VULN COUNT | FILTER REASONS |
-+---------+------------------+-------------------+---------------------+----------------+
-| libxml2 | Debian:12        | 2.9.14+dfsg-1.3   |                   1 | Unimportant    |
-| openssl | Ubuntu:22.04:LTS | 3.0.2-0ubuntu1.15 |                   2 | Unimportant    |
-+---------+------------------+-------------------+---------------------+----------------+
++---------+--------------+-------------------+---------------------+----------------+
+| PACKAGE | ECOSYSTEM    | INSTALLED VERSION | FILTERED VULN COUNT | FILTER REASONS |
++---------+--------------+-------------------+---------------------+----------------+
+| libxml2 | Debian:12    | 2.9.14+dfsg-1.3   |                   1 | Unimportant    |
+| openssl | Ubuntu:22.04 | 3.0.2-0ubuntu1.15 |                   2 | Unimportant    |
++---------+--------------+-------------------+---------------------+----------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
 You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
@@ -1350,6 +1366,22 @@ Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium,
 | OSV URL               | CVSS | ECOSYSTEM | PACKAGE | VERSION | FIXED VERSION | SOURCE                    |
 +-----------------------+------+-----------+---------+---------+---------------+---------------------------+
 | https://osv.dev/OSV-1 | 9.0  | npm       | mine1   | 1.2.3   | --            | path/to/my/first/lockfile |
++-----------------------+------+-----------+---------+---------+---------------+---------------------------+
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithVulnerabilities/one_source_with_one_package_and_multiple_vulnerabilities,_some_fixable - 1]
+
+Total 1 package affected by 4 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 4 Unknown) from 1 ecosystem.
+2 vulnerabilities can be fixed.
+
++-----------------------+------+-----------+---------+---------+---------------+---------------------------+
+| OSV URL               | CVSS | ECOSYSTEM | PACKAGE | VERSION | FIXED VERSION | SOURCE                    |
++-----------------------+------+-----------+---------+---------+---------------+---------------------------+
+| https://osv.dev/OSV-1 |      | npm       | mine1   | 1.2.3   | 1.2.4         | path/to/my/first/lockfile |
+| https://osv.dev/OSV-2 |      | npm       | mine1   | 1.2.3   | 2.0.0         | path/to/my/first/lockfile |
+| https://osv.dev/OSV-3 |      | npm       | mine1   | 1.2.3   | --            | path/to/my/first/lockfile |
+| https://osv.dev/OSV-4 |      | npm       | mine1   | 1.2.3   | --            | path/to/my/first/lockfile |
 +-----------------------+------+-----------+---------+---------+---------------+---------------------------+
 
 ---
@@ -2049,33 +2081,33 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 Scanning Result (package view):
 Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-0 vulnerabilities can be fixed.
+2 vulnerabilities can be fixed.
 
 
 Debian:12
 ╭──────────────────────────────────────────────────────────────────────────────╮
 │ Source:os:var/lib/dpkg/status                                                │
-├────────────────┬───────────────────┬──────────────────┬────────────┬──────── ≈
-│ SOURCE PACKAGE │ INSTALLED VERSION │ FIX AVAILABLE    │ VULN COUNT │ BINARY  ≈
-├────────────────┼───────────────────┼──────────────────┼────────────┼──────── ≈
-│ libxml2        │ 2.9.14+dfsg-1.3   │ No fix available │          1 │ libxml2 ≈
-╰────────────────┴───────────────────┴──────────────────┴────────────┴──────── ≈
-Ubuntu:22.04:LTS
+├────────────────┬───────────────────┬───────────────┬────────────┬─────────── ≈
+│ SOURCE PACKAGE │ INSTALLED VERSION │ FIX AVAILABLE │ VULN COUNT │ BINARY PAC ≈
+├────────────────┼───────────────────┼───────────────┼────────────┼─────────── ≈
+│ libxml2        │ 2.9.14+dfsg-1.3   │ Fix Available │          1 │ libxml2    ≈
+╰────────────────┴───────────────────┴───────────────┴────────────┴─────────── ≈
+Ubuntu:22.04
 ╭──────────────────────────────────────────────────────────────────────────────╮
 │ Source:os:var/lib/dpkg/status                                                │
-├────────────────┬───────────────────┬──────────────────┬────────────┬──────── ≈
-│ SOURCE PACKAGE │ INSTALLED VERSION │ FIX AVAILABLE    │ VULN COUNT │ BINARY  ≈
-├────────────────┼───────────────────┼──────────────────┼────────────┼──────── ≈
-│ openssl        │ 3.0.2-0ubuntu1.15 │ No fix available │          1 │ openssl ≈
-╰────────────────┴───────────────────┴──────────────────┴────────────┴──────── ≈
+├────────────────┬───────────────────┬───────────────┬────────────┬─────────── ≈
+│ SOURCE PACKAGE │ INSTALLED VERSION │ FIX AVAILABLE │ VULN COUNT │ BINARY PAC ≈
+├────────────────┼───────────────────┼───────────────┼────────────┼─────────── ≈
+│ openssl        │ 3.0.2-0ubuntu1.15 │ Fix Available │          1 │ openssl    ≈
+╰────────────────┴───────────────────┴───────────────┴────────────┴─────────── ≈
 
 Filtered Vulnerabilities:
-╭─────────┬──────────────────┬───────────────────┬─────────────────────┬────── ≈
-│ PACKAGE │ ECOSYSTEM        │ INSTALLED VERSION │ FILTERED VULN COUNT │ FILTE ≈
-├─────────┼──────────────────┼───────────────────┼─────────────────────┼────── ≈
-│ libxml2 │ Debian:12        │ 2.9.14+dfsg-1.3   │                   1 │ Unimp ≈
-│ openssl │ Ubuntu:22.04:LTS │ 3.0.2-0ubuntu1.15 │                   2 │ Unimp ≈
-╰─────────┴──────────────────┴───────────────────┴─────────────────────┴────── ≈
+╭─────────┬──────────────┬───────────────────┬─────────────────────┬────────── ≈
+│ PACKAGE │ ECOSYSTEM    │ INSTALLED VERSION │ FILTERED VULN COUNT │ FILTER RE ≈
+├─────────┼──────────────┼───────────────────┼─────────────────────┼────────── ≈
+│ libxml2 │ Debian:12    │ 2.9.14+dfsg-1.3   │                   1 │ Unimporta ≈
+│ openssl │ Ubuntu:22.04 │ 3.0.2-0ubuntu1.15 │                   2 │ Unimporta ≈
+╰─────────┴──────────────┴───────────────────┴─────────────────────┴────────── ≈
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
 You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
@@ -2124,6 +2156,22 @@ Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium,
 │ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ FIXED VERSION ≈
 ├───────────────────────┼──────┼───────────┼─────────┼─────────┼────────────── ≈
 │ https://osv.dev/OSV-1 │ 9.0  │ npm       │ mine1   │ 1.2.3   │ --            ≈
+╰───────────────────────┴──────┴───────────┴─────────┴─────────┴────────────── ≈
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities/one_source_with_one_package_and_multiple_vulnerabilities,_some_fixable - 1]
+
+Total 1 package affected by 4 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 4 Unknown) from 1 ecosystem.
+2 vulnerabilities can be fixed.
+
+╭───────────────────────┬──────┬───────────┬─────────┬─────────┬────────────── ≈
+│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ FIXED VERSION ≈
+├───────────────────────┼──────┼───────────┼─────────┼─────────┼────────────── ≈
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ 1.2.4         ≈
+│ https://osv.dev/OSV-2 │      │ npm       │ mine1   │ 1.2.3   │ 2.0.0         ≈
+│ https://osv.dev/OSV-3 │      │ npm       │ mine1   │ 1.2.3   │ --            ≈
+│ https://osv.dev/OSV-4 │      │ npm       │ mine1   │ 1.2.3   │ --            ≈
 ╰───────────────────────┴──────┴───────────┴─────────┴─────────┴────────────── ≈
 
 ---
