@@ -139,6 +139,10 @@
 
 ---
 
+[TestPrintGHAnnotationReport_WithVulnerabilities/one_os_source_with_debian_and_ubuntu_packages,_some_with_unimportant_vulnerabilities - 1]
+::error file=var/lib/dpkg/status::var/lib/dpkg/status%0A+---------+--------------------------------------+------+-------------------+---------------+%0A| PACKAGE | VULNERABILITY ID                     | CVSS | CURRENT VERSION   | FIXED VERSION |%0A+---------+--------------------------------------+------+-------------------+---------------+%0A| libxml2 | https://osv.dev/DEBIAN-CVE-2024-0001 |      | 2.9.14+dfsg-1.3   |               |%0A| libxml2 | https://osv.dev/DEBIAN-CVE-2024-0002 | 4.3  | 2.9.14+dfsg-1.3   |               |%0A| openssl | https://osv.dev/UBUNTU-CVE-2024-0003 |      | 3.0.2-0ubuntu1.15 |               |%0A| openssl | https://osv.dev/UBUNTU-CVE-2024-0004 | 8.1  | 3.0.2-0ubuntu1.15 |               |%0A| openssl | https://osv.dev/UBUNTU-CVE-2024-0005 |      | 3.0.2-0ubuntu1.15 |               |%0A+---------+--------------------------------------+------+-------------------+---------------+
+---
+
 [TestPrintGHAnnotationReport_WithVulnerabilities/one_source_with_no_packages - 1]
 
 ---
@@ -169,6 +173,10 @@
 
 [TestPrintGHAnnotationReport_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability_(dev) - 1]
 ::error file=path/to/my/first/lockfile::path/to/my/first/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 | 6.9  | 1.2.3           |               |%0A+---------+-----------------------+------+-----------------+---------------+
+---
+
+[TestPrintGHAnnotationReport_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability_tagged_as_unimportant_outside_of_a_debian_based_ecosystem - 1]
+::error file=path/to/my/first/lockfile::path/to/my/first/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 |      | 1.2.3           |               |%0A+---------+-----------------------+------+-----------------+---------------+
 ---
 
 [TestPrintGHAnnotationReport_WithVulnerabilities/one_source_with_one_package_and_two_aliases_of_a_single_uncalled_vulnerability - 1]

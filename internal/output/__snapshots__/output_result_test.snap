@@ -4076,6 +4076,351 @@
 
 ---
 
+[TestPrintOutputResults_WithVulnerabilities/one_os_source_with_debian_and_ubuntu_packages,_some_with_unimportant_vulnerabilities - 1]
+{
+  "Ecosystems": [
+    {
+      "Name": "Debian:12",
+      "Sources": [
+        {
+          "Name": "os:<rootdir>/var/lib/dpkg/status",
+          "Type": "os",
+          "PackageTypeCount": {
+            "Regular": 1,
+            "Hidden": 1
+          },
+          "Packages": [
+            {
+              "Name": "libxml2",
+              "OSPackageNames": [
+                "libxml2"
+              ],
+              "InstalledVersion": "2.9.14+dfsg-1.3",
+              "Commit": "",
+              "FixedVersion": "No fix available",
+              "RegularVulns": [
+                {
+                  "ID": "DEBIAN-CVE-2024-0002",
+                  "GroupIDs": [
+                    "DEBIAN-CVE-2024-0002"
+                  ],
+                  "Aliases": null,
+                  "Description": "Something scary!",
+                  "IsFixable": false,
+                  "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
+                  "SeverityRating": "MEDIUM",
+                  "SeverityScore": "4.3"
+                }
+              ],
+              "HiddenVulns": [
+                {
+                  "ID": "DEBIAN-CVE-2024-0001",
+                  "GroupIDs": [
+                    "DEBIAN-CVE-2024-0001"
+                  ],
+                  "Aliases": null,
+                  "Description": "Something unimportant!",
+                  "IsFixable": false,
+                  "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 2,
+                  "SeverityRating": "UNKNOWN",
+                  "SeverityScore": "N/A"
+                }
+              ],
+              "LayerDetail": {
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
+              },
+              "VulnCount": {
+                "AnalysisCount": {
+                  "Regular": 1,
+                  "Hidden": 1
+                },
+                "SeverityCount": {
+                  "Critical": 0,
+                  "High": 0,
+                  "Medium": 1,
+                  "Low": 0,
+                  "Unknown": 0
+                },
+                "FixableCount": {
+                  "Fixed": 0,
+                  "UnFixed": 1
+                }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
+            }
+          ],
+          "VulnCount": {
+            "AnalysisCount": {
+              "Regular": 1,
+              "Hidden": 1
+            },
+            "SeverityCount": {
+              "Critical": 0,
+              "High": 0,
+              "Medium": 1,
+              "Low": 0,
+              "Unknown": 0
+            },
+            "FixableCount": {
+              "Fixed": 0,
+              "UnFixed": 1
+            }
+          },
+          "LicenseViolationsCount": 0
+        }
+      ],
+      "IsOS": true
+    },
+    {
+      "Name": "Ubuntu:22.04:LTS",
+      "Sources": [
+        {
+          "Name": "os:<rootdir>/var/lib/dpkg/status",
+          "Type": "os",
+          "PackageTypeCount": {
+            "Regular": 1,
+            "Hidden": 1
+          },
+          "Packages": [
+            {
+              "Name": "openssl",
+              "OSPackageNames": [
+                "openssl"
+              ],
+              "InstalledVersion": "3.0.2-0ubuntu1.15",
+              "Commit": "",
+              "FixedVersion": "No fix available",
+              "RegularVulns": [
+                {
+                  "ID": "UBUNTU-CVE-2024-0004",
+                  "GroupIDs": [
+                    "UBUNTU-CVE-2024-0004"
+                  ],
+                  "Aliases": null,
+                  "Description": "Something scary!",
+                  "IsFixable": false,
+                  "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
+                  "SeverityRating": "HIGH",
+                  "SeverityScore": "8.1"
+                }
+              ],
+              "HiddenVulns": [
+                {
+                  "ID": "UBUNTU-CVE-2024-0003",
+                  "GroupIDs": [
+                    "UBUNTU-CVE-2024-0003"
+                  ],
+                  "Aliases": null,
+                  "Description": "Something negligible!",
+                  "IsFixable": false,
+                  "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 2,
+                  "SeverityRating": "UNKNOWN",
+                  "SeverityScore": "N/A"
+                },
+                {
+                  "ID": "UBUNTU-CVE-2024-0005",
+                  "GroupIDs": [
+                    "UBUNTU-CVE-2024-0005"
+                  ],
+                  "Aliases": null,
+                  "Description": "Something else negligible!",
+                  "IsFixable": false,
+                  "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 2,
+                  "SeverityRating": "UNKNOWN",
+                  "SeverityScore": "N/A"
+                }
+              ],
+              "LayerDetail": {
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
+              },
+              "VulnCount": {
+                "AnalysisCount": {
+                  "Regular": 1,
+                  "Hidden": 2
+                },
+                "SeverityCount": {
+                  "Critical": 0,
+                  "High": 1,
+                  "Medium": 0,
+                  "Low": 0,
+                  "Unknown": 0
+                },
+                "FixableCount": {
+                  "Fixed": 0,
+                  "UnFixed": 1
+                }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
+            }
+          ],
+          "VulnCount": {
+            "AnalysisCount": {
+              "Regular": 1,
+              "Hidden": 2
+            },
+            "SeverityCount": {
+              "Critical": 0,
+              "High": 1,
+              "Medium": 0,
+              "Low": 0,
+              "Unknown": 0
+            },
+            "FixableCount": {
+              "Fixed": 0,
+              "UnFixed": 1
+            }
+          },
+          "LicenseViolationsCount": 0
+        }
+      ],
+      "IsOS": true
+    }
+  ],
+  "IsContainerScanning": false,
+  "ImageInfo": {
+    "OS": "",
+    "AllLayers": null,
+    "AllBaseImages": null
+  },
+  "LicenseSummary": {
+    "Summary": false,
+    "ShowViolations": false,
+    "LicenseCount": null
+  },
+  "VulnTypeSummary": {
+    "All": 2,
+    "OS": 2,
+    "Project": 0,
+    "Hidden": 3
+  },
+  "PackageTypeCount": {
+    "Regular": 2,
+    "Hidden": 2
+  },
+  "VulnCount": {
+    "AnalysisCount": {
+      "Regular": 2,
+      "Hidden": 3
+    },
+    "SeverityCount": {
+      "Critical": 0,
+      "High": 1,
+      "Medium": 1,
+      "Low": 0,
+      "Unknown": 0
+    },
+    "FixableCount": {
+      "Fixed": 0,
+      "UnFixed": 2
+    }
+  }
+}
+
+---
+
 [TestPrintOutputResults_WithVulnerabilities/one_source_with_no_packages - 1]
 {
   "Ecosystems": [
@@ -5370,6 +5715,181 @@
       "Medium": 1,
       "Low": 0,
       "Unknown": 0
+    },
+    "FixableCount": {
+      "Fixed": 0,
+      "UnFixed": 1
+    }
+  }
+}
+
+---
+
+[TestPrintOutputResults_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability_tagged_as_unimportant_outside_of_a_debian_based_ecosystem - 1]
+{
+  "Ecosystems": [
+    {
+      "Name": "npm",
+      "Sources": [
+        {
+          "Name": "lockfile:<rootdir>/path/to/my/first/lockfile",
+          "Type": "lockfile",
+          "PackageTypeCount": {
+            "Regular": 1,
+            "Hidden": 0
+          },
+          "Packages": [
+            {
+              "Name": "mine1",
+              "OSPackageNames": [
+                ""
+              ],
+              "InstalledVersion": "1.2.3",
+              "Commit": "",
+              "FixedVersion": "No fix available",
+              "RegularVulns": [
+                {
+                  "ID": "OSV-1",
+                  "GroupIDs": [
+                    "OSV-1"
+                  ],
+                  "Aliases": null,
+                  "Description": "Something scary!",
+                  "IsFixable": false,
+                  "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
+                  "SeverityRating": "UNKNOWN",
+                  "SeverityScore": "N/A"
+                }
+              ],
+              "HiddenVulns": [],
+              "LayerDetail": {
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
+              },
+              "VulnCount": {
+                "AnalysisCount": {
+                  "Regular": 1,
+                  "Hidden": 0
+                },
+                "SeverityCount": {
+                  "Critical": 0,
+                  "High": 0,
+                  "Medium": 0,
+                  "Low": 0,
+                  "Unknown": 1
+                },
+                "FixableCount": {
+                  "Fixed": 0,
+                  "UnFixed": 1
+                }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
+            }
+          ],
+          "VulnCount": {
+            "AnalysisCount": {
+              "Regular": 1,
+              "Hidden": 0
+            },
+            "SeverityCount": {
+              "Critical": 0,
+              "High": 0,
+              "Medium": 0,
+              "Low": 0,
+              "Unknown": 1
+            },
+            "FixableCount": {
+              "Fixed": 0,
+              "UnFixed": 1
+            }
+          },
+          "LicenseViolationsCount": 0
+        }
+      ],
+      "IsOS": false
+    }
+  ],
+  "IsContainerScanning": false,
+  "ImageInfo": {
+    "OS": "",
+    "AllLayers": null,
+    "AllBaseImages": null
+  },
+  "LicenseSummary": {
+    "Summary": false,
+    "ShowViolations": false,
+    "LicenseCount": null
+  },
+  "VulnTypeSummary": {
+    "All": 1,
+    "OS": 0,
+    "Project": 1,
+    "Hidden": 0
+  },
+  "PackageTypeCount": {
+    "Regular": 1,
+    "Hidden": 0
+  },
+  "VulnCount": {
+    "AnalysisCount": {
+      "Regular": 1,
+      "Hidden": 0
+    },
+    "SeverityCount": {
+      "Critical": 0,
+      "High": 0,
+      "Medium": 0,
+      "Low": 0,
+      "Unknown": 1
     },
     "FixableCount": {
       "Fixed": 0,
