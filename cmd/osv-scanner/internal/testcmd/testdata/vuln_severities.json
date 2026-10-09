@@ -2442,6 +2442,12 @@
       "type": "CVSS_V3"
     }
   ],
+  "GHSA-67hx-6x53-jw92": [
+    {
+      "score": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+      "type": "CVSS_V3"
+    }
+  ],
   "GHSA-68rp-wp8r-4726": [
     {
       "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N",

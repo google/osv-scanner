@@ -1,0 +1,60 @@
+---
+version: 2
+interactions:
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 289
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "@aws-sdk/client-lambda"
+              },
+              "version": "3.1037.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "@babel/traverse"
+              },
+              "version": "7.23.0"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 98
+      body: |
+        {
+          "results": [
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-67hx-6x53-jw92",
+                  "modified": "2026-09-10T03:50:03.372029Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "98"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s

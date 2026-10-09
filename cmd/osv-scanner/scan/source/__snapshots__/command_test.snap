@@ -63,6 +63,24 @@ Total 1 package affected by 34 known vulnerabilities (10 Critical, 15 High, 6 Me
 
 ---
 
+[TestCommand/CycloneDX_npm_SBOM_with_scope_namespace - 1 - stdout]
+Scanned <rootdir>/testdata/sbom-grouping/npm-scope.cdx.json file and found 2 packages
+
+Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
++-------------------------------------+------+-----------+-----------------+---------+---------------+-------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE         | VERSION | FIXED VERSION | SOURCE                                    |
++-------------------------------------+------+-----------+-----------------+---------+---------------+-------------------------------------------+
+| https://osv.dev/GHSA-67hx-6x53-jw92 | 9.3  | npm       | @babel/traverse | 7.23.0  | 7.23.2        | testdata/sbom-grouping/npm-scope.cdx.json |
++-------------------------------------+------+-----------+-----------------+---------+---------------+-------------------------------------------+
+
+---
+
+[TestCommand/CycloneDX_npm_SBOM_with_scope_namespace - 2 - stderr]
+
+---
+
 [TestCommand/Empty_cyclonedx_1.4_output - 1 - stdout]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
