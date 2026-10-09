@@ -73,6 +73,20 @@ func newPackageInfo(source string, pi pkginfo) models.PackageInfo {
 	return info
 }
 
+// buildGroups builds the groups for each package the same way the scanner does,
+// preserving any analysis declared by the fixture's own groups since that
+// cannot be derived from the vulnerabilities alone
+func buildGroups(vulnResult *models.VulnerabilityResults) {
+	for _, result := range vulnResult.Results {
+		for j := range result.Packages {
+			groups := grouper.Build(result.Packages[j])
+			grouper.CopyAnalysis(result.Packages[j].Groups, groups)
+
+			result.Packages[j].Groups = groups
+		}
+	}
+}
+
 func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 	t.Helper()
 
@@ -1383,11 +1397,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			for _, result := range tt.args.vulnResult.Results {
-				for j := range result.Packages {
-					result.Packages[j].Groups = grouper.Build(result.Packages[j])
-				}
-			}
+			buildGroups(tt.args.vulnResult)
 
 			run(t, tt.args)
 		})
@@ -2074,11 +2084,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			for _, result := range tt.args.vulnResult.Results {
-				for j := range result.Packages {
-					result.Packages[j].Groups = grouper.Build(result.Packages[j])
-				}
-			}
+			buildGroups(tt.args.vulnResult)
 
 			run(t, tt.args)
 		})
@@ -2628,11 +2634,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			for _, result := range tt.args.vulnResult.Results {
-				for j := range result.Packages {
-					result.Packages[j].Groups = grouper.Build(result.Packages[j])
-				}
-			}
+			buildGroups(tt.args.vulnResult)
 
 			run(t, tt.args)
 		})
