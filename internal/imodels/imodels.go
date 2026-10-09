@@ -2,142 +2,43 @@
 package imodels
 
 import (
-	"fmt"
 	"path/filepath"
-	"strconv"
 	"strings"
 
+	"github.com/google/osv-scalibr/enricher/vulnmatch/osvutil"
 	"github.com/google/osv-scalibr/extractor"
-	archivemetadata "github.com/google/osv-scalibr/extractor/filesystem/language/java/archive/metadata"
 	apkmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/apk/metadata"
 	dpkgmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/dpkg/metadata"
 	rpmmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/rpm/metadata"
 	"github.com/google/osv-scalibr/inventory/osvecosystem"
-	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 	"github.com/google/osv-scanner/v2/internal/scalibrplugin"
-	"github.com/google/osv-scanner/v2/internal/utility/semverlike"
 
 	scalibrosv "github.com/google/osv-scalibr/extractor/filesystem/osv"
 	"github.com/google/osv-scanner/v2/pkg/models"
-	"github.com/ossf/osv-schema/bindings/go/osvconstants"
 )
 
 var gitExtractors = map[string]struct{}{
 	gitrepo.Name: {},
 }
 
-// Name patches the SCALIBR package name to something used by OSV.
+// ParsePackage parses SCALIBR package metadata into OSV normalized package.
 // This does not affect matching. It is only used for reporting and filtering.
-func Name(pkg *extractor.Package) string {
-	// --- Make specific patches to names as necessary ---
-	// Patch Go package to stdlib
-	if Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo && pkg.Name == "go" {
-		return "stdlib"
-	}
-
-	// Patch python package names to be normalized
-	if Ecosystem(pkg).Ecosystem == osvconstants.EcosystemPyPI {
-		// per https://peps.python.org/pep-0503/#normalized-names
-		return strings.ToLower(cachedregexp.MustCompile(`[-_.]+`).ReplaceAllLiteralString(pkg.Name, "-"))
-	}
-
-	// Patch Maven archive extractor package names
-	if metadata, ok := pkg.Metadata.(*archivemetadata.Metadata); ok {
-		if metadata.ArtifactID != "" && metadata.GroupID != "" {
-			return metadata.GroupID + ":" + metadata.ArtifactID
-		}
-	}
-
-	// --- OS metadata ---
-	if metadata, ok := pkg.Metadata.(*dpkgmetadata.Metadata); ok {
-		// Debian uses source name on osv.dev
-		// (fallback to using the normal name if source name is empty)
-		if metadata.SourceName != "" {
-			return metadata.SourceName
-		}
-	}
-
-	if metadata, ok := pkg.Metadata.(*apkmetadata.Metadata); ok {
-		if metadata.OriginName != "" {
-			return metadata.OriginName
-		}
-	}
-
-	if Ecosystem(pkg).String() == "GIT" && pkg.SourceCode != nil && pkg.SourceCode.Repo != "" {
-		return pkg.SourceCode.Repo
-	}
-
-	return pkg.Name
-}
-
-func Ecosystem(pkg *extractor.Package) osvecosystem.Parsed {
-	eco := pkg.Ecosystem()
+func ParsePackage(pkg *extractor.Package) osvutil.NormalizedPackage {
+	parsed := osvutil.ParsePackage(pkg)
 
 	if metadata, ok := pkg.Metadata.(*osvscannerjson.Metadata); ok {
 		newEco, err := osvecosystem.Parse(metadata.Ecosystem)
 		if err != nil {
 			cmdlogger.Warnf("Warning: error parsing osvscanner.json ecosystem: %s", err.Error())
-			return eco
-		}
-
-		if !newEco.IsEmpty() {
-			eco = newEco
+		} else if !newEco.IsEmpty() {
+			parsed.Ecosystem = newEco
 		}
 	}
 
-	return eco
-}
-
-func Version(pkg *extractor.Package) string {
-	// Assume Go stdlib patch version as the latest version
-	//
-	// This is done because go1.20 and earlier do not support patch
-	// version in go.mod file, and will fail to build.
-	//
-	// However, if we assume patch version as .0, this will cause a lot of
-	// false positives. This compromise still allows osv-scanner to pick up
-	// when the user is using a minor version that is out-of-support.
-	if Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo && Name(pkg) == "stdlib" {
-		v := semverlike.ParseSemverLikeVersion(pkg.Version, 3)
-		if len(v.Components) == 2 {
-			return fmt.Sprintf(
-				"%d.%d.%d",
-				v.Components.Fetch(0),
-				v.Components.Fetch(1),
-				99,
-			)
-		}
-	}
-
-	// scalibr stores the RPM epoch separately from the version string. For
-	// ecosystems whose OSV records encode it, prepend the epoch when non-zero
-	// (e.g. "3.2.2-7.el9_6" -> "1:3.2.2-7.el9_6"); otherwise a missing epoch is
-	// read as 0 and already-fixed advisories are reported as unfixed.
-	if m, ok := pkg.Metadata.(*rpmmetadata.Metadata); ok && m.Epoch > 0 && ecosystemEncodesEpoch(Ecosystem(pkg).String()) {
-		return strconv.Itoa(m.Epoch) + ":" + pkg.Version
-	}
-
-	return pkg.Version
-}
-
-// rhelFamilyEpochEcosystems lists the RPM ecosystems whose OSV records encode
-// the package epoch (verified against api.osv.dev). Others (e.g. openEuler)
-// store epoch-less records, so prepending an epoch there would hide real
-// vulnerabilities; add entries only once epoch-encoding is confirmed.
-var rhelFamilyEpochEcosystems = map[string]bool{
-	"Red Hat":     true,
-	"AlmaLinux":   true,
-	"Rocky Linux": true,
-}
-
-// ecosystemEncodesEpoch reports whether the ecosystem's OSV records carry the
-// RPM epoch, so its version must be epoch-qualified to compare correctly.
-func ecosystemEncodesEpoch(ecosystem string) bool {
-	distro, _, _ := strings.Cut(ecosystem, ":")
-	return rhelFamilyEpochEcosystems[distro]
+	return parsed
 }
 
 func Location(pkg *extractor.Package) string {
@@ -148,14 +49,6 @@ func Location(pkg *extractor.Package) string {
 	}
 
 	return filepath.Join(scanRoot, pkg.Location.PathOrEmpty())
-}
-
-func Commit(pkg *extractor.Package) string {
-	if pkg.SourceCode != nil {
-		return pkg.SourceCode.Commit
-	}
-
-	return ""
 }
 
 func SourceType(pkg *extractor.Package) models.SourceType {

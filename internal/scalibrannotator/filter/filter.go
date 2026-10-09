@@ -88,12 +88,14 @@ func (a *Annotator) Annotate(_ context.Context, _ *annotator.ScanInput, results 
 	})
 
 	for _, psr := range sorted {
+		parsedPkg := imodels.ParsePackage(psr)
+
 		// 1. Filter Unscannable Packages
 		isScannable := false
 		switch {
-		case !imodels.Ecosystem(psr).IsEmpty() && imodels.Name(psr) != "" && imodels.Version(psr) != "":
+		case !parsedPkg.Ecosystem.IsEmpty() && parsedPkg.Name != "" && parsedPkg.Version != "":
 			isScannable = true
-		case imodels.Commit(psr) != "":
+		case parsedPkg.Commit != "":
 			isScannable = true
 		}
 
@@ -107,8 +109,8 @@ func (a *Annotator) Annotate(_ context.Context, _ *annotator.ScanInput, results 
 		}
 
 		// Maven with name unknown or invalid ecosystem
-		if (imodels.Ecosystem(psr).Ecosystem == osvconstants.EcosystemMaven && imodels.Name(psr) == "unknown") ||
-			(imodels.Ecosystem(psr).GetValidity() != nil && !imodels.Ecosystem(psr).IsEmpty()) {
+		if (parsedPkg.Ecosystem.Ecosystem == osvconstants.EcosystemMaven && parsedPkg.Name == "unknown") ||
+			(parsedPkg.Ecosystem.GetValidity() != nil && !parsedPkg.Ecosystem.IsEmpty()) {
 			unscannableCount++
 			if a.showAllPackages {
 				filteredPsr = append(filteredPsr, psr)
@@ -118,8 +120,8 @@ func (a *Annotator) Annotate(_ context.Context, _ *annotator.ScanInput, results 
 		}
 
 		// Short commit hashes warning
-		if imodels.Commit(psr) != "" && len(imodels.Commit(psr)) < 40 {
-			warnings = append(warnings, fmt.Sprintf("Skipping %s: short commit hash %q cannot be queried; OSV API requires a full 40-character SHA.", imodels.Name(psr), imodels.Commit(psr)))
+		if parsedPkg.Commit != "" && len(parsedPkg.Commit) < 40 {
+			warnings = append(warnings, fmt.Sprintf("Skipping %s: short commit hash %q cannot be queried; OSV API requires a full 40-character SHA.", parsedPkg.Name, parsedPkg.Commit))
 			unscannableCount++
 			if a.showAllPackages {
 				filteredPsr = append(filteredPsr, psr)
@@ -129,7 +131,7 @@ func (a *Annotator) Annotate(_ context.Context, _ *annotator.ScanInput, results 
 		}
 
 		// 2. Filter Non-Container Relevant Packages
-		if a.isContainerScan && imodels.Name(psr) == "linux" {
+		if a.isContainerScan && parsedPkg.Name == "linux" {
 			nonContainerRelevantCount++
 
 			continue
@@ -140,7 +142,7 @@ func (a *Annotator) Annotate(_ context.Context, _ *annotator.ScanInput, results 
 			configToUse := a.configManager.Get(imodels.Location(psr))
 			if ignore, ignoreLine := configToUse.ShouldIgnorePackage(psr); ignore {
 				ignoredCount++
-				pkgString := fmt.Sprintf("%s/%s/%s", imodels.Ecosystem(psr).String(), imodels.Name(psr), imodels.Version(psr))
+				pkgString := fmt.Sprintf("%s/%s/%s", parsedPkg.Ecosystem.String(), parsedPkg.Name, parsedPkg.Version)
 				reason := ignoreLine.Reason
 				if reason == "" {
 					reason = "(no reason given)"
