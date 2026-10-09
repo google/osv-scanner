@@ -328,6 +328,13 @@ func matcher(r *http.Request, i cassette.Request) bool {
 		delete(cassetteRequestHeaders, header)
 	}
 
+	if len(requestHeader) == 0 {
+		requestHeader = nil
+	}
+	if len(cassetteRequestHeaders) == 0 {
+		cassetteRequestHeaders = nil
+	}
+
 	if !reflect.DeepEqual(requestHeader, cassetteRequestHeaders) {
 		return false
 	}
@@ -409,6 +416,9 @@ func toComparableRequest(r *http.Request) (comparableRequest, error) {
 	for _, header := range []string{"User-Agent", "Content-Length"} {
 		headers.Del(header)
 	}
+	if len(headers) == 0 {
+		headers = nil
+	}
 
 	return comparableRequest{
 		Method:  r.Method,
@@ -422,6 +432,9 @@ func cassetteToComparableRequest(i cassette.Request) comparableRequest {
 	headers := i.Headers.Clone()
 	for _, header := range []string{"User-Agent", "Content-Length"} {
 		headers.Del(header)
+	}
+	if len(headers) == 0 {
+		headers = nil
 	}
 	prettyOptions := *pretty.DefaultOptions
 	prettyOptions.SortKeys = true
