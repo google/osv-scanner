@@ -1,0 +1,184 @@
+---
+version: 2
+interactions:
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 180
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Maven",
+                "name": "org.apache.tomcat.embed:tomcat-embed-core"
+              },
+              "version": "10.1.24"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 2405
+      body: |
+        {
+          "results": [
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-23hv-mwm6-g8jf",
+                  "modified": "2026-07-01T16:30:08.497253Z"
+                },
+                {
+                  "id": "GHSA-25xr-qj8w-c4vf",
+                  "modified": "2026-09-10T03:50:25.989583Z"
+                },
+                {
+                  "id": "GHSA-27hp-xhwr-wr2m",
+                  "modified": "2026-09-10T03:50:56.287801Z"
+                },
+                {
+                  "id": "GHSA-3p2h-wqq4-wf4h",
+                  "modified": "2026-09-10T03:50:57.424635Z"
+                },
+                {
+                  "id": "GHSA-42wg-hm62-jcwg",
+                  "modified": "2025-10-29T16:13:33.340454Z"
+                },
+                {
+                  "id": "GHSA-563x-q5rq-57qp",
+                  "modified": "2026-09-11T08:25:36.344434Z"
+                },
+                {
+                  "id": "GHSA-5j33-cvvr-w245",
+                  "modified": "2026-09-10T03:50:21.575819Z"
+                },
+                {
+                  "id": "GHSA-5m62-pw8w-7w9f",
+                  "modified": "2026-09-11T08:25:25.696036Z"
+                },
+                {
+                  "id": "GHSA-5mp6-jrq3-r938",
+                  "modified": "2026-09-11T08:25:26.202863Z"
+                },
+                {
+                  "id": "GHSA-7jqf-v358-p8g7",
+                  "modified": "2026-08-13T20:11:57.962107Z"
+                },
+                {
+                  "id": "GHSA-83qj-6fr2-vhqg",
+                  "modified": "2026-09-10T03:50:23.313083Z"
+                },
+                {
+                  "id": "GHSA-9m3c-qcxr-9x87",
+                  "modified": "2026-09-11T08:25:31.206255Z"
+                },
+                {
+                  "id": "GHSA-9m89-8frq-c98c",
+                  "modified": "2026-09-11T08:25:30.451322Z"
+                },
+                {
+                  "id": "GHSA-9xv2-5v5q-p794",
+                  "modified": "2026-09-11T08:25:52.825871Z"
+                },
+                {
+                  "id": "GHSA-ff77-26x5-69cr",
+                  "modified": "2026-09-10T03:50:24.113174Z"
+                },
+                {
+                  "id": "GHSA-fpj8-gq4v-p354",
+                  "modified": "2026-09-11T08:25:48.825991Z"
+                },
+                {
+                  "id": "GHSA-fv25-8xcx-gqjc",
+                  "modified": "2026-09-10T03:51:05.853750Z"
+                },
+                {
+                  "id": "GHSA-gcx9-497g-6cp6",
+                  "modified": "2026-09-11T08:25:41.300012Z"
+                },
+                {
+                  "id": "GHSA-gqp3-2cvr-x8m3",
+                  "modified": "2026-05-13T16:35:26.549711Z"
+                },
+                {
+                  "id": "GHSA-gx5v-xp9w-j4cg",
+                  "modified": "2026-09-11T08:25:36.520411Z"
+                },
+                {
+                  "id": "GHSA-h2fw-rfh5-95r3",
+                  "modified": "2026-09-10T03:50:57.935292Z"
+                },
+                {
+                  "id": "GHSA-h3gc-qfqq-6h8f",
+                  "modified": "2026-09-10T03:50:25.525981Z"
+                },
+                {
+                  "id": "GHSA-h3x4-894j-xpx5",
+                  "modified": "2026-09-11T08:25:40.118635Z"
+                },
+                {
+                  "id": "GHSA-h6fc-48rj-7qqh",
+                  "modified": "2026-09-11T08:25:26.501986Z"
+                },
+                {
+                  "id": "GHSA-hgrr-935x-pq79",
+                  "modified": "2026-09-10T03:50:30.251352Z"
+                },
+                {
+                  "id": "GHSA-mgp5-rv84-w37q",
+                  "modified": "2026-09-10T03:50:35.574464Z"
+                },
+                {
+                  "id": "GHSA-r29c-68gh-xp6x",
+                  "modified": "2026-09-10T03:50:55.679134Z"
+                },
+                {
+                  "id": "GHSA-rv64-5gf8-9qq8",
+                  "modified": "2026-09-11T08:25:42.129097Z"
+                },
+                {
+                  "id": "GHSA-vfww-5hm6-hx2j",
+                  "modified": "2026-09-10T03:50:30.791118Z"
+                },
+                {
+                  "id": "GHSA-wc4r-xq3c-5cf3",
+                  "modified": "2026-09-10T03:50:26.000004Z"
+                },
+                {
+                  "id": "GHSA-wm9w-rjj3-j356",
+                  "modified": "2026-09-10T03:50:17.269240Z"
+                },
+                {
+                  "id": "GHSA-wmwf-9ccg-fff5",
+                  "modified": "2026-09-10T03:50:30.776927Z"
+                },
+                {
+                  "id": "GHSA-wr62-c79q-cv37",
+                  "modified": "2026-03-06T22:01:30.941844Z"
+                },
+                {
+                  "id": "GHSA-x4m4-345f-5h5g",
+                  "modified": "2026-09-11T08:25:51.806825Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "2405"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s

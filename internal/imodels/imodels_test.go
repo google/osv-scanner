@@ -52,13 +52,30 @@ func Test_Name(t *testing.T) {
 			},
 			want: "openssl@3.5",
 		},
+		{
+			name: "CycloneDX_Maven_package_with_group",
+			pkg: &extractor.Package{
+				Name:     "tomcat-embed-core",
+				Version:  "9.0.80",
+				PURLType: purl.TypeMaven,
+				Metadata: &cdxmetadata.Metadata{
+					PURL: &purl.PackageURL{
+						Type:      purl.TypeMaven,
+						Namespace: "org.apache.tomcat.embed",
+						Name:      "tomcat-embed-core",
+						Version:   "9.0.80",
+					},
+				},
+			},
+			want: "org.apache.tomcat.embed:tomcat-embed-core",
+		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			if got := Name(tt.pkg); got != tt.want {
-				t.Errorf("Name(*extractor.Package) = %v, want %v", got, tt.want)
+			if got := ParsePackage(tt.pkg).Name; got != tt.want {
+				t.Errorf("ParsePackage(*extractor.Package).Name = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -170,8 +187,8 @@ func Test_Version(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			if got := Version(tt.pkg); got != tt.want {
-				t.Errorf("Version(%q) = %q, want %q", tt.pkg.Ecosystem().String(), got, tt.want)
+			if got := ParsePackage(tt.pkg).Version; got != tt.want {
+				t.Errorf("ParsePackage(%q).Version = %q, want %q", tt.pkg.Ecosystem().String(), got, tt.want)
 			}
 		})
 	}

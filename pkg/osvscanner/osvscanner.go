@@ -418,7 +418,8 @@ func determineReturnErr(vulnResults models.VulnerabilityResults, showAllVulns bo
 func filterAndOverrideGoVersion(scanResults *results.ScanResults) {
 	// Filter inventory packages
 	scanResults.Inventory.Packages = slices.DeleteFunc(scanResults.Inventory.Packages, func(pkg *extractor.Package) bool {
-		if imodels.Name(pkg) == "stdlib" && imodels.Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo {
+		parsedPkg := imodels.ParsePackage(pkg)
+		if parsedPkg.Name == "stdlib" && parsedPkg.Ecosystem.Ecosystem == osvconstants.EcosystemGo {
 			// Only apply the filter if it's from a go.mod file.
 			// The 'go' directive in go.mod specifies the minimum required language version,
 			// not the actual toolchain version used to build/run, which can lead to false positives.
@@ -435,7 +436,8 @@ func filterAndOverrideGoVersion(scanResults *results.ScanResults) {
 
 	// Override versions for remaining inventory packages
 	for i, pkg := range scanResults.Inventory.Packages {
-		if imodels.Name(pkg) == "stdlib" && imodels.Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo {
+		parsedPkg := imodels.ParsePackage(pkg)
+		if parsedPkg.Name == "stdlib" && parsedPkg.Ecosystem.Ecosystem == osvconstants.EcosystemGo {
 			configToUse := scanResults.ConfigManager.Get(imodels.Location(pkg))
 			if configToUse.GoVersionOverride != "" {
 				scanResults.Inventory.Packages[i].Version = configToUse.GoVersionOverride

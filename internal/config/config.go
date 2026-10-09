@@ -50,6 +50,7 @@ type PackageOverrideEntry struct {
 }
 
 func (e PackageOverrideEntry) matches(pkg *extractor.Package) bool {
+	parsedPkg := imodels.ParsePackage(pkg)
 	if e.Name != "" {
 		if e.NameIsRegex {
 			re, err := cachedregexp.Compile("^(?:" + e.Name + ")$")
@@ -57,20 +58,20 @@ func (e PackageOverrideEntry) matches(pkg *extractor.Package) bool {
 				// This should not happen as regex is validated at config load time
 				return false
 			}
-			if !re.MatchString(imodels.Name(pkg)) {
+			if !re.MatchString(parsedPkg.Name) {
 				return false
 			}
-		} else if e.Name != imodels.Name(pkg) {
+		} else if e.Name != parsedPkg.Name {
 			return false
 		}
 	}
-	if e.Version != "" && e.Version != imodels.Version(pkg) {
+	if e.Version != "" && e.Version != parsedPkg.Version {
 		return false
 	}
 	// If there is an ecosystem filter, the filter must not match both the:
 	//  - Full ecosystem + suffix
 	//  - The base ecosystem
-	if e.Ecosystem != "" && (e.Ecosystem != imodels.Ecosystem(pkg).String() && e.Ecosystem != string(imodels.Ecosystem(pkg).Ecosystem)) {
+	if e.Ecosystem != "" && (e.Ecosystem != parsedPkg.Ecosystem.String() && e.Ecosystem != string(parsedPkg.Ecosystem.Ecosystem)) {
 		return false
 	}
 	if e.Group != "" && !slices.Contains(imodels.DepGroups(pkg), e.Group) {

@@ -1660,7 +1660,7 @@ GIT
 +-------------------------------------+-------------------+------------------+------------+-------------------------+------------------+---------------+
 | SOURCE PACKAGE                      | INSTALLED VERSION | FIX AVAILABLE    | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
 +-------------------------------------+-------------------+------------------+------------+-------------------------+------------------+---------------+
-| https://github.com/DaveGamble/cJSON | 1.7.17            | No fix available |          8 |                         | # 19 Layer       | --            |
+| https://github.com/davegamble/cjson | 1.7.17            | No fix available |          8 |                         | # 19 Layer       | --            |
 +-------------------------------------+-------------------+------------------+------------+-------------------------+------------------+---------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.

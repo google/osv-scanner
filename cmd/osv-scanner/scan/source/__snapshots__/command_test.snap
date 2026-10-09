@@ -12,6 +12,75 @@ No issues found
 
 ---
 
+[TestCommand/CycloneDX_Maven_SBOM_with_group_namespace - 1 - stdout]
+Scanned <rootdir>/testdata/sbom-grouping/maven-tomcat.cdx.json file and found 1 package
+
+Total 1 package affected by 34 known vulnerabilities (10 Critical, 15 High, 6 Medium, 3 Low, 0 Unknown) from 1 ecosystem.
+34 vulnerabilities can be fixed.
+
++-------------------------------------+------+-----------+-------------------------------------------+---------+---------------+----------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                   | VERSION | FIXED VERSION | SOURCE                                       |
++-------------------------------------+------+-----------+-------------------------------------------+---------+---------------+----------------------------------------------+
+| https://osv.dev/GHSA-23hv-mwm6-g8jf | 6.5  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.42       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-25xr-qj8w-c4vf | 7.5  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.43       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-27hp-xhwr-wr2m | 7.2  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.34       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-3p2h-wqq4-wf4h | 6.6  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.40       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-42wg-hm62-jcwg | 4.8  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.42       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-563x-q5rq-57qp | 7.5  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.52       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-5j33-cvvr-w245 | 9.8  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.34       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-5m62-pw8w-7w9f | 9.1  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.55       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-5mp6-jrq3-r938 | 7.5  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.55       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-7jqf-v358-p8g7 | 8.6  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.25       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-83qj-6fr2-vhqg | 9.8  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.35       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-9m3c-qcxr-9x87 | 6.9  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.53       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-9m89-8frq-c98c | 3.7  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.55       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-9xv2-5v5q-p794 | 9.8  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.58       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-ff77-26x5-69cr | 2.7  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.40       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-fpj8-gq4v-p354 | 9.1  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.50       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-fv25-8xcx-gqjc | 7.3  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.55       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-gcx9-497g-6cp6 | 9.1  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.58       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-gqp3-2cvr-x8m3 | 7.5  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.44       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-gx5v-xp9w-j4cg | 7.5  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.55       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-h2fw-rfh5-95r3 | 1.7  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.41       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-h3gc-qfqq-6h8f | 8.7  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.42       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-h3x4-894j-xpx5 | 9.1  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.58       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-h6fc-48rj-7qqh | 9.8  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.55       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-hgrr-935x-pq79 | 5.3  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.47       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-mgp5-rv84-w37q | 7.5  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.52       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-r29c-68gh-xp6x | 9.8  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.55       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-rv64-5gf8-9qq8 | 7.5  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.54       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-vfww-5hm6-hx2j | 9.6  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.45       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-wc4r-xq3c-5cf3 | 6.3  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.42       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-wm9w-rjj3-j356 | 8.7  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.25       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-wmwf-9ccg-fff5 | 7.7  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.45       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-wr62-c79q-cv37 | 7.5  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.43       | testdata/sbom-grouping/maven-tomcat.cdx.json |
+| https://osv.dev/GHSA-x4m4-345f-5h5g | 7.5  | Maven     | org.apache.tomcat.embed:tomcat-embed-core | 10.1.24 | 10.1.54       | testdata/sbom-grouping/maven-tomcat.cdx.json |
++-------------------------------------+------+-----------+-------------------------------------------+---------+---------------+----------------------------------------------+
+
+---
+
+[TestCommand/CycloneDX_Maven_SBOM_with_group_namespace - 2 - stderr]
+
+---
+
+[TestCommand/CycloneDX_npm_SBOM_with_scope_namespace - 1 - stdout]
+Scanned <rootdir>/testdata/sbom-grouping/npm-scope.cdx.json file and found 2 packages
+
+Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
++-------------------------------------+------+-----------+-----------------+---------+---------------+-------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE         | VERSION | FIXED VERSION | SOURCE                                    |
++-------------------------------------+------+-----------+-----------------+---------+---------------+-------------------------------------------+
+| https://osv.dev/GHSA-67hx-6x53-jw92 | 9.3  | npm       | @babel/traverse | 7.23.0  | 7.23.2        | testdata/sbom-grouping/npm-scope.cdx.json |
++-------------------------------------+------+-----------+-----------------+---------+---------------+-------------------------------------------+
+
+---
+
+[TestCommand/CycloneDX_npm_SBOM_with_scope_namespace - 2 - stderr]
+
+---
+
 [TestCommand/Empty_cyclonedx_1.4_output - 1 - stdout]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
