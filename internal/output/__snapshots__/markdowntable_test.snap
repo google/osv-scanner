@@ -422,16 +422,16 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 [TestPrintMarkdownTableResults_WithVulnerabilities/one_os_source_with_debian_and_ubuntu_packages,_some_with_unimportant_vulnerabilities - 1]
 
 Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-0 vulnerabilities can be fixed.
+2 vulnerabilities can be fixed.
 
 | OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
-| https://osv.dev/DEBIAN-CVE-2024-0002 | 4.3 | Debian:12 | libxml2 | 2.9.14+dfsg-1.3 | -- | var/lib/dpkg/status |
-| https://osv.dev/UBUNTU-CVE-2024-0004 | 8.1 | Ubuntu:22.04:LTS | openssl | 3.0.2-0ubuntu1.15 | -- | var/lib/dpkg/status |
+| https://osv.dev/DEBIAN-CVE-2024-0002 | 4.3 | Debian:12 | libxml2 | 2.9.14+dfsg-1.3 | 2.9.14+dfsg-1.3+deb12u1 | var/lib/dpkg/status |
+| https://osv.dev/UBUNTU-CVE-2024-0004 | 8.1 | Ubuntu:22.04 | openssl | 3.0.2-0ubuntu1.15 | 3.0.2-0ubuntu1.16 | var/lib/dpkg/status |
 | Unimportant vulnerabilities |  |  |  |  |  |  |
 | https://osv.dev/DEBIAN-CVE-2024-0001 |  | Debian:12 | libxml2 | 2.9.14+dfsg-1.3 | -- | var/lib/dpkg/status |
-| https://osv.dev/UBUNTU-CVE-2024-0003 |  | Ubuntu:22.04:LTS | openssl | 3.0.2-0ubuntu1.15 | -- | var/lib/dpkg/status |
-| https://osv.dev/UBUNTU-CVE-2024-0005 |  | Ubuntu:22.04:LTS | openssl | 3.0.2-0ubuntu1.15 | -- | var/lib/dpkg/status |
+| https://osv.dev/UBUNTU-CVE-2024-0003 |  | Ubuntu:22.04 | openssl | 3.0.2-0ubuntu1.15 | -- | var/lib/dpkg/status |
+| https://osv.dev/UBUNTU-CVE-2024-0005 |  | Ubuntu:22.04 | openssl | 3.0.2-0ubuntu1.15 | -- | var/lib/dpkg/status |
 
 ---
 
@@ -472,6 +472,20 @@ Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium,
 | OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
 | https://osv.dev/OSV-1 | 9.0 | npm | mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
+
+---
+
+[TestPrintMarkdownTableResults_WithVulnerabilities/one_source_with_one_package_and_multiple_vulnerabilities,_some_fixable - 1]
+
+Total 1 package affected by 4 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 4 Unknown) from 1 ecosystem.
+2 vulnerabilities can be fixed.
+
+| OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
+| --- | --- | --- | --- | --- | --- | --- |
+| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | 1.2.4 | path/to/my/first/lockfile |
+| https://osv.dev/OSV-2 |  | npm | mine1 | 1.2.3 | 2.0.0 | path/to/my/first/lockfile |
+| https://osv.dev/OSV-3 |  | npm | mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
+| https://osv.dev/OSV-4 |  | npm | mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
 
 ---
 

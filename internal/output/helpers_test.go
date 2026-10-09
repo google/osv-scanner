@@ -1380,6 +1380,105 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
+			// the package should be fixed by the highest of the next fixed versions
+			name: "one_source_with_one_package_and_multiple_vulnerabilities,_some_fixable",
+			args: outputTestCaseArgs{
+				vulnResult: &models.VulnerabilityResults{
+					Results: []models.PackageSource{
+						{
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Packages: []models.PackageVulns{
+								{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
+										Name:      "mine1",
+										Version:   "1.2.3",
+										Ecosystem: "npm",
+										Extractor: packagelockjson.Extractor{},
+									}),
+									Vulnerabilities: []*osvschema.Vulnerability{
+										{
+											Id:      "OSV-1",
+											Summary: "Fixed in the next patch!",
+											Affected: []*osvschema.Affected{
+												{
+													Package: &osvschema.Package{Name: "mine1", Ecosystem: "npm"},
+													Ranges: []*osvschema.Range{{
+														Type: osvschema.Range_SEMVER,
+														Events: []*osvschema.Event{
+															{Introduced: "1.0.0"},
+															{Fixed: "1.1.5"},
+															{Introduced: "1.2.0"},
+															{Fixed: "1.2.4"},
+														},
+													}},
+												},
+											},
+										},
+										{
+											Id:      "OSV-2",
+											Summary: "Fixed in the next major!",
+											Affected: []*osvschema.Affected{
+												{
+													Package: &osvschema.Package{Name: "mine1", Ecosystem: "npm"},
+													Ranges: []*osvschema.Range{{
+														Type: osvschema.Range_SEMVER,
+														Events: []*osvschema.Event{
+															{Introduced: "0"},
+															{Fixed: "2.0.0"},
+														},
+													}},
+												},
+											},
+										},
+										{
+											Id:      "OSV-3",
+											Summary: "Not fixed yet!",
+											Affected: []*osvschema.Affected{
+												{
+													Package: &osvschema.Package{Name: "mine1", Ecosystem: "npm"},
+													Ranges: []*osvschema.Range{{
+														Type: osvschema.Range_SEMVER,
+														Events: []*osvschema.Event{
+															{Introduced: "0"},
+														},
+													}},
+												},
+											},
+										},
+										{
+											Id:      "OSV-4",
+											Summary: "Only fixed for another package!",
+											Affected: []*osvschema.Affected{
+												{
+													Package: &osvschema.Package{Name: "mine1", Ecosystem: "npm"},
+													Ranges: []*osvschema.Range{{
+														Type: osvschema.Range_SEMVER,
+														Events: []*osvschema.Event{
+															{Introduced: "0"},
+														},
+													}},
+												},
+												{
+													Package: &osvschema.Package{Name: "mine2", Ecosystem: "npm"},
+													Ranges: []*osvschema.Range{{
+														Type: osvschema.Range_SEMVER,
+														Events: []*osvschema.Event{
+															{Introduced: "0"},
+															{Fixed: "1.0.0"},
+														},
+													}},
+												},
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		{
 			name: "one_os_source_with_debian_and_ubuntu_packages,_some_with_unimportant_vulnerabilities",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
@@ -1407,6 +1506,14 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 											Id:      "DEBIAN-CVE-2024-0002",
 											Summary: "Something scary!",
 											Affected: []*osvschema.Affected{{
+												Package: &osvschema.Package{Name: "libxml2", Ecosystem: "Debian:12"},
+												Ranges: []*osvschema.Range{{
+													Type: osvschema.Range_ECOSYSTEM,
+													Events: []*osvschema.Event{
+														{Introduced: "0"},
+														{Fixed: "2.9.14+dfsg-1.3+deb12u1"},
+													},
+												}},
 												EcosystemSpecific: newEcosystemSpecific(map[string]any{"urgency": "low"}),
 											}},
 											Severity: []*osvschema.Severity{{
@@ -1421,7 +1528,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Name:          "openssl",
 										OSPackageName: "openssl",
 										Version:       "3.0.2-0ubuntu1.15",
-										Ecosystem:     "Ubuntu:22.04:LTS",
+										Ecosystem:     "Ubuntu:22.04",
 										Extractor:     dpkg.Extractor{},
 									}),
 									Vulnerabilities: []*osvschema.Vulnerability{
@@ -1436,6 +1543,16 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										{
 											Id:      "UBUNTU-CVE-2024-0004",
 											Summary: "Something scary!",
+											Affected: []*osvschema.Affected{{
+												Package: &osvschema.Package{Name: "openssl", Ecosystem: "Ubuntu:22.04:LTS"},
+												Ranges: []*osvschema.Range{{
+													Type: osvschema.Range_ECOSYSTEM,
+													Events: []*osvschema.Event{
+														{Introduced: "0"},
+														{Fixed: "3.0.2-0ubuntu1.16"},
+													},
+												}},
+											}},
 											Severity: []*osvschema.Severity{
 												{
 													Type:  osvschema.Severity_CVSS_V3,
