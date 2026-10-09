@@ -2429,6 +2429,12 @@
       "type": "CVSS_V4"
     }
   ],
+  "GHSA-6j4f-fj2g-mc7p": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    }
+  ],
   "GHSA-6jqx-86gh-f27w": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
@@ -3306,6 +3312,12 @@
       "type": "CVSS_V3"
     }
   ],
+  "GHSA-q2hr-2g5m-vwhr": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "type": "CVSS_V3"
+    }
+  ],
   "GHSA-q36x-r5x4-h4q6": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
@@ -3354,6 +3366,12 @@
     {
       "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N",
       "type": "CVSS_V4"
+    }
+  ],
+  "GHSA-qhr7-859c-m2p7": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
     }
   ],
   "GHSA-qppj-fm5r-hxr3": [
@@ -3898,6 +3916,19 @@
   "GO-2026-6180": [],
   "GO-2026-6218": [],
   "GO-2026-6222": [],
+  "GO-2026-6599": [],
+  "GO-2026-6600": [],
+  "GO-2026-6603": [],
+  "GO-2026-6604": [],
+  "GO-2026-6605": [],
+  "GO-2026-6607": [],
+  "GO-2026-6608": [],
+  "GO-2026-6609": [],
+  "GO-2026-6610": [],
+  "GO-2026-6611": [],
+  "GO-2026-6612": [],
+  "GO-2026-6613": [],
+  "GO-2026-6617": [],
   "HSEC-2024-0009": [],
   "OSV-2018-389": [],
   "OSV-2022-24": [],
