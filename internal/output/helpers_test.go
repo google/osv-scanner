@@ -11,12 +11,14 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/packageslockjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/packagelockjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/php/composerlock"
+	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	"github.com/google/osv-scalibr/inventory/vex"
 	"github.com/google/osv-scalibr/purl"
 	"github.com/google/osv-scanner/v2/internal/grouper"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
+	"google.golang.org/protobuf/types/known/structpb"
 )
 
 type outputTestCaseArgs struct {
@@ -49,7 +51,12 @@ type pkginfo struct {
 }
 
 func resolvePURLType(eco string) string {
+	// strip any release, such as "Debian:12"
+	eco, _, _ = strings.Cut(eco, ":")
+
 	switch eco {
+	case "Debian", "Ubuntu":
+		return purl.TypeDebian
 	case "npm":
 		return purl.TypeNPM
 	case "NuGet":
@@ -59,6 +66,15 @@ func resolvePURLType(eco string) string {
 	}
 
 	panic("unknown PURL type for ecosystem " + eco)
+}
+
+func newEcosystemSpecific(fields map[string]any) *structpb.Struct {
+	es, err := structpb.NewStruct(fields)
+	if err != nil {
+		panic(err)
+	}
+
+	return es
 }
 
 func newPackageInfo(source string, pi pkginfo) models.PackageInfo {
@@ -1355,6 +1371,122 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									}),
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{Id: "OSV-2"},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			name: "one_os_source_with_debian_and_ubuntu_packages,_some_with_unimportant_vulnerabilities",
+			args: outputTestCaseArgs{
+				vulnResult: &models.VulnerabilityResults{
+					Results: []models.PackageSource{
+						{
+							Source: models.SourceInfo{Path: cwd + "/var/lib/dpkg/status", Type: models.SourceTypeOSPackage},
+							Packages: []models.PackageVulns{
+								{
+									Package: newPackageInfo(cwd+"/var/lib/dpkg/status", pkginfo{
+										Name:          "libxml2",
+										OSPackageName: "libxml2",
+										Version:       "2.9.14+dfsg-1.3",
+										Ecosystem:     "Debian:12",
+										Extractor:     dpkg.Extractor{},
+									}),
+									Vulnerabilities: []*osvschema.Vulnerability{
+										{
+											Id:      "DEBIAN-CVE-2024-0001",
+											Summary: "Something unimportant!",
+											Affected: []*osvschema.Affected{{
+												EcosystemSpecific: newEcosystemSpecific(map[string]any{"urgency": "unimportant"}),
+											}},
+										},
+										{
+											Id:      "DEBIAN-CVE-2024-0002",
+											Summary: "Something scary!",
+											Affected: []*osvschema.Affected{{
+												EcosystemSpecific: newEcosystemSpecific(map[string]any{"urgency": "low"}),
+											}},
+											Severity: []*osvschema.Severity{{
+												Type:  osvschema.Severity_CVSS_V3,
+												Score: "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+											}},
+										},
+									},
+								},
+								{
+									Package: newPackageInfo(cwd+"/var/lib/dpkg/status", pkginfo{
+										Name:          "openssl",
+										OSPackageName: "openssl",
+										Version:       "3.0.2-0ubuntu1.15",
+										Ecosystem:     "Ubuntu:22.04:LTS",
+										Extractor:     dpkg.Extractor{},
+									}),
+									Vulnerabilities: []*osvschema.Vulnerability{
+										{
+											Id:      "UBUNTU-CVE-2024-0003",
+											Summary: "Something negligible!",
+											Severity: []*osvschema.Severity{{
+												Type:  osvschema.Severity_Ubuntu,
+												Score: "negligible",
+											}},
+										},
+										{
+											Id:      "UBUNTU-CVE-2024-0004",
+											Summary: "Something scary!",
+											Severity: []*osvschema.Severity{
+												{
+													Type:  osvschema.Severity_CVSS_V3,
+													Score: "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:N",
+												},
+												{
+													Type:  osvschema.Severity_Ubuntu,
+													Score: "medium",
+												},
+											},
+										},
+										{
+											// older records have the priority as ecosystem specific data
+											Id:      "UBUNTU-CVE-2024-0005",
+											Summary: "Something else negligible!",
+											Affected: []*osvschema.Affected{{
+												EcosystemSpecific: newEcosystemSpecific(map[string]any{"ubuntu_priority": "negligible"}),
+											}},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			// only vulnerabilities in debian-based ecosystems can be unimportant
+			name: "one_source_with_one_package_and_one_vulnerability_tagged_as_unimportant_outside_of_a_debian_based_ecosystem",
+			args: outputTestCaseArgs{
+				vulnResult: &models.VulnerabilityResults{
+					Results: []models.PackageSource{
+						{
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Packages: []models.PackageVulns{
+								{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
+										Name:      "mine1",
+										Version:   "1.2.3",
+										Ecosystem: "npm",
+										Extractor: packagelockjson.Extractor{},
+									}),
+									Vulnerabilities: []*osvschema.Vulnerability{
+										{
+											Id:      "OSV-1",
+											Summary: "Something scary!",
+											Affected: []*osvschema.Affected{{
+												EcosystemSpecific: newEcosystemSpecific(map[string]any{"urgency": "unimportant"}),
+											}},
+										},
 									},
 								},
 							},

@@ -3011,6 +3011,178 @@
 
 ---
 
+[TestPrintJSONResults_WithVulnerabilities/one_os_source_with_debian_and_ubuntu_packages,_some_with_unimportant_vulnerabilities - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "<rootdir>/var/lib/dpkg/status",
+        "type": "os"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "libxml2",
+            "os_package_name": "libxml2",
+            "version": "2.9.14+dfsg-1.3",
+            "ecosystem": "Debian:12"
+          },
+          "groups": [
+            {
+              "ids": [
+                "DEBIAN-CVE-2024-0001"
+              ],
+              "aliases": [
+                "DEBIAN-CVE-2024-0001"
+              ],
+              "experimental_analysis": {
+                "DEBIAN-CVE-2024-0001": {
+                  "called": true,
+                  "unimportant": true
+                }
+              },
+              "max_severity": ""
+            },
+            {
+              "ids": [
+                "DEBIAN-CVE-2024-0002"
+              ],
+              "aliases": [
+                "DEBIAN-CVE-2024-0002"
+              ],
+              "max_severity": "4.3"
+            }
+          ],
+          "vulnerabilities": [
+            {
+              "affected": [
+                {
+                  "ecosystem_specific": {
+                    "urgency": "unimportant"
+                  }
+                }
+              ],
+              "id": "DEBIAN-CVE-2024-0001",
+              "summary": "Something unimportant!"
+            },
+            {
+              "affected": [
+                {
+                  "ecosystem_specific": {
+                    "urgency": "low"
+                  }
+                }
+              ],
+              "id": "DEBIAN-CVE-2024-0002",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+                  "type": "CVSS_V3"
+                }
+              ],
+              "summary": "Something scary!"
+            }
+          ]
+        },
+        {
+          "package": {
+            "name": "openssl",
+            "os_package_name": "openssl",
+            "version": "3.0.2-0ubuntu1.15",
+            "ecosystem": "Ubuntu:22.04:LTS"
+          },
+          "groups": [
+            {
+              "ids": [
+                "UBUNTU-CVE-2024-0003"
+              ],
+              "aliases": [
+                "UBUNTU-CVE-2024-0003"
+              ],
+              "experimental_analysis": {
+                "UBUNTU-CVE-2024-0003": {
+                  "called": true,
+                  "unimportant": true
+                }
+              },
+              "max_severity": ""
+            },
+            {
+              "ids": [
+                "UBUNTU-CVE-2024-0004"
+              ],
+              "aliases": [
+                "UBUNTU-CVE-2024-0004"
+              ],
+              "max_severity": "8.1"
+            },
+            {
+              "ids": [
+                "UBUNTU-CVE-2024-0005"
+              ],
+              "aliases": [
+                "UBUNTU-CVE-2024-0005"
+              ],
+              "experimental_analysis": {
+                "UBUNTU-CVE-2024-0005": {
+                  "called": true,
+                  "unimportant": true
+                }
+              },
+              "max_severity": ""
+            }
+          ],
+          "vulnerabilities": [
+            {
+              "id": "UBUNTU-CVE-2024-0003",
+              "severity": [
+                {
+                  "score": "negligible",
+                  "type": "Ubuntu"
+                }
+              ],
+              "summary": "Something negligible!"
+            },
+            {
+              "id": "UBUNTU-CVE-2024-0004",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:N",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "medium",
+                  "type": "Ubuntu"
+                }
+              ],
+              "summary": "Something scary!"
+            },
+            {
+              "affected": [
+                {
+                  "ecosystem_specific": {
+                    "ubuntu_priority": "negligible"
+                  }
+                }
+              ],
+              "id": "UBUNTU-CVE-2024-0005",
+              "summary": "Something else negligible!"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
 [TestPrintJSONResults_WithVulnerabilities/one_source_with_no_packages - 1]
 {
   "results": [
@@ -3407,6 +3579,59 @@
                   "type": "Ubuntu"
                 }
               ],
+              "summary": "Something scary!"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
+[TestPrintJSONResults_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability_tagged_as_unimportant_outside_of_a_debian_based_ecosystem - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "<rootdir>/path/to/my/first/lockfile",
+        "type": "lockfile"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
+          "groups": [
+            {
+              "ids": [
+                "OSV-1"
+              ],
+              "aliases": [
+                "OSV-1"
+              ],
+              "max_severity": ""
+            }
+          ],
+          "vulnerabilities": [
+            {
+              "affected": [
+                {
+                  "ecosystem_specific": {
+                    "urgency": "unimportant"
+                  }
+                }
+              ],
+              "id": "OSV-1",
               "summary": "Something scary!"
             }
           ]

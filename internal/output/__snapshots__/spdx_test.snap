@@ -4920,6 +4920,119 @@
 
 ---
 
+[TestPrintSPDXResults_WithVulnerabilities/one_os_source_with_debian_and_ubuntu_packages,_some_with_unimportant_vulnerabilities - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/<uuid>",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "<timestamp>"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    },
+    {
+      "name": "libxml2",
+      "SPDXID": "SPDXRef-Package-libxml2-<uuid>",
+      "versionInfo": "2.9.14+dfsg-1.3",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the os/dpkg extractor from <rootdir>/var/lib/dpkg/status",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:deb/libxml2@2.9.14%2Bdfsg-1.3"
+        }
+      ]
+    },
+    {
+      "name": "openssl",
+      "SPDXID": "SPDXRef-Package-openssl-<uuid>",
+      "versionInfo": "3.0.2-0ubuntu1.15",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the os/dpkg extractor from <rootdir>/var/lib/dpkg/status",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:deb/openssl@3.0.2-0ubuntu1.15"
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "fileName": "<rootdir>/var/lib/dpkg/status",
+      "SPDXID": "SPDXRef-File-<rootdir>-var-lib-dpkg-status-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
+      "relationshipType": "DESCRIBES"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-libxml2-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-libxml2-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-var-lib-dpkg-status-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-libxml2-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-openssl-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-openssl-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-var-lib-dpkg-status-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-openssl-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    }
+  ]
+}
+
+---
+
 [TestPrintSPDXResults_WithVulnerabilities/one_source_with_no_packages - 1]
 {
   "spdxVersion": "SPDX-2.3",
@@ -5435,6 +5548,86 @@
 ---
 
 [TestPrintSPDXResults_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability_(dev) - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/<uuid>",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "<timestamp>"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    },
+    {
+      "name": "mine1",
+      "SPDXID": "SPDXRef-Package-mine1-<uuid>",
+      "versionInfo": "1.2.3",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/mine1@1.2.3"
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
+      "relationshipType": "DESCRIBES"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability_tagged_as_unimportant_outside_of_a_debian_based_ecosystem - 1]
 {
   "spdxVersion": "SPDX-2.3",
   "dataLicense": "CC0-1.0",
