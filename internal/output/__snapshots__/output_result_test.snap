@@ -2873,7 +2873,7 @@
           "Type": "lockfile",
           "PackageTypeCount": {
             "Regular": 1,
-            "Hidden": 0
+            "Hidden": 1
           },
           "Packages": [
             {
@@ -2885,19 +2885,6 @@
               "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
-                {
-                  "ID": "OSV-1",
-                  "GroupIDs": [
-                    "OSV-1"
-                  ],
-                  "Aliases": null,
-                  "Description": "Something scary!",
-                  "IsFixable": false,
-                  "FixedVersion": "No fix available",
-                  "VulnAnalysisType": 0,
-                  "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
-                },
                 {
                   "ID": "OSV-5",
                   "GroupIDs": [
@@ -2912,7 +2899,21 @@
                   "SeverityScore": "N/A"
                 }
               ],
-              "HiddenVulns": [],
+              "HiddenVulns": [
+                {
+                  "ID": "OSV-1",
+                  "GroupIDs": [
+                    "OSV-1"
+                  ],
+                  "Aliases": null,
+                  "Description": "Something scary!",
+                  "IsFixable": false,
+                  "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 1,
+                  "SeverityRating": "UNKNOWN",
+                  "SeverityScore": "N/A"
+                }
+              ],
               "LayerDetail": {
                 "LayerIndex": 0,
                 "LayerInfo": {
@@ -2966,19 +2967,19 @@
               },
               "VulnCount": {
                 "AnalysisCount": {
-                  "Regular": 2,
-                  "Hidden": 0
+                  "Regular": 1,
+                  "Hidden": 1
                 },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
-                  "Unknown": 2
+                  "Unknown": 1
                 },
                 "FixableCount": {
                   "Fixed": 0,
-                  "UnFixed": 2
+                  "UnFixed": 1
                 }
               },
               "Licenses": null,
@@ -2987,19 +2988,19 @@
           ],
           "VulnCount": {
             "AnalysisCount": {
-              "Regular": 2,
-              "Hidden": 0
+              "Regular": 1,
+              "Hidden": 1
             },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
-              "Unknown": 2
+              "Unknown": 1
             },
             "FixableCount": {
               "Fixed": 0,
-              "UnFixed": 2
+              "UnFixed": 1
             }
           },
           "LicenseViolationsCount": 0
@@ -3285,30 +3286,30 @@
     "LicenseCount": null
   },
   "VulnTypeSummary": {
-    "All": 6,
+    "All": 5,
     "OS": 0,
-    "Project": 6,
-    "Hidden": 0
+    "Project": 5,
+    "Hidden": 1
   },
   "PackageTypeCount": {
     "Regular": 4,
-    "Hidden": 0
+    "Hidden": 1
   },
   "VulnCount": {
     "AnalysisCount": {
-      "Regular": 6,
-      "Hidden": 0
+      "Regular": 5,
+      "Hidden": 1
     },
     "SeverityCount": {
       "Critical": 0,
       "High": 0,
       "Medium": 0,
       "Low": 0,
-      "Unknown": 6
+      "Unknown": 5
     },
     "FixableCount": {
       "Fixed": 0,
-      "UnFixed": 6
+      "UnFixed": 5
     }
   }
 }
@@ -4326,7 +4327,7 @@
           "Type": "lockfile",
           "PackageTypeCount": {
             "Regular": 1,
-            "Hidden": 0
+            "Hidden": 1
           },
           "Packages": [
             {
@@ -4350,7 +4351,9 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
-                },
+                }
+              ],
+              "HiddenVulns": [
                 {
                   "ID": "GHSA-123",
                   "GroupIDs": [
@@ -4360,12 +4363,11 @@
                   "Description": "Something scarier!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
-                  "VulnAnalysisType": 0,
+                  "VulnAnalysisType": 1,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerIndex": 0,
                 "LayerInfo": {
@@ -4419,19 +4421,19 @@
               },
               "VulnCount": {
                 "AnalysisCount": {
-                  "Regular": 2,
-                  "Hidden": 0
+                  "Regular": 1,
+                  "Hidden": 1
                 },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
-                  "Unknown": 2
+                  "Unknown": 1
                 },
                 "FixableCount": {
                   "Fixed": 0,
-                  "UnFixed": 2
+                  "UnFixed": 1
                 }
               },
               "Licenses": null,
@@ -4440,19 +4442,19 @@
           ],
           "VulnCount": {
             "AnalysisCount": {
-              "Regular": 2,
-              "Hidden": 0
+              "Regular": 1,
+              "Hidden": 1
             },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
-              "Unknown": 2
+              "Unknown": 1
             },
             "FixableCount": {
               "Fixed": 0,
-              "UnFixed": 2
+              "UnFixed": 1
             }
           },
           "LicenseViolationsCount": 0
@@ -4473,30 +4475,30 @@
     "LicenseCount": null
   },
   "VulnTypeSummary": {
-    "All": 2,
+    "All": 1,
     "OS": 0,
-    "Project": 2,
-    "Hidden": 0
+    "Project": 1,
+    "Hidden": 1
   },
   "PackageTypeCount": {
     "Regular": 1,
-    "Hidden": 0
+    "Hidden": 1
   },
   "VulnCount": {
     "AnalysisCount": {
-      "Regular": 2,
-      "Hidden": 0
+      "Regular": 1,
+      "Hidden": 1
     },
     "SeverityCount": {
       "Critical": 0,
       "High": 0,
       "Medium": 0,
       "Low": 0,
-      "Unknown": 2
+      "Unknown": 1
     },
     "FixableCount": {
       "Fixed": 0,
-      "UnFixed": 2
+      "UnFixed": 1
     }
   }
 }
@@ -4863,8 +4865,8 @@
           "Name": "lockfile:<rootdir>/path/to/my/first/lockfile",
           "Type": "lockfile",
           "PackageTypeCount": {
-            "Regular": 1,
-            "Hidden": 0
+            "Regular": 0,
+            "Hidden": 1
           },
           "Packages": [
             {
@@ -4875,7 +4877,8 @@
               "InstalledVersion": "1.2.3",
               "Commit": "",
               "FixedVersion": "No fix available",
-              "RegularVulns": [
+              "RegularVulns": [],
+              "HiddenVulns": [
                 {
                   "ID": "OSV-1",
                   "GroupIDs": [
@@ -4885,12 +4888,11 @@
                   "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
-                  "VulnAnalysisType": 0,
+                  "VulnAnalysisType": 1,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerIndex": 0,
                 "LayerInfo": {
@@ -4944,19 +4946,19 @@
               },
               "VulnCount": {
                 "AnalysisCount": {
-                  "Regular": 1,
-                  "Hidden": 0
+                  "Regular": 0,
+                  "Hidden": 1
                 },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
-                  "Unknown": 1
+                  "Unknown": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
-                  "UnFixed": 1
+                  "UnFixed": 0
                 }
               },
               "Licenses": null,
@@ -4965,19 +4967,19 @@
           ],
           "VulnCount": {
             "AnalysisCount": {
-              "Regular": 1,
-              "Hidden": 0
+              "Regular": 0,
+              "Hidden": 1
             },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
-              "Unknown": 1
+              "Unknown": 0
             },
             "FixableCount": {
               "Fixed": 0,
-              "UnFixed": 1
+              "UnFixed": 0
             }
           },
           "LicenseViolationsCount": 0
@@ -4998,30 +5000,30 @@
     "LicenseCount": null
   },
   "VulnTypeSummary": {
-    "All": 1,
+    "All": 0,
     "OS": 0,
-    "Project": 1,
-    "Hidden": 0
+    "Project": 0,
+    "Hidden": 1
   },
   "PackageTypeCount": {
-    "Regular": 1,
-    "Hidden": 0
+    "Regular": 0,
+    "Hidden": 1
   },
   "VulnCount": {
     "AnalysisCount": {
-      "Regular": 1,
-      "Hidden": 0
+      "Regular": 0,
+      "Hidden": 1
     },
     "SeverityCount": {
       "Critical": 0,
       "High": 0,
       "Medium": 0,
       "Low": 0,
-      "Unknown": 1
+      "Unknown": 0
     },
     "FixableCount": {
       "Fixed": 0,
-      "UnFixed": 1
+      "UnFixed": 0
     }
   }
 }
@@ -5388,8 +5390,8 @@
           "Name": "lockfile:<rootdir>/path/to/my/first/lockfile",
           "Type": "lockfile",
           "PackageTypeCount": {
-            "Regular": 1,
-            "Hidden": 0
+            "Regular": 0,
+            "Hidden": 1
           },
           "Packages": [
             {
@@ -5400,7 +5402,8 @@
               "InstalledVersion": "1.2.3",
               "Commit": "",
               "FixedVersion": "No fix available",
-              "RegularVulns": [
+              "RegularVulns": [],
+              "HiddenVulns": [
                 {
                   "ID": "OSV-1",
                   "GroupIDs": [
@@ -5413,12 +5416,11 @@
                   "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
-                  "VulnAnalysisType": 0,
+                  "VulnAnalysisType": 1,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A"
                 }
               ],
-              "HiddenVulns": [],
               "LayerDetail": {
                 "LayerIndex": 0,
                 "LayerInfo": {
@@ -5472,19 +5474,19 @@
               },
               "VulnCount": {
                 "AnalysisCount": {
-                  "Regular": 1,
-                  "Hidden": 0
+                  "Regular": 0,
+                  "Hidden": 1
                 },
                 "SeverityCount": {
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
                   "Low": 0,
-                  "Unknown": 1
+                  "Unknown": 0
                 },
                 "FixableCount": {
                   "Fixed": 0,
-                  "UnFixed": 1
+                  "UnFixed": 0
                 }
               },
               "Licenses": null,
@@ -5493,19 +5495,19 @@
           ],
           "VulnCount": {
             "AnalysisCount": {
-              "Regular": 1,
-              "Hidden": 0
+              "Regular": 0,
+              "Hidden": 1
             },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
-              "Unknown": 1
+              "Unknown": 0
             },
             "FixableCount": {
               "Fixed": 0,
-              "UnFixed": 1
+              "UnFixed": 0
             }
           },
           "LicenseViolationsCount": 0
@@ -5526,30 +5528,30 @@
     "LicenseCount": null
   },
   "VulnTypeSummary": {
-    "All": 1,
+    "All": 0,
     "OS": 0,
-    "Project": 1,
-    "Hidden": 0
+    "Project": 0,
+    "Hidden": 1
   },
   "PackageTypeCount": {
-    "Regular": 1,
-    "Hidden": 0
+    "Regular": 0,
+    "Hidden": 1
   },
   "VulnCount": {
     "AnalysisCount": {
-      "Regular": 1,
-      "Hidden": 0
+      "Regular": 0,
+      "Hidden": 1
     },
     "SeverityCount": {
       "Critical": 0,
       "High": 0,
       "Medium": 0,
       "Low": 0,
-      "Unknown": 1
+      "Unknown": 0
     },
     "FixableCount": {
       "Fixed": 0,
-      "UnFixed": 1
+      "UnFixed": 0
     }
   }
 }

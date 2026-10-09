@@ -188,16 +188,19 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 [TestPrintTableResults_LongTerminalWidth_WithMixedIssues/multiple_sources_with_a_mixed_count_of_packages,_some_called_vulnerabilities_and_license_violations - 1]
 
-Total 3 packages affected by 3 known vulnerabilities (0 Critical, 1 High, 0 Medium, 0 Low, 2 Unknown) from 1 ecosystem.
+Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
-╭───────────────────────┬──────┬───────────┬─────────┬─────────┬───────────────┬────────────────────────────╮
-│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ FIXED VERSION │ SOURCE                     │
-├───────────────────────┼──────┼───────────┼─────────┼─────────┼───────────────┼────────────────────────────┤
-│ https://osv.dev/OSV-1 │ 7.8  │ npm       │ mine1   │ 1.2.3   │ --            │ path/to/my/first/lockfile  │
-│ https://osv.dev/OSV-2 │      │ npm       │ mine2   │ 3.2.5   │ --            │ path/to/my/second/lockfile │
-│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ --            │ path/to/my/third/lockfile  │
-╰───────────────────────┴──────┴───────────┴─────────┴─────────┴───────────────┴────────────────────────────╯
+╭──────────────────────────┬──────┬───────────┬─────────┬─────────┬───────────────┬────────────────────────────╮
+│ OSV URL                  │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ FIXED VERSION │ SOURCE                     │
+├──────────────────────────┼──────┼───────────┼─────────┼─────────┼───────────────┼────────────────────────────┤
+│ https://osv.dev/OSV-2    │      │ npm       │ mine2   │ 3.2.5   │ --            │ path/to/my/second/lockfile │
+├──────────────────────────┼──────┼───────────┼─────────┼─────────┼───────────────┼────────────────────────────┤
+│ Uncalled vulnerabilities │      │           │         │         │               │                            │
+├──────────────────────────┼──────┼───────────┼─────────┼─────────┼───────────────┼────────────────────────────┤
+│ https://osv.dev/OSV-1    │ 7.8  │ npm       │ mine1   │ 1.2.3   │ --            │ path/to/my/first/lockfile  │
+│ https://osv.dev/OSV-1    │      │ npm       │ mine1   │ 1.2.3   │ --            │ path/to/my/third/lockfile  │
+╰──────────────────────────┴──────┴───────────┴─────────┴─────────┴───────────────┴────────────────────────────╯
 ╭───────────────────┬───────────┬─────────┬─────────┬───────────────────────────╮
 │ LICENSE VIOLATION │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                    │
 ├───────────────────┼───────────┼─────────┼─────────┼───────────────────────────┤
@@ -307,14 +310,16 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 
 [TestPrintTableResults_LongTerminalWidth_WithMixedIssues/one_source_with_one_package,_one_uncalled_vulnerability,_and_one_license_violation - 1]
 
-Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
-╭───────────────────────┬──────┬───────────┬─────────┬─────────┬───────────────┬───────────────────────────╮
-│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ FIXED VERSION │ SOURCE                    │
-├───────────────────────┼──────┼───────────┼─────────┼─────────┼───────────────┼───────────────────────────┤
-│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ --            │ path/to/my/first/lockfile │
-╰───────────────────────┴──────┴───────────┴─────────┴─────────┴───────────────┴───────────────────────────╯
+╭──────────────────────────┬──────┬───────────┬─────────┬─────────┬───────────────┬───────────────────────────╮
+│ OSV URL                  │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ FIXED VERSION │ SOURCE                    │
+├──────────────────────────┼──────┼───────────┼─────────┼─────────┼───────────────┼───────────────────────────┤
+│ Uncalled vulnerabilities │      │           │         │         │               │                           │
+├──────────────────────────┼──────┼───────────┼─────────┼─────────┼───────────────┼───────────────────────────┤
+│ https://osv.dev/OSV-1    │      │ npm       │ mine1   │ 1.2.3   │ --            │ path/to/my/first/lockfile │
+╰──────────────────────────┴──────┴───────────┴─────────┴─────────┴───────────────┴───────────────────────────╯
 ╭───────────────────┬───────────┬─────────┬─────────┬───────────────────────────╮
 │ LICENSE VIOLATION │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                    │
 ├───────────────────┼───────────┼─────────┼─────────┼───────────────────────────┤
@@ -438,19 +443,22 @@ Total 4 packages affected by 6 known vulnerabilities (0 Critical, 0 High, 1 Medi
 
 [TestPrintTableResults_LongTerminalWidth_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_and_multiple_vulnerabilities,_but_some_uncalled - 1]
 
-Total 4 packages affected by 6 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 6 Unknown) from 3 ecosystems.
+Total 4 packages affected by 5 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 5 Unknown) from 3 ecosystems.
 0 vulnerabilities can be fixed.
 
-╭───────────────────────┬──────┬───────────┬───────────────┬─────────┬───────────────┬────────────────────────────╮
-│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE       │ VERSION │ FIXED VERSION │ SOURCE                     │
-├───────────────────────┼──────┼───────────┼───────────────┼─────────┼───────────────┼────────────────────────────┤
-│ https://osv.dev/OSV-2 │      │ NuGet     │ mine2         │ 3.2.5   │ --            │ path/to/my/second/lockfile │
-│ https://osv.dev/OSV-1 │      │ Packagist │ author1/mine1 │ 1.2.3   │ --            │ path/to/my/first/lockfile  │
-│ https://osv.dev/OSV-5 │      │ Packagist │ author1/mine1 │ 1.2.3   │ --            │ path/to/my/first/lockfile  │
-│ https://osv.dev/OSV-3 │      │ Packagist │ author3/mine3 │ 0.4.1   │ --            │ path/to/my/second/lockfile │
-│ https://osv.dev/OSV-5 │      │ Packagist │ author3/mine3 │ 0.4.1   │ --            │ path/to/my/second/lockfile │
-│ https://osv.dev/OSV-1 │      │ npm       │ mine1         │ 1.2.2   │ --            │ path/to/my/first/lockfile  │
-╰───────────────────────┴──────┴───────────┴───────────────┴─────────┴───────────────┴────────────────────────────╯
+╭──────────────────────────┬──────┬───────────┬───────────────┬─────────┬───────────────┬────────────────────────────╮
+│ OSV URL                  │ CVSS │ ECOSYSTEM │ PACKAGE       │ VERSION │ FIXED VERSION │ SOURCE                     │
+├──────────────────────────┼──────┼───────────┼───────────────┼─────────┼───────────────┼────────────────────────────┤
+│ https://osv.dev/OSV-2    │      │ NuGet     │ mine2         │ 3.2.5   │ --            │ path/to/my/second/lockfile │
+│ https://osv.dev/OSV-5    │      │ Packagist │ author1/mine1 │ 1.2.3   │ --            │ path/to/my/first/lockfile  │
+│ https://osv.dev/OSV-3    │      │ Packagist │ author3/mine3 │ 0.4.1   │ --            │ path/to/my/second/lockfile │
+│ https://osv.dev/OSV-5    │      │ Packagist │ author3/mine3 │ 0.4.1   │ --            │ path/to/my/second/lockfile │
+│ https://osv.dev/OSV-1    │      │ npm       │ mine1         │ 1.2.2   │ --            │ path/to/my/first/lockfile  │
+├──────────────────────────┼──────┼───────────┼───────────────┼─────────┼───────────────┼────────────────────────────┤
+│ Uncalled vulnerabilities │      │           │               │         │               │                            │
+├──────────────────────────┼──────┼───────────┼───────────────┼─────────┼───────────────┼────────────────────────────┤
+│ https://osv.dev/OSV-1    │      │ Packagist │ author1/mine1 │ 1.2.3   │ --            │ path/to/my/first/lockfile  │
+╰──────────────────────────┴──────┴───────────┴───────────────┴─────────┴───────────────┴────────────────────────────╯
 
 ---
 
@@ -506,13 +514,16 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 [TestPrintTableResults_LongTerminalWidth_WithVulnerabilities/one_source_with_one_package,_one_uncalled_vulnerability,_and_one_called_vulnerability - 1]
 
-Total 1 package affected by 2 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 2 Unknown) from 1 ecosystem.
+Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 ╭──────────────────────────┬──────┬───────────┬─────────┬─────────┬───────────────┬───────────────────────────╮
 │ OSV URL                  │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ FIXED VERSION │ SOURCE                    │
 ├──────────────────────────┼──────┼───────────┼─────────┼─────────┼───────────────┼───────────────────────────┤
 │ https://osv.dev/OSV-1    │      │ npm       │ mine1   │ 1.2.3   │ --            │ path/to/my/first/lockfile │
+├──────────────────────────┼──────┼───────────┼─────────┼─────────┼───────────────┼───────────────────────────┤
+│ Uncalled vulnerabilities │      │           │         │         │               │                           │
+├──────────────────────────┼──────┼───────────┼─────────┼─────────┼───────────────┼───────────────────────────┤
 │ https://osv.dev/GHSA-123 │      │ npm       │ mine1   │ 1.2.3   │ --            │ path/to/my/first/lockfile │
 ╰──────────────────────────┴──────┴───────────┴─────────┴─────────┴───────────────┴───────────────────────────╯
 
@@ -546,14 +557,16 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium,
 
 [TestPrintTableResults_LongTerminalWidth_WithVulnerabilities/one_source_with_one_package_and_one_uncalled_vulnerability - 1]
 
-Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
-╭───────────────────────┬──────┬───────────┬─────────┬─────────┬───────────────┬───────────────────────────╮
-│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ FIXED VERSION │ SOURCE                    │
-├───────────────────────┼──────┼───────────┼─────────┼─────────┼───────────────┼───────────────────────────┤
-│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ --            │ path/to/my/first/lockfile │
-╰───────────────────────┴──────┴───────────┴─────────┴─────────┴───────────────┴───────────────────────────╯
+╭──────────────────────────┬──────┬───────────┬─────────┬─────────┬───────────────┬───────────────────────────╮
+│ OSV URL                  │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ FIXED VERSION │ SOURCE                    │
+├──────────────────────────┼──────┼───────────┼─────────┼─────────┼───────────────┼───────────────────────────┤
+│ Uncalled vulnerabilities │      │           │         │         │               │                           │
+├──────────────────────────┼──────┼───────────┼─────────┼─────────┼───────────────┼───────────────────────────┤
+│ https://osv.dev/OSV-1    │      │ npm       │ mine1   │ 1.2.3   │ --            │ path/to/my/first/lockfile │
+╰──────────────────────────┴──────┴───────────┴─────────┴─────────┴───────────────┴───────────────────────────╯
 
 ---
 
@@ -585,11 +598,13 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 1 Medium,
 
 [TestPrintTableResults_LongTerminalWidth_WithVulnerabilities/one_source_with_one_package_and_two_aliases_of_a_single_uncalled_vulnerability - 1]
 
-Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 ╭──────────────────────────┬──────┬───────────┬─────────┬─────────┬───────────────┬───────────────────────────╮
 │ OSV URL                  │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ FIXED VERSION │ SOURCE                    │
+├──────────────────────────┼──────┼───────────┼─────────┼─────────┼───────────────┼───────────────────────────┤
+│ Uncalled vulnerabilities │      │           │         │         │               │                           │
 ├──────────────────────────┼──────┼───────────┼─────────┼─────────┼───────────────┼───────────────────────────┤
 │ https://osv.dev/OSV-1    │      │ npm       │ mine1   │ 1.2.3   │ --            │ path/to/my/first/lockfile │
 │ https://osv.dev/GHSA-123 │      │           │         │         │               │                           │
@@ -896,16 +911,19 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 [TestPrintTableResults_NoTerminalWidth_WithMixedIssues/multiple_sources_with_a_mixed_count_of_packages,_some_called_vulnerabilities_and_license_violations - 1]
 
-Total 3 packages affected by 3 known vulnerabilities (0 Critical, 1 High, 0 Medium, 0 Low, 2 Unknown) from 1 ecosystem.
+Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
-+-----------------------+------+-----------+---------+---------+---------------+----------------------------+
-| OSV URL               | CVSS | ECOSYSTEM | PACKAGE | VERSION | FIXED VERSION | SOURCE                     |
-+-----------------------+------+-----------+---------+---------+---------------+----------------------------+
-| https://osv.dev/OSV-1 | 7.8  | npm       | mine1   | 1.2.3   | --            | path/to/my/first/lockfile  |
-| https://osv.dev/OSV-2 |      | npm       | mine2   | 3.2.5   | --            | path/to/my/second/lockfile |
-| https://osv.dev/OSV-1 |      | npm       | mine1   | 1.2.3   | --            | path/to/my/third/lockfile  |
-+-----------------------+------+-----------+---------+---------+---------------+----------------------------+
++--------------------------+------+-----------+---------+---------+---------------+----------------------------+
+| OSV URL                  | CVSS | ECOSYSTEM | PACKAGE | VERSION | FIXED VERSION | SOURCE                     |
++--------------------------+------+-----------+---------+---------+---------------+----------------------------+
+| https://osv.dev/OSV-2    |      | npm       | mine2   | 3.2.5   | --            | path/to/my/second/lockfile |
++--------------------------+------+-----------+---------+---------+---------------+----------------------------+
+| Uncalled vulnerabilities |      |           |         |         |               |                            |
++--------------------------+------+-----------+---------+---------+---------------+----------------------------+
+| https://osv.dev/OSV-1    | 7.8  | npm       | mine1   | 1.2.3   | --            | path/to/my/first/lockfile  |
+| https://osv.dev/OSV-1    |      | npm       | mine1   | 1.2.3   | --            | path/to/my/third/lockfile  |
++--------------------------+------+-----------+---------+---------+---------------+----------------------------+
 +-------------------+-----------+---------+---------+---------------------------+
 | LICENSE VIOLATION | ECOSYSTEM | PACKAGE | VERSION | SOURCE                    |
 +-------------------+-----------+---------+---------+---------------------------+
@@ -1015,14 +1033,16 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 
 [TestPrintTableResults_NoTerminalWidth_WithMixedIssues/one_source_with_one_package,_one_uncalled_vulnerability,_and_one_license_violation - 1]
 
-Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
-+-----------------------+------+-----------+---------+---------+---------------+---------------------------+
-| OSV URL               | CVSS | ECOSYSTEM | PACKAGE | VERSION | FIXED VERSION | SOURCE                    |
-+-----------------------+------+-----------+---------+---------+---------------+---------------------------+
-| https://osv.dev/OSV-1 |      | npm       | mine1   | 1.2.3   | --            | path/to/my/first/lockfile |
-+-----------------------+------+-----------+---------+---------+---------------+---------------------------+
++--------------------------+------+-----------+---------+---------+---------------+---------------------------+
+| OSV URL                  | CVSS | ECOSYSTEM | PACKAGE | VERSION | FIXED VERSION | SOURCE                    |
++--------------------------+------+-----------+---------+---------+---------------+---------------------------+
+| Uncalled vulnerabilities |      |           |         |         |               |                           |
++--------------------------+------+-----------+---------+---------+---------------+---------------------------+
+| https://osv.dev/OSV-1    |      | npm       | mine1   | 1.2.3   | --            | path/to/my/first/lockfile |
++--------------------------+------+-----------+---------+---------+---------------+---------------------------+
 +-------------------+-----------+---------+---------+---------------------------+
 | LICENSE VIOLATION | ECOSYSTEM | PACKAGE | VERSION | SOURCE                    |
 +-------------------+-----------+---------+---------+---------------------------+
@@ -1146,19 +1166,22 @@ Total 4 packages affected by 6 known vulnerabilities (0 Critical, 0 High, 1 Medi
 
 [TestPrintTableResults_NoTerminalWidth_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_and_multiple_vulnerabilities,_but_some_uncalled - 1]
 
-Total 4 packages affected by 6 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 6 Unknown) from 3 ecosystems.
+Total 4 packages affected by 5 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 5 Unknown) from 3 ecosystems.
 0 vulnerabilities can be fixed.
 
-+-----------------------+------+-----------+---------------+---------+---------------+----------------------------+
-| OSV URL               | CVSS | ECOSYSTEM | PACKAGE       | VERSION | FIXED VERSION | SOURCE                     |
-+-----------------------+------+-----------+---------------+---------+---------------+----------------------------+
-| https://osv.dev/OSV-2 |      | NuGet     | mine2         | 3.2.5   | --            | path/to/my/second/lockfile |
-| https://osv.dev/OSV-1 |      | Packagist | author1/mine1 | 1.2.3   | --            | path/to/my/first/lockfile  |
-| https://osv.dev/OSV-5 |      | Packagist | author1/mine1 | 1.2.3   | --            | path/to/my/first/lockfile  |
-| https://osv.dev/OSV-3 |      | Packagist | author3/mine3 | 0.4.1   | --            | path/to/my/second/lockfile |
-| https://osv.dev/OSV-5 |      | Packagist | author3/mine3 | 0.4.1   | --            | path/to/my/second/lockfile |
-| https://osv.dev/OSV-1 |      | npm       | mine1         | 1.2.2   | --            | path/to/my/first/lockfile  |
-+-----------------------+------+-----------+---------------+---------+---------------+----------------------------+
++--------------------------+------+-----------+---------------+---------+---------------+----------------------------+
+| OSV URL                  | CVSS | ECOSYSTEM | PACKAGE       | VERSION | FIXED VERSION | SOURCE                     |
++--------------------------+------+-----------+---------------+---------+---------------+----------------------------+
+| https://osv.dev/OSV-2    |      | NuGet     | mine2         | 3.2.5   | --            | path/to/my/second/lockfile |
+| https://osv.dev/OSV-5    |      | Packagist | author1/mine1 | 1.2.3   | --            | path/to/my/first/lockfile  |
+| https://osv.dev/OSV-3    |      | Packagist | author3/mine3 | 0.4.1   | --            | path/to/my/second/lockfile |
+| https://osv.dev/OSV-5    |      | Packagist | author3/mine3 | 0.4.1   | --            | path/to/my/second/lockfile |
+| https://osv.dev/OSV-1    |      | npm       | mine1         | 1.2.2   | --            | path/to/my/first/lockfile  |
++--------------------------+------+-----------+---------------+---------+---------------+----------------------------+
+| Uncalled vulnerabilities |      |           |               |         |               |                            |
++--------------------------+------+-----------+---------------+---------+---------------+----------------------------+
+| https://osv.dev/OSV-1    |      | Packagist | author1/mine1 | 1.2.3   | --            | path/to/my/first/lockfile  |
++--------------------------+------+-----------+---------------+---------+---------------+----------------------------+
 
 ---
 
@@ -1214,13 +1237,16 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 [TestPrintTableResults_NoTerminalWidth_WithVulnerabilities/one_source_with_one_package,_one_uncalled_vulnerability,_and_one_called_vulnerability - 1]
 
-Total 1 package affected by 2 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 2 Unknown) from 1 ecosystem.
+Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +--------------------------+------+-----------+---------+---------+---------------+---------------------------+
 | OSV URL                  | CVSS | ECOSYSTEM | PACKAGE | VERSION | FIXED VERSION | SOURCE                    |
 +--------------------------+------+-----------+---------+---------+---------------+---------------------------+
 | https://osv.dev/OSV-1    |      | npm       | mine1   | 1.2.3   | --            | path/to/my/first/lockfile |
++--------------------------+------+-----------+---------+---------+---------------+---------------------------+
+| Uncalled vulnerabilities |      |           |         |         |               |                           |
++--------------------------+------+-----------+---------+---------+---------------+---------------------------+
 | https://osv.dev/GHSA-123 |      | npm       | mine1   | 1.2.3   | --            | path/to/my/first/lockfile |
 +--------------------------+------+-----------+---------+---------+---------------+---------------------------+
 
@@ -1254,14 +1280,16 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium,
 
 [TestPrintTableResults_NoTerminalWidth_WithVulnerabilities/one_source_with_one_package_and_one_uncalled_vulnerability - 1]
 
-Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
-+-----------------------+------+-----------+---------+---------+---------------+---------------------------+
-| OSV URL               | CVSS | ECOSYSTEM | PACKAGE | VERSION | FIXED VERSION | SOURCE                    |
-+-----------------------+------+-----------+---------+---------+---------------+---------------------------+
-| https://osv.dev/OSV-1 |      | npm       | mine1   | 1.2.3   | --            | path/to/my/first/lockfile |
-+-----------------------+------+-----------+---------+---------+---------------+---------------------------+
++--------------------------+------+-----------+---------+---------+---------------+---------------------------+
+| OSV URL                  | CVSS | ECOSYSTEM | PACKAGE | VERSION | FIXED VERSION | SOURCE                    |
++--------------------------+------+-----------+---------+---------+---------------+---------------------------+
+| Uncalled vulnerabilities |      |           |         |         |               |                           |
++--------------------------+------+-----------+---------+---------+---------------+---------------------------+
+| https://osv.dev/OSV-1    |      | npm       | mine1   | 1.2.3   | --            | path/to/my/first/lockfile |
++--------------------------+------+-----------+---------+---------+---------------+---------------------------+
 
 ---
 
@@ -1293,11 +1321,13 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 1 Medium,
 
 [TestPrintTableResults_NoTerminalWidth_WithVulnerabilities/one_source_with_one_package_and_two_aliases_of_a_single_uncalled_vulnerability - 1]
 
-Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +--------------------------+------+-----------+---------+---------+---------------+---------------------------+
 | OSV URL                  | CVSS | ECOSYSTEM | PACKAGE | VERSION | FIXED VERSION | SOURCE                    |
++--------------------------+------+-----------+---------+---------+---------------+---------------------------+
+| Uncalled vulnerabilities |      |           |         |         |               |                           |
 +--------------------------+------+-----------+---------+---------+---------------+---------------------------+
 | https://osv.dev/OSV-1    |      | npm       | mine1   | 1.2.3   | --            | path/to/my/first/lockfile |
 | https://osv.dev/GHSA-123 |      |           |         |         |               |                           |
@@ -1604,16 +1634,19 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 [TestPrintTableResults_StandardTerminalWidth_WithMixedIssues/multiple_sources_with_a_mixed_count_of_packages,_some_called_vulnerabilities_and_license_violations - 1]
 
-Total 3 packages affected by 3 known vulnerabilities (0 Critical, 1 High, 0 Medium, 0 Low, 2 Unknown) from 1 ecosystem.
+Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
-╭───────────────────────┬──────┬───────────┬─────────┬─────────┬────────────── ≈
-│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ FIXED VERSION ≈
-├───────────────────────┼──────┼───────────┼─────────┼─────────┼────────────── ≈
-│ https://osv.dev/OSV-1 │ 7.8  │ npm       │ mine1   │ 1.2.3   │ --            ≈
-│ https://osv.dev/OSV-2 │      │ npm       │ mine2   │ 3.2.5   │ --            ≈
-│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ --            ≈
-╰───────────────────────┴──────┴───────────┴─────────┴─────────┴────────────── ≈
+╭──────────────────────────┬──────┬───────────┬─────────┬─────────┬─────────── ≈
+│ OSV URL                  │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ FIXED VERS ≈
+├──────────────────────────┼──────┼───────────┼─────────┼─────────┼─────────── ≈
+│ https://osv.dev/OSV-2    │      │ npm       │ mine2   │ 3.2.5   │ --         ≈
+├──────────────────────────┼──────┼───────────┼─────────┼─────────┼─────────── ≈
+│ Uncalled vulnerabilities │      │           │         │         │            ≈
+├──────────────────────────┼──────┼───────────┼─────────┼─────────┼─────────── ≈
+│ https://osv.dev/OSV-1    │ 7.8  │ npm       │ mine1   │ 1.2.3   │ --         ≈
+│ https://osv.dev/OSV-1    │      │ npm       │ mine1   │ 1.2.3   │ --         ≈
+╰──────────────────────────┴──────┴───────────┴─────────┴─────────┴─────────── ≈
 ╭───────────────────┬───────────┬─────────┬─────────┬───────────────────────── ≈
 │ LICENSE VIOLATION │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                   ≈
 ├───────────────────┼───────────┼─────────┼─────────┼───────────────────────── ≈
@@ -1723,14 +1756,16 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 
 [TestPrintTableResults_StandardTerminalWidth_WithMixedIssues/one_source_with_one_package,_one_uncalled_vulnerability,_and_one_license_violation - 1]
 
-Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
-╭───────────────────────┬──────┬───────────┬─────────┬─────────┬────────────── ≈
-│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ FIXED VERSION ≈
-├───────────────────────┼──────┼───────────┼─────────┼─────────┼────────────── ≈
-│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ --            ≈
-╰───────────────────────┴──────┴───────────┴─────────┴─────────┴────────────── ≈
+╭──────────────────────────┬──────┬───────────┬─────────┬─────────┬─────────── ≈
+│ OSV URL                  │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ FIXED VERS ≈
+├──────────────────────────┼──────┼───────────┼─────────┼─────────┼─────────── ≈
+│ Uncalled vulnerabilities │      │           │         │         │            ≈
+├──────────────────────────┼──────┼───────────┼─────────┼─────────┼─────────── ≈
+│ https://osv.dev/OSV-1    │      │ npm       │ mine1   │ 1.2.3   │ --         ≈
+╰──────────────────────────┴──────┴───────────┴─────────┴─────────┴─────────── ≈
 ╭───────────────────┬───────────┬─────────┬─────────┬───────────────────────── ≈
 │ LICENSE VIOLATION │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                   ≈
 ├───────────────────┼───────────┼─────────┼─────────┼───────────────────────── ≈
@@ -1854,19 +1889,22 @@ Total 4 packages affected by 6 known vulnerabilities (0 Critical, 0 High, 1 Medi
 
 [TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_and_multiple_vulnerabilities,_but_some_uncalled - 1]
 
-Total 4 packages affected by 6 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 6 Unknown) from 3 ecosystems.
+Total 4 packages affected by 5 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 5 Unknown) from 3 ecosystems.
 0 vulnerabilities can be fixed.
 
-╭───────────────────────┬──────┬───────────┬───────────────┬─────────┬──────── ≈
-│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE       │ VERSION │ FIXED V ≈
-├───────────────────────┼──────┼───────────┼───────────────┼─────────┼──────── ≈
-│ https://osv.dev/OSV-2 │      │ NuGet     │ mine2         │ 3.2.5   │ --      ≈
-│ https://osv.dev/OSV-1 │      │ Packagist │ author1/mine1 │ 1.2.3   │ --      ≈
-│ https://osv.dev/OSV-5 │      │ Packagist │ author1/mine1 │ 1.2.3   │ --      ≈
-│ https://osv.dev/OSV-3 │      │ Packagist │ author3/mine3 │ 0.4.1   │ --      ≈
-│ https://osv.dev/OSV-5 │      │ Packagist │ author3/mine3 │ 0.4.1   │ --      ≈
-│ https://osv.dev/OSV-1 │      │ npm       │ mine1         │ 1.2.2   │ --      ≈
-╰───────────────────────┴──────┴───────────┴───────────────┴─────────┴──────── ≈
+╭──────────────────────────┬──────┬───────────┬───────────────┬─────────┬───── ≈
+│ OSV URL                  │ CVSS │ ECOSYSTEM │ PACKAGE       │ VERSION │ FIXE ≈
+├──────────────────────────┼──────┼───────────┼───────────────┼─────────┼───── ≈
+│ https://osv.dev/OSV-2    │      │ NuGet     │ mine2         │ 3.2.5   │ --   ≈
+│ https://osv.dev/OSV-5    │      │ Packagist │ author1/mine1 │ 1.2.3   │ --   ≈
+│ https://osv.dev/OSV-3    │      │ Packagist │ author3/mine3 │ 0.4.1   │ --   ≈
+│ https://osv.dev/OSV-5    │      │ Packagist │ author3/mine3 │ 0.4.1   │ --   ≈
+│ https://osv.dev/OSV-1    │      │ npm       │ mine1         │ 1.2.2   │ --   ≈
+├──────────────────────────┼──────┼───────────┼───────────────┼─────────┼───── ≈
+│ Uncalled vulnerabilities │      │           │               │         │      ≈
+├──────────────────────────┼──────┼───────────┼───────────────┼─────────┼───── ≈
+│ https://osv.dev/OSV-1    │      │ Packagist │ author1/mine1 │ 1.2.3   │ --   ≈
+╰──────────────────────────┴──────┴───────────┴───────────────┴─────────┴───── ≈
 
 ---
 
@@ -1922,13 +1960,16 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 [TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities/one_source_with_one_package,_one_uncalled_vulnerability,_and_one_called_vulnerability - 1]
 
-Total 1 package affected by 2 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 2 Unknown) from 1 ecosystem.
+Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 ╭──────────────────────────┬──────┬───────────┬─────────┬─────────┬─────────── ≈
 │ OSV URL                  │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ FIXED VERS ≈
 ├──────────────────────────┼──────┼───────────┼─────────┼─────────┼─────────── ≈
 │ https://osv.dev/OSV-1    │      │ npm       │ mine1   │ 1.2.3   │ --         ≈
+├──────────────────────────┼──────┼───────────┼─────────┼─────────┼─────────── ≈
+│ Uncalled vulnerabilities │      │           │         │         │            ≈
+├──────────────────────────┼──────┼───────────┼─────────┼─────────┼─────────── ≈
 │ https://osv.dev/GHSA-123 │      │ npm       │ mine1   │ 1.2.3   │ --         ≈
 ╰──────────────────────────┴──────┴───────────┴─────────┴─────────┴─────────── ≈
 
@@ -1962,14 +2003,16 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium,
 
 [TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities/one_source_with_one_package_and_one_uncalled_vulnerability - 1]
 
-Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
-╭───────────────────────┬──────┬───────────┬─────────┬─────────┬────────────── ≈
-│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ FIXED VERSION ≈
-├───────────────────────┼──────┼───────────┼─────────┼─────────┼────────────── ≈
-│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ --            ≈
-╰───────────────────────┴──────┴───────────┴─────────┴─────────┴────────────── ≈
+╭──────────────────────────┬──────┬───────────┬─────────┬─────────┬─────────── ≈
+│ OSV URL                  │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ FIXED VERS ≈
+├──────────────────────────┼──────┼───────────┼─────────┼─────────┼─────────── ≈
+│ Uncalled vulnerabilities │      │           │         │         │            ≈
+├──────────────────────────┼──────┼───────────┼─────────┼─────────┼─────────── ≈
+│ https://osv.dev/OSV-1    │      │ npm       │ mine1   │ 1.2.3   │ --         ≈
+╰──────────────────────────┴──────┴───────────┴─────────┴─────────┴─────────── ≈
 
 ---
 
@@ -2001,11 +2044,13 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 1 Medium,
 
 [TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities/one_source_with_one_package_and_two_aliases_of_a_single_uncalled_vulnerability - 1]
 
-Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 ╭──────────────────────────┬──────┬───────────┬─────────┬─────────┬─────────── ≈
 │ OSV URL                  │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ FIXED VERS ≈
+├──────────────────────────┼──────┼───────────┼─────────┼─────────┼─────────── ≈
+│ Uncalled vulnerabilities │      │           │         │         │            ≈
 ├──────────────────────────┼──────┼───────────┼─────────┼─────────┼─────────── ≈
 │ https://osv.dev/OSV-1    │      │ npm       │ mine1   │ 1.2.3   │ --         ≈
 │ https://osv.dev/GHSA-123 │      │           │         │         │            ≈
