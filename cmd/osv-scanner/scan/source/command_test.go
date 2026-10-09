@@ -986,6 +986,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			},
 			Exit: 0,
 
+			// TODO: be able to pass a custom os-release file
 			// don't intercept requests for this case as the apk extractor reads the OS version
 			// of the environment its being run in, and currently does not support being overridden
 			HTTPClient: http.DefaultClient,
@@ -1000,6 +1001,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			},
 			Exit: 0,
 
+			// TODO: be able to pass a custom os-release file
 			// don't intercept requests for this case as the dpkg extractor reads the OS version
 			// of the environment its being run in, and currently does not support being overridden
 			HTTPClient: http.DefaultClient,
