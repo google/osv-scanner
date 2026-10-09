@@ -3450,6 +3450,10 @@
                 "OSV-1"
               ],
               "experimental_analysis": {
+                "GHSA-123": {
+                  "called": false,
+                  "unimportant": false
+                },
                 "OSV-1": {
                   "called": false,
                   "unimportant": false
