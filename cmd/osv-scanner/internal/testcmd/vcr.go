@@ -1111,6 +1111,9 @@ var allowedVulnIDs = map[string]bool{
 	"PYSEC-2021-98":           true, // PyPI - django @ 1.11.29 in testdata/locks-requirements/requirements.txt
 	"PYSEC-2023-62":           true, // PyPI - flask @ 1.0.0 in testdata/locks-requirements/requirements.txt
 	"PYSEC-2023-74":           true, // PyPI - requests @ 2.20.0 in testdata/locks-requirements/requirements.txt
+	"USN-8611-1":              true, // Ubuntu - glibc (binary libc6) @ 2.43-2ubuntu2 in scan/image/testdata/test-chisel.Dockerfile
+	"USN-8697-1":              true, // Ubuntu - coreutils (binaries coreutils, gnu-coreutils) in scan/image/testdata/test-chisel.Dockerfile
+	"USN-8847-1":              true, // Ubuntu - openssl (binaries libssl3t64, openssl-provider-legacy) @ 3.5.5-1ubuntu3 in scan/image/testdata/test-chisel.Dockerfile
 }
 
 func shouldKeepVuln(vulnID string) bool {

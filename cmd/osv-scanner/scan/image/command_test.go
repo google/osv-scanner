@@ -585,6 +585,69 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 	}
 }
 
+// TestCommand_OCIImage_ChiselBinaryToSource tests how the Ubuntu binary-to-source
+// enricher (os/ubuntu/binarytosource) interacts with chisel-extracted packages,
+// which only record binary package names.
+func TestCommand_OCIImage_ChiselBinaryToSource(t *testing.T) {
+	t.Parallel()
+	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker to build the images")
+
+	tests := []testcmd.Case{
+		{
+			// Without the enricher, chisel packages are matched using their binary
+			// names, so only packages whose binary name matches an Ubuntu source
+			// package name (e.g. coreutils) have vulnerabilities reported.
+			Name: "binarytosource_enricher_disabled",
+			Args: []string{
+				"", "image",
+				"--x-disable-plugins=os/ubuntu/binarytosource",
+				"--archive", "./testdata/test-chisel.tar",
+			},
+			Exit: 1,
+		},
+		{
+			// Network access is still allowed, so the enricher fills in source names
+			// and the local database matcher should match against them (e.g. libc6
+			// is matched against glibc advisories).
+			Name: "offline_vulnerabilities",
+			Args: []string{
+				"", "image",
+				"--offline-vulnerabilities", "--download-offline-databases",
+				"--archive", "./testdata/test-chisel.tar",
+			},
+			Exit: 1,
+		},
+		{
+			// The enricher must not run in offline mode, as it sends package names to
+			// osv.dev; the only network requests made should be database downloads.
+			// Packages are matched by binary name, so only coreutils is matched.
+			Name: "offline",
+			Args: []string{
+				"", "image",
+				"--offline", "--download-offline-databases",
+				"--archive", "./testdata/test-chisel.tar",
+			},
+			Exit: 1,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+
+			// point out that we need the images to be built and saved separately
+			for _, arg := range tt.Args {
+				if strings.HasPrefix(arg, "./testdata/") && strings.HasSuffix(arg, ".tar") {
+					if _, err := os.Stat(arg); errors.Is(err, os.ErrNotExist) {
+						t.Fatalf("%s does not exist - have you run scripts/build_test_images.sh?", arg)
+					}
+				}
+			}
+
+			testcmd.RunAndMatchSnapshots(t, tt)
+		})
+	}
+}
+
 func TestCommand_HtmlFile(t *testing.T) {
 	t.Parallel()
 	testutility.SkipIfNotAcceptanceTesting(t, "Needs built container images")
