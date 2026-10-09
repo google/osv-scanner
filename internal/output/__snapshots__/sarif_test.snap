@@ -3751,6 +3751,9 @@
               },
               "id": "OSV-3",
               "name": "OSV-3",
+              "properties": {
+                "security-severity": "4.3"
+              },
               "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-3: Something mildly scary!",
@@ -4630,6 +4633,355 @@
 }
 ---
 
+[TestPrintSARIFReport_WithVulnerabilities/one_os_source_with_debian_and_ubuntu_packages,_some_with_unimportant_vulnerabilities - 1]
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
+  "runs": [
+    {
+      "addresses": [],
+      "artifacts": [
+        {
+          "length": -1,
+          "location": {
+            "index": -1,
+            "uri": "file://<rootdir>/var/lib/dpkg/status"
+          },
+          "parentIndex": -1,
+          "roles": []
+        }
+      ],
+      "graphs": [],
+      "invocations": [],
+      "language": "en-US",
+      "logicalLocations": [],
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ],
+      "policies": [],
+      "redactionTokens": [],
+      "results": [
+        {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
+          "kind": "fail",
+          "level": "warning",
+          "locations": [
+            {
+              "annotations": [],
+              "id": -1,
+              "logicalLocations": [],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": -1,
+                  "uri": "file://<rootdir>/var/lib/dpkg/status"
+                }
+              },
+              "relationships": []
+            }
+          ],
+          "message": {
+            "arguments": [],
+            "text": "Package 'libxml2@2.9.14+dfsg-1.3' is vulnerable to 'DEBIAN-CVE-2024-0001'."
+          },
+          "partialFingerprints": {
+            "primaryLocationLineHash": "[line-hash]"
+          },
+          "rank": -1,
+          "relatedLocations": [],
+          "ruleId": "DEBIAN-CVE-2024-0001",
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
+        },
+        {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
+          "kind": "fail",
+          "level": "warning",
+          "locations": [
+            {
+              "annotations": [],
+              "id": -1,
+              "logicalLocations": [],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": -1,
+                  "uri": "file://<rootdir>/var/lib/dpkg/status"
+                }
+              },
+              "relationships": []
+            }
+          ],
+          "message": {
+            "arguments": [],
+            "text": "Package 'libxml2@2.9.14+dfsg-1.3' is vulnerable to 'DEBIAN-CVE-2024-0002'."
+          },
+          "partialFingerprints": {
+            "primaryLocationLineHash": "[line-hash]"
+          },
+          "rank": -1,
+          "relatedLocations": [],
+          "ruleId": "DEBIAN-CVE-2024-0002",
+          "ruleIndex": 1,
+          "stacks": [],
+          "taxa": []
+        },
+        {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
+          "kind": "fail",
+          "level": "warning",
+          "locations": [
+            {
+              "annotations": [],
+              "id": -1,
+              "logicalLocations": [],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": -1,
+                  "uri": "file://<rootdir>/var/lib/dpkg/status"
+                }
+              },
+              "relationships": []
+            }
+          ],
+          "message": {
+            "arguments": [],
+            "text": "Package 'openssl@3.0.2-0ubuntu1.15' is vulnerable to 'UBUNTU-CVE-2024-0003'."
+          },
+          "partialFingerprints": {
+            "primaryLocationLineHash": "[line-hash]"
+          },
+          "rank": -1,
+          "relatedLocations": [],
+          "ruleId": "UBUNTU-CVE-2024-0003",
+          "ruleIndex": 2,
+          "stacks": [],
+          "taxa": []
+        },
+        {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
+          "kind": "fail",
+          "level": "warning",
+          "locations": [
+            {
+              "annotations": [],
+              "id": -1,
+              "logicalLocations": [],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": -1,
+                  "uri": "file://<rootdir>/var/lib/dpkg/status"
+                }
+              },
+              "relationships": []
+            }
+          ],
+          "message": {
+            "arguments": [],
+            "text": "Package 'openssl@3.0.2-0ubuntu1.15' is vulnerable to 'UBUNTU-CVE-2024-0004'."
+          },
+          "partialFingerprints": {
+            "primaryLocationLineHash": "[line-hash]"
+          },
+          "rank": -1,
+          "relatedLocations": [],
+          "ruleId": "UBUNTU-CVE-2024-0004",
+          "ruleIndex": 3,
+          "stacks": [],
+          "taxa": []
+        },
+        {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
+          "kind": "fail",
+          "level": "warning",
+          "locations": [
+            {
+              "annotations": [],
+              "id": -1,
+              "logicalLocations": [],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": -1,
+                  "uri": "file://<rootdir>/var/lib/dpkg/status"
+                }
+              },
+              "relationships": []
+            }
+          ],
+          "message": {
+            "arguments": [],
+            "text": "Package 'openssl@3.0.2-0ubuntu1.15' is vulnerable to 'UBUNTU-CVE-2024-0005'."
+          },
+          "partialFingerprints": {
+            "primaryLocationLineHash": "[line-hash]"
+          },
+          "rank": -1,
+          "relatedLocations": [],
+          "ruleId": "UBUNTU-CVE-2024-0005",
+          "ruleIndex": 4,
+          "stacks": [],
+          "taxa": []
+        }
+      ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
+      "tool": {
+        "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
+          "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
+          "language": "en-US",
+          "locations": [],
+          "name": "osv-scanner",
+          "notifications": [],
+          "rules": [
+            {
+              "deprecatedIds": [
+                "DEBIAN-CVE-2024-0001"
+              ],
+              "fullDescription": {
+                "markdown": "",
+                "text": ""
+              },
+              "help": {
+                "markdown": "**Your dependency is vulnerable to [DEBIAN-CVE-2024-0001](https://osv.dev/DEBIAN-CVE-2024-0001)**.\n\n## [DEBIAN-CVE-2024-0001](https://osv.dev/DEBIAN-CVE-2024-0001)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| os:<rootdir>/var/lib/dpkg/status | libxml2 | 2.9.14+dfsg-1.3 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/var/lib/dpkg/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"DEBIAN-CVE-2024-0001\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
+                "text": "**Your dependency is vulnerable to [DEBIAN-CVE-2024-0001](https://osv.dev/DEBIAN-CVE-2024-0001)**.\n\n## [DEBIAN-CVE-2024-0001](https://osv.dev/DEBIAN-CVE-2024-0001)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| os:<rootdir>/var/lib/dpkg/status | libxml2 | 2.9.14+dfsg-1.3 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/var/lib/dpkg/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"DEBIAN-CVE-2024-0001\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n"
+              },
+              "id": "DEBIAN-CVE-2024-0001",
+              "name": "DEBIAN-CVE-2024-0001",
+              "relationships": [],
+              "shortDescription": {
+                "markdown": "DEBIAN-CVE-2024-0001: Something unimportant!",
+                "text": "DEBIAN-CVE-2024-0001: Something unimportant!"
+              }
+            },
+            {
+              "deprecatedIds": [
+                "DEBIAN-CVE-2024-0002"
+              ],
+              "fullDescription": {
+                "markdown": "",
+                "text": ""
+              },
+              "help": {
+                "markdown": "**Your dependency is vulnerable to [DEBIAN-CVE-2024-0002](https://osv.dev/DEBIAN-CVE-2024-0002)**.\n\n## [DEBIAN-CVE-2024-0002](https://osv.dev/DEBIAN-CVE-2024-0002)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| os:<rootdir>/var/lib/dpkg/status | libxml2 | 2.9.14+dfsg-1.3 |\n\n## Remediation\n\nTo fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.\n\n### Fixed Versions\n\n| Vulnerability ID | Package Name | Fixed Version |\n| --- | --- | --- |\n| DEBIAN-CVE-2024-0002 | libxml2 | 2.9.14+dfsg-1.3+deb12u1 |\n| DEBIAN-CVE-2024-0002 | libxml2 | 2.9.14+dfsg-1.3+deb12u1 |\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/var/lib/dpkg/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"DEBIAN-CVE-2024-0002\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
+                "text": "**Your dependency is vulnerable to [DEBIAN-CVE-2024-0002](https://osv.dev/DEBIAN-CVE-2024-0002)**.\n\n## [DEBIAN-CVE-2024-0002](https://osv.dev/DEBIAN-CVE-2024-0002)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| os:<rootdir>/var/lib/dpkg/status | libxml2 | 2.9.14+dfsg-1.3 |\n\n## Remediation\n\nTo fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.\n\n### Fixed Versions\n\n| Vulnerability ID | Package Name | Fixed Version |\n| --- | --- | --- |\n| DEBIAN-CVE-2024-0002 | libxml2 | 2.9.14+dfsg-1.3+deb12u1 |\n| DEBIAN-CVE-2024-0002 | libxml2 | 2.9.14+dfsg-1.3+deb12u1 |\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/var/lib/dpkg/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"DEBIAN-CVE-2024-0002\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n"
+              },
+              "id": "DEBIAN-CVE-2024-0002",
+              "name": "DEBIAN-CVE-2024-0002",
+              "properties": {
+                "security-severity": "4.3"
+              },
+              "relationships": [],
+              "shortDescription": {
+                "markdown": "DEBIAN-CVE-2024-0002: Something scary!",
+                "text": "DEBIAN-CVE-2024-0002: Something scary!"
+              }
+            },
+            {
+              "deprecatedIds": [
+                "UBUNTU-CVE-2024-0003"
+              ],
+              "fullDescription": {
+                "markdown": "",
+                "text": ""
+              },
+              "help": {
+                "markdown": "**Your dependency is vulnerable to [UBUNTU-CVE-2024-0003](https://osv.dev/UBUNTU-CVE-2024-0003)**.\n\n## [UBUNTU-CVE-2024-0003](https://osv.dev/UBUNTU-CVE-2024-0003)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| os:<rootdir>/var/lib/dpkg/status | openssl | 3.0.2-0ubuntu1.15 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/var/lib/dpkg/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"UBUNTU-CVE-2024-0003\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
+                "text": "**Your dependency is vulnerable to [UBUNTU-CVE-2024-0003](https://osv.dev/UBUNTU-CVE-2024-0003)**.\n\n## [UBUNTU-CVE-2024-0003](https://osv.dev/UBUNTU-CVE-2024-0003)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| os:<rootdir>/var/lib/dpkg/status | openssl | 3.0.2-0ubuntu1.15 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/var/lib/dpkg/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"UBUNTU-CVE-2024-0003\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n"
+              },
+              "id": "UBUNTU-CVE-2024-0003",
+              "name": "UBUNTU-CVE-2024-0003",
+              "relationships": [],
+              "shortDescription": {
+                "markdown": "UBUNTU-CVE-2024-0003: Something negligible!",
+                "text": "UBUNTU-CVE-2024-0003: Something negligible!"
+              }
+            },
+            {
+              "deprecatedIds": [
+                "UBUNTU-CVE-2024-0004"
+              ],
+              "fullDescription": {
+                "markdown": "",
+                "text": ""
+              },
+              "help": {
+                "markdown": "**Your dependency is vulnerable to [UBUNTU-CVE-2024-0004](https://osv.dev/UBUNTU-CVE-2024-0004)**.\n\n## [UBUNTU-CVE-2024-0004](https://osv.dev/UBUNTU-CVE-2024-0004)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| os:<rootdir>/var/lib/dpkg/status | openssl | 3.0.2-0ubuntu1.15 |\n\n## Remediation\n\nTo fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.\n\n### Fixed Versions\n\n| Vulnerability ID | Package Name | Fixed Version |\n| --- | --- | --- |\n| UBUNTU-CVE-2024-0004 | openssl | 3.0.2-0ubuntu1.16 |\n| UBUNTU-CVE-2024-0004 | openssl | 3.0.2-0ubuntu1.16 |\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/var/lib/dpkg/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"UBUNTU-CVE-2024-0004\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
+                "text": "**Your dependency is vulnerable to [UBUNTU-CVE-2024-0004](https://osv.dev/UBUNTU-CVE-2024-0004)**.\n\n## [UBUNTU-CVE-2024-0004](https://osv.dev/UBUNTU-CVE-2024-0004)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| os:<rootdir>/var/lib/dpkg/status | openssl | 3.0.2-0ubuntu1.15 |\n\n## Remediation\n\nTo fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.\n\n### Fixed Versions\n\n| Vulnerability ID | Package Name | Fixed Version |\n| --- | --- | --- |\n| UBUNTU-CVE-2024-0004 | openssl | 3.0.2-0ubuntu1.16 |\n| UBUNTU-CVE-2024-0004 | openssl | 3.0.2-0ubuntu1.16 |\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/var/lib/dpkg/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"UBUNTU-CVE-2024-0004\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n"
+              },
+              "id": "UBUNTU-CVE-2024-0004",
+              "name": "UBUNTU-CVE-2024-0004",
+              "properties": {
+                "security-severity": "8.1"
+              },
+              "relationships": [],
+              "shortDescription": {
+                "markdown": "UBUNTU-CVE-2024-0004: Something scary!",
+                "text": "UBUNTU-CVE-2024-0004: Something scary!"
+              }
+            },
+            {
+              "deprecatedIds": [
+                "UBUNTU-CVE-2024-0005"
+              ],
+              "fullDescription": {
+                "markdown": "",
+                "text": ""
+              },
+              "help": {
+                "markdown": "**Your dependency is vulnerable to [UBUNTU-CVE-2024-0005](https://osv.dev/UBUNTU-CVE-2024-0005)**.\n\n## [UBUNTU-CVE-2024-0005](https://osv.dev/UBUNTU-CVE-2024-0005)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| os:<rootdir>/var/lib/dpkg/status | openssl | 3.0.2-0ubuntu1.15 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/var/lib/dpkg/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"UBUNTU-CVE-2024-0005\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
+                "text": "**Your dependency is vulnerable to [UBUNTU-CVE-2024-0005](https://osv.dev/UBUNTU-CVE-2024-0005)**.\n\n## [UBUNTU-CVE-2024-0005](https://osv.dev/UBUNTU-CVE-2024-0005)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| os:<rootdir>/var/lib/dpkg/status | openssl | 3.0.2-0ubuntu1.15 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/var/lib/dpkg/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"UBUNTU-CVE-2024-0005\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n"
+              },
+              "id": "UBUNTU-CVE-2024-0005",
+              "name": "UBUNTU-CVE-2024-0005",
+              "relationships": [],
+              "shortDescription": {
+                "markdown": "UBUNTU-CVE-2024-0005: Something else negligible!",
+                "text": "UBUNTU-CVE-2024-0005: Something else negligible!"
+              }
+            }
+          ],
+          "supportedTaxonomies": [],
+          "taxa": [],
+          "version": "2.6.0"
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
+    }
+  ],
+  "version": "2.1.0"
+}
+---
+
 [TestPrintSARIFReport_WithVulnerabilities/one_source_with_no_packages - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
@@ -5001,10 +5353,300 @@
               },
               "id": "OSV-1",
               "name": "OSV-1",
+              "properties": {
+                "security-severity": "9"
+              },
               "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-1: Something scary!",
                 "text": "OSV-1: Something scary!"
+              }
+            }
+          ],
+          "supportedTaxonomies": [],
+          "taxa": [],
+          "version": "2.6.0"
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
+    }
+  ],
+  "version": "2.1.0"
+}
+---
+
+[TestPrintSARIFReport_WithVulnerabilities/one_source_with_one_package_and_multiple_vulnerabilities,_some_fixable - 1]
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
+  "runs": [
+    {
+      "addresses": [],
+      "artifacts": [
+        {
+          "length": -1,
+          "location": {
+            "index": -1,
+            "uri": "file://<rootdir>/path/to/my/first/lockfile"
+          },
+          "parentIndex": -1,
+          "roles": []
+        }
+      ],
+      "graphs": [],
+      "invocations": [],
+      "language": "en-US",
+      "logicalLocations": [],
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ],
+      "policies": [],
+      "redactionTokens": [],
+      "results": [
+        {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
+          "kind": "fail",
+          "level": "warning",
+          "locations": [
+            {
+              "annotations": [],
+              "id": -1,
+              "logicalLocations": [],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": -1,
+                  "uri": "file://<rootdir>/path/to/my/first/lockfile"
+                }
+              },
+              "relationships": []
+            }
+          ],
+          "message": {
+            "arguments": [],
+            "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
+          },
+          "partialFingerprints": {
+            "primaryLocationLineHash": "[line-hash]"
+          },
+          "rank": -1,
+          "relatedLocations": [],
+          "ruleId": "OSV-1",
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
+        },
+        {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
+          "kind": "fail",
+          "level": "warning",
+          "locations": [
+            {
+              "annotations": [],
+              "id": -1,
+              "logicalLocations": [],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": -1,
+                  "uri": "file://<rootdir>/path/to/my/first/lockfile"
+                }
+              },
+              "relationships": []
+            }
+          ],
+          "message": {
+            "arguments": [],
+            "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-2'."
+          },
+          "partialFingerprints": {
+            "primaryLocationLineHash": "[line-hash]"
+          },
+          "rank": -1,
+          "relatedLocations": [],
+          "ruleId": "OSV-2",
+          "ruleIndex": 1,
+          "stacks": [],
+          "taxa": []
+        },
+        {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
+          "kind": "fail",
+          "level": "warning",
+          "locations": [
+            {
+              "annotations": [],
+              "id": -1,
+              "logicalLocations": [],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": -1,
+                  "uri": "file://<rootdir>/path/to/my/first/lockfile"
+                }
+              },
+              "relationships": []
+            }
+          ],
+          "message": {
+            "arguments": [],
+            "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-3'."
+          },
+          "partialFingerprints": {
+            "primaryLocationLineHash": "[line-hash]"
+          },
+          "rank": -1,
+          "relatedLocations": [],
+          "ruleId": "OSV-3",
+          "ruleIndex": 2,
+          "stacks": [],
+          "taxa": []
+        },
+        {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
+          "kind": "fail",
+          "level": "warning",
+          "locations": [
+            {
+              "annotations": [],
+              "id": -1,
+              "logicalLocations": [],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": -1,
+                  "uri": "file://<rootdir>/path/to/my/first/lockfile"
+                }
+              },
+              "relationships": []
+            }
+          ],
+          "message": {
+            "arguments": [],
+            "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-4'."
+          },
+          "partialFingerprints": {
+            "primaryLocationLineHash": "[line-hash]"
+          },
+          "rank": -1,
+          "relatedLocations": [],
+          "ruleId": "OSV-4",
+          "ruleIndex": 3,
+          "stacks": [],
+          "taxa": []
+        }
+      ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
+      "tool": {
+        "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
+          "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
+          "language": "en-US",
+          "locations": [],
+          "name": "osv-scanner",
+          "notifications": [],
+          "rules": [
+            {
+              "deprecatedIds": [
+                "OSV-1"
+              ],
+              "fullDescription": {
+                "markdown": "",
+                "text": ""
+              },
+              "help": {
+                "markdown": "**Your dependency is vulnerable to [OSV-1](https://osv.dev/OSV-1)**.\n\n## [OSV-1](https://osv.dev/OSV-1)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/path/to/my/first/lockfile | mine1 | 1.2.3 |\n\n## Remediation\n\nTo fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.\n\n### Fixed Versions\n\n| Vulnerability ID | Package Name | Fixed Version |\n| --- | --- | --- |\n| OSV-1 | mine1 | 1.1.5, 1.2.4 |\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
+                "text": "**Your dependency is vulnerable to [OSV-1](https://osv.dev/OSV-1)**.\n\n## [OSV-1](https://osv.dev/OSV-1)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/path/to/my/first/lockfile | mine1 | 1.2.3 |\n\n## Remediation\n\nTo fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.\n\n### Fixed Versions\n\n| Vulnerability ID | Package Name | Fixed Version |\n| --- | --- | --- |\n| OSV-1 | mine1 | 1.1.5, 1.2.4 |\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n"
+              },
+              "id": "OSV-1",
+              "name": "OSV-1",
+              "relationships": [],
+              "shortDescription": {
+                "markdown": "OSV-1: Fixed in the next patch!",
+                "text": "OSV-1: Fixed in the next patch!"
+              }
+            },
+            {
+              "deprecatedIds": [
+                "OSV-2"
+              ],
+              "fullDescription": {
+                "markdown": "",
+                "text": ""
+              },
+              "help": {
+                "markdown": "**Your dependency is vulnerable to [OSV-2](https://osv.dev/OSV-2)**.\n\n## [OSV-2](https://osv.dev/OSV-2)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/path/to/my/first/lockfile | mine1 | 1.2.3 |\n\n## Remediation\n\nTo fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.\n\n### Fixed Versions\n\n| Vulnerability ID | Package Name | Fixed Version |\n| --- | --- | --- |\n| OSV-2 | mine1 | 2.0.0 |\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-2\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
+                "text": "**Your dependency is vulnerable to [OSV-2](https://osv.dev/OSV-2)**.\n\n## [OSV-2](https://osv.dev/OSV-2)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/path/to/my/first/lockfile | mine1 | 1.2.3 |\n\n## Remediation\n\nTo fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.\n\n### Fixed Versions\n\n| Vulnerability ID | Package Name | Fixed Version |\n| --- | --- | --- |\n| OSV-2 | mine1 | 2.0.0 |\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-2\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n"
+              },
+              "id": "OSV-2",
+              "name": "OSV-2",
+              "relationships": [],
+              "shortDescription": {
+                "markdown": "OSV-2: Fixed in the next major!",
+                "text": "OSV-2: Fixed in the next major!"
+              }
+            },
+            {
+              "deprecatedIds": [
+                "OSV-3"
+              ],
+              "fullDescription": {
+                "markdown": "",
+                "text": ""
+              },
+              "help": {
+                "markdown": "**Your dependency is vulnerable to [OSV-3](https://osv.dev/OSV-3)**.\n\n## [OSV-3](https://osv.dev/OSV-3)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/path/to/my/first/lockfile | mine1 | 1.2.3 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-3\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
+                "text": "**Your dependency is vulnerable to [OSV-3](https://osv.dev/OSV-3)**.\n\n## [OSV-3](https://osv.dev/OSV-3)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/path/to/my/first/lockfile | mine1 | 1.2.3 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-3\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n"
+              },
+              "id": "OSV-3",
+              "name": "OSV-3",
+              "relationships": [],
+              "shortDescription": {
+                "markdown": "OSV-3: Not fixed yet!",
+                "text": "OSV-3: Not fixed yet!"
+              }
+            },
+            {
+              "deprecatedIds": [
+                "OSV-4"
+              ],
+              "fullDescription": {
+                "markdown": "",
+                "text": ""
+              },
+              "help": {
+                "markdown": "**Your dependency is vulnerable to [OSV-4](https://osv.dev/OSV-4)**.\n\n## [OSV-4](https://osv.dev/OSV-4)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/path/to/my/first/lockfile | mine1 | 1.2.3 |\n\n## Remediation\n\nTo fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.\n\n### Fixed Versions\n\n| Vulnerability ID | Package Name | Fixed Version |\n| --- | --- | --- |\n| OSV-4 | mine2 | 1.0.0 |\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-4\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
+                "text": "**Your dependency is vulnerable to [OSV-4](https://osv.dev/OSV-4)**.\n\n## [OSV-4](https://osv.dev/OSV-4)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/path/to/my/first/lockfile | mine1 | 1.2.3 |\n\n## Remediation\n\nTo fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.\n\n### Fixed Versions\n\n| Vulnerability ID | Package Name | Fixed Version |\n| --- | --- | --- |\n| OSV-4 | mine2 | 1.0.0 |\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-4\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n"
+              },
+              "id": "OSV-4",
+              "name": "OSV-4",
+              "relationships": [],
+              "shortDescription": {
+                "markdown": "OSV-4: Only fixed for another package!",
+                "text": "OSV-4: Only fixed for another package!"
               }
             }
           ],
@@ -5509,6 +6151,125 @@
 }
 ---
 
+[TestPrintSARIFReport_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability_tagged_as_unimportant_outside_of_a_debian_based_ecosystem - 1]
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
+  "runs": [
+    {
+      "addresses": [],
+      "artifacts": [
+        {
+          "length": -1,
+          "location": {
+            "index": -1,
+            "uri": "file://<rootdir>/path/to/my/first/lockfile"
+          },
+          "parentIndex": -1,
+          "roles": []
+        }
+      ],
+      "graphs": [],
+      "invocations": [],
+      "language": "en-US",
+      "logicalLocations": [],
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ],
+      "policies": [],
+      "redactionTokens": [],
+      "results": [
+        {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
+          "kind": "fail",
+          "level": "warning",
+          "locations": [
+            {
+              "annotations": [],
+              "id": -1,
+              "logicalLocations": [],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": -1,
+                  "uri": "file://<rootdir>/path/to/my/first/lockfile"
+                }
+              },
+              "relationships": []
+            }
+          ],
+          "message": {
+            "arguments": [],
+            "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
+          },
+          "partialFingerprints": {
+            "primaryLocationLineHash": "[line-hash]"
+          },
+          "rank": -1,
+          "relatedLocations": [],
+          "ruleId": "OSV-1",
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
+        }
+      ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
+      "tool": {
+        "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
+          "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
+          "language": "en-US",
+          "locations": [],
+          "name": "osv-scanner",
+          "notifications": [],
+          "rules": [
+            {
+              "deprecatedIds": [
+                "OSV-1"
+              ],
+              "fullDescription": {
+                "markdown": "",
+                "text": ""
+              },
+              "help": {
+                "markdown": "**Your dependency is vulnerable to [OSV-1](https://osv.dev/OSV-1)**.\n\n## [OSV-1](https://osv.dev/OSV-1)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/path/to/my/first/lockfile | mine1 | 1.2.3 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
+                "text": "**Your dependency is vulnerable to [OSV-1](https://osv.dev/OSV-1)**.\n\n## [OSV-1](https://osv.dev/OSV-1)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/path/to/my/first/lockfile | mine1 | 1.2.3 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n"
+              },
+              "id": "OSV-1",
+              "name": "OSV-1",
+              "relationships": [],
+              "shortDescription": {
+                "markdown": "OSV-1: Something scary!",
+                "text": "OSV-1: Something scary!"
+              }
+            }
+          ],
+          "supportedTaxonomies": [],
+          "taxa": [],
+          "version": "2.6.0"
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
+    }
+  ],
+  "version": "2.1.0"
+}
+---
+
 [TestPrintSARIFReport_WithVulnerabilities/one_source_with_one_package_and_two_aliases_of_a_single_uncalled_vulnerability - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
@@ -5798,6 +6559,9 @@
               },
               "id": "OSV-1",
               "name": "OSV-1",
+              "properties": {
+                "security-severity": "8.3"
+              },
               "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-1: Something scary!",
@@ -5954,9 +6718,6 @@
               },
               "id": "OSV-1",
               "name": "OSV-1",
-              "properties": {
-                "security-severity": "1.8"
-              },
               "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-1: Something scary!",

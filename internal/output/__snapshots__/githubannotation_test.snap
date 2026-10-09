@@ -108,7 +108,7 @@
 ---
 
 [TestPrintGHAnnotationReport_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages,_and_multiple_vulnerabilities - 1]
-::error file=path/to/my/first/lockfile::path/to/my/first/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 |      | 1.2.3           |               |%0A| mine1   | https://osv.dev/OSV-5 |      | 1.2.3           |               |%0A| mine1   | https://osv.dev/OSV-1 |      | 1.2.2           |               |%0A+---------+-----------------------+------+-----------------+---------------+::error file=path/to/my/second/lockfile::path/to/my/second/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine2   | https://osv.dev/OSV-2 |      | 3.2.5           |               |%0A| mine3   | https://osv.dev/OSV-3 |      | 0.4.1           |               |%0A| mine3   | https://osv.dev/OSV-5 |      | 0.4.1           |               |%0A+---------+-----------------------+------+-----------------+---------------+
+::error file=path/to/my/first/lockfile::path/to/my/first/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 |      | 1.2.3           |               |%0A| mine1   | https://osv.dev/OSV-5 |      | 1.2.3           |               |%0A| mine1   | https://osv.dev/OSV-1 |      | 1.2.2           |               |%0A+---------+-----------------------+------+-----------------+---------------+::error file=path/to/my/second/lockfile::path/to/my/second/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine2   | https://osv.dev/OSV-2 |      | 3.2.5           |               |%0A| mine3   | https://osv.dev/OSV-3 | 0.0  | 0.4.1           |               |%0A| mine3   | https://osv.dev/OSV-5 |      | 0.4.1           |               |%0A+---------+-----------------------+------+-----------------+---------------+
 ---
 
 [TestPrintGHAnnotationReport_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages,_no_vulnerabilities - 1]
@@ -139,6 +139,10 @@
 
 ---
 
+[TestPrintGHAnnotationReport_WithVulnerabilities/one_os_source_with_debian_and_ubuntu_packages,_some_with_unimportant_vulnerabilities - 1]
+::error file=var/lib/dpkg/status::var/lib/dpkg/status%0A+---------+--------------------------------------+------+-------------------+-------------------------+%0A| PACKAGE | VULNERABILITY ID                     | CVSS | CURRENT VERSION   | FIXED VERSION           |%0A+---------+--------------------------------------+------+-------------------+-------------------------+%0A| libxml2 | https://osv.dev/DEBIAN-CVE-2024-0001 |      | 2.9.14+dfsg-1.3   |                         |%0A| libxml2 | https://osv.dev/DEBIAN-CVE-2024-0002 | 4.3  | 2.9.14+dfsg-1.3   | 2.9.14+dfsg-1.3+deb12u1 |%0A| openssl | https://osv.dev/UBUNTU-CVE-2024-0003 |      | 3.0.2-0ubuntu1.15 |                         |%0A| openssl | https://osv.dev/UBUNTU-CVE-2024-0004 | 8.1  | 3.0.2-0ubuntu1.15 |                         |%0A| openssl | https://osv.dev/UBUNTU-CVE-2024-0005 |      | 3.0.2-0ubuntu1.15 |                         |%0A+---------+--------------------------------------+------+-------------------+-------------------------+
+---
+
 [TestPrintGHAnnotationReport_WithVulnerabilities/one_source_with_no_packages - 1]
 
 ---
@@ -152,11 +156,15 @@
 ---
 
 [TestPrintGHAnnotationReport_WithVulnerabilities/one_source_with_one_package,_one_vulnerability,_and_a_max_severity - 1]
-::error file=path/to/my/first/lockfile::path/to/my/first/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 | 9    | 1.2.3           |               |%0A+---------+-----------------------+------+-----------------+---------------+
+::error file=path/to/my/first/lockfile::path/to/my/first/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 | 9.0  | 1.2.3           |               |%0A+---------+-----------------------+------+-----------------+---------------+
+---
+
+[TestPrintGHAnnotationReport_WithVulnerabilities/one_source_with_one_package_and_multiple_vulnerabilities,_some_fixable - 1]
+::error file=path/to/my/first/lockfile::path/to/my/first/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 |      | 1.2.3           | 1.1.5         |%0A|         |                       |      |                 | 1.2.4         |%0A| mine1   | https://osv.dev/OSV-2 |      | 1.2.3           | 2.0.0         |%0A| mine1   | https://osv.dev/OSV-3 |      | 1.2.3           |               |%0A| mine1   | https://osv.dev/OSV-4 |      | 1.2.3           |               |%0A+---------+-----------------------+------+-----------------+---------------+
 ---
 
 [TestPrintGHAnnotationReport_WithVulnerabilities/one_source_with_one_package_and_one_called_vulnerability - 1]
-::error file=path/to/my/first/lockfile::path/to/my/first/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 |      | 1.2.3           |               |%0A+---------+-----------------------+------+-----------------+---------------+
+::error file=path/to/my/first/lockfile::path/to/my/first/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 | 7.5  | 1.2.3           |               |%0A+---------+-----------------------+------+-----------------+---------------+
 ---
 
 [TestPrintGHAnnotationReport_WithVulnerabilities/one_source_with_one_package_and_one_uncalled_vulnerability - 1]
@@ -164,10 +172,14 @@
 ---
 
 [TestPrintGHAnnotationReport_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability - 1]
-::error file=path/to/my/first/lockfile::path/to/my/first/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 |      | 1.2.3           |               |%0A+---------+-----------------------+------+-----------------+---------------+
+::error file=path/to/my/first/lockfile::path/to/my/first/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 | 8.8  | 1.2.3           |               |%0A+---------+-----------------------+------+-----------------+---------------+
 ---
 
 [TestPrintGHAnnotationReport_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability_(dev) - 1]
+::error file=path/to/my/first/lockfile::path/to/my/first/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 | 6.9  | 1.2.3           |               |%0A+---------+-----------------------+------+-----------------+---------------+
+---
+
+[TestPrintGHAnnotationReport_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability_tagged_as_unimportant_outside_of_a_debian_based_ecosystem - 1]
 ::error file=path/to/my/first/lockfile::path/to/my/first/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 |      | 1.2.3           |               |%0A+---------+-----------------------+------+-----------------+---------------+
 ---
 
@@ -184,11 +196,11 @@
 ---
 
 [TestPrintGHAnnotationReport_WithVulnerabilities/one_source_with_one_package_with_both_a_version_and_commit_and_one_vulnerability - 1]
-::error file=path/to/my/first/lockfile::path/to/my/first/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 |      | 1.2.3           |               |%0A+---------+-----------------------+------+-----------------+---------------+
+::error file=path/to/my/first/lockfile::path/to/my/first/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 | 9.8  | 1.2.3           |               |%0A+---------+-----------------------+------+-----------------+---------------+
 ---
 
 [TestPrintGHAnnotationReport_WithVulnerabilities/one_source_with_one_package_with_just_a_commit_and_one_vulnerability - 1]
-::error file=path/to/my/first/lockfile::path/to/my/first/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 |      |                 |               |%0A+---------+-----------------------+------+-----------------+---------------+
+::error file=path/to/my/first/lockfile::path/to/my/first/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 | 7.5  |                 |               |%0A+---------+-----------------------+------+-----------------+---------------+
 ---
 
 [TestPrintGHAnnotationReport_WithVulnerabilities/one_source_with_vulnerabilities,_some_missing_content - 1]
@@ -200,7 +212,7 @@
 ---
 
 [TestPrintGHAnnotationReport_WithVulnerabilities/two_sources_with_packages,_one_vulnerability - 1]
-::error file=path/to/my/first/lockfile::path/to/my/first/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 |      | 1.2.3           |               |%0A+---------+-----------------------+------+-----------------+---------------+
+::error file=path/to/my/first/lockfile::path/to/my/first/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 | 9.8  | 1.2.3           |               |%0A+---------+-----------------------+------+-----------------+---------------+
 ---
 
 [TestPrintGHAnnotationReport_WithVulnerabilities/two_sources_with_the_same_vulnerable_package - 1]
