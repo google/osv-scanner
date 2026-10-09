@@ -2869,7 +2869,8 @@ could not determine extractor, requested package-lock.json
           "package": {
             "name": "stdlib",
             "version": "1.999.1",
-            "ecosystem": "Go"
+            "ecosystem": "Go",
+            "purl": "pkg:golang/stdlib@1.999.1"
           }
         },
         {
@@ -2933,6 +2934,7 @@ Filtered 1 local/unscannable package/s from the scan.
             "name": "https://github.com/org/repo",
             "version": "",
             "ecosystem": "GIT",
+            "purl": "pkg:git/some-git-dep",
             "commit": "bca26e4"
           }
         }
@@ -2990,6 +2992,7 @@ Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/clean/Cargo.lock file and fo
             "name": "left-pad",
             "version": "1.3.0",
             "ecosystem": "npm",
+            "purl": "pkg:npm/left-pad@1.3.0?source=LOCAL",
             "deprecated": true
           }
         }
@@ -3026,6 +3029,7 @@ Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-npm/package-lock.
             "name": "url",
             "version": "2.5.3",
             "ecosystem": "crates.io",
+            "purl": "pkg:cargo/url@2.5.3",
             "deprecated": true
           }
         }
@@ -3085,6 +3089,7 @@ Total 1 package deprecated.
             "name": "net2",
             "version": "0.2.33",
             "ecosystem": "crates.io",
+            "purl": "pkg:cargo/net2@0.2.33",
             "deprecated": true
           },
           "groups": 2,
@@ -3964,7 +3969,8 @@ license MIT WITH (Bison-exception-2.2 AND somethingelse) for package npm/ms/2.1.
           "package": {
             "name": "babel",
             "version": "6.23.0",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/babel@6.23.0?source=PUBLIC_REGISTRY"
           },
           "licenses": [
             "MIT"
@@ -3974,7 +3980,8 @@ license MIT WITH (Bison-exception-2.2 AND somethingelse) for package npm/ms/2.1.
           "package": {
             "name": "human-signals",
             "version": "5.0.0",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/human-signals@5.0.0?source=PUBLIC_REGISTRY"
           },
           "licenses": [
             "Apache-2.0"
@@ -3984,7 +3991,8 @@ license MIT WITH (Bison-exception-2.2 AND somethingelse) for package npm/ms/2.1.
           "package": {
             "name": "ms",
             "version": "2.1.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/ms@2.1.3?source=PUBLIC_REGISTRY"
           },
           "licenses": [
             "MIT"
@@ -3994,7 +4002,8 @@ license MIT WITH (Bison-exception-2.2 AND somethingelse) for package npm/ms/2.1.
           "package": {
             "name": "type-fest",
             "version": "4.26.1",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/type-fest@4.26.1?source=PUBLIC_REGISTRY"
           },
           "licenses": [
             "CC0-1.0 OR MIT"
@@ -4121,7 +4130,8 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
           "package": {
             "name": "babel",
             "version": "6.23.0",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/babel@6.23.0?source=PUBLIC_REGISTRY"
           },
           "licenses": [
             "MIT"
@@ -4131,7 +4141,8 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
           "package": {
             "name": "human-signals",
             "version": "5.0.0",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/human-signals@5.0.0?source=PUBLIC_REGISTRY"
           },
           "licenses": [
             "Apache-2.0"
@@ -4141,7 +4152,8 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
           "package": {
             "name": "ms",
             "version": "2.1.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/ms@2.1.3?source=PUBLIC_REGISTRY"
           },
           "licenses": [
             "MIT"
@@ -4151,7 +4163,8 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
           "package": {
             "name": "type-fest",
             "version": "4.26.1",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/type-fest@4.26.1?source=PUBLIC_REGISTRY"
           },
           "licenses": [
             "CC0-1.0 OR MIT"
@@ -4251,7 +4264,8 @@ Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium,
           "package": {
             "name": "babel",
             "version": "6.23.0",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/babel@6.23.0?source=PUBLIC_REGISTRY"
           },
           "licenses": [
             "MIT"
@@ -4261,7 +4275,8 @@ Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium,
           "package": {
             "name": "human-signals",
             "version": "5.0.0",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/human-signals@5.0.0?source=PUBLIC_REGISTRY"
           },
           "licenses": [
             "Apache-2.0"
@@ -4274,7 +4289,8 @@ Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium,
           "package": {
             "name": "ms",
             "version": "2.1.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/ms@2.1.3?source=PUBLIC_REGISTRY"
           },
           "licenses": [
             "MIT"
@@ -4284,7 +4300,8 @@ Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium,
           "package": {
             "name": "type-fest",
             "version": "4.26.1",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/type-fest@4.26.1?source=PUBLIC_REGISTRY"
           },
           "licenses": [
             "CC0-1.0 OR MIT"
@@ -4338,7 +4355,8 @@ Scanned <rootdir>/testdata/locks-licenses/package-lock.json file and found 4 pac
           "package": {
             "name": "human-signals",
             "version": "5.0.0",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/human-signals@5.0.0?source=PUBLIC_REGISTRY"
           },
           "licenses": [
             "Apache-2.0"
