@@ -17,6 +17,7 @@ import (
 	"github.com/google/osv-scalibr/enricher"
 	"github.com/google/osv-scalibr/enricher/packagedeprecation"
 	"github.com/google/osv-scalibr/enricher/reachability/java"
+	"github.com/google/osv-scalibr/enricher/vulnmatch/osvlocal"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/simplefileapi"
@@ -147,6 +148,7 @@ func getPlugins(
 	}
 
 	plugins := scalibrplugin.Resolve(actions.PluginsEnabled, actions.PluginsDisabled, finalScalibrConfig)
+	plugins = removeNetworkPluginsWhenOffline(plugins, actions)
 
 	// Append the pre-matching filter annotator so it always runs.
 	filterAnnotator := filter.NewAnnotator(configManager, isContainerScan, actions.ShowAllPackages)
@@ -155,6 +157,31 @@ func getPlugins(
 	configurePlugins(plugins, accessors, actions)
 
 	return plugins
+}
+
+// removeNetworkPluginsWhenOffline removes plugins that require network access
+// when running in offline mode (--offline).
+//
+// The network capability is still reported as online when offline databases
+// are being downloaded (see networkCapability), which would otherwise allow
+// any plugin requiring network access to run and potentially send package
+// details to remote services (e.g. osv.dev). The only plugin allowed network
+// access in offline mode is the local matcher, which only uses it to download
+// the vulnerability databases.
+func removeNetworkPluginsWhenOffline(plugins []plugin.Plugin, actions ScannerActions) []plugin.Plugin {
+	if !actions.PluginNetworkDisabled {
+		return plugins
+	}
+
+	return slices.DeleteFunc(plugins, func(plug plugin.Plugin) bool {
+		if plug.Name() == osvlocal.Name {
+			return false
+		}
+
+		reqs := plug.Requirements()
+
+		return reqs != nil && reqs.Network == plugin.NetworkOnline
+	})
 }
 
 func networkCapability(actions ScannerActions) plugin.Network {
