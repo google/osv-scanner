@@ -628,13 +628,13 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium,
 
 [TestPrintTableResults_LongTerminalWidth_WithVulnerabilities/one_source_with_one_package_and_two_aliases_of_a_single_vulnerability_without_a_max_severity - 1]
 
-Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 1 Low, 0 Unknown) from 1 ecosystem.
+Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 ╭──────────────────────────┬──────┬───────────┬─────────┬─────────┬───────────────┬───────────────────────────╮
 │ OSV URL                  │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ FIXED VERSION │ SOURCE                    │
 ├──────────────────────────┼──────┼───────────┼─────────┼─────────┼───────────────┼───────────────────────────┤
-│ https://osv.dev/OSV-1    │ 1.8  │ npm       │ mine1   │ 1.2.3   │ --            │ path/to/my/first/lockfile │
+│ https://osv.dev/OSV-1    │      │ npm       │ mine1   │ 1.2.3   │ --            │ path/to/my/first/lockfile │
 │ https://osv.dev/GHSA-123 │      │           │         │         │               │                           │
 ╰──────────────────────────┴──────┴───────────┴─────────┴─────────┴───────────────┴───────────────────────────╯
 
@@ -1351,13 +1351,13 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium,
 
 [TestPrintTableResults_NoTerminalWidth_WithVulnerabilities/one_source_with_one_package_and_two_aliases_of_a_single_vulnerability_without_a_max_severity - 1]
 
-Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 1 Low, 0 Unknown) from 1 ecosystem.
+Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +--------------------------+------+-----------+---------+---------+---------------+---------------------------+
 | OSV URL                  | CVSS | ECOSYSTEM | PACKAGE | VERSION | FIXED VERSION | SOURCE                    |
 +--------------------------+------+-----------+---------+---------+---------------+---------------------------+
-| https://osv.dev/OSV-1    | 1.8  | npm       | mine1   | 1.2.3   | --            | path/to/my/first/lockfile |
+| https://osv.dev/OSV-1    |      | npm       | mine1   | 1.2.3   | --            | path/to/my/first/lockfile |
 | https://osv.dev/GHSA-123 |      |           |         |         |               |                           |
 +--------------------------+------+-----------+---------+---------+---------------+---------------------------+
 
@@ -2074,13 +2074,13 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium,
 
 [TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities/one_source_with_one_package_and_two_aliases_of_a_single_vulnerability_without_a_max_severity - 1]
 
-Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 1 Low, 0 Unknown) from 1 ecosystem.
+Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 ╭──────────────────────────┬──────┬───────────┬─────────┬─────────┬─────────── ≈
 │ OSV URL                  │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ FIXED VERS ≈
 ├──────────────────────────┼──────┼───────────┼─────────┼─────────┼─────────── ≈
-│ https://osv.dev/OSV-1    │ 1.8  │ npm       │ mine1   │ 1.2.3   │ --         ≈
+│ https://osv.dev/OSV-1    │      │ npm       │ mine1   │ 1.2.3   │ --         ≈
 │ https://osv.dev/GHSA-123 │      │           │         │         │            ≈
 ╰──────────────────────────┴──────┴───────────┴─────────┴─────────┴─────────── ≈
 

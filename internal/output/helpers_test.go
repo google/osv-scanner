@@ -610,10 +610,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 											Id:      "GHSA-123",
 											Summary: "Something scary!",
 											Aliases: []string{"OSV-1"},
-											Severity: []*osvschema.Severity{{
-												Type:  osvschema.Severity_CVSS_V3,
-												Score: "CVSS:3.1/AV:L/AC:H/PR:H/UI:R/S:U/C:L/I:N/A:N",
-											}},
 										},
 									},
 								},
@@ -1307,7 +1303,6 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 												"OSV-3": {Called: true},
 											},
 										},
-										{IDs: []string{"OSV-5"}},
 									},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{

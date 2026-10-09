@@ -3591,7 +3591,7 @@
                 "GHSA-123",
                 "OSV-1"
               ],
-              "max_severity": "1.8"
+              "max_severity": ""
             }
           ],
           "vulnerabilities": [
@@ -3610,12 +3610,6 @@
                 "OSV-1"
               ],
               "id": "GHSA-123",
-              "severity": [
-                {
-                  "score": "CVSS:3.1/AV:L/AC:H/PR:H/UI:R/S:U/C:L/I:N/A:N",
-                  "type": "CVSS_V3"
-                }
-              ],
               "summary": "Something scary!"
             }
           ]
