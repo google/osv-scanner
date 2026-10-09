@@ -4,6 +4,8 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/google/go-cmp/cmp"
+	"github.com/google/osv-scalibr/enricher/vulnmatch/osvlocal"
 	"github.com/google/osv-scalibr/plugin"
 )
 
@@ -49,6 +51,74 @@ func Test_networkCapability(t *testing.T) {
 
 			if got := networkCapability(tt.actions); got != tt.want {
 				t.Errorf("networkCapability(%+v) = %v, want %v", tt.actions, got, tt.want)
+			}
+		})
+	}
+}
+
+type fakePlugin struct {
+	name    string
+	network plugin.Network
+}
+
+func (p fakePlugin) Name() string { return p.name }
+func (fakePlugin) Version() int   { return 0 }
+func (p fakePlugin) Requirements() *plugin.Capabilities {
+	return &plugin.Capabilities{Network: p.network}
+}
+
+func Test_removeNetworkPluginsWhenOffline(t *testing.T) {
+	t.Parallel()
+
+	newPlugins := func() []plugin.Plugin {
+		return []plugin.Plugin{
+			fakePlugin{name: "os/chisel", network: plugin.NetworkAny},
+			fakePlugin{name: "os/ubuntu/binarytosource", network: plugin.NetworkOnline},
+			fakePlugin{name: "baseimage", network: plugin.NetworkOnline},
+			fakePlugin{name: "offline/only", network: plugin.NetworkOffline},
+			// osvlocal requires network when downloading databases
+			fakePlugin{name: osvlocal.Name, network: plugin.NetworkOnline},
+		}
+	}
+
+	tests := []struct {
+		name    string
+		actions ScannerActions
+		want    []string
+	}{
+		{
+			name:    "online_keeps_all_plugins",
+			actions: ScannerActions{},
+			want:    []string{"os/chisel", "os/ubuntu/binarytosource", "baseimage", "offline/only", osvlocal.Name},
+		},
+		{
+			name:    "offline_vulnerabilities_keeps_all_plugins",
+			actions: ScannerActions{CompareOffline: true, DownloadDatabases: true},
+			want:    []string{"os/chisel", "os/ubuntu/binarytosource", "baseimage", "offline/only", osvlocal.Name},
+		},
+		{
+			name:    "offline_removes_network_plugins",
+			actions: ScannerActions{CompareOffline: true, PluginNetworkDisabled: true},
+			want:    []string{"os/chisel", "offline/only", osvlocal.Name},
+		},
+		{
+			name:    "offline_with_download_still_removes_network_plugins",
+			actions: ScannerActions{CompareOffline: true, PluginNetworkDisabled: true, DownloadDatabases: true},
+			want:    []string{"os/chisel", "offline/only", osvlocal.Name},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			got := make([]string, 0, len(tt.want))
+			for _, p := range removeNetworkPluginsWhenOffline(newPlugins(), tt.actions) {
+				got = append(got, p.Name())
+			}
+
+			if diff := cmp.Diff(tt.want, got); diff != "" {
+				t.Errorf("removeNetworkPluginsWhenOffline() mismatch (-want +got):\n%s", diff)
 			}
 		})
 	}
