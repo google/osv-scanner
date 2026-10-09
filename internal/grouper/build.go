@@ -32,6 +32,13 @@ func calculateMaxSeverity(group models.GroupInfo, pkg models.PackageVulns) strin
 	return fmt.Sprintf("%.1f", maxSeverity)
 }
 
+// Build groups the vulnerabilities of the given package by their aliases, and
+// computes the derived information for each group, such as max severity and
+// whether a vulnerability is unimportant.
+//
+// If considerExploitabilitySignals is true, the package's exploitability
+// signals are used to mark whether each vulnerability is called, as is done
+// when performing call analysis (requiring pkg.Package.Inventory to be set).
 func Build(pkg models.PackageVulns, considerExploitabilitySignals bool) []models.GroupInfo {
 	grouped := Group(ConvertVulnerabilityToIDAliases(pkg.Vulnerabilities))
 	for i, group := range grouped {
