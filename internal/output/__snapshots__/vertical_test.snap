@@ -1049,7 +1049,7 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
 [TestPrintVerticalResults_WithVulnerabilities/one_source_with_one_package_and_two_aliases_of_a_single_vulnerability_without_a_max_severity - 1]
 
-Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 1 Low, 0 Unknown) from 1 ecosystem.
+Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 npm
@@ -1058,7 +1058,7 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   mine1@1.2.3 has the following known vulnerabilities:
     OSV-1: Something scary!
-      Severity: '1.8'; Minimal Fix Version: 'No fix available';
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 

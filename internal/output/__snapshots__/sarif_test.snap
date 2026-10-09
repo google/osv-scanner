@@ -5963,9 +5963,6 @@
               },
               "id": "OSV-1",
               "name": "OSV-1",
-              "properties": {
-                "security-severity": "1.8"
-              },
               "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-1: Something scary!",

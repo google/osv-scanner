@@ -5772,8 +5772,8 @@
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
-                  "SeverityRating": "LOW",
-                  "SeverityScore": "1.8"
+                  "SeverityRating": "UNKNOWN",
+                  "SeverityScore": "N/A"
                 }
               ],
               "HiddenVulns": [],
@@ -5837,8 +5837,8 @@
                   "Critical": 0,
                   "High": 0,
                   "Medium": 0,
-                  "Low": 1,
-                  "Unknown": 0
+                  "Low": 0,
+                  "Unknown": 1
                 },
                 "FixableCount": {
                   "Fixed": 0,
@@ -5858,8 +5858,8 @@
               "Critical": 0,
               "High": 0,
               "Medium": 0,
-              "Low": 1,
-              "Unknown": 0
+              "Low": 0,
+              "Unknown": 1
             },
             "FixableCount": {
               "Fixed": 0,
@@ -5902,8 +5902,8 @@
       "Critical": 0,
       "High": 0,
       "Medium": 0,
-      "Low": 1,
-      "Unknown": 0
+      "Low": 0,
+      "Unknown": 1
     },
     "FixableCount": {
       "Fixed": 0,

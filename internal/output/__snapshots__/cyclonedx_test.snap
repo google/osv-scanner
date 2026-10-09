@@ -2314,14 +2314,7 @@
           "source": {}
         }
       ],
-      "ratings": [
-        {
-          "score": 1.8,
-          "severity": "low",
-          "method": "CVSSv3",
-          "vector": "CVSS:3.1/AV:L/AC:H/PR:H/UI:R/S:U/C:L/I:N/A:N"
-        }
-      ],
+      "ratings": [],
       "description": "Something scary!",
       "advisories": [],
       "credits": {
@@ -4940,14 +4933,7 @@
           "source": {}
         }
       ],
-      "ratings": [
-        {
-          "score": 1.8,
-          "severity": "low",
-          "method": "CVSSv3",
-          "vector": "CVSS:3.1/AV:L/AC:H/PR:H/UI:R/S:U/C:L/I:N/A:N"
-        }
-      ],
+      "ratings": [],
       "description": "Something scary!",
       "advisories": [],
       "credits": {
@@ -7566,14 +7552,7 @@
           "source": {}
         }
       ],
-      "ratings": [
-        {
-          "score": 1.8,
-          "severity": "low",
-          "method": "CVSSv3",
-          "vector": "CVSS:3.1/AV:L/AC:H/PR:H/UI:R/S:U/C:L/I:N/A:N"
-        }
-      ],
+      "ratings": [],
       "description": "Something scary!",
       "advisories": [],
       "credits": {
@@ -10192,14 +10171,7 @@
           "source": {}
         }
       ],
-      "ratings": [
-        {
-          "score": 1.8,
-          "severity": "low",
-          "method": "CVSSv3",
-          "vector": "CVSS:3.1/AV:L/AC:H/PR:H/UI:R/S:U/C:L/I:N/A:N"
-        }
-      ],
+      "ratings": [],
       "description": "Something scary!",
       "advisories": [],
       "credits": {
