@@ -90,6 +90,8 @@ func (tl *Handler) Handle(ctx context.Context, record slog.Record) error {
 		// This error log will show up on dpkg file tests on windows and macos.
 		// (TODO(another-rex): we should abstract away the os-release file to something the user passes in)
 		"osrelease.ParseOsRelease(): does not have expected distro os-release file",
+		"getOSRelease(): file does not exist",
+		"getOSRelease(): does not have expected distro os-release file",
 		"Status: new inodes:",
 		"Created image content file:",
 		"interpreting as regex/glob and not absolute path",
