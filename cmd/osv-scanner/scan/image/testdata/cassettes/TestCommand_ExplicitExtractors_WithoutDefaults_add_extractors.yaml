@@ -28,7 +28,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 241
+      content_length: 313
       body: |
         {
           "results": [
@@ -40,11 +40,15 @@ interactions:
                 },
                 {
                   "id": "ALPINE-CVE-2026-22184",
-                  "modified": "2026-09-14T16:18:08.127877Z"
+                  "modified": "2026-10-01T02:17:49.208167Z"
                 },
                 {
                   "id": "ALPINE-CVE-2026-27171",
-                  "modified": "2026-09-14T16:18:08.138128Z"
+                  "modified": "2026-10-01T02:17:49.220129Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-85091",
+                  "modified": "2026-10-06T21:30:02.437029Z"
                 }
               ]
             }
@@ -52,7 +56,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "241"
+          - "313"
         Content-Type:
           - application/json
       status: 200 OK

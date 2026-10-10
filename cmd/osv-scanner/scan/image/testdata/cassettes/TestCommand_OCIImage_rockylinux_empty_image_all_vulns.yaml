@@ -1043,7 +1043,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 11571
+      content_length: 11769
       body: |
         {
           "results": [
@@ -1288,6 +1288,10 @@ interactions:
                 {
                   "id": "RLSA-2026:42952",
                   "modified": "2026-07-23T06:30:06.726596Z"
+                },
+                {
+                  "id": "RLSA-2026:79281",
+                  "modified": "2026-10-10T12:30:02.800749Z"
                 }
               ]
             },
@@ -1701,6 +1705,14 @@ interactions:
                 {
                   "id": "RLSA-2026:67165",
                   "modified": "2026-09-15T18:30:36.357804Z"
+                },
+                {
+                  "id": "RLSA-2026:76918",
+                  "modified": "2026-10-08T18:45:02.077539Z"
+                },
+                {
+                  "id": "RLSA-2026:77396",
+                  "modified": "2026-10-09T12:45:02.547320Z"
                 }
               ]
             },
@@ -1935,7 +1947,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "11571"
+          - "11769"
         Content-Type:
           - application/json
       status: 200 OK

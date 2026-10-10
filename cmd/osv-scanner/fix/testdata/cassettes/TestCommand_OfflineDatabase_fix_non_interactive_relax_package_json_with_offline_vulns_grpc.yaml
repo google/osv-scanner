@@ -3065,12 +3065,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-08-12T14:33:26Z",
               "versionKey": {
                 "name": "ansi-regex",
                 "system": "NPM",
                 "version": "6.3.0"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-09-27T03:34:44Z",
+              "versionKey": {
+                "name": "ansi-regex",
+                "system": "NPM",
+                "version": "6.4.0"
               }
             }
           ]
@@ -12585,12 +12593,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-05-05T17:34:49Z",
               "versionKey": {
                 "name": "is-core-module",
                 "system": "NPM",
                 "version": "2.16.2"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-09-17T04:34:25Z",
+              "versionKey": {
+                "name": "is-core-module",
+                "system": "NPM",
+                "version": "2.17.0"
               }
             },
             {
@@ -22729,12 +22745,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2025-01-07T09:15:38Z",
               "versionKey": {
                 "name": "readable-stream",
                 "system": "NPM",
                 "version": "4.7.0"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-10-08T08:21:05Z",
+              "versionKey": {
+                "name": "readable-stream",
+                "system": "NPM",
+                "version": "4.8.0"
               }
             }
           ]
@@ -24609,12 +24633,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-04-11T17:41:35Z",
               "versionKey": {
                 "name": "resolve",
                 "system": "NPM",
                 "version": "1.22.12"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-10-06T22:20:24Z",
+              "versionKey": {
+                "name": "resolve",
+                "system": "NPM",
+                "version": "1.22.13"
               }
             },
             {
@@ -28665,12 +28697,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-07-08T20:46:47Z",
               "versionKey": {
                 "name": "string-width",
                 "system": "NPM",
                 "version": "8.2.2"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-09-24T14:37:52Z",
+              "versionKey": {
+                "name": "string-width",
+                "system": "NPM",
+                "version": "8.3.0"
               }
             }
           ]
@@ -30343,12 +30383,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-08-18T18:21:56Z",
               "versionKey": {
                 "name": "uuid",
                 "system": "NPM",
                 "version": "14.0.2"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-10-10T00:30:19Z",
+              "versionKey": {
+                "name": "uuid",
+                "system": "NPM",
+                "version": "14.0.3"
               }
             },
             {
@@ -32942,7 +32990,7 @@ interactions:
           "versionKey": {
             "name": "is-core-module",
             "system": "NPM",
-            "version": "2.16.2"
+            "version": "2.17.0"
           }
         }
       response: |-
@@ -32952,33 +33000,53 @@ interactions:
               "dependencies": [
                 {
                   "name": "hasown",
-                  "requirement": "^2.0.3"
+                  "requirement": "^2.0.4"
                 }
               ],
               "devDependencies": [
                 {
+                  "name": "@arethetypeswrong/cli",
+                  "requirement": "^0.18.5"
+                },
+                {
                   "name": "@ljharb/eslint-config",
-                  "requirement": "^22.2.3"
+                  "requirement": "^22.2.4"
+                },
+                {
+                  "name": "@ljharb/tsconfig",
+                  "requirement": "^0.3.2"
+                },
+                {
+                  "name": "@types/node",
+                  "requirement": "^26.6.1"
+                },
+                {
+                  "name": "@types/object-keys",
+                  "requirement": "^1.0.3"
+                },
+                {
+                  "name": "@types/semver",
+                  "requirement": "^6.2.7"
                 },
                 {
                   "name": "auto-changelog",
-                  "requirement": "^2.5.0"
-                },
-                {
-                  "name": "encoding",
-                  "requirement": "^0.1.13"
+                  "requirement": "^2.6.1"
                 },
                 {
                   "name": "eslint",
-                  "requirement": "^8.57.1"
+                  "requirement": "^10.10.0"
                 },
                 {
                   "name": "in-publish",
                   "requirement": "^2.0.1"
                 },
                 {
+                  "name": "jiti",
+                  "requirement": "^0.0.0"
+                },
+                {
                   "name": "mock-property",
-                  "requirement": "^1.1.0"
+                  "requirement": "^1.1.2"
                 },
                 {
                   "name": "npmignore",
@@ -32987,6 +33055,10 @@ interactions:
                 {
                   "name": "nyc",
                   "requirement": "^10.3.2"
+                },
+                {
+                  "name": "object-keys",
+                  "requirement": "^1.1.1"
                 },
                 {
                   "name": "safe-publish-latest",
@@ -32998,7 +33070,11 @@ interactions:
                 },
                 {
                   "name": "tape",
-                  "requirement": "^5.9.0"
+                  "requirement": "^5.10.2"
+                },
+                {
+                  "name": "typescript",
+                  "requirement": "next"
                 }
               ]
             }
@@ -34334,7 +34410,7 @@ interactions:
           "versionKey": {
             "name": "resolve",
             "system": "NPM",
-            "version": "1.22.12"
+            "version": "1.22.13"
           }
         }
       response: |-
@@ -34348,7 +34424,7 @@ interactions:
                 },
                 {
                   "name": "is-core-module",
-                  "requirement": "^2.16.1"
+                  "requirement": "^2.17.0"
                 },
                 {
                   "name": "path-parse",
@@ -34362,7 +34438,7 @@ interactions:
               "devDependencies": [
                 {
                   "name": "@ljharb/eslint-config",
-                  "requirement": "^22.2.2"
+                  "requirement": "^22.2.5"
                 },
                 {
                   "name": "array.prototype.map",
@@ -34378,7 +34454,7 @@ interactions:
                 },
                 {
                   "name": "eslint",
-                  "requirement": "^9.39.1"
+                  "requirement": "^10.12.0"
                 },
                 {
                   "name": "in-publish",
@@ -34422,7 +34498,7 @@ interactions:
                 },
                 {
                   "name": "tape",
-                  "requirement": "^5.9.0"
+                  "requirement": "^5.10.2"
                 },
                 {
                   "name": "tmp",

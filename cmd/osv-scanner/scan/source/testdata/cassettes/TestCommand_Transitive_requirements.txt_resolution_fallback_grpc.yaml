@@ -4902,6 +4902,14 @@ interactions:
                 "system": "PYPI",
                 "version": "3.0.6"
               }
+            },
+            {
+              "publishedAt": "2026-09-30T13:56:43Z",
+              "versionKey": {
+                "name": "pandas",
+                "system": "PYPI",
+                "version": "3.1.0rc0"
+              }
             }
           ]
         }
@@ -9056,12 +9064,28 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-07-25T15:12:05Z",
               "versionKey": {
                 "name": "pytz",
                 "system": "PYPI",
                 "version": "2026.3.0.post1"
+              }
+            },
+            {
+              "publishedAt": "2026-09-24T03:58:38Z",
+              "versionKey": {
+                "name": "pytz",
+                "system": "PYPI",
+                "version": "2026.4.0"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-10-04T02:37:56Z",
+              "versionKey": {
+                "name": "pytz",
+                "system": "PYPI",
+                "version": "2026.5.0"
               }
             }
           ]
@@ -9984,12 +10008,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-04-02T18:49:12Z",
               "versionKey": {
                 "name": "werkzeug",
                 "system": "PYPI",
                 "version": "3.1.8"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-09-27T18:33:39Z",
+              "versionKey": {
+                "name": "werkzeug",
+                "system": "PYPI",
+                "version": "3.1.9"
               }
             }
           ]

@@ -137,8 +137,8 @@ Scanning local image tarball "testdata/test-alpine-sbom.tar"
 
 
 Container Scanning Result (Alpine Linux v3.10) (Based on "alpine" image):
-Total 2 packages affected by 4 known vulnerabilities (2 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-4 vulnerabilities can be fixed.
+Total 2 packages affected by 5 known vulnerabilities (2 Critical, 2 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
+5 vulnerabilities can be fixed.
 
 
 Alpine:v3.10
@@ -155,7 +155,7 @@ Alpine:v3.22
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| zlib    | 1.2.12-r1         | Fix Available |          3 | # 2 Layer        | --            |
+| zlib    | 1.2.12-r1         | Fix Available |          4 | # 2 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
@@ -251,8 +251,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 [TestCommand_ExplicitExtractors_WithoutDefaults/add_extractors - 1 - stdout]
 Scanning local image tarball "testdata/test-alpine-sbom.tar"
 
-Total 1 package affected by 3 known vulnerabilities (1 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-3 vulnerabilities can be fixed.
+Total 1 package affected by 4 known vulnerabilities (1 Critical, 2 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+4 vulnerabilities can be fixed.
 
 +---------------------------------------+------+--------------+---------+-----------+---------------+---------------------------------------------------+
 | OSV URL                               | CVSS | ECOSYSTEM    | PACKAGE | VERSION   | FIXED VERSION | SOURCE                                            |
@@ -260,6 +260,7 @@ Total 1 package affected by 3 known vulnerabilities (1 Critical, 1 High, 1 Mediu
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine:v3.22 | zlib    | 1.2.12-r1 | 1.2.12-r2     | data/alpine-zlib-16.cdx.json:lib/apk/db/installed |
 | https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine:v3.22 | zlib    | 1.2.12-r1 | 1.3.2-r0      | data/alpine-zlib-16.cdx.json:lib/apk/db/installed |
 | https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine:v3.22 | zlib    | 1.2.12-r1 | 1.3.2-r0      | data/alpine-zlib-16.cdx.json:lib/apk/db/installed |
+| https://osv.dev/ALPINE-CVE-2026-85091 | 8.3  | Alpine:v3.22 | zlib    | 1.2.12-r1 | 1.3.2-r1      | data/alpine-zlib-16.cdx.json:lib/apk/db/installed |
 +---------------------------------------+------+--------------+---------+-----------+---------------+---------------------------------------------------+
 
 ---
@@ -385,10 +386,18 @@ Filtered 47 ignored package/s from the scan.
 
 
 Container Scanning Result (Ubuntu 20.04.6 LTS) (Based on "google/ubuntu2004" image):
-Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+Total 1 package affected by 2 known vulnerabilities (0 Critical, 0 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 
+Ubuntu:20.04
++-------------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/var/lib/dpkg/status                                                                                                      |
++----------------+-------------------+------------------+------------+-------------------------+------------------+-------------------+
+| SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE    | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE     |
++----------------+-------------------+------------------+------------+-------------------------+------------------+-------------------+
+| dash           | 0.5.10.2-6        | No fix available |          2 | dash                    | # 4 Layer        | google/ubuntu2004 |
++----------------+-------------------+------------------+------------+-------------------------+------------------+-------------------+
 
 Hiding 1 number of vulnerabilities deemed unimportant, use --all-vulns to show them.
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
@@ -453,10 +462,18 @@ Filtered 47 ignored package/s from the scan.
 
 
 Container Scanning Result (Ubuntu 20.04.6 LTS) (Based on "google/ubuntu2004" image):
-Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+Total 1 package affected by 2 known vulnerabilities (0 Critical, 0 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 
+Ubuntu:20.04
++-------------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/var/lib/dpkg/status                                                                                                      |
++----------------+-------------------+------------------+------------+-------------------------+------------------+-------------------+
+| SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE    | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE     |
++----------------+-------------------+------------------+------------+-------------------------+------------------+-------------------+
+| dash           | 0.5.10.2-6        | No fix available |          2 | dash                    | # 4 Layer        | google/ubuntu2004 |
++----------------+-------------------+------------------+------------+-------------------------+------------------+-------------------+
 
 Filtered Vulnerabilities:
 +---------+--------------+--------------------+---------------------+----------------+
@@ -479,48 +496,49 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 31 packages affected by 99 known vulnerabilities (12 Critical, 35 High, 40 Medium, 7 Low, 5 Unknown) from 1 ecosystem.
-57 vulnerabilities can be fixed.
+Total 32 packages affected by 110 known vulnerabilities (12 Critical, 40 High, 44 Medium, 10 Low, 4 Unknown) from 1 ecosystem.
+58 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
-+---------------------------------------------------------------------------------------------------------------------------------------------------+
-| Source:os:/var/lib/dpkg/status                                                                                                                    |
-+----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
-| SOURCE PACKAGE | INSTALLED VERSION            | FIX AVAILABLE           | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
-+----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
-| acl            | 2.3.1-1                      | No fix available        |          2 | libacl1                 | # 4 Layer        | ubuntu        |
-| attr           | 1:2.5.1-1build1              | Fix Available           |          1 | libattr1                | # 4 Layer        | ubuntu        |
-| bzip2          | 1.0.8-5build1                | Fix Available           |          1 | libbz2-1.0              | # 4 Layer        | ubuntu        |
-| coreutils      | 8.32-4.1ubuntu1.2            | Partial fixes Available |          2 | coreutils               | # 4 Layer        | ubuntu        |
-| diffutils      | 1:3.8-0ubuntu2               | Fix Available           |          1 | diffutils               | # 4 Layer        | ubuntu        |
-| dpkg           | 1.21.1ubuntu2.3              | Fix Available           |          1 | dpkg                    | # 4 Layer        | ubuntu        |
-| gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
-| glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |          8 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
-| gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          4 | gpgv                    | # 4 Layer        | ubuntu        |
-| gnutls28       | 3.7.3-4ubuntu1.5             | Fix Available           |          4 | libgnutls30             | # 4 Layer        | ubuntu        |
-| gzip           | 1.10-4ubuntu4.1              | Fix Available           |          1 | gzip                    | # 4 Layer        | ubuntu        |
-| krb5           | 1.19.2-2ubuntu0.4            | Fix Available           |          3 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
-| libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          2 | libcap2                 | # 4 Layer        | ubuntu        |
-| libgcrypt20    | 1.9.4-3ubuntu3               | Fix Available           |          2 | libgcrypt20             | # 4 Layer        | ubuntu        |
-| libtasn1-6     | 4.18.0-4build1               | Fix Available           |          2 | libtasn1-6              | # 4 Layer        | ubuntu        |
-| libzstd        | 1.4.8+dfsg-3build1           | No fix available        |          1 | libzstd1                | # 4 Layer        | ubuntu        |
-| lz4            | 1.9.3-2build2                | No fix available        |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
-| ncurses        | 6.3-2ubuntu0.1               | Partial fixes Available |          3 | libncurses6... (5)      | # 4 Layer        | ubuntu        |
-| openssl        | 3.0.2-0ubuntu1.18            | Fix Available           |          7 | libssl3                 | # 4 Layer        | ubuntu        |
-| p11-kit        | 0.24.0-6build1               | Fix Available           |          1 | libp11-kit0             | # 4 Layer        | ubuntu        |
-| pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          4 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
-| pcre2          | 10.39-3ubuntu0.1             | No fix available        |          8 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
-| perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |         14 | perl-base               | # 4 Layer        | ubuntu        |
-| sed            | 4.8-1ubuntu2                 | Fix Available           |          1 | sed                     | # 4 Layer        | ubuntu        |
-| shadow         | 1:4.8.1-2ubuntu2.2           | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
-| systemd        | 249.11-0ubuntu3.12           | Partial fixes Available |          5 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
-| tar            | 1.34+dfsg-1ubuntu0.1.22.04.2 | Partial fixes Available |          4 | tar                     | # 4 Layer        | ubuntu        |
-| util-linux     | 1:2.37.2-4ubuntu3.4          | No fix available        |          4 | bsdutils                | # 4 Layer        | ubuntu        |
-| util-linux     | 2.37.2-4ubuntu3.4            | Partial fixes Available |          6 | libblkid1... (6)        | # 4 Layer        | ubuntu        |
-| xz-utils       | 5.2.5-2ubuntu1               | Fix Available           |          1 | liblzma5                | # 4 Layer        | ubuntu        |
-| zlib           | 1:1.2.11.dfsg-2ubuntu9.2     | No fix available        |          1 | zlib1g                  | # 4 Layer        | ubuntu        |
-+----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/var/lib/dpkg/status                                                                                                                               |
++----------------+-----------------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION                       | FIX AVAILABLE           | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+-----------------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
+| acl            | 2.3.1-1                                 | No fix available        |          2 | libacl1                 | # 4 Layer        | ubuntu        |
+| attr           | 1:2.5.1-1build1                         | Fix Available           |          1 | libattr1                | # 4 Layer        | ubuntu        |
+| bzip2          | 1.0.8-5build1                           | Fix Available           |          1 | libbz2-1.0              | # 4 Layer        | ubuntu        |
+| coreutils      | 8.32-4.1ubuntu1.2                       | Partial fixes Available |          2 | coreutils               | # 4 Layer        | ubuntu        |
+| dash           | 0.5.11+git20210903+057cd650a4ed-3build1 | No fix available        |          2 | dash                    | # 4 Layer        | ubuntu        |
+| diffutils      | 1:3.8-0ubuntu2                          | Fix Available           |          1 | diffutils               | # 4 Layer        | ubuntu        |
+| dpkg           | 1.21.1ubuntu2.3                         | Fix Available           |          1 | dpkg                    | # 4 Layer        | ubuntu        |
+| gcc-12         | 12.3.0-1ubuntu1~22.04                   | Partial fixes Available |          4 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
+| glibc          | 2.35-0ubuntu3.8                         | Partial fixes Available |         11 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
+| gnupg2         | 2.2.27-3ubuntu2.1                       | Partial fixes Available |          5 | gpgv                    | # 4 Layer        | ubuntu        |
+| gnutls28       | 3.7.3-4ubuntu1.5                        | Fix Available           |          4 | libgnutls30             | # 4 Layer        | ubuntu        |
+| gzip           | 1.10-4ubuntu4.1                         | Fix Available           |          1 | gzip                    | # 4 Layer        | ubuntu        |
+| krb5           | 1.19.2-2ubuntu0.4                       | Fix Available           |          3 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
+| libcap2        | 1:2.44-1ubuntu0.22.04.1                 | Fix Available           |          2 | libcap2                 | # 4 Layer        | ubuntu        |
+| libgcrypt20    | 1.9.4-3ubuntu3                          | Fix Available           |          2 | libgcrypt20             | # 4 Layer        | ubuntu        |
+| libtasn1-6     | 4.18.0-4build1                          | Fix Available           |          2 | libtasn1-6              | # 4 Layer        | ubuntu        |
+| libzstd        | 1.4.8+dfsg-3build1                      | No fix available        |          1 | libzstd1                | # 4 Layer        | ubuntu        |
+| lz4            | 1.9.3-2build2                           | No fix available        |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
+| ncurses        | 6.3-2ubuntu0.1                          | Partial fixes Available |          3 | libncurses6... (5)      | # 4 Layer        | ubuntu        |
+| openssl        | 3.0.2-0ubuntu1.18                       | Fix Available           |          8 | libssl3                 | # 4 Layer        | ubuntu        |
+| p11-kit        | 0.24.0-6build1                          | Fix Available           |          1 | libp11-kit0             | # 4 Layer        | ubuntu        |
+| pam            | 1.4.0-11ubuntu2.5                       | Partial fixes Available |          4 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
+| pcre2          | 10.39-3ubuntu0.1                        | No fix available        |          9 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
+| perl           | 5.34.0-3ubuntu1.3                       | Partial fixes Available |         15 | perl-base               | # 4 Layer        | ubuntu        |
+| sed            | 4.8-1ubuntu2                            | Fix Available           |          1 | sed                     | # 4 Layer        | ubuntu        |
+| shadow         | 1:4.8.1-2ubuntu2.2                      | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
+| systemd        | 249.11-0ubuntu3.12                      | Partial fixes Available |          5 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
+| tar            | 1.34+dfsg-1ubuntu0.1.22.04.2            | Partial fixes Available |          4 | tar                     | # 4 Layer        | ubuntu        |
+| util-linux     | 1:2.37.2-4ubuntu3.4                     | No fix available        |          4 | bsdutils                | # 4 Layer        | ubuntu        |
+| util-linux     | 2.37.2-4ubuntu3.4                       | Partial fixes Available |          6 | libblkid1... (6)        | # 4 Layer        | ubuntu        |
+| xz-utils       | 5.2.5-2ubuntu1                          | Fix Available           |          1 | liblzma5                | # 4 Layer        | ubuntu        |
+| zlib           | 1:1.2.11.dfsg-2ubuntu9.2                | No fix available        |          1 | zlib1g                  | # 4 Layer        | ubuntu        |
++----------------+-----------------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
 
 Hiding 5 number of vulnerabilities deemed unimportant, use --all-vulns to show them.
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
@@ -537,48 +555,49 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 31 packages affected by 99 known vulnerabilities (12 Critical, 35 High, 40 Medium, 7 Low, 5 Unknown) from 1 ecosystem.
-57 vulnerabilities can be fixed.
+Total 32 packages affected by 110 known vulnerabilities (12 Critical, 40 High, 44 Medium, 10 Low, 4 Unknown) from 1 ecosystem.
+58 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
-+---------------------------------------------------------------------------------------------------------------------------------------------------+
-| Source:os:/var/lib/dpkg/status                                                                                                                    |
-+----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
-| SOURCE PACKAGE | INSTALLED VERSION            | FIX AVAILABLE           | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
-+----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
-| acl            | 2.3.1-1                      | No fix available        |          2 | libacl1                 | # 4 Layer        | ubuntu        |
-| attr           | 1:2.5.1-1build1              | Fix Available           |          1 | libattr1                | # 4 Layer        | ubuntu        |
-| bzip2          | 1.0.8-5build1                | Fix Available           |          1 | libbz2-1.0              | # 4 Layer        | ubuntu        |
-| coreutils      | 8.32-4.1ubuntu1.2            | Partial fixes Available |          2 | coreutils               | # 4 Layer        | ubuntu        |
-| diffutils      | 1:3.8-0ubuntu2               | Fix Available           |          1 | diffutils               | # 4 Layer        | ubuntu        |
-| dpkg           | 1.21.1ubuntu2.3              | Fix Available           |          1 | dpkg                    | # 4 Layer        | ubuntu        |
-| gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
-| glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |          8 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
-| gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          4 | gpgv                    | # 4 Layer        | ubuntu        |
-| gnutls28       | 3.7.3-4ubuntu1.5             | Fix Available           |          4 | libgnutls30             | # 4 Layer        | ubuntu        |
-| gzip           | 1.10-4ubuntu4.1              | Fix Available           |          1 | gzip                    | # 4 Layer        | ubuntu        |
-| krb5           | 1.19.2-2ubuntu0.4            | Fix Available           |          3 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
-| libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          2 | libcap2                 | # 4 Layer        | ubuntu        |
-| libgcrypt20    | 1.9.4-3ubuntu3               | Fix Available           |          2 | libgcrypt20             | # 4 Layer        | ubuntu        |
-| libtasn1-6     | 4.18.0-4build1               | Fix Available           |          2 | libtasn1-6              | # 4 Layer        | ubuntu        |
-| libzstd        | 1.4.8+dfsg-3build1           | No fix available        |          1 | libzstd1                | # 4 Layer        | ubuntu        |
-| lz4            | 1.9.3-2build2                | No fix available        |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
-| ncurses        | 6.3-2ubuntu0.1               | Partial fixes Available |          3 | libncurses6... (5)      | # 4 Layer        | ubuntu        |
-| openssl        | 3.0.2-0ubuntu1.18            | Fix Available           |          7 | libssl3                 | # 4 Layer        | ubuntu        |
-| p11-kit        | 0.24.0-6build1               | Fix Available           |          1 | libp11-kit0             | # 4 Layer        | ubuntu        |
-| pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          4 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
-| pcre2          | 10.39-3ubuntu0.1             | No fix available        |          8 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
-| perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |         14 | perl-base               | # 4 Layer        | ubuntu        |
-| sed            | 4.8-1ubuntu2                 | Fix Available           |          1 | sed                     | # 4 Layer        | ubuntu        |
-| shadow         | 1:4.8.1-2ubuntu2.2           | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
-| systemd        | 249.11-0ubuntu3.12           | Partial fixes Available |          5 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
-| tar            | 1.34+dfsg-1ubuntu0.1.22.04.2 | Partial fixes Available |          4 | tar                     | # 4 Layer        | ubuntu        |
-| util-linux     | 1:2.37.2-4ubuntu3.4          | No fix available        |          4 | bsdutils                | # 4 Layer        | ubuntu        |
-| util-linux     | 2.37.2-4ubuntu3.4            | Partial fixes Available |          6 | libblkid1... (6)        | # 4 Layer        | ubuntu        |
-| xz-utils       | 5.2.5-2ubuntu1               | Fix Available           |          1 | liblzma5                | # 4 Layer        | ubuntu        |
-| zlib           | 1:1.2.11.dfsg-2ubuntu9.2     | No fix available        |          1 | zlib1g                  | # 4 Layer        | ubuntu        |
-+----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/var/lib/dpkg/status                                                                                                                               |
++----------------+-----------------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION                       | FIX AVAILABLE           | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+-----------------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
+| acl            | 2.3.1-1                                 | No fix available        |          2 | libacl1                 | # 4 Layer        | ubuntu        |
+| attr           | 1:2.5.1-1build1                         | Fix Available           |          1 | libattr1                | # 4 Layer        | ubuntu        |
+| bzip2          | 1.0.8-5build1                           | Fix Available           |          1 | libbz2-1.0              | # 4 Layer        | ubuntu        |
+| coreutils      | 8.32-4.1ubuntu1.2                       | Partial fixes Available |          2 | coreutils               | # 4 Layer        | ubuntu        |
+| dash           | 0.5.11+git20210903+057cd650a4ed-3build1 | No fix available        |          2 | dash                    | # 4 Layer        | ubuntu        |
+| diffutils      | 1:3.8-0ubuntu2                          | Fix Available           |          1 | diffutils               | # 4 Layer        | ubuntu        |
+| dpkg           | 1.21.1ubuntu2.3                         | Fix Available           |          1 | dpkg                    | # 4 Layer        | ubuntu        |
+| gcc-12         | 12.3.0-1ubuntu1~22.04                   | Partial fixes Available |          4 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
+| glibc          | 2.35-0ubuntu3.8                         | Partial fixes Available |         11 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
+| gnupg2         | 2.2.27-3ubuntu2.1                       | Partial fixes Available |          5 | gpgv                    | # 4 Layer        | ubuntu        |
+| gnutls28       | 3.7.3-4ubuntu1.5                        | Fix Available           |          4 | libgnutls30             | # 4 Layer        | ubuntu        |
+| gzip           | 1.10-4ubuntu4.1                         | Fix Available           |          1 | gzip                    | # 4 Layer        | ubuntu        |
+| krb5           | 1.19.2-2ubuntu0.4                       | Fix Available           |          3 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
+| libcap2        | 1:2.44-1ubuntu0.22.04.1                 | Fix Available           |          2 | libcap2                 | # 4 Layer        | ubuntu        |
+| libgcrypt20    | 1.9.4-3ubuntu3                          | Fix Available           |          2 | libgcrypt20             | # 4 Layer        | ubuntu        |
+| libtasn1-6     | 4.18.0-4build1                          | Fix Available           |          2 | libtasn1-6              | # 4 Layer        | ubuntu        |
+| libzstd        | 1.4.8+dfsg-3build1                      | No fix available        |          1 | libzstd1                | # 4 Layer        | ubuntu        |
+| lz4            | 1.9.3-2build2                           | No fix available        |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
+| ncurses        | 6.3-2ubuntu0.1                          | Partial fixes Available |          3 | libncurses6... (5)      | # 4 Layer        | ubuntu        |
+| openssl        | 3.0.2-0ubuntu1.18                       | Fix Available           |          8 | libssl3                 | # 4 Layer        | ubuntu        |
+| p11-kit        | 0.24.0-6build1                          | Fix Available           |          1 | libp11-kit0             | # 4 Layer        | ubuntu        |
+| pam            | 1.4.0-11ubuntu2.5                       | Partial fixes Available |          4 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
+| pcre2          | 10.39-3ubuntu0.1                        | No fix available        |          9 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
+| perl           | 5.34.0-3ubuntu1.3                       | Partial fixes Available |         15 | perl-base               | # 4 Layer        | ubuntu        |
+| sed            | 4.8-1ubuntu2                            | Fix Available           |          1 | sed                     | # 4 Layer        | ubuntu        |
+| shadow         | 1:4.8.1-2ubuntu2.2                      | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
+| systemd        | 249.11-0ubuntu3.12                      | Partial fixes Available |          5 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
+| tar            | 1.34+dfsg-1ubuntu0.1.22.04.2            | Partial fixes Available |          4 | tar                     | # 4 Layer        | ubuntu        |
+| util-linux     | 1:2.37.2-4ubuntu3.4                     | No fix available        |          4 | bsdutils                | # 4 Layer        | ubuntu        |
+| util-linux     | 2.37.2-4ubuntu3.4                       | Partial fixes Available |          6 | libblkid1... (6)        | # 4 Layer        | ubuntu        |
+| xz-utils       | 5.2.5-2ubuntu1                          | Fix Available           |          1 | liblzma5                | # 4 Layer        | ubuntu        |
+| zlib           | 1:1.2.11.dfsg-2ubuntu9.2                | No fix available        |          1 | zlib1g                  | # 4 Layer        | ubuntu        |
++----------------+-----------------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
 
 Filtered Vulnerabilities:
 +---------+--------------+--------------------------+---------------------+----------------+
@@ -614,8 +633,8 @@ Scanning local image tarball "./testdata/test-almalinux-9.tar"
 
 
 Container Scanning Result (AlmaLinux 9.0 (Emerald Puma)) (Based on "almalinux" image):
-Total 77 packages affected by 330 known vulnerabilities (0 Critical, 4 High, 6 Medium, 1 Low, 319 Unknown) from 2 ecosystems.
-330 vulnerabilities can be fixed.
+Total 77 packages affected by 336 known vulnerabilities (0 Critical, 4 High, 6 Medium, 1 Low, 325 Unknown) from 2 ecosystems.
+336 vulnerabilities can be fixed.
 
 
 AlmaLinux:9
@@ -638,9 +657,9 @@ AlmaLinux:9
 | file-libs                | 5.39-8.el9            | Fix Available |          1 | file-libs                   | # 0 Layer        | almalinux     |
 | gawk                     | 5.1.0-6.el9           | Fix Available |          1 | gawk                        | # 0 Layer        | almalinux     |
 | glib2                    | 2.68.4-5.el9          | Fix Available |          9 | glib2                       | # 0 Layer        | almalinux     |
-| glibc                    | 2.34-28.el9_0.2       | Fix Available |          9 | glibc                       | # 0 Layer        | almalinux     |
-| glibc-common             | 2.34-28.el9_0.2       | Fix Available |          9 | glibc-common                | # 0 Layer        | almalinux     |
-| glibc-minimal-langpack   | 2.34-28.el9_0.2       | Fix Available |          9 | glibc-minimal-langpa... (1) | # 0 Layer        | almalinux     |
+| glibc                    | 2.34-28.el9_0.2       | Fix Available |         10 | glibc                       | # 0 Layer        | almalinux     |
+| glibc-common             | 2.34-28.el9_0.2       | Fix Available |         10 | glibc-common                | # 0 Layer        | almalinux     |
+| glibc-minimal-langpack   | 2.34-28.el9_0.2       | Fix Available |         10 | glibc-minimal-langpa... (1) | # 0 Layer        | almalinux     |
 | gmp                      | 1:6.2.0-10.el9        | Fix Available |          1 | gmp                         | # 0 Layer        | almalinux     |
 | gnupg2                   | 2.3.3-2.el9_0         | Fix Available |          1 | gnupg2                      | # 0 Layer        | almalinux     |
 | gnutls                   | 3.7.6-12.el9_0        | Fix Available |          8 | gnutls                      | # 0 Layer        | almalinux     |
@@ -673,8 +692,8 @@ AlmaLinux:9
 | lua-libs                 | 5.4.2-4.el9           | Fix Available |          3 | lua-libs                    | # 0 Layer        | almalinux     |
 | ncurses-base             | 6.2-8.20210508.el9    | Fix Available |          1 | ncurses-base                | # 0 Layer        | almalinux     |
 | ncurses-libs             | 6.2-8.20210508.el9    | Fix Available |          1 | ncurses-libs                | # 0 Layer        | almalinux     |
-| openssl                  | 1:3.0.1-43.el9_0      | Fix Available |         14 | openssl                     | # 0 Layer        | almalinux     |
-| openssl-libs             | 1:3.0.1-43.el9_0      | Fix Available |         14 | openssl-libs                | # 0 Layer        | almalinux     |
+| openssl                  | 1:3.0.1-43.el9_0      | Fix Available |         15 | openssl                     | # 0 Layer        | almalinux     |
+| openssl-libs             | 1:3.0.1-43.el9_0      | Fix Available |         15 | openssl-libs                | # 0 Layer        | almalinux     |
 | p11-kit                  | 0.24.1-2.el9          | Fix Available |          2 | p11-kit                     | # 0 Layer        | almalinux     |
 | p11-kit-trust            | 0.24.1-2.el9          | Fix Available |          2 | p11-kit-trust               | # 0 Layer        | almalinux     |
 | pam                      | 1.5.1-9.el9_0.1       | Fix Available |          6 | pam                         | # 0 Layer        | almalinux     |
@@ -697,7 +716,7 @@ AlmaLinux:9
 | tpm2-tss                 | 3.0.3-7.el9           | Fix Available |          1 | tpm2-tss                    | # 0 Layer        | almalinux     |
 | util-linux               | 2.37.4-3.el9          | Fix Available |          1 | util-linux                  | # 0 Layer        | almalinux     |
 | util-linux-core          | 2.37.4-3.el9          | Fix Available |          1 | util-linux-core             | # 0 Layer        | almalinux     |
-| vim-minimal              | 2:8.2.2637-16.el9_0.3 | Fix Available |         14 | vim-minimal                 | # 0 Layer        | almalinux     |
+| vim-minimal              | 2:8.2.2637-16.el9_0.3 | Fix Available |         15 | vim-minimal                 | # 0 Layer        | almalinux     |
 | zlib                     | 1.2.11-31.el9_0.1     | Fix Available |          1 | zlib                        | # 0 Layer        | almalinux     |
 +--------------------------+-----------------------+---------------+------------+-----------------------------+------------------+---------------+
 PyPI
@@ -730,49 +749,50 @@ Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 32 packages affected by 101 known vulnerabilities (12 Critical, 37 High, 40 Medium, 7 Low, 5 Unknown) from 1 ecosystem.
-57 vulnerabilities can be fixed.
+Total 33 packages affected by 112 known vulnerabilities (12 Critical, 42 High, 44 Medium, 10 Low, 4 Unknown) from 1 ecosystem.
+58 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
-+---------------------------------------------------------------------------------------------------------------------------------------------------+
-| Source:os:/var/lib/dpkg/status                                                                                                                    |
-+----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
-| SOURCE PACKAGE | INSTALLED VERSION            | FIX AVAILABLE           | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
-+----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
-| acl            | 2.3.1-1                      | No fix available        |          2 | libacl1                 | # 4 Layer        | ubuntu        |
-| attr           | 1:2.5.1-1build1              | Fix Available           |          1 | libattr1                | # 4 Layer        | ubuntu        |
-| bzip2          | 1.0.8-5build1                | Fix Available           |          1 | libbz2-1.0              | # 4 Layer        | ubuntu        |
-| coreutils      | 8.32-4.1ubuntu1.2            | Partial fixes Available |          2 | coreutils               | # 4 Layer        | ubuntu        |
-| diffutils      | 1:3.8-0ubuntu2               | Fix Available           |          1 | diffutils               | # 4 Layer        | ubuntu        |
-| dpkg           | 1.21.1ubuntu2.3              | Fix Available           |          1 | dpkg                    | # 4 Layer        | ubuntu        |
-| fzf            | 0.29.0-1ubuntu0.1            | No fix available        |          2 | fzf                     | # 7 Layer        | --            |
-| gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
-| glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |          8 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
-| gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          4 | gpgv                    | # 4 Layer        | ubuntu        |
-| gnutls28       | 3.7.3-4ubuntu1.5             | Fix Available           |          4 | libgnutls30             | # 4 Layer        | ubuntu        |
-| gzip           | 1.10-4ubuntu4.1              | Fix Available           |          1 | gzip                    | # 4 Layer        | ubuntu        |
-| krb5           | 1.19.2-2ubuntu0.4            | Fix Available           |          3 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
-| libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          2 | libcap2                 | # 4 Layer        | ubuntu        |
-| libgcrypt20    | 1.9.4-3ubuntu3               | Fix Available           |          2 | libgcrypt20             | # 4 Layer        | ubuntu        |
-| libtasn1-6     | 4.18.0-4build1               | Fix Available           |          2 | libtasn1-6              | # 4 Layer        | ubuntu        |
-| libzstd        | 1.4.8+dfsg-3build1           | No fix available        |          1 | libzstd1                | # 4 Layer        | ubuntu        |
-| lz4            | 1.9.3-2build2                | No fix available        |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
-| ncurses        | 6.3-2ubuntu0.1               | Partial fixes Available |          3 | libncurses6... (5)      | # 4 Layer        | ubuntu        |
-| openssl        | 3.0.2-0ubuntu1.18            | Fix Available           |          7 | libssl3                 | # 4 Layer        | ubuntu        |
-| p11-kit        | 0.24.0-6build1               | Fix Available           |          1 | libp11-kit0             | # 4 Layer        | ubuntu        |
-| pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          4 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
-| pcre2          | 10.39-3ubuntu0.1             | No fix available        |          8 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
-| perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |         14 | perl-base               | # 4 Layer        | ubuntu        |
-| sed            | 4.8-1ubuntu2                 | Fix Available           |          1 | sed                     | # 4 Layer        | ubuntu        |
-| shadow         | 1:4.8.1-2ubuntu2.2           | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
-| systemd        | 249.11-0ubuntu3.12           | Partial fixes Available |          5 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
-| tar            | 1.34+dfsg-1ubuntu0.1.22.04.2 | Partial fixes Available |          4 | tar                     | # 4 Layer        | ubuntu        |
-| util-linux     | 1:2.37.2-4ubuntu3.4          | No fix available        |          4 | bsdutils                | # 4 Layer        | ubuntu        |
-| util-linux     | 2.37.2-4ubuntu3.4            | Partial fixes Available |          6 | libblkid1... (6)        | # 4 Layer        | ubuntu        |
-| xz-utils       | 5.2.5-2ubuntu1               | Fix Available           |          1 | liblzma5                | # 4 Layer        | ubuntu        |
-| zlib           | 1:1.2.11.dfsg-2ubuntu9.2     | No fix available        |          1 | zlib1g                  | # 4 Layer        | ubuntu        |
-+----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/var/lib/dpkg/status                                                                                                                               |
++----------------+-----------------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION                       | FIX AVAILABLE           | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+-----------------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
+| acl            | 2.3.1-1                                 | No fix available        |          2 | libacl1                 | # 4 Layer        | ubuntu        |
+| attr           | 1:2.5.1-1build1                         | Fix Available           |          1 | libattr1                | # 4 Layer        | ubuntu        |
+| bzip2          | 1.0.8-5build1                           | Fix Available           |          1 | libbz2-1.0              | # 4 Layer        | ubuntu        |
+| coreutils      | 8.32-4.1ubuntu1.2                       | Partial fixes Available |          2 | coreutils               | # 4 Layer        | ubuntu        |
+| dash           | 0.5.11+git20210903+057cd650a4ed-3build1 | No fix available        |          2 | dash                    | # 4 Layer        | ubuntu        |
+| diffutils      | 1:3.8-0ubuntu2                          | Fix Available           |          1 | diffutils               | # 4 Layer        | ubuntu        |
+| dpkg           | 1.21.1ubuntu2.3                         | Fix Available           |          1 | dpkg                    | # 4 Layer        | ubuntu        |
+| fzf            | 0.29.0-1ubuntu0.1                       | No fix available        |          2 | fzf                     | # 7 Layer        | --            |
+| gcc-12         | 12.3.0-1ubuntu1~22.04                   | Partial fixes Available |          4 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
+| glibc          | 2.35-0ubuntu3.8                         | Partial fixes Available |         11 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
+| gnupg2         | 2.2.27-3ubuntu2.1                       | Partial fixes Available |          5 | gpgv                    | # 4 Layer        | ubuntu        |
+| gnutls28       | 3.7.3-4ubuntu1.5                        | Fix Available           |          4 | libgnutls30             | # 4 Layer        | ubuntu        |
+| gzip           | 1.10-4ubuntu4.1                         | Fix Available           |          1 | gzip                    | # 4 Layer        | ubuntu        |
+| krb5           | 1.19.2-2ubuntu0.4                       | Fix Available           |          3 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
+| libcap2        | 1:2.44-1ubuntu0.22.04.1                 | Fix Available           |          2 | libcap2                 | # 4 Layer        | ubuntu        |
+| libgcrypt20    | 1.9.4-3ubuntu3                          | Fix Available           |          2 | libgcrypt20             | # 4 Layer        | ubuntu        |
+| libtasn1-6     | 4.18.0-4build1                          | Fix Available           |          2 | libtasn1-6              | # 4 Layer        | ubuntu        |
+| libzstd        | 1.4.8+dfsg-3build1                      | No fix available        |          1 | libzstd1                | # 4 Layer        | ubuntu        |
+| lz4            | 1.9.3-2build2                           | No fix available        |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
+| ncurses        | 6.3-2ubuntu0.1                          | Partial fixes Available |          3 | libncurses6... (5)      | # 4 Layer        | ubuntu        |
+| openssl        | 3.0.2-0ubuntu1.18                       | Fix Available           |          8 | libssl3                 | # 4 Layer        | ubuntu        |
+| p11-kit        | 0.24.0-6build1                          | Fix Available           |          1 | libp11-kit0             | # 4 Layer        | ubuntu        |
+| pam            | 1.4.0-11ubuntu2.5                       | Partial fixes Available |          4 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
+| pcre2          | 10.39-3ubuntu0.1                        | No fix available        |          9 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
+| perl           | 5.34.0-3ubuntu1.3                       | Partial fixes Available |         15 | perl-base               | # 4 Layer        | ubuntu        |
+| sed            | 4.8-1ubuntu2                            | Fix Available           |          1 | sed                     | # 4 Layer        | ubuntu        |
+| shadow         | 1:4.8.1-2ubuntu2.2                      | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
+| systemd        | 249.11-0ubuntu3.12                      | Partial fixes Available |          5 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
+| tar            | 1.34+dfsg-1ubuntu0.1.22.04.2            | Partial fixes Available |          4 | tar                     | # 4 Layer        | ubuntu        |
+| util-linux     | 1:2.37.2-4ubuntu3.4                     | No fix available        |          4 | bsdutils                | # 4 Layer        | ubuntu        |
+| util-linux     | 2.37.2-4ubuntu3.4                       | Partial fixes Available |          6 | libblkid1... (6)        | # 4 Layer        | ubuntu        |
+| xz-utils       | 5.2.5-2ubuntu1                          | Fix Available           |          1 | liblzma5                | # 4 Layer        | ubuntu        |
+| zlib           | 1:1.2.11.dfsg-2ubuntu9.2                | No fix available        |          1 | zlib1g                  | # 4 Layer        | ubuntu        |
++----------------+-----------------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
 
 Hiding 5 number of vulnerabilities deemed unimportant, use --all-vulns to show them.
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
@@ -789,8 +809,8 @@ Scanning local image tarball "./testdata/test-java-full.tar"
 
 
 Container Scanning Result (Alpine Linux v3.21) (Based on "eclipse-temurin" image):
-Total 42 packages affected by 198 known vulnerabilities (8 Critical, 95 High, 85 Medium, 9 Low, 1 Unknown) from 2 ecosystems.
-198 vulnerabilities can be fixed.
+Total 44 packages affected by 215 known vulnerabilities (8 Critical, 103 High, 92 Medium, 11 Low, 1 Unknown) from 2 ecosystems.
+215 vulnerabilities can be fixed.
 
 
 Maven
@@ -799,8 +819,8 @@ Maven
 +---------------------------------------------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE                                     | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------------------------------------------+-------------------+---------------+------------+------------------+---------------+
-| com.fasterxml.jackson.core:jackson-core     | 2.10.2            | Fix Available |          3 | # 12 Layer       | --            |
-| com.fasterxml.jackson.core:jackson-databind | 2.12.7.1          | Fix Available |          5 | # 12 Layer       | --            |
+| com.fasterxml.jackson.core:jackson-core     | 2.10.2            | Fix Available |          4 | # 12 Layer       | --            |
+| com.fasterxml.jackson.core:jackson-databind | 2.12.7.1          | Fix Available |         10 | # 12 Layer       | --            |
 | com.google.protobuf:protobuf-java           | 3.21.12           | Fix Available |          1 | # 12 Layer       | --            |
 | com.nimbusds:nimbus-jose-jwt                | 9.31              | Fix Available |          2 | # 12 Layer       | --            |
 | commons-beanutils:commons-beanutils         | 1.9.4             | Fix Available |          1 | # 12 Layer       | --            |
@@ -829,6 +849,8 @@ Maven
 | org.apache.commons:commons-lang3            | 3.12.0            | Fix Available |          1 | # 12 Layer       | --            |
 | org.eclipse.jetty:jetty-http                | 9.4.53.v20231009  | Fix Available |          3 | # 12 Layer       | --            |
 | org.eclipse.jetty:jetty-security            | 9.4.53.v20231009  | Fix Available |          1 | # 12 Layer       | --            |
+| org.jline:jline-builtins                    | 3.9.0             | Fix Available |          2 | # 12 Layer       | --            |
+| org.jline:jline-reader                      | 3.9.0             | Fix Available |          1 | # 12 Layer       | --            |
 | org.jline:jline-remote-telnet               | 3.9.0             | Fix Available |          2 | # 12 Layer       | --            |
 +---------------------------------------------+-------------------+---------------+------------+------------------+---------------+
 Alpine:v3.21
@@ -841,13 +863,13 @@ Alpine:v3.21
 | expat          | 2.6.4-r0          | Fix Available |         26 | libexpat                   | # 5 Layer        | eclipse-temurin |
 | gnupg          | 2.4.7-r0          | Fix Available |          2 | gnupg... (11)              | # 5 Layer        | eclipse-temurin |
 | gnutls         | 3.8.8-r0          | Fix Available |         21 | gnutls                     | # 5 Layer        | eclipse-temurin |
-| libpng         | 1.6.44-r0         | Fix Available |         10 | libpng                     | # 5 Layer        | eclipse-temurin |
+| libpng         | 1.6.44-r0         | Fix Available |         11 | libpng                     | # 5 Layer        | eclipse-temurin |
 | libtasn1       | 4.19.0-r2         | Fix Available |          2 | libtasn1                   | # 5 Layer        | eclipse-temurin |
 | musl           | 1.2.5-r8          | Fix Available |          3 | musl, musl-utils           | # 0 Layer        | alpine          |
-| openssl        | 3.3.2-r4          | Fix Available |         31 | libcrypto3, libssl3... (3) | # 0 Layer        | alpine          |
+| openssl        | 3.3.2-r4          | Fix Available |         37 | libcrypto3, libssl3... (3) | # 0 Layer        | alpine          |
 | p11-kit        | 0.25.5-r2         | Fix Available |          1 | p11-kit... (2)             | # 5 Layer        | eclipse-temurin |
 | sqlite         | 3.47.1-r0         | Fix Available |          4 | sqlite-libs                | # 5 Layer        | eclipse-temurin |
-| zlib           | 1.3.1-r2          | Fix Available |          2 | zlib                       | # 0 Layer        | alpine          |
+| zlib           | 1.3.1-r2          | Fix Available |          3 | zlib                       | # 0 Layer        | alpine          |
 +----------------+-------------------+---------------+------------+----------------------------+------------------+-----------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
@@ -964,8 +986,8 @@ Scanning local image tarball "./testdata/test-python-full.tar"
 
 
 Container Scanning Result (Debian GNU/Linux 10 (buster)) (Based on "python" image):
-Total 22 packages affected by 73 known vulnerabilities (1 Critical, 22 High, 30 Medium, 6 Low, 14 Unknown) from 2 ecosystems.
-73 vulnerabilities can be fixed.
+Total 21 packages affected by 75 known vulnerabilities (1 Critical, 23 High, 31 Medium, 6 Low, 14 Unknown) from 2 ecosystems.
+75 vulnerabilities can be fixed.
 
 
 PyPI
@@ -988,7 +1010,7 @@ PyPI
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| django  | 1.11.29           | Fix Available |         14 | # 17 Layer       | --            |
+| django  | 1.11.29           | Fix Available |         15 | # 17 Layer       | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/local/lib/python3.9/site-packages/Flask-0.12.2.dist-info/METADATA      |
@@ -996,13 +1018,6 @@ PyPI
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | flask   | 0.12.2            | Fix Available |          4 | # 17 Layer       | --            |
-+---------+-------------------+---------------+------------+------------------+---------------+
-+---------------------------------------------------------------------------------------------+
-| Source:artifact:/usr/local/lib/python3.9/site-packages/click-8.1.8.dist-info/METADATA       |
-+---------+-------------------+---------------+------------+------------------+---------------+
-| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
-+---------+-------------------+---------------+------------+------------------+---------------+
-| click   | 8.1.8             | Fix Available |          1 | # 17 Layer       | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/local/lib/python3.9/site-packages/idna-2.7.dist-info/METADATA          |
@@ -1037,14 +1052,14 @@ PyPI
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| urllib3 | 1.24.3            | Fix Available |          9 | # 17 Layer       | --            |
+| urllib3 | 1.24.3            | Fix Available |         10 | # 17 Layer       | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +----------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/local/lib/python3.9/site-packages/werkzeug-3.1.4.dist-info/METADATA     |
 +----------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE  | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +----------+-------------------+---------------+------------+------------------+---------------+
-| werkzeug | 3.1.4             | Fix Available |          2 | # 17 Layer       | --            |
+| werkzeug | 3.1.4             | Fix Available |          3 | # 17 Layer       | --            |
 +----------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/local/lib/python3.9/site-packages/wheel-0.40.0.dist-info/METADATA      |
@@ -1085,7 +1100,7 @@ Scanning local image tarball "./testdata/test-rockylinux.tar"
 
 
 Container Scanning Result (Rocky Linux 9.2 (Blue Onyx)) (Based on "google/rockylinux9" image):
-Total 26 packages affected by 91 known vulnerabilities (3 Critical, 34 High, 40 Medium, 4 Low, 10 Unknown) from 2 ecosystems.
+Total 26 packages affected by 93 known vulnerabilities (3 Critical, 35 High, 41 Medium, 4 Low, 10 Unknown) from 2 ecosystems.
 11 vulnerabilities can be fixed.
 
 
@@ -1114,7 +1129,7 @@ Rocky Linux
 | expat          | 2.5.0-1.el9       | No fix available |          6 | expat                   | # 0 Layer        | google/rockylinux9 |
 | gawk           | 5.1.0-6.el9       | No fix available |          1 | gawk                    | # 0 Layer        | google/rockylinux9 |
 | glib2          | 2.68.4-6.el9      | No fix available |          7 | glib2                   | # 0 Layer        | google/rockylinux9 |
-| glibc          | 2.34-60.el9       | No fix available |          9 | glibc                   | # 0 Layer        | google/rockylinux9 |
+| glibc          | 2.34-60.el9       | No fix available |         10 | glibc                   | # 0 Layer        | google/rockylinux9 |
 | gmp            | 1:6.2.0-10.el9    | No fix available |          1 | gmp                     | # 0 Layer        | google/rockylinux9 |
 | gnupg2         | 2.3.3-2.el9_0     | No fix available |          2 | gnupg2                  | # 0 Layer        | google/rockylinux9 |
 | gnutls         | 3.7.6-20.el9_2    | No fix available |          5 | gnutls                  | # 0 Layer        | google/rockylinux9 |
@@ -1128,7 +1143,7 @@ Rocky Linux
 | libsolv        | 0.7.22-4.el9      | No fix available |          1 | libsolv                 | # 0 Layer        | google/rockylinux9 |
 | libtasn1       | 4.16.0-8.el9_1    | No fix available |          2 | libtasn1                | # 0 Layer        | google/rockylinux9 |
 | libxml2        | 2.9.13-3.el9_1    | No fix available |         10 | libxml2                 | # 0 Layer        | google/rockylinux9 |
-| openssl        | 1:3.0.7-6.el9_2   | No fix available |          9 | openssl                 | # 0 Layer        | google/rockylinux9 |
+| openssl        | 1:3.0.7-6.el9_2   | No fix available |         10 | openssl                 | # 0 Layer        | google/rockylinux9 |
 | p11-kit        | 0.24.1-2.el9      | No fix available |          2 | p11-kit                 | # 0 Layer        | google/rockylinux9 |
 | pam            | 1.5.1-14.el9      | No fix available |          3 | pam                     | # 0 Layer        | google/rockylinux9 |
 | shadow-utils   | 2:4.9-6.el9       | No fix available |          1 | shadow-utils            | # 0 Layer        | google/rockylinux9 |
@@ -1150,7 +1165,7 @@ Scanning local image tarball "./testdata/test-rockylinux.tar"
 
 
 Container Scanning Result (Rocky Linux 9.2 (Blue Onyx)) (Based on "google/rockylinux9" image):
-Total 26 packages affected by 91 known vulnerabilities (3 Critical, 34 High, 40 Medium, 4 Low, 10 Unknown) from 2 ecosystems.
+Total 26 packages affected by 93 known vulnerabilities (3 Critical, 35 High, 41 Medium, 4 Low, 10 Unknown) from 2 ecosystems.
 11 vulnerabilities can be fixed.
 
 
@@ -1179,7 +1194,7 @@ Rocky Linux
 | expat          | 2.5.0-1.el9       | No fix available |          6 | expat                   | # 0 Layer        | google/rockylinux9 |
 | gawk           | 5.1.0-6.el9       | No fix available |          1 | gawk                    | # 0 Layer        | google/rockylinux9 |
 | glib2          | 2.68.4-6.el9      | No fix available |          7 | glib2                   | # 0 Layer        | google/rockylinux9 |
-| glibc          | 2.34-60.el9       | No fix available |          9 | glibc                   | # 0 Layer        | google/rockylinux9 |
+| glibc          | 2.34-60.el9       | No fix available |         10 | glibc                   | # 0 Layer        | google/rockylinux9 |
 | gmp            | 1:6.2.0-10.el9    | No fix available |          1 | gmp                     | # 0 Layer        | google/rockylinux9 |
 | gnupg2         | 2.3.3-2.el9_0     | No fix available |          2 | gnupg2                  | # 0 Layer        | google/rockylinux9 |
 | gnutls         | 3.7.6-20.el9_2    | No fix available |          5 | gnutls                  | # 0 Layer        | google/rockylinux9 |
@@ -1193,7 +1208,7 @@ Rocky Linux
 | libsolv        | 0.7.22-4.el9      | No fix available |          1 | libsolv                 | # 0 Layer        | google/rockylinux9 |
 | libtasn1       | 4.16.0-8.el9_1    | No fix available |          2 | libtasn1                | # 0 Layer        | google/rockylinux9 |
 | libxml2        | 2.9.13-3.el9_1    | No fix available |         10 | libxml2                 | # 0 Layer        | google/rockylinux9 |
-| openssl        | 1:3.0.7-6.el9_2   | No fix available |          9 | openssl                 | # 0 Layer        | google/rockylinux9 |
+| openssl        | 1:3.0.7-6.el9_2   | No fix available |         10 | openssl                 | # 0 Layer        | google/rockylinux9 |
 | p11-kit        | 0.24.1-2.el9      | No fix available |          2 | p11-kit                 | # 0 Layer        | google/rockylinux9 |
 | pam            | 1.5.1-14.el9      | No fix available |          3 | pam                     | # 0 Layer        | google/rockylinux9 |
 | shadow-utils   | 2:4.9-6.el9       | No fix available |          1 | shadow-utils            | # 0 Layer        | google/rockylinux9 |
@@ -1215,8 +1230,8 @@ Scanning local image tarball "./testdata/test-package-tracing.tar"
 
 
 Container Scanning Result (Alpine Linux v3.20) (Based on "alpine" image):
-Total 10 packages affected by 385 known vulnerabilities (2 Critical, 14 High, 13 Medium, 2 Low, 354 Unknown) from 2 ecosystems.
-385 vulnerabilities can be fixed.
+Total 10 packages affected by 463 known vulnerabilities (2 Critical, 14 High, 13 Medium, 2 Low, 432 Unknown) from 2 ecosystems.
+463 vulnerabilities can be fixed.
 
 
 Go
@@ -1225,42 +1240,42 @@ Go
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.22.4            | Fix Available |         59 | # 9 Layer        | --            |
+| stdlib  | 1.22.4            | Fix Available |         72 | # 9 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/go/bin/ptf-1.2.0                                                           |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.22.4            | Fix Available |         59 | # 2 Layer        | --            |
+| stdlib  | 1.22.4            | Fix Available |         72 | # 2 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/go/bin/ptf-1.3.0                                                           |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.22.4            | Fix Available |         59 | # 4 Layer        | --            |
+| stdlib  | 1.22.4            | Fix Available |         72 | # 4 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/go/bin/ptf-1.3.0-moved                                                     |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.22.4            | Fix Available |         59 | # 3 Layer        | --            |
+| stdlib  | 1.22.4            | Fix Available |         72 | # 3 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/go/bin/ptf-1.4.0                                                           |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.22.4            | Fix Available |         59 | # 2 Layer        | --            |
+| stdlib  | 1.22.4            | Fix Available |         72 | # 2 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/go/bin/ptf-vulnerable                                                      |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.22.4            | Fix Available |         59 | # 7 Layer        | --            |
+| stdlib  | 1.22.4            | Fix Available |         72 | # 7 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 Alpine:v3.20
 +------------------------------------------------------------------------------------------------------------------------------+
@@ -1396,8 +1411,8 @@ Scanning local image tarball "./testdata/test-chisel.tar"
 
 
 Container Scanning Result (Ubuntu 26.04 LTS):
-Total 7 packages affected by 199 known vulnerabilities (0 Critical, 0 High, 1 Medium, 0 Low, 198 Unknown) from 2 ecosystems.
-199 vulnerabilities can be fixed.
+Total 7 packages affected by 277 known vulnerabilities (0 Critical, 0 High, 1 Medium, 0 Low, 276 Unknown) from 2 ecosystems.
+277 vulnerabilities can be fixed.
 
 
 Go
@@ -1406,42 +1421,42 @@ Go
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.26.0            | Fix Available |         33 | # 0 Layer        | --            |
+| stdlib  | 1.26.0            | Fix Available |         46 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/lib/go-1.26/bin/gofmt                                                  |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.26.0            | Fix Available |         33 | # 0 Layer        | --            |
+| stdlib  | 1.26.0            | Fix Available |         46 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/asm                                   |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.26.0            | Fix Available |         33 | # 0 Layer        | --            |
+| stdlib  | 1.26.0            | Fix Available |         46 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/compile                               |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.26.0            | Fix Available |         33 | # 0 Layer        | --            |
+| stdlib  | 1.26.0            | Fix Available |         46 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/link                                  |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.26.0            | Fix Available |         33 | # 0 Layer        | --            |
+| stdlib  | 1.26.0            | Fix Available |         46 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/vet                                   |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.26.0            | Fix Available |         33 | # 0 Layer        | --            |
+| stdlib  | 1.26.0            | Fix Available |         46 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 Ubuntu:26.04
 +----------------------------------------------------------------------------------------------------------------------------------------+
@@ -1757,11 +1772,12 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
               "index": 17
             }
           },
-          "groups": 14,
+          "groups": 15,
           "vulnerabilities": [
             "PYSEC-2021-98",
             "PYSEC-2026-1297",
             "PYSEC-2026-3717",
+            "PYSEC-2026-4035",
             "GHSA-3h9f-r86x-qvjx",
             "GHSA-68w8-qjq3-2gfm",
             "GHSA-6w2r-r2m5-xq5w",
@@ -1773,8 +1789,10 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "GHSA-crhf-3pfg-w68w",
             "GHSA-frmv-pr5f-9mcr",
             "GHSA-h7pc-vwp9-298g",
+            "GHSA-q238-5cxm-5c9h",
             "GHSA-qw25-v68c-qjf3",
-            "GHSA-rrqc-c2jx-6jgv"
+            "GHSA-rrqc-c2jx-6jgv",
+            "GHSA-wvqv-fj8w-qmhm"
           ]
         }
       ]
@@ -1805,29 +1823,6 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "GHSA-5wv5-4vpf-pj6m",
             "GHSA-68rp-wp8r-4726",
             "GHSA-m2qf-hxjv-5gpq"
-          ]
-        }
-      ]
-    },
-    {
-      "source": {
-        "path": "/usr/local/lib/python3.9/site-packages/click-8.1.8.dist-info/METADATA",
-        "type": "artifact"
-      },
-      "packages": [
-        {
-          "package": {
-            "name": "click",
-            "version": "8.1.8",
-            "ecosystem": "PyPI",
-            "purl": "pkg:pypi/click@8.1.8",
-            "image_origin_details": {
-              "index": 17
-            }
-          },
-          "groups": 1,
-          "vulnerabilities": [
-            "PYSEC-2026-2132"
           ]
         }
       ]
@@ -1970,7 +1965,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
               "index": 17
             }
           },
-          "groups": 9,
+          "groups": 10,
           "vulnerabilities": [
             "PYSEC-2020-148",
             "PYSEC-2023-192",
@@ -1981,6 +1976,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "PYSEC-2026-1996",
             "PYSEC-2026-1998",
             "PYSEC-2026-1999",
+            "PYSEC-2026-4177",
             "GHSA-2xpw-w6gg-jr37",
             "GHSA-34jh-p97f-mpxf",
             "GHSA-38jv-5279-wg99",
@@ -1989,6 +1985,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "GHSA-pq67-6m6q-mj2v",
             "GHSA-qccp-gfcp-xxvc",
             "GHSA-v845-jxx5-vc9f",
+            "GHSA-vxq7-64xx-v4gw",
             "GHSA-wqvq-5m8c-6g24"
           ]
         }
@@ -2010,12 +2007,13 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
               "index": 17
             }
           },
-          "groups": 2,
+          "groups": 3,
           "vulnerabilities": [
             "PYSEC-2026-2044",
             "PYSEC-2026-2320",
             "GHSA-29vq-49wr-vm6x",
-            "GHSA-87hc-h4r5-73f7"
+            "GHSA-87hc-h4r5-73f7",
+            "GHSA-g6x2-hccm-hh4m"
           ]
         }
       ]
@@ -2925,7 +2923,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
               "index": 0
             }
           },
-          "groups": 9,
+          "groups": 10,
           "vulnerabilities": [
             "ALSA-2023:5453",
             "ALSA-2024:3339",
@@ -2935,7 +2933,8 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "ALSA-2026:20597",
             "ALSA-2026:2786",
             "ALSA-2026:33226",
-            "ALSA-2026:42952"
+            "ALSA-2026:42952",
+            "ALSA-2026:79281"
           ]
         },
         {
@@ -2949,7 +2948,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
               "index": 0
             }
           },
-          "groups": 9,
+          "groups": 10,
           "vulnerabilities": [
             "ALSA-2023:5453",
             "ALSA-2024:3339",
@@ -2959,7 +2958,8 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "ALSA-2026:20597",
             "ALSA-2026:2786",
             "ALSA-2026:33226",
-            "ALSA-2026:42952"
+            "ALSA-2026:42952",
+            "ALSA-2026:79281"
           ]
         },
         {
@@ -2973,7 +2973,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
               "index": 0
             }
           },
-          "groups": 9,
+          "groups": 10,
           "vulnerabilities": [
             "ALSA-2023:5453",
             "ALSA-2024:3339",
@@ -2983,7 +2983,8 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "ALSA-2026:20597",
             "ALSA-2026:2786",
             "ALSA-2026:33226",
-            "ALSA-2026:42952"
+            "ALSA-2026:42952",
+            "ALSA-2026:79281"
           ]
         },
         {
@@ -3569,7 +3570,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
               "index": 0
             }
           },
-          "groups": 14,
+          "groups": 15,
           "vulnerabilities": [
             "ALSA-2023:0946",
             "ALSA-2023:2523",
@@ -3584,7 +3585,8 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "ALSA-2026:19218",
             "ALSA-2026:22312",
             "ALSA-2026:25239",
-            "ALSA-2026:67165"
+            "ALSA-2026:67165",
+            "ALSA-2026:77396"
           ]
         },
         {
@@ -3598,7 +3600,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
               "index": 0
             }
           },
-          "groups": 14,
+          "groups": 15,
           "vulnerabilities": [
             "ALSA-2023:0946",
             "ALSA-2023:2523",
@@ -3613,7 +3615,8 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "ALSA-2026:19218",
             "ALSA-2026:22312",
             "ALSA-2026:25239",
-            "ALSA-2026:67165"
+            "ALSA-2026:67165",
+            "ALSA-2026:77396"
           ]
         },
         {
@@ -4065,7 +4068,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
               "index": 0
             }
           },
-          "groups": 14,
+          "groups": 15,
           "vulnerabilities": [
             "ALSA-2023:0958",
             "ALSA-2024:9405",
@@ -4080,6 +4083,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "ALSA-2026:47982",
             "ALSA-2026:5602",
             "ALSA-2026:66366",
+            "ALSA-2026:75768",
             "ALSA-2026:8259"
           ]
         },
@@ -4392,10 +4396,11 @@ Scanning local image tarball "./testdata/test-almalinux-9.tar"
               "index": 0
             }
           },
-          "groups": 2,
+          "groups": 3,
           "vulnerabilities": [
             "ALPINE-CVE-2026-22184",
-            "ALPINE-CVE-2026-27171"
+            "ALPINE-CVE-2026-27171",
+            "ALPINE-CVE-2026-85091"
           ]
         }
       ]
@@ -4480,7 +4485,7 @@ Scanning local image tarball "./testdata/test-image-with-deprecated.tar"
               "index": 2
             }
           },
-          "groups": 59,
+          "groups": 72,
           "vulnerabilities": [
             "GO-2024-2963",
             "GO-2024-3105",
@@ -4540,7 +4545,20 @@ Scanning local image tarball "./testdata/test-image-with-deprecated.tar"
             "GO-2026-6089",
             "GO-2026-6090",
             "GO-2026-6091",
-            "GO-2026-6218"
+            "GO-2026-6218",
+            "GO-2026-6599",
+            "GO-2026-6600",
+            "GO-2026-6603",
+            "GO-2026-6604",
+            "GO-2026-6605",
+            "GO-2026-6607",
+            "GO-2026-6608",
+            "GO-2026-6609",
+            "GO-2026-6610",
+            "GO-2026-6611",
+            "GO-2026-6612",
+            "GO-2026-6613",
+            "GO-2026-6617"
           ]
         },
         {
@@ -5111,7 +5129,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
               "index": 0
             }
           },
-          "groups": 33,
+          "groups": 46,
           "vulnerabilities": [
             "GO-2026-4599",
             "GO-2026-4600",
@@ -5145,7 +5163,20 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             "GO-2026-6089",
             "GO-2026-6090",
             "GO-2026-6091",
-            "GO-2026-6218"
+            "GO-2026-6218",
+            "GO-2026-6599",
+            "GO-2026-6600",
+            "GO-2026-6603",
+            "GO-2026-6604",
+            "GO-2026-6605",
+            "GO-2026-6607",
+            "GO-2026-6608",
+            "GO-2026-6609",
+            "GO-2026-6610",
+            "GO-2026-6611",
+            "GO-2026-6612",
+            "GO-2026-6613",
+            "GO-2026-6617"
           ]
         }
       ]
@@ -5166,7 +5197,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
               "index": 0
             }
           },
-          "groups": 33,
+          "groups": 46,
           "vulnerabilities": [
             "GO-2026-4599",
             "GO-2026-4600",
@@ -5200,7 +5231,20 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             "GO-2026-6089",
             "GO-2026-6090",
             "GO-2026-6091",
-            "GO-2026-6218"
+            "GO-2026-6218",
+            "GO-2026-6599",
+            "GO-2026-6600",
+            "GO-2026-6603",
+            "GO-2026-6604",
+            "GO-2026-6605",
+            "GO-2026-6607",
+            "GO-2026-6608",
+            "GO-2026-6609",
+            "GO-2026-6610",
+            "GO-2026-6611",
+            "GO-2026-6612",
+            "GO-2026-6613",
+            "GO-2026-6617"
           ]
         }
       ]
@@ -5221,7 +5265,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
               "index": 0
             }
           },
-          "groups": 33,
+          "groups": 46,
           "vulnerabilities": [
             "GO-2026-4599",
             "GO-2026-4600",
@@ -5255,7 +5299,20 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             "GO-2026-6089",
             "GO-2026-6090",
             "GO-2026-6091",
-            "GO-2026-6218"
+            "GO-2026-6218",
+            "GO-2026-6599",
+            "GO-2026-6600",
+            "GO-2026-6603",
+            "GO-2026-6604",
+            "GO-2026-6605",
+            "GO-2026-6607",
+            "GO-2026-6608",
+            "GO-2026-6609",
+            "GO-2026-6610",
+            "GO-2026-6611",
+            "GO-2026-6612",
+            "GO-2026-6613",
+            "GO-2026-6617"
           ]
         }
       ]
@@ -5276,7 +5333,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
               "index": 0
             }
           },
-          "groups": 33,
+          "groups": 46,
           "vulnerabilities": [
             "GO-2026-4599",
             "GO-2026-4600",
@@ -5310,7 +5367,20 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             "GO-2026-6089",
             "GO-2026-6090",
             "GO-2026-6091",
-            "GO-2026-6218"
+            "GO-2026-6218",
+            "GO-2026-6599",
+            "GO-2026-6600",
+            "GO-2026-6603",
+            "GO-2026-6604",
+            "GO-2026-6605",
+            "GO-2026-6607",
+            "GO-2026-6608",
+            "GO-2026-6609",
+            "GO-2026-6610",
+            "GO-2026-6611",
+            "GO-2026-6612",
+            "GO-2026-6613",
+            "GO-2026-6617"
           ]
         }
       ]
@@ -5331,7 +5401,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
               "index": 0
             }
           },
-          "groups": 33,
+          "groups": 46,
           "vulnerabilities": [
             "GO-2026-4599",
             "GO-2026-4600",
@@ -5365,7 +5435,20 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             "GO-2026-6089",
             "GO-2026-6090",
             "GO-2026-6091",
-            "GO-2026-6218"
+            "GO-2026-6218",
+            "GO-2026-6599",
+            "GO-2026-6600",
+            "GO-2026-6603",
+            "GO-2026-6604",
+            "GO-2026-6605",
+            "GO-2026-6607",
+            "GO-2026-6608",
+            "GO-2026-6609",
+            "GO-2026-6610",
+            "GO-2026-6611",
+            "GO-2026-6612",
+            "GO-2026-6613",
+            "GO-2026-6617"
           ]
         }
       ]
@@ -5386,7 +5469,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
               "index": 0
             }
           },
-          "groups": 33,
+          "groups": 46,
           "vulnerabilities": [
             "GO-2026-4599",
             "GO-2026-4600",
@@ -5420,7 +5503,20 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             "GO-2026-6089",
             "GO-2026-6090",
             "GO-2026-6091",
-            "GO-2026-6218"
+            "GO-2026-6218",
+            "GO-2026-6599",
+            "GO-2026-6600",
+            "GO-2026-6603",
+            "GO-2026-6604",
+            "GO-2026-6605",
+            "GO-2026-6607",
+            "GO-2026-6608",
+            "GO-2026-6609",
+            "GO-2026-6610",
+            "GO-2026-6611",
+            "GO-2026-6612",
+            "GO-2026-6613",
+            "GO-2026-6617"
           ]
         }
       ]
@@ -5947,6 +6043,23 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
         },
         {
           "package": {
+            "name": "dash",
+            "os_package_name": "dash",
+            "version": "0.5.11+git20210903+057cd650a4ed-3build1",
+            "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/dash@0.5.11%2Bgit20210903%2B057cd650a4ed-3build1?arch=amd64/u0026distro=jammy",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "UBUNTU-CVE-2026-102473",
+            "UBUNTU-CVE-2026-102474"
+          ]
+        },
+        {
+          "package": {
             "name": "diffutils",
             "os_package_name": "diffutils",
             "version": "1:3.8-0ubuntu2",
@@ -5990,11 +6103,13 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
               "index": 4
             }
           },
-          "groups": 2,
+          "groups": 4,
           "vulnerabilities": [
             "USN-7700-1",
             "UBUNTU-CVE-2022-27943",
-            "UBUNTU-CVE-2023-4039"
+            "UBUNTU-CVE-2023-4039",
+            "UBUNTU-CVE-2026-102010",
+            "UBUNTU-CVE-2026-95619"
           ]
         },
         {
@@ -6008,13 +6123,14 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
               "index": 4
             }
           },
-          "groups": 4,
+          "groups": 5,
           "vulnerabilities": [
             "USN-7412-1",
             "USN-7946-1",
             "UBUNTU-CVE-2022-3219",
             "UBUNTU-CVE-2025-30258",
             "UBUNTU-CVE-2025-68973",
+            "UBUNTU-CVE-2026-105712",
             "USN-7412-2"
           ]
         },
@@ -6123,7 +6239,7 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
               "index": 4
             }
           },
-          "groups": 9,
+          "groups": 12,
           "vulnerabilities": [
             "USN-8611-1",
             "USN-8737-1",
@@ -6150,7 +6266,10 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
             "UBUNTU-CVE-2026-77117",
             "UBUNTU-CVE-2026-80489",
             "UBUNTU-CVE-2026-8674",
-            "UBUNTU-CVE-2026-89092"
+            "UBUNTU-CVE-2026-86805",
+            "UBUNTU-CVE-2026-89092",
+            "UBUNTU-CVE-2026-95818",
+            "UBUNTU-CVE-2026-97399"
           ]
         },
         {
@@ -6164,7 +6283,7 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
               "index": 4
             }
           },
-          "groups": 9,
+          "groups": 12,
           "vulnerabilities": [
             "USN-8611-1",
             "USN-8737-1",
@@ -6191,7 +6310,10 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
             "UBUNTU-CVE-2026-77117",
             "UBUNTU-CVE-2026-80489",
             "UBUNTU-CVE-2026-8674",
-            "UBUNTU-CVE-2026-89092"
+            "UBUNTU-CVE-2026-86805",
+            "UBUNTU-CVE-2026-89092",
+            "UBUNTU-CVE-2026-95818",
+            "UBUNTU-CVE-2026-97399"
           ]
         },
         {
@@ -6224,11 +6346,13 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
               "index": 4
             }
           },
-          "groups": 2,
+          "groups": 4,
           "vulnerabilities": [
             "USN-7700-1",
             "UBUNTU-CVE-2022-27943",
-            "UBUNTU-CVE-2023-4039"
+            "UBUNTU-CVE-2023-4039",
+            "UBUNTU-CVE-2026-102010",
+            "UBUNTU-CVE-2026-95619"
           ]
         },
         {
@@ -6609,9 +6733,10 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
               "index": 4
             }
           },
-          "groups": 8,
+          "groups": 9,
           "vulnerabilities": [
             "UBUNTU-CVE-2022-41409",
+            "UBUNTU-CVE-2026-103111",
             "UBUNTU-CVE-2026-86145",
             "UBUNTU-CVE-2026-89156",
             "UBUNTU-CVE-2026-89157",
@@ -6673,9 +6798,10 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
               "index": 4
             }
           },
-          "groups": 7,
+          "groups": 8,
           "vulnerabilities": [
             "USN-7980-1",
+            "USN-8847-1",
             "USN-8678-1",
             "USN-8414-1",
             "USN-8155-1",
@@ -6700,18 +6826,24 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
             "UBUNTU-CVE-2026-31790",
             "UBUNTU-CVE-2026-34180",
             "UBUNTU-CVE-2026-34182",
+            "UBUNTU-CVE-2026-35189",
             "UBUNTU-CVE-2026-42766",
             "UBUNTU-CVE-2026-42767",
             "UBUNTU-CVE-2026-42770",
             "UBUNTU-CVE-2026-45445",
             "UBUNTU-CVE-2026-45446",
             "UBUNTU-CVE-2026-45447",
+            "UBUNTU-CVE-2026-54872",
             "UBUNTU-CVE-2026-54874",
             "UBUNTU-CVE-2026-63072",
             "UBUNTU-CVE-2026-63074",
             "UBUNTU-CVE-2026-63076",
             "UBUNTU-CVE-2026-7383",
             "UBUNTU-CVE-2026-75803",
+            "UBUNTU-CVE-2026-75805",
+            "UBUNTU-CVE-2026-75806",
+            "UBUNTU-CVE-2026-77696",
+            "UBUNTU-CVE-2026-84782",
             "UBUNTU-CVE-2026-9076",
             "USN-8625-1"
           ]
@@ -6727,11 +6859,13 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
               "index": 4
             }
           },
-          "groups": 2,
+          "groups": 4,
           "vulnerabilities": [
             "USN-7700-1",
             "UBUNTU-CVE-2022-27943",
-            "UBUNTU-CVE-2023-4039"
+            "UBUNTU-CVE-2023-4039",
+            "UBUNTU-CVE-2026-102010",
+            "UBUNTU-CVE-2026-95619"
           ]
         },
         {
@@ -6976,7 +7110,7 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
               "index": 4
             }
           },
-          "groups": 15,
+          "groups": 16,
           "vulnerabilities": [
             "USN-8675-1",
             "USN-8736-1",
@@ -6999,6 +7133,7 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
             "UBUNTU-CVE-2026-57432",
             "UBUNTU-CVE-2026-57433",
             "UBUNTU-CVE-2026-7017",
+            "UBUNTU-CVE-2026-82560",
             "UBUNTU-CVE-2026-8376",
             "UBUNTU-CVE-2026-9538"
           ]
@@ -7181,7 +7316,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 7
             }
           },
-          "groups": 111,
+          "groups": 124,
           "vulnerabilities": [
             "GO-2022-0477",
             "GO-2022-0493",
@@ -7293,7 +7428,20 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "GO-2026-6089",
             "GO-2026-6090",
             "GO-2026-6091",
-            "GO-2026-6218"
+            "GO-2026-6218",
+            "GO-2026-6599",
+            "GO-2026-6600",
+            "GO-2026-6603",
+            "GO-2026-6604",
+            "GO-2026-6605",
+            "GO-2026-6607",
+            "GO-2026-6608",
+            "GO-2026-6609",
+            "GO-2026-6610",
+            "GO-2026-6611",
+            "GO-2026-6612",
+            "GO-2026-6613",
+            "GO-2026-6617"
           ]
         }
       ]
@@ -7339,6 +7487,23 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "USN-8697-1",
             "UBUNTU-CVE-2016-2781",
             "UBUNTU-CVE-2025-5278"
+          ]
+        },
+        {
+          "package": {
+            "name": "dash",
+            "os_package_name": "dash",
+            "version": "0.5.11+git20210903+057cd650a4ed-3build1",
+            "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/ubuntu/dash@0.5.11%2Bgit20210903%2B057cd650a4ed-3build1?arch=amd64/u0026distro=jammy",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "UBUNTU-CVE-2026-102473",
+            "UBUNTU-CVE-2026-102474"
           ]
         },
         {
@@ -7403,11 +7568,13 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 2,
+          "groups": 4,
           "vulnerabilities": [
             "USN-7700-1",
             "UBUNTU-CVE-2022-27943",
-            "UBUNTU-CVE-2023-4039"
+            "UBUNTU-CVE-2023-4039",
+            "UBUNTU-CVE-2026-102010",
+            "UBUNTU-CVE-2026-95619"
           ]
         },
         {
@@ -7421,13 +7588,14 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 4,
+          "groups": 5,
           "vulnerabilities": [
             "USN-7412-1",
             "USN-7946-1",
             "UBUNTU-CVE-2022-3219",
             "UBUNTU-CVE-2025-30258",
             "UBUNTU-CVE-2025-68973",
+            "UBUNTU-CVE-2026-105712",
             "USN-7412-2"
           ]
         },
@@ -7536,7 +7704,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 9,
+          "groups": 12,
           "vulnerabilities": [
             "USN-8611-1",
             "USN-8737-1",
@@ -7563,7 +7731,10 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "UBUNTU-CVE-2026-77117",
             "UBUNTU-CVE-2026-80489",
             "UBUNTU-CVE-2026-8674",
-            "UBUNTU-CVE-2026-89092"
+            "UBUNTU-CVE-2026-86805",
+            "UBUNTU-CVE-2026-89092",
+            "UBUNTU-CVE-2026-95818",
+            "UBUNTU-CVE-2026-97399"
           ]
         },
         {
@@ -7577,7 +7748,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 9,
+          "groups": 12,
           "vulnerabilities": [
             "USN-8611-1",
             "USN-8737-1",
@@ -7604,7 +7775,10 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "UBUNTU-CVE-2026-77117",
             "UBUNTU-CVE-2026-80489",
             "UBUNTU-CVE-2026-8674",
-            "UBUNTU-CVE-2026-89092"
+            "UBUNTU-CVE-2026-86805",
+            "UBUNTU-CVE-2026-89092",
+            "UBUNTU-CVE-2026-95818",
+            "UBUNTU-CVE-2026-97399"
           ]
         },
         {
@@ -7637,11 +7811,13 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 2,
+          "groups": 4,
           "vulnerabilities": [
             "USN-7700-1",
             "UBUNTU-CVE-2022-27943",
-            "UBUNTU-CVE-2023-4039"
+            "UBUNTU-CVE-2023-4039",
+            "UBUNTU-CVE-2026-102010",
+            "UBUNTU-CVE-2026-95619"
           ]
         },
         {
@@ -8022,9 +8198,10 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 8,
+          "groups": 9,
           "vulnerabilities": [
             "UBUNTU-CVE-2022-41409",
+            "UBUNTU-CVE-2026-103111",
             "UBUNTU-CVE-2026-86145",
             "UBUNTU-CVE-2026-89156",
             "UBUNTU-CVE-2026-89157",
@@ -8086,9 +8263,10 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 7,
+          "groups": 8,
           "vulnerabilities": [
             "USN-7980-1",
+            "USN-8847-1",
             "USN-8678-1",
             "USN-8414-1",
             "USN-8155-1",
@@ -8113,18 +8291,24 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "UBUNTU-CVE-2026-31790",
             "UBUNTU-CVE-2026-34180",
             "UBUNTU-CVE-2026-34182",
+            "UBUNTU-CVE-2026-35189",
             "UBUNTU-CVE-2026-42766",
             "UBUNTU-CVE-2026-42767",
             "UBUNTU-CVE-2026-42770",
             "UBUNTU-CVE-2026-45445",
             "UBUNTU-CVE-2026-45446",
             "UBUNTU-CVE-2026-45447",
+            "UBUNTU-CVE-2026-54872",
             "UBUNTU-CVE-2026-54874",
             "UBUNTU-CVE-2026-63072",
             "UBUNTU-CVE-2026-63074",
             "UBUNTU-CVE-2026-63076",
             "UBUNTU-CVE-2026-7383",
             "UBUNTU-CVE-2026-75803",
+            "UBUNTU-CVE-2026-75805",
+            "UBUNTU-CVE-2026-75806",
+            "UBUNTU-CVE-2026-77696",
+            "UBUNTU-CVE-2026-84782",
             "UBUNTU-CVE-2026-9076",
             "USN-8625-1"
           ]
@@ -8140,11 +8324,13 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 2,
+          "groups": 4,
           "vulnerabilities": [
             "USN-7700-1",
             "UBUNTU-CVE-2022-27943",
-            "UBUNTU-CVE-2023-4039"
+            "UBUNTU-CVE-2023-4039",
+            "UBUNTU-CVE-2026-102010",
+            "UBUNTU-CVE-2026-95619"
           ]
         },
         {
@@ -8389,7 +8575,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 15,
+          "groups": 16,
           "vulnerabilities": [
             "USN-8675-1",
             "USN-8736-1",
@@ -8412,6 +8598,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "UBUNTU-CVE-2026-57432",
             "UBUNTU-CVE-2026-57433",
             "UBUNTU-CVE-2026-7017",
+            "UBUNTU-CVE-2026-82560",
             "UBUNTU-CVE-2026-8376",
             "UBUNTU-CVE-2026-9538"
           ]
