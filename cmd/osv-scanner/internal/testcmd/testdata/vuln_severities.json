@@ -701,6 +701,12 @@
       "type": "CVSS_V3"
     }
   ],
+  "ALPINE-CVE-2026-35189": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "type": "CVSS_V3"
+    }
+  ],
   "ALPINE-CVE-2026-3832": [
     {
       "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N",
@@ -716,6 +722,12 @@
   "ALPINE-CVE-2026-40200": [
     {
       "score": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:H",
+      "type": "CVSS_V3"
+    }
+  ],
+  "ALPINE-CVE-2026-40930": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:L",
       "type": "CVSS_V3"
     }
   ],
@@ -840,6 +852,12 @@
     }
   ],
   "ALPINE-CVE-2026-5419": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N",
+      "type": "CVSS_V3"
+    }
+  ],
+  "ALPINE-CVE-2026-54872": [
     {
       "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N",
       "type": "CVSS_V3"
@@ -977,6 +995,18 @@
       "type": "CVSS_V3"
     }
   ],
+  "ALPINE-CVE-2026-75805": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "type": "CVSS_V3"
+    }
+  ],
+  "ALPINE-CVE-2026-75806": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "type": "CVSS_V3"
+    }
+  ],
   "ALPINE-CVE-2026-76641": [
     {
       "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
@@ -985,14 +1015,32 @@
   ],
   "ALPINE-CVE-2026-76956": [
     {
-      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
       "type": "CVSS_V3"
     }
   ],
   "ALPINE-CVE-2026-76957": [
     {
-      "score": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:L",
+      "score": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
       "type": "CVSS_V3"
+    }
+  ],
+  "ALPINE-CVE-2026-77696": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N",
+      "type": "CVSS_V3"
+    }
+  ],
+  "ALPINE-CVE-2026-84782": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:H",
+      "type": "CVSS_V3"
+    }
+  ],
+  "ALPINE-CVE-2026-85091": [
+    {
+      "score": "CVSS:4.0/AV:N/AC:H/AT:N/PR:N/UI:N/VC:N/VI:H/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+      "type": "CVSS_V4"
     }
   ],
   "ALPINE-CVE-2026-9076": [
@@ -1207,7 +1255,10 @@
   "ALSA-2026:71585": [],
   "ALSA-2026:72663": [],
   "ALSA-2026:73512": [],
+  "ALSA-2026:75768": [],
   "ALSA-2026:7668": [],
+  "ALSA-2026:77396": [],
+  "ALSA-2026:79281": [],
   "ALSA-2026:8259": [],
   "ALSA-2026:8510": [],
   "CVE-2016-10931": [
@@ -1731,6 +1782,18 @@
       "type": "CVSS_V3"
     }
   ],
+  "CVE-2026-35189": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "type": "CVSS_V3"
+    }
+  ],
+  "CVE-2026-35191": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "type": "CVSS_V3"
+    }
+  ],
   "CVE-2026-42327": [
     {
       "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N",
@@ -1773,6 +1836,12 @@
       "type": "CVSS_V3"
     }
   ],
+  "CVE-2026-42772": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "type": "CVSS_V3"
+    }
+  ],
   "CVE-2026-44662": [
     {
       "score": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:N/VI:L/VA:L/SC:N/SI:N/SA:N",
@@ -1797,9 +1866,27 @@
       "type": "CVSS_V3"
     }
   ],
+  "CVE-2026-54872": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N",
+      "type": "CVSS_V3"
+    }
+  ],
+  "CVE-2026-54873": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    }
+  ],
   "CVE-2026-54874": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    }
+  ],
+  "CVE-2026-54875": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N",
       "type": "CVSS_V3"
     }
   ],
@@ -1899,6 +1986,12 @@
       "type": "CVSS_V4"
     }
   ],
+  "CVE-2026-72897": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    }
+  ],
   "CVE-2026-7383": [
     {
       "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
@@ -1911,10 +2004,46 @@
       "type": "CVSS_V3"
     }
   ],
+  "CVE-2026-75804": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "type": "CVSS_V3"
+    }
+  ],
+  "CVE-2026-75805": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "type": "CVSS_V3"
+    }
+  ],
+  "CVE-2026-75806": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "type": "CVSS_V3"
+    }
+  ],
   "CVE-2026-7598": [
     {
       "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N/E:X",
       "type": "CVSS_V4"
+    }
+  ],
+  "CVE-2026-77696": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N",
+      "type": "CVSS_V3"
+    }
+  ],
+  "CVE-2026-84782": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:H",
+      "type": "CVSS_V3"
+    }
+  ],
+  "CVE-2026-84784": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
     }
   ],
   "CVE-2026-87933": [
@@ -2385,6 +2514,12 @@
       "type": "CVSS_V3"
     }
   ],
+  "GHSA-5q95-hrpc-m3w3": [
+    {
+      "score": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    }
+  ],
   "GHSA-5rjg-fvgr-3xxf": [
     {
       "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N/E:P",
@@ -2433,6 +2568,16 @@
     },
     {
       "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+    }
+  ],
+  "GHSA-65r4-943x-97jj": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
       "type": "CVSS_V4"
     }
   ],
@@ -2567,6 +2712,12 @@
     {
       "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:L",
       "type": "CVSS_V4"
+    }
+  ],
+  "GHSA-7hhh-6rmp-j9qf": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
     }
   ],
   "GHSA-7jqf-v358-p8g7": [
@@ -2962,6 +3113,18 @@
       "type": "CVSS_V4"
     }
   ],
+  "GHSA-cxf4-7mrp-vvpr": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:U/C:N/I:L/A:N",
+      "type": "CVSS_V3"
+    }
+  ],
+  "GHSA-cxp5-3px4-pw24": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    }
+  ],
   "GHSA-f3cj-mjqm-fhvj": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
@@ -3056,6 +3219,12 @@
       "type": "CVSS_V3"
     }
   ],
+  "GHSA-g6x2-hccm-hh4m": [
+    {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+    }
+  ],
   "GHSA-g74r-ffvr-5q9f": [],
   "GHSA-g7hg-vrcf-mvmr": [
     {
@@ -3125,6 +3294,12 @@
   "GHSA-gx5v-xp9w-j4cg": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    }
+  ],
+  "GHSA-gx83-3vf8-gh7j": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:L",
       "type": "CVSS_V3"
     }
   ],
@@ -3468,6 +3643,12 @@
       "type": "CVSS_V3"
     }
   ],
+  "GHSA-ph9c-7hw9-vhhw": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    }
+  ],
   "GHSA-phwj-rprq-35pp": [
     {
       "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N/E:U",
@@ -3500,6 +3681,16 @@
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
       "type": "CVSS_V3"
+    }
+  ],
+  "GHSA-q238-5cxm-5c9h": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
     }
   ],
   "GHSA-q2hr-2g5m-vwhr": [
@@ -3601,6 +3792,12 @@
   "GHSA-r29c-68gh-xp6x": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "type": "CVSS_V3"
+    }
+  ],
+  "GHSA-r2xf-8xr9-62gw": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
       "type": "CVSS_V3"
     }
   ],
@@ -3759,10 +3956,22 @@
     }
   ],
   "GHSA-vvfq-8hwr-qm4m": [],
+  "GHSA-vvgp-rfg2-7rr6": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+      "type": "CVSS_V3"
+    }
+  ],
   "GHSA-vx3p-948g-6vhq": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
       "type": "CVSS_V3"
+    }
+  ],
+  "GHSA-vxq7-64xx-v4gw": [
+    {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:H",
+      "type": "CVSS_V4"
     }
   ],
   "GHSA-w24h-v9qh-8gxj": [
@@ -3844,6 +4053,12 @@
       "type": "CVSS_V3"
     }
   ],
+  "GHSA-wjgm-6hv5-3cvf": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "type": "CVSS_V3"
+    }
+  ],
   "GHSA-wjpw-4j6x-6rwh": [
     {
       "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N",
@@ -3890,6 +4105,22 @@
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
       "type": "CVSS_V3"
+    }
+  ],
+  "GHSA-wv8q-qhhj-9h54": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    }
+  ],
+  "GHSA-wvqv-fj8w-qmhm": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
     }
   ],
   "GHSA-wx95-c6cv-8532": [
@@ -4168,6 +4399,8 @@
   "GO-2026-6222": [],
   "GO-2026-6599": [],
   "GO-2026-6600": [],
+  "GO-2026-6601": [],
+  "GO-2026-6602": [],
   "GO-2026-6603": [],
   "GO-2026-6604": [],
   "GO-2026-6605": [],
@@ -4459,6 +4692,22 @@
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N",
       "type": "CVSS_V3"
+    }
+  ],
+  "PYSEC-2026-4035": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+    }
+  ],
+  "PYSEC-2026-4177": [
+    {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:H",
+      "type": "CVSS_V4"
     }
   ],
   "RLSA-2023:3725": [
@@ -5257,6 +5506,24 @@
       "type": "CVSS_V3"
     }
   ],
+  "RLSA-2026:76918": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:H",
+      "type": "CVSS_V3"
+    }
+  ],
+  "RLSA-2026:77396": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:H",
+      "type": "CVSS_V3"
+    }
+  ],
+  "RLSA-2026:79281": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    }
+  ],
   "RLSA-2026:8492": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
@@ -5961,6 +6228,56 @@
       "type": "Ubuntu"
     }
   ],
+  "UBUNTU-CVE-2026-102010": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:H",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-102473": [
+    {
+      "score": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-102474": [
+    {
+      "score": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-103111": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:H/A:L",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-105712": [
+    {
+      "score": "CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:U/C:N/I:L/A:L",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "low",
+      "type": "Ubuntu"
+    }
+  ],
   "UBUNTU-CVE-2026-11850": [
     {
       "score": "CVSS:3.1/AV:N/AC:H/PR:H/UI:N/S:U/C:L/I:N/A:H",
@@ -6100,6 +6417,10 @@
     }
   ],
   "UBUNTU-CVE-2026-19542": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:L",
+      "type": "CVSS_V3"
+    },
     {
       "score": "medium",
       "type": "Ubuntu"
@@ -6274,6 +6595,16 @@
       "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N/E:U",
       "type": "CVSS_V4"
     },
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "low",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-35189": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
       "type": "CVSS_V3"
@@ -6789,6 +7120,16 @@
       "type": "Ubuntu"
     }
   ],
+  "UBUNTU-CVE-2026-54872": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "low",
+      "type": "Ubuntu"
+    }
+  ],
   "UBUNTU-CVE-2026-54874": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
@@ -6961,6 +7302,26 @@
       "type": "Ubuntu"
     }
   ],
+  "UBUNTU-CVE-2026-75805": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "low",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-75806": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "low",
+      "type": "Ubuntu"
+    }
+  ],
   "UBUNTU-CVE-2026-76642": [
     {
       "score": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
@@ -6977,7 +7338,21 @@
   ],
   "UBUNTU-CVE-2026-77117": [
     {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    },
+    {
       "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-77696": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "low",
       "type": "Ubuntu"
     }
   ],
@@ -7013,6 +7388,20 @@
   ],
   "UBUNTU-CVE-2026-80489": [
     {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-82560": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    },
+    {
       "score": "medium",
       "type": "Ubuntu"
     }
@@ -7028,6 +7417,16 @@
     },
     {
       "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-84782": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:H",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "high",
       "type": "Ubuntu"
     }
   ],
@@ -7056,6 +7455,20 @@
     }
   ],
   "UBUNTU-CVE-2026-8674": [
+    {
+      "score": "CVSS:3.1/AV:A/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-86805": [
+    {
+      "score": "CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:U/C:H/I:H/A:L",
+      "type": "CVSS_V3"
+    },
     {
       "score": "medium",
       "type": "Ubuntu"
@@ -7179,6 +7592,36 @@
       "type": "Ubuntu"
     }
   ],
+  "UBUNTU-CVE-2026-95619": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:H/A:H",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-95818": [
+    {
+      "score": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:N",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-97399": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
   "USN-7257-1": [],
   "USN-7259-1": [],
   "USN-7275-1": [],
@@ -7236,5 +7679,6 @@
   "USN-8709-1": [],
   "USN-8711-1": [],
   "USN-8736-1": [],
-  "USN-8737-1": []
+  "USN-8737-1": [],
+  "USN-8847-1": []
 }

@@ -575,13 +575,14 @@ overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
 overriding license for package Packagist/sentry/sdk/2.0.4 with 0BSD
 overriding license for package Packagist/theseer/tokenizer/1.1.3 with 0BSD
 
-Total 5 packages affected by 18 known vulnerabilities (3 Critical, 1 High, 3 Medium, 3 Low, 8 Unknown) from 4 ecosystems.
-17 vulnerabilities can be fixed.
+Total 5 packages affected by 20 known vulnerabilities (3 Critical, 1 High, 3 Medium, 5 Low, 8 Unknown) from 4 ecosystems.
+19 vulnerabilities can be fixed.
 
 +-----------------------------------------+------+--------------+-----------------------+----------+---------------+--------------------------------------------------+
 | OSV URL                                 | CVSS | ECOSYSTEM    | PACKAGE               | VERSION  | FIXED VERSION | SOURCE                                           |
 +-----------------------------------------+------+--------------+-----------------------+----------+---------------+--------------------------------------------------+
 | https://osv.dev/GHSA-9f46-5r25-5wfm     | 9.8  | Packagist    | league/flysystem      | 1.0.8    | 1.1.4         | testdata/locks-insecure/composer.lock            |
+| https://osv.dev/GHSA-cxf4-7mrp-vvpr     | 3.5  | Packagist    | league/flysystem      | 1.0.8    | 3.35.3        | testdata/locks-insecure/composer.lock            |
 | https://osv.dev/DRUPAL-CORE-2025-005    | 2.7  | Packagist    | drupal/core           | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock  |
 | https://osv.dev/GHSA-83v7-c2cf-p9c2     |      |              |                       |          |               |                                                  |
 | https://osv.dev/DRUPAL-CORE-2025-006    | 5.9  | Packagist    | drupal/core           | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock  |
@@ -605,6 +606,7 @@ Total 5 packages affected by 18 known vulnerabilities (3 Critical, 1 High, 3 Med
 | https://osv.dev/DRUPAL-CORE-2026-012    |      | Packagist    | drupal/core           | 10.4.5   | 10.6.13       | testdata/locks-many-with-insecure/composer.lock  |
 | https://osv.dev/DRUPAL-CONTRIB-2025-083 |      | Packagist    | drupal/simple_sitemap | 4.2.1    | --            | testdata/locks-many-with-insecure/composer.lock  |
 | https://osv.dev/GHSA-9f46-5r25-5wfm     | 9.8  | Packagist    | league/flysystem      | 1.0.8    | 1.1.4         | testdata/locks-many-with-insecure/composer.lock  |
+| https://osv.dev/GHSA-cxf4-7mrp-vvpr     | 3.5  | Packagist    | league/flysystem      | 1.0.8    | 3.35.3        | testdata/locks-many-with-insecure/composer.lock  |
 | https://osv.dev/ALPINE-CVE-2025-26519   | 7.0  | Alpine:v3.17 | musl                  | 1.2.3-r4 | 1.2.3-r6      | testdata/locks-many-with-insecure/alpine.cdx.xml |
 +-----------------------------------------+------+--------------+-----------------------+----------+---------------+--------------------------------------------------+
 +---------+-------------------------+
@@ -775,6 +777,40 @@ No issues found
           "ref": "pkg:composer/league/flysystem"
         }
       ]
+    },
+    {
+      "id": "GHSA-cxf4-7mrp-vvpr",
+      "references": [
+        {
+          "id": "CVE-2026-102601",
+          "source": {}
+        }
+      ],
+      "ratings": [
+        {
+          "score": 3.5,
+          "severity": "low",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:U/C:N/I:L/A:N"
+        }
+      ],
+      "description": "Flysystem: WhitespacePathNormalizer's control-character (CorruptedPathDetected) check is bypassed by malformed UTF-8 in the path, affecting every adapter",
+      "detail": "## Related public issue (context, not a duplicate)\n\nClosed issue #1429 (\"Handle non-UTF-8 paths\", 2024-03-24) raised exactly this general concern and\neven suggested detection via `preg_match('//u', $path) !== 1` -- note the reporter's suggested check\nexplicitly compares `!== 1`, which *would* correctly treat PCRE's `false` return as \"reject.\" The\nmaintainer's reply pointed to the `PathNormalizer` interface as the place to implement this. The\ncontrol-character check that ended up shipping in `WhitespacePathNormalizer`\n(`if (preg_match('#/p{C}+#u', $unixPath))`) addresses the general concern but does **not** use the\n`!== 1`-style comparison the original issue suggested -- it uses a bare truthy check, which is exactly\nthe gap this report demonstrates. So this is not a duplicate of #1429; it's a concrete bypass\nsurviving in the fix that issue's concern led to.\n\n## Vulnerability Details\n\n**File**: `src/WhitespacePathNormalizer.php`, lines 22-28 (`normalizePath()`) -- the **default**\n`PathNormalizer` used by `Filesystem` for every adapter (Local, FTP, SFTP, S3, AsyncAwsS3, Azure, GCS,\nZipArchive, GridFS, InMemory) unless the application supplies a custom one.\n\n### Root Cause\n\n```php\npublic function normalizePath(string $path): string\n{\n    $unixPath = str_replace('//', '/', $path);\n\n    if (preg_match('#/p{C}+#u', $unixPath)) {\n        throw CorruptedPathDetected::forPath($path);\n    }\n    ...\n```\n\n`preg_match()` returns `false` (a PHP engine error) rather than `0` when the subject string is not\nvalid UTF-8 and the pattern uses the `/u` modifier -- PCRE can't even attempt the match. `false` and\n`0` are both falsy in PHP, and `if (preg_match(...))` does not distinguish them. So a path containing\n**any single invalid UTF-8 byte anywhere in the string** makes `preg_match()` fail with a \"Malformed\nUTF-8 characters\" engine error, the `if` evaluates false, and `CorruptedPathDetected` is silently **not**\nthrown -- even when the same string also contains literal control characters this exact check exists\nto catch.\n\nthe identical payload IS correctly rejected once it's valid UTF-8:\n```php\n$n-\u003enormalizePath(\"foo/x1bbar\");         // valid UTF-8, contains ESC -\u003e throws CorruptedPathDetected (correct)\n$n-\u003enormalizePath(\"foo/x80/x1bbar\");    // 0x80 = invalid lone UTF-8 continuation byte -\u003e NOT thrown (bypass)\n```\n\nThe path-traversal protection is **unaffected** -- it's exact byte-string comparison on\n`/`-delimited segments, independent of UTF-8 validity:\n```php\n$n-\u003enormalizePath(\"/x80/../../etc/passwd\");   // still throws PathTraversalDetected\n```\n\n### Recommended Fix\n```php\npublic function normalizePath(string $path): string\n{\n    $unixPath = str_replace('//', '/', $path);\n    $matched = preg_match('#/p{C}+#u', $unixPath);\n\n    if ($matched !== 0) {\n        // $matched === false means malformed UTF-8 -- must also be treated as corrupted,\n        // not silently allowed through.\n        throw CorruptedPathDetected::forPath($path);\n    }\n    ...\n```\n\n### Verification\nDynamically confirmed on `league/flysystem` HEAD `6837e1d` / tag `3.35.2`, PHP 8.4.22 CLI, end-to-end\nthrough `LocalFilesystemAdapter`:\n```\n[1] write() succeeded -- normalizer did NOT reject the path.\n[2] Actual bytes on disk: ...801b5b386d6e6f726d616c2d6c6f6f6b696e672d66696c652e7478741b5b306d...\n[3] Filesystem::listContents() path contains raw ESC (0x1b): YES\n[4] Raw terminal output (via `cat -v`): M-^@^[[8mnormal-looking-file.txt^[[0m^[[2K^[[1Aurgent-invoice.pdf",
+      "advisories": [
+        {
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-102601"
+        }
+      ],
+      "published": "2026-09-29T18:10:14Z",
+      "updated": "2026-09-30T21:30:04Z",
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": "pkg:composer/league/flysystem"
+        }
+      ]
     }
   ]
 }
@@ -863,6 +899,40 @@ Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found
       ],
       "published": "2021-06-29T03:13:28Z",
       "updated": "2026-07-08T06:28:00Z",
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": "pkg:composer/league/flysystem"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-cxf4-7mrp-vvpr",
+      "references": [
+        {
+          "id": "CVE-2026-102601",
+          "source": {}
+        }
+      ],
+      "ratings": [
+        {
+          "score": 3.5,
+          "severity": "low",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:U/C:N/I:L/A:N"
+        }
+      ],
+      "description": "Flysystem: WhitespacePathNormalizer's control-character (CorruptedPathDetected) check is bypassed by malformed UTF-8 in the path, affecting every adapter",
+      "detail": "## Related public issue (context, not a duplicate)\n\nClosed issue #1429 (\"Handle non-UTF-8 paths\", 2024-03-24) raised exactly this general concern and\neven suggested detection via `preg_match('//u', $path) !== 1` -- note the reporter's suggested check\nexplicitly compares `!== 1`, which *would* correctly treat PCRE's `false` return as \"reject.\" The\nmaintainer's reply pointed to the `PathNormalizer` interface as the place to implement this. The\ncontrol-character check that ended up shipping in `WhitespacePathNormalizer`\n(`if (preg_match('#/p{C}+#u', $unixPath))`) addresses the general concern but does **not** use the\n`!== 1`-style comparison the original issue suggested -- it uses a bare truthy check, which is exactly\nthe gap this report demonstrates. So this is not a duplicate of #1429; it's a concrete bypass\nsurviving in the fix that issue's concern led to.\n\n## Vulnerability Details\n\n**File**: `src/WhitespacePathNormalizer.php`, lines 22-28 (`normalizePath()`) -- the **default**\n`PathNormalizer` used by `Filesystem` for every adapter (Local, FTP, SFTP, S3, AsyncAwsS3, Azure, GCS,\nZipArchive, GridFS, InMemory) unless the application supplies a custom one.\n\n### Root Cause\n\n```php\npublic function normalizePath(string $path): string\n{\n    $unixPath = str_replace('//', '/', $path);\n\n    if (preg_match('#/p{C}+#u', $unixPath)) {\n        throw CorruptedPathDetected::forPath($path);\n    }\n    ...\n```\n\n`preg_match()` returns `false` (a PHP engine error) rather than `0` when the subject string is not\nvalid UTF-8 and the pattern uses the `/u` modifier -- PCRE can't even attempt the match. `false` and\n`0` are both falsy in PHP, and `if (preg_match(...))` does not distinguish them. So a path containing\n**any single invalid UTF-8 byte anywhere in the string** makes `preg_match()` fail with a \"Malformed\nUTF-8 characters\" engine error, the `if` evaluates false, and `CorruptedPathDetected` is silently **not**\nthrown -- even when the same string also contains literal control characters this exact check exists\nto catch.\n\nthe identical payload IS correctly rejected once it's valid UTF-8:\n```php\n$n-\u003enormalizePath(\"foo/x1bbar\");         // valid UTF-8, contains ESC -\u003e throws CorruptedPathDetected (correct)\n$n-\u003enormalizePath(\"foo/x80/x1bbar\");    // 0x80 = invalid lone UTF-8 continuation byte -\u003e NOT thrown (bypass)\n```\n\nThe path-traversal protection is **unaffected** -- it's exact byte-string comparison on\n`/`-delimited segments, independent of UTF-8 validity:\n```php\n$n-\u003enormalizePath(\"/x80/../../etc/passwd\");   // still throws PathTraversalDetected\n```\n\n### Recommended Fix\n```php\npublic function normalizePath(string $path): string\n{\n    $unixPath = str_replace('//', '/', $path);\n    $matched = preg_match('#/p{C}+#u', $unixPath);\n\n    if ($matched !== 0) {\n        // $matched === false means malformed UTF-8 -- must also be treated as corrupted,\n        // not silently allowed through.\n        throw CorruptedPathDetected::forPath($path);\n    }\n    ...\n```\n\n### Verification\nDynamically confirmed on `league/flysystem` HEAD `6837e1d` / tag `3.35.2`, PHP 8.4.22 CLI, end-to-end\nthrough `LocalFilesystemAdapter`:\n```\n[1] write() succeeded -- normalizer did NOT reject the path.\n[2] Actual bytes on disk: ...801b5b386d6e6f726d616c2d6c6f6f6b696e672d66696c652e7478741b5b306d...\n[3] Filesystem::listContents() path contains raw ESC (0x1b): YES\n[4] Raw terminal output (via `cat -v`): M-^@^[[8mnormal-looking-file.txt^[[0m^[[2K^[[1Aurgent-invoice.pdf",
+      "advisories": [
+        {
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-102601"
+        }
+      ],
+      "published": "2026-09-29T18:10:14Z",
+      "updated": "2026-09-30T21:30:04Z",
       "credits": {
         "organizations": []
       },
@@ -967,6 +1037,40 @@ Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found
           "ref": "pkg:composer/league/flysystem"
         }
       ]
+    },
+    {
+      "id": "GHSA-cxf4-7mrp-vvpr",
+      "references": [
+        {
+          "id": "CVE-2026-102601",
+          "source": {}
+        }
+      ],
+      "ratings": [
+        {
+          "score": 3.5,
+          "severity": "low",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:U/C:N/I:L/A:N"
+        }
+      ],
+      "description": "Flysystem: WhitespacePathNormalizer's control-character (CorruptedPathDetected) check is bypassed by malformed UTF-8 in the path, affecting every adapter",
+      "detail": "## Related public issue (context, not a duplicate)\n\nClosed issue #1429 (\"Handle non-UTF-8 paths\", 2024-03-24) raised exactly this general concern and\neven suggested detection via `preg_match('//u', $path) !== 1` -- note the reporter's suggested check\nexplicitly compares `!== 1`, which *would* correctly treat PCRE's `false` return as \"reject.\" The\nmaintainer's reply pointed to the `PathNormalizer` interface as the place to implement this. The\ncontrol-character check that ended up shipping in `WhitespacePathNormalizer`\n(`if (preg_match('#/p{C}+#u', $unixPath))`) addresses the general concern but does **not** use the\n`!== 1`-style comparison the original issue suggested -- it uses a bare truthy check, which is exactly\nthe gap this report demonstrates. So this is not a duplicate of #1429; it's a concrete bypass\nsurviving in the fix that issue's concern led to.\n\n## Vulnerability Details\n\n**File**: `src/WhitespacePathNormalizer.php`, lines 22-28 (`normalizePath()`) -- the **default**\n`PathNormalizer` used by `Filesystem` for every adapter (Local, FTP, SFTP, S3, AsyncAwsS3, Azure, GCS,\nZipArchive, GridFS, InMemory) unless the application supplies a custom one.\n\n### Root Cause\n\n```php\npublic function normalizePath(string $path): string\n{\n    $unixPath = str_replace('//', '/', $path);\n\n    if (preg_match('#/p{C}+#u', $unixPath)) {\n        throw CorruptedPathDetected::forPath($path);\n    }\n    ...\n```\n\n`preg_match()` returns `false` (a PHP engine error) rather than `0` when the subject string is not\nvalid UTF-8 and the pattern uses the `/u` modifier -- PCRE can't even attempt the match. `false` and\n`0` are both falsy in PHP, and `if (preg_match(...))` does not distinguish them. So a path containing\n**any single invalid UTF-8 byte anywhere in the string** makes `preg_match()` fail with a \"Malformed\nUTF-8 characters\" engine error, the `if` evaluates false, and `CorruptedPathDetected` is silently **not**\nthrown -- even when the same string also contains literal control characters this exact check exists\nto catch.\n\nthe identical payload IS correctly rejected once it's valid UTF-8:\n```php\n$n-\u003enormalizePath(\"foo/x1bbar\");         // valid UTF-8, contains ESC -\u003e throws CorruptedPathDetected (correct)\n$n-\u003enormalizePath(\"foo/x80/x1bbar\");    // 0x80 = invalid lone UTF-8 continuation byte -\u003e NOT thrown (bypass)\n```\n\nThe path-traversal protection is **unaffected** -- it's exact byte-string comparison on\n`/`-delimited segments, independent of UTF-8 validity:\n```php\n$n-\u003enormalizePath(\"/x80/../../etc/passwd\");   // still throws PathTraversalDetected\n```\n\n### Recommended Fix\n```php\npublic function normalizePath(string $path): string\n{\n    $unixPath = str_replace('//', '/', $path);\n    $matched = preg_match('#/p{C}+#u', $unixPath);\n\n    if ($matched !== 0) {\n        // $matched === false means malformed UTF-8 -- must also be treated as corrupted,\n        // not silently allowed through.\n        throw CorruptedPathDetected::forPath($path);\n    }\n    ...\n```\n\n### Verification\nDynamically confirmed on `league/flysystem` HEAD `6837e1d` / tag `3.35.2`, PHP 8.4.22 CLI, end-to-end\nthrough `LocalFilesystemAdapter`:\n```\n[1] write() succeeded -- normalizer did NOT reject the path.\n[2] Actual bytes on disk: ...801b5b386d6e6f726d616c2d6c6f6f6b696e672d66696c652e7478741b5b306d...\n[3] Filesystem::listContents() path contains raw ESC (0x1b): YES\n[4] Raw terminal output (via `cat -v`): M-^@^[[8mnormal-looking-file.txt^[[0m^[[2K^[[1Aurgent-invoice.pdf",
+      "advisories": [
+        {
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-102601"
+        }
+      ],
+      "published": "2026-09-29T18:10:14Z",
+      "updated": "2026-09-30T21:30:04Z",
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": "pkg:composer/league/flysystem"
+        }
+      ]
     }
   ]
 }
@@ -1055,6 +1159,40 @@ Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found
       ],
       "published": "2021-06-29T03:13:28Z",
       "updated": "2026-07-08T06:28:00Z",
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": "pkg:composer/league/flysystem"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-cxf4-7mrp-vvpr",
+      "references": [
+        {
+          "id": "CVE-2026-102601",
+          "source": {}
+        }
+      ],
+      "ratings": [
+        {
+          "score": 3.5,
+          "severity": "low",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:U/C:N/I:L/A:N"
+        }
+      ],
+      "description": "Flysystem: WhitespacePathNormalizer's control-character (CorruptedPathDetected) check is bypassed by malformed UTF-8 in the path, affecting every adapter",
+      "detail": "## Related public issue (context, not a duplicate)\n\nClosed issue #1429 (\"Handle non-UTF-8 paths\", 2024-03-24) raised exactly this general concern and\neven suggested detection via `preg_match('//u', $path) !== 1` -- note the reporter's suggested check\nexplicitly compares `!== 1`, which *would* correctly treat PCRE's `false` return as \"reject.\" The\nmaintainer's reply pointed to the `PathNormalizer` interface as the place to implement this. The\ncontrol-character check that ended up shipping in `WhitespacePathNormalizer`\n(`if (preg_match('#/p{C}+#u', $unixPath))`) addresses the general concern but does **not** use the\n`!== 1`-style comparison the original issue suggested -- it uses a bare truthy check, which is exactly\nthe gap this report demonstrates. So this is not a duplicate of #1429; it's a concrete bypass\nsurviving in the fix that issue's concern led to.\n\n## Vulnerability Details\n\n**File**: `src/WhitespacePathNormalizer.php`, lines 22-28 (`normalizePath()`) -- the **default**\n`PathNormalizer` used by `Filesystem` for every adapter (Local, FTP, SFTP, S3, AsyncAwsS3, Azure, GCS,\nZipArchive, GridFS, InMemory) unless the application supplies a custom one.\n\n### Root Cause\n\n```php\npublic function normalizePath(string $path): string\n{\n    $unixPath = str_replace('//', '/', $path);\n\n    if (preg_match('#/p{C}+#u', $unixPath)) {\n        throw CorruptedPathDetected::forPath($path);\n    }\n    ...\n```\n\n`preg_match()` returns `false` (a PHP engine error) rather than `0` when the subject string is not\nvalid UTF-8 and the pattern uses the `/u` modifier -- PCRE can't even attempt the match. `false` and\n`0` are both falsy in PHP, and `if (preg_match(...))` does not distinguish them. So a path containing\n**any single invalid UTF-8 byte anywhere in the string** makes `preg_match()` fail with a \"Malformed\nUTF-8 characters\" engine error, the `if` evaluates false, and `CorruptedPathDetected` is silently **not**\nthrown -- even when the same string also contains literal control characters this exact check exists\nto catch.\n\nthe identical payload IS correctly rejected once it's valid UTF-8:\n```php\n$n-\u003enormalizePath(\"foo/x1bbar\");         // valid UTF-8, contains ESC -\u003e throws CorruptedPathDetected (correct)\n$n-\u003enormalizePath(\"foo/x80/x1bbar\");    // 0x80 = invalid lone UTF-8 continuation byte -\u003e NOT thrown (bypass)\n```\n\nThe path-traversal protection is **unaffected** -- it's exact byte-string comparison on\n`/`-delimited segments, independent of UTF-8 validity:\n```php\n$n-\u003enormalizePath(\"/x80/../../etc/passwd\");   // still throws PathTraversalDetected\n```\n\n### Recommended Fix\n```php\npublic function normalizePath(string $path): string\n{\n    $unixPath = str_replace('//', '/', $path);\n    $matched = preg_match('#/p{C}+#u', $unixPath);\n\n    if ($matched !== 0) {\n        // $matched === false means malformed UTF-8 -- must also be treated as corrupted,\n        // not silently allowed through.\n        throw CorruptedPathDetected::forPath($path);\n    }\n    ...\n```\n\n### Verification\nDynamically confirmed on `league/flysystem` HEAD `6837e1d` / tag `3.35.2`, PHP 8.4.22 CLI, end-to-end\nthrough `LocalFilesystemAdapter`:\n```\n[1] write() succeeded -- normalizer did NOT reject the path.\n[2] Actual bytes on disk: ...801b5b386d6e6f726d616c2d6c6f6f6b696e672d66696c652e7478741b5b306d...\n[3] Filesystem::listContents() path contains raw ESC (0x1b): YES\n[4] Raw terminal output (via `cat -v`): M-^@^[[8mnormal-looking-file.txt^[[0m^[[2K^[[1Aurgent-invoice.pdf",
+      "advisories": [
+        {
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-102601"
+        }
+      ],
+      "published": "2026-09-29T18:10:14Z",
+      "updated": "2026-09-30T21:30:04Z",
       "credits": {
         "organizations": []
       },
@@ -1209,8 +1347,8 @@ Scanned <rootdir>/testdata/sbom-insecure/postgres-stretch.cdx.xml file and found
 Scanned <rootdir>/testdata/sbom-insecure/with-duplicates.cdx.xml file and found 17 packages
 Filtered 10 local/unscannable package/s from the scan.
 
-Total 11 packages affected by 26 known vulnerabilities (3 Critical, 10 High, 7 Medium, 1 Low, 5 Unknown) from 5 ecosystems.
-26 vulnerabilities can be fixed.
+Total 11 packages affected by 27 known vulnerabilities (3 Critical, 11 High, 7 Medium, 1 Low, 5 Unknown) from 5 ecosystems.
+27 vulnerabilities can be fixed.
 
 +---------------------------------------+------+--------------+--------------------------------+------------------------------------+-----------------------------------+---------------------------------------------------------------------+
 | OSV URL                               | CVSS | ECOSYSTEM    | PACKAGE                        | VERSION                            | FIXED VERSION                     | SOURCE                                                              |
@@ -1249,6 +1387,7 @@ Total 11 packages affected by 26 known vulnerabilities (3 Critical, 10 High, 7 M
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine:v3.22 | zlib                           | 1.2.12-r1                          | 1.2.12-r2                         | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
 | https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine:v3.22 | zlib                           | 1.2.12-r1                          | 1.3.2-r0                          | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
 | https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine:v3.22 | zlib                           | 1.2.12-r1                          | 1.3.2-r0                          | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
+| https://osv.dev/ALPINE-CVE-2026-85091 | 8.3  | Alpine:v3.22 | zlib                           | 1.2.12-r1                          | 1.3.2-r1                          | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
 | https://osv.dev/DLA-3022-1            |      | Debian:9     | dpkg                           | 1.18.25                            | 1.18.26                           | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DLA-3012-1            |      | Debian:9     | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | 2.9.4+dfsg1-2.2+deb9u7            | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DLA-3008-1            |      | Debian:9     | openssl                        | 1.1.0l-1~deb9u5                    | 1.1.0l-1~deb9u6                   | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -1274,8 +1413,8 @@ Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and f
 [TestCommand/go_packages_in_osv-scanner.json_format - 1 - stdout]
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner.json file and found 2 packages
 
-Total 2 packages affected by 58 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 58 Unknown) from 1 ecosystem.
-58 vulnerabilities can be fixed.
+Total 2 packages affected by 73 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 73 Unknown) from 1 ecosystem.
+73 vulnerabilities can be fixed.
 
 +------------------------------+------+-----------+-----------+---------+---------------+------------------------------------------+
 | OSV URL                      | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                   |
@@ -1327,6 +1466,19 @@ Total 2 packages affected by 58 known vulnerabilities (0 Critical, 0 High, 0 Med
 | https://osv.dev/GO-2026-6090 |      | Go        | stdlib    | 1.24.4  | 1.25.13       | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-6091 |      | Go        | stdlib    | 1.24.4  | 1.25.13       | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-6218 |      | Go        | stdlib    | 1.24.4  | 1.25.13       | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-6599 |      | Go        | stdlib    | 1.24.4  | 1.26.9        | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-6600 |      | Go        | stdlib    | 1.24.4  | 1.26.9        | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-6603 |      | Go        | stdlib    | 1.24.4  | 1.26.9        | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-6604 |      | Go        | stdlib    | 1.24.4  | 1.26.9        | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-6605 |      | Go        | stdlib    | 1.24.4  | 1.26.9        | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-6607 |      | Go        | stdlib    | 1.24.4  | 1.26.9        | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-6608 |      | Go        | stdlib    | 1.24.4  | 1.26.9        | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-6609 |      | Go        | stdlib    | 1.24.4  | 1.26.9        | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-6610 |      | Go        | stdlib    | 1.24.4  | 1.26.9        | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-6611 |      | Go        | stdlib    | 1.24.4  | 1.26.9        | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-6612 |      | Go        | stdlib    | 1.24.4  | 1.26.9        | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-6613 |      | Go        | stdlib    | 1.24.4  | 1.26.9        | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-6617 |      | Go        | stdlib    | 1.24.4  | 1.26.9        | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2025-3828 |      | Go        | toolchain | 1.24.4  | 1.24.5        | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-4339 |      | Go        | toolchain | 1.24.4  | 1.24.12       | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-4433 |      | Go        | toolchain | 1.24.4  | 1.24.13       | testdata/locks-insecure/osv-scanner.json |
@@ -1338,6 +1490,8 @@ Total 2 packages affected by 58 known vulnerabilities (0 Critical, 0 High, 0 Med
 | https://osv.dev/GO-2026-4984 |      | Go        | toolchain | 1.24.4  | 1.25.10       | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-6179 |      | Go        | toolchain | 1.24.4  | 1.25.13       | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-6180 |      | Go        | toolchain | 1.24.4  | 1.25.13       | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-6601 |      | Go        | toolchain | 1.24.4  | 1.26.9        | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-6602 |      | Go        | toolchain | 1.24.4  | 1.26.9        | testdata/locks-insecure/osv-scanner.json |
 +------------------------------+------+-----------+-----------+---------+---------------+------------------------------------------+
 
 ---
@@ -1784,8 +1938,8 @@ Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 
 Scanned <rootdir>/testdata/locks-requirements/the_requirements_for_test.txt file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/unresolvable-requirements.txt file and found 3 packages
 
-Total 12 packages affected by 74 known vulnerabilities (6 Critical, 20 High, 35 Medium, 12 Low, 1 Unknown) from 1 ecosystem.
-73 vulnerabilities can be fixed.
+Total 12 packages affected by 77 known vulnerabilities (6 Critical, 23 High, 35 Medium, 12 Low, 1 Unknown) from 1 ecosystem.
+76 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+------------+---------+---------------+-----------------------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE    | VERSION | FIXED VERSION | SOURCE                                                    |
@@ -1802,6 +1956,9 @@ Total 12 packages affected by 74 known vulnerabilities (6 Critical, 20 High, 35 
 | https://osv.dev/PYSEC-2026-1297     | 6.3  | PyPI      | django     | 1.11.29 | 4.2.16        | testdata/locks-requirements/requirements-transitive.txt   |
 | https://osv.dev/GHSA-rrqc-c2jx-6jgv |      |           |            |         |               |                                                           |
 | https://osv.dev/PYSEC-2026-3717     | 6.9  | PyPI      | django     | 1.11.29 | 5.2.17        | testdata/locks-requirements/requirements-transitive.txt   |
+| https://osv.dev/GHSA-q238-5cxm-5c9h |      |           |            |         |               |                                                           |
+| https://osv.dev/PYSEC-2026-4035     | 8.8  | PyPI      | django     | 1.11.29 | 5.2.17        | testdata/locks-requirements/requirements-transitive.txt   |
+| https://osv.dev/GHSA-wvqv-fj8w-qmhm |      |           |            |         |               |                                                           |
 | https://osv.dev/GHSA-3h9f-r86x-qvjx | 3.1  | PyPI      | django     | 1.11.29 | 5.2.16        | testdata/locks-requirements/requirements-transitive.txt   |
 | https://osv.dev/GHSA-6w2r-r2m5-xq5w | 7.1  | PyPI      | django     | 1.11.29 | 4.2.24        | testdata/locks-requirements/requirements-transitive.txt   |
 | https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django     | 1.11.29 | 4.2.22        | testdata/locks-requirements/requirements-transitive.txt   |
@@ -1844,6 +2001,9 @@ Total 12 packages affected by 74 known vulnerabilities (6 Critical, 20 High, 35 
 | https://osv.dev/PYSEC-2026-1297     | 6.3  | PyPI      | django     | 2.2.24  | 4.2.16        | testdata/locks-requirements/requirements.prod.txt         |
 | https://osv.dev/GHSA-rrqc-c2jx-6jgv |      |           |            |         |               |                                                           |
 | https://osv.dev/PYSEC-2026-3717     | 6.9  | PyPI      | django     | 2.2.24  | 5.2.17        | testdata/locks-requirements/requirements.prod.txt         |
+| https://osv.dev/GHSA-q238-5cxm-5c9h |      |           |            |         |               |                                                           |
+| https://osv.dev/PYSEC-2026-4035     | 8.8  | PyPI      | django     | 2.2.24  | 5.2.17        | testdata/locks-requirements/requirements.prod.txt         |
+| https://osv.dev/GHSA-wvqv-fj8w-qmhm |      |           |            |         |               |                                                           |
 | https://osv.dev/GHSA-3h9f-r86x-qvjx | 3.1  | PyPI      | django     | 2.2.24  | 5.2.16        | testdata/locks-requirements/requirements.prod.txt         |
 | https://osv.dev/GHSA-6w2r-r2m5-xq5w | 7.1  | PyPI      | django     | 2.2.24  | 4.2.24        | testdata/locks-requirements/requirements.prod.txt         |
 | https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django     | 2.2.24  | 4.2.22        | testdata/locks-requirements/requirements.prod.txt         |
@@ -1860,6 +2020,9 @@ Total 12 packages affected by 74 known vulnerabilities (6 Critical, 20 High, 35 
 | https://osv.dev/PYSEC-2026-1297     | 6.3  | PyPI      | django     | 1.11.29 | 4.2.16        | testdata/locks-requirements/requirements.txt              |
 | https://osv.dev/GHSA-rrqc-c2jx-6jgv |      |           |            |         |               |                                                           |
 | https://osv.dev/PYSEC-2026-3717     | 6.9  | PyPI      | django     | 1.11.29 | 5.2.17        | testdata/locks-requirements/requirements.txt              |
+| https://osv.dev/GHSA-q238-5cxm-5c9h |      |           |            |         |               |                                                           |
+| https://osv.dev/PYSEC-2026-4035     | 8.8  | PyPI      | django     | 1.11.29 | 5.2.17        | testdata/locks-requirements/requirements.txt              |
+| https://osv.dev/GHSA-wvqv-fj8w-qmhm |      |           |            |         |               |                                                           |
 | https://osv.dev/GHSA-3h9f-r86x-qvjx | 3.1  | PyPI      | django     | 1.11.29 | 5.2.16        | testdata/locks-requirements/requirements.txt              |
 | https://osv.dev/GHSA-6w2r-r2m5-xq5w | 7.1  | PyPI      | django     | 1.11.29 | 4.2.24        | testdata/locks-requirements/requirements.txt              |
 | https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django     | 1.11.29 | 4.2.22        | testdata/locks-requirements/requirements.txt              |
@@ -2276,7 +2439,7 @@ Total 7 packages affected by 7 known vulnerabilities (1 Critical, 0 High, 1 Medi
 [TestCommand_CommitSupport/online_uses_git_commits - 1 - stdout]
 Scanned <rootdir>/testdata/locks-git/osv-scanner.json file and found 11 packages
 
-Total 11 packages affected by 80 known vulnerabilities (5 Critical, 35 High, 28 Medium, 6 Low, 6 Unknown) from 1 ecosystem.
+Total 11 packages affected by 93 known vulnerabilities (5 Critical, 39 High, 33 Medium, 10 Low, 6 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +--------------------------------+------+-----------+-----------------------------------------------+------------------+---------------+-------------------------------------+
@@ -2340,23 +2503,36 @@ Total 11 packages affected by 80 known vulnerabilities (5 Critical, 35 High, 28 
 | https://osv.dev/CVE-2026-34181 | 7.4  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-34182 | 9.1  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-34183 | 7.5  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2026-35189 | 5.3  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2026-35191 | 3.7  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-42764 | 7.5  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-42766 | 5.9  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-42767 | 5.9  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-42768 | 3.7  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-42769 | 5.3  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-42770 | 3.7  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2026-42772 | 5.3  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-45445 | 7.5  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-45446 | 4.8  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-45447 | 8.8  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2026-54872 | 3.7  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2026-54873 | 7.5  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-54874 | 7.5  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2026-54875 | 3.7  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-63072 | 7.5  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-63073 | 9.8  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-63074 | 5.9  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-63075 | 7.5  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-63076 | 7.5  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2026-72897 | 7.5  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-7383  | 8.1  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-75803 | 9.1  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2026-75804 | 5.3  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2026-75805 | 5.3  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2026-75806 | 5.3  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2026-77696 | 3.7  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2026-84782 | 8.2  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2026-84784 | 7.5  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-9076  | 7.5  | GIT       | https://github.com/openssl/openssl            | openssl-3.5.0    | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2023-53159 | 4.5  | GIT       | https://github.com/sfackler-fork/rust-openssl | openssl-v0.10.23 | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-24898 | 6.3  | GIT       | https://github.com/sfackler-fork/rust-openssl | openssl-v0.10.23 | --            | testdata/locks-git/osv-scanner.json |
@@ -2417,8 +2593,8 @@ testdata/osv-scanner-partial-ignores-config.toml has unused ignores:
  - CVE-2019-5188
  - CVE-2022-1304
 
-Total 9 packages affected by 21 known vulnerabilities (3 Critical, 6 High, 6 Medium, 1 Low, 5 Unknown) from 5 ecosystems.
-21 vulnerabilities can be fixed.
+Total 9 packages affected by 22 known vulnerabilities (3 Critical, 7 High, 6 Medium, 1 Low, 5 Unknown) from 5 ecosystems.
+22 vulnerabilities can be fixed.
 
 +---------------------------------------+------+--------------+--------------------------------+------------------------------------+-----------------------------------+---------------------------------------------------------------------+
 | OSV URL                               | CVSS | ECOSYSTEM    | PACKAGE                        | VERSION                            | FIXED VERSION                     | SOURCE                                                              |
@@ -2451,6 +2627,7 @@ Total 9 packages affected by 21 known vulnerabilities (3 Critical, 6 High, 6 Med
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine:v3.22 | zlib                           | 1.2.12-r1                          | 1.2.12-r2                         | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
 | https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine:v3.22 | zlib                           | 1.2.12-r1                          | 1.3.2-r0                          | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
 | https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine:v3.22 | zlib                           | 1.2.12-r1                          | 1.3.2-r0                          | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
+| https://osv.dev/ALPINE-CVE-2026-85091 | 8.3  | Alpine:v3.22 | zlib                           | 1.2.12-r1                          | 1.3.2-r1                          | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
 | https://osv.dev/DLA-3022-1            |      | Debian:9     | dpkg                           | 1.18.25                            | 1.18.26                           | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DLA-3012-1            |      | Debian:9     | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | 2.9.4+dfsg1-2.2+deb9u7            | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DLA-3008-1            |      | Debian:9     | openssl                        | 1.1.0l-1~deb9u5                    | 1.1.0l-1~deb9u6                   | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -4221,13 +4398,14 @@ Filtered 4 ignored package/s from the scan.
 overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
 overriding license for package Packagist/sentry/sdk/2.0.4 with 0BSD
 
-Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-1 vulnerability can be fixed.
+Total 1 package affected by 2 known vulnerabilities (1 Critical, 0 High, 0 Medium, 1 Low, 0 Unknown) from 2 ecosystems.
+2 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+------------------+---------+---------------+---------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | FIXED VERSION | SOURCE                                |
 +-------------------------------------+------+-----------+------------------+---------+---------------+---------------------------------------+
 | https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | 1.1.4         | testdata/locks-insecure/composer.lock |
+| https://osv.dev/GHSA-cxf4-7mrp-vvpr | 3.5  | Packagist | league/flysystem | 1.0.8   | 3.35.3        | testdata/locks-insecure/composer.lock |
 +-------------------------------------+------+-----------+------------------+---------+---------------+---------------------------------------+
 +---------+-------------------------+
 | LICENSE | NO. OF PACKAGE VERSIONS |
@@ -5133,13 +5311,14 @@ Scanned <rootdir>/testdata/locks-insecure/my-package-lock.json file and found 1 
 Scanned <rootdir>/testdata/locks-insecure/my-yarn.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found 2 packages
 
-Total 3 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-3 vulnerabilities can be fixed.
+Total 3 packages affected by 4 known vulnerabilities (1 Critical, 2 High, 0 Medium, 1 Low, 0 Unknown) from 2 ecosystems.
+4 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+------------------+---------+---------------+----------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | FIXED VERSION | SOURCE                                       |
 +-------------------------------------+------+-----------+------------------+---------+---------------+----------------------------------------------+
 | https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | 1.1.4         | testdata/locks-insecure/composer.lock        |
+| https://osv.dev/GHSA-cxf4-7mrp-vvpr | 3.5  | Packagist | league/flysystem | 1.0.8   | 3.35.3        | testdata/locks-insecure/composer.lock        |
 | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | 0.0.8         | testdata/locks-insecure/my-package-lock.json |
 | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | 0.0.8         | testdata/locks-insecure/my-yarn.lock         |
 +-------------------------------------+------+-----------+------------------+---------+---------------+----------------------------------------------+
@@ -5158,13 +5337,14 @@ Scanned <rootdir>/testdata/locks-insecure/my-package-lock.json file and found 1 
 Scanned <rootdir>/testdata/locks-insecure/my-yarn.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found 2 packages
 
-Total 3 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-3 vulnerabilities can be fixed.
+Total 3 packages affected by 4 known vulnerabilities (1 Critical, 2 High, 0 Medium, 1 Low, 0 Unknown) from 2 ecosystems.
+4 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+------------------+---------+---------------+----------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | FIXED VERSION | SOURCE                                       |
 +-------------------------------------+------+-----------+------------------+---------+---------------+----------------------------------------------+
 | https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | 1.1.4         | testdata/locks-insecure/composer.lock        |
+| https://osv.dev/GHSA-cxf4-7mrp-vvpr | 3.5  | Packagist | league/flysystem | 1.0.8   | 3.35.3        | testdata/locks-insecure/composer.lock        |
 | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | 0.0.8         | testdata/locks-insecure/my-package-lock.json |
 | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | 0.0.8         | testdata/locks-insecure/my-yarn.lock         |
 +-------------------------------------+------+-----------+------------------+---------+---------------+----------------------------------------------+
@@ -5213,13 +5393,14 @@ Scanned <rootdir>/testdata/locks-insecure/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-insecure/my-package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found 2 packages
 
-Total 2 packages affected by 2 known vulnerabilities (1 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-2 vulnerabilities can be fixed.
+Total 2 packages affected by 3 known vulnerabilities (1 Critical, 1 High, 0 Medium, 1 Low, 0 Unknown) from 2 ecosystems.
+3 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+------------------+---------+---------------+----------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | FIXED VERSION | SOURCE                                       |
 +-------------------------------------+------+-----------+------------------+---------+---------------+----------------------------------------------+
 | https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | 1.1.4         | testdata/locks-insecure/composer.lock        |
+| https://osv.dev/GHSA-cxf4-7mrp-vvpr | 3.5  | Packagist | league/flysystem | 1.0.8   | 3.35.3        | testdata/locks-insecure/composer.lock        |
 | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | 0.0.8         | testdata/locks-insecure/my-package-lock.json |
 +-------------------------------------+------+-----------+------------------+---------+---------------+----------------------------------------------+
 
@@ -5621,8 +5802,8 @@ No package sources found, --help for usage information.
 Scanning dir ./testdata/locks-requirements/requirements.txt
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
 
-Total 3 packages affected by 20 known vulnerabilities (1 Critical, 4 High, 11 Medium, 4 Low, 0 Unknown) from 1 ecosystem.
-20 vulnerabilities can be fixed.
+Total 3 packages affected by 21 known vulnerabilities (1 Critical, 5 High, 11 Medium, 4 Low, 0 Unknown) from 1 ecosystem.
+21 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | FIXED VERSION | SOURCE                                       |
@@ -5632,6 +5813,9 @@ Total 3 packages affected by 20 known vulnerabilities (1 Critical, 4 High, 11 Me
 | https://osv.dev/PYSEC-2026-1297     | 6.3  | PyPI      | django   | 1.11.29 | 4.2.16        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-rrqc-c2jx-6jgv |      |           |          |         |               |                                              |
 | https://osv.dev/PYSEC-2026-3717     | 6.9  | PyPI      | django   | 1.11.29 | 5.2.17        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-q238-5cxm-5c9h |      |           |          |         |               |                                              |
+| https://osv.dev/PYSEC-2026-4035     | 8.8  | PyPI      | django   | 1.11.29 | 5.2.17        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-wvqv-fj8w-qmhm |      |           |          |         |               |                                              |
 | https://osv.dev/GHSA-3h9f-r86x-qvjx | 3.1  | PyPI      | django   | 1.11.29 | 5.2.16        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-6w2r-r2m5-xq5w | 7.1  | PyPI      | django   | 1.11.29 | 4.2.24        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django   | 1.11.29 | 4.2.22        | testdata/locks-requirements/requirements.txt |
@@ -5727,8 +5911,8 @@ no candidates at all for: pytz ">=2011k"
 [TestCommand_Transitive/requirements.txt_transitive_default - 1 - stdout]
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
 
-Total 5 packages affected by 31 known vulnerabilities (1 Critical, 10 High, 16 Medium, 4 Low, 0 Unknown) from 1 ecosystem.
-31 vulnerabilities can be fixed.
+Total 5 packages affected by 33 known vulnerabilities (1 Critical, 12 High, 16 Medium, 4 Low, 0 Unknown) from 1 ecosystem.
+33 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | FIXED VERSION | SOURCE                                       |
@@ -5738,6 +5922,9 @@ Total 5 packages affected by 31 known vulnerabilities (1 Critical, 10 High, 16 M
 | https://osv.dev/PYSEC-2026-1297     | 6.3  | PyPI      | django   | 1.11.29 | 4.2.16        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-rrqc-c2jx-6jgv |      |           |          |         |               |                                              |
 | https://osv.dev/PYSEC-2026-3717     | 6.9  | PyPI      | django   | 1.11.29 | 5.2.17        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-q238-5cxm-5c9h |      |           |          |         |               |                                              |
+| https://osv.dev/PYSEC-2026-4035     | 8.8  | PyPI      | django   | 1.11.29 | 5.2.17        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-wvqv-fj8w-qmhm |      |           |          |         |               |                                              |
 | https://osv.dev/GHSA-3h9f-r86x-qvjx | 3.1  | PyPI      | django   | 1.11.29 | 5.2.16        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-6w2r-r2m5-xq5w | 7.1  | PyPI      | django   | 1.11.29 | 4.2.24        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django   | 1.11.29 | 4.2.22        | testdata/locks-requirements/requirements.txt |
@@ -5783,6 +5970,8 @@ Total 5 packages affected by 31 known vulnerabilities (1 Critical, 10 High, 16 M
 | https://osv.dev/GHSA-gm62-xv2j-4w53 |      |           |          |         |               |                                              |
 | https://osv.dev/PYSEC-2026-1999     | 5.3  | PyPI      | urllib3  | 1.24.3  | 2.5.0         | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-pq67-6m6q-mj2v |      |           |          |         |               |                                              |
+| https://osv.dev/PYSEC-2026-4177     | 8.9  | PyPI      | urllib3  | 1.24.3  | 2.8.0         | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-vxq7-64xx-v4gw |      |           |          |         |               |                                              |
 +-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
 
 ---
@@ -5794,8 +5983,8 @@ Total 5 packages affected by 31 known vulnerabilities (1 Critical, 10 High, 16 M
 [TestCommand_Transitive/requirements.txt_transitive_native_source - 1 - stdout]
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
 
-Total 5 packages affected by 31 known vulnerabilities (1 Critical, 10 High, 16 Medium, 4 Low, 0 Unknown) from 1 ecosystem.
-31 vulnerabilities can be fixed.
+Total 5 packages affected by 33 known vulnerabilities (1 Critical, 12 High, 16 Medium, 4 Low, 0 Unknown) from 1 ecosystem.
+33 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | FIXED VERSION | SOURCE                                       |
@@ -5805,6 +5994,9 @@ Total 5 packages affected by 31 known vulnerabilities (1 Critical, 10 High, 16 M
 | https://osv.dev/PYSEC-2026-1297     | 6.3  | PyPI      | django   | 1.11.29 | 4.2.16        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-rrqc-c2jx-6jgv |      |           |          |         |               |                                              |
 | https://osv.dev/PYSEC-2026-3717     | 6.9  | PyPI      | django   | 1.11.29 | 5.2.17        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-q238-5cxm-5c9h |      |           |          |         |               |                                              |
+| https://osv.dev/PYSEC-2026-4035     | 8.8  | PyPI      | django   | 1.11.29 | 5.2.17        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-wvqv-fj8w-qmhm |      |           |          |         |               |                                              |
 | https://osv.dev/GHSA-3h9f-r86x-qvjx | 3.1  | PyPI      | django   | 1.11.29 | 5.2.16        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-6w2r-r2m5-xq5w | 7.1  | PyPI      | django   | 1.11.29 | 4.2.24        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django   | 1.11.29 | 4.2.22        | testdata/locks-requirements/requirements.txt |
@@ -5850,6 +6042,8 @@ Total 5 packages affected by 31 known vulnerabilities (1 Critical, 10 High, 16 M
 | https://osv.dev/GHSA-gm62-xv2j-4w53 |      |           |          |         |               |                                              |
 | https://osv.dev/PYSEC-2026-1999     | 5.3  | PyPI      | urllib3  | 1.24.3  | 2.5.0         | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-pq67-6m6q-mj2v |      |           |          |         |               |                                              |
+| https://osv.dev/PYSEC-2026-4177     | 8.9  | PyPI      | urllib3  | 1.24.3  | 2.8.0         | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-vxq7-64xx-v4gw |      |           |          |         |               |                                              |
 +-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
 
 ---
