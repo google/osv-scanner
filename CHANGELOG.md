@@ -1,3 +1,45 @@
+# v2.7.0
+
+### Features:
+
+- [Feature #2885](https://github.com/google/osv-scanner/pull/2885) Include package URLs (`purl`) in JSON output when available.
+- [Feature #2589](https://github.com/google/osv-scanner/pull/2589) Add shorter `--x-` flag aliases and deprecate `--experimental-` flags.
+- [Feature #3113](https://github.com/google/osv-scanner/pull/3113) Include vulnerability severity and rating in CycloneDX output when available.
+- [Feature #3102](https://github.com/google/osv-scanner/pull/3102) Enable Dart `package_config.json` (`dart/packageconfig`) extractor by default for lockfile scans ([google/osv-scalibr#2295](https://github.com/google/osv-scalibr/pull/2295)).
+- **Dependency scanning & lockfile improvements via `osv-scalibr`**:
+  - Add best-effort Maven property pre-interpolation for dependency versions and in-memory caching for Maven resolution.
+  - Support scanning Bitnami container SPDX SBOMs (`sbom/spdx`) ([google/osv-scalibr#2156](https://github.com/google/osv-scalibr/pull/2156)).
+  - Add MinimOS ecosystem mapping to the APK extractor (`os/apk`) ([google/osv-scalibr#2406](https://github.com/google/osv-scalibr/pull/2406)).
+  - Apply `--max-file-size` limit to container image contents and tag container image layers with Buildpacks lifecycle metadata.
+- **New extractors and plugin support via `osv-scalibr`**:
+  - Added `zig/buildzigzon` (`build.zig.zon`, [google/osv-scalibr#1841](https://github.com/google/osv-scalibr/pull/1841)), available via `--x-plugins` (`--experimental-plugins`). See ["Supported Inventory Types"](https://github.com/google/osv-scalibr/blob/5be78a00e3c294c19a0b03949e4eb643653c0218/docs/supported_inventory_types.md) for the extractor name.
+
+### Fixes:
+
+- [Bug #3137](https://github.com/google/osv-scanner/pull/3137) Delegate package normalization to `osv-scalibr`'s `osvutil` to preserve Maven group IDs in CycloneDX SBOMs so fixed versions are properly reported (fixes [#3099](https://github.com/google/osv-scanner/issues/3099)).
+- [Bug #3135](https://github.com/google/osv-scanner/pull/3135) Prevent network-requiring plugins (such as base image enrichment) from running when `--offline` is combined with `--download-offline-databases`.
+- [Bug #3134](https://github.com/google/osv-scanner/pull/3134) Preserve call analysis information when diffing vulnerability results.
+- [Bug #3121](https://github.com/google/osv-scanner/pull/3121) Wrap `[[PackageOverrides]]` ecosystem suffix alternatives in a non-capturing group so `Ecosystem` regex matching applies correctly to all variants (fixes [#3120](https://github.com/google/osv-scanner/issues/3120)).
+- [Bug #3103](https://github.com/google/osv-scanner/pull/3103) Sort packages by location before applying config annotations for deterministic log output order during recursive scans.
+- [Bug #3087](https://github.com/google/osv-scanner/pull/3087) Group output packages by exact ecosystem name to prevent duplicate entries when ecosystems share a prefix (e.g. `Alpine` and `Alpine:v3.18`) (fixes [#3086](https://github.com/google/osv-scanner/issues/3086)).
+- **Fixes via `osv-scalibr`**:
+  - Skip OSV queries for local npm packages (`file:`, workspace, and local tarballs) and avoid extracting bogus versions or commits for `file:` and URL-based dependencies in `bun.lock` ([google/osv-scalibr#2443](https://github.com/google/osv-scalibr/pull/2443), [google/osv-scalibr#2444](https://github.com/google/osv-scalibr/pull/2444)).
+  - Restrict `#commit` fragment extraction in JS lockfiles to Git-based dependency resolutions ([google/osv-scalibr#2448](https://github.com/google/osv-scalibr/pull/2448)).
+  - Prevent slice-bounds panic in `javascript/pnpmlock` on malformed scoped dependency paths ([google/osv-scalibr#2263](https://github.com/google/osv-scalibr/pull/2263)).
+  - Emit valid Hackage PURLs (`pkg:hackage/...`) and add `Hackage` OSV ecosystem mapping for Haskell (`cabal` and `stack.yaml.lock`) extractors ([google/osv-scalibr#2419](https://github.com/google/osv-scalibr/pull/2419)).
+  - Match Python `setup.py` package names containing `-`, `.`, and `_` ([google/osv-scalibr#2162](https://github.com/google/osv-scalibr/pull/2162)).
+  - Reject invalid ZIP64 sizes and bound metadata reads in `python/wheelegg` ([google/osv-scalibr#2012](https://github.com/google/osv-scalibr/pull/2012)).
+  - Confine Maven registry disk cache writes with `os.Root` to prevent path traversal ([google/osv-scalibr#2398](https://github.com/google/osv-scalibr/pull/2398)).
+  - Compare PURL namespaces case-insensitively during OSV vulnerability matching (e.g. for Go modules with uppercase characters) ([google/osv-scalibr#2456](https://github.com/google/osv-scalibr/pull/2456)).
+  - Skip advisory `affected` entries with unrecognized ecosystems in local OSV matcher instead of aborting matching for the advisory ([google/osv-scalibr#2429](https://github.com/google/osv-scalibr/pull/2429)).
+  - Fix WordPress plugin name extraction from directory name and restrict scanning to immediate subdirectories of `wp-content/plugins` ([google/osv-scalibr#2424](https://github.com/google/osv-scalibr/pull/2424), [google/osv-scalibr#2445](https://github.com/google/osv-scalibr/pull/2445)).
+  - Fix 32-bit `statfs` block size overflow when checking filesystem types on 32-bit architectures ([google/osv-scalibr#2439](https://github.com/google/osv-scalibr/pull/2439)).
+
+### Misc:
+
+- Update `osv-scalibr` to `v0.5.4-0.20261009010329-5be78a00e3c2` ([#3123](https://github.com/google/osv-scanner/pull/3123), [#3089](https://github.com/google/osv-scanner/pull/3089), [#3137](https://github.com/google/osv-scanner/pull/3137)).
+- Remove unused root `Dockerfile` ([#3130](https://github.com/google/osv-scanner/pull/3130)).
+
 # v2.6.0
 
 ### Features:

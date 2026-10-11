@@ -112,6 +112,7 @@ var IDs = map[string]bool{
 	"bsd-inferno-nettverk":                 true,
 	"bsd-mark-modifications":               true,
 	"bsd-protection":                       true,
+	"bsd-source-alt-gpl":                   true,
 	"bsd-source-beginning-file":            true,
 	"bsd-source-code":                      true,
 	"bsd-source-code-no-disclaimer":        true,
