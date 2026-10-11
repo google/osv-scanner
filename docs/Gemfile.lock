@@ -54,7 +54,7 @@ GEM
       octokit (>= 4, < 7, != 4.4.0)
     jekyll-include-cache (0.3.0)
       jekyll (>= 3.7, < 5.0)
-    jekyll-optional-front-matter (0.3.3)
+    jekyll-optional-front-matter (0.3.4)
       jekyll (>= 3.0, < 5.0)
     jekyll-readme-index (0.5.0)
       jekyll (>= 3.0, < 5.0)
@@ -79,7 +79,7 @@ GEM
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)
     liquid (4.0.4)
-    listen (3.10.0)
+    listen (3.10.1)
       logger
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
