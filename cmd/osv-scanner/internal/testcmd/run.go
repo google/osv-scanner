@@ -8,7 +8,6 @@ import (
 	"fmt"
 	"io"
 	"slices"
-	"sort"
 	"strings"
 	"testing"
 
@@ -198,7 +197,7 @@ func normalizeDirScanOrder(t *testing.T, input string) string {
 			}
 
 			printingDirScanLogs = false
-			sort.Strings(toSort)
+			slices.Sort(toSort)
 			completeOutput = append(completeOutput, toSort...)
 			completeOutput = append(completeOutput, toKeep...)
 			toSort = nil
@@ -262,7 +261,7 @@ func normalizeLoadDbErrOrder(input string) string {
 			block = append(block, line)
 		} else {
 			if len(block) > 0 {
-				sort.Strings(block)
+				slices.Sort(block)
 				result = append(result, block...)
 				block = nil
 			}
@@ -270,7 +269,7 @@ func normalizeLoadDbErrOrder(input string) string {
 		}
 	}
 	if len(block) > 0 {
-		sort.Strings(block)
+		slices.Sort(block)
 		result = append(result, block...)
 	}
 

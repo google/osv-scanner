@@ -2,6 +2,7 @@
 package osvscanner
 
 import (
+	"cmp"
 	"context"
 	"errors"
 	"fmt"
@@ -11,7 +12,6 @@ import (
 	"net/http"
 	"os"
 	"slices"
-	"sort"
 
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
@@ -346,18 +346,21 @@ func buildLicenseSummary(scanResults *results.ScanResults) []models.LicenseCount
 
 	// Sort the license count in descending count order with the UNKNOWN
 	// license last.
-	sort.Slice(licenses, func(i, j int) bool {
-		if licenses[i] == "UNKNOWN" {
-			return false
+	slices.SortFunc(licenses, func(a, b string) int {
+		if a == b {
+			return 0
 		}
-		if licenses[j] == "UNKNOWN" {
-			return true
+		if a == "UNKNOWN" {
+			return +1
 		}
-		if counts[licenses[i]] == counts[licenses[j]] {
-			return licenses[i] < licenses[j]
+		if b == "UNKNOWN" {
+			return -1
 		}
 
-		return counts[licenses[i]] > counts[licenses[j]]
+		return cmp.Or(
+			cmp.Compare(counts[b], counts[a]),
+			cmp.Compare(a, b),
+		)
 	})
 
 	licenseSummary = make([]models.LicenseCount, len(licenses))

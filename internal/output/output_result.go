@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"io"
 	"slices"
-	"sort"
 	"strings"
 
 	"github.com/google/osv-scalibr/inventory/vex"
@@ -700,7 +699,7 @@ func getFilteredVulnReasons(vulns []VulnResult) string {
 		reasons = append(reasons, reason)
 	}
 
-	sort.Strings(reasons)
+	slices.Sort(reasons)
 
 	return strings.Join(reasons, ", ")
 }
