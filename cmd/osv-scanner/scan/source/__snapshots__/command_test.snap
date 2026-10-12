@@ -2375,20 +2375,21 @@ Total 11 packages affected by 80 known vulnerabilities (5 Critical, 35 High, 28 
 Scanning dir testdata/sbom-insecure/alpine.cdx.xml
 Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packages
 Filtered 1 local/unscannable package/s from the scan.
-CVE-2025-26519 and 1 alias have been filtered out because: (no reason given)
-CVE-2018-25032 and 1 alias have been filtered out because: (no reason given)
-Filtered 2 vulnerabilities from output
 testdata/osv-scanner-partial-ignores-config.toml has unused ignores:
+ - CVE-2025-26519
+ - CVE-2018-25032
  - GO-2022-0274
  - CVE-2019-5188
  - CVE-2022-1304
 
-Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-1 vulnerability can be fixed.
+Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+3 vulnerabilities can be fixed.
 
 +---------------------------------------+------+--------------+---------+-----------+---------------+---------------------------------------+
 | OSV URL                               | CVSS | ECOSYSTEM    | PACKAGE | VERSION   | FIXED VERSION | SOURCE                                |
 +---------------------------------------+------+--------------+---------+-----------+---------------+---------------------------------------+
+| https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine:v3.17 | musl    | 1.2.3-r4  | 1.2.3-r6      | testdata/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine:v3.17 | zlib    | 1.2.10-r0 | 1.2.11-r4     | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine:v3.17 | zlib    | 1.2.10-r0 | 1.2.12-r2     | testdata/sbom-insecure/alpine.cdx.xml |
 +---------------------------------------+------+--------------+---------+-----------+---------------+---------------------------------------+
 
@@ -2407,18 +2408,16 @@ Scanned <rootdir>/testdata/sbom-insecure/only-unimportant.spdx.json file and fou
 Scanned <rootdir>/testdata/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
 Scanned <rootdir>/testdata/sbom-insecure/with-duplicates.cdx.xml file and found 17 packages
 Filtered 10 local/unscannable package/s from the scan.
-CVE-2025-26519 and 1 alias have been filtered out because: (no reason given)
-CVE-2018-25032 and 1 alias have been filtered out because: (no reason given)
 GO-2022-0274 and 2 aliases have been filtered out because: (no reason given)
-CVE-2025-26519 and 1 alias have been filtered out because: (no reason given)
-CVE-2018-25032 and 1 alias have been filtered out because: (no reason given)
-Filtered 6 vulnerabilities from output
+Filtered 2 vulnerabilities from output
 testdata/osv-scanner-partial-ignores-config.toml has unused ignores:
+ - CVE-2025-26519
+ - CVE-2018-25032
  - CVE-2019-5188
  - CVE-2022-1304
 
-Total 9 packages affected by 21 known vulnerabilities (3 Critical, 6 High, 6 Medium, 1 Low, 5 Unknown) from 5 ecosystems.
-21 vulnerabilities can be fixed.
+Total 11 packages affected by 25 known vulnerabilities (3 Critical, 10 High, 6 Medium, 1 Low, 5 Unknown) from 5 ecosystems.
+25 vulnerabilities can be fixed.
 
 +---------------------------------------+------+--------------+--------------------------------+------------------------------------+-----------------------------------+---------------------------------------------------------------------+
 | OSV URL                               | CVSS | ECOSYSTEM    | PACKAGE                        | VERSION                            | FIXED VERSION                     | SOURCE                                                              |
@@ -2446,7 +2445,11 @@ Total 9 packages affected by 21 known vulnerabilities (3 Critical, 6 High, 6 Med
 | https://osv.dev/GO-2022-0493          | 5.3  | Go           | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | 0.0.0-20220412211240-33da011f77ad | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/GHSA-p782-xgp4-8hr8   |      |              |                                |                                    |                                   |                                                                     |
 | https://osv.dev/GO-2026-5024          |      | Go           | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | 0.44.0                            | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine:v3.17 | musl                           | 1.2.3-r4                           | 1.2.3-r6                          | testdata/sbom-insecure/alpine.cdx.xml                               |
+| https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine:v3.17 | zlib                           | 1.2.10-r0                          | 1.2.11-r4                         | testdata/sbom-insecure/alpine.cdx.xml                               |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine:v3.17 | zlib                           | 1.2.10-r0                          | 1.2.12-r2                         | testdata/sbom-insecure/alpine.cdx.xml                               |
+| https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine:v3.17 | musl                           | 1.2.3-r4                           | 1.2.3-r6                          | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
+| https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine:v3.17 | zlib                           | 1.2.10-r0                          | 1.2.11-r4                         | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine:v3.17 | zlib                           | 1.2.10-r0                          | 1.2.12-r2                         | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine:v3.22 | zlib                           | 1.2.12-r1                          | 1.2.12-r2                         | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
 | https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine:v3.22 | zlib                           | 1.2.12-r1                          | 1.3.2-r0                          | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
@@ -2469,16 +2472,16 @@ Scanning dir testdata/sbom-insecure/postgres-stretch.cdx.xml
 Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/testdata/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
 Filtered 2 local/unscannable package/s from the scan.
-CVE-2025-26519 and 1 alias have been filtered out because: (no reason given)
-CVE-2018-25032 and 1 alias have been filtered out because: (no reason given)
 GO-2022-0274 and 2 aliases have been filtered out because: (no reason given)
-Filtered 4 vulnerabilities from output
+Filtered 2 vulnerabilities from output
 testdata/osv-scanner-partial-ignores-config.toml has unused ignores:
+ - CVE-2025-26519
+ - CVE-2018-25032
  - CVE-2019-5188
  - CVE-2022-1304
 
-Total 7 packages affected by 17 known vulnerabilities (1 Critical, 5 High, 5 Medium, 1 Low, 5 Unknown) from 3 ecosystems.
-17 vulnerabilities can be fixed.
+Total 8 packages affected by 19 known vulnerabilities (1 Critical, 7 High, 5 Medium, 1 Low, 5 Unknown) from 3 ecosystems.
+19 vulnerabilities can be fixed.
 
 +---------------------------------------+------+--------------+--------------------------------+------------------------------------+-----------------------------------+-------------------------------------------------+
 | OSV URL                               | CVSS | ECOSYSTEM    | PACKAGE                        | VERSION                            | FIXED VERSION                     | SOURCE                                          |
@@ -2506,6 +2509,8 @@ Total 7 packages affected by 17 known vulnerabilities (1 Critical, 5 High, 5 Med
 | https://osv.dev/GO-2022-0493          | 5.3  | Go           | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | 0.0.0-20220412211240-33da011f77ad | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-p782-xgp4-8hr8   |      |              |                                |                                    |                                   |                                                 |
 | https://osv.dev/GO-2026-5024          |      | Go           | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | 0.44.0                            | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine:v3.17 | musl                           | 1.2.3-r4                           | 1.2.3-r6                          | testdata/sbom-insecure/alpine.cdx.xml           |
+| https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine:v3.17 | zlib                           | 1.2.10-r0                          | 1.2.11-r4                         | testdata/sbom-insecure/alpine.cdx.xml           |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine:v3.17 | zlib                           | 1.2.10-r0                          | 1.2.12-r2                         | testdata/sbom-insecure/alpine.cdx.xml           |
 | https://osv.dev/DLA-3022-1            |      | Debian:9     | dpkg                           | 1.18.25                            | 1.18.26                           | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3012-1            |      | Debian:9     | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | 2.9.4+dfsg1-2.2+deb9u7            | testdata/sbom-insecure/postgres-stretch.cdx.xml |
@@ -4539,13 +4544,16 @@ Scanning dir ./testdata/sbom-grouping/debian-vlc.cdx.json
 Scanned <rootdir>/testdata/sbom-grouping/debian-vlc.cdx.json file and found 1 package
 Loaded Debian local db from <tempdir>/osv-scalibr/Debian/all.zip
 
-Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+Total 1 package affected by 4 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 4 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +----------------------------+------+-----------+---------+---------+---------------+--------------------------------------------+
 | OSV URL                    | CVSS | ECOSYSTEM | PACKAGE | VERSION | FIXED VERSION | SOURCE                                     |
 +----------------------------+------+-----------+---------+---------+---------------+--------------------------------------------+
 | https://osv.dev/DSA-1543-1 |      | Debian    | vlc     | 0.8.5-1 | --            | testdata/sbom-grouping/debian-vlc.cdx.json |
+| https://osv.dev/DSA-1819-1 |      | Debian    | vlc     | 0.8.5-1 | --            | testdata/sbom-grouping/debian-vlc.cdx.json |
+| https://osv.dev/DTSA-125-1 |      | Debian    | vlc     | 0.8.5-1 | --            | testdata/sbom-grouping/debian-vlc.cdx.json |
+| https://osv.dev/DTSA-132-1 |      | Debian    | vlc     | 0.8.5-1 | --            | testdata/sbom-grouping/debian-vlc.cdx.json |
 +----------------------------+------+-----------+---------+---------+---------------+--------------------------------------------+
 
 ---
@@ -4559,13 +4567,16 @@ Scanning dir ./testdata/sbom-grouping/debian-vlc.cdx.json
 Scanned <rootdir>/testdata/sbom-grouping/debian-vlc.cdx.json file and found 1 package
 Loaded Debian local db from <tempdir>/osv-scalibr/Debian/all.zip
 
-Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+Total 1 package affected by 4 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 4 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +----------------------------+------+-----------+---------+---------+---------------+--------------------------------------------+
 | OSV URL                    | CVSS | ECOSYSTEM | PACKAGE | VERSION | FIXED VERSION | SOURCE                                     |
 +----------------------------+------+-----------+---------+---------+---------------+--------------------------------------------+
 | https://osv.dev/DSA-1543-1 |      | Debian    | vlc     | 0.8.5-1 | --            | testdata/sbom-grouping/debian-vlc.cdx.json |
+| https://osv.dev/DSA-1819-1 |      | Debian    | vlc     | 0.8.5-1 | --            | testdata/sbom-grouping/debian-vlc.cdx.json |
+| https://osv.dev/DTSA-125-1 |      | Debian    | vlc     | 0.8.5-1 | --            | testdata/sbom-grouping/debian-vlc.cdx.json |
+| https://osv.dev/DTSA-132-1 |      | Debian    | vlc     | 0.8.5-1 | --            | testdata/sbom-grouping/debian-vlc.cdx.json |
 +----------------------------+------+-----------+---------+---------+---------------+--------------------------------------------+
 
 ---
