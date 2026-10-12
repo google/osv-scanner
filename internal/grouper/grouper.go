@@ -4,7 +4,6 @@ package grouper
 import (
 	"maps"
 	"slices"
-	"sort"
 
 	"github.com/google/osv-scanner/v2/internal/identifiers"
 	"github.com/google/osv-scanner/v2/pkg/models"
@@ -52,7 +51,7 @@ func Group(vulns []IDAliases) []models.GroupInfo {
 
 	// Sort by group ID to maintain stable order for tests.
 	sortedKeys := slices.AppendSeq(make([]int, 0, len(extractedGroups)), maps.Keys(extractedGroups))
-	sort.Ints(sortedKeys)
+	slices.Sort(sortedKeys)
 
 	result := make([]models.GroupInfo, 0, len(sortedKeys))
 	for _, key := range sortedKeys {
@@ -63,7 +62,7 @@ func Group(vulns []IDAliases) []models.GroupInfo {
 		extractedAliases[key] = append(extractedAliases[key], extractedGroups[key]...)
 
 		// Dedup entries
-		sort.Strings(extractedAliases[key])
+		slices.Sort(extractedAliases[key])
 		extractedAliases[key] = slices.Compact(extractedAliases[key])
 
 		result = append(result, models.GroupInfo{IDs: extractedGroups[key], Aliases: extractedAliases[key]})
