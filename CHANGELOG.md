@@ -44,7 +44,7 @@
 
 ### Features:
 
-- [Feature #2888](https://github.com/google/osv-scanner/pull/2888) Publish multi-arch (`linux/arm64`) image for `osv-scanner-action`.
+- [Feature #2888](https://github.com/google/osv-scanner/commit/7efabb98fc364452a8853d7a0ff85d37ccb414db) Publish multi-arch (`linux/arm64`) image for `osv-scanner-action`.
 - [Feature #3066](https://github.com/google/osv-scanner/pull/3066) Configure retry policy with exponential backoff for transient gRPC errors in scalibr plugins.
 - **Dependency scanning & lockfile improvements via `osv-scalibr`**:
   - Extract Git repository URLs and support local OSV tag matching for Git-based dependencies in JavaScript lockfiles (`package-lock.json`, `yarn.lock`, `pnpm-lock.yaml`, `bun.lock`).
