@@ -15,10 +15,14 @@ func testCycloneDXResults(t *testing.T, version models.CycloneDXVersion, testFun
 		t.Helper()
 		outputWriter := &bytes.Buffer{}
 		err := output.PrintCycloneDXResults(args.vulnResult, version, outputWriter)
-		if err != nil {
-			t.Errorf("%v", err)
-		}
 		testutility.NewSnapshot().MatchText(t, outputWriter.String())
+
+		// some packages cannot currently be represented (such as those from OS
+		// ecosystems which we cannot determine a PURL for), which is reported as an
+		// error after the rest of the output has been written
+		if err != nil {
+			testutility.NewSnapshot().MatchText(t, err.Error())
+		}
 	})
 }
 

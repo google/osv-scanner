@@ -21,6 +21,19 @@ func TestPrintMarkdownTableResults_WithVulnerabilities(t *testing.T) {
 	})
 }
 
+func TestPrintMarkdownTableResults_WithVulnerabilities_WithoutAllVulns(t *testing.T) {
+	t.Parallel()
+
+	testOutputWithVulnerabilities(t, func(t *testing.T, args outputTestCaseArgs) {
+		t.Helper()
+
+		outputWriter := &bytes.Buffer{}
+		output.PrintMarkdownTableResults(args.vulnResult, outputWriter, false)
+
+		testutility.NewSnapshot().MatchText(t, outputWriter.String())
+	})
+}
+
 func TestPrintMarkdownTableResults_WithLicenseViolations(t *testing.T) {
 	t.Parallel()
 

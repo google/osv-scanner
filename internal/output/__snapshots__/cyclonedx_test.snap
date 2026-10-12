@@ -710,7 +710,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 7.8,
+          "severity": "high",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
         }
       ],
       "description": "Something scary!",
@@ -1608,7 +1611,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 4.3,
+          "severity": "medium",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
         }
       ],
       "description": "Something mildly scary!",
@@ -1873,6 +1879,23 @@
 
 ---
 
+[TestPrintCycloneDXResults/CycloneDX14_WithVulnerabilities/one_os_source_with_debian_and_ubuntu_packages,_some_with_unimportant_vulnerabilities - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.4",
+  "version": 1,
+  "components": [],
+  "vulnerabilities": []
+}
+
+---
+
+[TestPrintCycloneDXResults/CycloneDX14_WithVulnerabilities/one_os_source_with_debian_and_ubuntu_packages,_some_with_unimportant_vulnerabilities - 2]
+unable to determine purl type of libxml2@2.9.14+dfsg-1.3 (Debian:12)
+unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
+---
+
 [TestPrintCycloneDXResults/CycloneDX14_WithVulnerabilities/one_source_with_no_packages - 1]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
@@ -1980,7 +2003,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 9,
+          "severity": "critical",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:H"
         }
       ],
       "description": "Something scary!",
@@ -1989,6 +2015,88 @@
         "organizations": []
       },
       "affects": []
+    }
+  ]
+}
+
+---
+
+[TestPrintCycloneDXResults/CycloneDX14_WithVulnerabilities/one_source_with_one_package_and_multiple_vulnerabilities,_some_fixable - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.4",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1@1.2.3",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.2.3",
+      "licenses": [],
+      "purl": "pkg:npm/mine1@1.2.3"
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "id": "OSV-1",
+      "references": [],
+      "ratings": [],
+      "description": "Fixed in the next patch!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "id": "OSV-2",
+      "references": [],
+      "ratings": [],
+      "description": "Fixed in the next major!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "id": "OSV-3",
+      "references": [],
+      "ratings": [],
+      "description": "Not fixed yet!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "id": "OSV-4",
+      "references": [],
+      "ratings": [],
+      "description": "Only fixed for another package!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
     }
   ]
 }
@@ -2160,6 +2268,43 @@
 
 ---
 
+[TestPrintCycloneDXResults/CycloneDX14_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability_tagged_as_unimportant_outside_of_a_debian_based_ecosystem - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.4",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1@1.2.3",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.2.3",
+      "licenses": [],
+      "purl": "pkg:npm/mine1@1.2.3"
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "id": "OSV-1",
+      "references": [],
+      "ratings": [],
+      "description": "Something scary!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
+    }
+  ]
+}
+
+---
+
 [TestPrintCycloneDXResults/CycloneDX14_WithVulnerabilities/one_source_with_one_package_and_two_aliases_of_a_single_uncalled_vulnerability - 1]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
@@ -2244,7 +2389,10 @@
       ],
       "ratings": [
         {
-          "vector": "1"
+          "score": 8.3,
+          "severity": "high",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:L/A:L"
         }
       ],
       "description": "Something scary!",
@@ -2259,7 +2407,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 4.3,
+          "severity": "medium",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
         }
       ],
       "description": "Something scary!",
@@ -2299,14 +2450,7 @@
           "source": {}
         }
       ],
-      "ratings": [
-        {
-          "score": 1.8,
-          "severity": "low",
-          "method": "CVSSv3",
-          "vector": "CVSS:3.1/AV:L/AC:H/PR:H/UI:R/S:U/C:L/I:N/A:N"
-        }
-      ],
+      "ratings": [],
       "description": "Something scary!",
       "advisories": [],
       "credits": {
@@ -3321,7 +3465,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 7.8,
+          "severity": "high",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
         }
       ],
       "description": "Something scary!",
@@ -4219,7 +4366,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 4.3,
+          "severity": "medium",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
         }
       ],
       "description": "Something mildly scary!",
@@ -4484,6 +4634,23 @@
 
 ---
 
+[TestPrintCycloneDXResults/CycloneDX15_WithVulnerabilities/one_os_source_with_debian_and_ubuntu_packages,_some_with_unimportant_vulnerabilities - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "components": [],
+  "vulnerabilities": []
+}
+
+---
+
+[TestPrintCycloneDXResults/CycloneDX15_WithVulnerabilities/one_os_source_with_debian_and_ubuntu_packages,_some_with_unimportant_vulnerabilities - 2]
+unable to determine purl type of libxml2@2.9.14+dfsg-1.3 (Debian:12)
+unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
+---
+
 [TestPrintCycloneDXResults/CycloneDX15_WithVulnerabilities/one_source_with_no_packages - 1]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
@@ -4591,7 +4758,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 9,
+          "severity": "critical",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:H"
         }
       ],
       "description": "Something scary!",
@@ -4600,6 +4770,88 @@
         "organizations": []
       },
       "affects": []
+    }
+  ]
+}
+
+---
+
+[TestPrintCycloneDXResults/CycloneDX15_WithVulnerabilities/one_source_with_one_package_and_multiple_vulnerabilities,_some_fixable - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1@1.2.3",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.2.3",
+      "licenses": [],
+      "purl": "pkg:npm/mine1@1.2.3"
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "id": "OSV-1",
+      "references": [],
+      "ratings": [],
+      "description": "Fixed in the next patch!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "id": "OSV-2",
+      "references": [],
+      "ratings": [],
+      "description": "Fixed in the next major!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "id": "OSV-3",
+      "references": [],
+      "ratings": [],
+      "description": "Not fixed yet!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "id": "OSV-4",
+      "references": [],
+      "ratings": [],
+      "description": "Only fixed for another package!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
     }
   ]
 }
@@ -4771,6 +5023,43 @@
 
 ---
 
+[TestPrintCycloneDXResults/CycloneDX15_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability_tagged_as_unimportant_outside_of_a_debian_based_ecosystem - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1@1.2.3",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.2.3",
+      "licenses": [],
+      "purl": "pkg:npm/mine1@1.2.3"
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "id": "OSV-1",
+      "references": [],
+      "ratings": [],
+      "description": "Something scary!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
+    }
+  ]
+}
+
+---
+
 [TestPrintCycloneDXResults/CycloneDX15_WithVulnerabilities/one_source_with_one_package_and_two_aliases_of_a_single_uncalled_vulnerability - 1]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
@@ -4855,7 +5144,10 @@
       ],
       "ratings": [
         {
-          "vector": "1"
+          "score": 8.3,
+          "severity": "high",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:L/A:L"
         }
       ],
       "description": "Something scary!",
@@ -4870,7 +5162,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 4.3,
+          "severity": "medium",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
         }
       ],
       "description": "Something scary!",
@@ -4910,14 +5205,7 @@
           "source": {}
         }
       ],
-      "ratings": [
-        {
-          "score": 1.8,
-          "severity": "low",
-          "method": "CVSSv3",
-          "vector": "CVSS:3.1/AV:L/AC:H/PR:H/UI:R/S:U/C:L/I:N/A:N"
-        }
-      ],
+      "ratings": [],
       "description": "Something scary!",
       "advisories": [],
       "credits": {
@@ -5932,7 +6220,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 7.8,
+          "severity": "high",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
         }
       ],
       "description": "Something scary!",
@@ -6830,7 +7121,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 4.3,
+          "severity": "medium",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
         }
       ],
       "description": "Something mildly scary!",
@@ -7095,6 +7389,23 @@
 
 ---
 
+[TestPrintCycloneDXResults/CycloneDX16_WithVulnerabilities/one_os_source_with_debian_and_ubuntu_packages,_some_with_unimportant_vulnerabilities - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "version": 1,
+  "components": [],
+  "vulnerabilities": []
+}
+
+---
+
+[TestPrintCycloneDXResults/CycloneDX16_WithVulnerabilities/one_os_source_with_debian_and_ubuntu_packages,_some_with_unimportant_vulnerabilities - 2]
+unable to determine purl type of libxml2@2.9.14+dfsg-1.3 (Debian:12)
+unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
+---
+
 [TestPrintCycloneDXResults/CycloneDX16_WithVulnerabilities/one_source_with_no_packages - 1]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
@@ -7202,7 +7513,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 9,
+          "severity": "critical",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:H"
         }
       ],
       "description": "Something scary!",
@@ -7211,6 +7525,88 @@
         "organizations": []
       },
       "affects": []
+    }
+  ]
+}
+
+---
+
+[TestPrintCycloneDXResults/CycloneDX16_WithVulnerabilities/one_source_with_one_package_and_multiple_vulnerabilities,_some_fixable - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1@1.2.3",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.2.3",
+      "licenses": [],
+      "purl": "pkg:npm/mine1@1.2.3"
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "id": "OSV-1",
+      "references": [],
+      "ratings": [],
+      "description": "Fixed in the next patch!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "id": "OSV-2",
+      "references": [],
+      "ratings": [],
+      "description": "Fixed in the next major!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "id": "OSV-3",
+      "references": [],
+      "ratings": [],
+      "description": "Not fixed yet!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "id": "OSV-4",
+      "references": [],
+      "ratings": [],
+      "description": "Only fixed for another package!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
     }
   ]
 }
@@ -7382,6 +7778,43 @@
 
 ---
 
+[TestPrintCycloneDXResults/CycloneDX16_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability_tagged_as_unimportant_outside_of_a_debian_based_ecosystem - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1@1.2.3",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.2.3",
+      "licenses": [],
+      "purl": "pkg:npm/mine1@1.2.3"
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "id": "OSV-1",
+      "references": [],
+      "ratings": [],
+      "description": "Something scary!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
+    }
+  ]
+}
+
+---
+
 [TestPrintCycloneDXResults/CycloneDX16_WithVulnerabilities/one_source_with_one_package_and_two_aliases_of_a_single_uncalled_vulnerability - 1]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
@@ -7466,7 +7899,10 @@
       ],
       "ratings": [
         {
-          "vector": "1"
+          "score": 8.3,
+          "severity": "high",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:L/A:L"
         }
       ],
       "description": "Something scary!",
@@ -7481,7 +7917,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 4.3,
+          "severity": "medium",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
         }
       ],
       "description": "Something scary!",
@@ -7521,14 +7960,7 @@
           "source": {}
         }
       ],
-      "ratings": [
-        {
-          "score": 1.8,
-          "severity": "low",
-          "method": "CVSSv3",
-          "vector": "CVSS:3.1/AV:L/AC:H/PR:H/UI:R/S:U/C:L/I:N/A:N"
-        }
-      ],
+      "ratings": [],
       "description": "Something scary!",
       "advisories": [],
       "credits": {
@@ -8543,7 +8975,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 7.8,
+          "severity": "high",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
         }
       ],
       "description": "Something scary!",
@@ -9441,7 +9876,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 4.3,
+          "severity": "medium",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
         }
       ],
       "description": "Something mildly scary!",
@@ -9706,6 +10144,23 @@
 
 ---
 
+[TestPrintCycloneDXResults/CycloneDX17_WithVulnerabilities/one_os_source_with_debian_and_ubuntu_packages,_some_with_unimportant_vulnerabilities - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.7",
+  "version": 1,
+  "components": [],
+  "vulnerabilities": []
+}
+
+---
+
+[TestPrintCycloneDXResults/CycloneDX17_WithVulnerabilities/one_os_source_with_debian_and_ubuntu_packages,_some_with_unimportant_vulnerabilities - 2]
+unable to determine purl type of libxml2@2.9.14+dfsg-1.3 (Debian:12)
+unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
+---
+
 [TestPrintCycloneDXResults/CycloneDX17_WithVulnerabilities/one_source_with_no_packages - 1]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
@@ -9813,7 +10268,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 9,
+          "severity": "critical",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:H"
         }
       ],
       "description": "Something scary!",
@@ -9822,6 +10280,88 @@
         "organizations": []
       },
       "affects": []
+    }
+  ]
+}
+
+---
+
+[TestPrintCycloneDXResults/CycloneDX17_WithVulnerabilities/one_source_with_one_package_and_multiple_vulnerabilities,_some_fixable - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.7",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1@1.2.3",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.2.3",
+      "licenses": [],
+      "purl": "pkg:npm/mine1@1.2.3"
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "id": "OSV-1",
+      "references": [],
+      "ratings": [],
+      "description": "Fixed in the next patch!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "id": "OSV-2",
+      "references": [],
+      "ratings": [],
+      "description": "Fixed in the next major!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "id": "OSV-3",
+      "references": [],
+      "ratings": [],
+      "description": "Not fixed yet!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
+    },
+    {
+      "id": "OSV-4",
+      "references": [],
+      "ratings": [],
+      "description": "Only fixed for another package!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
     }
   ]
 }
@@ -9993,6 +10533,43 @@
 
 ---
 
+[TestPrintCycloneDXResults/CycloneDX17_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability_tagged_as_unimportant_outside_of_a_debian_based_ecosystem - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.7",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1@1.2.3",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.2.3",
+      "licenses": [],
+      "purl": "pkg:npm/mine1@1.2.3"
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "id": "OSV-1",
+      "references": [],
+      "ratings": [],
+      "description": "Something scary!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
+    }
+  ]
+}
+
+---
+
 [TestPrintCycloneDXResults/CycloneDX17_WithVulnerabilities/one_source_with_one_package_and_two_aliases_of_a_single_uncalled_vulnerability - 1]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
@@ -10077,7 +10654,10 @@
       ],
       "ratings": [
         {
-          "vector": "1"
+          "score": 8.3,
+          "severity": "high",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:L/A:L"
         }
       ],
       "description": "Something scary!",
@@ -10092,7 +10672,10 @@
       "references": [],
       "ratings": [
         {
-          "vector": "1"
+          "score": 4.3,
+          "severity": "medium",
+          "method": "CVSSv3",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
         }
       ],
       "description": "Something scary!",
@@ -10132,14 +10715,7 @@
           "source": {}
         }
       ],
-      "ratings": [
-        {
-          "score": 1.8,
-          "severity": "low",
-          "method": "CVSSv3",
-          "vector": "CVSS:3.1/AV:L/AC:H/PR:H/UI:R/S:U/C:L/I:N/A:N"
-        }
-      ],
+      "ratings": [],
       "description": "Something scary!",
       "advisories": [],
       "credits": {

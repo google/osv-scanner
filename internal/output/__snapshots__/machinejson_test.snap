@@ -939,7 +939,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "experimental_analysis": {
                 "OSV-1": {
                   "called": false,
@@ -960,7 +962,8 @@
               "id": "OSV-1",
               "severity": [
                 {
-                  "score": "1"
+                  "score": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+                  "type": "CVSS_V3"
                 }
               ],
               "summary": "Something scary!"
@@ -986,7 +989,9 @@
               "ids": [
                 "OSV-2"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-2"
+              ],
               "experimental_analysis": {
                 "OSV-2": {
                   "called": true,
@@ -1053,7 +1058,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "experimental_analysis": {
                 "OSV-1": {
                   "called": false,
@@ -1116,7 +1123,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -1157,7 +1166,9 @@
               "ids": [
                 "OSV-2"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-2"
+              ],
               "max_severity": ""
             }
           ],
@@ -1218,7 +1229,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -1276,7 +1289,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -1318,7 +1333,9 @@
               "ids": [
                 "OSV-2"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-2"
+              ],
               "max_severity": ""
             }
           ],
@@ -1379,7 +1396,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -1436,7 +1455,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -1523,7 +1544,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "experimental_analysis": {
                 "OSV-1": {
                   "called": true,
@@ -1586,7 +1609,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "experimental_analysis": {
                 "OSV-1": {
                   "called": false,
@@ -1649,7 +1674,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -1706,7 +1733,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -1785,14 +1814,18 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             },
             {
               "ids": [
                 "OSV-5"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-5"
+              ],
               "max_severity": ""
             }
           ],
@@ -1828,7 +1861,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -1866,7 +1901,9 @@
               "ids": [
                 "OSV-2"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-2"
+              ],
               "max_severity": ""
             }
           ],
@@ -1896,14 +1933,18 @@
               "ids": [
                 "OSV-3"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-3"
+              ],
               "max_severity": ""
             },
             {
               "ids": [
                 "OSV-5"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-5"
+              ],
               "max_severity": ""
             }
           ],
@@ -1961,14 +2002,18 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             },
             {
               "ids": [
                 "OSV-5"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-5"
+              ],
               "max_severity": ""
             }
           ],
@@ -2004,7 +2049,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -2039,7 +2086,9 @@
               "ids": [
                 "OSV-2"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-2"
+              ],
               "max_severity": ""
             }
           ],
@@ -2067,14 +2116,18 @@
               "ids": [
                 "OSV-3"
               ],
-              "aliases": null,
-              "max_severity": ""
+              "aliases": [
+                "OSV-3"
+              ],
+              "max_severity": "0.0"
             },
             {
               "ids": [
                 "OSV-5"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-5"
+              ],
               "max_severity": ""
             }
           ],
@@ -2206,7 +2259,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -2241,7 +2296,9 @@
               "ids": [
                 "OSV-2"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-2"
+              ],
               "max_severity": ""
             }
           ],
@@ -2290,7 +2347,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -2339,14 +2398,18 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             },
             {
               "ids": [
                 "OSV-5"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-5"
+              ],
               "max_severity": ""
             }
           ],
@@ -2382,7 +2445,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -2420,7 +2485,9 @@
               "ids": [
                 "OSV-2"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-2"
+              ],
               "max_severity": ""
             }
           ],
@@ -2450,14 +2517,18 @@
               "ids": [
                 "OSV-3"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-3"
+              ],
               "max_severity": "4.3"
             },
             {
               "ids": [
                 "OSV-5"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-5"
+              ],
               "max_severity": ""
             }
           ],
@@ -2466,7 +2537,8 @@
               "id": "OSV-3",
               "severity": [
                 {
-                  "score": "1"
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+                  "type": "CVSS_V3"
                 }
               ],
               "summary": "Something mildly scary!"
@@ -2515,7 +2587,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "experimental_analysis": {
                 "OSV-1": {
                   "called": false,
@@ -2528,7 +2602,9 @@
               "ids": [
                 "OSV-5"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-5"
+              ],
               "experimental_analysis": {
                 "OSV-5": {
                   "called": true,
@@ -2570,7 +2646,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -2608,7 +2686,9 @@
               "ids": [
                 "OSV-2"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-2"
+              ],
               "max_severity": ""
             }
           ],
@@ -2638,7 +2718,9 @@
               "ids": [
                 "OSV-3"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-3"
+              ],
               "experimental_analysis": {
                 "OSV-3": {
                   "called": true,
@@ -2651,7 +2733,9 @@
               "ids": [
                 "OSV-5"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-5"
+              ],
               "max_severity": ""
             }
           ],
@@ -2710,14 +2794,18 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             },
             {
               "ids": [
                 "OSV-5"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-5"
+              ],
               "max_severity": ""
             }
           ],
@@ -2754,7 +2842,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -2792,7 +2882,9 @@
               "ids": [
                 "OSV-2"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-2"
+              ],
               "max_severity": ""
             }
           ],
@@ -2822,14 +2914,18 @@
               "ids": [
                 "OSV-3"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-3"
+              ],
               "max_severity": ""
             },
             {
               "ids": [
                 "OSV-5"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-5"
+              ],
               "max_severity": ""
             }
           ],
@@ -2915,6 +3011,216 @@
 
 ---
 
+[TestPrintJSONResults_WithVulnerabilities/one_os_source_with_debian_and_ubuntu_packages,_some_with_unimportant_vulnerabilities - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "<rootdir>/var/lib/dpkg/status",
+        "type": "os"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "libxml2",
+            "os_package_name": "libxml2",
+            "version": "2.9.14+dfsg-1.3",
+            "ecosystem": "Debian:12"
+          },
+          "groups": [
+            {
+              "ids": [
+                "DEBIAN-CVE-2024-0001"
+              ],
+              "aliases": [
+                "DEBIAN-CVE-2024-0001"
+              ],
+              "experimental_analysis": {
+                "DEBIAN-CVE-2024-0001": {
+                  "called": true,
+                  "unimportant": true
+                }
+              },
+              "max_severity": ""
+            },
+            {
+              "ids": [
+                "DEBIAN-CVE-2024-0002"
+              ],
+              "aliases": [
+                "DEBIAN-CVE-2024-0002"
+              ],
+              "max_severity": "4.3"
+            }
+          ],
+          "vulnerabilities": [
+            {
+              "affected": [
+                {
+                  "ecosystem_specific": {
+                    "urgency": "unimportant"
+                  }
+                }
+              ],
+              "id": "DEBIAN-CVE-2024-0001",
+              "summary": "Something unimportant!"
+            },
+            {
+              "affected": [
+                {
+                  "ecosystem_specific": {
+                    "urgency": "low"
+                  },
+                  "package": {
+                    "ecosystem": "Debian:12",
+                    "name": "libxml2"
+                  },
+                  "ranges": [
+                    {
+                      "events": [
+                        {
+                          "introduced": "0"
+                        },
+                        {
+                          "fixed": "2.9.14+dfsg-1.3+deb12u1"
+                        }
+                      ],
+                      "type": "ECOSYSTEM"
+                    }
+                  ]
+                }
+              ],
+              "id": "DEBIAN-CVE-2024-0002",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+                  "type": "CVSS_V3"
+                }
+              ],
+              "summary": "Something scary!"
+            }
+          ]
+        },
+        {
+          "package": {
+            "name": "openssl",
+            "os_package_name": "openssl",
+            "version": "3.0.2-0ubuntu1.15",
+            "ecosystem": "Ubuntu:22.04"
+          },
+          "groups": [
+            {
+              "ids": [
+                "UBUNTU-CVE-2024-0003"
+              ],
+              "aliases": [
+                "UBUNTU-CVE-2024-0003"
+              ],
+              "experimental_analysis": {
+                "UBUNTU-CVE-2024-0003": {
+                  "called": true,
+                  "unimportant": true
+                }
+              },
+              "max_severity": ""
+            },
+            {
+              "ids": [
+                "UBUNTU-CVE-2024-0004"
+              ],
+              "aliases": [
+                "UBUNTU-CVE-2024-0004"
+              ],
+              "max_severity": "8.1"
+            },
+            {
+              "ids": [
+                "UBUNTU-CVE-2024-0005"
+              ],
+              "aliases": [
+                "UBUNTU-CVE-2024-0005"
+              ],
+              "experimental_analysis": {
+                "UBUNTU-CVE-2024-0005": {
+                  "called": true,
+                  "unimportant": true
+                }
+              },
+              "max_severity": ""
+            }
+          ],
+          "vulnerabilities": [
+            {
+              "id": "UBUNTU-CVE-2024-0003",
+              "severity": [
+                {
+                  "score": "negligible",
+                  "type": "Ubuntu"
+                }
+              ],
+              "summary": "Something negligible!"
+            },
+            {
+              "affected": [
+                {
+                  "package": {
+                    "ecosystem": "Ubuntu:22.04:LTS",
+                    "name": "openssl"
+                  },
+                  "ranges": [
+                    {
+                      "events": [
+                        {
+                          "introduced": "0"
+                        },
+                        {
+                          "fixed": "3.0.2-0ubuntu1.16"
+                        }
+                      ],
+                      "type": "ECOSYSTEM"
+                    }
+                  ]
+                }
+              ],
+              "id": "UBUNTU-CVE-2024-0004",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:N",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "medium",
+                  "type": "Ubuntu"
+                }
+              ],
+              "summary": "Something scary!"
+            },
+            {
+              "affected": [
+                {
+                  "ecosystem_specific": {
+                    "ubuntu_priority": "negligible"
+                  }
+                }
+              ],
+              "id": "UBUNTU-CVE-2024-0005",
+              "summary": "Something else negligible!"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
 [TestPrintJSONResults_WithVulnerabilities/one_source_with_no_packages - 1]
 {
   "results": [
@@ -2985,7 +3291,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "experimental_analysis": {
                 "OSV-1": {
                   "called": true,
@@ -2998,7 +3306,9 @@
               "ids": [
                 "GHSA-123"
               ],
-              "aliases": null,
+              "aliases": [
+                "GHSA-123"
+              ],
               "experimental_analysis": {
                 "GHSA-123": {
                   "called": false,
@@ -3062,8 +3372,10 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
-              "max_severity": "9"
+              "aliases": [
+                "OSV-1"
+              ],
+              "max_severity": "9.0"
             }
           ],
           "vulnerabilities": [
@@ -3071,10 +3383,199 @@
               "id": "OSV-1",
               "severity": [
                 {
-                  "score": "1"
+                  "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:H",
+                  "type": "CVSS_V3"
                 }
               ],
               "summary": "Something scary!"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
+[TestPrintJSONResults_WithVulnerabilities/one_source_with_one_package_and_multiple_vulnerabilities,_some_fixable - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "<rootdir>/path/to/my/first/lockfile",
+        "type": "lockfile"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
+          "groups": [
+            {
+              "ids": [
+                "OSV-1"
+              ],
+              "aliases": [
+                "OSV-1"
+              ],
+              "max_severity": ""
+            },
+            {
+              "ids": [
+                "OSV-2"
+              ],
+              "aliases": [
+                "OSV-2"
+              ],
+              "max_severity": ""
+            },
+            {
+              "ids": [
+                "OSV-3"
+              ],
+              "aliases": [
+                "OSV-3"
+              ],
+              "max_severity": ""
+            },
+            {
+              "ids": [
+                "OSV-4"
+              ],
+              "aliases": [
+                "OSV-4"
+              ],
+              "max_severity": ""
+            }
+          ],
+          "vulnerabilities": [
+            {
+              "affected": [
+                {
+                  "package": {
+                    "ecosystem": "npm",
+                    "name": "mine1"
+                  },
+                  "ranges": [
+                    {
+                      "events": [
+                        {
+                          "introduced": "1.0.0"
+                        },
+                        {
+                          "fixed": "1.1.5"
+                        },
+                        {
+                          "introduced": "1.2.0"
+                        },
+                        {
+                          "fixed": "1.2.4"
+                        }
+                      ],
+                      "type": "SEMVER"
+                    }
+                  ]
+                }
+              ],
+              "id": "OSV-1",
+              "summary": "Fixed in the next patch!"
+            },
+            {
+              "affected": [
+                {
+                  "package": {
+                    "ecosystem": "npm",
+                    "name": "mine1"
+                  },
+                  "ranges": [
+                    {
+                      "events": [
+                        {
+                          "introduced": "0"
+                        },
+                        {
+                          "fixed": "2.0.0"
+                        }
+                      ],
+                      "type": "SEMVER"
+                    }
+                  ]
+                }
+              ],
+              "id": "OSV-2",
+              "summary": "Fixed in the next major!"
+            },
+            {
+              "affected": [
+                {
+                  "package": {
+                    "ecosystem": "npm",
+                    "name": "mine1"
+                  },
+                  "ranges": [
+                    {
+                      "events": [
+                        {
+                          "introduced": "0"
+                        }
+                      ],
+                      "type": "SEMVER"
+                    }
+                  ]
+                }
+              ],
+              "id": "OSV-3",
+              "summary": "Not fixed yet!"
+            },
+            {
+              "affected": [
+                {
+                  "package": {
+                    "ecosystem": "npm",
+                    "name": "mine1"
+                  },
+                  "ranges": [
+                    {
+                      "events": [
+                        {
+                          "introduced": "0"
+                        }
+                      ],
+                      "type": "SEMVER"
+                    }
+                  ]
+                },
+                {
+                  "package": {
+                    "ecosystem": "npm",
+                    "name": "mine2"
+                  },
+                  "ranges": [
+                    {
+                      "events": [
+                        {
+                          "introduced": "0"
+                        },
+                        {
+                          "fixed": "1.0.0"
+                        }
+                      ],
+                      "type": "SEMVER"
+                    }
+                  ]
+                }
+              ],
+              "id": "OSV-4",
+              "summary": "Only fixed for another package!"
             }
           ]
         }
@@ -3111,14 +3612,16 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "experimental_analysis": {
                 "OSV-1": {
                   "called": true,
                   "unimportant": false
                 }
               },
-              "max_severity": ""
+              "max_severity": "7.5"
             }
           ],
           "vulnerabilities": [
@@ -3167,7 +3670,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "experimental_analysis": {
                 "OSV-1": {
                   "called": false,
@@ -3222,8 +3727,10 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
-              "max_severity": ""
+              "aliases": [
+                "OSV-1"
+              ],
+              "max_severity": "8.8"
             }
           ],
           "vulnerabilities": [
@@ -3279,8 +3786,10 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
-              "max_severity": ""
+              "aliases": [
+                "OSV-1"
+              ],
+              "max_severity": "6.9"
             }
           ],
           "vulnerabilities": [
@@ -3296,6 +3805,59 @@
                   "type": "Ubuntu"
                 }
               ],
+              "summary": "Something scary!"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
+[TestPrintJSONResults_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability_tagged_as_unimportant_outside_of_a_debian_based_ecosystem - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "<rootdir>/path/to/my/first/lockfile",
+        "type": "lockfile"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
+          "groups": [
+            {
+              "ids": [
+                "OSV-1"
+              ],
+              "aliases": [
+                "OSV-1"
+              ],
+              "max_severity": ""
+            }
+          ],
+          "vulnerabilities": [
+            {
+              "affected": [
+                {
+                  "ecosystem_specific": {
+                    "urgency": "unimportant"
+                  }
+                }
+              ],
+              "id": "OSV-1",
               "summary": "Something scary!"
             }
           ]
@@ -3335,10 +3897,14 @@
                 "GHSA-123"
               ],
               "aliases": [
-                "OSV-1",
-                "GHSA-123"
+                "GHSA-123",
+                "OSV-1"
               ],
               "experimental_analysis": {
+                "GHSA-123": {
+                  "called": false,
+                  "unimportant": false
+                },
                 "OSV-1": {
                   "called": false,
                   "unimportant": false
@@ -3406,8 +3972,8 @@
                 "GHSA-123"
               ],
               "aliases": [
-                "OSV-1",
-                "GHSA-123"
+                "GHSA-123",
+                "OSV-1"
               ],
               "max_severity": "8.3"
             }
@@ -3417,7 +3983,8 @@
               "id": "OSV-1",
               "severity": [
                 {
-                  "score": "1"
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+                  "type": "CVSS_V3"
                 }
               ],
               "summary": "Something scary!"
@@ -3429,7 +3996,8 @@
               "id": "GHSA-123",
               "severity": [
                 {
-                  "score": "1"
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:L/A:L",
+                  "type": "CVSS_V3"
                 }
               ],
               "summary": "Something scary!"
@@ -3471,8 +4039,8 @@
                 "GHSA-123"
               ],
               "aliases": [
-                "OSV-1",
-                "GHSA-123"
+                "GHSA-123",
+                "OSV-1"
               ],
               "max_severity": ""
             }
@@ -3493,12 +4061,6 @@
                 "OSV-1"
               ],
               "id": "GHSA-123",
-              "severity": [
-                {
-                  "score": "CVSS:3.1/AV:L/AC:H/PR:H/UI:R/S:U/C:L/I:N/A:N",
-                  "type": "CVSS_V3"
-                }
-              ],
               "summary": "Something scary!"
             }
           ]
@@ -3537,8 +4099,10 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
-              "max_severity": ""
+              "aliases": [
+                "OSV-1"
+              ],
+              "max_severity": "9.8"
             }
           ],
           "vulnerabilities": [
@@ -3588,8 +4152,10 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
-              "max_severity": ""
+              "aliases": [
+                "OSV-1"
+              ],
+              "max_severity": "7.5"
             }
           ],
           "vulnerabilities": [
@@ -3638,21 +4204,27 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             },
             {
               "ids": [
                 "OSV-3"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-3"
+              ],
               "max_severity": ""
             },
             {
               "ids": [
                 "OSV-4"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-4"
+              ],
               "max_severity": ""
             }
           ],
@@ -3682,7 +4254,9 @@
               "ids": [
                 "OSV-2"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-2"
+              ],
               "max_severity": ""
             }
           ],
@@ -3725,7 +4299,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -3769,8 +4345,10 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
-              "max_severity": ""
+              "aliases": [
+                "OSV-1"
+              ],
+              "max_severity": "9.8"
             }
           ],
           "vulnerabilities": [
@@ -3838,7 +4416,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],
@@ -3876,7 +4456,9 @@
               "ids": [
                 "OSV-1"
               ],
-              "aliases": null,
+              "aliases": [
+                "OSV-1"
+              ],
               "max_severity": ""
             }
           ],

@@ -25,6 +25,19 @@ func TestPrintVerticalResults_WithVulnerabilities(t *testing.T) {
 	})
 }
 
+func TestPrintVerticalResults_WithVulnerabilities_WithoutAllVulns(t *testing.T) {
+	t.Parallel()
+
+	testOutputWithVulnerabilities(t, func(t *testing.T, args outputTestCaseArgs) {
+		t.Helper()
+
+		outputWriter := &bytes.Buffer{}
+		output.PrintVerticalResults(args.vulnResult, outputWriter, false)
+
+		testutility.NewSnapshot().MatchText(t, text.StripEscape(outputWriter.String()))
+	})
+}
+
 func TestPrintVerticalResults_WithLicenseViolations(t *testing.T) {
 	t.Parallel()
 
