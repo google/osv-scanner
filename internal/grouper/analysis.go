@@ -6,8 +6,8 @@ import (
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
-// CopyAnalysis copies the experimental analysis of each vulnerability in from
-// onto the group in to that contains that vulnerability, overwriting any
+// CopyAnalysis copies the experimental analysis of each vulnerability in "from"
+// onto the group in "to" that contains that vulnerability, overwriting any
 // existing analysis for it.
 //
 // This is useful when regrouping, as some analysis (such as call analysis)
