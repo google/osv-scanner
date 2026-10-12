@@ -22,6 +22,8 @@ RUN git config --global --add safe.directory '*'
 
 WORKDIR /
 
-COPY osv-scanner ./
+# Built binaries provided by goreleaser, under <os>/<arch>/
+ARG TARGETPLATFORM
+COPY $TARGETPLATFORM/osv-scanner ./
 
 ENTRYPOINT ["/osv-scanner"]
