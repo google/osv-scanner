@@ -127,6 +127,8 @@ linters:
           disabled: false
         - name: use-any
           disabled: false
+        - name: use-slices-sort
+          disabled: false
         - name: var-declaration
           disabled: false
         - name: var-naming
