@@ -19,7 +19,7 @@ jobs:
           days-before-close: 14
           operations-per-run: 100
           remove-stale-when-updated: true
-          exempt-issue-labels: "good first issue,V2 Wishlist,backlog"
+          exempt-issue-labels: "good first issue,next-major,backlog"
           exempt-all-assignees: true
           ignore-updates: false
           stale-issue-label: stale
