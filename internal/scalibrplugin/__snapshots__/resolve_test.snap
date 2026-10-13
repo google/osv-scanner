@@ -39,6 +39,7 @@ os/chisel
 os/dpkg
 os/homebrew
 os/rpm
+os/ubuntu/binarytosource
 osv/osvscannerjson
 php/composerlock
 python/pdmlock
@@ -79,6 +80,7 @@ os/chisel
 os/dpkg
 os/homebrew
 os/rpm
+os/ubuntu/binarytosource
 python/wheelegg
 rust/cargoauditable
 vex/os-duplicate/apk
@@ -120,6 +122,7 @@ os/chisel
 os/dpkg
 os/homebrew
 os/rpm
+os/ubuntu/binarytosource
 python/wheelegg
 rust/cargoauditable
 vex/os-duplicate/apk
@@ -135,6 +138,7 @@ license/depsdev
 ---
 
 [TestResolve_Enrichers_Presets/vulns - 1]
+os/ubuntu/binarytosource
 vulnmatch/osvdev
 vulnmatch/osvlocal
 ---
@@ -150,6 +154,7 @@ os/chisel
 os/dpkg
 os/homebrew
 os/rpm
+os/ubuntu/binarytosource
 python/wheelegg
 rust/cargoauditable
 vex/os-duplicate/apk

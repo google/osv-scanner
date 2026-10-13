@@ -1,0 +1,580 @@
+{
+  "schema_version": "1.9.0",
+  "id": "USN-8847-1",
+  "published": "2026-09-29T18:19:43Z",
+  "modified": "2026-10-02T12:17:34.659927325Z",
+  "related": [
+    "UBUNTU-CVE-2026-35189",
+    "UBUNTU-CVE-2026-35191",
+    "UBUNTU-CVE-2026-54872",
+    "UBUNTU-CVE-2026-54875",
+    "UBUNTU-CVE-2026-72897",
+    "UBUNTU-CVE-2026-75804",
+    "UBUNTU-CVE-2026-75805",
+    "UBUNTU-CVE-2026-75806",
+    "UBUNTU-CVE-2026-77696",
+    "UBUNTU-CVE-2026-84782",
+    "UBUNTU-CVE-2026-84784"
+  ],
+  "upstream": [
+    "CVE-2026-35189",
+    "CVE-2026-35191",
+    "CVE-2026-54872",
+    "CVE-2026-54875",
+    "CVE-2026-72897",
+    "CVE-2026-75804",
+    "CVE-2026-75805",
+    "CVE-2026-75806",
+    "CVE-2026-77696",
+    "CVE-2026-84782",
+    "CVE-2026-84784",
+    "UBUNTU-CVE-2026-35189",
+    "UBUNTU-CVE-2026-35191",
+    "UBUNTU-CVE-2026-54872",
+    "UBUNTU-CVE-2026-54875",
+    "UBUNTU-CVE-2026-72897",
+    "UBUNTU-CVE-2026-75804",
+    "UBUNTU-CVE-2026-75805",
+    "UBUNTU-CVE-2026-75806",
+    "UBUNTU-CVE-2026-77696",
+    "UBUNTU-CVE-2026-84782",
+    "UBUNTU-CVE-2026-84784"
+  ],
+  "summary": "openssl vulnerabilities",
+  "details": "It was discovered that OpenSSL incorrectly handled certain certificate\nrevocation list distribution point names. An attacker could possibly use\nthis issue to cause OpenSSL to consume excessive memory, resulting in a\ndenial of service. (CVE-2026-35189)\n\nIt was discovered that OpenSSL incorrectly handled QUIC unvalidated\namplification credit accounting. An attacker could possibly use this\nissue to cause a denial of service. This issue only affected\nUbuntu 26.04 LTS. (CVE-2026-35191)\n\nIt was discovered that OpenSSL incorrectly implemented scalar\nmultiplication for non-NIST elliptic curves. An attacker could possibly\nuse this issue to perform a timing side-channel attack and obtain\nsensitive information. (CVE-2026-54872)\n\nIt was discovered that OpenSSL incorrectly implemented SM2 scalar\nmultiplication on ARM64 and RISC-V architectures. An attacker could\npossibly use this issue to perform a timing side-channel attack and\nobtain sensitive information. This issue only affected Ubuntu 26.04 LTS.\n(CVE-2026-54875)\n\nIt was discovered that OpenSSL incorrectly handled SSL context switching\nduring a TLS handshake. An attacker could possibly use this issue to\ncause an out-of-bounds read, resulting in a denial of service or\nobtaining sensitive information. This issue only affected Ubuntu 26.04 LTS.\n(CVE-2026-72897)\n\nIt was discovered that OpenSSL incorrectly enforced QUIC connection-\nlevel flow control for streams. An attacker could possibly use this\nissue to cause OpenSSL to consume excessive memory, resulting in a\ndenial of service. This issue only affected Ubuntu 26.04 LTS.\n(CVE-2026-75804)\n\nIt was discovered that OpenSSL incorrectly handled a NULL pointer in\nCMP client revocation response processing. An attacker could possibly\nuse this issue to cause a denial of service. (CVE-2026-75805)\n\nIt was discovered that OpenSSL incorrectly handled undersized DTLS 1.2\nAEAD records before authentication. An attacker could possibly use this\nissue to cause a denial of service. (CVE-2026-75806)\n\nIt was discovered that OpenSSL incorrectly implemented SM2 signature\ngeneration. An attacker could possibly use this issue to perform a\ntiming side-channel attack and obtain sensitive information.\n(CVE-2026-77696)\n\nIt was discovered that OpenSSL incorrectly handled DTLS retransmission\nof handshake messages. An attacker could possibly use this issue to\ncause incorrect handshake behavior or a denial of service.\n(CVE-2026-84782)\n\nIt was discovered that OpenSSL incorrectly handled QUIC\nRETIRE_CONNECTION_ID frames. An attacker could possibly use this issue\nto cause OpenSSL to consume excessive memory, resulting in a denial of\nservice. This issue only affected Ubuntu 26.04 LTS. (CVE-2026-84784)",
+  "affected": [
+    {
+      "package": {
+        "name": "openssl",
+        "ecosystem": "Ubuntu:22.04:LTS",
+        "purl": "pkg:deb/ubuntu/openssl?arch=source&distro=jammy"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.0.2-0ubuntu1.30"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "1.1.1l-1ubuntu1",
+        "3.0.0-1ubuntu1",
+        "3.0.1-0ubuntu1",
+        "3.0.2-0ubuntu1",
+        "3.0.2-0ubuntu1.1",
+        "3.0.2-0ubuntu1.2",
+        "3.0.2-0ubuntu1.4",
+        "3.0.2-0ubuntu1.5",
+        "3.0.2-0ubuntu1.6",
+        "3.0.2-0ubuntu1.7",
+        "3.0.2-0ubuntu1.8",
+        "3.0.2-0ubuntu1.9",
+        "3.0.2-0ubuntu1.10",
+        "3.0.2-0ubuntu1.12",
+        "3.0.2-0ubuntu1.13",
+        "3.0.2-0ubuntu1.14",
+        "3.0.2-0ubuntu1.15",
+        "3.0.2-0ubuntu1.16",
+        "3.0.2-0ubuntu1.17",
+        "3.0.2-0ubuntu1.18",
+        "3.0.2-0ubuntu1.19",
+        "3.0.2-0ubuntu1.20",
+        "3.0.2-0ubuntu1.21",
+        "3.0.2-0ubuntu1.23",
+        "3.0.2-0ubuntu1.25",
+        "3.0.2-0ubuntu1.26",
+        "3.0.2-0ubuntu1.29"
+      ],
+      "ecosystem_specific": {
+        "availability": "No subscription required",
+        "binaries": [
+          {
+            "binary_name": "libssl3",
+            "binary_version": "3.0.2-0ubuntu1.30"
+          },
+          {
+            "binary_name": "openssl",
+            "binary_version": "3.0.2-0ubuntu1.30"
+          }
+        ]
+      },
+      "database_specific": {
+        "cves_map": {
+          "cves": [
+            {
+              "id": "CVE-2026-35189",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "low",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-54872",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "low",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-75805",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "low",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-75806",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "low",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-77696",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "low",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-84782",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:H",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "high",
+                  "type": "Ubuntu"
+                }
+              ]
+            }
+          ],
+          "ecosystem": "Ubuntu:22.04:LTS"
+        },
+        "source": "https://github.com/canonical/ubuntu-security-notices/blob/main/osv/usn/USN-8847-1.json"
+      }
+    },
+    {
+      "package": {
+        "name": "openssl",
+        "ecosystem": "Ubuntu:24.04:LTS",
+        "purl": "pkg:deb/ubuntu/openssl?arch=source&distro=noble"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.0.13-0ubuntu3.16"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "3.0.10-1ubuntu2",
+        "3.0.10-1ubuntu2.1",
+        "3.0.10-1ubuntu3",
+        "3.0.10-1ubuntu4",
+        "3.0.13-0ubuntu2",
+        "3.0.13-0ubuntu3",
+        "3.0.13-0ubuntu3.1",
+        "3.0.13-0ubuntu3.2",
+        "3.0.13-0ubuntu3.3",
+        "3.0.13-0ubuntu3.4",
+        "3.0.13-0ubuntu3.5",
+        "3.0.13-0ubuntu3.6",
+        "3.0.13-0ubuntu3.7",
+        "3.0.13-0ubuntu3.9",
+        "3.0.13-0ubuntu3.11",
+        "3.0.13-0ubuntu3.12",
+        "3.0.13-0ubuntu3.15"
+      ],
+      "ecosystem_specific": {
+        "availability": "No subscription required",
+        "binaries": [
+          {
+            "binary_name": "libssl3t64",
+            "binary_version": "3.0.13-0ubuntu3.16"
+          },
+          {
+            "binary_name": "openssl",
+            "binary_version": "3.0.13-0ubuntu3.16"
+          }
+        ]
+      },
+      "database_specific": {
+        "cves_map": {
+          "cves": [
+            {
+              "id": "CVE-2026-35189",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "low",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-54872",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "low",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-75805",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "low",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-75806",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "low",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-77696",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "low",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-84782",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:H",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "high",
+                  "type": "Ubuntu"
+                }
+              ]
+            }
+          ],
+          "ecosystem": "Ubuntu:24.04:LTS"
+        },
+        "source": "https://github.com/canonical/ubuntu-security-notices/blob/main/osv/usn/USN-8847-1.json"
+      }
+    },
+    {
+      "package": {
+        "name": "openssl",
+        "ecosystem": "Ubuntu:26.04:LTS",
+        "purl": "pkg:deb/ubuntu/openssl?arch=source&distro=resolute"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.5.5-1ubuntu3.6"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "3.5.3-1ubuntu2",
+        "3.5.5-1ubuntu1",
+        "3.5.5-1ubuntu3",
+        "3.5.5-1ubuntu3.2",
+        "3.5.5-1ubuntu3.3",
+        "3.5.5-1ubuntu3.4",
+        "3.5.5-1ubuntu3.5"
+      ],
+      "ecosystem_specific": {
+        "availability": "No subscription required",
+        "binaries": [
+          {
+            "binary_name": "libssl3t64",
+            "binary_version": "3.5.5-1ubuntu3.6"
+          },
+          {
+            "binary_name": "openssl",
+            "binary_version": "3.5.5-1ubuntu3.6"
+          },
+          {
+            "binary_name": "openssl-provider-legacy",
+            "binary_version": "3.5.5-1ubuntu3.6"
+          }
+        ]
+      },
+      "database_specific": {
+        "cves_map": {
+          "cves": [
+            {
+              "id": "CVE-2026-35189",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "low",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-35191",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "low",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-54872",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "low",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-54875",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "low",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-72897",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "low",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-75804",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "low",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-75805",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "low",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-75806",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "low",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-77696",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "low",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-84782",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:H",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "high",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-84784",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "low",
+                  "type": "Ubuntu"
+                }
+              ]
+            }
+          ],
+          "ecosystem": "Ubuntu:26.04:LTS"
+        },
+        "source": "https://github.com/canonical/ubuntu-security-notices/blob/main/osv/usn/USN-8847-1.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://ubuntu.com/security/notices/USN-8847-1"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://ubuntu.com/security/CVE-2026-35189"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://ubuntu.com/security/CVE-2026-35191"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://ubuntu.com/security/CVE-2026-54872"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://ubuntu.com/security/CVE-2026-54875"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://ubuntu.com/security/CVE-2026-72897"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://ubuntu.com/security/CVE-2026-75804"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://ubuntu.com/security/CVE-2026-75805"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://ubuntu.com/security/CVE-2026-75806"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://ubuntu.com/security/CVE-2026-77696"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://ubuntu.com/security/CVE-2026-84782"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://ubuntu.com/security/CVE-2026-84784"
+    }
+  ]
+}

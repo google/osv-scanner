@@ -1,0 +1,622 @@
+{
+  "schema_version": "1.7.5",
+  "id": "USN-8611-1",
+  "published": "2026-07-27T12:24:25Z",
+  "modified": "2026-07-27T21:14:45.559246235Z",
+  "related": [
+    "UBUNTU-CVE-2026-4046",
+    "UBUNTU-CVE-2026-4437",
+    "UBUNTU-CVE-2026-4438",
+    "UBUNTU-CVE-2026-5435",
+    "UBUNTU-CVE-2026-5450",
+    "UBUNTU-CVE-2026-5928",
+    "UBUNTU-CVE-2026-6238"
+  ],
+  "upstream": [
+    "CVE-2026-4046",
+    "CVE-2026-4437",
+    "CVE-2026-4438",
+    "CVE-2026-5435",
+    "CVE-2026-5450",
+    "CVE-2026-5928",
+    "CVE-2026-6238",
+    "UBUNTU-CVE-2026-4046",
+    "UBUNTU-CVE-2026-4437",
+    "UBUNTU-CVE-2026-4438",
+    "UBUNTU-CVE-2026-5435",
+    "UBUNTU-CVE-2026-5450",
+    "UBUNTU-CVE-2026-5928",
+    "UBUNTU-CVE-2026-6238"
+  ],
+  "summary": "glibc vulnerabilities",
+  "details": "It was discovered that the GNU C Library iconv function incorrectly handled\ncertain IBM character sets. An attacker could possibly use this issue to\ncause a denial of service. (CVE-2026-4046)\n\nIt was discovered that the GNU C Library DNS functions incorrectly handled\ncertain DNS server responses when using gethostbyaddr or gethostbyaddr_r.\nAn attacker in a privileged network position could possibly use this issue\nto cause an application to violate DNS specification or obtain incorrect\nhostname information. This issue only affected Ubuntu 24.04 LTS.\n(CVE-2026-4437, CVE-2026-4438)\n\nIt was discovered that the GNU C Library deprecated debugging functions\nincorrectly enforced caller-supplied buffer lengths. An attacker could\npossibly use this issue to cause a denial of service or execute arbitrary\ncode. (CVE-2026-5435)\n\nIt was discovered that the GNU C Library scanf family of functions\ncontained a heap buffer overflow when processing certain format specifiers.\nAn attacker could possibly use this issue to cause a denial of service or\nexecute arbitrary code. (CVE-2026-5450)\n\nIt was discovered that the GNU C Library ungetwc function incorrectly\nhandled certain character encodings. An attacker could possibly use this\nissue to obtain sensitive information or cause a denial of service.\n(CVE-2026-5928)\n\nIt was discovered that the GNU C Library deprecated debugging functions\nincorrectly validated DNS response record data. An attacker could possibly\nuse this issue to cause a denial of service or obtain sensitive\ninformation. (CVE-2026-6238)",
+  "affected": [
+    {
+      "package": {
+        "name": "glibc",
+        "ecosystem": "Ubuntu:22.04:LTS",
+        "purl": "pkg:deb/ubuntu/glibc?arch=source&distro=jammy"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.35-0ubuntu3.14"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "2.34-0ubuntu3",
+        "2.35-0ubuntu1",
+        "2.35-0ubuntu3",
+        "2.35-0ubuntu3.1",
+        "2.35-0ubuntu3.3",
+        "2.35-0ubuntu3.4",
+        "2.35-0ubuntu3.5",
+        "2.35-0ubuntu3.6",
+        "2.35-0ubuntu3.7",
+        "2.35-0ubuntu3.8",
+        "2.35-0ubuntu3.9",
+        "2.35-0ubuntu3.10",
+        "2.35-0ubuntu3.11",
+        "2.35-0ubuntu3.12",
+        "2.35-0ubuntu3.13"
+      ],
+      "ecosystem_specific": {
+        "availability": "No subscription required",
+        "binaries": [
+          {
+            "binary_name": "glibc-source",
+            "binary_version": "2.35-0ubuntu3.14"
+          },
+          {
+            "binary_name": "libc-bin",
+            "binary_version": "2.35-0ubuntu3.14"
+          },
+          {
+            "binary_name": "libc-dev-bin",
+            "binary_version": "2.35-0ubuntu3.14"
+          },
+          {
+            "binary_name": "libc-devtools",
+            "binary_version": "2.35-0ubuntu3.14"
+          },
+          {
+            "binary_name": "libc6",
+            "binary_version": "2.35-0ubuntu3.14"
+          },
+          {
+            "binary_name": "libc6-amd64",
+            "binary_version": "2.35-0ubuntu3.14"
+          },
+          {
+            "binary_name": "libc6-dev-amd64",
+            "binary_version": "2.35-0ubuntu3.14"
+          },
+          {
+            "binary_name": "libc6-dev-i386",
+            "binary_version": "2.35-0ubuntu3.14"
+          },
+          {
+            "binary_name": "libc6-dev-s390",
+            "binary_version": "2.35-0ubuntu3.14"
+          },
+          {
+            "binary_name": "libc6-dev-x32",
+            "binary_version": "2.35-0ubuntu3.14"
+          },
+          {
+            "binary_name": "libc6-i386",
+            "binary_version": "2.35-0ubuntu3.14"
+          },
+          {
+            "binary_name": "libc6-prof",
+            "binary_version": "2.35-0ubuntu3.14"
+          },
+          {
+            "binary_name": "libc6-s390",
+            "binary_version": "2.35-0ubuntu3.14"
+          },
+          {
+            "binary_name": "libc6-x32",
+            "binary_version": "2.35-0ubuntu3.14"
+          },
+          {
+            "binary_name": "locales",
+            "binary_version": "2.35-0ubuntu3.14"
+          },
+          {
+            "binary_name": "locales-all",
+            "binary_version": "2.35-0ubuntu3.14"
+          },
+          {
+            "binary_name": "nscd",
+            "binary_version": "2.35-0ubuntu3.14"
+          }
+        ]
+      },
+      "database_specific": {
+        "cves_map": {
+          "cves": [
+            {
+              "id": "CVE-2026-4046",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "medium",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-5435",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "medium",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-5450",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "medium",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-5928",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "medium",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-6238",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:L",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "medium",
+                  "type": "Ubuntu"
+                }
+              ]
+            }
+          ],
+          "ecosystem": "Ubuntu:22.04:LTS"
+        },
+        "source": "https://github.com/canonical/ubuntu-security-notices/blob/main/osv/usn/USN-8611-1.json"
+      }
+    },
+    {
+      "package": {
+        "name": "glibc",
+        "ecosystem": "Ubuntu:24.04:LTS",
+        "purl": "pkg:deb/ubuntu/glibc?arch=source&distro=noble"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.39-0ubuntu8.8"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "2.38-1ubuntu6",
+        "2.38-3ubuntu1",
+        "2.39-0ubuntu1",
+        "2.39-0ubuntu2",
+        "2.39-0ubuntu6",
+        "2.39-0ubuntu8",
+        "2.39-0ubuntu8.1",
+        "2.39-0ubuntu8.2",
+        "2.39-0ubuntu8.3",
+        "2.39-0ubuntu8.4",
+        "2.39-0ubuntu8.5",
+        "2.39-0ubuntu8.6",
+        "2.39-0ubuntu8.7"
+      ],
+      "ecosystem_specific": {
+        "availability": "No subscription required",
+        "binaries": [
+          {
+            "binary_name": "glibc-source",
+            "binary_version": "2.39-0ubuntu8.8"
+          },
+          {
+            "binary_name": "libc-bin",
+            "binary_version": "2.39-0ubuntu8.8"
+          },
+          {
+            "binary_name": "libc-dev-bin",
+            "binary_version": "2.39-0ubuntu8.8"
+          },
+          {
+            "binary_name": "libc-devtools",
+            "binary_version": "2.39-0ubuntu8.8"
+          },
+          {
+            "binary_name": "libc6",
+            "binary_version": "2.39-0ubuntu8.8"
+          },
+          {
+            "binary_name": "libc6-amd64",
+            "binary_version": "2.39-0ubuntu8.8"
+          },
+          {
+            "binary_name": "libc6-dev-amd64",
+            "binary_version": "2.39-0ubuntu8.8"
+          },
+          {
+            "binary_name": "libc6-dev-i386",
+            "binary_version": "2.39-0ubuntu8.8"
+          },
+          {
+            "binary_name": "libc6-dev-s390",
+            "binary_version": "2.39-0ubuntu8.8"
+          },
+          {
+            "binary_name": "libc6-dev-x32",
+            "binary_version": "2.39-0ubuntu8.8"
+          },
+          {
+            "binary_name": "libc6-i386",
+            "binary_version": "2.39-0ubuntu8.8"
+          },
+          {
+            "binary_name": "libc6-s390",
+            "binary_version": "2.39-0ubuntu8.8"
+          },
+          {
+            "binary_name": "libc6-x32",
+            "binary_version": "2.39-0ubuntu8.8"
+          },
+          {
+            "binary_name": "locales",
+            "binary_version": "2.39-0ubuntu8.8"
+          },
+          {
+            "binary_name": "locales-all",
+            "binary_version": "2.39-0ubuntu8.8"
+          },
+          {
+            "binary_name": "nscd",
+            "binary_version": "2.39-0ubuntu8.8"
+          }
+        ]
+      },
+      "database_specific": {
+        "cves_map": {
+          "cves": [
+            {
+              "id": "CVE-2026-4046",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "medium",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-4437",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "medium",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-4438",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:A/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "medium",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-5435",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "medium",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-5450",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "medium",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-5928",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "medium",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-6238",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:L",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "medium",
+                  "type": "Ubuntu"
+                }
+              ]
+            }
+          ],
+          "ecosystem": "Ubuntu:24.04:LTS"
+        },
+        "source": "https://github.com/canonical/ubuntu-security-notices/blob/main/osv/usn/USN-8611-1.json"
+      }
+    },
+    {
+      "package": {
+        "name": "glibc",
+        "ecosystem": "Ubuntu:26.04:LTS",
+        "purl": "pkg:deb/ubuntu/glibc?arch=source&distro=resolute"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.43-2ubuntu2.3"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "2.42-0ubuntu3",
+        "2.42-2ubuntu1",
+        "2.42-2ubuntu2",
+        "2.42-2ubuntu4",
+        "2.42-2ubuntu5",
+        "2.43-2ubuntu1",
+        "2.43-2ubuntu2"
+      ],
+      "ecosystem_specific": {
+        "availability": "No subscription required",
+        "binaries": [
+          {
+            "binary_name": "glibc-source",
+            "binary_version": "2.43-2ubuntu2.3"
+          },
+          {
+            "binary_name": "libc-bin",
+            "binary_version": "2.43-2ubuntu2.3"
+          },
+          {
+            "binary_name": "libc-dev-bin",
+            "binary_version": "2.43-2ubuntu2.3"
+          },
+          {
+            "binary_name": "libc-devtools",
+            "binary_version": "2.43-2ubuntu2.3"
+          },
+          {
+            "binary_name": "libc-gconv-modules-extra",
+            "binary_version": "2.43-2ubuntu2.3"
+          },
+          {
+            "binary_name": "libc6",
+            "binary_version": "2.43-2ubuntu2.3"
+          },
+          {
+            "binary_name": "libc6-amd64",
+            "binary_version": "2.43-2ubuntu2.3"
+          },
+          {
+            "binary_name": "libc6-dev-amd64",
+            "binary_version": "2.43-2ubuntu2.3"
+          },
+          {
+            "binary_name": "libc6-dev-i386",
+            "binary_version": "2.43-2ubuntu2.3"
+          },
+          {
+            "binary_name": "libc6-dev-x32",
+            "binary_version": "2.43-2ubuntu2.3"
+          },
+          {
+            "binary_name": "libc6-i386",
+            "binary_version": "2.43-2ubuntu2.3"
+          },
+          {
+            "binary_name": "libc6-x32",
+            "binary_version": "2.43-2ubuntu2.3"
+          },
+          {
+            "binary_name": "locales",
+            "binary_version": "2.43-2ubuntu2.3"
+          },
+          {
+            "binary_name": "locales-all",
+            "binary_version": "2.43-2ubuntu2.3"
+          },
+          {
+            "binary_name": "nscd",
+            "binary_version": "2.43-2ubuntu2.3"
+          }
+        ]
+      },
+      "database_specific": {
+        "cves_map": {
+          "cves": [
+            {
+              "id": "CVE-2026-4046",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "medium",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-5435",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "medium",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-5450",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "medium",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-5928",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "medium",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-6238",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:L",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "medium",
+                  "type": "Ubuntu"
+                }
+              ]
+            }
+          ],
+          "ecosystem": "Ubuntu:26.04:LTS"
+        },
+        "source": "https://github.com/canonical/ubuntu-security-notices/blob/main/osv/usn/USN-8611-1.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://ubuntu.com/security/notices/USN-8611-1"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://ubuntu.com/security/CVE-2026-4046"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://ubuntu.com/security/CVE-2026-4437"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://ubuntu.com/security/CVE-2026-4438"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://ubuntu.com/security/CVE-2026-5435"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://ubuntu.com/security/CVE-2026-5450"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://ubuntu.com/security/CVE-2026-5928"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://ubuntu.com/security/CVE-2026-6238"
+    }
+  ]
+}
