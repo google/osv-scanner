@@ -33,6 +33,7 @@ import (
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/imagehelpers"
 	"github.com/ossf/osv-schema/bindings/go/osvconstants"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"osv.dev/bindings/go/osvdev"
 )
 
@@ -87,6 +88,9 @@ type ExperimentalScannerActions struct {
 
 	// Report deprecated packages as findings
 	FlagDeprecatedPackages bool
+
+	// Update config file(s) to ignore all found vulnerabilities
+	UpdateConfigIgnores bool
 
 	// Allows specifying user agent
 	RequestUserAgent string
@@ -302,6 +306,14 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 		vulnerabilityResults.LicenseSummary = buildLicenseSummary(&scanResult)
 	}
 
+	if actions.UpdateConfigIgnores {
+		err := updateConfigs(&vulnerabilityResults, &scanResult.ConfigManager)
+
+		if err != nil {
+			return models.VulnerabilityResults{}, err
+		}
+	}
+
 	filtered := filterResults(&vulnerabilityResults, &scanResult.ConfigManager, actions.ShowAllPackages)
 	if filtered > 0 {
 		cmdlogger.Infof(
@@ -325,6 +337,39 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 	}
 
 	return vulnerabilityResults, determineReturnErr(vulnerabilityResults, actions.ShowAllVulns)
+}
+
+func updateConfigs(vulnResults *models.VulnerabilityResults, configManager *config.Manager) error {
+	configVulns := make(map[string][]*osvschema.Vulnerability)
+	configPaths := make(map[string]config.Config)
+
+	for _, pkgSrc := range vulnResults.Results {
+		c := configManager.Get(pkgSrc.Source.Path)
+
+		// skip the default config
+		if c.LoadPath == "" {
+			continue
+		}
+
+		configPaths[c.LoadPath] = c
+
+		for _, pkgVulns := range pkgSrc.Packages {
+			configVulns[c.LoadPath] = append(configVulns[c.LoadPath], pkgVulns.Vulnerabilities...)
+		}
+	}
+
+	// update each config to ignore all the vulnerabilities
+	// found across all packages that are using that config
+	for p, vulns := range configVulns {
+		c := configPaths[p]
+
+		err := c.UpdateFile(vulns)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 func buildLicenseSummary(scanResults *results.ScanResults) []models.LicenseCount {
