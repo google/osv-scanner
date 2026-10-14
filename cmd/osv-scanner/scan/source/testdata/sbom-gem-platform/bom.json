@@ -1,0 +1,560 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.7",
+  "serialNumber": "urn:uuid:3417bea7-debe-49a5-8689-ded6f95664e2",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-06-19T13:50:24Z",
+    "tools": {
+      "components": [
+        {
+          "group": "@cyclonedx",
+          "name": "cdxgen",
+          "version": "12.6.0",
+          "purl": "pkg:npm/%40cyclonedx/cdxgen@12.6.0",
+          "type": "application",
+          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@12.6.0",
+          "publisher": "OWASP Foundation",
+          "authors": [
+            {
+              "name": "OWASP Foundation"
+            }
+          ]
+        }
+      ]
+    },
+    "authors": [
+      {
+        "name": "OWASP Foundation"
+      }
+    ],
+    "lifecycles": [
+      {
+        "phase": "build"
+      }
+    ],
+    "component": {
+      "group": "",
+      "name": "app",
+      "version": "latest",
+      "type": "application",
+      "bom-ref": "pkg:gem/app@latest",
+      "purl": "pkg:gem/app@latest"
+    },
+    "properties": [
+      {
+        "name": "cdx:bom:componentTypes",
+        "value": "gem"
+      },
+      {
+        "name": "cdx:bom:componentSrcFiles",
+        "value": "Gemfile.lock"
+      }
+    ]
+  },
+  "components": [
+    {
+      "group": "",
+      "name": "mini_portile2",
+      "version": "2.8.9",
+      "purl": "pkg:gem/mini_portile2@2.8.9",
+      "type": "library",
+      "bom-ref": "pkg:gem/mini_portile2@2.8.9",
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "Gemfile.lock"
+        },
+        {
+          "name": "cdx:gem:remote",
+          "value": "https://rubygems.org/"
+        }
+      ],
+      "evidence": {
+        "identity": [
+          {
+            "field": "purl",
+            "confidence": 0.8,
+            "methods": [
+              {
+                "technique": "manifest-analysis",
+                "confidence": 0.8,
+                "value": "Gemfile.lock"
+              }
+            ],
+            "concludedValue": "Gemfile.lock"
+          }
+        ]
+      }
+    },
+    {
+      "group": "",
+      "name": "nokogiri",
+      "version": "1.19.3",
+      "purl": "pkg:gem/nokogiri@1.19.3",
+      "type": "library",
+      "bom-ref": "pkg:gem/nokogiri@1.19.3",
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "Gemfile.lock"
+        },
+        {
+          "name": "cdx:gem:remote",
+          "value": "https://rubygems.org/"
+        }
+      ],
+      "evidence": {
+        "identity": [
+          {
+            "field": "purl",
+            "confidence": 0.8,
+            "methods": [
+              {
+                "technique": "manifest-analysis",
+                "confidence": 0.8,
+                "value": "Gemfile.lock"
+              }
+            ],
+            "concludedValue": "Gemfile.lock"
+          }
+        ]
+      }
+    },
+    {
+      "group": "",
+      "name": "racc",
+      "version": "1.8.1",
+      "purl": "pkg:gem/racc@1.8.1",
+      "type": "library",
+      "bom-ref": "pkg:gem/racc@1.8.1",
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "Gemfile.lock"
+        },
+        {
+          "name": "cdx:gem:remote",
+          "value": "https://rubygems.org/"
+        }
+      ],
+      "evidence": {
+        "identity": [
+          {
+            "field": "purl",
+            "confidence": 0.8,
+            "methods": [
+              {
+                "technique": "manifest-analysis",
+                "confidence": 0.8,
+                "value": "Gemfile.lock"
+              }
+            ],
+            "concludedValue": "Gemfile.lock"
+          }
+        ]
+      }
+    },
+    {
+      "group": "",
+      "name": "nokogiri",
+      "version": "1.19.3-aarch64-linux-gnu",
+      "purl": "pkg:gem/nokogiri@1.19.3-aarch64-linux-gnu",
+      "type": "library",
+      "bom-ref": "pkg:gem/nokogiri@1.19.3-aarch64-linux-gnu",
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "Gemfile.lock"
+        },
+        {
+          "name": "cdx:gem:remote",
+          "value": "https://rubygems.org/"
+        },
+        {
+          "name": "cdx:gem:platform",
+          "value": "aarch64-linux-gnu"
+        }
+      ],
+      "evidence": {
+        "identity": [
+          {
+            "field": "purl",
+            "confidence": 0.8,
+            "methods": [
+              {
+                "technique": "manifest-analysis",
+                "confidence": 0.8,
+                "value": "Gemfile.lock"
+              }
+            ],
+            "concludedValue": "Gemfile.lock"
+          }
+        ]
+      }
+    },
+    {
+      "group": "",
+      "name": "nokogiri",
+      "version": "1.19.3-aarch64-linux-musl",
+      "purl": "pkg:gem/nokogiri@1.19.3-aarch64-linux-musl",
+      "type": "library",
+      "bom-ref": "pkg:gem/nokogiri@1.19.3-aarch64-linux-musl",
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "Gemfile.lock"
+        },
+        {
+          "name": "cdx:gem:remote",
+          "value": "https://rubygems.org/"
+        },
+        {
+          "name": "cdx:gem:platform",
+          "value": "aarch64-linux-musl"
+        }
+      ],
+      "evidence": {
+        "identity": [
+          {
+            "field": "purl",
+            "confidence": 0.8,
+            "methods": [
+              {
+                "technique": "manifest-analysis",
+                "confidence": 0.8,
+                "value": "Gemfile.lock"
+              }
+            ],
+            "concludedValue": "Gemfile.lock"
+          }
+        ]
+      }
+    },
+    {
+      "group": "",
+      "name": "nokogiri",
+      "version": "1.19.3-arm-linux-gnu",
+      "purl": "pkg:gem/nokogiri@1.19.3-arm-linux-gnu",
+      "type": "library",
+      "bom-ref": "pkg:gem/nokogiri@1.19.3-arm-linux-gnu",
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "Gemfile.lock"
+        },
+        {
+          "name": "cdx:gem:remote",
+          "value": "https://rubygems.org/"
+        },
+        {
+          "name": "cdx:gem:platform",
+          "value": "arm-linux-gnu"
+        }
+      ],
+      "evidence": {
+        "identity": [
+          {
+            "field": "purl",
+            "confidence": 0.8,
+            "methods": [
+              {
+                "technique": "manifest-analysis",
+                "confidence": 0.8,
+                "value": "Gemfile.lock"
+              }
+            ],
+            "concludedValue": "Gemfile.lock"
+          }
+        ]
+      }
+    },
+    {
+      "group": "",
+      "name": "nokogiri",
+      "version": "1.19.3-arm-linux-musl",
+      "purl": "pkg:gem/nokogiri@1.19.3-arm-linux-musl",
+      "type": "library",
+      "bom-ref": "pkg:gem/nokogiri@1.19.3-arm-linux-musl",
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "Gemfile.lock"
+        },
+        {
+          "name": "cdx:gem:remote",
+          "value": "https://rubygems.org/"
+        },
+        {
+          "name": "cdx:gem:platform",
+          "value": "arm-linux-musl"
+        }
+      ],
+      "evidence": {
+        "identity": [
+          {
+            "field": "purl",
+            "confidence": 0.8,
+            "methods": [
+              {
+                "technique": "manifest-analysis",
+                "confidence": 0.8,
+                "value": "Gemfile.lock"
+              }
+            ],
+            "concludedValue": "Gemfile.lock"
+          }
+        ]
+      }
+    },
+    {
+      "group": "",
+      "name": "nokogiri",
+      "version": "1.19.3-arm64-darwin",
+      "purl": "pkg:gem/nokogiri@1.19.3-arm64-darwin",
+      "type": "library",
+      "bom-ref": "pkg:gem/nokogiri@1.19.3-arm64-darwin",
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "Gemfile.lock"
+        },
+        {
+          "name": "cdx:gem:remote",
+          "value": "https://rubygems.org/"
+        },
+        {
+          "name": "cdx:gem:platform",
+          "value": "arm64-darwin"
+        }
+      ],
+      "evidence": {
+        "identity": [
+          {
+            "field": "purl",
+            "confidence": 0.8,
+            "methods": [
+              {
+                "technique": "manifest-analysis",
+                "confidence": 0.8,
+                "value": "Gemfile.lock"
+              }
+            ],
+            "concludedValue": "Gemfile.lock"
+          }
+        ]
+      }
+    },
+    {
+      "group": "",
+      "name": "nokogiri",
+      "version": "1.19.3-x86_64-darwin",
+      "purl": "pkg:gem/nokogiri@1.19.3-x86_64-darwin",
+      "type": "library",
+      "bom-ref": "pkg:gem/nokogiri@1.19.3-x86_64-darwin",
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "Gemfile.lock"
+        },
+        {
+          "name": "cdx:gem:remote",
+          "value": "https://rubygems.org/"
+        },
+        {
+          "name": "cdx:gem:platform",
+          "value": "x86_64-darwin"
+        }
+      ],
+      "evidence": {
+        "identity": [
+          {
+            "field": "purl",
+            "confidence": 0.8,
+            "methods": [
+              {
+                "technique": "manifest-analysis",
+                "confidence": 0.8,
+                "value": "Gemfile.lock"
+              }
+            ],
+            "concludedValue": "Gemfile.lock"
+          }
+        ]
+      }
+    },
+    {
+      "group": "",
+      "name": "nokogiri",
+      "version": "1.19.3-x86_64-linux-gnu",
+      "purl": "pkg:gem/nokogiri@1.19.3-x86_64-linux-gnu",
+      "type": "library",
+      "bom-ref": "pkg:gem/nokogiri@1.19.3-x86_64-linux-gnu",
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "Gemfile.lock"
+        },
+        {
+          "name": "cdx:gem:remote",
+          "value": "https://rubygems.org/"
+        },
+        {
+          "name": "cdx:gem:platform",
+          "value": "x86_64-linux-gnu"
+        }
+      ],
+      "evidence": {
+        "identity": [
+          {
+            "field": "purl",
+            "confidence": 0.8,
+            "methods": [
+              {
+                "technique": "manifest-analysis",
+                "confidence": 0.8,
+                "value": "Gemfile.lock"
+              }
+            ],
+            "concludedValue": "Gemfile.lock"
+          }
+        ]
+      }
+    },
+    {
+      "group": "",
+      "name": "nokogiri",
+      "version": "1.19.3-x86_64-linux-musl",
+      "purl": "pkg:gem/nokogiri@1.19.3-x86_64-linux-musl",
+      "type": "library",
+      "bom-ref": "pkg:gem/nokogiri@1.19.3-x86_64-linux-musl",
+      "properties": [
+        {
+          "name": "SrcFile",
+          "value": "Gemfile.lock"
+        },
+        {
+          "name": "cdx:gem:remote",
+          "value": "https://rubygems.org/"
+        },
+        {
+          "name": "cdx:gem:platform",
+          "value": "x86_64-linux-musl"
+        }
+      ],
+      "evidence": {
+        "identity": [
+          {
+            "field": "purl",
+            "confidence": 0.8,
+            "methods": [
+              {
+                "technique": "manifest-analysis",
+                "confidence": 0.8,
+                "value": "Gemfile.lock"
+              }
+            ],
+            "concludedValue": "Gemfile.lock"
+          }
+        ]
+      }
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "pkg:gem/mini_portile2@2.8.9",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:gem/nokogiri@1.19.3",
+      "dependsOn": [
+        "pkg:gem/mini_portile2@2.8.9",
+        "pkg:gem/racc@1.8.1"
+      ]
+    },
+    {
+      "ref": "pkg:gem/racc@1.8.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:gem/nokogiri@1.19.3-aarch64-linux-gnu",
+      "dependsOn": [
+        "pkg:gem/racc@1.8.1"
+      ]
+    },
+    {
+      "ref": "pkg:gem/nokogiri@1.19.3-aarch64-linux-musl",
+      "dependsOn": [
+        "pkg:gem/racc@1.8.1"
+      ]
+    },
+    {
+      "ref": "pkg:gem/nokogiri@1.19.3-arm-linux-gnu",
+      "dependsOn": [
+        "pkg:gem/racc@1.8.1"
+      ]
+    },
+    {
+      "ref": "pkg:gem/nokogiri@1.19.3-arm-linux-musl",
+      "dependsOn": [
+        "pkg:gem/racc@1.8.1"
+      ]
+    },
+    {
+      "ref": "pkg:gem/nokogiri@1.19.3-arm64-darwin",
+      "dependsOn": [
+        "pkg:gem/racc@1.8.1"
+      ]
+    },
+    {
+      "ref": "pkg:gem/nokogiri@1.19.3-x86_64-darwin",
+      "dependsOn": [
+        "pkg:gem/racc@1.8.1"
+      ]
+    },
+    {
+      "ref": "pkg:gem/nokogiri@1.19.3-x86_64-linux-gnu",
+      "dependsOn": [
+        "pkg:gem/racc@1.8.1"
+      ]
+    },
+    {
+      "ref": "pkg:gem/nokogiri@1.19.3-x86_64-linux-musl",
+      "dependsOn": [
+        "pkg:gem/racc@1.8.1"
+      ]
+    },
+    {
+      "ref": "pkg:gem/app@latest",
+      "dependsOn": [
+        "pkg:gem/nokogiri@1.19.3-x86_64-linux-musl"
+      ]
+    }
+  ],
+  "annotations": [
+    {
+      "bom-ref": "metadata-annotations",
+      "subjects": [
+        "pkg:gem/app@latest"
+      ],
+      "annotator": {
+        "component": {
+          "group": "@cyclonedx",
+          "name": "cdxgen",
+          "version": "12.6.0",
+          "purl": "pkg:npm/%40cyclonedx/cdxgen@12.6.0",
+          "type": "application",
+          "bom-ref": "pkg:npm/@cyclonedx/cdxgen@12.6.0",
+          "publisher": "OWASP Foundation",
+          "authors": [
+            {
+              "name": "OWASP Foundation"
+            }
+          ]
+        }
+      },
+      "timestamp": "2026-06-19T13:50:24Z",
+      "text": "This Software Bill-of-Materials (SBOM) document was created on Friday, June 19, 2026 with cdxgen. The data was captured during the build lifecycle phase. The document describes an application named 'app'."
+    }
+  ]
+}
