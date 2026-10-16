@@ -50,60 +50,6 @@ interactions:
                   "system": "CARGO",
                   "version": "0.2.21"
                 }
-              },
-              "version": {
-                "cooldown": {
-                  "end": "2024-12-11T14:49:16Z"
-                },
-                "licenseDetails": [
-                  {
-                    "license": "Apache-2.0 OR MIT",
-                    "spdx": "Apache-2.0 OR MIT"
-                  }
-                ],
-                "licenses": [
-                  "Apache-2.0 OR MIT"
-                ],
-                "links": [
-                  {
-                    "label": "SOURCE_REPO",
-                    "url": "https://github.com/zakarumych/allocator-api2"
-                  },
-                  {
-                    "label": "HOMEPAGE",
-                    "url": "https://github.com/zakarumych/allocator-api2"
-                  },
-                  {
-                    "label": "DOCUMENTATION",
-                    "url": "https://docs.rs/allocator-api2"
-                  }
-                ],
-                "publishedAt": "2024-12-01T14:49:16Z",
-                "purl": "pkg:cargo/allocator-api2@0.2.21",
-                "registries": [
-                  "https://crates.io/"
-                ],
-                "relatedProjects": [
-                  {
-                    "projectKey": {
-                      "id": "github.com/zakarumych/allocator-api2"
-                    },
-                    "relationProvenance": "UNVERIFIED_METADATA",
-                    "relationType": "SOURCE_REPO"
-                  }
-                ],
-                "upstreamIdentifiers": [
-                  {
-                    "packageName": "allocator-api2",
-                    "source": "CARGO_CRATES_IO",
-                    "versionString": "0.2.21"
-                  }
-                ],
-                "versionKey": {
-                  "name": "allocator-api2",
-                  "system": "CARGO",
-                  "version": "0.2.21"
-                }
               }
             },
             {
@@ -118,7 +64,6 @@ interactions:
                 "cooldown": {
                   "end": "2025-02-24T22:14:18Z"
                 },
-                "isDefault": true,
                 "licenseDetails": [
                   {
                     "license": "Apache-2.0 OR MIT",

@@ -623,6 +623,14 @@ interactions:
               }
             },
             {
+              "publishedAt": "2026-09-20T23:31:00Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.18.11"
+              }
+            },
+            {
               "publishedAt": "2024-11-28T00:56:42Z",
               "versionKey": {
                 "name": "com.fasterxml.jackson.core:jackson-core",
@@ -887,6 +895,14 @@ interactions:
               }
             },
             {
+              "publishedAt": "2026-09-21T17:06:33Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.21.7"
+              }
+            },
+            {
               "publishedAt": "2026-05-31T23:57:06Z",
               "versionKey": {
                 "name": "com.fasterxml.jackson.core:jackson-core",
@@ -903,12 +919,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-08-16T16:26:43Z",
               "versionKey": {
                 "name": "com.fasterxml.jackson.core:jackson-core",
                 "system": "MAVEN",
                 "version": "2.22.2"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-09-21T20:38:01Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.22.3"
               }
             },
             {
@@ -3130,6 +3154,14 @@ interactions:
                 "name": "org.slf4j:slf4j-migrator",
                 "system": "MAVEN",
                 "version": "2.0.2"
+              }
+            },
+            {
+              "publishedAt": "2026-09-23T02:52:46Z",
+              "versionKey": {
+                "name": "org.slf4j:slf4j-migrator",
+                "system": "MAVEN",
+                "version": "2.0.20"
               }
             },
             {
