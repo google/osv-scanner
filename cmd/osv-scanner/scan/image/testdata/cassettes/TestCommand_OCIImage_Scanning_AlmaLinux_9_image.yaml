@@ -1127,7 +1127,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 23523
+      content_length: 24201
       body: |
         {
           "results": [
@@ -1260,6 +1260,10 @@ interactions:
                 {
                   "id": "ALSA-2026:69126",
                   "modified": "2026-09-22T12:00:03.509575Z"
+                },
+                {
+                  "id": "ALSA-2026:80511",
+                  "modified": "2026-10-12T11:56:50.984339Z"
                 }
               ]
             },
@@ -1444,6 +1448,10 @@ interactions:
                 {
                   "id": "ALSA-2026:42952",
                   "modified": "2026-07-23T12:59:35.685749Z"
+                },
+                {
+                  "id": "ALSA-2026:79281",
+                  "modified": "2026-10-09T12:11:46.567762Z"
                 }
               ]
             },
@@ -1484,6 +1492,10 @@ interactions:
                 {
                   "id": "ALSA-2026:42952",
                   "modified": "2026-07-23T12:59:35.685749Z"
+                },
+                {
+                  "id": "ALSA-2026:79281",
+                  "modified": "2026-10-09T12:11:46.567762Z"
                 }
               ]
             },
@@ -1524,6 +1536,10 @@ interactions:
                 {
                   "id": "ALSA-2026:42952",
                   "modified": "2026-07-23T12:59:35.685749Z"
+                },
+                {
+                  "id": "ALSA-2026:79281",
+                  "modified": "2026-10-09T12:11:46.567762Z"
                 }
               ]
             },
@@ -1801,6 +1817,10 @@ interactions:
                 {
                   "id": "ALSA-2026:69126",
                   "modified": "2026-09-22T12:00:03.509575Z"
+                },
+                {
+                  "id": "ALSA-2026:80511",
+                  "modified": "2026-10-12T11:56:50.984339Z"
                 }
               ]
             },
@@ -2119,6 +2139,10 @@ interactions:
                 {
                   "id": "ALSA-2026:67165",
                   "modified": "2026-09-15T16:41:45.086537Z"
+                },
+                {
+                  "id": "ALSA-2026:77396",
+                  "modified": "2026-10-09T12:00:04.187084Z"
                 }
               ]
             },
@@ -2179,6 +2203,10 @@ interactions:
                 {
                   "id": "ALSA-2026:67165",
                   "modified": "2026-09-15T16:41:45.086537Z"
+                },
+                {
+                  "id": "ALSA-2026:77396",
+                  "modified": "2026-10-09T12:00:04.187084Z"
                 }
               ]
             },
@@ -2235,8 +2263,22 @@ interactions:
               ]
             },
             {},
-            {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "ALSA-2026:81532",
+                  "modified": "2026-10-13T13:42:08.535800Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "ALSA-2026:81532",
+                  "modified": "2026-10-13T13:42:08.535800Z"
+                }
+              ]
+            },
             {
               "vulns": [
                 {
@@ -2868,6 +2910,10 @@ interactions:
                   "modified": "2026-09-11T17:26:36.822971Z"
                 },
                 {
+                  "id": "ALSA-2026:75768",
+                  "modified": "2026-10-07T13:45:03.170268Z"
+                },
+                {
                   "id": "ALSA-2026:8259",
                   "modified": "2026-04-17T13:19:37.888342Z"
                 }
@@ -2888,7 +2934,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "23523"
+          - "24201"
         Content-Type:
           - application/json
       status: 200 OK

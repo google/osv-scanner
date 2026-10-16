@@ -4739,6 +4739,14 @@ interactions:
               }
             },
             {
+              "publishedAt": "2026-10-06T13:01:04Z",
+              "versionKey": {
+                "name": "django",
+                "system": "PYPI",
+                "version": "5.2.18"
+              }
+            },
+            {
               "publishedAt": "2025-06-04T13:52:33Z",
               "versionKey": {
                 "name": "django",
@@ -4899,6 +4907,14 @@ interactions:
               }
             },
             {
+              "publishedAt": "2026-10-06T12:57:52Z",
+              "versionKey": {
+                "name": "django",
+                "system": "PYPI",
+                "version": "6.0.9"
+              }
+            },
+            {
               "publishedAt": "2026-08-05T19:21:47Z",
               "versionKey": {
                 "name": "django",
@@ -4931,12 +4947,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-09-02T17:20:39Z",
               "versionKey": {
                 "name": "django",
                 "system": "PYPI",
                 "version": "6.1.1"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-10-06T12:53:17Z",
+              "versionKey": {
+                "name": "django",
+                "system": "PYPI",
+                "version": "6.1.2"
               }
             }
           ]
@@ -6751,7 +6775,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-11-05T17:41:13Z",
+              "publishedAt": "2018-11-05T17:41:09Z",
               "versionKey": {
                 "name": "markupsafe",
                 "system": "PYPI",
@@ -6775,7 +6799,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2020-04-10T23:31:37Z",
+              "publishedAt": "2020-04-10T23:31:33Z",
               "versionKey": {
                 "name": "markupsafe",
                 "system": "PYPI",
@@ -6799,7 +6823,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2021-08-11T18:11:09Z",
+              "publishedAt": "2021-08-11T18:10:44Z",
               "versionKey": {
                 "name": "markupsafe",
                 "system": "PYPI",
@@ -6807,7 +6831,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2022-02-18T03:50:52Z",
+              "publishedAt": "2022-02-18T03:49:55Z",
               "versionKey": {
                 "name": "markupsafe",
                 "system": "PYPI",
@@ -6815,7 +6839,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2022-03-15T13:23:13Z",
+              "publishedAt": "2022-03-15T13:22:12Z",
               "versionKey": {
                 "name": "markupsafe",
                 "system": "PYPI",
@@ -6823,7 +6847,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2023-01-17T18:23:51Z",
+              "publishedAt": "2023-01-17T18:23:11Z",
               "versionKey": {
                 "name": "markupsafe",
                 "system": "PYPI",
@@ -6831,7 +6855,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2023-06-02T21:43:36Z",
+              "publishedAt": "2023-09-07T16:00:47Z",
               "versionKey": {
                 "name": "markupsafe",
                 "system": "PYPI",
@@ -6839,7 +6863,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2024-01-19T22:49:25Z",
+              "publishedAt": "2024-01-19T22:48:49Z",
               "versionKey": {
                 "name": "markupsafe",
                 "system": "PYPI",
@@ -6847,7 +6871,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2024-02-02T16:31:13Z",
+              "publishedAt": "2024-02-02T16:30:36Z",
               "versionKey": {
                 "name": "markupsafe",
                 "system": "PYPI",
@@ -6855,7 +6879,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2024-10-07T21:09:08Z",
+              "publishedAt": "2024-10-07T21:08:46Z",
               "versionKey": {
                 "name": "markupsafe",
                 "system": "PYPI",
@@ -6863,7 +6887,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2024-10-08T17:01:25Z",
+              "publishedAt": "2024-10-08T17:01:01Z",
               "versionKey": {
                 "name": "markupsafe",
                 "system": "PYPI",
@@ -6871,7 +6895,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2024-10-18T15:21:46Z",
+              "publishedAt": "2024-10-18T15:21:27Z",
               "versionKey": {
                 "name": "markupsafe",
                 "system": "PYPI",
@@ -6879,12 +6903,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
-              "publishedAt": "2025-09-27T18:37:32Z",
+              "publishedAt": "2025-09-27T18:37:10Z",
               "versionKey": {
                 "name": "markupsafe",
                 "system": "PYPI",
                 "version": "3.0.3"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-10-02T23:05:41Z",
+              "versionKey": {
+                "name": "markupsafe",
+                "system": "PYPI",
+                "version": "3.0.4"
               }
             }
           ]
@@ -10807,12 +10839,28 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-07-25T15:12:05Z",
               "versionKey": {
                 "name": "pytz",
                 "system": "PYPI",
                 "version": "2026.3.0.post1"
+              }
+            },
+            {
+              "publishedAt": "2026-09-24T03:58:38Z",
+              "versionKey": {
+                "name": "pytz",
+                "system": "PYPI",
+                "version": "2026.4.0"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-10-04T02:37:56Z",
+              "versionKey": {
+                "name": "pytz",
+                "system": "PYPI",
+                "version": "2026.5.0"
               }
             }
           ]
@@ -13909,12 +13957,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-04-02T18:49:12Z",
               "versionKey": {
                 "name": "werkzeug",
                 "system": "PYPI",
                 "version": "3.1.8"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-09-27T18:33:39Z",
+              "versionKey": {
+                "name": "werkzeug",
+                "system": "PYPI",
+                "version": "3.1.9"
               }
             }
           ]
@@ -14156,7 +14212,7 @@ interactions:
           "versionKey": {
             "name": "markupsafe",
             "system": "PYPI",
-            "version": "3.0.3"
+            "version": "3.0.4"
           }
         }
       response: |-
@@ -14171,7 +14227,7 @@ interactions:
           "versionKey": {
             "name": "pytz",
             "system": "PYPI",
-            "version": "2026.3.0.post1"
+            "version": "2026.5.0"
           }
         }
       response: |-
@@ -14305,7 +14361,7 @@ interactions:
           "versionKey": {
             "name": "werkzeug",
             "system": "PYPI",
-            "version": "3.1.8"
+            "version": "3.1.9"
           }
         }
       response: |-
