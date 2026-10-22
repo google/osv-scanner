@@ -42,6 +42,23 @@ func TestPrintJSONResults_WithLicenseViolations(t *testing.T) {
 	})
 }
 
+func TestPrintJSONResults_WithLicenseSummary(t *testing.T) {
+	t.Parallel()
+
+	testOutputWithLicenseSummary(t, func(t *testing.T, args outputTestCaseArgs) {
+		t.Helper()
+
+		outputWriter := &bytes.Buffer{}
+		err := output.PrintJSONResults(args.vulnResult, outputWriter)
+
+		if err != nil {
+			t.Errorf("Error writing JSON output: %s", err)
+		}
+
+		testutility.NewSnapshot().MatchText(t, outputWriter.String())
+	})
+}
+
 func TestPrintJSONResults_WithMixedIssues(t *testing.T) {
 	t.Parallel()
 

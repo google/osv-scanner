@@ -51,6 +51,19 @@ func TestPrintVerticalResults_WithLicenseViolations(t *testing.T) {
 	})
 }
 
+func TestPrintVerticalResults_WithLicenseSummary(t *testing.T) {
+	t.Parallel()
+
+	testOutputWithLicenseSummary(t, func(t *testing.T, args outputTestCaseArgs) {
+		t.Helper()
+
+		outputWriter := &bytes.Buffer{}
+		output.PrintVerticalResults(args.vulnResult, outputWriter, false)
+
+		testutility.NewSnapshot().MatchText(t, text.StripEscape(outputWriter.String()))
+	})
+}
+
 func TestPrintVerticalResults_WithMixedIssues(t *testing.T) {
 	t.Parallel()
 
