@@ -84,6 +84,14 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 0 vulnerabilities can be fixed.
 
 
+Debian:12
+╭───────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Source:os:var/lib/dpkg/status                                                                                     │
+├────────────────┬───────────────────┬──────────────────┬────────────┬─────────────────────────┬────────────────────┤
+│ SOURCE PACKAGE │ INSTALLED VERSION │ FIX AVAILABLE    │ VULN COUNT │ BINARY PACKAGES (COUNT) │ LICENSE VIOLATIONS │
+├────────────────┼───────────────────┼──────────────────┼────────────┼─────────────────────────┼────────────────────┤
+│ libxml2        │ 2.9.14+dfsg-1.3   │ No fix available │          0 │ libxml2                 │ [MIT]              │
+╰────────────────┴───────────────────┴──────────────────┴────────────┴─────────────────────────┴────────────────────╯
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
 You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
@@ -888,6 +896,14 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 0 vulnerabilities can be fixed.
 
 
+Debian:12
++-------------------------------------------------------------------------------------------------------------------+
+| Source:os:var/lib/dpkg/status                                                                                     |
++----------------+-------------------+------------------+------------+-------------------------+--------------------+
+| SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE    | VULN COUNT | BINARY PACKAGES (COUNT) | LICENSE VIOLATIONS |
++----------------+-------------------+------------------+------------+-------------------------+--------------------+
+| libxml2        | 2.9.14+dfsg-1.3   | No fix available |          0 | libxml2                 | [MIT]              |
++----------------+-------------------+------------------+------------+-------------------------+--------------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
 You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
@@ -1652,6 +1668,14 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 │ MIT     │                       1 │
 ╰─────────┴─────────────────────────╯
 
+Debian:12
+╭──────────────────────────────────────────────────────────────────────────────╮
+│ Source:os:var/lib/dpkg/status                                                │
+├────────────────┬───────────────────┬──────────────────┬────────────┬──────── ≈
+│ SOURCE PACKAGE │ INSTALLED VERSION │ FIX AVAILABLE    │ VULN COUNT │ BINARY  ≈
+├────────────────┼───────────────────┼──────────────────┼────────────┼──────── ≈
+│ libxml2        │ 2.9.14+dfsg-1.3   │ No fix available │          0 │ libxml2 ≈
+╰────────────────┴───────────────────┴──────────────────┴────────────┴──────── ≈
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
 You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
@@ -1803,6 +1827,14 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 0 vulnerabilities can be fixed.
 
 
+Debian:12
+╭──────────────────────────────────────────────────────────────────────────────╮
+│ Source:os:var/lib/dpkg/status                                                │
+├────────────────┬───────────────────┬──────────────────┬────────────┬──────── ≈
+│ SOURCE PACKAGE │ INSTALLED VERSION │ FIX AVAILABLE    │ VULN COUNT │ BINARY  ≈
+├────────────────┼───────────────────┼──────────────────┼────────────┼──────── ≈
+│ libxml2        │ 2.9.14+dfsg-1.3   │ No fix available │          0 │ libxml2 ≈
+╰────────────────┴───────────────────┴──────────────────┴────────────┴──────── ≈
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
 You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
