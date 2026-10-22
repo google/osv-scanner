@@ -171,14 +171,14 @@ func printSummaryResult(result Result, outputWriter io.Writer, terminalWidth int
 				outputRow := table.Row{}
 				totalCount := pkg.VulnCount.AnalysisCount.Regular
 				var fixAvailable string
-				if pkg.FixedVersion == UnfixedDescription {
+				if totalCount == 0 {
+					fixAvailable = ""
+				} else if pkg.FixedVersion == UnfixedDescription {
 					fixAvailable = UnfixedDescription
+				} else if pkg.VulnCount.FixableCount.UnFixed > 0 {
+					fixAvailable = "Partial fixes Available"
 				} else {
-					if pkg.VulnCount.FixableCount.UnFixed > 0 {
-						fixAvailable = "Partial fixes Available"
-					} else {
-						fixAvailable = "Fix Available"
-					}
+					fixAvailable = "Fix Available"
 				}
 
 				outputRow = append(outputRow, pkg.Name, getInstalledVersionOrCommit(pkg), fixAvailable, totalCount)
