@@ -90,3 +90,23 @@ func OSPackageName(pkg *extractor.Package) string {
 
 	return ""
 }
+
+func PackageInfo(p *extractor.Package) models.PackageInfo {
+	parsedPkg := ParsePackage(p)
+
+	pi := models.PackageInfo{
+		Name:          parsedPkg.Name,
+		Version:       parsedPkg.Version,
+		Ecosystem:     parsedPkg.Ecosystem.String(),
+		OSPackageName: OSPackageName(p),
+		Deprecated:    p.Deprecated,
+		Inventory:     p,
+	}
+
+	// todo: see if this can just move into the struct?
+	if parsedPkg.Commit != "" {
+		pi.Commit = parsedPkg.Commit
+	}
+
+	return pi
+}

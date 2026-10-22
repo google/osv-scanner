@@ -18,6 +18,7 @@ import (
 	"github.com/google/osv-scalibr/inventory/vex"
 	"github.com/google/osv-scalibr/purl"
 	"github.com/google/osv-scanner/v2/internal/grouper"
+	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
@@ -81,22 +82,19 @@ func newEcosystemSpecific(fields map[string]any) *structpb.Struct {
 }
 
 func newPackageInfo(source string, pi pkginfo) models.PackageInfo {
-	info := models.PackageInfo{
-		Name:          pi.Name,
-		OSPackageName: pi.OSPackageName,
-		Version:       pi.Version,
-		Ecosystem:     pi.Ecosystem,
-		Commit:        pi.Commit,
-		ImageOrigin:   pi.ImageOrigin,
-		Deprecated:    pi.Deprecated,
-		Inventory: &extractor.Package{
-			Name:     pi.Name,
-			Version:  pi.Version,
-			Plugins:  []string{pi.Extractor.Name()},
-			Location: extractor.LocationFromPath(source),
-			PURLType: resolvePURLType(pi.Ecosystem),
-		},
-	}
+	info := imodels.PackageInfo(&extractor.Package{
+		Name:       pi.Name,
+		Version:    pi.Version,
+		Plugins:    []string{pi.Extractor.Name()},
+		Location:   extractor.LocationFromPath(source),
+		PURLType:   resolvePURLType(pi.Ecosystem),
+		Deprecated: pi.Deprecated,
+	})
+
+	info.OSPackageName = pi.OSPackageName
+	info.Ecosystem = pi.Ecosystem
+	info.Commit = pi.Commit
+	info.ImageOrigin = pi.ImageOrigin
 
 	if pi.Uncalled {
 		info.Inventory.ExploitabilitySignals = []*vex.PackageExploitabilitySignal{{
