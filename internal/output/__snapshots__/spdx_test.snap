@@ -5146,6 +5146,86 @@
 
 ---
 
+[TestPrintSPDXResults_WithVulnerabilities/one_sbom_source_with_an_ubuntu_package,_one_unimportant_vulnerability_with_an_ubuntu_priority,_and_one_regular_vulnerability - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/<uuid>",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "<timestamp>"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    },
+    {
+      "name": "openssl",
+      "SPDXID": "SPDXRef-Package-openssl-<uuid>",
+      "versionInfo": "3.0.2-0ubuntu1.15",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the os/dpkg extractor from <rootdir>/path/to/my/sbom.cdx.json",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:deb/openssl@3.0.2-0ubuntu1.15"
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/sbom.cdx.json",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-sbom.cdx.json-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
+      "relationshipType": "DESCRIBES"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-openssl-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-openssl-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-sbom.cdx.json-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-openssl-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    }
+  ]
+}
+
+---
+
 [TestPrintSPDXResults_WithVulnerabilities/one_source_with_no_packages - 1]
 {
   "spdxVersion": "SPDX-2.3",
@@ -5261,6 +5341,86 @@
 ---
 
 [TestPrintSPDXResults_WithVulnerabilities/one_source_with_one_package,_one_uncalled_vulnerability,_and_one_called_vulnerability - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/<uuid>",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "<timestamp>"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    },
+    {
+      "name": "mine1",
+      "SPDXID": "SPDXRef-Package-mine1-<uuid>",
+      "versionInfo": "1.2.3",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/mine1@1.2.3"
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "fileName": "<rootdir>/path/to/my/first/lockfile",
+      "SPDXID": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "<checksum>"
+        }
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
+      "relationshipType": "DESCRIBES"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-<rootdir>-path-to-my-first-lockfile-<hash>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithVulnerabilities/one_source_with_one_package,_one_uncalled_vulnerability_with_an_ubuntu_priority,_and_one_called_vulnerability - 1]
 {
   "spdxVersion": "SPDX-2.3",
   "dataLicense": "CC0-1.0",

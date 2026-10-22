@@ -548,6 +548,23 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
+[TestPrintTableResults_LongTerminalWidth_WithVulnerabilities/one_sbom_source_with_an_ubuntu_package,_one_unimportant_vulnerability_with_an_ubuntu_priority,_and_one_regular_vulnerability - 1]
+
+Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+╭──────────────────────────────────────┬────────────┬──────────────┬─────────┬───────────────────┬───────────────┬──────────────────────────╮
+│ OSV URL                              │ SEVERITY   │ ECOSYSTEM    │ PACKAGE │ VERSION           │ FIXED VERSION │ SOURCE                   │
+├──────────────────────────────────────┼────────────┼──────────────┼─────────┼───────────────────┼───────────────┼──────────────────────────┤
+│ https://osv.dev/OSV-1                │ 8.1        │ Ubuntu:22.04 │ openssl │ 3.0.2-0ubuntu1.15 │ --            │ path/to/my/sbom.cdx.json │
+├──────────────────────────────────────┼────────────┼──────────────┼─────────┼───────────────────┼───────────────┼──────────────────────────┤
+│ Unimportant vulnerabilities          │            │              │         │                   │               │                          │
+├──────────────────────────────────────┼────────────┼──────────────┼─────────┼───────────────────┼───────────────┼──────────────────────────┤
+│ https://osv.dev/UBUNTU-CVE-2024-0003 │ negligible │ Ubuntu:22.04 │ openssl │ 3.0.2-0ubuntu1.15 │ --            │ path/to/my/sbom.cdx.json │
+╰──────────────────────────────────────┴────────────┴──────────────┴─────────┴───────────────────┴───────────────┴──────────────────────────╯
+
+---
+
 [TestPrintTableResults_LongTerminalWidth_WithVulnerabilities/one_source_with_no_packages - 1]
 
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -578,6 +595,23 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 ├──────────────────────────┼──────┼───────────┼─────────┼─────────┼───────────────┼───────────────────────────┤
 │ https://osv.dev/GHSA-123 │      │ npm       │ mine1   │ 1.2.3   │ --            │ path/to/my/first/lockfile │
 ╰──────────────────────────┴──────┴───────────┴─────────┴─────────┴───────────────┴───────────────────────────╯
+
+---
+
+[TestPrintTableResults_LongTerminalWidth_WithVulnerabilities/one_source_with_one_package,_one_uncalled_vulnerability_with_an_ubuntu_priority,_and_one_called_vulnerability - 1]
+
+Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+╭──────────────────────────┬──────────┬───────────┬─────────┬─────────┬───────────────┬───────────────────────────╮
+│ OSV URL                  │ SEVERITY │ ECOSYSTEM │ PACKAGE │ VERSION │ FIXED VERSION │ SOURCE                    │
+├──────────────────────────┼──────────┼───────────┼─────────┼─────────┼───────────────┼───────────────────────────┤
+│ https://osv.dev/OSV-1    │ 8.8      │ npm       │ mine1   │ 1.2.3   │ --            │ path/to/my/first/lockfile │
+├──────────────────────────┼──────────┼───────────┼─────────┼─────────┼───────────────┼───────────────────────────┤
+│ Uncalled vulnerabilities │          │           │         │         │               │                           │
+├──────────────────────────┼──────────┼───────────┼─────────┼─────────┼───────────────┼───────────────────────────┤
+│ https://osv.dev/GHSA-123 │ high     │ npm       │ mine1   │ 1.2.3   │ --            │ path/to/my/first/lockfile │
+╰──────────────────────────┴──────────┴───────────┴─────────┴─────────┴───────────────┴───────────────────────────╯
 
 ---
 
@@ -1352,6 +1386,23 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
+[TestPrintTableResults_NoTerminalWidth_WithVulnerabilities/one_sbom_source_with_an_ubuntu_package,_one_unimportant_vulnerability_with_an_ubuntu_priority,_and_one_regular_vulnerability - 1]
+
+Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
++--------------------------------------+------------+--------------+---------+-------------------+---------------+--------------------------+
+| OSV URL                              | SEVERITY   | ECOSYSTEM    | PACKAGE | VERSION           | FIXED VERSION | SOURCE                   |
++--------------------------------------+------------+--------------+---------+-------------------+---------------+--------------------------+
+| https://osv.dev/OSV-1                | 8.1        | Ubuntu:22.04 | openssl | 3.0.2-0ubuntu1.15 | --            | path/to/my/sbom.cdx.json |
++--------------------------------------+------------+--------------+---------+-------------------+---------------+--------------------------+
+| Unimportant vulnerabilities          |            |              |         |                   |               |                          |
++--------------------------------------+------------+--------------+---------+-------------------+---------------+--------------------------+
+| https://osv.dev/UBUNTU-CVE-2024-0003 | negligible | Ubuntu:22.04 | openssl | 3.0.2-0ubuntu1.15 | --            | path/to/my/sbom.cdx.json |
++--------------------------------------+------------+--------------+---------+-------------------+---------------+--------------------------+
+
+---
+
 [TestPrintTableResults_NoTerminalWidth_WithVulnerabilities/one_source_with_no_packages - 1]
 
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -1382,6 +1433,23 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 +--------------------------+------+-----------+---------+---------+---------------+---------------------------+
 | https://osv.dev/GHSA-123 |      | npm       | mine1   | 1.2.3   | --            | path/to/my/first/lockfile |
 +--------------------------+------+-----------+---------+---------+---------------+---------------------------+
+
+---
+
+[TestPrintTableResults_NoTerminalWidth_WithVulnerabilities/one_source_with_one_package,_one_uncalled_vulnerability_with_an_ubuntu_priority,_and_one_called_vulnerability - 1]
+
+Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
++--------------------------+----------+-----------+---------+---------+---------------+---------------------------+
+| OSV URL                  | SEVERITY | ECOSYSTEM | PACKAGE | VERSION | FIXED VERSION | SOURCE                    |
++--------------------------+----------+-----------+---------+---------+---------------+---------------------------+
+| https://osv.dev/OSV-1    | 8.8      | npm       | mine1   | 1.2.3   | --            | path/to/my/first/lockfile |
++--------------------------+----------+-----------+---------+---------+---------------+---------------------------+
+| Uncalled vulnerabilities |          |           |         |         |               |                           |
++--------------------------+----------+-----------+---------+---------+---------------+---------------------------+
+| https://osv.dev/GHSA-123 | high     | npm       | mine1   | 1.2.3   | --            | path/to/my/first/lockfile |
++--------------------------+----------+-----------+---------+---------+---------------+---------------------------+
 
 ---
 
@@ -2267,6 +2335,23 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
+[TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities/one_sbom_source_with_an_ubuntu_package,_one_unimportant_vulnerability_with_an_ubuntu_priority,_and_one_regular_vulnerability - 1]
+
+Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+╭──────────────────────────────────────┬────────────┬──────────────┬─────────┬ ≈
+│ OSV URL                              │ SEVERITY   │ ECOSYSTEM    │ PACKAGE │ ≈
+├──────────────────────────────────────┼────────────┼──────────────┼─────────┼ ≈
+│ https://osv.dev/OSV-1                │ 8.1        │ Ubuntu:22.04 │ openssl │ ≈
+├──────────────────────────────────────┼────────────┼──────────────┼─────────┼ ≈
+│ Unimportant vulnerabilities          │            │              │         │ ≈
+├──────────────────────────────────────┼────────────┼──────────────┼─────────┼ ≈
+│ https://osv.dev/UBUNTU-CVE-2024-0003 │ negligible │ Ubuntu:22.04 │ openssl │ ≈
+╰──────────────────────────────────────┴────────────┴──────────────┴─────────┴ ≈
+
+---
+
 [TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities/one_source_with_no_packages - 1]
 
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -2297,6 +2382,23 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 ├──────────────────────────┼──────┼───────────┼─────────┼─────────┼─────────── ≈
 │ https://osv.dev/GHSA-123 │      │ npm       │ mine1   │ 1.2.3   │ --         ≈
 ╰──────────────────────────┴──────┴───────────┴─────────┴─────────┴─────────── ≈
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities/one_source_with_one_package,_one_uncalled_vulnerability_with_an_ubuntu_priority,_and_one_called_vulnerability - 1]
+
+Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+╭──────────────────────────┬──────────┬───────────┬─────────┬─────────┬─────── ≈
+│ OSV URL                  │ SEVERITY │ ECOSYSTEM │ PACKAGE │ VERSION │ FIXED  ≈
+├──────────────────────────┼──────────┼───────────┼─────────┼─────────┼─────── ≈
+│ https://osv.dev/OSV-1    │ 8.8      │ npm       │ mine1   │ 1.2.3   │ --     ≈
+├──────────────────────────┼──────────┼───────────┼─────────┼─────────┼─────── ≈
+│ Uncalled vulnerabilities │          │           │         │         │        ≈
+├──────────────────────────┼──────────┼───────────┼─────────┼─────────┼─────── ≈
+│ https://osv.dev/GHSA-123 │ high     │ npm       │ mine1   │ 1.2.3   │ --     ≈
+╰──────────────────────────┴──────────┴───────────┴─────────┴─────────┴─────── ≈
 
 ---
 
@@ -2681,6 +2783,19 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
+[TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities_WithoutAllVulns/one_sbom_source_with_an_ubuntu_package,_one_unimportant_vulnerability_with_an_ubuntu_priority,_and_one_regular_vulnerability - 1]
+
+Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+╭───────────────────────┬──────┬──────────────┬─────────┬───────────────────┬─ ≈
+│ OSV URL               │ CVSS │ ECOSYSTEM    │ PACKAGE │ VERSION           │  ≈
+├───────────────────────┼──────┼──────────────┼─────────┼───────────────────┼─ ≈
+│ https://osv.dev/OSV-1 │ 8.1  │ Ubuntu:22.04 │ openssl │ 3.0.2-0ubuntu1.15 │  ≈
+╰───────────────────────┴──────┴──────────────┴─────────┴───────────────────┴─ ≈
+
+---
+
 [TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities_WithoutAllVulns/one_source_with_no_packages - 1]
 
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -2706,6 +2821,19 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 │ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ FIXED VERSION ≈
 ├───────────────────────┼──────┼───────────┼─────────┼─────────┼────────────── ≈
 │ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ --            ≈
+╰───────────────────────┴──────┴───────────┴─────────┴─────────┴────────────── ≈
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities_WithoutAllVulns/one_source_with_one_package,_one_uncalled_vulnerability_with_an_ubuntu_priority,_and_one_called_vulnerability - 1]
+
+Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+╭───────────────────────┬──────┬───────────┬─────────┬─────────┬────────────── ≈
+│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ FIXED VERSION ≈
+├───────────────────────┼──────┼───────────┼─────────┼─────────┼────────────── ≈
+│ https://osv.dev/OSV-1 │ 8.8  │ npm       │ mine1   │ 1.2.3   │ --            ≈
 ╰───────────────────────┴──────┴───────────┴─────────┴─────────┴────────────── ≈
 
 ---

@@ -3692,6 +3692,84 @@
 
 ---
 
+[TestPrintJSONResults_WithVulnerabilities/one_sbom_source_with_an_ubuntu_package,_one_unimportant_vulnerability_with_an_ubuntu_priority,_and_one_regular_vulnerability - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "<rootdir>/path/to/my/sbom.cdx.json",
+        "type": "sbom"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "openssl",
+            "os_package_name": "openssl",
+            "version": "3.0.2-0ubuntu1.15",
+            "ecosystem": "Ubuntu:22.04"
+          },
+          "groups": [
+            {
+              "ids": [
+                "OSV-1"
+              ],
+              "aliases": [
+                "OSV-1"
+              ],
+              "max_severity": "8.1"
+            },
+            {
+              "ids": [
+                "UBUNTU-CVE-2024-0003"
+              ],
+              "aliases": [
+                "UBUNTU-CVE-2024-0003"
+              ],
+              "experimental_analysis": {
+                "UBUNTU-CVE-2024-0003": {
+                  "called": true,
+                  "unimportant": true
+                }
+              },
+              "max_severity": ""
+            }
+          ],
+          "vulnerabilities": [
+            {
+              "id": "OSV-1",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:N",
+                  "type": "CVSS_V3"
+                }
+              ],
+              "summary": "Something scary!"
+            },
+            {
+              "id": "UBUNTU-CVE-2024-0003",
+              "severity": [
+                {
+                  "score": "negligible",
+                  "type": "Ubuntu"
+                }
+              ],
+              "summary": "Something negligible!"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
 [TestPrintJSONResults_WithVulnerabilities/one_source_with_no_packages - 1]
 {
   "results": [
@@ -3804,6 +3882,89 @@
               "severity": [
                 {
                   "score": "1"
+                }
+              ],
+              "summary": "Something scarier!"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
+[TestPrintJSONResults_WithVulnerabilities/one_source_with_one_package,_one_uncalled_vulnerability_with_an_ubuntu_priority,_and_one_called_vulnerability - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "<rootdir>/path/to/my/first/lockfile",
+        "type": "lockfile"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
+          "groups": [
+            {
+              "ids": [
+                "OSV-1"
+              ],
+              "aliases": [
+                "OSV-1"
+              ],
+              "experimental_analysis": {
+                "OSV-1": {
+                  "called": true,
+                  "unimportant": false
+                }
+              },
+              "max_severity": "8.8"
+            },
+            {
+              "ids": [
+                "GHSA-123"
+              ],
+              "aliases": [
+                "GHSA-123"
+              ],
+              "experimental_analysis": {
+                "GHSA-123": {
+                  "called": false,
+                  "unimportant": false
+                }
+              },
+              "max_severity": ""
+            }
+          ],
+          "vulnerabilities": [
+            {
+              "id": "OSV-1",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+                  "type": "CVSS_V3"
+                }
+              ],
+              "summary": "Something scary!"
+            },
+            {
+              "id": "GHSA-123",
+              "severity": [
+                {
+                  "score": "high",
+                  "type": "Ubuntu"
                 }
               ],
               "summary": "Something scarier!"

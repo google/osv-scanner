@@ -90,3 +90,54 @@ func TestSeverity_CalculateScore(t *testing.T) {
 		})
 	}
 }
+
+func TestSeverity_FindUbuntuSeverity(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name       string
+		severities []*osvschema.Severity
+		want       string
+	}{
+		{
+			name:       "no_severities",
+			severities: nil,
+			want:       "",
+		},
+		{
+			name: "no_ubuntu_severity",
+			severities: []*osvschema.Severity{
+				{Type: osvschema.Severity_CVSS_V3, Score: "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H"},
+			},
+			want: "",
+		},
+		{
+			name: "one_ubuntu_severity",
+			severities: []*osvschema.Severity{
+				{Type: osvschema.Severity_CVSS_V3, Score: "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H"},
+				{Type: osvschema.Severity_Ubuntu, Score: "medium"},
+			},
+			want: "medium",
+		},
+		{
+			// a record should only have one ubuntu priority, but if there are
+			// multiple then the first one is used rather than the highest
+			name: "multiple_ubuntu_severities",
+			severities: []*osvschema.Severity{
+				{Type: osvschema.Severity_Ubuntu, Score: "low"},
+				{Type: osvschema.Severity_Ubuntu, Score: "critical"},
+			},
+			want: "low",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			if got := severity.FindUbuntuSeverity(tt.severities); got != tt.want {
+				t.Errorf("FindUbuntuSeverity() = %q, want %q", got, tt.want)
+			}
+		})
+	}
+}

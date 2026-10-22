@@ -513,6 +513,61 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
+			// only the uncalled vulnerability has an ubuntu priority
+			name: "one_source_with_one_package,_one_uncalled_vulnerability_with_an_ubuntu_priority,_and_one_called_vulnerability",
+			args: outputTestCaseArgs{
+				vulnResult: &models.VulnerabilityResults{
+					Results: []models.PackageSource{
+						{
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Packages: []models.PackageVulns{
+								{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
+										Name:      "mine1",
+										Version:   "1.2.3",
+										Ecosystem: "npm",
+										Extractor: packagelockjson.Extractor{},
+									}),
+									Groups: []models.GroupInfo{
+										{
+											IDs: []string{"OSV-1"},
+											ExperimentalAnalysis: map[string]models.AnalysisInfo{
+												"OSV-1": {Called: true},
+											},
+										},
+										{
+											IDs: []string{"GHSA-123"},
+											ExperimentalAnalysis: map[string]models.AnalysisInfo{
+												"GHSA-123": {Called: false},
+											},
+										},
+									},
+									Vulnerabilities: []*osvschema.Vulnerability{
+										{
+											Id:      "OSV-1",
+											Summary: "Something scary!",
+											Severity: []*osvschema.Severity{{
+												Type:  osvschema.Severity_CVSS_V3,
+												Score: "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+											}},
+										},
+										{
+											Id:      "GHSA-123",
+											Summary: "Something scarier!",
+											Severity: []*osvschema.Severity{{
+												Type:  osvschema.Severity_Ubuntu,
+												Score: "high",
+											}},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		{
 			name: "one_source_with_one_package_and_one_vulnerability_(dev)",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
@@ -1573,6 +1628,49 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 											Summary: "Something else negligible!",
 											Affected: []*osvschema.Affected{{
 												EcosystemSpecific: newEcosystemSpecific(map[string]any{"ubuntu_priority": "negligible"}),
+											}},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			// a non-OS source so that the vulnerability table is used, where only
+			// the unimportant vulnerability has an ubuntu priority
+			name: "one_sbom_source_with_an_ubuntu_package,_one_unimportant_vulnerability_with_an_ubuntu_priority,_and_one_regular_vulnerability",
+			args: outputTestCaseArgs{
+				vulnResult: &models.VulnerabilityResults{
+					Results: []models.PackageSource{
+						{
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/sbom.cdx.json", Type: models.SourceTypeSBOM},
+							Packages: []models.PackageVulns{
+								{
+									Package: newPackageInfo(cwd+"/path/to/my/sbom.cdx.json", pkginfo{
+										Name:          "openssl",
+										OSPackageName: "openssl",
+										Version:       "3.0.2-0ubuntu1.15",
+										Ecosystem:     "Ubuntu:22.04",
+										Extractor:     dpkg.Extractor{},
+									}),
+									Vulnerabilities: []*osvschema.Vulnerability{
+										{
+											Id:      "UBUNTU-CVE-2024-0003",
+											Summary: "Something negligible!",
+											Severity: []*osvschema.Severity{{
+												Type:  osvschema.Severity_Ubuntu,
+												Score: "negligible",
+											}},
+										},
+										{
+											Id:      "OSV-1",
+											Summary: "Something scary!",
+											Severity: []*osvschema.Severity{{
+												Type:  osvschema.Severity_CVSS_V3,
+												Score: "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:N",
 											}},
 										},
 									},
