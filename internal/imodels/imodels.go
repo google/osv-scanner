@@ -5,6 +5,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/osv-scalibr/converter"
 	"github.com/google/osv-scalibr/enricher/vulnmatch/osvutil"
 	"github.com/google/osv-scalibr/extractor"
 	apkmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/apk/metadata"
@@ -106,6 +107,10 @@ func PackageInfo(p *extractor.Package) models.PackageInfo {
 	// todo: see if this can just move into the struct?
 	if parsedPkg.Commit != "" {
 		pi.Commit = parsedPkg.Commit
+	}
+
+	if packageURL := converter.ToPURL(p); packageURL != nil {
+		pi.PURL = packageURL.String()
 	}
 
 	return pi

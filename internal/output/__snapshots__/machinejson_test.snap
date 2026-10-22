@@ -434,7 +434,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "licenses": [
             "ISC"
@@ -452,7 +453,8 @@
           "package": {
             "name": "mine2",
             "version": "3.2.5",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine2@3.2.5"
           },
           "licenses": [
             "ISC"
@@ -462,7 +464,8 @@
           "package": {
             "name": "mine3",
             "version": "0.4.1",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine3@0.4.1"
           },
           "licenses": [
             "ISC"
@@ -480,7 +483,8 @@
           "package": {
             "name": "mine1",
             "version": "1.3.5",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.3.5"
           },
           "licenses": [
             "ISC"
@@ -490,7 +494,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "licenses": [
             "ISC"
@@ -524,7 +529,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "licenses": [
             "MIT"
@@ -545,7 +551,8 @@
           "package": {
             "name": "mine2",
             "version": "3.2.5",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine2@3.2.5"
           },
           "licenses": [
             "Apache-2.0"
@@ -558,7 +565,8 @@
           "package": {
             "name": "mine3",
             "version": "0.4.1",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine3@0.4.1"
           },
           "licenses": [
             "ISC"
@@ -576,7 +584,8 @@
           "package": {
             "name": "mine1",
             "version": "1.3.5",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.3.5"
           },
           "licenses": [
             "ISC"
@@ -586,7 +595,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "licenses": [
             "MIT"
@@ -623,7 +633,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "licenses": [
             "MIT",
@@ -645,7 +656,8 @@
           "package": {
             "name": "mine2",
             "version": "3.2.5",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine2@3.2.5"
           },
           "licenses": [
             "UNKNOWN"
@@ -658,7 +670,8 @@
           "package": {
             "name": "mine3",
             "version": "0.4.1",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine3@0.4.1"
           },
           "licenses": [
             "Apache-2.0"
@@ -676,7 +689,8 @@
           "package": {
             "name": "mine1",
             "version": "1.3.5",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.3.5"
           },
           "licenses": [
             "Apache-2.0"
@@ -686,7 +700,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "licenses": [
             "MIT"
@@ -721,7 +736,8 @@
           "package": {
             "name": "author1/mine1",
             "version": "1.2.3",
-            "ecosystem": "Packagist"
+            "ecosystem": "Packagist",
+            "purl": "pkg:composer/author1/mine1@1.2.3"
           },
           "licenses": [
             "MIT"
@@ -742,7 +758,8 @@
           "package": {
             "name": "mine2",
             "version": "3.2.5",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine2@3.2.5"
           },
           "licenses": [
             "Apache-2.0"
@@ -755,7 +772,8 @@
           "package": {
             "name": "mine3",
             "version": "0.4.1",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine3@0.4.1"
           },
           "licenses": [
             "ISC"
@@ -773,7 +791,8 @@
           "package": {
             "name": "mine1",
             "version": "1.3.5",
-            "ecosystem": "NuGet"
+            "ecosystem": "NuGet",
+            "purl": "pkg:nuget/mine1@1.3.5"
           },
           "licenses": [
             "ISC"
@@ -783,7 +802,8 @@
           "package": {
             "name": "author1/mine1",
             "version": "1.2.3",
-            "ecosystem": "Packagist"
+            "ecosystem": "Packagist",
+            "purl": "pkg:composer/author1/mine1@1.2.3"
           },
           "dependency_groups": [
             "dev"
@@ -823,7 +843,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "dependency_groups": [
             "dev",
@@ -848,7 +869,8 @@
           "package": {
             "name": "mine2",
             "version": "3.2.5",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine2@3.2.5"
           },
           "dependency_groups": [
             "dev",
@@ -865,7 +887,8 @@
           "package": {
             "name": "mine3",
             "version": "0.4.1",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine3@0.4.1"
           },
           "licenses": [
             "ISC"
@@ -883,7 +906,8 @@
           "package": {
             "name": "mine1",
             "version": "1.3.5",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.3.5"
           },
           "licenses": [
             "ISC"
@@ -893,7 +917,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "dependency_groups": [
             "build"
@@ -1057,7 +1082,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "licenses": [
             "ISC"
@@ -1091,7 +1117,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           }
         }
       ]
@@ -1122,7 +1149,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "licenses": [
             "UNKNOWN"
@@ -1156,7 +1184,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "licenses": [
             "MIT",
@@ -1195,7 +1224,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "licenses": [
             "MIT"
@@ -1232,7 +1262,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "dependency_groups": [
             "dev"
@@ -1273,6 +1304,7 @@
             "name": "mine1",
             "version": "1.2.3",
             "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3",
             "commit": "abc123"
           },
           "licenses": [
@@ -1311,6 +1343,7 @@
             "name": "mine1",
             "version": "",
             "ecosystem": "npm",
+            "purl": "pkg:npm/mine1",
             "commit": "abc123"
           },
           "licenses": [
@@ -1348,7 +1381,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "licenses": [
             "MIT"
@@ -1369,7 +1403,8 @@
           "package": {
             "name": "mine2",
             "version": "5.9.0",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine2@5.9.0"
           },
           "licenses": [
             "ISC"
@@ -1403,7 +1438,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "groups": [
             {
@@ -1453,7 +1489,8 @@
           "package": {
             "name": "mine2",
             "version": "3.2.5",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine2@3.2.5"
           },
           "groups": [
             {
@@ -1491,7 +1528,8 @@
           "package": {
             "name": "mine3",
             "version": "0.4.1",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine3@0.4.1"
           },
           "licenses": [
             "ISC"
@@ -1509,7 +1547,8 @@
           "package": {
             "name": "mine1",
             "version": "1.3.5",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.3.5"
           },
           "licenses": [
             "MIT"
@@ -1522,7 +1561,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "groups": [
             {
@@ -1587,7 +1627,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "groups": [
             {
@@ -1630,7 +1671,8 @@
           "package": {
             "name": "mine2",
             "version": "3.2.5",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine2@3.2.5"
           },
           "groups": [
             {
@@ -1662,7 +1704,8 @@
           "package": {
             "name": "mine3",
             "version": "0.4.1",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine3@0.4.1"
           },
           "licenses": [
             "ISC"
@@ -1680,7 +1723,8 @@
           "package": {
             "name": "mine1",
             "version": "1.3.5",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.3.5"
           },
           "licenses": [
             "MIT"
@@ -1693,7 +1737,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "groups": [
             {
@@ -1753,6 +1798,7 @@
             "name": "mine1",
             "version": "1.2.3",
             "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3",
             "commit": "abcxzy"
           },
           "groups": [
@@ -1797,6 +1843,7 @@
             "name": "mine2",
             "version": "",
             "ecosystem": "npm",
+            "purl": "pkg:npm/mine2",
             "commit": "abc123"
           },
           "groups": [
@@ -1829,7 +1876,8 @@
           "package": {
             "name": "mine3",
             "version": "0.4.1",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine3@0.4.1"
           },
           "licenses": [
             "ISC"
@@ -1847,7 +1895,8 @@
           "package": {
             "name": "mine1",
             "version": "1.3.5",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.3.5"
           },
           "licenses": [
             "MIT"
@@ -1860,7 +1909,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "groups": [
             {
@@ -1919,7 +1969,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "groups": [
             {
@@ -1979,6 +2030,7 @@
             "name": "deprecated-pkg",
             "version": "1.0.0",
             "ecosystem": "npm",
+            "purl": "pkg:npm/deprecated-pkg@1.0.0",
             "deprecated": true
           }
         }
@@ -2008,7 +2060,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "groups": [
             {
@@ -2073,7 +2126,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "groups": [
             {
@@ -2138,7 +2192,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "groups": [
             {
@@ -2197,7 +2252,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "groups": [
             {
@@ -2237,7 +2293,8 @@
           "package": {
             "name": "mine2",
             "version": "5.9.0",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine2@5.9.0"
           },
           "licenses": [
             "MIT"
@@ -2274,7 +2331,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "dependency_groups": [
             "dev",
@@ -2325,7 +2383,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.2",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.2"
           },
           "groups": [
             {
@@ -2362,7 +2421,8 @@
           "package": {
             "name": "mine2",
             "version": "3.2.5",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine2@3.2.5"
           },
           "dependency_groups": [
             "dev"
@@ -2394,7 +2454,8 @@
           "package": {
             "name": "mine3",
             "version": "0.4.1",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine3@0.4.1"
           },
           "dependency_groups": [
             "build"
@@ -2466,7 +2527,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "groups": [
             {
@@ -2513,7 +2575,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.2",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.2"
           },
           "groups": [
             {
@@ -2550,7 +2613,8 @@
           "package": {
             "name": "mine2",
             "version": "3.2.5",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine2@3.2.5"
           },
           "groups": [
             {
@@ -2580,7 +2644,8 @@
           "package": {
             "name": "mine3",
             "version": "0.4.1",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine3@0.4.1"
           },
           "groups": [
             {
@@ -2650,7 +2715,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           }
         }
       ]
@@ -2665,14 +2731,16 @@
           "package": {
             "name": "mine2",
             "version": "3.2.5",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine2@3.2.5"
           }
         },
         {
           "package": {
             "name": "mine3",
             "version": "0.4.1",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine3@0.4.1"
           }
         }
       ]
@@ -2687,14 +2755,16 @@
           "package": {
             "name": "mine1",
             "version": "1.3.5",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.3.5"
           }
         },
         {
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           }
         }
       ]
@@ -2723,7 +2793,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "groups": [
             {
@@ -2760,7 +2831,8 @@
           "package": {
             "name": "mine2",
             "version": "3.2.5",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine2@3.2.5"
           },
           "groups": [
             {
@@ -2789,7 +2861,8 @@
           "package": {
             "name": "mine3",
             "version": "0.4.1",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine3@0.4.1"
           }
         }
       ]
@@ -2804,14 +2877,16 @@
           "package": {
             "name": "mine1",
             "version": "1.3.5",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.3.5"
           }
         },
         {
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "groups": [
             {
@@ -2862,7 +2937,8 @@
           "package": {
             "name": "author1/mine1",
             "version": "1.2.3",
-            "ecosystem": "Packagist"
+            "ecosystem": "Packagist",
+            "purl": "pkg:composer/author1/mine1@1.2.3"
           },
           "groups": [
             {
@@ -2909,7 +2985,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.2",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.2"
           },
           "groups": [
             {
@@ -2946,7 +3023,8 @@
           "package": {
             "name": "mine2",
             "version": "3.2.5",
-            "ecosystem": "NuGet"
+            "ecosystem": "NuGet",
+            "purl": "pkg:nuget/mine2@3.2.5"
           },
           "dependency_groups": [
             "dev"
@@ -2978,7 +3056,8 @@
           "package": {
             "name": "author3/mine3",
             "version": "0.4.1",
-            "ecosystem": "Packagist"
+            "ecosystem": "Packagist",
+            "purl": "pkg:composer/author3/mine3@0.4.1"
           },
           "dependency_groups": [
             "build"
@@ -3051,7 +3130,8 @@
           "package": {
             "name": "author1/mine1",
             "version": "1.2.3",
-            "ecosystem": "Packagist"
+            "ecosystem": "Packagist",
+            "purl": "pkg:composer/author1/mine1@1.2.3"
           },
           "groups": [
             {
@@ -3110,7 +3190,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.2",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.2"
           },
           "groups": [
             {
@@ -3147,7 +3228,8 @@
           "package": {
             "name": "mine2",
             "version": "3.2.5",
-            "ecosystem": "NuGet"
+            "ecosystem": "NuGet",
+            "purl": "pkg:nuget/mine2@3.2.5"
           },
           "dependency_groups": [
             "dev"
@@ -3179,7 +3261,8 @@
           "package": {
             "name": "author3/mine3",
             "version": "0.4.1",
-            "ecosystem": "Packagist"
+            "ecosystem": "Packagist",
+            "purl": "pkg:composer/author3/mine3@0.4.1"
           },
           "dependency_groups": [
             "build"
@@ -3258,6 +3341,7 @@
             "name": "author1/mine1",
             "version": "1.2.3",
             "ecosystem": "Packagist",
+            "purl": "pkg:composer/author1/mine1@1.2.3",
             "commit": "123abc"
           },
           "groups": [
@@ -3306,6 +3390,7 @@
             "name": "mine1",
             "version": "",
             "ecosystem": "npm",
+            "purl": "pkg:npm/mine1",
             "commit": "abcxyz"
           },
           "groups": [
@@ -3343,7 +3428,8 @@
           "package": {
             "name": "mine2",
             "version": "3.2.5",
-            "ecosystem": "NuGet"
+            "ecosystem": "NuGet",
+            "purl": "pkg:nuget/mine2@3.2.5"
           },
           "dependency_groups": [
             "dev"
@@ -3375,7 +3461,8 @@
           "package": {
             "name": "author3/mine3",
             "version": "0.4.1",
-            "ecosystem": "Packagist"
+            "ecosystem": "Packagist",
+            "purl": "pkg:composer/author3/mine3@0.4.1"
           },
           "dependency_groups": [
             "build"
@@ -3496,7 +3583,8 @@
             "name": "libxml2",
             "os_package_name": "libxml2",
             "version": "2.9.14+dfsg-1.3",
-            "ecosystem": "Debian:12"
+            "ecosystem": "Debian:12",
+            "purl": "pkg:deb/libxml2@2.9.14%2Bdfsg-1.3"
           },
           "groups": [
             {
@@ -3577,7 +3665,8 @@
             "name": "openssl",
             "os_package_name": "openssl",
             "version": "3.0.2-0ubuntu1.15",
-            "ecosystem": "Ubuntu:22.04"
+            "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/openssl@3.0.2-0ubuntu1.15"
           },
           "groups": [
             {
@@ -3726,7 +3815,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           }
         }
       ]
@@ -3755,7 +3845,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "groups": [
             {
@@ -3836,7 +3927,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "groups": [
             {
@@ -3888,7 +3980,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "groups": [
             {
@@ -4076,7 +4169,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "groups": [
             {
@@ -4134,7 +4228,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "groups": [
             {
@@ -4191,7 +4286,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "groups": [
             {
@@ -4247,7 +4343,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "dependency_groups": [
             "dev"
@@ -4306,7 +4403,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "groups": [
             {
@@ -4359,7 +4457,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "groups": [
             {
@@ -4434,7 +4533,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "groups": [
             {
@@ -4501,7 +4601,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "groups": [
             {
@@ -4563,6 +4664,7 @@
             "name": "mine1",
             "version": "1.2.3",
             "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3",
             "commit": "abc123"
           },
           "groups": [
@@ -4616,6 +4718,7 @@
             "name": "mine1",
             "version": "",
             "ecosystem": "npm",
+            "purl": "pkg:npm/mine1",
             "commit": "abc123"
           },
           "groups": [
@@ -4668,7 +4771,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "groups": [
             {
@@ -4718,7 +4822,8 @@
           "package": {
             "name": "mine3",
             "version": "0.10.2-rc",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine3@0.10.2-rc"
           },
           "groups": [
             {
@@ -4763,7 +4868,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "groups": [
             {
@@ -4809,7 +4915,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "groups": [
             {
@@ -4851,7 +4958,8 @@
           "package": {
             "name": "mine2",
             "version": "5.9.0",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine2@5.9.0"
           }
         }
       ]
@@ -4880,7 +4988,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "groups": [
             {
@@ -4917,7 +5026,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "dependency_groups": [
             "dev"
