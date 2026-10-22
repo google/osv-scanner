@@ -2,6 +2,7 @@
 package severity
 
 import (
+	"slices"
 	"strconv"
 	"strings"
 
@@ -100,4 +101,24 @@ func CalculateRating(score string) (Rating, error) {
 	}
 
 	return Rating(rating), err
+}
+
+var ubuntuPriorities = []string{"negligible", "low", "medium", "high", "critical"}
+
+func MaxUbuntuPriority(a, b string) string {
+	if slices.Index(ubuntuPriorities, b) > slices.Index(ubuntuPriorities, a) {
+		return b
+	}
+
+	return a
+}
+
+func FindUbuntuSeverity(severities []*osvschema.Severity) string {
+	for _, sev := range severities {
+		if sev.GetType() == osvschema.Severity_Ubuntu {
+			return sev.GetScore()
+		}
+	}
+
+	return ""
 }

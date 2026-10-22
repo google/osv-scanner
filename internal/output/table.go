@@ -308,7 +308,9 @@ func tableBuilderInner(result Result, vulnAnalysisType VulnAnalysisType) []tbInn
 					outputRow = append(outputRow, strings.Join(links, "\n"))
 
 					// todo: this is just to make the snapshots pass without change
-					if vuln.SeverityScore == "N/A" {
+					if vuln.UbuntuSeverity != "" {
+						outputRow = append(outputRow, vuln.UbuntuSeverity)
+					} else if vuln.SeverityScore == "N/A" {
 						outputRow = append(outputRow, "")
 					} else {
 						outputRow = append(outputRow, vuln.SeverityScore)

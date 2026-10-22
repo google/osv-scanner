@@ -33,7 +33,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -128,7 +129,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 },
                 {
                   "ID": "OSV-5",
@@ -141,7 +143,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -264,7 +267,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -359,7 +363,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 },
                 {
                   "ID": "OSV-5",
@@ -372,7 +377,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -547,7 +553,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -642,7 +649,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 },
                 {
                   "ID": "OSV-5",
@@ -655,7 +663,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -778,7 +787,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": "high"
                 }
               ],
               "HiddenVulns": [],
@@ -873,7 +883,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 },
                 {
                   "ID": "OSV-5",
@@ -886,7 +897,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -1602,7 +1614,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -1725,7 +1738,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -1929,7 +1943,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -2185,7 +2200,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -2314,7 +2330,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 },
                 {
                   "ID": "OSV-5",
@@ -2327,7 +2344,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -2450,7 +2468,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "MEDIUM",
-                  "SeverityScore": "4.3"
+                  "SeverityScore": "4.3",
+                  "UbuntuSeverity": ""
                 },
                 {
                   "ID": "OSV-5",
@@ -2463,7 +2482,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -2592,7 +2612,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -2767,7 +2788,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -2896,7 +2918,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [
@@ -2911,7 +2934,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 1,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "LayerDetail": {
@@ -3033,7 +3057,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 },
                 {
                   "ID": "OSV-5",
@@ -3046,7 +3071,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -3175,7 +3201,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -3350,7 +3377,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -3479,7 +3507,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 },
                 {
                   "ID": "OSV-5",
@@ -3492,7 +3521,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -3615,7 +3645,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 },
                 {
                   "ID": "OSV-5",
@@ -3628,7 +3659,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -3757,7 +3789,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -4110,7 +4143,8 @@
                   "FixedVersion": "2.9.14+dfsg-1.3+deb12u1",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "MEDIUM",
-                  "SeverityScore": "4.3"
+                  "SeverityScore": "4.3",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [
@@ -4125,7 +4159,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 2,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "LayerDetail": {
@@ -4253,7 +4288,8 @@
                   "FixedVersion": "3.0.2-0ubuntu1.16",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "HIGH",
-                  "SeverityScore": "8.1"
+                  "SeverityScore": "8.1",
+                  "UbuntuSeverity": "medium"
                 }
               ],
               "HiddenVulns": [
@@ -4268,7 +4304,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 2,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": "negligible"
                 },
                 {
                   "ID": "UBUNTU-CVE-2024-0005",
@@ -4281,7 +4318,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 2,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "LayerDetail": {
@@ -4695,7 +4733,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [
@@ -4710,7 +4749,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 1,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "LayerDetail": {
@@ -4884,7 +4924,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "CRITICAL",
-                  "SeverityScore": "9.0"
+                  "SeverityScore": "9.0",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -5059,7 +5100,8 @@
                   "FixedVersion": "1.2.4",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 },
                 {
                   "ID": "OSV-2",
@@ -5072,7 +5114,8 @@
                   "FixedVersion": "2.0.0",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 },
                 {
                   "ID": "OSV-3",
@@ -5085,7 +5128,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 },
                 {
                   "ID": "OSV-4",
@@ -5098,7 +5142,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -5273,7 +5318,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "HIGH",
-                  "SeverityScore": "7.5"
+                  "SeverityScore": "7.5",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -5449,7 +5495,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 1,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "LayerDetail": {
@@ -5623,7 +5670,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "HIGH",
-                  "SeverityScore": "8.8"
+                  "SeverityScore": "8.8",
+                  "UbuntuSeverity": "medium"
                 }
               ],
               "HiddenVulns": [],
@@ -5798,7 +5846,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "MEDIUM",
-                  "SeverityScore": "6.9"
+                  "SeverityScore": "6.9",
+                  "UbuntuSeverity": "high"
                 }
               ],
               "HiddenVulns": [],
@@ -5973,7 +6022,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -6152,7 +6202,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 1,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "LayerDetail": {
@@ -6329,7 +6380,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "HIGH",
-                  "SeverityScore": "8.3"
+                  "SeverityScore": "8.3",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -6507,7 +6559,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": "negligible"
                 }
               ],
               "HiddenVulns": [],
@@ -6682,7 +6735,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "CRITICAL",
-                  "SeverityScore": "9.8"
+                  "SeverityScore": "9.8",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -6857,7 +6911,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "HIGH",
-                  "SeverityScore": "7.5"
+                  "SeverityScore": "7.5",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -7032,7 +7087,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 },
                 {
                   "ID": "OSV-3",
@@ -7045,7 +7101,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 },
                 {
                   "ID": "OSV-4",
@@ -7058,7 +7115,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -7153,7 +7211,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -7328,7 +7387,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -7503,7 +7563,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "CRITICAL",
-                  "SeverityScore": "9.8"
+                  "SeverityScore": "9.8",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -7787,7 +7848,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
@@ -7910,7 +7972,8 @@
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
+                  "SeverityScore": "N/A",
+                  "UbuntuSeverity": ""
                 }
               ],
               "HiddenVulns": [],
