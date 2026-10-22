@@ -133,7 +133,7 @@ func printSummaryResult(result Result, outputWriter io.Writer, terminalWidth int
 		}
 
 		for _, source := range eco.Sources {
-			if source.PackageTypeCount.Regular == 0 && source.PkgDeprecatedCount == 0 {
+			if source.PackageTypeCount.Regular == 0 && source.PkgDeprecatedCount == 0 && source.LicenseViolationsCount == 0 {
 				continue
 			}
 			outputTable := newTable(outputWriter, terminalWidth)

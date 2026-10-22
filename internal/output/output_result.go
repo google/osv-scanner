@@ -877,7 +877,7 @@ func containsOSResult(result Result) bool {
 
 func ecosystemHasRegVuln(ecosystem EcosystemResult) bool {
 	for _, source := range ecosystem.Sources {
-		if source.PackageTypeCount.Regular > 0 {
+		if source.PackageTypeCount.Regular > 0 || source.LicenseViolationsCount > 0 {
 			return true
 		}
 	}
