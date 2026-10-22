@@ -95,7 +95,7 @@ func newPackageInfo(source string, pi pkginfo) models.PackageInfo {
 		pkg.SourceCode = &extractor.SourceCodeIdentifier{Commit: pi.Commit}
 	}
 
-	info, _ := imodels.BuildPackageInfoAndGroups(pkg)
+	info := imodels.PackageInfo(pkg)
 
 	info.OSPackageName = pi.OSPackageName
 	info.Ecosystem = pi.Ecosystem
