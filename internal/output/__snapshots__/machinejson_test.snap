@@ -12,7 +12,8 @@
           "package": {
             "name": "author1/mine1",
             "version": "1.2.3",
-            "ecosystem": "Packagist"
+            "ecosystem": "Packagist",
+            "purl": "pkg:composer/author1/mine1@1.2.3"
           },
           "licenses": [
             "MIT"
@@ -33,7 +34,8 @@
           "package": {
             "name": "mine2",
             "version": "3.2.5",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine2@3.2.5"
           },
           "licenses": [
             "Apache-2.0"
@@ -46,7 +48,8 @@
           "package": {
             "name": "mine3",
             "version": "0.4.1",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine3@0.4.1"
           },
           "licenses": [
             "ISC"
@@ -64,7 +67,8 @@
           "package": {
             "name": "mine1",
             "version": "1.3.5",
-            "ecosystem": "NuGet"
+            "ecosystem": "NuGet",
+            "purl": "pkg:nuget/mine1@1.3.5"
           },
           "licenses": [
             "ISC"
@@ -74,7 +78,8 @@
           "package": {
             "name": "author1/mine1",
             "version": "1.2.3",
-            "ecosystem": "Packagist"
+            "ecosystem": "Packagist",
+            "purl": "pkg:composer/author1/mine1@1.2.3"
           },
           "dependency_groups": [
             "dev"
@@ -144,7 +149,8 @@
             "name": "libxml2",
             "os_package_name": "libxml2",
             "version": "2.9.14+dfsg-1.3",
-            "ecosystem": "Debian:12"
+            "ecosystem": "Debian:12",
+            "purl": "pkg:deb/libxml2@2.9.14%2Bdfsg-1.3"
           },
           "licenses": [
             "MIT"
@@ -158,7 +164,8 @@
             "name": "zlib",
             "os_package_name": "zlib1g",
             "version": "1:1.2.13.dfsg-1",
-            "ecosystem": "Debian:12"
+            "ecosystem": "Debian:12",
+            "purl": "pkg:deb/zlib@1:1.2.13.dfsg-1"
           },
           "licenses": [
             "ISC"
@@ -202,7 +209,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           }
         }
       ]
@@ -233,7 +241,8 @@
           "package": {
             "name": "author1/mine1",
             "version": "1.2.3",
-            "ecosystem": "Packagist"
+            "ecosystem": "Packagist",
+            "purl": "pkg:composer/author1/mine1@1.2.3"
           },
           "licenses": [
             "MIT"
@@ -251,7 +260,8 @@
           "package": {
             "name": "mine2",
             "version": "3.2.5",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine2@3.2.5"
           },
           "licenses": [
             "Apache-2.0"
@@ -261,7 +271,8 @@
           "package": {
             "name": "mine3",
             "version": "0.4.1",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine3@0.4.1"
           },
           "licenses": [
             "ISC"
@@ -279,7 +290,8 @@
           "package": {
             "name": "mine1",
             "version": "1.3.5",
-            "ecosystem": "NuGet"
+            "ecosystem": "NuGet",
+            "purl": "pkg:nuget/mine1@1.3.5"
           },
           "licenses": [
             "ISC"
@@ -289,7 +301,8 @@
           "package": {
             "name": "author1/mine1",
             "version": "1.2.3",
-            "ecosystem": "Packagist"
+            "ecosystem": "Packagist",
+            "purl": "pkg:composer/author1/mine1@1.2.3"
           },
           "dependency_groups": [
             "dev"
@@ -352,7 +365,8 @@
             "name": "libxml2",
             "os_package_name": "libxml2",
             "version": "2.9.14+dfsg-1.3",
-            "ecosystem": "Debian:12"
+            "ecosystem": "Debian:12",
+            "purl": "pkg:deb/libxml2@2.9.14%2Bdfsg-1.3"
           },
           "licenses": [
             "MIT"
@@ -363,7 +377,8 @@
             "name": "zlib",
             "os_package_name": "zlib1g",
             "version": "1:1.2.13.dfsg-1",
-            "ecosystem": "Debian:12"
+            "ecosystem": "Debian:12",
+            "purl": "pkg:deb/zlib@1:1.2.13.dfsg-1"
           },
           "licenses": [
             "ISC"
@@ -405,7 +420,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           }
         }
       ]
@@ -1011,7 +1027,8 @@
             "name": "libxml2",
             "os_package_name": "libxml2",
             "version": "2.9.14+dfsg-1.3",
-            "ecosystem": "Debian:12"
+            "ecosystem": "Debian:12",
+            "purl": "pkg:deb/libxml2@2.9.14%2Bdfsg-1.3"
           },
           "licenses": [
             "MIT"
@@ -1025,7 +1042,8 @@
             "name": "zlib",
             "os_package_name": "zlib1g",
             "version": "1:1.2.13.dfsg-1",
-            "ecosystem": "Debian:12"
+            "ecosystem": "Debian:12",
+            "purl": "pkg:deb/zlib@1:1.2.13.dfsg-1"
           },
           "licenses": [
             "ISC"
