@@ -12,7 +12,7 @@ import (
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
-func calculateMaxSeverity(group models.GroupInfo, pkg models.PackageVulns) (string, string) {
+func calculateMaxSeverities(group models.GroupInfo, pkg models.PackageVulns) (string, string) {
 	var maxSeverity float64 = -1
 	var maxUbuntuSeverity string
 	for _, vulnID := range group.IDs {
@@ -47,7 +47,7 @@ func calculateMaxSeverity(group models.GroupInfo, pkg models.PackageVulns) (stri
 func Build(pkg models.PackageVulns, considerExploitabilitySignals bool) []models.GroupInfo {
 	grouped := Group(ConvertVulnerabilityToIDAliases(pkg.Vulnerabilities))
 	for i, group := range grouped {
-		grouped[i].MaxSeverity, grouped[i].UbuntuSeverity = calculateMaxSeverity(group, pkg)
+		grouped[i].MaxSeverity, grouped[i].UbuntuSeverity = calculateMaxSeverities(group, pkg)
 	}
 
 	// For Debian-based ecosystems, mark unimportant vulnerabilities within the package.
