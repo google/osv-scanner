@@ -100,13 +100,9 @@ func PackageInfo(p *extractor.Package) models.PackageInfo {
 		Version:       parsedPkg.Version,
 		Ecosystem:     parsedPkg.Ecosystem.String(),
 		OSPackageName: OSPackageName(p),
+		Commit:        parsedPkg.Commit,
 		Deprecated:    p.Deprecated,
 		Inventory:     p,
-	}
-
-	// todo: see if this can just move into the struct?
-	if parsedPkg.Commit != "" {
-		pi.Commit = parsedPkg.Commit
 	}
 
 	if packageURL := converter.ToPURL(p); packageURL != nil {
