@@ -27,6 +27,10 @@
 
 ---
 
+[TestPrintGHAnnotationReport_WithLicenseViolations/one_os_source_with_packages,_some_license_violations - 1]
+
+---
+
 [TestPrintGHAnnotationReport_WithLicenseViolations/one_source_with_no_packages - 1]
 
 ---

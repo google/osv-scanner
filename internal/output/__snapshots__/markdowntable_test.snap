@@ -1,4 +1,424 @@
 
+[TestPrintMarkdownTableResults_WithLicenseSummary/with_violations/multiple_sources_with_a_mixed_count_of_packages,_no_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+| License | No. of package versions |
+| --- | ---:|
+| ISC | 5 |
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/with_violations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+| License | No. of package versions |
+| --- | ---:|
+| ISC | 2 |
+| MIT | 2 |
+| Apache-2.0 | 1 |
+| License Violation | Ecosystem | Package | Version | Source |
+| --- | --- | --- | --- | --- |
+| MIT | npm | mine1 | 1.2.3 | path/to/my/first/lockfile |
+| Apache-2.0 | npm | mine2 | 3.2.5 | path/to/my/second/lockfile |
+| MIT | npm | mine1 | 1.2.3 | path/to/my/third/lockfile |
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/with_violations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations#01 - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/with_violations/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_some_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 3 ecosystems.
+0 vulnerabilities can be fixed.
+
+| License | No. of package versions |
+| --- | ---:|
+| ISC | 2 |
+| MIT | 2 |
+| Apache-2.0 | 1 |
+| License Violation | Ecosystem | Package | Version | Source |
+| --- | --- | --- | --- | --- |
+| MIT | Packagist | author1/mine1 | 1.2.3 | path/to/my/first/lockfile |
+| Apache-2.0 | npm | mine2 | 3.2.5 | path/to/my/second/lockfile |
+| MIT | Packagist | author1/mine1 | 1.2.3 | path/to/my/third/lockfile |
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/with_violations/multiple_sources_with_a_mixed_count_of_packages_and_groups,_some_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+| License | No. of package versions |
+| --- | ---:|
+| ISC | 2 |
+| MIT | 2 |
+| Apache-2.0 | 1 |
+| License Violation | Ecosystem | Package | Version | Source |
+| --- | --- | --- | --- | --- |
+| MIT | npm | mine1 | 1.2.3 | path/to/my/first/lockfile |
+| Apache-2.0 | npm | mine2 | 3.2.5 | path/to/my/second/lockfile |
+| MIT | npm | mine1 | 1.2.3 | path/to/my/third/lockfile |
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/with_violations/multiple_sources_with_no_packages - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/with_violations/no_sources - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
+0 vulnerabilities can be fixed.
+
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/with_violations/one_os_source_with_packages,_some_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+| License | No. of package versions |
+| --- | ---:|
+| ISC | 1 |
+| MIT | 1 |
+| License Violation | Ecosystem | Package | Version | Source |
+| --- | --- | --- | --- | --- |
+| MIT | Debian:12 | libxml2 | 2.9.14+dfsg-1.3 | var/lib/dpkg/status |
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/with_violations/one_source_with_no_packages - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/with_violations/one_source_with_one_package,_no_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+| License | No. of package versions |
+| --- | ---:|
+| ISC | 1 |
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/with_violations/one_source_with_one_package,_no_licenses - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/with_violations/one_source_with_one_package_and_an_unknown_license - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+| License | No. of package versions |
+| --- | ---:|
+| UNKNOWN | 1 |
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/with_violations/one_source_with_one_package_and_multiple_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+| License | No. of package versions |
+| --- | ---:|
+| Apache-2.0 | 1 |
+| MIT | 1 |
+| License Violation | Ecosystem | Package | Version | Source |
+| --- | --- | --- | --- | --- |
+| MIT, Apache-2.0 | npm | mine1 | 1.2.3 | path/to/my/first/lockfile |
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/with_violations/one_source_with_one_package_and_one_license_violation - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+| License | No. of package versions |
+| --- | ---:|
+| MIT | 1 |
+| License Violation | Ecosystem | Package | Version | Source |
+| --- | --- | --- | --- | --- |
+| MIT | npm | mine1 | 1.2.3 | path/to/my/first/lockfile |
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/with_violations/one_source_with_one_package_and_one_license_violation_(dev) - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+| License | No. of package versions |
+| --- | ---:|
+| MIT | 1 |
+| License Violation | Ecosystem | Package | Version | Source |
+| --- | --- | --- | --- | --- |
+| MIT | npm | mine1 | 1.2.3 | path/to/my/first/lockfile |
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/with_violations/one_source_with_one_package_with_both_a_version_and_a_commit_and_one_license_violation - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+| License | No. of package versions |
+| --- | ---:|
+| MIT | 1 |
+| License Violation | Ecosystem | Package | Version | Source |
+| --- | --- | --- | --- | --- |
+| MIT | npm | mine1 | 1.2.3 | path/to/my/first/lockfile |
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/with_violations/one_source_with_one_package_with_just_a_commit_and_one_license_violation - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+| License | No. of package versions |
+| --- | ---:|
+| MIT | 1 |
+| License Violation | Ecosystem | Package | Version | Source |
+| --- | --- | --- | --- | --- |
+| MIT | npm | mine1 |  | path/to/my/first/lockfile |
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/with_violations/two_sources_with_packages,_one_license_violation - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+| License | No. of package versions |
+| --- | ---:|
+| ISC | 1 |
+| MIT | 1 |
+| License Violation | Ecosystem | Package | Version | Source |
+| --- | --- | --- | --- | --- |
+| MIT | npm | mine1 | 1.2.3 | path/to/my/first/lockfile |
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/without_violations/multiple_sources_with_a_mixed_count_of_packages,_no_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+| License | No. of package versions |
+| --- | ---:|
+| ISC | 5 |
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/without_violations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+| License | No. of package versions |
+| --- | ---:|
+| ISC | 2 |
+| MIT | 2 |
+| Apache-2.0 | 1 |
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/without_violations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations#01 - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/without_violations/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_some_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 3 ecosystems.
+0 vulnerabilities can be fixed.
+
+| License | No. of package versions |
+| --- | ---:|
+| ISC | 2 |
+| MIT | 2 |
+| Apache-2.0 | 1 |
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/without_violations/multiple_sources_with_a_mixed_count_of_packages_and_groups,_some_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+| License | No. of package versions |
+| --- | ---:|
+| ISC | 2 |
+| MIT | 2 |
+| Apache-2.0 | 1 |
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/without_violations/multiple_sources_with_no_packages - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/without_violations/no_sources - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
+0 vulnerabilities can be fixed.
+
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/without_violations/one_os_source_with_packages,_some_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+| License | No. of package versions |
+| --- | ---:|
+| ISC | 1 |
+| MIT | 1 |
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/without_violations/one_source_with_no_packages - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/without_violations/one_source_with_one_package,_no_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+| License | No. of package versions |
+| --- | ---:|
+| ISC | 1 |
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/without_violations/one_source_with_one_package,_no_licenses - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/without_violations/one_source_with_one_package_and_an_unknown_license - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+| License | No. of package versions |
+| --- | ---:|
+| UNKNOWN | 1 |
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/without_violations/one_source_with_one_package_and_multiple_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+| License | No. of package versions |
+| --- | ---:|
+| Apache-2.0 | 1 |
+| MIT | 1 |
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/without_violations/one_source_with_one_package_and_one_license_violation - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+| License | No. of package versions |
+| --- | ---:|
+| MIT | 1 |
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/without_violations/one_source_with_one_package_and_one_license_violation_(dev) - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+| License | No. of package versions |
+| --- | ---:|
+| MIT | 1 |
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/without_violations/one_source_with_one_package_with_both_a_version_and_a_commit_and_one_license_violation - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+| License | No. of package versions |
+| --- | ---:|
+| MIT | 1 |
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/without_violations/one_source_with_one_package_with_just_a_commit_and_one_license_violation - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+| License | No. of package versions |
+| --- | ---:|
+| MIT | 1 |
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseSummary/without_violations/two_sources_with_packages,_one_license_violation - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+| License | No. of package versions |
+| --- | ---:|
+| ISC | 1 |
+| MIT | 1 |
+
+---
+
 [TestPrintMarkdownTableResults_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_no_license_violations - 1]
 
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -67,6 +487,17 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
 0 vulnerabilities can be fixed.
 
+
+---
+
+[TestPrintMarkdownTableResults_WithLicenseViolations/one_os_source_with_packages,_some_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+| License Violation | Ecosystem | Package | Version | Source |
+| --- | --- | --- | --- | --- |
+| MIT | Debian:12 | libxml2 | 2.9.14+dfsg-1.3 | var/lib/dpkg/status |
 
 ---
 
