@@ -77,14 +77,22 @@ func newTable(outputWriter io.Writer, terminalWidth int) table.Writer {
 }
 
 func tableBuilder(outputTable table.Writer, result Result, showAllVulns bool) table.Writer {
-	outputTable.AppendHeader(table.Row{"OSV URL", "CVSS", "Ecosystem", "Package", "Version", "Fixed Version", "Source"})
-	rows := tableBuilderInner(result, VulnTypeRegular)
+	severityHeader := "CVSS"
+	rows, hasUbuntuPriority := tableBuilderInner(result, VulnTypeRegular)
 	for _, elem := range rows {
 		outputTable.AppendRow(elem.row, table.RowConfig{AutoMerge: elem.shouldMerge})
 	}
 
-	uncalledRows := tableBuilderInner(result, VulnTypeUncalled)
+	if hasUbuntuPriority {
+		severityHeader = "Severity"
+	}
+
+	uncalledRows, hasUbuntuPriority := tableBuilderInner(result, VulnTypeUncalled)
 	if showAllVulns && len(uncalledRows) != 0 {
+		if hasUbuntuPriority {
+			severityHeader = "Severity"
+		}
+
 		outputTable.AppendSeparator()
 		outputTable.AppendRow(table.Row{"Uncalled vulnerabilities"})
 		outputTable.AppendSeparator()
@@ -94,8 +102,12 @@ func tableBuilder(outputTable table.Writer, result Result, showAllVulns bool) ta
 		}
 	}
 
-	unimportantRows := tableBuilderInner(result, VulnTypeUnimportant)
+	unimportantRows, hasUbuntuPriority := tableBuilderInner(result, VulnTypeUnimportant)
 	if showAllVulns && len(unimportantRows) != 0 {
+		if hasUbuntuPriority {
+			severityHeader = "Severity"
+		}
+
 		outputTable.AppendSeparator()
 		outputTable.AppendRow(table.Row{"Unimportant vulnerabilities"})
 		outputTable.AppendSeparator()
@@ -104,6 +116,8 @@ func tableBuilder(outputTable table.Writer, result Result, showAllVulns bool) ta
 			outputTable.AppendRow(elem.row, table.RowConfig{AutoMerge: elem.shouldMerge})
 		}
 	}
+
+	outputTable.AppendHeader(table.Row{"OSV URL", severityHeader, "Ecosystem", "Package", "Version", "Fixed Version", "Source"})
 
 	return outputTable
 }
@@ -275,9 +289,10 @@ type tbInnerResponse struct {
 	shouldMerge bool
 }
 
-func tableBuilderInner(result Result, vulnAnalysisType VulnAnalysisType) []tbInnerResponse {
+func tableBuilderInner(result Result, vulnAnalysisType VulnAnalysisType) ([]tbInnerResponse, bool) {
 	allOutputRows := []tbInnerResponse{}
 	workingDir := mustGetWorkingDirectory()
+	hasUbuntuPriority := false
 
 	for _, eco := range result.Ecosystems {
 		for _, source := range eco.Sources {
@@ -309,6 +324,7 @@ func tableBuilderInner(result Result, vulnAnalysisType VulnAnalysisType) []tbInn
 
 					// todo: this is just to make the snapshots pass without change
 					if vuln.UbuntuSeverity != "" {
+						hasUbuntuPriority = true
 						outputRow = append(outputRow, vuln.UbuntuSeverity)
 					} else if vuln.SeverityScore == "N/A" {
 						outputRow = append(outputRow, "")
@@ -363,7 +379,7 @@ func tableBuilderInner(result Result, vulnAnalysisType VulnAnalysisType) []tbInn
 		}
 	}
 
-	return allOutputRows
+	return allOutputRows, hasUbuntuPriority
 }
 
 func buildLicenseSummaryTable(outputWriter io.Writer, terminalWidth int, vulnResult *models.VulnerabilityResults) {

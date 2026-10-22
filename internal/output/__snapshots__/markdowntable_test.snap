@@ -423,7 +423,7 @@ Total 4 packages affected by 6 known vulnerabilities (0 Critical, 0 High, 0 Medi
 Total 4 packages affected by 6 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 6 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
-| OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
+| OSV URL | Severity | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
 | https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.2 | -- | path/to/my/first/lockfile |
 | https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
@@ -525,7 +525,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 2 vulnerabilities can be fixed.
 
-| OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
+| OSV URL | Severity | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
 | https://osv.dev/DEBIAN-CVE-2024-0002 | 4.3 | Debian:12 | libxml2 | 2.9.14+dfsg-1.3 | 2.9.14+dfsg-1.3+deb12u1 | var/lib/dpkg/status |
 | https://osv.dev/UBUNTU-CVE-2024-0004 | medium | Ubuntu:22.04 | openssl | 3.0.2-0ubuntu1.15 | 3.0.2-0ubuntu1.16 | var/lib/dpkg/status |
@@ -618,7 +618,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
-| OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
+| OSV URL | Severity | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
 | https://osv.dev/OSV-1 | medium | npm | mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
 
@@ -629,7 +629,7 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium,
 Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
-| OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
+| OSV URL | Severity | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
 | https://osv.dev/OSV-1 | high | npm | mine1 (dev) | 1.2.3 | -- | path/to/my/first/lockfile |
 
@@ -674,7 +674,7 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium,
 Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
-| OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
+| OSV URL | Severity | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
 | https://osv.dev/OSV-1<br/>https://osv.dev/GHSA-123 | negligible | npm | mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
 
@@ -771,7 +771,7 @@ Total 4 packages affected by 6 known vulnerabilities (0 Critical, 0 High, 0 Medi
 Total 4 packages affected by 6 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 6 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
-| OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
+| OSV URL | Severity | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
 | https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.2 | -- | path/to/my/first/lockfile |
 | https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
@@ -871,7 +871,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 2 vulnerabilities can be fixed.
 
-| OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
+| OSV URL | Severity | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
 | https://osv.dev/DEBIAN-CVE-2024-0002 | 4.3 | Debian:12 | libxml2 | 2.9.14+dfsg-1.3 | 2.9.14+dfsg-1.3+deb12u1 | var/lib/dpkg/status |
 | https://osv.dev/UBUNTU-CVE-2024-0004 | medium | Ubuntu:22.04 | openssl | 3.0.2-0ubuntu1.15 | 3.0.2-0ubuntu1.16 | var/lib/dpkg/status |
@@ -954,7 +954,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
-| OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
+| OSV URL | Severity | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
 | https://osv.dev/OSV-1 | medium | npm | mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
 
@@ -965,7 +965,7 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium,
 Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
-| OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
+| OSV URL | Severity | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
 | https://osv.dev/OSV-1 | high | npm | mine1 (dev) | 1.2.3 | -- | path/to/my/first/lockfile |
 
@@ -1006,7 +1006,7 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium,
 Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
-| OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
+| OSV URL | Severity | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
 | https://osv.dev/OSV-1<br/>https://osv.dev/GHSA-123 | negligible | npm | mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
 
