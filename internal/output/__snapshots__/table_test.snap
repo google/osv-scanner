@@ -76,6 +76,20 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
+[TestPrintTableResults_LongTerminalWidth_WithLicenseViolations/one_os_source_with_packages,_some_license_violations - 1]
+
+
+Scanning Result (package view):
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
+
+---
+
 [TestPrintTableResults_LongTerminalWidth_WithLicenseViolations/one_source_with_no_packages - 1]
 
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -866,6 +880,20 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
+[TestPrintTableResults_NoTerminalWidth_WithLicenseViolations/one_os_source_with_packages,_some_license_violations - 1]
+
+
+Scanning Result (package view):
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
+
+---
+
 [TestPrintTableResults_NoTerminalWidth_WithLicenseViolations/one_source_with_no_packages - 1]
 
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -1579,6 +1607,117 @@ Total 2 packages affected by 2 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
+[TestPrintTableResults_StandardTerminalWidth_WithLicenseSummary/with_violations/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_some_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 3 ecosystems.
+0 vulnerabilities can be fixed.
+
+╭────────────┬─────────────────────────╮
+│ LICENSE    │ NO. OF PACKAGE VERSIONS │
+├────────────┼─────────────────────────┤
+│ ISC        │                       2 │
+│ MIT        │                       2 │
+│ Apache-2.0 │                       1 │
+╰────────────┴─────────────────────────╯
+╭───────────────────┬───────────┬───────────────┬─────────┬─────────────────── ≈
+│ LICENSE VIOLATION │ ECOSYSTEM │ PACKAGE       │ VERSION │ SOURCE             ≈
+├───────────────────┼───────────┼───────────────┼─────────┼─────────────────── ≈
+│ MIT               │ Packagist │ author1/mine1 │ 1.2.3   │ path/to/my/first/l ≈
+│ Apache-2.0        │ npm       │ mine2         │ 3.2.5   │ path/to/my/second/ ≈
+│ MIT               │ Packagist │ author1/mine1 │ 1.2.3   │ path/to/my/third/l ≈
+╰───────────────────┴───────────┴───────────────┴─────────┴─────────────────── ≈
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithLicenseSummary/with_violations/no_sources - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
+0 vulnerabilities can be fixed.
+
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithLicenseSummary/with_violations/one_os_source_with_packages,_some_license_violations - 1]
+
+
+Scanning Result (package view):
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
+╭─────────┬─────────────────────────╮
+│ LICENSE │ NO. OF PACKAGE VERSIONS │
+├─────────┼─────────────────────────┤
+│ ISC     │                       1 │
+│ MIT     │                       1 │
+╰─────────┴─────────────────────────╯
+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithLicenseSummary/with_violations/one_source_with_one_package,_no_licenses - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithLicenseSummary/without_violations/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_some_license_violations - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 3 ecosystems.
+0 vulnerabilities can be fixed.
+
+╭────────────┬─────────────────────────╮
+│ LICENSE    │ NO. OF PACKAGE VERSIONS │
+├────────────┼─────────────────────────┤
+│ ISC        │                       2 │
+│ MIT        │                       2 │
+│ Apache-2.0 │                       1 │
+╰────────────┴─────────────────────────╯
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithLicenseSummary/without_violations/no_sources - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
+0 vulnerabilities can be fixed.
+
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithLicenseSummary/without_violations/one_os_source_with_packages,_some_license_violations - 1]
+
+
+Scanning Result (package view):
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
+╭─────────┬─────────────────────────╮
+│ LICENSE │ NO. OF PACKAGE VERSIONS │
+├─────────┼─────────────────────────┤
+│ ISC     │                       1 │
+│ MIT     │                       1 │
+╰─────────┴─────────────────────────╯
+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithLicenseSummary/without_violations/one_source_with_one_package,_no_licenses - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
+---
+
 [TestPrintTableResults_StandardTerminalWidth_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_no_license_violations - 1]
 
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -1653,6 +1792,20 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
 0 vulnerabilities can be fixed.
 
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithLicenseViolations/one_os_source_with_packages,_some_license_violations - 1]
+
+
+Scanning Result (package view):
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
 
 ---
 

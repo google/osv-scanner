@@ -1,4 +1,426 @@
 
+[TestPrintJSONResults_WithLicenseSummary/with_violations/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_some_license_violations - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "<rootdir>/path/to/my/first/lockfile",
+        "type": "lockfile"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "author1/mine1",
+            "version": "1.2.3",
+            "ecosystem": "Packagist"
+          },
+          "licenses": [
+            "MIT"
+          ],
+          "license_violations": [
+            "MIT"
+          ]
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "<rootdir>/path/to/my/second/lockfile",
+        "type": "sbom"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "mine2",
+            "version": "3.2.5",
+            "ecosystem": "npm"
+          },
+          "licenses": [
+            "Apache-2.0"
+          ],
+          "license_violations": [
+            "Apache-2.0"
+          ]
+        },
+        {
+          "package": {
+            "name": "mine3",
+            "version": "0.4.1",
+            "ecosystem": "npm"
+          },
+          "licenses": [
+            "ISC"
+          ]
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "<rootdir>/path/to/my/third/lockfile",
+        "type": "unknown"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "mine1",
+            "version": "1.3.5",
+            "ecosystem": "NuGet"
+          },
+          "licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "package": {
+            "name": "author1/mine1",
+            "version": "1.2.3",
+            "ecosystem": "Packagist"
+          },
+          "dependency_groups": [
+            "dev"
+          ],
+          "licenses": [
+            "MIT"
+          ],
+          "license_violations": [
+            "MIT"
+          ]
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": true,
+      "allowlist": [
+        "ISC"
+      ]
+    }
+  },
+  "license_summary": [
+    {
+      "name": "ISC",
+      "count": 2
+    },
+    {
+      "name": "MIT",
+      "count": 2
+    },
+    {
+      "name": "Apache-2.0",
+      "count": 1
+    }
+  ]
+}
+
+---
+
+[TestPrintJSONResults_WithLicenseSummary/with_violations/no_sources - 1]
+{
+  "results": [],
+  "experimental_config": {
+    "licenses": {
+      "summary": true,
+      "allowlist": [
+        "ISC"
+      ]
+    }
+  }
+}
+
+---
+
+[TestPrintJSONResults_WithLicenseSummary/with_violations/one_os_source_with_packages,_some_license_violations - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "<rootdir>/var/lib/dpkg/status",
+        "type": "os"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "libxml2",
+            "os_package_name": "libxml2",
+            "version": "2.9.14+dfsg-1.3",
+            "ecosystem": "Debian:12"
+          },
+          "licenses": [
+            "MIT"
+          ],
+          "license_violations": [
+            "MIT"
+          ]
+        },
+        {
+          "package": {
+            "name": "zlib",
+            "os_package_name": "zlib1g",
+            "version": "1:1.2.13.dfsg-1",
+            "ecosystem": "Debian:12"
+          },
+          "licenses": [
+            "ISC"
+          ]
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": true,
+      "allowlist": [
+        "ISC"
+      ]
+    }
+  },
+  "license_summary": [
+    {
+      "name": "ISC",
+      "count": 1
+    },
+    {
+      "name": "MIT",
+      "count": 1
+    }
+  ]
+}
+
+---
+
+[TestPrintJSONResults_WithLicenseSummary/with_violations/one_source_with_one_package,_no_licenses - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "<rootdir>/path/to/my/first/lockfile",
+        "type": "lockfile"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          }
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": true,
+      "allowlist": [
+        "ISC"
+      ]
+    }
+  }
+}
+
+---
+
+[TestPrintJSONResults_WithLicenseSummary/without_violations/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_some_license_violations - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "<rootdir>/path/to/my/first/lockfile",
+        "type": "lockfile"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "author1/mine1",
+            "version": "1.2.3",
+            "ecosystem": "Packagist"
+          },
+          "licenses": [
+            "MIT"
+          ]
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "<rootdir>/path/to/my/second/lockfile",
+        "type": "sbom"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "mine2",
+            "version": "3.2.5",
+            "ecosystem": "npm"
+          },
+          "licenses": [
+            "Apache-2.0"
+          ]
+        },
+        {
+          "package": {
+            "name": "mine3",
+            "version": "0.4.1",
+            "ecosystem": "npm"
+          },
+          "licenses": [
+            "ISC"
+          ]
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "<rootdir>/path/to/my/third/lockfile",
+        "type": "unknown"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "mine1",
+            "version": "1.3.5",
+            "ecosystem": "NuGet"
+          },
+          "licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "package": {
+            "name": "author1/mine1",
+            "version": "1.2.3",
+            "ecosystem": "Packagist"
+          },
+          "dependency_groups": [
+            "dev"
+          ],
+          "licenses": [
+            "MIT"
+          ]
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": true,
+      "allowlist": null
+    }
+  },
+  "license_summary": [
+    {
+      "name": "ISC",
+      "count": 2
+    },
+    {
+      "name": "MIT",
+      "count": 2
+    },
+    {
+      "name": "Apache-2.0",
+      "count": 1
+    }
+  ]
+}
+
+---
+
+[TestPrintJSONResults_WithLicenseSummary/without_violations/no_sources - 1]
+{
+  "results": [],
+  "experimental_config": {
+    "licenses": {
+      "summary": true,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
+[TestPrintJSONResults_WithLicenseSummary/without_violations/one_os_source_with_packages,_some_license_violations - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "<rootdir>/var/lib/dpkg/status",
+        "type": "os"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "libxml2",
+            "os_package_name": "libxml2",
+            "version": "2.9.14+dfsg-1.3",
+            "ecosystem": "Debian:12"
+          },
+          "licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "package": {
+            "name": "zlib",
+            "os_package_name": "zlib1g",
+            "version": "1:1.2.13.dfsg-1",
+            "ecosystem": "Debian:12"
+          },
+          "licenses": [
+            "ISC"
+          ]
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": true,
+      "allowlist": null
+    }
+  },
+  "license_summary": [
+    {
+      "name": "ISC",
+      "count": 1
+    },
+    {
+      "name": "MIT",
+      "count": 1
+    }
+  ]
+}
+
+---
+
+[TestPrintJSONResults_WithLicenseSummary/without_violations/one_source_with_one_package,_no_licenses - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "<rootdir>/path/to/my/first/lockfile",
+        "type": "lockfile"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          }
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": true,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
 [TestPrintJSONResults_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_no_license_violations - 1]
 {
   "results": [
@@ -538,6 +960,55 @@
 [TestPrintJSONResults_WithLicenseViolations/no_sources - 1]
 {
   "results": [],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": [
+        "ISC"
+      ]
+    }
+  }
+}
+
+---
+
+[TestPrintJSONResults_WithLicenseViolations/one_os_source_with_packages,_some_license_violations - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "<rootdir>/var/lib/dpkg/status",
+        "type": "os"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "libxml2",
+            "os_package_name": "libxml2",
+            "version": "2.9.14+dfsg-1.3",
+            "ecosystem": "Debian:12"
+          },
+          "licenses": [
+            "MIT"
+          ],
+          "license_violations": [
+            "MIT"
+          ]
+        },
+        {
+          "package": {
+            "name": "zlib",
+            "os_package_name": "zlib1g",
+            "version": "1:1.2.13.dfsg-1",
+            "ecosystem": "Debian:12"
+          },
+          "licenses": [
+            "ISC"
+          ]
+        }
+      ]
+    }
+  ],
   "experimental_config": {
     "licenses": {
       "summary": false,

@@ -37,6 +37,21 @@ func TestPrintHTMLResults_WithLicenseViolations(t *testing.T) {
 	})
 }
 
+func TestPrintHTMLResults_WithLicenseSummary(t *testing.T) {
+	t.Parallel()
+
+	testOutputWithLicenseSummary(t, func(t *testing.T, args outputTestCaseArgs) {
+		t.Helper()
+
+		outputWriter := &bytes.Buffer{}
+		err := output.PrintHTMLResults(args.vulnResult, outputWriter)
+
+		if err != nil {
+			t.Errorf("Error writing HTML output: %s", err)
+		}
+	})
+}
+
 func TestPrintHTMLResults_WithMixedIssues(t *testing.T) {
 	t.Parallel()
 
