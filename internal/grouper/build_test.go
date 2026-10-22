@@ -113,7 +113,7 @@ func TestBuild(t *testing.T) {
 				},
 			},
 			want: []models.GroupInfo{
-				{IDs: []string{"OSV-1", "GHSA-123"}, Aliases: []string{"GHSA-123", "OSV-1"}, UbuntuSeverity: "negligible"},
+				{IDs: []string{"OSV-1", "GHSA-123"}, Aliases: []string{"GHSA-123", "OSV-1"}, EcosystemPriority: "negligible"},
 			},
 		},
 		{
@@ -128,7 +128,7 @@ func TestBuild(t *testing.T) {
 				},
 			},
 			want: []models.GroupInfo{
-				{IDs: []string{"OSV-1", "OSV-2", "GHSA-123"}, Aliases: []string{"GHSA-123", "OSV-1", "OSV-2"}, UbuntuSeverity: "critical"},
+				{IDs: []string{"OSV-1", "OSV-2", "GHSA-123"}, Aliases: []string{"GHSA-123", "OSV-1", "OSV-2"}, EcosystemPriority: "critical"},
 			},
 		},
 		{
@@ -193,13 +193,13 @@ func TestBuild(t *testing.T) {
 					ExperimentalAnalysis: map[string]models.AnalysisInfo{
 						"UBUNTU-CVE-2024-0003": {Called: true, Unimportant: true},
 					},
-					UbuntuSeverity: "negligible",
+					EcosystemPriority: "negligible",
 				},
 				{
-					IDs:            []string{"UBUNTU-CVE-2024-0004"},
-					Aliases:        []string{"UBUNTU-CVE-2024-0004"},
-					MaxSeverity:    "8.1",
-					UbuntuSeverity: "medium",
+					IDs:               []string{"UBUNTU-CVE-2024-0004"},
+					Aliases:           []string{"UBUNTU-CVE-2024-0004"},
+					MaxSeverity:       "8.1",
+					EcosystemPriority: "medium",
 				},
 				{
 					IDs:     []string{"UBUNTU-CVE-2024-0005"},

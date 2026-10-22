@@ -34,7 +34,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -130,7 +130,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 },
                 {
                   "ID": "OSV-5",
@@ -144,7 +144,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -268,7 +268,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -364,7 +364,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 },
                 {
                   "ID": "OSV-5",
@@ -378,7 +378,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -554,7 +554,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -650,7 +650,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 },
                 {
                   "ID": "OSV-5",
@@ -664,7 +664,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -788,7 +788,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": "high"
+                  "EcosystemPriority": "high"
                 }
               ],
               "HiddenVulns": [],
@@ -884,7 +884,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 },
                 {
                   "ID": "OSV-5",
@@ -898,7 +898,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -1615,7 +1615,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -1739,7 +1739,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -1944,7 +1944,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -2201,7 +2201,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -2331,7 +2331,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 },
                 {
                   "ID": "OSV-5",
@@ -2345,7 +2345,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -2469,7 +2469,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "MEDIUM",
                   "SeverityScore": "4.3",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 },
                 {
                   "ID": "OSV-5",
@@ -2483,7 +2483,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -2613,7 +2613,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -2789,7 +2789,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -2919,7 +2919,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [
@@ -2935,7 +2935,7 @@
                   "VulnAnalysisType": 1,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "LayerDetail": {
@@ -3058,7 +3058,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 },
                 {
                   "ID": "OSV-5",
@@ -3072,7 +3072,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -3202,7 +3202,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -3378,7 +3378,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -3508,7 +3508,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 },
                 {
                   "ID": "OSV-5",
@@ -3522,7 +3522,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -3646,7 +3646,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 },
                 {
                   "ID": "OSV-5",
@@ -3660,7 +3660,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -3790,7 +3790,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -4144,7 +4144,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "MEDIUM",
                   "SeverityScore": "4.3",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [
@@ -4160,7 +4160,7 @@
                   "VulnAnalysisType": 2,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "LayerDetail": {
@@ -4289,7 +4289,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "HIGH",
                   "SeverityScore": "8.1",
-                  "UbuntuSeverity": "medium"
+                  "EcosystemPriority": "medium"
                 }
               ],
               "HiddenVulns": [
@@ -4305,7 +4305,7 @@
                   "VulnAnalysisType": 2,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": "negligible"
+                  "EcosystemPriority": "negligible"
                 },
                 {
                   "ID": "UBUNTU-CVE-2024-0005",
@@ -4319,7 +4319,7 @@
                   "VulnAnalysisType": 2,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "LayerDetail": {
@@ -4494,7 +4494,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "HIGH",
                   "SeverityScore": "8.1",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [
@@ -4510,7 +4510,7 @@
                   "VulnAnalysisType": 2,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": "negligible"
+                  "EcosystemPriority": "negligible"
                 }
               ],
               "LayerDetail": {
@@ -4925,7 +4925,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [
@@ -4941,7 +4941,7 @@
                   "VulnAnalysisType": 1,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "LayerDetail": {
@@ -5116,7 +5116,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "HIGH",
                   "SeverityScore": "8.8",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [
@@ -5132,7 +5132,7 @@
                   "VulnAnalysisType": 1,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": "high"
+                  "EcosystemPriority": "high"
                 }
               ],
               "LayerDetail": {
@@ -5307,7 +5307,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "CRITICAL",
                   "SeverityScore": "9.0",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -5483,7 +5483,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 },
                 {
                   "ID": "OSV-2",
@@ -5497,7 +5497,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 },
                 {
                   "ID": "OSV-3",
@@ -5511,7 +5511,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 },
                 {
                   "ID": "OSV-4",
@@ -5525,7 +5525,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -5701,7 +5701,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "HIGH",
                   "SeverityScore": "7.5",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -5878,7 +5878,7 @@
                   "VulnAnalysisType": 1,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "LayerDetail": {
@@ -6053,7 +6053,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "HIGH",
                   "SeverityScore": "8.8",
-                  "UbuntuSeverity": "medium"
+                  "EcosystemPriority": "medium"
                 }
               ],
               "HiddenVulns": [],
@@ -6229,7 +6229,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "MEDIUM",
                   "SeverityScore": "6.9",
-                  "UbuntuSeverity": "high"
+                  "EcosystemPriority": "high"
                 }
               ],
               "HiddenVulns": [],
@@ -6405,7 +6405,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -6585,7 +6585,7 @@
                   "VulnAnalysisType": 1,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "LayerDetail": {
@@ -6763,7 +6763,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "HIGH",
                   "SeverityScore": "8.3",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -6942,7 +6942,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": "negligible"
+                  "EcosystemPriority": "negligible"
                 }
               ],
               "HiddenVulns": [],
@@ -7118,7 +7118,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "CRITICAL",
                   "SeverityScore": "9.8",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -7294,7 +7294,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "HIGH",
                   "SeverityScore": "7.5",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -7470,7 +7470,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 },
                 {
                   "ID": "OSV-3",
@@ -7484,7 +7484,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 },
                 {
                   "ID": "OSV-4",
@@ -7498,7 +7498,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -7594,7 +7594,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -7770,7 +7770,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -7946,7 +7946,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "CRITICAL",
                   "SeverityScore": "9.8",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -8231,7 +8231,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],
@@ -8355,7 +8355,7 @@
                   "VulnAnalysisType": 0,
                   "SeverityRating": "UNKNOWN",
                   "SeverityScore": "N/A",
-                  "UbuntuSeverity": ""
+                  "EcosystemPriority": ""
                 }
               ],
               "HiddenVulns": [],

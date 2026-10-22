@@ -47,7 +47,7 @@ func calculateMaxSeverities(group models.GroupInfo, pkg models.PackageVulns) (st
 func Build(pkg models.PackageVulns, considerExploitabilitySignals bool) []models.GroupInfo {
 	grouped := Group(ConvertVulnerabilityToIDAliases(pkg.Vulnerabilities))
 	for i, group := range grouped {
-		grouped[i].MaxSeverity, grouped[i].UbuntuSeverity = calculateMaxSeverities(group, pkg)
+		grouped[i].MaxSeverity, grouped[i].EcosystemPriority = calculateMaxSeverities(group, pkg)
 	}
 
 	// For Debian-based ecosystems, mark unimportant vulnerabilities within the package.
