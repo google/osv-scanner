@@ -81,18 +81,24 @@ func newEcosystemSpecific(fields map[string]any) *structpb.Struct {
 }
 
 func newPackageInfo(source string, pi pkginfo) models.PackageInfo {
-	info := imodels.PackageInfo(&extractor.Package{
+	pkg := &extractor.Package{
 		Name:       pi.Name,
 		Version:    pi.Version,
 		Plugins:    []string{pi.Extractor.Name()},
 		Location:   extractor.LocationFromPath(source),
 		PURLType:   resolvePURLType(pi.Ecosystem),
 		Deprecated: pi.Deprecated,
-	})
+	}
+
+	if pi.Commit != "" {
+		// todo: this should have a proper "repo" field
+		pkg.SourceCode = &extractor.SourceCodeIdentifier{Commit: pi.Commit}
+	}
+
+	info := imodels.PackageInfo(pkg)
 
 	info.OSPackageName = pi.OSPackageName
 	info.Ecosystem = pi.Ecosystem
-	info.Commit = pi.Commit
 
 	if pi.Uncalled {
 		info.Inventory.ExploitabilitySignals = []*vex.PackageExploitabilitySignal{{
