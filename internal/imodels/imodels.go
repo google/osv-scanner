@@ -78,7 +78,7 @@ func DepGroups(pkg *extractor.Package) []string {
 	return []string{}
 }
 
-func OSPackageName(pkg *extractor.Package) string {
+func osPackageName(pkg *extractor.Package) string {
 	if metadata, ok := pkg.Metadata.(*apkmetadata.Metadata); ok {
 		return metadata.PackageName
 	}
@@ -103,7 +103,7 @@ func PackageInfo(p *extractor.Package) models.PackageInfo {
 		Name:          parsedPkg.Name,
 		Version:       parsedPkg.Version,
 		Ecosystem:     parsedPkg.Ecosystem.String(),
-		OSPackageName: OSPackageName(p),
+		OSPackageName: osPackageName(p),
 		Commit:        parsedPkg.Commit,
 		Deprecated:    p.Deprecated,
 		Inventory:     p,
