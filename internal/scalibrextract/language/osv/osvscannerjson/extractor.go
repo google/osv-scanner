@@ -105,6 +105,26 @@ func ecosystemToPURLType(eco string) string {
 		return "nuget"
 	case "pub":
 		return "pub"
+	case "opam":
+		return "opam"
+	case "conancenter":
+		return "conan"
+	case "cran":
+		return "cran"
+	case "hackage":
+		return "hackage"
+	case "hex":
+		return "hex"
+	case "julia":
+		return "julia"
+	case "docker hardened images":
+		return "dhi"
+	case "bitnami":
+		return "bitnami"
+	case "github actions":
+		return "github"
+	case "swifturl":
+		return "swift"
 	default:
 		return ""
 	}
