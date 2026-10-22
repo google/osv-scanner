@@ -92,7 +92,7 @@ func OSPackageName(pkg *extractor.Package) string {
 	return ""
 }
 
-func PackageInfo(p *extractor.Package) models.PackageInfo {
+func BuildPackageInfoAndGroups(p *extractor.Package) (models.PackageInfo, []string) {
 	parsedPkg := ParsePackage(p)
 
 	pi := models.PackageInfo{
@@ -115,5 +115,5 @@ func PackageInfo(p *extractor.Package) models.PackageInfo {
 		}
 	}
 
-	return pi
+	return pi, DepGroups(p)
 }
