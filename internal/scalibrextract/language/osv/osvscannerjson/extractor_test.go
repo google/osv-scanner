@@ -173,19 +173,19 @@ func TestExtractor_Extract_PURLs(t *testing.T) {
 	}
 
 	wantPURLs := []string{
-		"pkg:npm/lodash@4.17.20",
-		"pkg:pypi/requests@2.25.1",
-		"pkg:golang/github.com/gin-gonic/gin@1.9.1",
+		"pkg:bitnami/nginx@1.25.3",
 		"pkg:composer/symfony/http-kernel@6.3.0",
-		"pkg:opam/ocamlfind@1.9.6",
 		"pkg:conan/zlib@1.3.1",
 		"pkg:cran/readxl@1.4.3",
+		"pkg:dhi/python@3.12.1",
+		"pkg:github/actions/checkout@4.1.0",
+		"pkg:golang/github.com/gin-gonic/gin@1.9.1",
 		"pkg:hackage/aeson@2.2.1.0",
 		"pkg:hex/phoenix@1.7.10",
 		"pkg:julia/HTTP@1.10.0",
-		"pkg:dhi/python@3.12.1",
-		"pkg:bitnami/nginx@1.25.3",
-		"pkg:github/actions/checkout@4.1.0",
+		"pkg:npm/lodash@4.17.20",
+		"pkg:opam/ocamlfind@1.9.6",
+		"pkg:pypi/requests@2.25.1",
 		// matches what scalibr produces when scanning a Package.resolved directly
 		"pkg:swift/github.com%2Fapple%2Fswift-nio@2.62.0",
 	}

@@ -85,44 +85,44 @@ func (e Extractor) Extract(_ context.Context, input *filesystem.ScanInput) (inve
 
 func ecosystemToPURLType(eco string) string {
 	switch strings.ToLower(eco) {
-	case "go":
-		return "golang"
-	case "git":
-		return "git"
-	case "npm":
-		return "npm"
-	case "pypi":
-		return "pypi"
-	case "maven":
-		return "maven"
-	case "packagist":
-		return "composer"
-	case "crates.io":
-		return "cargo"
-	case "rubygems":
-		return "gem"
-	case "nuget":
-		return "nuget"
-	case "pub":
-		return "pub"
-	case "opam":
-		return "opam"
+	case "bitnami":
+		return "bitnami"
 	case "conancenter":
 		return "conan"
 	case "cran":
 		return "cran"
+	case "crates.io":
+		return "cargo"
+	case "docker hardened images":
+		return "dhi"
+	case "git":
+		return "git"
+	case "github actions":
+		return "github"
+	case "go":
+		return "golang"
 	case "hackage":
 		return "hackage"
 	case "hex":
 		return "hex"
 	case "julia":
 		return "julia"
-	case "docker hardened images":
-		return "dhi"
-	case "bitnami":
-		return "bitnami"
-	case "github actions":
-		return "github"
+	case "maven":
+		return "maven"
+	case "npm":
+		return "npm"
+	case "nuget":
+		return "nuget"
+	case "opam":
+		return "opam"
+	case "packagist":
+		return "composer"
+	case "pub":
+		return "pub"
+	case "pypi":
+		return "pypi"
+	case "rubygems":
+		return "gem"
 	case "swifturl":
 		return "swift"
 	default:
