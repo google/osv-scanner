@@ -1,7 +1,10 @@
 package output_test
 
 import (
+	"cmp"
+	"maps"
 	"path/filepath"
+	"slices"
 	"strings"
 	"testing"
 
@@ -1654,13 +1657,98 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 	}
 }
 
+// buildLicenseSummary counts the licenses of each package the same way the
+// scanner does, sorted by descending count with UNKNOWN last
+func buildLicenseSummary(vulnResult *models.VulnerabilityResults) []models.LicenseCount {
+	counts := make(map[models.License]int)
+	for _, result := range vulnResult.Results {
+		for _, pkg := range result.Packages {
+			for _, l := range pkg.Licenses {
+				counts[l]++
+			}
+		}
+	}
+
+	licenses := slices.AppendSeq(make([]models.License, 0, len(counts)), maps.Keys(counts))
+
+	slices.SortFunc(licenses, func(a, b models.License) int {
+		if a == b {
+			return 0
+		}
+		if a == "UNKNOWN" {
+			return +1
+		}
+		if b == "UNKNOWN" {
+			return -1
+		}
+
+		return cmp.Or(
+			cmp.Compare(counts[b], counts[a]),
+			cmp.Compare(a, b),
+		)
+	})
+
+	licenseSummary := make([]models.LicenseCount, len(licenses))
+	for i, license := range licenses {
+		licenseSummary[i] = models.LicenseCount{Name: license, Count: counts[license]}
+	}
+
+	return licenseSummary
+}
+
 func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
+	t.Helper()
+
+	runOutputTestCases(t, buildLicenseTestCases(t, models.ExperimentalLicenseConfig{
+		Summary:   false,
+		Allowlist: []models.License{"ISC"},
+	}), run)
+}
+
+func testOutputWithLicenseSummary(t *testing.T, run outputTestRunner) {
+	t.Helper()
+
+	t.Run("with_violations", func(t *testing.T) {
+		t.Parallel()
+
+		runOutputTestCases(t, buildLicenseTestCases(t, models.ExperimentalLicenseConfig{
+			Summary:   true,
+			Allowlist: []models.License{"ISC"},
+		}), run)
+	})
+
+	t.Run("without_violations", func(t *testing.T) {
+		t.Parallel()
+
+		runOutputTestCases(t, buildLicenseTestCases(t, models.ExperimentalLicenseConfig{
+			Summary: true,
+		}), run)
+	})
+}
+
+func runOutputTestCases(t *testing.T, tests []outputTestCase, run outputTestRunner) {
+	t.Helper()
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			buildGroups(tt.args.vulnResult, tt.considerExploitabilitySignals)
+
+			run(t, tt.args)
+		})
+	}
+}
+
+// buildLicenseTestCases returns test cases focused on licenses, using the given
+// config and populating the license summary if it is enabled
+func buildLicenseTestCases(t *testing.T, licenseConfig models.ExperimentalLicenseConfig) []outputTestCase {
 	t.Helper()
 
 	cwd := filepath.ToSlash(testutility.GetCurrentWorkingDirectory(t))
 
 	experimentalAnalysisConfig := models.ExperimentalAnalysisConfig{
-		Licenses: models.ExperimentalLicenseConfig{Summary: false, Allowlist: []models.License{"ISC"}},
+		Licenses: licenseConfig,
 	}
 
 	tests := []outputTestCase{
@@ -2329,16 +2417,61 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 				},
 			},
 		},
+		{
+			name: "one_os_source_with_packages,_some_license_violations",
+			args: outputTestCaseArgs{
+				vulnResult: &models.VulnerabilityResults{
+					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
+					Results: []models.PackageSource{
+						{
+							Source: models.SourceInfo{Path: cwd + "/var/lib/dpkg/status", Type: models.SourceTypeOSPackage},
+							Packages: []models.PackageVulns{
+								{
+									Package: newPackageInfo(cwd+"/var/lib/dpkg/status", pkginfo{
+										Name:          "libxml2",
+										OSPackageName: "libxml2",
+										Version:       "2.9.14+dfsg-1.3",
+										Ecosystem:     "Debian:12",
+										Extractor:     dpkg.Extractor{},
+									}),
+									Licenses:          []models.License{"MIT"},
+									LicenseViolations: []models.License{"MIT"},
+								},
+								{
+									Package: newPackageInfo(cwd+"/var/lib/dpkg/status", pkginfo{
+										Name:          "zlib1g",
+										OSPackageName: "zlib",
+										Version:       "1:1.2.13.dfsg-1",
+										Ecosystem:     "Debian:12",
+										Extractor:     dpkg.Extractor{},
+									}),
+									Licenses:          []models.License{"ISC"},
+									LicenseViolations: []models.License{},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
 	}
+
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+		// violations are only determined when there is an allowlist
+		if len(licenseConfig.Allowlist) == 0 {
+			for _, result := range tt.args.vulnResult.Results {
+				for j := range result.Packages {
+					result.Packages[j].LicenseViolations = nil
+				}
+			}
+		}
 
-			buildGroups(tt.args.vulnResult, tt.considerExploitabilitySignals)
-
-			run(t, tt.args)
-		})
+		if licenseConfig.Summary {
+			tt.args.vulnResult.LicenseSummary = buildLicenseSummary(tt.args.vulnResult)
+		}
 	}
+
+	return tests
 }
 
 func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
