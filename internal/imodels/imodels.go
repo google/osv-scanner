@@ -113,5 +113,11 @@ func PackageInfo(p *extractor.Package) models.PackageInfo {
 		pi.PURL = packageURL.String()
 	}
 
+	if p.LayerMetadata != nil {
+		pi.ImageOrigin = &models.ImageOriginDetails{
+			Index: p.LayerMetadata.Index,
+		}
+	}
+
 	return pi
 }

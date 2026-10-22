@@ -47,7 +47,6 @@ type pkginfo struct {
 	Ecosystem     string
 	Deprecated    bool
 	Commit        string
-	ImageOrigin   *models.ImageOriginDetails
 	Extractor     extractor.Extractor
 	// Uncalled marks the package as having code that is not in the execute path,
 	// as would be done by call analysis
@@ -94,7 +93,6 @@ func newPackageInfo(source string, pi pkginfo) models.PackageInfo {
 	info.OSPackageName = pi.OSPackageName
 	info.Ecosystem = pi.Ecosystem
 	info.Commit = pi.Commit
-	info.ImageOrigin = pi.ImageOrigin
 
 	if pi.Uncalled {
 		info.Inventory.ExploitabilitySignals = []*vex.PackageExploitabilitySignal{{
