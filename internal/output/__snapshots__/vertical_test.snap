@@ -1101,6 +1101,29 @@ os:<rootdir>/var/lib/dpkg/status: found 1 package with issues
 
 ---
 
+[TestPrintVerticalResults_WithVulnerabilities/one_sbom_source_with_an_ubuntu_package,_one_unimportant_vulnerability_with_an_ubuntu_priority,_and_one_regular_vulnerability - 1]
+
+Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+Ubuntu:22.04
+
+sbom:<rootdir>/path/to/my/sbom.cdx.json: found 1 package with issues
+
+  openssl@3.0.2-0ubuntu1.15 has the following known vulnerabilities:
+    OSV-1: Something scary!
+      Severity: '8.1'; Minimal Fix Version: 'No fix available';
+
+  1 known vulnerability found in sbom:<rootdir>/path/to/my/sbom.cdx.json
+
+  openssl@3.0.2-0ubuntu1.15 has the following unimportant vulnerabilities:
+    UBUNTU-CVE-2024-0003: Something negligible!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
+
+  1 uncalled/unimportant vulnerability found in sbom:<rootdir>/path/to/my/sbom.cdx.json (filtered out)
+
+---
+
 [TestPrintVerticalResults_WithVulnerabilities/one_source_with_no_packages - 1]
 
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -1137,6 +1160,29 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
   mine1@1.2.3 has the following known vulnerabilities:
     OSV-1: Something scary!
       Severity: 'N/A'; Minimal Fix Version: 'No fix available';
+
+  1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
+
+  mine1@1.2.3 has the following uncalled vulnerabilities:
+    GHSA-123: Something scarier!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
+
+  1 uncalled/unimportant vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile (filtered out)
+
+---
+
+[TestPrintVerticalResults_WithVulnerabilities/one_source_with_one_package,_one_uncalled_vulnerability_with_an_ubuntu_priority,_and_one_called_vulnerability - 1]
+
+Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
+
+  mine1@1.2.3 has the following known vulnerabilities:
+    OSV-1: Something scary!
+      Severity: '8.8'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 
@@ -1766,6 +1812,24 @@ Hiding 2 number of vulnerabilities deemed unimportant, use --all-vulns to show t
 
 ---
 
+[TestPrintVerticalResults_WithVulnerabilities_WithoutAllVulns/one_sbom_source_with_an_ubuntu_package,_one_unimportant_vulnerability_with_an_ubuntu_priority,_and_one_regular_vulnerability - 1]
+
+Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+Ubuntu:22.04
+
+sbom:<rootdir>/path/to/my/sbom.cdx.json: found 1 package with issues
+
+  openssl@3.0.2-0ubuntu1.15 has the following known vulnerabilities:
+    OSV-1: Something scary!
+      Severity: '8.1'; Minimal Fix Version: 'No fix available';
+
+  1 known vulnerability found in sbom:<rootdir>/path/to/my/sbom.cdx.json
+Hiding 1 number of vulnerabilities deemed unimportant, use --all-vulns to show them.
+
+---
+
 [TestPrintVerticalResults_WithVulnerabilities_WithoutAllVulns/one_source_with_no_packages - 1]
 
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -1802,6 +1866,24 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
   mine1@1.2.3 has the following known vulnerabilities:
     OSV-1: Something scary!
       Severity: 'N/A'; Minimal Fix Version: 'No fix available';
+
+  1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
+Hiding 1 number of vulnerabilities deemed unimportant, use --all-vulns to show them.
+
+---
+
+[TestPrintVerticalResults_WithVulnerabilities_WithoutAllVulns/one_source_with_one_package,_one_uncalled_vulnerability_with_an_ubuntu_priority,_and_one_called_vulnerability - 1]
+
+Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
+
+  mine1@1.2.3 has the following known vulnerabilities:
+    OSV-1: Something scary!
+      Severity: '8.8'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 Hiding 1 number of vulnerabilities deemed unimportant, use --all-vulns to show them.

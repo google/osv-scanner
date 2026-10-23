@@ -12,8 +12,9 @@ import (
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
-func calculateMaxSeverity(group models.GroupInfo, pkg models.PackageVulns) string {
+func calculateMaxSeverities(group models.GroupInfo, pkg models.PackageVulns) (string, string) {
 	var maxSeverity float64 = -1
+	var maxUbuntuSeverity string
 	for _, vulnID := range group.IDs {
 		var severities []*osvschema.Severity
 		for _, vuln := range pkg.Vulnerabilities {
@@ -23,13 +24,17 @@ func calculateMaxSeverity(group models.GroupInfo, pkg models.PackageVulns) strin
 		}
 		score, _, _ := severity.CalculateOverallScore(severities)
 		maxSeverity = max(maxSeverity, score)
+		maxUbuntuSeverity = severity.MaxUbuntuPriority(
+			maxUbuntuSeverity,
+			severity.FindUbuntuSeverity(severities),
+		)
 	}
 
 	if maxSeverity < 0 {
-		return ""
+		return "", maxUbuntuSeverity
 	}
 
-	return fmt.Sprintf("%.1f", maxSeverity)
+	return fmt.Sprintf("%.1f", maxSeverity), maxUbuntuSeverity
 }
 
 // Build groups the vulnerabilities of the given package by their aliases, and
@@ -42,7 +47,7 @@ func calculateMaxSeverity(group models.GroupInfo, pkg models.PackageVulns) strin
 func Build(pkg models.PackageVulns, considerExploitabilitySignals bool) []models.GroupInfo {
 	grouped := Group(ConvertVulnerabilityToIDAliases(pkg.Vulnerabilities))
 	for i, group := range grouped {
-		grouped[i].MaxSeverity = calculateMaxSeverity(group, pkg)
+		grouped[i].MaxSeverity, grouped[i].EcosystemPriority = calculateMaxSeverities(group, pkg)
 	}
 
 	// For Debian-based ecosystems, mark unimportant vulnerabilities within the package.
