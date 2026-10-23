@@ -3473,6 +3473,682 @@ interactions:
       request: |-
         {
           "versionKey": {
+            "name": "io.netty:netty-bom",
+            "system": "MAVEN",
+            "version": "4.2.17.Final"
+          }
+        }
+      response: |-
+        {
+          "maven": {
+            "dependencies": [
+              {
+                "origin": "parent",
+                "resolvedName": "org.sonatype.oss:oss-parent",
+                "resolvedVersion": "7"
+              }
+            ],
+            "dependencyManagement": [
+              {
+                "name": "io.netty:netty-buffer",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-buffer",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-codec-base",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-base",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-codec",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-codec-dns",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-dns",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-codec-haproxy",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-haproxy",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-codec-compression",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-compression",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-codec-http",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-http",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-codec-http2",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-http2",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-codec-http3",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-http3",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-codec-memcache",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-memcache",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-codec-mqtt",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-mqtt",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-codec-redis",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-redis",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-codec-smtp",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-smtp",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-codec-socks",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-socks",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-codec-stomp",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-stomp",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-codec-xml",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-xml",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-codec-protobuf",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-protobuf",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-codec-marshalling",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-marshalling",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-common",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-common",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-dev-tools",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-dev-tools",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-handler",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-handler",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-handler-proxy",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-handler-proxy",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-handler-ssl-ocsp",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-handler-ssl-ocsp",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-resolver",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-resolver",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-resolver-dns",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-resolver-dns",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-transport",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-transport-rxtx",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-rxtx",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-transport-sctp",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-sctp",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-transport-udt",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-udt",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-pkitesting",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-pkitesting",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-all",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-all",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-resolver-dns-classes-macos",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-resolver-dns-classes-macos",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-resolver-dns-native-macos",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-resolver-dns-native-macos",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "classifier": "osx-x86_64",
+                "name": "io.netty:netty-resolver-dns-native-macos",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-resolver-dns-native-macos",
+                "resolvedVersion": "4.2.17.Final",
+                "scope": "runtime",
+                "version": "${project.version}"
+              },
+              {
+                "classifier": "osx-aarch_64",
+                "name": "io.netty:netty-resolver-dns-native-macos",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-resolver-dns-native-macos",
+                "resolvedVersion": "4.2.17.Final",
+                "scope": "runtime",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-transport-native-unix-common",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-unix-common",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "classifier": "linux-aarch_64",
+                "name": "io.netty:netty-transport-native-unix-common",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-unix-common",
+                "resolvedVersion": "4.2.17.Final",
+                "scope": "runtime",
+                "version": "${project.version}"
+              },
+              {
+                "classifier": "linux-riscv64",
+                "name": "io.netty:netty-transport-native-unix-common",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-unix-common",
+                "resolvedVersion": "4.2.17.Final",
+                "scope": "runtime",
+                "version": "${project.version}"
+              },
+              {
+                "classifier": "linux-x86_64",
+                "name": "io.netty:netty-transport-native-unix-common",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-unix-common",
+                "resolvedVersion": "4.2.17.Final",
+                "scope": "runtime",
+                "version": "${project.version}"
+              },
+              {
+                "classifier": "osx-x86_64",
+                "name": "io.netty:netty-transport-native-unix-common",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-unix-common",
+                "resolvedVersion": "4.2.17.Final",
+                "scope": "runtime",
+                "version": "${project.version}"
+              },
+              {
+                "classifier": "osx-aarch_64",
+                "name": "io.netty:netty-transport-native-unix-common",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-unix-common",
+                "resolvedVersion": "4.2.17.Final",
+                "scope": "runtime",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-transport-classes-epoll",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-classes-epoll",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-transport-native-epoll",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-epoll",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "classifier": "linux-aarch_64",
+                "name": "io.netty:netty-transport-native-epoll",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-epoll",
+                "resolvedVersion": "4.2.17.Final",
+                "scope": "runtime",
+                "version": "${project.version}"
+              },
+              {
+                "classifier": "linux-riscv64",
+                "name": "io.netty:netty-transport-native-epoll",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-epoll",
+                "resolvedVersion": "4.2.17.Final",
+                "scope": "runtime",
+                "version": "${project.version}"
+              },
+              {
+                "classifier": "linux-x86_64",
+                "name": "io.netty:netty-transport-native-epoll",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-epoll",
+                "resolvedVersion": "4.2.17.Final",
+                "scope": "runtime",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-transport-classes-io_uring",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-classes-io_uring",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-transport-native-io_uring",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-io_uring",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "classifier": "linux-aarch_64",
+                "name": "io.netty:netty-transport-native-io_uring",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-io_uring",
+                "resolvedVersion": "4.2.17.Final",
+                "scope": "runtime",
+                "version": "${project.version}"
+              },
+              {
+                "classifier": "linux-riscv64",
+                "name": "io.netty:netty-transport-native-io_uring",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-io_uring",
+                "resolvedVersion": "4.2.17.Final",
+                "scope": "runtime",
+                "version": "${project.version}"
+              },
+              {
+                "classifier": "linux-x86_64",
+                "name": "io.netty:netty-transport-native-io_uring",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-io_uring",
+                "resolvedVersion": "4.2.17.Final",
+                "scope": "runtime",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-transport-classes-kqueue",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-classes-kqueue",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-transport-native-kqueue",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-kqueue",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "classifier": "osx-x86_64",
+                "name": "io.netty:netty-transport-native-kqueue",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-kqueue",
+                "resolvedVersion": "4.2.17.Final",
+                "scope": "runtime",
+                "version": "${project.version}"
+              },
+              {
+                "classifier": "osx-aarch_64",
+                "name": "io.netty:netty-transport-native-kqueue",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-kqueue",
+                "resolvedVersion": "4.2.17.Final",
+                "scope": "runtime",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-codec-classes-quic",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-classes-quic",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-codec-native-quic",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-native-quic",
+                "resolvedVersion": "4.2.17.Final",
+                "version": "${project.version}"
+              },
+              {
+                "classifier": "linux-x86_64",
+                "name": "io.netty:netty-codec-native-quic",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-native-quic",
+                "resolvedVersion": "4.2.17.Final",
+                "scope": "runtime",
+                "version": "${project.version}"
+              },
+              {
+                "classifier": "linux-aarch_64",
+                "name": "io.netty:netty-codec-native-quic",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-native-quic",
+                "resolvedVersion": "4.2.17.Final",
+                "scope": "runtime",
+                "version": "${project.version}"
+              },
+              {
+                "classifier": "osx-x86_64",
+                "name": "io.netty:netty-codec-native-quic",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-native-quic",
+                "resolvedVersion": "4.2.17.Final",
+                "scope": "runtime",
+                "version": "${project.version}"
+              },
+              {
+                "classifier": "osx-aarch_64",
+                "name": "io.netty:netty-codec-native-quic",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-native-quic",
+                "resolvedVersion": "4.2.17.Final",
+                "scope": "runtime",
+                "version": "${project.version}"
+              },
+              {
+                "classifier": "windows-x86_64",
+                "name": "io.netty:netty-codec-native-quic",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-native-quic",
+                "resolvedVersion": "4.2.17.Final",
+                "scope": "runtime",
+                "version": "${project.version}"
+              },
+              {
+                "name": "io.netty:netty-tcnative-classes",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-tcnative-classes",
+                "resolvedVersion": "2.0.81.Final",
+                "version": "${tcnative.version}"
+              },
+              {
+                "classifier": "linux-x86_64",
+                "name": "io.netty:netty-tcnative",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-tcnative",
+                "resolvedVersion": "2.0.81.Final",
+                "scope": "runtime",
+                "version": "${tcnative.version}"
+              },
+              {
+                "classifier": "linux-x86_64-fedora",
+                "name": "io.netty:netty-tcnative",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-tcnative",
+                "resolvedVersion": "2.0.81.Final",
+                "scope": "runtime",
+                "version": "${tcnative.version}"
+              },
+              {
+                "classifier": "osx-x86_64",
+                "name": "io.netty:netty-tcnative",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-tcnative",
+                "resolvedVersion": "2.0.81.Final",
+                "scope": "runtime",
+                "version": "${tcnative.version}"
+              },
+              {
+                "classifier": "osx-aarch_64",
+                "name": "io.netty:netty-tcnative",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-tcnative",
+                "resolvedVersion": "2.0.81.Final",
+                "scope": "runtime",
+                "version": "${tcnative.version}"
+              },
+              {
+                "name": "io.netty:netty-tcnative-boringssl-static",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-tcnative-boringssl-static",
+                "resolvedVersion": "2.0.81.Final",
+                "version": "${tcnative.version}"
+              },
+              {
+                "classifier": "linux-x86_64",
+                "name": "io.netty:netty-tcnative-boringssl-static",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-tcnative-boringssl-static",
+                "resolvedVersion": "2.0.81.Final",
+                "scope": "runtime",
+                "version": "${tcnative.version}"
+              },
+              {
+                "classifier": "linux-aarch_64",
+                "name": "io.netty:netty-tcnative-boringssl-static",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-tcnative-boringssl-static",
+                "resolvedVersion": "2.0.81.Final",
+                "scope": "runtime",
+                "version": "${tcnative.version}"
+              },
+              {
+                "classifier": "osx-x86_64",
+                "name": "io.netty:netty-tcnative-boringssl-static",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-tcnative-boringssl-static",
+                "resolvedVersion": "2.0.81.Final",
+                "scope": "runtime",
+                "version": "${tcnative.version}"
+              },
+              {
+                "classifier": "osx-aarch_64",
+                "name": "io.netty:netty-tcnative-boringssl-static",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-tcnative-boringssl-static",
+                "resolvedVersion": "2.0.81.Final",
+                "scope": "runtime",
+                "version": "${tcnative.version}"
+              },
+              {
+                "classifier": "windows-x86_64",
+                "name": "io.netty:netty-tcnative-boringssl-static",
+                "optional": "false",
+                "origin": "management",
+                "resolvedName": "io.netty:netty-tcnative-boringssl-static",
+                "resolvedVersion": "2.0.81.Final",
+                "scope": "runtime",
+                "version": "${tcnative.version}"
+              }
+            ],
+            "parent": {
+              "name": "org.sonatype.oss:oss-parent",
+              "system": "MAVEN",
+              "version": "7"
+            },
+            "properties": [
+              {
+                "name": "tcnative.version",
+                "value": "2.0.81.Final"
+              }
+            ]
+          }
+        }
+    - method: /deps_dev.v3.Insights/GetRequirements
+      request: |-
+        {
+          "versionKey": {
             "name": "org.apache.commons:commons-parent",
             "system": "MAVEN",
             "version": "11"
@@ -12581,6 +13257,500 @@ interactions:
       request: |-
         {
           "versionKey": {
+            "name": "org.jsoup:jsoup",
+            "system": "MAVEN",
+            "version": "1.23.2"
+          }
+        }
+      response: |-
+        {
+          "maven": {
+            "dependencies": [
+              {
+                "name": "org.junit.jupiter:junit-jupiter",
+                "optional": "false",
+                "resolvedName": "org.junit.jupiter:junit-jupiter",
+                "resolvedVersion": "5.14.4",
+                "scope": "test",
+                "version": "5.14.4"
+              },
+              {
+                "name": "com.google.code.gson:gson",
+                "optional": "false",
+                "resolvedName": "com.google.code.gson:gson",
+                "resolvedVersion": "2.14.0",
+                "scope": "test",
+                "version": "2.14.0"
+              },
+              {
+                "name": "io.netty:netty-codec-http",
+                "optional": "false",
+                "resolvedName": "io.netty:netty-codec-http",
+                "resolvedVersion": "4.2.17.Final",
+                "scope": "test"
+              },
+              {
+                "name": "io.netty:netty-handler",
+                "optional": "false",
+                "resolvedName": "io.netty:netty-handler",
+                "resolvedVersion": "4.2.17.Final",
+                "scope": "test"
+              },
+              {
+                "name": "org.jspecify:jspecify",
+                "optional": "false",
+                "resolvedName": "org.jspecify:jspecify",
+                "resolvedVersion": "1.0.1",
+                "scope": "provided",
+                "version": "1.0.1"
+              },
+              {
+                "name": "com.google.re2j:re2j",
+                "optional": "true",
+                "resolvedName": "com.google.re2j:re2j",
+                "resolvedVersion": "1.8",
+                "scope": "compile",
+                "version": "1.8"
+              }
+            ],
+            "dependencyManagement": [
+              {
+                "origin": "import",
+                "resolvedName": "io.netty:netty-bom",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-buffer",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-base",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-dns",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-haproxy",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-compression",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-http",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-http2",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-http3",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-memcache",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-mqtt",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-redis",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-smtp",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-socks",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-stomp",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-xml",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-protobuf",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-marshalling",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-common",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-dev-tools",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-handler",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-handler-proxy",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-handler-ssl-ocsp",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-resolver",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-resolver-dns",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-rxtx",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-sctp",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-udt",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-pkitesting",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-all",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-resolver-dns-classes-macos",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-resolver-dns-native-macos",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-resolver-dns-native-macos",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-resolver-dns-native-macos",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-unix-common",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-unix-common",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-unix-common",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-unix-common",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-unix-common",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-unix-common",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-classes-epoll",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-epoll",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-epoll",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-epoll",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-epoll",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-classes-io_uring",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-io_uring",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-io_uring",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-io_uring",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-io_uring",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-classes-kqueue",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-kqueue",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-kqueue",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-transport-native-kqueue",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-classes-quic",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-native-quic",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-native-quic",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-native-quic",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-native-quic",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-native-quic",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-codec-native-quic",
+                "resolvedVersion": "4.2.17.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-tcnative-classes",
+                "resolvedVersion": "2.0.81.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-tcnative",
+                "resolvedVersion": "2.0.81.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-tcnative",
+                "resolvedVersion": "2.0.81.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-tcnative",
+                "resolvedVersion": "2.0.81.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-tcnative",
+                "resolvedVersion": "2.0.81.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-tcnative-boringssl-static",
+                "resolvedVersion": "2.0.81.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-tcnative-boringssl-static",
+                "resolvedVersion": "2.0.81.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-tcnative-boringssl-static",
+                "resolvedVersion": "2.0.81.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-tcnative-boringssl-static",
+                "resolvedVersion": "2.0.81.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-tcnative-boringssl-static",
+                "resolvedVersion": "2.0.81.Final"
+              },
+              {
+                "origin": "management",
+                "resolvedName": "io.netty:netty-tcnative-boringssl-static",
+                "resolvedVersion": "2.0.81.Final"
+              },
+              {
+                "name": "io.netty:netty-bom",
+                "optional": "false",
+                "origin": "management",
+                "scope": "import",
+                "type": "pom",
+                "version": "4.2.17.Final"
+              }
+            ],
+            "profiles": [
+              {
+                "activation": {
+                  "jdk": {
+                    "jdk": "1.8"
+                  }
+                },
+                "id": "java-8"
+              },
+              {
+                "activation": {
+                  "jdk": {
+                    "jdk": "[11,2000)"
+                  }
+                },
+                "id": "multi-release"
+              },
+              {
+                "activation": {
+                  "property": {
+                    "property": {
+                      "name": "performRelease",
+                      "value": "true"
+                    }
+                  }
+                },
+                "id": "release-sign-artifacts"
+              },
+              {
+                "activation": {},
+                "id": "long-running",
+                "properties": [
+                  {
+                    "name": "failsafe.excludedGroups"
+                  }
+                ]
+              },
+              {
+                "activation": {},
+                "id": "failsafe"
+              }
+            ],
+            "properties": [
+              {
+                "name": "project.build.sourceEncoding",
+                "value": "UTF-8"
+              },
+              {
+                "name": "failsafe.excludedGroups",
+                "value": "long-running"
+              }
+            ]
+          }
+        }
+    - method: /deps_dev.v3.Insights/GetRequirements
+      request: |-
+        {
+          "versionKey": {
             "name": "org.junit:junit-bom",
             "system": "MAVEN",
             "version": "5.10.0"
@@ -14580,6 +15750,9 @@ interactions:
         {
           "advisoryKeys": [
             {
+              "id": "GHSA-65r4-943x-97jj"
+            },
+            {
               "id": "GHSA-gp7f-rwcx-9369"
             },
             {
@@ -14642,6 +15815,9 @@ interactions:
         {
           "advisoryKeys": [
             {
+              "id": "GHSA-65r4-943x-97jj"
+            },
+            {
               "id": "GHSA-gp7f-rwcx-9369"
             }
           ],
@@ -14701,6 +15877,9 @@ interactions:
         {
           "advisoryKeys": [
             {
+              "id": "GHSA-65r4-943x-97jj"
+            },
+            {
               "id": "GHSA-pmhh-3w7g-xqp8"
             }
           ],
@@ -14758,6 +15937,11 @@ interactions:
         }
       response: |-
         {
+          "advisoryKeys": [
+            {
+              "id": "GHSA-65r4-943x-97jj"
+            }
+          ],
           "licenses": [
             "non-standard"
           ],
@@ -14799,6 +15983,61 @@ interactions:
             "name": "org.jsoup:jsoup",
             "system": "MAVEN",
             "version": "1.23.1"
+          }
+        }
+    - method: /deps_dev.v3.Insights/GetVersion
+      request: |-
+        {
+          "versionKey": {
+            "name": "org.jsoup:jsoup",
+            "system": "MAVEN",
+            "version": "1.23.2"
+          }
+        }
+      response: |-
+        {
+          "isDefault": true,
+          "licenses": [
+            "non-standard"
+          ],
+          "links": [
+            {
+              "label": "SOURCE_REPO",
+              "url": "https://github.com/jhy/jsoup"
+            },
+            {
+              "label": "ISSUE_TRACKER",
+              "url": "https://github.com/jhy/jsoup/issues"
+            },
+            {
+              "label": "HOMEPAGE",
+              "url": "https://jsoup.org/"
+            }
+          ],
+          "publishedAt": "2026-08-26T00:12:52Z",
+          "registries": [
+            "https://repo.maven.apache.org/maven2/"
+          ],
+          "relatedProjects": [
+            {
+              "projectKey": {
+                "id": "github.com/jhy/jsoup"
+              },
+              "relationProvenance": "UNVERIFIED_METADATA",
+              "relationType": "SOURCE_REPO"
+            },
+            {
+              "projectKey": {
+                "id": "github.com/jhy/jsoup"
+              },
+              "relationProvenance": "UNVERIFIED_METADATA",
+              "relationType": "ISSUE_TRACKER"
+            }
+          ],
+          "versionKey": {
+            "name": "org.jsoup:jsoup",
+            "system": "MAVEN",
+            "version": "1.23.2"
           }
         }
     - method: /deps_dev.v3.Insights/GetVersion
