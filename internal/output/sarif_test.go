@@ -65,6 +65,7 @@ func TestPrintSARIFReport_WithVulnerabilities(t *testing.T) {
 			map[string]string{
 				strings.ReplaceAll(cwd, "\\", "\\\\"):                strings.ReplaceAll(cwd, "\\", "/"),
 				"pwn\\\\osv-scanner.toml":                            "pwn/osv-scanner.toml",
+				"\\\\path\\\\to\\\\my\\\\osv-scanner.toml":           "/path/to/my/osv-scanner.toml",
 				"\\\\path\\\\to\\\\my\\\\first\\\\osv-scanner.toml":  "/path/to/my/first/osv-scanner.toml",
 				"\\\\path\\\\to\\\\my\\\\second\\\\osv-scanner.toml": "/path/to/my/second/osv-scanner.toml",
 				"\\\\path\\\\to\\\\my\\\\third\\\\osv-scanner.toml":  "/path/to/my/third/osv-scanner.toml",
