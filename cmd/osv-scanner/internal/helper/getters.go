@@ -65,5 +65,6 @@ func GetExperimentalScannerActions(cmd *cli.Command) osvscanner.ExperimentalScan
 		PluginsDisabled:        cmd.StringSlice(FallbackToDeprecatedName(cmd, "x-disable-plugins", "experimental-disable-plugins")),
 		PluginsNoDefaults:      cmd.Bool(FallbackToDeprecatedName(cmd, "x-no-default-plugins", "experimental-no-default-plugins")),
 		FlagDeprecatedPackages: cmd.Bool(FallbackToDeprecatedName(cmd, "x-flag-deprecated-packages", "experimental-flag-deprecated-packages")),
+		UpdateConfigIgnores:    cmd.Bool("x-update-config-ignores"),
 	}
 }
