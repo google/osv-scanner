@@ -263,11 +263,12 @@ function applyFilters(selectedTypeFilterValue, selectedLayerFilterValue) {
   showAllVulns();
   applyTypeFilter(selectedTypeFilterValue);
   applyLayerFilter(selectedLayerFilterValue);
+  applyFixFilter();
+  updateTypeFilterText();
   showAndHideParentSections();
 }
 
 function applyTypeFilter(selectedValue) {
-  updateTypeFilterText();
   const selectedAll = selectedValue.has("all");
   const selectedProject = selectedAll || selectedValue.has("project");
   const selectedOS = selectedAll || selectedValue.has("os");
@@ -302,6 +303,19 @@ function applyLayerFilter(selectedLayerID) {
       vulnElements.forEach(vuln => {
         vuln.classList.add("hide-block");
       });
+    }
+  });
+}
+
+function applyFixFilter() {
+  const fixableCheckbox = document.getElementById("fixable-checkbox");
+  if (!fixableCheckbox.checked) {
+    return;
+  }
+
+  document.querySelectorAll(".vuln-tr").forEach(vuln => {
+    if (vuln.getAttribute("data-fixable") !== "true") {
+      vuln.classList.add("hide-block");
     }
   });
 }
@@ -349,11 +363,19 @@ function updateTypeFilterText() {
     selectedText = "Default";
   }
 
+  if (document.getElementById("fixable-checkbox").checked) {
+    selectedText += `${selectedText ? ", " : ""}Fix available`;
+    selectedCount = document.querySelectorAll(
+      ".vuln-tr:not(.hide-block)"
+    ).length;
+  }
+
   typeSelected.textContent = selectedText;
   selectedVulnCount.textContent = selectedCount;
 }
 
 function resetFilterText() {
+  document.getElementById("fixable-checkbox").checked = false;
   const layerSelected = document.getElementById("layer-filter-selected");
   const allLayerCheckedBox = document.getElementById("all-layer-checkbox");
   if (layerSelected) {
@@ -397,6 +419,7 @@ function resetSearchText() {
 }
 
 function resetTypeCheckbox() {
+  document.getElementById("fixable-checkbox").checked = false;
   const allTypeCheckbox = document.getElementById("all-type-checkbox");
   const osTypeCheckbox = document.getElementById("os-type-checkbox");
   const projectTypeCheckbox = document.getElementById("project-type-checkbox");

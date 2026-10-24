@@ -1,0 +1,55 @@
+{
+  "image_metadata": {
+    "os": "Debian 12",
+    "layer_metadata": [
+      {"diff_id": "sha256:0000000000000000000000000000000000000000000000000000000000000001", "command": "FROM debian", "base_image_index": 0},
+      {"diff_id": "sha256:0000000000000000000000000000000000000000000000000000000000000002", "command": "RUN npm install", "base_image_index": 0}
+    ],
+    "base_images": [[{"name": "debian"}]]
+  },
+  "experimental_config": {"licenses": {"allowlist": ["ISC"]}},
+  "results": [
+    {
+      "source": {"path": "/app/package-lock.json", "type": "lockfile"},
+      "packages": [
+        {
+          "package": {"name": "partially-fixable", "version": "1.0.0", "ecosystem": "npm", "image_origin_details": {"index": 1}},
+          "vulnerabilities": [
+            {"id": "OSV-FIXABLE", "affected": [{"package": {"name": "partially-fixable", "ecosystem": "npm"}, "ranges": [{"type": "SEMVER", "events": [{"introduced": "0"}, {"fixed": "2.0.0"}]}]}]},
+            {"id": "OSV-NO-FIX"},
+            {"id": "OSV-UNCALLED-FIX", "affected": [{"package": {"name": "partially-fixable", "ecosystem": "npm"}, "ranges": [{"type": "SEMVER", "events": [{"introduced": "0"}, {"fixed": "2.0.0"}]}]}]},
+            {"id": "OSV-UNIMPORTANT-FIX", "affected": [{"package": {"name": "partially-fixable", "ecosystem": "npm"}, "ranges": [{"type": "SEMVER", "events": [{"introduced": "0"}, {"fixed": "2.0.0"}]}]}]},
+            {"id": "OSV-UNCALLED-NO-FIX"}
+          ],
+          "groups": [
+            {"ids": ["OSV-FIXABLE"]},
+            {"ids": ["OSV-NO-FIX"]},
+            {"ids": ["OSV-UNCALLED-FIX"], "experimental_analysis": {"test": {"called": false}}},
+            {"ids": ["OSV-UNIMPORTANT-FIX"], "experimental_analysis": {"test": {"called": true, "unimportant": true}}},
+            {"ids": ["OSV-UNCALLED-NO-FIX"], "experimental_analysis": {"test": {"called": false}}}
+          ]
+        },
+        {
+          "package": {"name": "unfixable", "version": "1.0.0", "ecosystem": "npm", "image_origin_details": {"index": 0}},
+          "vulnerabilities": [{"id": "OSV-OTHER-NO-FIX"}],
+          "groups": [{"ids": ["OSV-OTHER-NO-FIX"]}]
+        },
+        {
+          "package": {"name": "license-only", "version": "1.0.0", "ecosystem": "npm", "image_origin_details": {"index": 1}},
+          "licenses": ["MIT"],
+          "license_violations": ["MIT"]
+        }
+      ]
+    },
+    {
+      "source": {"path": "/var/lib/dpkg/status", "type": "os"},
+      "packages": [
+        {
+          "package": {"name": "os-fixable", "version": "1.0-1", "ecosystem": "Debian:12", "image_origin_details": {"index": 0}},
+          "vulnerabilities": [{"id": "OSV-OS-FIX", "affected": [{"package": {"name": "os-fixable", "ecosystem": "Debian:12"}, "ranges": [{"type": "ECOSYSTEM", "events": [{"introduced": "0"}, {"fixed": "2.0-1"}]}]}]}],
+          "groups": [{"ids": ["OSV-OS-FIX"]}]
+        }
+      ]
+    }
+  ]
+}
