@@ -369,11 +369,10 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		name      string
-		config    Config
-		args      *extractor.Package
-		wantOk    bool
-		wantEntry *PackageOverrideEntry
+		name   string
+		config Config
+		args   *extractor.Package
+		want   *PackageOverrideEntry
 	}{
 		{
 			name: "Everything-level_entry_exists",
@@ -393,8 +392,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					DepGroupVals: []string{"dev"},
 				},
 			},
-			wantOk: true,
-			wantEntry: &PackageOverrideEntry{
+			want: &PackageOverrideEntry{
 				Ignore:         true,
 				EffectiveUntil: time.Time{},
 				Reason:         "abc",
@@ -421,8 +419,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					DepGroupVals: []string{"dev"},
 				},
 			},
-			wantOk: true,
-			wantEntry: &PackageOverrideEntry{
+			want: &PackageOverrideEntry{
 				Ecosystem:      "Go",
 				Ignore:         true,
 				EffectiveUntil: time.Time{},
@@ -449,8 +446,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					DepGroupVals: []string{"dev"},
 				},
 			},
-			wantOk:    false,
-			wantEntry: &PackageOverrideEntry{},
+			want: nil,
 		},
 		// -------------------------------------------------------------------------
 		{
@@ -475,8 +471,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					OSVersionID: "3.20",
 				},
 			},
-			wantOk: true,
-			wantEntry: &PackageOverrideEntry{
+			want: &PackageOverrideEntry{
 				Ecosystem:      "Alpine:v3.20",
 				Ignore:         true,
 				EffectiveUntil: time.Time{},
@@ -505,8 +500,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					OSVersionID: "3.19",
 				},
 			},
-			wantOk:    false,
-			wantEntry: &PackageOverrideEntry{},
+			want: nil,
 		},
 		{
 			name: "Ecosystem-level_entry_without_suffix_exists_and_does_match",
@@ -530,8 +524,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					OSVersionID: "3.20",
 				},
 			},
-			wantOk: true,
-			wantEntry: &PackageOverrideEntry{
+			want: &PackageOverrideEntry{
 				Ecosystem:      "Alpine",
 				Ignore:         true,
 				EffectiveUntil: time.Time{},
@@ -559,8 +552,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					DepGroupVals: []string{"dev"},
 				},
 			},
-			wantOk: true,
-			wantEntry: &PackageOverrideEntry{
+			want: &PackageOverrideEntry{
 				Group:          "dev",
 				Ignore:         true,
 				EffectiveUntil: time.Time{},
@@ -587,8 +579,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					DepGroupVals: []string{"optional"},
 				},
 			},
-			wantOk:    false,
-			wantEntry: &PackageOverrideEntry{},
+			want: nil,
 		},
 		{
 			name: "Group-level_entry_exists_and_does_not_match_when_empty",
@@ -607,8 +598,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				Version:  "1.0.0",
 				PURLType: "npm",
 			},
-			wantOk:    false,
-			wantEntry: &PackageOverrideEntry{},
+			want: nil,
 		},
 		// -------------------------------------------------------------------------
 		{
@@ -631,8 +621,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					DepGroupVals: []string{"dev"},
 				},
 			},
-			wantOk: true,
-			wantEntry: &PackageOverrideEntry{
+			want: &PackageOverrideEntry{
 				Version:        "1.0.0",
 				Ignore:         true,
 				EffectiveUntil: time.Time{},
@@ -659,8 +648,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					DepGroupVals: []string{"dev"},
 				},
 			},
-			wantOk:    false,
-			wantEntry: &PackageOverrideEntry{},
+			want: nil,
 		},
 		// -------------------------------------------------------------------------
 		{
@@ -683,8 +671,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					DepGroupVals: []string{"dev"},
 				},
 			},
-			wantOk: true,
-			wantEntry: &PackageOverrideEntry{
+			want: &PackageOverrideEntry{
 				Name:           "lib1",
 				Ignore:         true,
 				EffectiveUntil: time.Time{},
@@ -711,8 +698,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					DepGroupVals: []string{"dev"},
 				},
 			},
-			wantOk:    false,
-			wantEntry: &PackageOverrideEntry{},
+			want: nil,
 		},
 		// -------------------------------------------------------------------------
 		{
@@ -734,8 +720,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				Version:  "1.0.0",
 				PURLType: purl.TypeGolang,
 			},
-			wantOk: true,
-			wantEntry: &PackageOverrideEntry{
+			want: &PackageOverrideEntry{
 				Name:           "lib1",
 				Version:        "1.0.0",
 				Ecosystem:      "Go",
@@ -762,8 +747,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				Version:  "1.0.0",
 				PURLType: purl.TypeGolang,
 			},
-			wantOk: true,
-			wantEntry: &PackageOverrideEntry{
+			want: &PackageOverrideEntry{
 				Name:           "lib1",
 				Ecosystem:      "Go",
 				Ignore:         true,
@@ -793,8 +777,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					DepGroupVals: []string{"dev"},
 				},
 			},
-			wantOk: true,
-			wantEntry: &PackageOverrideEntry{
+			want: &PackageOverrideEntry{
 				Name:           "lib1",
 				Ecosystem:      "Go",
 				Group:          "dev",
@@ -825,8 +808,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					DepGroupVals: []string{"prod"},
 				},
 			},
-			wantOk:    false,
-			wantEntry: &PackageOverrideEntry{},
+			want: nil,
 		},
 		{
 			name: "Entry_doesn't_exist",
@@ -855,8 +837,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				Version:  "2.0.0",
 				PURLType: purl.TypeGolang,
 			},
-			wantOk:    false,
-			wantEntry: &PackageOverrideEntry{},
+			want: nil,
 		},
 	}
 
@@ -864,12 +845,9 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			gotOk, gotEntry := tt.config.ShouldIgnorePackage(tt.args)
-			if gotOk != tt.wantOk {
-				t.Errorf("ShouldIgnorePackage() gotOk = %v, wantOk %v", gotOk, tt.wantOk)
-			}
-			if !reflect.DeepEqual(gotEntry, tt.wantEntry) {
-				t.Errorf("ShouldIgnorePackage() gotEntry = %v, wantEntry %v", gotEntry, tt.wantEntry)
+			got := tt.config.ShouldIgnorePackage(tt.args)
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("ShouldIgnorePackage() got = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -879,11 +857,10 @@ func TestConfig_ShouldIgnorePackage_NameIsRegex(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		name      string
-		config    Config
-		args      *extractor.Package
-		wantOk    bool
-		wantEntry *PackageOverrideEntry
+		name   string
+		config Config
+		args   *extractor.Package
+		want   *PackageOverrideEntry
 	}{
 		{
 			name: "Regex_matches_package_name",
@@ -902,8 +879,7 @@ func TestConfig_ShouldIgnorePackage_NameIsRegex(t *testing.T) {
 				Version:  "1.0.0",
 				PURLType: purl.TypeGolang,
 			},
-			wantOk: true,
-			wantEntry: &PackageOverrideEntry{
+			want: &PackageOverrideEntry{
 				Name:        "lib.*",
 				NameIsRegex: true,
 				Ignore:      true,
@@ -927,8 +903,7 @@ func TestConfig_ShouldIgnorePackage_NameIsRegex(t *testing.T) {
 				Version:  "1.0.0",
 				PURLType: purl.TypeGolang,
 			},
-			wantOk:    false,
-			wantEntry: &PackageOverrideEntry{},
+			want: nil,
 		},
 		{
 			name: "Invalid_regex_does_not_match",
@@ -947,8 +922,7 @@ func TestConfig_ShouldIgnorePackage_NameIsRegex(t *testing.T) {
 				Version:  "1.0.0",
 				PURLType: purl.TypeGolang,
 			},
-			wantOk:    false,
-			wantEntry: &PackageOverrideEntry{},
+			want: nil,
 		},
 		{
 			name: "NameIsRegex_false_uses_exact_match",
@@ -966,8 +940,7 @@ func TestConfig_ShouldIgnorePackage_NameIsRegex(t *testing.T) {
 				Version:  "1.0.0",
 				PURLType: purl.TypeGolang,
 			},
-			wantOk:    false,
-			wantEntry: &PackageOverrideEntry{},
+			want: nil,
 		},
 		{
 			name: "Regex_with_empty_name_matches_all",
@@ -986,8 +959,7 @@ func TestConfig_ShouldIgnorePackage_NameIsRegex(t *testing.T) {
 				Version:  "1.0.0",
 				PURLType: purl.TypeGolang,
 			},
-			wantOk: true,
-			wantEntry: &PackageOverrideEntry{
+			want: &PackageOverrideEntry{
 				Name:        "",
 				NameIsRegex: true,
 				Ignore:      true,
@@ -1011,8 +983,7 @@ func TestConfig_ShouldIgnorePackage_NameIsRegex(t *testing.T) {
 				Version:  "1.0.0",
 				PURLType: purl.TypeGolang,
 			},
-			wantOk:    false,
-			wantEntry: &PackageOverrideEntry{},
+			want: nil,
 		},
 		{
 			name: "Regex_with_top_level_alternation_is_anchored_and_does_not_partial_match",
@@ -1031,8 +1002,7 @@ func TestConfig_ShouldIgnorePackage_NameIsRegex(t *testing.T) {
 				Version:  "1.0.0",
 				PURLType: purl.TypeGolang,
 			},
-			wantOk:    false,
-			wantEntry: &PackageOverrideEntry{},
+			want: nil,
 		},
 		{
 			name: "Regex_combined_with_ecosystem_filter",
@@ -1052,8 +1022,7 @@ func TestConfig_ShouldIgnorePackage_NameIsRegex(t *testing.T) {
 				Version:  "1.0.0",
 				PURLType: purl.TypeGolang,
 			},
-			wantOk: true,
-			wantEntry: &PackageOverrideEntry{
+			want: &PackageOverrideEntry{
 				Name:        "internal-.*",
 				NameIsRegex: true,
 				Ecosystem:   "Go",
@@ -1079,8 +1048,7 @@ func TestConfig_ShouldIgnorePackage_NameIsRegex(t *testing.T) {
 				Version:  "1.0.0",
 				PURLType: "npm",
 			},
-			wantOk:    false,
-			wantEntry: &PackageOverrideEntry{},
+			want: nil,
 		},
 	}
 
@@ -1088,12 +1056,9 @@ func TestConfig_ShouldIgnorePackage_NameIsRegex(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			gotOk, gotEntry := tt.config.ShouldIgnorePackage(tt.args)
-			if gotOk != tt.wantOk {
-				t.Errorf("ShouldIgnorePackage() gotOk = %v, wantOk %v", gotOk, tt.wantOk)
-			}
-			if !reflect.DeepEqual(gotEntry, tt.wantEntry) {
-				t.Errorf("ShouldIgnorePackage() gotEntry = %v, wantEntry %v", gotEntry, tt.wantEntry)
+			got := tt.config.ShouldIgnorePackage(tt.args)
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("ShouldIgnorePackage() got = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -1191,11 +1156,10 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		name      string
-		config    Config
-		args      *extractor.Package
-		wantOk    bool
-		wantEntry *PackageOverrideEntry
+		name   string
+		config Config
+		args   *extractor.Package
+		want   *PackageOverrideEntry
 	}{
 		{
 			name: "Exact_version_entry_exists_with_override",
@@ -1217,8 +1181,7 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 				Version:  "1.0.0",
 				PURLType: purl.TypeGolang,
 			},
-			wantOk: true,
-			wantEntry: &PackageOverrideEntry{
+			want: &PackageOverrideEntry{
 				Name:      "lib1",
 				Version:   "1.0.0",
 				Ecosystem: "Go",
@@ -1248,8 +1211,7 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 				Version:  "1.0.0",
 				PURLType: purl.TypeGolang,
 			},
-			wantOk: true,
-			wantEntry: &PackageOverrideEntry{
+			want: &PackageOverrideEntry{
 				Name:      "lib1",
 				Version:   "1.0.0",
 				Ecosystem: "Go",
@@ -1279,8 +1241,7 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 				Version:  "1.0.1",
 				PURLType: purl.TypeGolang,
 			},
-			wantOk:    false,
-			wantEntry: &PackageOverrideEntry{},
+			want: nil,
 		},
 		{
 			name: "Version_entry_doesn't_exist_with_ignore",
@@ -1302,8 +1263,7 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 				Version:  "1.0.1",
 				PURLType: purl.TypeGolang,
 			},
-			wantOk:    false,
-			wantEntry: &PackageOverrideEntry{},
+			want: nil,
 		},
 		{
 			name: "Name_matches_with_override",
@@ -1324,8 +1284,7 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 				Version:  "1.0.1",
 				PURLType: purl.TypeGolang,
 			},
-			wantOk: true,
-			wantEntry: &PackageOverrideEntry{
+			want: &PackageOverrideEntry{
 				Name:      "lib1",
 				Ecosystem: "Go",
 				License: License{
@@ -1353,8 +1312,7 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 				Version:  "1.0.1",
 				PURLType: purl.TypeGolang,
 			},
-			wantOk: true,
-			wantEntry: &PackageOverrideEntry{
+			want: &PackageOverrideEntry{
 				Name:      "lib1",
 				Ecosystem: "Go",
 				License: License{
@@ -1369,12 +1327,9 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			gotOk, gotEntry := tt.config.ShouldOverridePackageLicense(tt.args)
-			if gotOk != tt.wantOk {
-				t.Errorf("ShouldOverridePackageLicense() gotOk = %v, wantOk %v", gotOk, tt.wantOk)
-			}
-			if !reflect.DeepEqual(gotEntry, tt.wantEntry) {
-				t.Errorf("ShouldOverridePackageLicense() gotEntry = %v, wantEntry %v", gotEntry, tt.wantEntry)
+			got := tt.config.ShouldOverridePackageLicense(tt.args)
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("ShouldOverridePackageLicense() got = %v, want %v", got, tt.want)
 			}
 		})
 	}

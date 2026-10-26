@@ -130,20 +130,24 @@ func (c *Config) ShouldIgnore(vulnID string) (bool, *IgnoreEntry) {
 	return shouldIgnoreTimestamp(ignoredLine.IgnoreUntil), ignoredLine
 }
 
-func (c *Config) filterPackageVersionEntries(pkg *extractor.Package, condition func(*PackageOverrideEntry) bool) (bool, *PackageOverrideEntry) {
+func (c *Config) filterPackageVersionEntries(pkg *extractor.Package, condition func(*PackageOverrideEntry) bool) *PackageOverrideEntry {
 	index := slices.IndexFunc(c.PackageOverrides, func(e *PackageOverrideEntry) bool {
 		return e.matches(pkg) && condition(e)
 	})
 	if index == -1 {
-		return false, &PackageOverrideEntry{}
+		return nil
 	}
 	ignoredLine := c.PackageOverrides[index]
 
-	return shouldIgnoreTimestamp(ignoredLine.EffectiveUntil), ignoredLine
+	if shouldIgnoreTimestamp(ignoredLine.EffectiveUntil) {
+		return ignoredLine
+	}
+
+	return nil
 }
 
 // ShouldIgnorePackage determines if the given package should be ignored based on override entries in the config
-func (c *Config) ShouldIgnorePackage(pkg *extractor.Package) (bool, *PackageOverrideEntry) {
+func (c *Config) ShouldIgnorePackage(pkg *extractor.Package) *PackageOverrideEntry {
 	return c.filterPackageVersionEntries(pkg, func(e *PackageOverrideEntry) bool {
 		return e.Ignore
 	})
@@ -151,15 +155,13 @@ func (c *Config) ShouldIgnorePackage(pkg *extractor.Package) (bool, *PackageOver
 
 // ShouldIgnorePackageVulnerabilities determines if the given package should have its vulnerabilities ignored based on override entries in the config
 func (c *Config) ShouldIgnorePackageVulnerabilities(pkg *extractor.Package) bool {
-	overrides, _ := c.filterPackageVersionEntries(pkg, func(e *PackageOverrideEntry) bool {
+	return c.filterPackageVersionEntries(pkg, func(e *PackageOverrideEntry) bool {
 		return e.Vulnerability.Ignore
-	})
-
-	return overrides
+	}) != nil
 }
 
 // ShouldOverridePackageLicense determines if the given package should have its license ignored or changed based on override entries in the config
-func (c *Config) ShouldOverridePackageLicense(pkg *extractor.Package) (bool, *PackageOverrideEntry) {
+func (c *Config) ShouldOverridePackageLicense(pkg *extractor.Package) *PackageOverrideEntry {
 	return c.filterPackageVersionEntries(pkg, func(e *PackageOverrideEntry) bool {
 		return e.License.Ignore || len(e.License.Override) > 0
 	})
