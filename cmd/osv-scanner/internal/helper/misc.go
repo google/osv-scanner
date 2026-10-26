@@ -4,6 +4,7 @@ package helper
 import (
 	"fmt"
 	"io"
+	"net"
 	"net/http"
 	"os"
 	"time"
@@ -19,21 +20,27 @@ var (
 	servePort = "8000" // default port
 )
 
-// ServeHTML serves the single HTML file for remote accessing.
-// The program will keep running to serve the HTML report on localhost
-// until the user manually terminates it (e.g. using Ctrl+C).
-func ServeHTML(outputPath string) {
-	localhostURL := fmt.Sprintf("http://localhost:%s/", servePort)
-	cmdlogger.Infof("Serving HTML report at %s", localhostURL)
-	cmdlogger.Infof("If you are accessing remotely, use the following SSH command:")
-	cmdlogger.Infof("`ssh -L local_port:destination_server_ip:%s ssh_server_hostname`", servePort)
-	server := &http.Server{
-		Addr: ":" + servePort,
+const serveHost = "127.0.0.1"
+
+func newHTMLServer(outputPath, port string) *http.Server {
+	return &http.Server{
+		Addr: net.JoinHostPort(serveHost, port),
 		Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			http.ServeFile(w, r, outputPath)
 		}),
 		ReadHeaderTimeout: 3 * time.Second,
 	}
+}
+
+// ServeHTML serves the single HTML file on the loopback interface.
+// The program will keep running to serve the HTML report on localhost
+// until the user manually terminates it (e.g. using Ctrl+C).
+func ServeHTML(outputPath string) {
+	server := newHTMLServer(outputPath, servePort)
+	localhostURL := fmt.Sprintf("http://%s/", server.Addr)
+	cmdlogger.Infof("Serving HTML report at %s", localhostURL)
+	cmdlogger.Infof("If you are accessing remotely, use the following SSH command:")
+	cmdlogger.Infof("`ssh -L local_port:%s:%s ssh_server_hostname`", serveHost, servePort)
 	if err := server.ListenAndServe(); err != nil {
 		cmdlogger.Errorf("Failed to start server: %v", err)
 	}
