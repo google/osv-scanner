@@ -18,6 +18,14 @@
       "name": "traverse",
       "version": "7.23.0",
       "purl": "pkg:npm/%40babel/traverse@7.23.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:golang/github.com/json-iterator/go@1.1.12",
+      "group": "github.com/json-iterator",
+      "name": "go",
+      "version": "1.1.12",
+      "purl": "pkg:golang/github.com/json-iterator/go@1.1.12"
     }
   ]
 }
