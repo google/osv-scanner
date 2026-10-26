@@ -77,12 +77,13 @@ type VulnResult struct {
 	GroupIDs []string
 	Aliases  []string
 	// Description is either the Vulnerability.Summary (default) or the Vulnerability.Details.
-	Description      string
-	IsFixable        bool
-	FixedVersion     string
-	VulnAnalysisType VulnAnalysisType
-	SeverityRating   severity.Rating
-	SeverityScore    string
+	Description       string
+	IsFixable         bool
+	FixedVersion      string
+	VulnAnalysisType  VulnAnalysisType
+	SeverityRating    severity.Rating
+	SeverityScore     string
+	EcosystemPriority string
 }
 
 type ImageInfo struct {
@@ -517,12 +518,13 @@ func processVulnGroups(vulnPkg models.PackageVulns) (map[string]VulnResult, map[
 		}
 
 		vuln := VulnResult{
-			ID:       representID,
-			GroupIDs: group.IDs,
-			Aliases:  aliases,
+			ID:                representID,
+			GroupIDs:          group.IDs,
+			Aliases:           aliases,
+			SeverityScore:     group.MaxSeverity,
+			EcosystemPriority: group.EcosystemPriority,
 		}
 
-		vuln.SeverityScore = group.MaxSeverity
 		vuln.SeverityRating, _ = severity.CalculateRating(vuln.SeverityScore)
 		if vuln.SeverityRating == severity.UnknownRating {
 			vuln.SeverityScore = "N/A"
