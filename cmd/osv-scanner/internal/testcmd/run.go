@@ -122,7 +122,9 @@ func RunAndNormalize(t *testing.T, tc Case) (string, string) {
 
 	stdout = normalizeDirScanOrder(t, stdout)
 	stderr = normalizeDirScanOrder(t, stderr)
+
 	stderr = normalizeLoadDbErrOrder(stderr)
+	stderr = normalizeDockerOutput(t, stderr)
 
 	if len(tc.ReplaceRules) > 0 {
 		if len(stdout) == 0 || !json.Valid([]byte(stdout)) {
@@ -168,6 +170,25 @@ func normalizeJSON(t *testing.T, jsonInput string, jsonReplaceRules ...testutili
 	}
 
 	return jsonFormatted.String()
+}
+
+// normalizeDockerOutput accounts for differences in specific error strings across docker versions
+func normalizeDockerOutput(t *testing.T, input string) string {
+	t.Helper()
+
+	input = strings.ReplaceAll(
+		input,
+		"may require 'docker login': denied: requested access to the resource is denied",
+		"may require 'docker login'",
+	)
+
+	input = strings.ReplaceAll(
+		input,
+		"failed to resolve reference \"docker.io/library/alpine:non-existent-tag\": docker.io/library/alpine:non-existent-tag: not found",
+		"manifest for alpine:non-existent-tag not found: manifest unknown: manifest unknown",
+	)
+
+	return input
 }
 
 // Sorts the output between directory scan markers to allow for consistent test results when doing unsorted dir walks
