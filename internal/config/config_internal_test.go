@@ -1064,14 +1064,14 @@ func TestConfig_FindIgnorePackageOverride_NameIsRegex(t *testing.T) {
 	}
 }
 
-func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
+func TestConfig_FindPackageVulnerabilitiesOverride(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
 		name   string
 		config Config
 		args   *extractor.Package
-		wantOk bool
+		want   *PackageOverrideEntry
 	}{
 		{
 			name: "Exact_version_entry_exists_with_ignore",
@@ -1093,7 +1093,15 @@ func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
 				Version:  "1.0.0",
 				PURLType: purl.TypeGolang,
 			},
-			wantOk: true,
+			want: &PackageOverrideEntry{
+				Name:      "lib1",
+				Version:   "1.0.0",
+				Ecosystem: "Go",
+				Vulnerability: Vulnerability{
+					Ignore: true,
+				},
+				Reason: "abc",
+			},
 		},
 		{
 			name: "Version_entry_doesn't_exist_with_ignore",
@@ -1115,7 +1123,7 @@ func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
 				Version:  "1.0.1",
 				PURLType: purl.TypeGolang,
 			},
-			wantOk: false,
+			want: nil,
 		},
 		{
 			name: "Name_matches_with_ignore",
@@ -1136,7 +1144,14 @@ func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
 				Version:  "1.0.1",
 				PURLType: purl.TypeGolang,
 			},
-			wantOk: true,
+			want: &PackageOverrideEntry{
+				Name:      "lib1",
+				Ecosystem: "Go",
+				Vulnerability: Vulnerability{
+					Ignore: true,
+				},
+				Reason: "abc",
+			},
 		},
 	}
 
@@ -1144,9 +1159,9 @@ func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			gotOk := tt.config.ShouldIgnorePackageVulnerabilities(tt.args)
-			if gotOk != tt.wantOk {
-				t.Errorf("ShouldIgnorePackageVulnerabilities() gotOk = %v, wantOk %v", gotOk, tt.wantOk)
+			got := tt.config.FindPackageVulnerabilitiesOverride(tt.args)
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("FindPackageVulnerabilitiesOverride() got = %v, want %v", got, tt.want)
 			}
 		})
 	}

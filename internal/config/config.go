@@ -153,11 +153,11 @@ func (c *Config) FindIgnorePackageOverride(pkg *extractor.Package) *PackageOverr
 	})
 }
 
-// ShouldIgnorePackageVulnerabilities determines if the given package should have its vulnerabilities ignored based on override entries in the config
-func (c *Config) ShouldIgnorePackageVulnerabilities(pkg *extractor.Package) bool {
+// FindPackageVulnerabilitiesOverride returns the first override entry relating to vulnerabilities for the given package
+func (c *Config) FindPackageVulnerabilitiesOverride(pkg *extractor.Package) *PackageOverrideEntry {
 	return c.findFirstRelevantPackageOverride(pkg, func(e *PackageOverrideEntry) bool {
 		return e.Vulnerability.Ignore
-	}) != nil
+	})
 }
 
 // FindPackageLicenseOverride returns the first override entry relating to licenses for the given package
