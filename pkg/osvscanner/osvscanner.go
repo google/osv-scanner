@@ -332,7 +332,7 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 			cmdlogger.Warnf("%s has unused overrides:", configFile)
 
 			for _, po := range unusedPackageOverrides[configFile] {
-				cmdlogger.Warnf(" - %s", po.Name)
+				cmdlogger.Warnf(" - %s", po.Describe())
 			}
 		}
 	}

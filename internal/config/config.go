@@ -2,7 +2,9 @@
 package config
 
 import (
+	"fmt"
 	"slices"
+	"strings"
 	"time"
 
 	"github.com/google/osv-scalibr/extractor"
@@ -53,6 +55,43 @@ type PackageOverrideEntry struct {
 
 func (e *PackageOverrideEntry) MarkAsUsed() {
 	e.Used = true
+}
+
+func (e *PackageOverrideEntry) Describe() string {
+	if e.Reason != "" {
+		return fmt.Sprintf("\"%s\"", e.Reason)
+	}
+
+	var parts []string
+
+	if e.Ecosystem != "" {
+		parts = append(parts, "Ecosystem: "+e.Ecosystem)
+	}
+	if e.Name != "" {
+		parts = append(parts, "Name: "+e.Name)
+	}
+	if e.Version != "" {
+		parts = append(parts, "Version: "+e.Version)
+	}
+	if e.Group != "" {
+		parts = append(parts, "Group: "+e.Group)
+	}
+
+	if len(parts) == 0 {
+		return "(blanket ignore)"
+	}
+
+	var sb strings.Builder
+
+	for _, part := range parts {
+		if sb.Len() > 0 {
+			sb.WriteString(", ")
+		}
+
+		sb.WriteString(part)
+	}
+
+	return sb.String()
 }
 
 func (e *PackageOverrideEntry) matches(pkg *extractor.Package) bool {

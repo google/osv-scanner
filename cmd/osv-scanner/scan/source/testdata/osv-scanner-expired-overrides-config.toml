@@ -32,3 +32,12 @@ license.override = ["0BSD"]
 [[PackageOverrides]]
 ecosystem = "Alpine"
 license.override = ["MIT"]
+
+[[PackageOverrides]]
+effectiveUntil = 2017-05-01
+ignore = true
+
+[[PackageOverrides]]
+effectiveUntil = 2017-05-01
+group = "dev"
+version = "1.2.3"
