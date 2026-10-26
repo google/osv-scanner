@@ -378,6 +378,17 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "--config=./testdata/osv-scanner-composite-config.toml", "--licenses=MIT", "-L", "osv-scanner:./testdata/locks-insecure/osv-scanner-flutter-deps.json", "./testdata/locks-many-with-insecure", "./testdata/locks-insecure", "./testdata/maven-transitive"},
 			Exit: 1,
 		},
+		{
+			Name: "config_file_with_expired_overrides_are_considered_unused",
+			Args: []string{
+				"", "source",
+				"--config=./testdata/osv-scanner-expired-overrides-config.toml",
+				"--licenses=MIT",
+				"./testdata/locks-many-with-insecure",
+				"./testdata/locks-insecure",
+			},
+			Exit: 1,
+		},
 		// ignored vulnerabilities and packages without a reason should be called out
 		{
 			Name: "ignores_without_reason_should_be_explicitly_called_out",

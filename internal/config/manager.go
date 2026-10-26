@@ -90,6 +90,28 @@ func (m *Manager) GetUnusedIgnoreEntries() map[string][]*IgnoreEntry {
 	return entries
 }
 
+func (m *Manager) GetUnusedPackageOverrides() map[string][]*PackageOverrideEntry {
+	entries := make(map[string][]*PackageOverrideEntry)
+
+	for _, config := range m.ConfigMap {
+		unusedEntries := config.UnusedPackageOverrides()
+
+		if len(unusedEntries) > 0 {
+			entries[config.LoadPath] = unusedEntries
+		}
+	}
+
+	if m.OverrideConfig != nil {
+		unusedEntries := m.OverrideConfig.UnusedPackageOverrides()
+
+		if len(unusedEntries) > 0 {
+			entries[m.OverrideConfig.LoadPath] = unusedEntries
+		}
+	}
+
+	return entries
+}
+
 // Finds the containing folder of `target`, then appends osvScannerConfigName
 func normalizeConfigLoadPath(target string) (string, error) {
 	stat, err := os.Stat(target)

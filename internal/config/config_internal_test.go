@@ -138,7 +138,7 @@ func Test_tryLoadConfig(t *testing.T) {
 						ID: "GO-2022-1059",
 					},
 				},
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Name:      "lib",
 						Version:   "1.0.0",
@@ -373,12 +373,12 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 		config    Config
 		args      *extractor.Package
 		wantOk    bool
-		wantEntry PackageOverrideEntry
+		wantEntry *PackageOverrideEntry
 	}{
 		{
 			name: "Everything-level_entry_exists",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Ignore:         true,
 						EffectiveUntil: time.Time{},
@@ -394,7 +394,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			wantOk: true,
-			wantEntry: PackageOverrideEntry{
+			wantEntry: &PackageOverrideEntry{
 				Ignore:         true,
 				EffectiveUntil: time.Time{},
 				Reason:         "abc",
@@ -404,7 +404,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 		{
 			name: "Ecosystem-level_entry_exists_and_does_match",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Ecosystem:      "Go",
 						Ignore:         true,
@@ -422,7 +422,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			wantOk: true,
-			wantEntry: PackageOverrideEntry{
+			wantEntry: &PackageOverrideEntry{
 				Ecosystem:      "Go",
 				Ignore:         true,
 				EffectiveUntil: time.Time{},
@@ -432,7 +432,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 		{
 			name: "Ecosystem-level_entry_exists_and_does_not_match",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Ecosystem:      "Go",
 						Ignore:         true,
@@ -450,13 +450,13 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			wantOk:    false,
-			wantEntry: PackageOverrideEntry{},
+			wantEntry: &PackageOverrideEntry{},
 		},
 		// -------------------------------------------------------------------------
 		{
 			name: "Ecosystem-level_entry_with_suffix_exists_and_does_match",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Ecosystem:      "Alpine:v3.20",
 						Ignore:         true,
@@ -476,7 +476,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			wantOk: true,
-			wantEntry: PackageOverrideEntry{
+			wantEntry: &PackageOverrideEntry{
 				Ecosystem:      "Alpine:v3.20",
 				Ignore:         true,
 				EffectiveUntil: time.Time{},
@@ -486,7 +486,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 		{
 			name: "Ecosystem-level_entry_with_suffix_exists_and_does_not_match",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Ecosystem:      "Alpine:v3.20",
 						Ignore:         true,
@@ -506,12 +506,12 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			wantOk:    false,
-			wantEntry: PackageOverrideEntry{},
+			wantEntry: &PackageOverrideEntry{},
 		},
 		{
 			name: "Ecosystem-level_entry_without_suffix_exists_and_does_match",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Ecosystem:      "Alpine",
 						Ignore:         true,
@@ -531,7 +531,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			wantOk: true,
-			wantEntry: PackageOverrideEntry{
+			wantEntry: &PackageOverrideEntry{
 				Ecosystem:      "Alpine",
 				Ignore:         true,
 				EffectiveUntil: time.Time{},
@@ -542,7 +542,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 		{
 			name: "Group-level_entry_exists_and_does_match",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Group:          "dev",
 						Ignore:         true,
@@ -560,7 +560,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			wantOk: true,
-			wantEntry: PackageOverrideEntry{
+			wantEntry: &PackageOverrideEntry{
 				Group:          "dev",
 				Ignore:         true,
 				EffectiveUntil: time.Time{},
@@ -570,7 +570,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 		{
 			name: "Group-level_entry_exists_and_does_not_match",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Group:          "dev",
 						Ignore:         true,
@@ -588,12 +588,12 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			wantOk:    false,
-			wantEntry: PackageOverrideEntry{},
+			wantEntry: &PackageOverrideEntry{},
 		},
 		{
 			name: "Group-level_entry_exists_and_does_not_match_when_empty",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Group:          "dev",
 						Ignore:         true,
@@ -608,13 +608,13 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				PURLType: "npm",
 			},
 			wantOk:    false,
-			wantEntry: PackageOverrideEntry{},
+			wantEntry: &PackageOverrideEntry{},
 		},
 		// -------------------------------------------------------------------------
 		{
 			name: "Version-level_entry_exists_and_does_match",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Version:        "1.0.0",
 						Ignore:         true,
@@ -632,7 +632,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			wantOk: true,
-			wantEntry: PackageOverrideEntry{
+			wantEntry: &PackageOverrideEntry{
 				Version:        "1.0.0",
 				Ignore:         true,
 				EffectiveUntil: time.Time{},
@@ -642,7 +642,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 		{
 			name: "Version-level_entry_exists_and_does_not_match",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Version:        "1.0.0",
 						Ignore:         true,
@@ -660,13 +660,13 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			wantOk:    false,
-			wantEntry: PackageOverrideEntry{},
+			wantEntry: &PackageOverrideEntry{},
 		},
 		// -------------------------------------------------------------------------
 		{
 			name: "Name-level_entry_exists_and_does_match",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Name:           "lib1",
 						Ignore:         true,
@@ -684,7 +684,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			wantOk: true,
-			wantEntry: PackageOverrideEntry{
+			wantEntry: &PackageOverrideEntry{
 				Name:           "lib1",
 				Ignore:         true,
 				EffectiveUntil: time.Time{},
@@ -694,7 +694,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 		{
 			name: "Name-level_entry_exists_and_does_not_match",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Name:           "lib1",
 						Ignore:         true,
@@ -712,13 +712,13 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			wantOk:    false,
-			wantEntry: PackageOverrideEntry{},
+			wantEntry: &PackageOverrideEntry{},
 		},
 		// -------------------------------------------------------------------------
 		{
 			name: "Name,_Version,_and_Ecosystem_entry_exists",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Name:           "lib1",
 						Version:        "1.0.0",
@@ -735,7 +735,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				PURLType: purl.TypeGolang,
 			},
 			wantOk: true,
-			wantEntry: PackageOverrideEntry{
+			wantEntry: &PackageOverrideEntry{
 				Name:           "lib1",
 				Version:        "1.0.0",
 				Ecosystem:      "Go",
@@ -747,7 +747,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 		{
 			name: "Name_and_Ecosystem_entry_exists",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Name:           "lib1",
 						Ecosystem:      "Go",
@@ -763,7 +763,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				PURLType: purl.TypeGolang,
 			},
 			wantOk: true,
-			wantEntry: PackageOverrideEntry{
+			wantEntry: &PackageOverrideEntry{
 				Name:           "lib1",
 				Ecosystem:      "Go",
 				Ignore:         true,
@@ -774,7 +774,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 		{
 			name: "Name,_Ecosystem,_and_Group_entry_exists_and_matches",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Name:           "lib1",
 						Ecosystem:      "Go",
@@ -794,7 +794,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			wantOk: true,
-			wantEntry: PackageOverrideEntry{
+			wantEntry: &PackageOverrideEntry{
 				Name:           "lib1",
 				Ecosystem:      "Go",
 				Group:          "dev",
@@ -806,7 +806,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 		{
 			name: "Name,_Ecosystem,_and_Group_entry_exists_but_does_not_match",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Name:           "lib1",
 						Ecosystem:      "Go",
@@ -826,12 +826,12 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			wantOk:    false,
-			wantEntry: PackageOverrideEntry{},
+			wantEntry: &PackageOverrideEntry{},
 		},
 		{
 			name: "Entry_doesn't_exist",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Name:           "lib1",
 						Version:        "2.0.0",
@@ -856,7 +856,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				PURLType: purl.TypeGolang,
 			},
 			wantOk:    false,
-			wantEntry: PackageOverrideEntry{},
+			wantEntry: &PackageOverrideEntry{},
 		},
 	}
 
@@ -883,12 +883,12 @@ func TestConfig_ShouldIgnorePackage_NameIsRegex(t *testing.T) {
 		config    Config
 		args      *extractor.Package
 		wantOk    bool
-		wantEntry PackageOverrideEntry
+		wantEntry *PackageOverrideEntry
 	}{
 		{
 			name: "Regex_matches_package_name",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Name:        "lib.*",
 						NameIsRegex: true,
@@ -903,7 +903,7 @@ func TestConfig_ShouldIgnorePackage_NameIsRegex(t *testing.T) {
 				PURLType: purl.TypeGolang,
 			},
 			wantOk: true,
-			wantEntry: PackageOverrideEntry{
+			wantEntry: &PackageOverrideEntry{
 				Name:        "lib.*",
 				NameIsRegex: true,
 				Ignore:      true,
@@ -913,7 +913,7 @@ func TestConfig_ShouldIgnorePackage_NameIsRegex(t *testing.T) {
 		{
 			name: "Regex_does_not_match_package_name",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Name:        "lib.*",
 						NameIsRegex: true,
@@ -928,12 +928,12 @@ func TestConfig_ShouldIgnorePackage_NameIsRegex(t *testing.T) {
 				PURLType: purl.TypeGolang,
 			},
 			wantOk:    false,
-			wantEntry: PackageOverrideEntry{},
+			wantEntry: &PackageOverrideEntry{},
 		},
 		{
 			name: "Invalid_regex_does_not_match",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Name:        "[invalid",
 						NameIsRegex: true,
@@ -948,12 +948,12 @@ func TestConfig_ShouldIgnorePackage_NameIsRegex(t *testing.T) {
 				PURLType: purl.TypeGolang,
 			},
 			wantOk:    false,
-			wantEntry: PackageOverrideEntry{},
+			wantEntry: &PackageOverrideEntry{},
 		},
 		{
 			name: "NameIsRegex_false_uses_exact_match",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Name:   "lib.*",
 						Ignore: true,
@@ -967,12 +967,12 @@ func TestConfig_ShouldIgnorePackage_NameIsRegex(t *testing.T) {
 				PURLType: purl.TypeGolang,
 			},
 			wantOk:    false,
-			wantEntry: PackageOverrideEntry{},
+			wantEntry: &PackageOverrideEntry{},
 		},
 		{
 			name: "Regex_with_empty_name_matches_all",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Name:        "",
 						NameIsRegex: true,
@@ -987,7 +987,7 @@ func TestConfig_ShouldIgnorePackage_NameIsRegex(t *testing.T) {
 				PURLType: purl.TypeGolang,
 			},
 			wantOk: true,
-			wantEntry: PackageOverrideEntry{
+			wantEntry: &PackageOverrideEntry{
 				Name:        "",
 				NameIsRegex: true,
 				Ignore:      true,
@@ -997,7 +997,7 @@ func TestConfig_ShouldIgnorePackage_NameIsRegex(t *testing.T) {
 		{
 			name: "Regex_is_anchored_and_does_not_partial_match",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Name:        "lib",
 						NameIsRegex: true,
@@ -1012,12 +1012,12 @@ func TestConfig_ShouldIgnorePackage_NameIsRegex(t *testing.T) {
 				PURLType: purl.TypeGolang,
 			},
 			wantOk:    false,
-			wantEntry: PackageOverrideEntry{},
+			wantEntry: &PackageOverrideEntry{},
 		},
 		{
 			name: "Regex_with_top_level_alternation_is_anchored_and_does_not_partial_match",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Name:        "lib|other",
 						NameIsRegex: true,
@@ -1032,12 +1032,12 @@ func TestConfig_ShouldIgnorePackage_NameIsRegex(t *testing.T) {
 				PURLType: purl.TypeGolang,
 			},
 			wantOk:    false,
-			wantEntry: PackageOverrideEntry{},
+			wantEntry: &PackageOverrideEntry{},
 		},
 		{
 			name: "Regex_combined_with_ecosystem_filter",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Name:        "internal-.*",
 						NameIsRegex: true,
@@ -1053,7 +1053,7 @@ func TestConfig_ShouldIgnorePackage_NameIsRegex(t *testing.T) {
 				PURLType: purl.TypeGolang,
 			},
 			wantOk: true,
-			wantEntry: PackageOverrideEntry{
+			wantEntry: &PackageOverrideEntry{
 				Name:        "internal-.*",
 				NameIsRegex: true,
 				Ecosystem:   "Go",
@@ -1064,7 +1064,7 @@ func TestConfig_ShouldIgnorePackage_NameIsRegex(t *testing.T) {
 		{
 			name: "Regex_matches_but_ecosystem_does_not",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Name:        "internal-.*",
 						NameIsRegex: true,
@@ -1080,7 +1080,7 @@ func TestConfig_ShouldIgnorePackage_NameIsRegex(t *testing.T) {
 				PURLType: "npm",
 			},
 			wantOk:    false,
-			wantEntry: PackageOverrideEntry{},
+			wantEntry: &PackageOverrideEntry{},
 		},
 	}
 
@@ -1111,7 +1111,7 @@ func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
 		{
 			name: "Exact_version_entry_exists_with_ignore",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Name:      "lib1",
 						Version:   "1.0.0",
@@ -1133,7 +1133,7 @@ func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
 		{
 			name: "Version_entry_doesn't_exist_with_ignore",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Name:      "lib1",
 						Version:   "1.0.0",
@@ -1155,7 +1155,7 @@ func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
 		{
 			name: "Name_matches_with_ignore",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Name:      "lib1",
 						Ecosystem: "Go",
@@ -1195,12 +1195,12 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 		config    Config
 		args      *extractor.Package
 		wantOk    bool
-		wantEntry PackageOverrideEntry
+		wantEntry *PackageOverrideEntry
 	}{
 		{
 			name: "Exact_version_entry_exists_with_override",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Name:      "lib1",
 						Version:   "1.0.0",
@@ -1218,7 +1218,7 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 				PURLType: purl.TypeGolang,
 			},
 			wantOk: true,
-			wantEntry: PackageOverrideEntry{
+			wantEntry: &PackageOverrideEntry{
 				Name:      "lib1",
 				Version:   "1.0.0",
 				Ecosystem: "Go",
@@ -1231,7 +1231,7 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 		{
 			name: "Exact_version_entry_exists_with_ignore",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Name:      "lib1",
 						Version:   "1.0.0",
@@ -1249,7 +1249,7 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 				PURLType: purl.TypeGolang,
 			},
 			wantOk: true,
-			wantEntry: PackageOverrideEntry{
+			wantEntry: &PackageOverrideEntry{
 				Name:      "lib1",
 				Version:   "1.0.0",
 				Ecosystem: "Go",
@@ -1262,7 +1262,7 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 		{
 			name: "Version_entry_doesn't_exist_with_override",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Name:      "lib1",
 						Version:   "1.0.0",
@@ -1280,12 +1280,12 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 				PURLType: purl.TypeGolang,
 			},
 			wantOk:    false,
-			wantEntry: PackageOverrideEntry{},
+			wantEntry: &PackageOverrideEntry{},
 		},
 		{
 			name: "Version_entry_doesn't_exist_with_ignore",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Name:      "lib1",
 						Version:   "1.0.0",
@@ -1303,12 +1303,12 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 				PURLType: purl.TypeGolang,
 			},
 			wantOk:    false,
-			wantEntry: PackageOverrideEntry{},
+			wantEntry: &PackageOverrideEntry{},
 		},
 		{
 			name: "Name_matches_with_override",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Name:      "lib1",
 						Ecosystem: "Go",
@@ -1325,7 +1325,7 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 				PURLType: purl.TypeGolang,
 			},
 			wantOk: true,
-			wantEntry: PackageOverrideEntry{
+			wantEntry: &PackageOverrideEntry{
 				Name:      "lib1",
 				Ecosystem: "Go",
 				License: License{
@@ -1337,7 +1337,7 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 		{
 			name: "Name_matches_with_ignore",
 			config: Config{
-				PackageOverrides: []PackageOverrideEntry{
+				PackageOverrides: []*PackageOverrideEntry{
 					{
 						Name:      "lib1",
 						Ecosystem: "Go",
@@ -1354,7 +1354,7 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 				PURLType: purl.TypeGolang,
 			},
 			wantOk: true,
-			wantEntry: PackageOverrideEntry{
+			wantEntry: &PackageOverrideEntry{
 				Name:      "lib1",
 				Ecosystem: "Go",
 				License: License{

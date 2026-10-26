@@ -324,6 +324,19 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 		}
 	}
 
+	if unusedPackageOverrides := scanResult.ConfigManager.GetUnusedPackageOverrides(); len(unusedPackageOverrides) != 0 {
+		configFiles := slices.Collect(maps.Keys(unusedPackageOverrides))
+		slices.Sort(configFiles)
+
+		for _, configFile := range configFiles {
+			cmdlogger.Warnf("%s has unused overrides:", configFile)
+
+			for _, po := range unusedPackageOverrides[configFile] {
+				cmdlogger.Warnf(" - %s", po.Name)
+			}
+		}
+	}
+
 	return vulnerabilityResults, determineReturnErr(vulnerabilityResults, actions.ShowAllVulns)
 }
 

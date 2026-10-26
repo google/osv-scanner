@@ -149,6 +149,8 @@ func (a *Annotator) Annotate(_ context.Context, _ *annotator.ScanInput, results 
 				}
 				infos = append(infos, fmt.Sprintf("Package %s has been filtered out because: %s", pkgString, reason))
 
+				ignoreLine.MarkAsUsed()
+
 				continue
 			}
 		}

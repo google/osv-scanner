@@ -1,0 +1,34 @@
+[[PackageOverrides]]
+ecosystem = "npm"
+effectiveUntil = 2005-01-01
+ignore = true
+
+[[PackageOverrides]]
+ecosystem = "Maven"
+name = "org.apache.logging.log4j:log4j-core"
+ignore = true
+effectiveUntil = 2020-01-01
+
+[[PackageOverrides]]
+ecosystem = "Maven"
+ignore = true
+reason = "it makes the table output really really long"
+
+[[PackageOverrides]]
+name = "drupal/simple_sitemap"
+ignore = true
+effectiveUntil = 2017-05-01
+
+[[PackageOverrides]]
+name = "drupal/.*"
+nameIsRegex = true
+ignore = true
+
+[[PackageOverrides]]
+ecosystem = "Packagist"
+effectiveUntil = 2100-01-01
+license.override = ["0BSD"]
+
+[[PackageOverrides]]
+ecosystem = "Alpine"
+license.override = ["MIT"]
