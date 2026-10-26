@@ -365,7 +365,7 @@ func TestConfig_ShouldIgnore(t *testing.T) {
 	}
 }
 
-func TestConfig_ShouldIgnorePackage(t *testing.T) {
+func TestConfig_FindIgnorePackageOverride(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
@@ -845,15 +845,15 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			got := tt.config.ShouldIgnorePackage(tt.args)
+			got := tt.config.FindIgnorePackageOverride(tt.args)
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("ShouldIgnorePackage() got = %v, want %v", got, tt.want)
+				t.Errorf("FindIgnorePackageOverride() got = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestConfig_ShouldIgnorePackage_NameIsRegex(t *testing.T) {
+func TestConfig_FindIgnorePackageOverride_NameIsRegex(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
@@ -1056,9 +1056,9 @@ func TestConfig_ShouldIgnorePackage_NameIsRegex(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			got := tt.config.ShouldIgnorePackage(tt.args)
+			got := tt.config.FindIgnorePackageOverride(tt.args)
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("ShouldIgnorePackage() got = %v, want %v", got, tt.want)
+				t.Errorf("FindIgnorePackageOverride() got = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -1152,7 +1152,7 @@ func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
 	}
 }
 
-func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
+func TestConfig_FindPackageLicenseOverride(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
@@ -1327,9 +1327,9 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			got := tt.config.ShouldOverridePackageLicense(tt.args)
+			got := tt.config.FindPackageLicenseOverride(tt.args)
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("ShouldOverridePackageLicense() got = %v, want %v", got, tt.want)
+				t.Errorf("FindPackageLicenseOverride() got = %v, want %v", got, tt.want)
 			}
 		})
 	}
