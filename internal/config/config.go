@@ -3,6 +3,7 @@ package config
 
 import (
 	"slices"
+	"strings"
 	"time"
 
 	"github.com/google/osv-scalibr/extractor"
@@ -14,10 +15,10 @@ import (
 var OSVScannerConfigName = "osv-scanner.toml"
 
 type Config struct {
-	IgnoredVulns      []*IgnoreEntry         `toml:"IgnoredVulns"`
-	PackageOverrides  []PackageOverrideEntry `toml:"PackageOverrides"`
-	GoVersionOverride string                 `toml:"GoVersionOverride"`
-	ScanGoModVersion  bool                   `toml:"ScanGoModVersion"`
+	IgnoredVulns      []*IgnoreEntry          `toml:"IgnoredVulns"`
+	PackageOverrides  []*PackageOverrideEntry `toml:"PackageOverrides"`
+	GoVersionOverride string                  `toml:"GoVersionOverride"`
+	ScanGoModVersion  bool                    `toml:"ScanGoModVersion"`
 	// The path to config file that this config was loaded from,
 	// set by the scanner after having successfully parsed the file
 	LoadPath string `toml:"-"`
@@ -47,9 +48,41 @@ type PackageOverrideEntry struct {
 	License        License       `toml:"license"`
 	EffectiveUntil time.Time     `toml:"effectiveUntil"`
 	Reason         string        `toml:"reason"`
+
+	Used bool `toml:"-"`
 }
 
-func (e PackageOverrideEntry) matches(pkg *extractor.Package) bool {
+func (e *PackageOverrideEntry) MarkAsUsed() {
+	e.Used = true
+}
+
+func (e *PackageOverrideEntry) Describe() string {
+	var parts []string
+
+	if e.Ecosystem != "" {
+		parts = append(parts, "Ecosystem: "+e.Ecosystem)
+	}
+	if e.Name != "" {
+		parts = append(parts, "Name: "+e.Name)
+	}
+	if e.Version != "" {
+		parts = append(parts, "Version: "+e.Version)
+	}
+	if e.Group != "" {
+		parts = append(parts, "Group: "+e.Group)
+	}
+	if e.Reason != "" {
+		parts = append(parts, "Reason: "+e.Reason)
+	}
+
+	if len(parts) == 0 {
+		return "(blanket ignore)"
+	}
+
+	return strings.Join(parts, ", ")
+}
+
+func (e *PackageOverrideEntry) matches(pkg *extractor.Package) bool {
 	parsedPkg := imodels.ParsePackage(pkg)
 	if e.Name != "" {
 		if e.NameIsRegex {
@@ -102,47 +135,66 @@ func (c *Config) UnusedIgnoredVulns() []*IgnoreEntry {
 	return unused
 }
 
-func (c *Config) ShouldIgnore(vulnID string) (bool, *IgnoreEntry) {
+func (c *Config) UnusedPackageOverrides() []*PackageOverrideEntry {
+	unused := make([]*PackageOverrideEntry, 0, len(c.PackageOverrides))
+
+	for _, entry := range c.PackageOverrides {
+		if !entry.Used {
+			unused = append(unused, entry)
+		}
+	}
+
+	return unused
+}
+
+// FindVulnIgnore returns the first ignore entry relating to the given vulnerability id
+func (c *Config) FindVulnIgnore(vulnID string) *IgnoreEntry {
 	index := slices.IndexFunc(c.IgnoredVulns, func(e *IgnoreEntry) bool { return e.ID == vulnID })
 	if index == -1 {
-		return false, &IgnoreEntry{}
+		return nil
 	}
 	ignoredLine := c.IgnoredVulns[index]
 
-	return shouldIgnoreTimestamp(ignoredLine.IgnoreUntil), ignoredLine
+	if shouldIgnoreTimestamp(ignoredLine.IgnoreUntil) {
+		return ignoredLine
+	}
+
+	return nil
 }
 
-func (c *Config) filterPackageVersionEntries(pkg *extractor.Package, condition func(PackageOverrideEntry) bool) (bool, PackageOverrideEntry) {
-	index := slices.IndexFunc(c.PackageOverrides, func(e PackageOverrideEntry) bool {
+func (c *Config) findFirstRelevantPackageOverride(pkg *extractor.Package, condition func(*PackageOverrideEntry) bool) *PackageOverrideEntry {
+	index := slices.IndexFunc(c.PackageOverrides, func(e *PackageOverrideEntry) bool {
 		return e.matches(pkg) && condition(e)
 	})
 	if index == -1 {
-		return false, PackageOverrideEntry{}
+		return nil
 	}
 	ignoredLine := c.PackageOverrides[index]
 
-	return shouldIgnoreTimestamp(ignoredLine.EffectiveUntil), ignoredLine
+	if shouldIgnoreTimestamp(ignoredLine.EffectiveUntil) {
+		return ignoredLine
+	}
+
+	return nil
 }
 
-// ShouldIgnorePackage determines if the given package should be ignored based on override entries in the config
-func (c *Config) ShouldIgnorePackage(pkg *extractor.Package) (bool, PackageOverrideEntry) {
-	return c.filterPackageVersionEntries(pkg, func(e PackageOverrideEntry) bool {
+// FindIgnorePackageOverride returns the first override entry relating to ignoring the given package entirely
+func (c *Config) FindIgnorePackageOverride(pkg *extractor.Package) *PackageOverrideEntry {
+	return c.findFirstRelevantPackageOverride(pkg, func(e *PackageOverrideEntry) bool {
 		return e.Ignore
 	})
 }
 
-// ShouldIgnorePackageVulnerabilities determines if the given package should have its vulnerabilities ignored based on override entries in the config
-func (c *Config) ShouldIgnorePackageVulnerabilities(pkg *extractor.Package) bool {
-	overrides, _ := c.filterPackageVersionEntries(pkg, func(e PackageOverrideEntry) bool {
+// FindPackageVulnerabilitiesOverride returns the first override entry relating to vulnerabilities for the given package
+func (c *Config) FindPackageVulnerabilitiesOverride(pkg *extractor.Package) *PackageOverrideEntry {
+	return c.findFirstRelevantPackageOverride(pkg, func(e *PackageOverrideEntry) bool {
 		return e.Vulnerability.Ignore
 	})
-
-	return overrides
 }
 
-// ShouldOverridePackageLicense determines if the given package should have its license ignored or changed based on override entries in the config
-func (c *Config) ShouldOverridePackageLicense(pkg *extractor.Package) (bool, PackageOverrideEntry) {
-	return c.filterPackageVersionEntries(pkg, func(e PackageOverrideEntry) bool {
+// FindPackageLicenseOverride returns the first override entry relating to licenses for the given package
+func (c *Config) FindPackageLicenseOverride(pkg *extractor.Package) *PackageOverrideEntry {
+	return c.findFirstRelevantPackageOverride(pkg, func(e *PackageOverrideEntry) bool {
 		return e.License.Ignore || len(e.License.Override) > 0
 	})
 }

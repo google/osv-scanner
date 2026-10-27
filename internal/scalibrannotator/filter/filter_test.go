@@ -112,7 +112,7 @@ func TestAnnotator_Annotate(t *testing.T) {
 			showAllPackages: false,
 			configManager: &config.Manager{
 				OverrideConfig: &config.Config{
-					PackageOverrides: []config.PackageOverrideEntry{
+					PackageOverrides: []*config.PackageOverrideEntry{
 						{
 							Name:      "ignored-pkg",
 							Ecosystem: "npm",

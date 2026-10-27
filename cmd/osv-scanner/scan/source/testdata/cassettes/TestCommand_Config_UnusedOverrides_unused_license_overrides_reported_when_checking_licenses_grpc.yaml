@@ -1,0 +1,321 @@
+interactions:
+    - method: /deps_dev.v3.Insights/GetVersion
+      request: |-
+        {
+          "versionKey": {
+            "name": "ansi-html",
+            "system": "NPM",
+            "version": "0.0.1"
+          }
+        }
+      response: |-
+        {
+          "advisoryKeys": [
+            {
+              "id": "GHSA-whgm-jr23-g3j9"
+            }
+          ],
+          "licenses": [
+            "Apache-2.0"
+          ],
+          "links": [
+            {
+              "label": "HOMEPAGE",
+              "url": "https://github.com/Tjatse/ansi-html"
+            },
+            {
+              "label": "ISSUE_TRACKER",
+              "url": "https://github.com/Tjatse/ansi-html/issues"
+            },
+            {
+              "label": "ORIGIN",
+              "url": "https://registry.npmjs.org/ansi-html/0.0.1"
+            },
+            {
+              "label": "SOURCE_REPO",
+              "url": "git://github.com/Tjatse/ansi-html.git"
+            }
+          ],
+          "publishedAt": "2014-12-15T07:30:55Z",
+          "registries": [
+            "https://registry.npmjs.org/"
+          ],
+          "relatedProjects": [
+            {
+              "projectKey": {
+                "id": "github.com/tjatse/ansi-html"
+              },
+              "relationProvenance": "UNVERIFIED_METADATA",
+              "relationType": "ISSUE_TRACKER"
+            },
+            {
+              "projectKey": {
+                "id": "github.com/tjatse/ansi-html"
+              },
+              "relationProvenance": "UNVERIFIED_METADATA",
+              "relationType": "SOURCE_REPO"
+            }
+          ],
+          "versionKey": {
+            "name": "ansi-html",
+            "system": "NPM",
+            "version": "0.0.1"
+          }
+        }
+    - method: /deps_dev.v3.Insights/GetVersion
+      request: |-
+        {
+          "versionKey": {
+            "name": "ast",
+            "system": "RUBYGEMS",
+            "version": "2.4.2"
+          }
+        }
+      response: |-
+        {
+          "licenses": [
+            "MIT"
+          ],
+          "links": [
+            {
+              "label": "SOURCE_REPO",
+              "url": "https://github.com/whitequark/ast"
+            },
+            {
+              "label": "ISSUE_TRACKER",
+              "url": "https://github.com/whitequark/ast/issues"
+            },
+            {
+              "label": "HOMEPAGE",
+              "url": "https://whitequark.github.io/ast/"
+            },
+            {
+              "label": "DOCUMENTATION",
+              "url": "http://whitequark.github.io/ast"
+            }
+          ],
+          "publishedAt": "2021-01-23T18:56:53Z",
+          "registries": [
+            "https://rubygems.org/"
+          ],
+          "relatedProjects": [
+            {
+              "projectKey": {
+                "id": "github.com/whitequark/ast"
+              },
+              "relationProvenance": "UNVERIFIED_METADATA",
+              "relationType": "SOURCE_REPO"
+            },
+            {
+              "projectKey": {
+                "id": "github.com/whitequark/ast"
+              },
+              "relationProvenance": "UNVERIFIED_METADATA",
+              "relationType": "ISSUE_TRACKER"
+            }
+          ],
+          "versionKey": {
+            "name": "ast",
+            "system": "RUBYGEMS",
+            "version": "2.4.2"
+          }
+        }
+    - method: /deps_dev.v3.Insights/GetVersion
+      request: |-
+        {
+          "versionKey": {
+            "name": "balanced-match",
+            "system": "NPM",
+            "version": "1.0.2"
+          }
+        }
+      response: |-
+        {
+          "licenses": [
+            "MIT"
+          ],
+          "links": [
+            {
+              "label": "HOMEPAGE",
+              "url": "https://github.com/juliangruber/balanced-match"
+            },
+            {
+              "label": "ISSUE_TRACKER",
+              "url": "https://github.com/juliangruber/balanced-match/issues"
+            },
+            {
+              "label": "ORIGIN",
+              "url": "https://registry.npmjs.org/balanced-match/1.0.2"
+            },
+            {
+              "label": "SOURCE_REPO",
+              "url": "git://github.com/juliangruber/balanced-match.git"
+            }
+          ],
+          "publishedAt": "2021-04-06T12:51:09Z",
+          "registries": [
+            "https://registry.npmjs.org/"
+          ],
+          "relatedProjects": [
+            {
+              "projectKey": {
+                "id": "github.com/juliangruber/balanced-match"
+              },
+              "relationProvenance": "UNVERIFIED_METADATA",
+              "relationType": "ISSUE_TRACKER"
+            },
+            {
+              "projectKey": {
+                "id": "github.com/juliangruber/balanced-match"
+              },
+              "relationProvenance": "UNVERIFIED_METADATA",
+              "relationType": "SOURCE_REPO"
+            }
+          ],
+          "versionKey": {
+            "name": "balanced-match",
+            "system": "NPM",
+            "version": "1.0.2"
+          }
+        }
+    - method: /deps_dev.v3.Insights/GetVersion
+      request: |-
+        {
+          "versionKey": {
+            "name": "has-flag",
+            "system": "NPM",
+            "version": "4.0.0"
+          }
+        }
+      response: |-
+        {
+          "licenses": [
+            "MIT"
+          ],
+          "links": [
+            {
+              "label": "HOMEPAGE",
+              "url": "https://github.com/sindresorhus/has-flag#readme"
+            },
+            {
+              "label": "ISSUE_TRACKER",
+              "url": "https://github.com/sindresorhus/has-flag/issues"
+            },
+            {
+              "label": "ORIGIN",
+              "url": "https://registry.npmjs.org/has-flag/4.0.0"
+            },
+            {
+              "label": "SOURCE_REPO",
+              "url": "git+https://github.com/sindresorhus/has-flag.git"
+            }
+          ],
+          "publishedAt": "2019-04-06T15:49:21Z",
+          "registries": [
+            "https://registry.npmjs.org/"
+          ],
+          "relatedProjects": [
+            {
+              "projectKey": {
+                "id": "github.com/sindresorhus/has-flag"
+              },
+              "relationProvenance": "UNVERIFIED_METADATA",
+              "relationType": "ISSUE_TRACKER"
+            },
+            {
+              "projectKey": {
+                "id": "github.com/sindresorhus/has-flag"
+              },
+              "relationProvenance": "UNVERIFIED_METADATA",
+              "relationType": "SOURCE_REPO"
+            }
+          ],
+          "versionKey": {
+            "name": "has-flag",
+            "system": "NPM",
+            "version": "4.0.0"
+          }
+        }
+    - method: /deps_dev.v3.Insights/GetVersion
+      request: |-
+        {
+          "versionKey": {
+            "name": "stdlib",
+            "system": "GO",
+            "version": "go1.99.9"
+          }
+        }
+      error:
+        code: 5
+        message: version not found
+    - method: /deps_dev.v3.Insights/GetVersion
+      request: |-
+        {
+          "versionKey": {
+            "name": "toolchain",
+            "system": "GO",
+            "version": "v1.99.9"
+          }
+        }
+      error:
+        code: 5
+        message: version not found
+    - method: /deps_dev.v3.Insights/GetVersion
+      request: |-
+        {
+          "versionKey": {
+            "name": "wrappy",
+            "system": "NPM",
+            "version": "1.0.2"
+          }
+        }
+      response: |-
+        {
+          "isDefault": true,
+          "licenses": [
+            "ISC"
+          ],
+          "links": [
+            {
+              "label": "HOMEPAGE",
+              "url": "https://github.com/npm/wrappy"
+            },
+            {
+              "label": "ISSUE_TRACKER",
+              "url": "https://github.com/npm/wrappy/issues"
+            },
+            {
+              "label": "ORIGIN",
+              "url": "https://registry.npmjs.org/wrappy/1.0.2"
+            },
+            {
+              "label": "SOURCE_REPO",
+              "url": "git+https://github.com/npm/wrappy.git"
+            }
+          ],
+          "publishedAt": "2016-05-17T23:30:52Z",
+          "registries": [
+            "https://registry.npmjs.org/"
+          ],
+          "relatedProjects": [
+            {
+              "projectKey": {
+                "id": "github.com/npm/wrappy"
+              },
+              "relationProvenance": "UNVERIFIED_METADATA",
+              "relationType": "ISSUE_TRACKER"
+            },
+            {
+              "projectKey": {
+                "id": "github.com/npm/wrappy"
+              },
+              "relationProvenance": "UNVERIFIED_METADATA",
+              "relationType": "SOURCE_REPO"
+            }
+          ],
+          "versionKey": {
+            "name": "wrappy",
+            "system": "NPM",
+            "version": "1.0.2"
+          }
+        }
