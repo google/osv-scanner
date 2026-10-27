@@ -1,4 +1,34 @@
 
+[TestPrintGHAnnotationReport_Escaping/deprecated_package_with_special_characters - 1]
+::error file=path/with%0D%0A%3A%3Awarning%3A%3A%250A%2C/lockfile,line=1::path/with%0D%0A::warning::%250A,/lockfile%0A+--------------------+-----------------+------------+%0A| PACKAGE            | CURRENT VERSION | DEPRECATED |%0A+--------------------+-----------------+------------+%0A| mine               | 1.2.3           | true       |%0A| ::warning::1%250A::, |                 |            |%0A+--------------------+-----------------+------------+
+
+---
+
+[TestPrintGHAnnotationReport_Escaping/package_name_with_special_characters - 1]
+::error file=path/to/lockfile,line=1::path/to/lockfile%0A+--------------------+-----------------------+------+-----------------+---------------+%0A| PACKAGE            | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+--------------------+-----------------------+------+-----------------+---------------+%0A| mine               | https://osv.dev/OSV-1 | 7.5  | 1.2.3           |               |%0A| ::warning::1%250A::, |                       |      |                 |               |%0A+--------------------+-----------------------+------+-----------------+---------------+
+
+---
+
+[TestPrintGHAnnotationReport_Escaping/path_outside_working_directory - 1]
+::error file=relative/path%0A%3A%3Awarning%3A%3Ato/lockfile,line=1::relative/path%0A::warning::to/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 | 7.5  | 1.2.3           |               |%0A+---------+-----------------------+------+-----------------+---------------+
+
+---
+
+[TestPrintGHAnnotationReport_Escaping/path_with_colons_and_commas - 1]
+::error file=path/with%3A%3Acolons%2Cand=commas/lockfile,line=1::path/with::colons,and=commas/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 | 7.5  | 1.2.3           |               |%0A+---------+-----------------------+------+-----------------+---------------+
+
+---
+
+[TestPrintGHAnnotationReport_Escaping/path_with_newlines - 1]
+::error file=path/with%0D%0A%3A%3Awarning%3A%3Anewlines/lockfile,line=1::path/with%0D%0A::warning::newlines/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 | 7.5  | 1.2.3           |               |%0A+---------+-----------------------+------+-----------------+---------------+
+
+---
+
+[TestPrintGHAnnotationReport_Escaping/path_with_percent_encoded_sequences - 1]
+::error file=path/with%250A%250D%2525%253A%252C/lockfile,line=1::path/with%250A%250D%2525%253A%252C/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 | 7.5  | 1.2.3           |               |%0A+---------+-----------------------+------+-----------------+---------------+
+
+---
+
 [TestPrintGHAnnotationReport_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_no_license_violations - 1]
 
 ---
@@ -261,11 +291,6 @@
 
 [TestPrintGHAnnotationReport_WithVulnerabilities/one_source_with_vulnerabilities,_some_missing_content - 1]
 ::error file=path/to/my/first/lockfile,line=1::path/to/my/first/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 |      | 1.2.3           |               |%0A| mine1   | https://osv.dev/OSV-3 |      | 1.2.3           |               |%0A| mine1   | https://osv.dev/OSV-4 |      | 1.2.3           |               |%0A| mine3   | https://osv.dev/OSV-2 |      | 0.10.2-rc       |               |%0A+---------+-----------------------+------+-----------------+---------------+
-
----
-
-[TestPrintGHAnnotationReport_WithVulnerabilities/one_source_with_workflow_command_injection_attempt_in_path - 1]
-::error file=dir%0D%3A%3Astop-commands%3A%3AT%0D%3A%3Aerror%3A%3AINJECTED%0A%3A%3Awarning%3A%3Apwn/lockfile,line=1::dir%0D::stop-commands::T%0D::error::INJECTED%0A::warning::pwn/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 |      | 1.2.3           |               |%0A+---------+-----------------------+------+-----------------+---------------+
 
 ---
 

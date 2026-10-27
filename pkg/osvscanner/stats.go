@@ -29,11 +29,9 @@ func (c *fileOpenedPrinter) AfterExtractorRun(_ string, extractorstats *stats.Af
 
 	pkgsFound := len(extractorstats.Inventory.Packages)
 
-	// systemPath is user-controlled; sanitize \r/\n before logging to prevent
-	// GitHub Actions workflow command injection.
 	cmdlogger.Infof(
 		"Scanned %s file and found %d %s",
-		output.SanitizeForWorkflowCommand(systemPath),
+		systemPath,
 		pkgsFound,
 		output.Form(pkgsFound, "package", "packages"),
 	)

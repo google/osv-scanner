@@ -27,7 +27,6 @@ import (
 	"github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	scanconfig "github.com/google/osv-scanner/v2/internal/config"
-	"github.com/google/osv-scanner/v2/internal/output"
 	"github.com/google/osv-scanner/v2/internal/scalibrannotator/filter"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitcommitdirect"
@@ -248,11 +247,7 @@ func scan(
 
 	// --- Directories ---
 	for _, path := range actions.DirectoryPaths {
-		// path is user-controlled and is logged to stdout, which the GitHub Actions
-		// runner parses for ::command::value sequences regardless of --format.
-		// Sanitize \r/\n so an attacker-supplied directory name cannot inject
-		// workflow commands.
-		cmdlogger.Infof("Scanning dir %s", output.SanitizeForWorkflowCommand(path))
+		cmdlogger.Infof("Scanning dir %s", path)
 		if _, err := pathToRootMap(rootMap, path, actions.Recursive); err != nil {
 			return nil, nil, err
 		}
