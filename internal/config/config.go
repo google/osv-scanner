@@ -2,7 +2,6 @@
 package config
 
 import (
-	"fmt"
 	"slices"
 	"strings"
 	"time"
@@ -58,10 +57,6 @@ func (e *PackageOverrideEntry) MarkAsUsed() {
 }
 
 func (e *PackageOverrideEntry) Describe() string {
-	if e.Reason != "" {
-		return fmt.Sprintf("\"%s\"", e.Reason)
-	}
-
 	var parts []string
 
 	if e.Ecosystem != "" {
@@ -75,6 +70,9 @@ func (e *PackageOverrideEntry) Describe() string {
 	}
 	if e.Group != "" {
 		parts = append(parts, "Group: "+e.Group)
+	}
+	if e.Reason != "" {
+		parts = append(parts, "Reason: "+e.Reason)
 	}
 
 	if len(parts) == 0 {
