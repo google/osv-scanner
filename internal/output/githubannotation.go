@@ -103,7 +103,7 @@ func PrintGHAnnotationReport(vulnResult *models.VulnerabilityResults, outputWrit
 			renderedTable := remediationTable.Render()
 
 			// Prepend the table with a new line to look nicer in the output
-			fmt.Fprintf(outputWriter, "::error file=%s::%s\n",
+			fmt.Fprintf(outputWriter, "::error file=%s,line=1::%s\n",
 				escapeGHProperty.Replace(artifactPath),
 				escapeGHData.Replace(artifactPath+"\n"+renderedTable),
 			)
@@ -114,7 +114,7 @@ func PrintGHAnnotationReport(vulnResult *models.VulnerabilityResults, outputWrit
 		if hasDeprecationTable {
 			renderedDeprecationTable := deprecationTable.Render()
 
-			fmt.Fprintf(outputWriter, "::error file=%s::%s\n",
+			fmt.Fprintf(outputWriter, "::error file=%s,line=1::%s\n",
 				escapeGHProperty.Replace(artifactPath),
 				escapeGHData.Replace(artifactPath+"\n"+renderedDeprecationTable),
 			)
