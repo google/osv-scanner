@@ -258,11 +258,10 @@ func TestConfig_ShouldIgnore(t *testing.T) {
 		vulnID string
 	}
 	tests := []struct {
-		name      string
-		config    Config
-		args      args
-		wantOk    bool
-		wantEntry *IgnoreEntry
+		name   string
+		config Config
+		args   args
+		want   *IgnoreEntry
 	}{
 		// entry exists
 		{
@@ -279,8 +278,7 @@ func TestConfig_ShouldIgnore(t *testing.T) {
 			args: args{
 				vulnID: "GHSA-123",
 			},
-			wantOk: true,
-			wantEntry: &IgnoreEntry{
+			want: &IgnoreEntry{
 				ID:          "GHSA-123",
 				IgnoreUntil: time.Time{},
 				Reason:      "",
@@ -301,8 +299,7 @@ func TestConfig_ShouldIgnore(t *testing.T) {
 			args: args{
 				vulnID: "nonexistent",
 			},
-			wantOk:    false,
-			wantEntry: &IgnoreEntry{},
+			want: nil,
 		},
 		// ignored until a time in the past
 		{
@@ -319,12 +316,7 @@ func TestConfig_ShouldIgnore(t *testing.T) {
 			args: args{
 				vulnID: "GHSA-123",
 			},
-			wantOk: false,
-			wantEntry: &IgnoreEntry{
-				ID:          "GHSA-123",
-				IgnoreUntil: time.Now().Add(-time.Hour).Round(time.Second),
-				Reason:      "",
-			},
+			want: nil,
 		},
 		// ignored until a time in the future
 		{
@@ -341,8 +333,7 @@ func TestConfig_ShouldIgnore(t *testing.T) {
 			args: args{
 				vulnID: "GHSA-123",
 			},
-			wantOk: true,
-			wantEntry: &IgnoreEntry{
+			want: &IgnoreEntry{
 				ID:          "GHSA-123",
 				IgnoreUntil: time.Now().Add(time.Hour).Round(time.Second),
 				Reason:      "",
@@ -354,12 +345,9 @@ func TestConfig_ShouldIgnore(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			gotOk, gotEntry := tt.config.ShouldIgnore(tt.args.vulnID)
-			if gotOk != tt.wantOk {
-				t.Errorf("ShouldIgnore() gotOk = %v, wantOk %v", gotOk, tt.wantOk)
-			}
-			if !reflect.DeepEqual(gotEntry, tt.wantEntry) {
-				t.Errorf("ShouldIgnore() gotEntry = %v, wantEntry %v", gotEntry, tt.wantEntry)
+			got := tt.config.FindVulnIgnore(tt.args.vulnID)
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("FindVulnIgnore() got = %v, want %v", got, tt.want)
 			}
 		})
 	}

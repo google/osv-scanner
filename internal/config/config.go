@@ -159,14 +159,19 @@ func (c *Config) UnusedPackageOverrides() []*PackageOverrideEntry {
 	return unused
 }
 
-func (c *Config) ShouldIgnore(vulnID string) (bool, *IgnoreEntry) {
+// FindVulnIgnore returns the first ignore entry relating to the given vulnerability id
+func (c *Config) FindVulnIgnore(vulnID string) *IgnoreEntry {
 	index := slices.IndexFunc(c.IgnoredVulns, func(e *IgnoreEntry) bool { return e.ID == vulnID })
 	if index == -1 {
-		return false, &IgnoreEntry{}
+		return nil
 	}
 	ignoredLine := c.IgnoredVulns[index]
 
-	return shouldIgnoreTimestamp(ignoredLine.IgnoreUntil), ignoredLine
+	if shouldIgnoreTimestamp(ignoredLine.IgnoreUntil) {
+		return ignoredLine
+	}
+
+	return nil
 }
 
 func (c *Config) findFirstRelevantPackageOverride(pkg *extractor.Package, condition func(*PackageOverrideEntry) bool) *PackageOverrideEntry {
