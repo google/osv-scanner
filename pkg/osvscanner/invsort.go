@@ -4,7 +4,6 @@ import (
 	"cmp"
 	"fmt"
 
-	"github.com/google/osv-scalibr/converter"
 	"github.com/google/osv-scalibr/extractor"
 )
 
@@ -18,8 +17,8 @@ func inventorySort(a, b *extractor.Package) int {
 	var aExtr, bExtr string
 	var aPURL, bPURL string
 
-	aPURLStruct := converter.ToPURL(a)
-	bPURLStruct := converter.ToPURL(b)
+	aPURLStruct := a.PURL()
+	bPURLStruct := b.PURL()
 
 	if aPURLStruct != nil {
 		aPURL = aPURLStruct.String()
