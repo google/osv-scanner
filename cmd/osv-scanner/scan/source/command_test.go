@@ -378,17 +378,6 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "--config=./testdata/osv-scanner-composite-config.toml", "--licenses=MIT", "-L", "osv-scanner:./testdata/locks-insecure/osv-scanner-flutter-deps.json", "./testdata/locks-many-with-insecure", "./testdata/locks-insecure", "./testdata/maven-transitive"},
 			Exit: 1,
 		},
-		{
-			Name: "config_file_with_expired_overrides_are_considered_unused",
-			Args: []string{
-				"", "source",
-				"--config=./testdata/osv-scanner-expired-overrides-config.toml",
-				"--licenses=MIT",
-				"./testdata/locks-many-with-insecure",
-				"./testdata/locks-insecure",
-			},
-			Exit: 1,
-		},
 		// ignored vulnerabilities and packages without a reason should be called out
 		{
 			Name: "ignores_without_reason_should_be_explicitly_called_out",
@@ -468,6 +457,52 @@ func TestCommand_Config_UnusedIgnores(t *testing.T) {
 		{
 			Name: "unused_ignores_are_reported_with_specific_config_and_file",
 			Args: []string{"", "source", "--config", "testdata/osv-scanner-partial-ignores-config.toml", "testdata/sbom-insecure"},
+			Exit: 1,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+
+			testcmd.RunAndMatchSnapshots(t, tt)
+		})
+	}
+}
+
+func TestCommand_Config_UnusedOverrides(t *testing.T) {
+	t.Parallel()
+
+	tests := []testcmd.Case{
+		{
+			Name: "unexpired_license_overrides_usage_not_reported_by_default",
+			Args: []string{
+				"", "source",
+				"--config=./testdata/osv-scanner-expired-overrides-config.toml",
+				"./testdata/locks-many-with-insecure",
+				"./testdata/locks-insecure",
+			},
+			Exit: 1,
+		},
+		{
+			Name: "unused_license_overrides_reported_when_checking_licenses",
+			Args: []string{
+				"", "source",
+				"--config=./testdata/osv-scanner-expired-overrides-config.toml",
+				"--licenses=MIT",
+				"./testdata/locks-many-with-insecure",
+				"./testdata/locks-insecure",
+			},
+			Exit: 1,
+		},
+		{
+			Name: "unused_license_overrides_reported_when_summarizing_licenses",
+			Args: []string{
+				"", "source",
+				"--config=./testdata/osv-scanner-expired-overrides-config.toml",
+				"--licenses=MIT",
+				"./testdata/locks-many-with-insecure",
+				"./testdata/locks-insecure",
+			},
 			Exit: 1,
 		},
 	}

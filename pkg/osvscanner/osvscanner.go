@@ -324,7 +324,22 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 		}
 	}
 
-	if unusedPackageOverrides := scanResult.ConfigManager.GetUnusedPackageOverrides(); len(unusedPackageOverrides) != 0 {
+	unusedPackageOverrides := scanResult.ConfigManager.GetUnusedPackageOverrides()
+
+	// if licenses weren't scanned, we cannot reliably know if unexpired license
+	// overrides would match anything, so remove them from the "unused" map
+	if len(actions.ScanLicensesAllowlist) == 0 && !actions.ScanLicensesSummary {
+		for configFile := range unusedPackageOverrides {
+			unusedPackageOverrides[configFile] = config.OmitUnexpiredLicenseOverrides(unusedPackageOverrides[configFile])
+
+			// if all overrides were relating to licenses, remove the config entirely
+			if len(unusedPackageOverrides[configFile]) == 0 {
+				delete(unusedPackageOverrides, configFile)
+			}
+		}
+	}
+
+	if len(unusedPackageOverrides) != 0 {
 		configFiles := slices.Collect(maps.Keys(unusedPackageOverrides))
 		slices.Sort(configFiles)
 
