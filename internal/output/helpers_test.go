@@ -15,9 +15,11 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/packagelockjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/php/composerlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
+	scalibrosv "github.com/google/osv-scalibr/extractor/filesystem/osv"
 	"github.com/google/osv-scalibr/inventory/vex"
 	"github.com/google/osv-scalibr/purl"
 	"github.com/google/osv-scanner/v2/internal/grouper"
+	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
@@ -46,7 +48,7 @@ type pkginfo struct {
 	Ecosystem     string
 	Deprecated    bool
 	Commit        string
-	ImageOrigin   *models.ImageOriginDetails
+	DepGroups     []string
 	Extractor     extractor.Extractor
 	// Uncalled marks the package as having code that is not in the execute path,
 	// as would be done by call analysis
@@ -81,22 +83,28 @@ func newEcosystemSpecific(fields map[string]any) *structpb.Struct {
 }
 
 func newPackageInfo(source string, pi pkginfo) models.PackageInfo {
-	info := models.PackageInfo{
-		Name:          pi.Name,
-		OSPackageName: pi.OSPackageName,
-		Version:       pi.Version,
-		Ecosystem:     pi.Ecosystem,
-		Commit:        pi.Commit,
-		ImageOrigin:   pi.ImageOrigin,
-		Deprecated:    pi.Deprecated,
-		Inventory: &extractor.Package{
-			Name:     pi.Name,
-			Version:  pi.Version,
-			Plugins:  []string{pi.Extractor.Name()},
-			Location: extractor.LocationFromPath(source),
-			PURLType: resolvePURLType(pi.Ecosystem),
-		},
+	pkg := &extractor.Package{
+		Name:       pi.Name,
+		Version:    pi.Version,
+		Plugins:    []string{pi.Extractor.Name()},
+		Location:   extractor.LocationFromPath(source),
+		PURLType:   resolvePURLType(pi.Ecosystem),
+		Deprecated: pi.Deprecated,
 	}
+
+	if pi.Commit != "" {
+		// todo: this should have a proper "repo" field
+		pkg.SourceCode = &extractor.SourceCodeIdentifier{Commit: pi.Commit}
+	}
+
+	if len(pi.DepGroups) > 0 {
+		pkg.Metadata = &scalibrosv.DepGroupMetadata{DepGroupVals: pi.DepGroups}
+	}
+
+	info := imodels.PackageInfo(pkg)
+
+	info.OSPackageName = pi.OSPackageName
+	info.Ecosystem = pi.Ecosystem
 
 	if pi.Uncalled {
 		info.Inventory.ExploitabilitySignals = []*vex.PackageExploitabilitySignal{{
@@ -109,12 +117,14 @@ func newPackageInfo(source string, pi pkginfo) models.PackageInfo {
 	return info
 }
 
-// buildGroups builds the groups for each package the same way the scanner does,
-// preserving any analysis declared by the fixture's own groups since that
-// cannot be derived from the vulnerabilities alone
-func buildGroups(vulnResult *models.VulnerabilityResults, considerExploitabilitySignals bool) {
+// buildPackageVulns builds the groups and dependency groups for each package the
+// same way the scanner does, preserving any analysis declared by the fixture's
+// own groups since that cannot be derived from the vulnerabilities alone
+func buildPackageVulns(vulnResult *models.VulnerabilityResults, considerExploitabilitySignals bool) {
 	for _, result := range vulnResult.Results {
 		for j := range result.Packages {
+			result.Packages[j].DepGroups = imodels.DepGroups(result.Packages[j].Package.Inventory)
+
 			groups := grouper.Build(result.Packages[j], considerExploitabilitySignals)
 			grouper.CopyAnalysis(result.Packages[j].Groups, groups)
 
@@ -580,9 +590,9 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
+										DepGroups: []string{"dev"},
 										Extractor: packagelockjson.Extractor{},
 									}),
-									DepGroups: []string{"dev"},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:      "OSV-1",
@@ -639,9 +649,9 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
+										DepGroups: []string{"dev"},
 										Extractor: packagelockjson.Extractor{},
 									}),
-									DepGroups: []string{"dev"},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-1",
@@ -1019,9 +1029,9 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
+										DepGroups: []string{"dev", "optional"},
 										Extractor: packagelockjson.Extractor{},
 									}),
-									DepGroups: []string{"dev", "optional"},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-1",
@@ -1060,9 +1070,9 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "npm",
+										DepGroups: []string{"dev"},
 										Extractor: packagelockjson.Extractor{},
 									}),
-									DepGroups: []string{"dev"},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-2",
@@ -1076,9 +1086,9 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Name:      "mine3",
 										Version:   "0.4.1",
 										Ecosystem: "npm",
+										DepGroups: []string{"build"},
 										Extractor: packagelockjson.Extractor{},
 									}),
-									DepGroups: []string{"build"},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-3",
@@ -1151,9 +1161,9 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "NuGet",
+										DepGroups: []string{"dev"},
 										Extractor: dotnetpe.Extractor{},
 									}),
-									DepGroups: []string{"dev"},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-2",
@@ -1167,9 +1177,9 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Name:      "author3/mine3",
 										Version:   "0.4.1",
 										Ecosystem: "Packagist",
+										DepGroups: []string{"build"},
 										Extractor: packagelockjson.Extractor{},
 									}),
-									DepGroups: []string{"build"},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:      "OSV-3",
@@ -1246,9 +1256,9 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "NuGet",
+										DepGroups: []string{"dev"},
 										Extractor: dotnetpe.Extractor{},
 									}),
-									DepGroups: []string{"dev"},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-2",
@@ -1262,9 +1272,9 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Name:      "author3/mine3",
 										Version:   "0.4.1",
 										Ecosystem: "Packagist",
+										DepGroups: []string{"build"},
 										Extractor: packagelockjson.Extractor{},
 									}),
-									DepGroups: []string{"build"},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-3",
@@ -1351,9 +1361,9 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "NuGet",
+										DepGroups: []string{"dev"},
 										Extractor: dotnetpe.Extractor{},
 									}),
-									DepGroups: []string{"dev"},
 									Vulnerabilities: []*osvschema.Vulnerability{
 										{
 											Id:       "OSV-2",
@@ -1367,9 +1377,9 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 										Name:      "author3/mine3",
 										Version:   "0.4.1",
 										Ecosystem: "Packagist",
+										DepGroups: []string{"build"},
 										Extractor: composerlock.Extractor{},
 									}),
-									DepGroups: []string{"build"},
 									Groups: []models.GroupInfo{
 										{
 											IDs: []string{"OSV-3"},
@@ -1748,7 +1758,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			buildGroups(tt.args.vulnResult, tt.considerExploitabilitySignals)
+			buildPackageVulns(tt.args.vulnResult, tt.considerExploitabilitySignals)
 
 			run(t, tt.args)
 		})
@@ -1859,7 +1869,7 @@ func runOutputTestCases(t *testing.T, tests []outputTestCase, run outputTestRunn
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			buildGroups(tt.args.vulnResult, tt.considerExploitabilitySignals)
+			buildPackageVulns(tt.args.vulnResult, tt.considerExploitabilitySignals)
 
 			run(t, tt.args)
 		})
@@ -2163,9 +2173,9 @@ func buildLicenseTestCases(t *testing.T, licenseConfig models.ExperimentalLicens
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
+										DepGroups: []string{"dev"},
 										Extractor: packagelockjson.Extractor{},
 									}),
-									DepGroups:         []string{"dev"},
 									Licenses:          []models.License{"MIT"},
 									LicenseViolations: []models.License{"MIT"},
 								},
@@ -2304,9 +2314,9 @@ func buildLicenseTestCases(t *testing.T, licenseConfig models.ExperimentalLicens
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
+										DepGroups: []string{"dev", "optional"},
 										Extractor: packagelockjson.Extractor{},
 									}),
-									DepGroups:         []string{"dev", "optional"},
 									Licenses:          []models.License{"MIT"},
 									LicenseViolations: []models.License{"MIT"},
 								},
@@ -2320,9 +2330,9 @@ func buildLicenseTestCases(t *testing.T, licenseConfig models.ExperimentalLicens
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "npm",
+										DepGroups: []string{"dev", "optional"},
 										Extractor: packagelockjson.Extractor{},
 									}),
-									DepGroups:         []string{"dev", "optional"},
 									Licenses:          []models.License{"Apache-2.0"},
 									LicenseViolations: []models.License{"Apache-2.0"},
 								},
@@ -2356,9 +2366,9 @@ func buildLicenseTestCases(t *testing.T, licenseConfig models.ExperimentalLicens
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
+										DepGroups: []string{"build"},
 										Extractor: packagelockjson.Extractor{},
 									}),
-									DepGroups:         []string{"build"},
 									Licenses:          []models.License{"MIT"},
 									LicenseViolations: []models.License{"MIT"},
 								},
@@ -2432,9 +2442,9 @@ func buildLicenseTestCases(t *testing.T, licenseConfig models.ExperimentalLicens
 										Name:      "author1/mine1",
 										Version:   "1.2.3",
 										Ecosystem: "Packagist",
+										DepGroups: []string{"dev"},
 										Extractor: composerlock.Extractor{},
 									}),
-									DepGroups:         []string{"dev"},
 									Licenses:          []models.License{"MIT"},
 									LicenseViolations: []models.License{"MIT"},
 								},
@@ -3122,7 +3132,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			buildGroups(tt.args.vulnResult, tt.considerExploitabilitySignals)
+			buildPackageVulns(tt.args.vulnResult, tt.considerExploitabilitySignals)
 
 			run(t, tt.args)
 		})

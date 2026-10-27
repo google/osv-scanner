@@ -5,6 +5,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/osv-scalibr/converter"
 	"github.com/google/osv-scalibr/enricher/vulnmatch/osvutil"
 	"github.com/google/osv-scalibr/extractor"
 	apkmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/apk/metadata"
@@ -77,7 +78,7 @@ func DepGroups(pkg *extractor.Package) []string {
 	return []string{}
 }
 
-func OSPackageName(pkg *extractor.Package) string {
+func osPackageName(pkg *extractor.Package) string {
 	if metadata, ok := pkg.Metadata.(*apkmetadata.Metadata); ok {
 		return metadata.PackageName
 	}
@@ -89,4 +90,34 @@ func OSPackageName(pkg *extractor.Package) string {
 	}
 
 	return ""
+}
+
+func PackageVulns(p *extractor.Package) models.PackageVulns {
+	return models.PackageVulns{Package: PackageInfo(p), DepGroups: DepGroups(p)}
+}
+
+func PackageInfo(p *extractor.Package) models.PackageInfo {
+	parsedPkg := ParsePackage(p)
+
+	pi := models.PackageInfo{
+		Name:          parsedPkg.Name,
+		Version:       parsedPkg.Version,
+		Ecosystem:     parsedPkg.Ecosystem.String(),
+		OSPackageName: osPackageName(p),
+		Commit:        parsedPkg.Commit,
+		Deprecated:    p.Deprecated,
+		Inventory:     p,
+	}
+
+	if packageURL := converter.ToPURL(p); packageURL != nil {
+		pi.PURL = packageURL.String()
+	}
+
+	if p.LayerMetadata != nil {
+		pi.ImageOrigin = &models.ImageOriginDetails{
+			Index: p.LayerMetadata.Index,
+		}
+	}
+
+	return pi
 }
