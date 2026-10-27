@@ -79,17 +79,7 @@ func (e *PackageOverrideEntry) Describe() string {
 		return "(blanket ignore)"
 	}
 
-	var sb strings.Builder
-
-	for _, part := range parts {
-		if sb.Len() > 0 {
-			sb.WriteString(", ")
-		}
-
-		sb.WriteString(part)
-	}
-
-	return sb.String()
+	return strings.Join(parts, ", ")
 }
 
 func (e *PackageOverrideEntry) matches(pkg *extractor.Package) bool {
