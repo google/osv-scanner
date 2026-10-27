@@ -84,7 +84,14 @@ func (e Extractor) Extract(_ context.Context, input *filesystem.ScanInput) (inve
 }
 
 func ecosystemToPURLType(eco string) string {
-	switch strings.ToLower(eco) {
+	name, suffix, _ := strings.Cut(eco, ":")
+
+	// todo: implement support for ecosystem-specific suffixes
+	if suffix != "" {
+		return ""
+	}
+
+	switch strings.ToLower(name) {
 	case "bitnami":
 		return "bitnami"
 	case "conancenter":

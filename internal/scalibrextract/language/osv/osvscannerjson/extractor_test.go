@@ -175,6 +175,7 @@ func TestExtractor_Extract_PURLs(t *testing.T) {
 	wantPURLs := []string{
 		"pkg:bitnami/nginx@1.25.3",
 		"pkg:composer/symfony/http-kernel@6.3.0",
+		"<nil> (drupal/simple_sitemap)",
 		"pkg:conan/zlib@1.3.1",
 		"pkg:cran/readxl@1.4.3",
 		"pkg:dhi/python@3.12.1",
