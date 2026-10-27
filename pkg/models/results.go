@@ -299,6 +299,7 @@ type GroupInfo struct {
 	// Map of Vulnerability IDs to AnalysisInfo
 	ExperimentalAnalysis map[string]AnalysisInfo `json:"experimental_analysis,omitempty"`
 	MaxSeverity          string                  `json:"max_severity"`
+	EcosystemPriority    string                  `json:"-"`
 }
 
 // IsCalled returns true if any analysis performed determines that the vulnerability is being called

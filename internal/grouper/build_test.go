@@ -113,7 +113,22 @@ func TestBuild(t *testing.T) {
 				},
 			},
 			want: []models.GroupInfo{
-				{IDs: []string{"OSV-1", "GHSA-123"}, Aliases: []string{"GHSA-123", "OSV-1"}},
+				{IDs: []string{"OSV-1", "GHSA-123"}, Aliases: []string{"GHSA-123", "OSV-1"}, EcosystemPriority: "negligible"},
+			},
+		},
+		{
+			// the highest priority is neither the first nor the last
+			name: "three_aliases_of_a_single_vulnerability_with_different_ubuntu_priorities",
+			pkg: models.PackageVulns{
+				Package: models.PackageInfo{Name: "mine1", Version: "1.2.3", Ecosystem: "npm"},
+				Vulnerabilities: []*osvschema.Vulnerability{
+					{Id: "OSV-1", Severity: []*osvschema.Severity{{Type: osvschema.Severity_Ubuntu, Score: "medium"}}},
+					{Id: "GHSA-123", Aliases: []string{"OSV-1"}, Severity: []*osvschema.Severity{{Type: osvschema.Severity_Ubuntu, Score: "low"}}},
+					{Id: "OSV-2", Aliases: []string{"OSV-1"}, Severity: []*osvschema.Severity{{Type: osvschema.Severity_Ubuntu, Score: "critical"}}},
+				},
+			},
+			want: []models.GroupInfo{
+				{IDs: []string{"OSV-1", "OSV-2", "GHSA-123"}, Aliases: []string{"GHSA-123", "OSV-1", "OSV-2"}, EcosystemPriority: "critical"},
 			},
 		},
 		{
@@ -178,11 +193,13 @@ func TestBuild(t *testing.T) {
 					ExperimentalAnalysis: map[string]models.AnalysisInfo{
 						"UBUNTU-CVE-2024-0003": {Called: true, Unimportant: true},
 					},
+					EcosystemPriority: "negligible",
 				},
 				{
-					IDs:         []string{"UBUNTU-CVE-2024-0004"},
-					Aliases:     []string{"UBUNTU-CVE-2024-0004"},
-					MaxSeverity: "8.1",
+					IDs:               []string{"UBUNTU-CVE-2024-0004"},
+					Aliases:           []string{"UBUNTU-CVE-2024-0004"},
+					MaxSeverity:       "8.1",
+					EcosystemPriority: "medium",
 				},
 				{
 					IDs:     []string{"UBUNTU-CVE-2024-0005"},

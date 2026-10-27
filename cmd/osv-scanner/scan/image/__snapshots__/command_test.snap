@@ -20,7 +20,7 @@ Checking if docker image ("this-image-definitely-does-not-exist-abcde:with-tag")
 [TestCommand_Docker/Fake_image_entirely - 2 - stderr]
 Docker command exited with code ("/usr/bin/docker pull -q this-image-definitely-does-not-exist-abcde:with-tag"): 1
 STDERR:
-> Error response from daemon: pull access denied for this-image-definitely-does-not-exist-abcde, repository does not exist or may require 'docker login': denied: requested access to the resource is denied
+> Error response from daemon: pull access denied for this-image-definitely-does-not-exist-abcde, repository does not exist or may require 'docker login'
 failed to pull container image: failed to run docker command
 
 ---
