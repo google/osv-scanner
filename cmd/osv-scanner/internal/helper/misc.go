@@ -22,21 +22,17 @@ var (
 
 const serveHost = "127.0.0.1"
 
-func newHTMLServer(outputPath, port string) *http.Server {
-	return &http.Server{
-		Addr: net.JoinHostPort(serveHost, port),
+// ServeHTML serves the single HTML file on the loopback interface.
+// The program will keep running to serve the HTML report on localhost
+// until the user manually terminates it (e.g. using Ctrl+C).
+func ServeHTML(outputPath string) {
+	server := &http.Server{
+		Addr: net.JoinHostPort(serveHost, servePort),
 		Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			http.ServeFile(w, r, outputPath)
 		}),
 		ReadHeaderTimeout: 3 * time.Second,
 	}
-}
-
-// ServeHTML serves the single HTML file on the loopback interface.
-// The program will keep running to serve the HTML report on localhost
-// until the user manually terminates it (e.g. using Ctrl+C).
-func ServeHTML(outputPath string) {
-	server := newHTMLServer(outputPath, servePort)
 	localhostURL := fmt.Sprintf("http://%s/", server.Addr)
 	cmdlogger.Infof("Serving HTML report at %s", localhostURL)
 	cmdlogger.Infof("If you are accessing remotely, use the following SSH command:")
