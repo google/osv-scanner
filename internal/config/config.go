@@ -97,13 +97,6 @@ func (c *Config) FindPackageLicenseOverride(pkg *extractor.Package) *PackageOver
 	})
 }
 
-// isInEffect reports whether the given effectiveUntil time is zero or comes
-// after the current time, indicating the entry it came from should be
-// considered in effect
-func isInEffect(effectiveUntil time.Time) bool {
-	return effectiveUntil.IsZero() || effectiveUntil.After(time.Now())
-}
-
 func (c *Config) warnAboutDuplicates() {
 	seen := make(map[string]struct{})
 
@@ -113,4 +106,11 @@ func (c *Config) warnAboutDuplicates() {
 		}
 		seen[vuln.ID] = struct{}{}
 	}
+}
+
+// isInEffect reports whether the given effectiveUntil time is zero or comes
+// after the current time, indicating the entry it came from should be
+// considered in effect
+func isInEffect(effectiveUntil time.Time) bool {
+	return effectiveUntil.IsZero() || effectiveUntil.After(time.Now())
 }
