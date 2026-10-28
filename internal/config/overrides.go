@@ -104,7 +104,7 @@ func OmitUnexpiredLicenseOverrides(overrides []*PackageOverrideEntry) []*Package
 	for _, override := range overrides {
 		hasLicenseOverride := override.License.Ignore || len(override.License.Override) > 0
 
-		if shouldIgnoreTimestamp(override.EffectiveUntil) && hasLicenseOverride && !override.Ignore && !override.Vulnerability.Ignore {
+		if isInEffect(override.EffectiveUntil) && hasLicenseOverride && !override.Ignore && !override.Vulnerability.Ignore {
 			continue
 		}
 

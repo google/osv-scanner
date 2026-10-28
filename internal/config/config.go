@@ -53,7 +53,7 @@ func (c *Config) FindVulnIgnore(vulnID string) *IgnoreEntry {
 	}
 	ignoredLine := c.IgnoredVulns[index]
 
-	if shouldIgnoreTimestamp(ignoredLine.IgnoreUntil) {
+	if isInEffect(ignoredLine.IgnoreUntil) {
 		return ignoredLine
 	}
 
@@ -69,7 +69,7 @@ func (c *Config) findFirstRelevantPackageOverride(pkg *extractor.Package, condit
 	}
 	ignoredLine := c.PackageOverrides[index]
 
-	if shouldIgnoreTimestamp(ignoredLine.EffectiveUntil) {
+	if isInEffect(ignoredLine.EffectiveUntil) {
 		return ignoredLine
 	}
 
@@ -97,7 +97,7 @@ func (c *Config) FindPackageLicenseOverride(pkg *extractor.Package) *PackageOver
 	})
 }
 
-func shouldIgnoreTimestamp(ignoreUntil time.Time) bool {
+func isInEffect(ignoreUntil time.Time) bool {
 	if ignoreUntil.IsZero() {
 		// If IgnoreUntil is not set, should ignore.
 		return true
