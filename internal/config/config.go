@@ -3,13 +3,10 @@ package config
 
 import (
 	"slices"
-	"strings"
 	"time"
 
 	"github.com/google/osv-scalibr/extractor"
-	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
-	"github.com/google/osv-scanner/v2/internal/imodels"
 )
 
 var OSVScannerConfigName = "osv-scanner.toml"
@@ -22,105 +19,6 @@ type Config struct {
 	// The path to config file that this config was loaded from,
 	// set by the scanner after having successfully parsed the file
 	LoadPath string `toml:"-"`
-}
-
-type IgnoreEntry struct {
-	ID          string    `toml:"id"`
-	IgnoreUntil time.Time `toml:"ignoreUntil"`
-	Reason      string    `toml:"reason"`
-
-	Used bool `toml:"-"`
-}
-
-func (ie *IgnoreEntry) MarkAsUsed() {
-	ie.Used = true
-}
-
-type PackageOverrideEntry struct {
-	Name string `toml:"name"`
-	// If the version is empty, the entry applies to all versions.
-	Version        string        `toml:"version"`
-	Ecosystem      string        `toml:"ecosystem"`
-	Group          string        `toml:"group"`
-	NameIsRegex    bool          `toml:"nameIsRegex"`
-	Ignore         bool          `toml:"ignore"`
-	Vulnerability  Vulnerability `toml:"vulnerability"`
-	License        License       `toml:"license"`
-	EffectiveUntil time.Time     `toml:"effectiveUntil"`
-	Reason         string        `toml:"reason"`
-
-	Used bool `toml:"-"`
-}
-
-func (e *PackageOverrideEntry) MarkAsUsed() {
-	e.Used = true
-}
-
-func (e *PackageOverrideEntry) Describe() string {
-	var parts []string
-
-	if e.Ecosystem != "" {
-		parts = append(parts, "Ecosystem: "+e.Ecosystem)
-	}
-	if e.Name != "" {
-		parts = append(parts, "Name: "+e.Name)
-	}
-	if e.Version != "" {
-		parts = append(parts, "Version: "+e.Version)
-	}
-	if e.Group != "" {
-		parts = append(parts, "Group: "+e.Group)
-	}
-	if e.Reason != "" {
-		parts = append(parts, "Reason: "+e.Reason)
-	}
-
-	if len(parts) == 0 {
-		return "(blanket ignore)"
-	}
-
-	return strings.Join(parts, ", ")
-}
-
-func (e *PackageOverrideEntry) matches(pkg *extractor.Package) bool {
-	parsedPkg := imodels.ParsePackage(pkg)
-	if e.Name != "" {
-		if e.NameIsRegex {
-			re, err := cachedregexp.Compile("^(?:" + e.Name + ")$")
-			if err != nil {
-				// This should not happen as regex is validated at config load time
-				return false
-			}
-			if !re.MatchString(parsedPkg.Name) {
-				return false
-			}
-		} else if e.Name != parsedPkg.Name {
-			return false
-		}
-	}
-	if e.Version != "" && e.Version != parsedPkg.Version {
-		return false
-	}
-	// If there is an ecosystem filter, the filter must not match both the:
-	//  - Full ecosystem + suffix
-	//  - The base ecosystem
-	if e.Ecosystem != "" && (e.Ecosystem != parsedPkg.Ecosystem.String() && e.Ecosystem != string(parsedPkg.Ecosystem.Ecosystem)) {
-		return false
-	}
-	if e.Group != "" && !slices.Contains(imodels.DepGroups(pkg), e.Group) {
-		return false
-	}
-
-	return true
-}
-
-type Vulnerability struct {
-	Ignore bool `toml:"ignore"`
-}
-
-type License struct {
-	Override []string `toml:"override"`
-	Ignore   bool     `toml:"ignore"`
 }
 
 func (c *Config) UnusedIgnoredVulns() []*IgnoreEntry {
@@ -155,7 +53,7 @@ func (c *Config) FindVulnIgnore(vulnID string) *IgnoreEntry {
 	}
 	ignoredLine := c.IgnoredVulns[index]
 
-	if shouldIgnoreTimestamp(ignoredLine.IgnoreUntil) {
+	if isInEffect(ignoredLine.IgnoreUntil) {
 		return ignoredLine
 	}
 
@@ -171,7 +69,7 @@ func (c *Config) findFirstRelevantPackageOverride(pkg *extractor.Package, condit
 	}
 	ignoredLine := c.PackageOverrides[index]
 
-	if shouldIgnoreTimestamp(ignoredLine.EffectiveUntil) {
+	if isInEffect(ignoredLine.EffectiveUntil) {
 		return ignoredLine
 	}
 
@@ -199,16 +97,6 @@ func (c *Config) FindPackageLicenseOverride(pkg *extractor.Package) *PackageOver
 	})
 }
 
-func shouldIgnoreTimestamp(ignoreUntil time.Time) bool {
-	if ignoreUntil.IsZero() {
-		// If IgnoreUntil is not set, should ignore.
-		return true
-	}
-	// Should ignore if IgnoreUntil is still after current time
-	// Takes timezone offsets into account if it is specified. otherwise it's using local time
-	return ignoreUntil.After(time.Now())
-}
-
 func (c *Config) warnAboutDuplicates() {
 	seen := make(map[string]struct{})
 
@@ -218,4 +106,11 @@ func (c *Config) warnAboutDuplicates() {
 		}
 		seen[vuln.ID] = struct{}{}
 	}
+}
+
+// isInEffect reports whether the given effectiveUntil time is zero or comes
+// after the current time, indicating the entry it came from should be
+// considered in effect
+func isInEffect(effectiveUntil time.Time) bool {
+	return effectiveUntil.IsZero() || effectiveUntil.After(time.Now())
 }
