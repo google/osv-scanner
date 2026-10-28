@@ -101,6 +101,11 @@ func TestPrintGHAnnotationReport_Escaping(t *testing.T) {
 		},
 		{
 			name: "path_outside_working_directory",
+			path: filepath.ToSlash(filepath.Dir(cwd)) + "/elsewhere\n::warning::/lockfile",
+			pkg:  vulnerablePackage("mine1"),
+		},
+		{
+			name: "relative_path",
 			path: "relative/path\n::warning::to/lockfile",
 			pkg:  vulnerablePackage("mine1"),
 		},

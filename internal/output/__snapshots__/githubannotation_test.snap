@@ -10,7 +10,7 @@
 ---
 
 [TestPrintGHAnnotationReport_Escaping/path_outside_working_directory - 1]
-::error file=relative/path%0A%3A%3Awarning%3A%3Ato/lockfile,line=1::relative/path%0A::warning::to/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 | 7.5  | 1.2.3           |               |%0A+---------+-----------------------+------+-----------------+---------------+
+::error file=../elsewhere%0A%3A%3Awarning%3A%3A/lockfile,line=1::../elsewhere%0A::warning::/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 | 7.5  | 1.2.3           |               |%0A+---------+-----------------------+------+-----------------+---------------+
 
 ---
 
@@ -26,6 +26,11 @@
 
 [TestPrintGHAnnotationReport_Escaping/path_with_percent_encoded_sequences - 1]
 ::error file=path/with%250A%250D%2525%253A%252C/lockfile,line=1::path/with%250A%250D%2525%253A%252C/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 | 7.5  | 1.2.3           |               |%0A+---------+-----------------------+------+-----------------+---------------+
+
+---
+
+[TestPrintGHAnnotationReport_Escaping/relative_path - 1]
+::error file=relative/path%0A%3A%3Awarning%3A%3Ato/lockfile,line=1::relative/path%0A::warning::to/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 | 7.5  | 1.2.3           |               |%0A+---------+-----------------------+------+-----------------+---------------+
 
 ---
 
