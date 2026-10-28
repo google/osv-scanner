@@ -97,14 +97,11 @@ func (c *Config) FindPackageLicenseOverride(pkg *extractor.Package) *PackageOver
 	})
 }
 
-func isInEffect(ignoreUntil time.Time) bool {
-	if ignoreUntil.IsZero() {
-		// If IgnoreUntil is not set, should ignore.
-		return true
-	}
-	// Should ignore if IgnoreUntil is still after current time
-	// Takes timezone offsets into account if it is specified. otherwise it's using local time
-	return ignoreUntil.After(time.Now())
+// isInEffect reports whether the given effectiveUntil time is zero or comes
+// after the current time, indicating the entry it came from should be
+// considered in effect
+func isInEffect(effectiveUntil time.Time) bool {
+	return effectiveUntil.IsZero() || effectiveUntil.After(time.Now())
 }
 
 func (c *Config) warnAboutDuplicates() {
