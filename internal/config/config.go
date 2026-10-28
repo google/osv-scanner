@@ -53,7 +53,13 @@ func (c *Config) FindVulnIgnore(vulnID string) *IgnoreEntry {
 	}
 	ignoredLine := c.IgnoredVulns[index]
 
-	if isInEffect(ignoredLine.IgnoreUntil) {
+	effectiveUntil := ignoredLine.EffectiveUntil
+
+	if effectiveUntil.IsZero() {
+		effectiveUntil = ignoredLine.IgnoreUntil
+	}
+
+	if isInEffect(effectiveUntil) {
 		return ignoredLine
 	}
 
@@ -105,6 +111,16 @@ func (c *Config) warnAboutDuplicates() {
 			cmdlogger.Warnf("warning: %s has multiple ignores for %s - only the first will be used!", c.LoadPath, vuln.ID)
 		}
 		seen[vuln.ID] = struct{}{}
+	}
+}
+
+func (c *Config) warnAboutIgnoreUntil() {
+	for _, vuln := range c.IgnoredVulns {
+		if !vuln.IgnoreUntil.IsZero() {
+			cmdlogger.Warnf("warning: %s has at least one ignore entry using 'ignoreUntil' which has been deprecated in favor of 'effectiveUntil'", c.LoadPath)
+
+			break
+		}
 	}
 }
 

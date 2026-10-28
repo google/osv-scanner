@@ -150,6 +150,7 @@ func tryLoadConfig(configPath string) (Config, error) {
 
 		config.LoadPath = configPath
 		config.warnAboutDuplicates()
+		config.warnAboutIgnoreUntil()
 
 		for _, override := range config.PackageOverrides {
 			if override.NameIsRegex && override.Name != "" {

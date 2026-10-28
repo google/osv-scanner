@@ -1,4 +1,4 @@
 [[IgnoredVulns]]
 id = "GHSA-jgvc-jfgh-rjvv"
-ignoreUntilTime = 2024-08-02 # whoops, should be "ignoreUntil"
+effectiveUntilTime = 2024-08-02 # whoops, should be "effectiveUntil"
 reason = "..."
