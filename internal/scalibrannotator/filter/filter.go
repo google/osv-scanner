@@ -140,7 +140,7 @@ func (a *Annotator) Annotate(_ context.Context, _ *annotator.ScanInput, results 
 		// 3. Filter Ignored Packages according to config
 		if a.configManager != nil {
 			configToUse := a.configManager.Get(imodels.Location(psr))
-			if ignore, ignoreLine := configToUse.ShouldIgnorePackage(psr); ignore {
+			if ignoreLine := configToUse.FindIgnorePackageOverride(psr); ignoreLine != nil {
 				ignoredCount++
 				pkgString := fmt.Sprintf("%s/%s/%s", parsedPkg.Ecosystem.String(), parsedPkg.Name, parsedPkg.Version)
 				reason := ignoreLine.Reason
@@ -148,6 +148,8 @@ func (a *Annotator) Annotate(_ context.Context, _ *annotator.ScanInput, results 
 					reason = "(no reason given)"
 				}
 				infos = append(infos, fmt.Sprintf("Package %s has been filtered out because: %s", pkgString, reason))
+
+				ignoreLine.MarkAsUsed()
 
 				continue
 			}
