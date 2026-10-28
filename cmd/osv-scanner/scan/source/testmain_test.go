@@ -2,6 +2,7 @@ package source_test
 
 import (
 	"log/slog"
+	"os"
 	"testing"
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/cmd"
@@ -28,6 +29,10 @@ func TestMain(m *testing.M) {
 
 	slog.SetDefault(slog.New(testlogger.New()))
 	testcmd.CommandsUnderTest = []cmd.CommandBuilder{source.Command}
+
+	// ensure SARIF artifact paths are not stripped when running on a GitHub runner
+	_ = os.Unsetenv("GITHUB_WORKSPACE")
+
 	m.Run()
 
 	cleanupGitFixtures()

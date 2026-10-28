@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"os"
 	"path/filepath"
 	"slices"
 	"strconv"
@@ -157,9 +158,54 @@ func createSARIFFixedPkgTable(fixedPkgTableData []FixedPkgTableData) table.Write
 	return helpTable
 }
 
-// stripGitHubWorkspace strips /github/workspace/ from the given path.
+// stripGitHubWorkspace strips the GitHub Actions workspace directory from the
+// given path, so that artifact paths are relative to the repository root.
+//
+// The workspace is read from the GITHUB_WORKSPACE environment variable, which
+// is set on all runners (e.g. /home/runner/work/<repo>/<repo> or D:\a\<repo>\<repo>),
+// falling back to /github/workspace which is where the repository is mounted
+// when running inside a Docker container action.
+//
+// A path that is the workspace itself is returned as ".", so that callers can
+// safely join further path segments onto it.
+//
+// Comparison is a plain string prefix match: it is case-sensitive and does not
+// normalise mixed separators, so on Windows the path and GITHUB_WORKSPACE need
+// to agree on drive-letter case and separator style for the prefix to be stripped.
 func stripGitHubWorkspace(path string) string {
-	return strings.TrimPrefix(path, "/github/workspace/")
+	for _, workspace := range []string{os.Getenv("GITHUB_WORKSPACE"), "/github/workspace"} {
+		if relative, ok := trimWorkspace(path, workspace); ok {
+			return relative
+		}
+	}
+
+	return path
+}
+
+// trimWorkspace returns path relative to workspace, and whether path is within
+// workspace at all (a path that merely shares a prefix is not considered within).
+func trimWorkspace(path, workspace string) (string, bool) {
+	workspace = strings.TrimRight(workspace, `/\`)
+
+	// an empty workspace (either unset, or just a root separator) would otherwise
+	// match every absolute path and silently drop the leading separator
+	if workspace == "" {
+		return path, false
+	}
+
+	rest, ok := strings.CutPrefix(path, workspace)
+	if !ok {
+		return path, false
+	}
+
+	switch {
+	case rest == "":
+		return ".", true
+	case rest[0] == '/' || rest[0] == '\\':
+		return rest[1:], true
+	default:
+		return path, false
+	}
 }
 
 // createSARIFFingerprint generates a stable fingerprint for a SARIF result
