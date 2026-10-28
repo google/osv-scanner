@@ -73,6 +73,7 @@ dockers:
     use: buildx
     build_flag_templates:
       - "--pull"
+      - "--target=cli"
       - "--label=org.opencontainers.image.title=osv-scanner"
       - "--label=org.opencontainers.image.description=Vulnerability scanner written in Go which uses the data provided by https://osv.dev"
       - "--label=org.opencontainers.image.licenses=Apache License 2.0"
@@ -86,12 +87,13 @@ dockers:
   # GitHub Action
   - image_templates:
       - "ghcr.io/google/osv-scanner-action:nightly"
-    dockerfile: goreleaser-action.dockerfile
+    dockerfile: goreleaser.dockerfile
     use: buildx
     extra_files:
       - exit_code_redirect.sh
     build_flag_templates:
       - "--pull"
+      - "--target=action"
       - "--label=org.opencontainers.image.title=osv-scanner-action"
       - "--label=org.opencontainers.image.description=Vulnerability scanner written in Go which uses the data provided by https://osv.dev"
       - "--label=org.opencontainers.image.licenses=Apache-2.0"
