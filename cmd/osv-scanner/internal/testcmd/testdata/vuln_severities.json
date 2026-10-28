@@ -2962,6 +2962,12 @@
       "type": "CVSS_V4"
     }
   ],
+  "GHSA-cxf4-7mrp-vvpr": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:U/C:N/I:L/A:N",
+      "type": "CVSS_V3"
+    }
+  ],
   "GHSA-f3cj-mjqm-fhvj": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",

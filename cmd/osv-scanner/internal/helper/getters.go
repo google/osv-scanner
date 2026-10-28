@@ -10,6 +10,7 @@ import (
 )
 
 func GetScanLicensesAllowlist(cmd *cli.Command) ([]string, error) {
+	// todo: cleanup naming
 	if !cmd.IsSet("licenses") {
 		return []string{}, nil
 	}

@@ -3813,7 +3813,8 @@
             "name": "openssl",
             "os_package_name": "openssl",
             "version": "3.0.2-0ubuntu1.15",
-            "ecosystem": "Ubuntu:22.04"
+            "ecosystem": "Ubuntu:22.04",
+            "purl": "pkg:deb/openssl@3.0.2-0ubuntu1.15"
           },
           "groups": [
             {
@@ -4023,7 +4024,8 @@
           "package": {
             "name": "mine1",
             "version": "1.2.3",
-            "ecosystem": "npm"
+            "ecosystem": "npm",
+            "purl": "pkg:npm/mine1@1.2.3"
           },
           "groups": [
             {
