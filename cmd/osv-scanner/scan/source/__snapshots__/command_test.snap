@@ -2372,6 +2372,7 @@ Total 11 packages affected by 80 known vulnerabilities (5 Critical, 35 High, 28 
 ---
 
 [TestCommand_Config_UnusedIgnores/unused_ignores_are_reported_with_specific_config_and_file - 1 - stdout]
+warning: testdata/osv-scanner-partial-ignores-config.toml has at least one ignore entry using 'ignoreUntil' which has been deprecated in favor of 'effectiveUntil'
 Scanning dir testdata/sbom-insecure/alpine.cdx.xml
 Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packages
 Filtered 1 local/unscannable package/s from the scan.
@@ -2400,6 +2401,7 @@ Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medi
 ---
 
 [TestCommand_Config_UnusedIgnores/unused_ignores_are_reported_with_specific_config_and_file#01 - 1 - stdout]
+warning: testdata/osv-scanner-partial-ignores-config.toml has at least one ignore entry using 'ignoreUntil' which has been deprecated in favor of 'effectiveUntil'
 Scanning dir testdata/sbom-insecure
 Scanned <rootdir>/testdata/sbom-insecure/alpine-zlib-16.cdx.json file and found 1 package
 Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packages
@@ -2467,6 +2469,7 @@ Total 11 packages affected by 25 known vulnerabilities (3 Critical, 10 High, 6 M
 ---
 
 [TestCommand_Config_UnusedIgnores/unused_ignores_are_reported_with_specific_config_and_multiple_files - 1 - stdout]
+warning: testdata/osv-scanner-partial-ignores-config.toml has at least one ignore entry using 'ignoreUntil' which has been deprecated in favor of 'effectiveUntil'
 Scanning dir testdata/sbom-insecure/alpine.cdx.xml
 Scanning dir testdata/sbom-insecure/postgres-stretch.cdx.xml
 Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packages

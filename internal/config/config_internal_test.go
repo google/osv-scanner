@@ -204,11 +204,11 @@ func TestTryLoadConfig_UnknownKeys(t *testing.T) {
 	}{
 		{
 			configPath: "./testdata/unknown-key-1.toml",
-			unknownMsg: "IgnoredVulns.ignoreUntilTime",
+			unknownMsg: "IgnoredVulns.effectiveUntilTime",
 		},
 		{
 			configPath: "./testdata/unknown-key-2.toml",
-			unknownMsg: "IgnoredVulns.ignoreUntiI",
+			unknownMsg: "IgnoredVulns.effectiveUntiI",
 		},
 		{
 			configPath: "./testdata/unknown-key-3.toml",
@@ -251,7 +251,7 @@ func TestTryLoadConfig_UnknownKeys(t *testing.T) {
 	}
 }
 
-func TestConfig_ShouldIgnore(t *testing.T) {
+func TestConfig_FindVulnIgnore(t *testing.T) {
 	t.Parallel()
 
 	type args struct {
@@ -263,15 +263,14 @@ func TestConfig_ShouldIgnore(t *testing.T) {
 		args   args
 		want   *IgnoreEntry
 	}{
-		// entry exists
 		{
-			name: "",
+			name: "ignore_matches",
 			config: Config{
 				IgnoredVulns: []*IgnoreEntry{
 					{
-						ID:          "GHSA-123",
-						IgnoreUntil: time.Time{},
-						Reason:      "",
+						ID:             "GHSA-123",
+						EffectiveUntil: time.Time{},
+						Reason:         "",
 					},
 				},
 			},
@@ -279,20 +278,19 @@ func TestConfig_ShouldIgnore(t *testing.T) {
 				vulnID: "GHSA-123",
 			},
 			want: &IgnoreEntry{
-				ID:          "GHSA-123",
-				IgnoreUntil: time.Time{},
-				Reason:      "",
+				ID:             "GHSA-123",
+				EffectiveUntil: time.Time{},
+				Reason:         "",
 			},
 		},
-		// entry does not exist
 		{
-			name: "",
+			name: "ignore_no_match",
 			config: Config{
 				IgnoredVulns: []*IgnoreEntry{
 					{
-						ID:          "GHSA-123",
-						IgnoreUntil: time.Time{},
-						Reason:      "",
+						ID:             "GHSA-123",
+						EffectiveUntil: time.Time{},
+						Reason:         "",
 					},
 				},
 			},
@@ -301,15 +299,14 @@ func TestConfig_ShouldIgnore(t *testing.T) {
 			},
 			want: nil,
 		},
-		// ignored until a time in the past
 		{
-			name: "",
+			name: "ignore_matches_but_no_longer_effective",
 			config: Config{
 				IgnoredVulns: []*IgnoreEntry{
 					{
-						ID:          "GHSA-123",
-						IgnoreUntil: time.Now().Add(-time.Hour).Round(time.Second),
-						Reason:      "",
+						ID:             "GHSA-123",
+						EffectiveUntil: time.Now().Add(-time.Hour).Round(time.Second),
+						Reason:         "",
 					},
 				},
 			},
@@ -318,15 +315,14 @@ func TestConfig_ShouldIgnore(t *testing.T) {
 			},
 			want: nil,
 		},
-		// ignored until a time in the future
 		{
-			name: "",
+			name: "ignore_matches_if_effective_until_future",
 			config: Config{
 				IgnoredVulns: []*IgnoreEntry{
 					{
-						ID:          "GHSA-123",
-						IgnoreUntil: time.Now().Add(time.Hour).Round(time.Second),
-						Reason:      "",
+						ID:             "GHSA-123",
+						EffectiveUntil: time.Now().Add(time.Hour).Round(time.Second),
+						Reason:         "",
 					},
 				},
 			},
@@ -334,10 +330,70 @@ func TestConfig_ShouldIgnore(t *testing.T) {
 				vulnID: "GHSA-123",
 			},
 			want: &IgnoreEntry{
-				ID:          "GHSA-123",
-				IgnoreUntil: time.Now().Add(time.Hour).Round(time.Second),
-				Reason:      "",
+				ID:             "GHSA-123",
+				EffectiveUntil: time.Now().Add(time.Hour).Round(time.Second),
+				Reason:         "",
 			},
+		},
+		{
+			name: "only_first_match_considered",
+			config: Config{
+				IgnoredVulns: []*IgnoreEntry{
+					{
+						ID:     "GHSA-123",
+						Reason: "first",
+					},
+					{
+						ID:     "GHSA-123",
+						Reason: "second",
+					},
+				},
+			},
+			args: args{
+				vulnID: "GHSA-123",
+			},
+			want: &IgnoreEntry{
+				ID:     "GHSA-123",
+				Reason: "first",
+			},
+		},
+		{
+			name: "only_first_match_considered_even_if_not_effective",
+			config: Config{
+				IgnoredVulns: []*IgnoreEntry{
+					{
+						ID:             "GHSA-123",
+						EffectiveUntil: time.Now().Add(-time.Hour).Round(time.Second),
+						Reason:         "first",
+					},
+					{
+						ID:             "GHSA-123",
+						EffectiveUntil: time.Now().Add(time.Hour).Round(time.Second),
+						Reason:         "second",
+					},
+				},
+			},
+			args: args{
+				vulnID: "GHSA-123",
+			},
+			want: nil,
+		},
+		{
+			name: "effective_until_is_preferred",
+			config: Config{
+				IgnoredVulns: []*IgnoreEntry{
+					{
+						ID:             "GHSA-123",
+						EffectiveUntil: time.Now().Add(-time.Hour).Round(time.Second),
+						IgnoreUntil:    time.Now().Add(time.Hour).Round(time.Second),
+						Reason:         "",
+					},
+				},
+			},
+			args: args{
+				vulnID: "GHSA-123",
+			},
+			want: nil,
 		},
 	}
 
@@ -348,6 +404,22 @@ func TestConfig_ShouldIgnore(t *testing.T) {
 			got := tt.config.FindVulnIgnore(tt.args.vulnID)
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("FindVulnIgnore() got = %v, want %v", got, tt.want)
+			}
+
+			// IgnoreUntil should give the same results as EffectiveUntil
+			for _, ignore := range tt.config.IgnoredVulns {
+				ignore.IgnoreUntil = ignore.EffectiveUntil
+				ignore.EffectiveUntil = time.Time{}
+			}
+
+			if tt.want != nil {
+				tt.want.IgnoreUntil = tt.want.EffectiveUntil
+				tt.want.EffectiveUntil = time.Time{}
+			}
+
+			got = tt.config.FindVulnIgnore(tt.args.vulnID)
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("FindVulnIgnore() (using IgnoreUntil) got = %v, want %v", got, tt.want)
 			}
 		})
 	}
