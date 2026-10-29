@@ -12,6 +12,7 @@ import (
 	scalibrconfig "github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/helper"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
+	"github.com/google/osv-scanner/v2/internal/osvdiet"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
@@ -141,6 +142,10 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 	}
 
 	scannerAction.ExperimentalScannerActions = experimentalScannerActions
+
+	if scannerAction.DiskBackedVulns {
+		defer osvdiet.Cleanup()
+	}
 
 	if clientFactories != nil {
 		scannerAction.ScalibrConfig = &scalibrconfig.PluginConfig{

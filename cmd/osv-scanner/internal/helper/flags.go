@@ -245,5 +245,9 @@ func BuildCommonScanFlags(defaultExtractors []string) []cli.Flag {
 			Name:  "x-no-default-plugins",
 			Usage: "disable default plugins, instead using only those enabled by --x-plugins",
 		},
+		&cli.BoolFlag{
+			Name:  "x-disk-backed-vulns",
+			Usage: "store vulnerability data on disk when scanning to reduce memory usage, at the cost of additional disk usage",
+		},
 	}
 }

@@ -149,12 +149,14 @@ func getPlugins(
 
 	plugins := scalibrplugin.Resolve(actions.PluginsEnabled, actions.PluginsDisabled, finalScalibrConfig)
 
-	for i, plug := range plugins {
-		if plug.Name() == scalibrosvdev.Name && accessors.OSVDevClient != nil {
-			plugins[i] = scalibrosvdev.NewWithClient(
-				osvdiet.New(accessors.OSVDevClient),
-				5*time.Minute,
-			)
+	if actions.DiskBackedVulns {
+		for i, plug := range plugins {
+			if plug.Name() == scalibrosvdev.Name && accessors.OSVDevClient != nil {
+				plugins[i] = scalibrosvdev.NewWithClient(
+					osvdiet.New(accessors.OSVDevClient),
+					5*time.Minute,
+				)
+			}
 		}
 	}
 

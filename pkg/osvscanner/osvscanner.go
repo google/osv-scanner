@@ -72,6 +72,8 @@ type ExperimentalScannerActions struct {
 	PluginsDisabled   []string
 	PluginsNoDefaults bool
 
+	DiskBackedVulns bool
+
 	StatsCollector stats.Collector
 
 	HTTPClient *http.Client
