@@ -24,7 +24,8 @@ var ErrFullDataUnavailable = errors.New("full vulnerability data is not availabl
 
 var global *Client
 
-var slimmed = make(map[weak.Pointer[osvschema.Vulnerability]]struct{})
+// slimmed tracks (weak) pointers to osvschema.Vulnerability that have been slimmed
+var slimmed sync.Map
 
 // Client wraps an osvdev.Client to reduce memory usage by returning "slimmed"
 // vulnerabilities, with the full vulnerability data stored on disk so it can
@@ -135,7 +136,7 @@ func (c *Client) store(vuln *osvschema.Vulnerability) error {
 
 // slim trims the data of the vulnerability to only what the scanner needs
 func slim(vuln *osvschema.Vulnerability) {
-	slimmed[weak.Make(vuln)] = struct{}{}
+	slimmed.Store(weak.Make(vuln), struct{}{})
 
 	vuln.References = nil
 	vuln.DatabaseSpecific = nil
@@ -157,7 +158,7 @@ func slim(vuln *osvschema.Vulnerability) {
 // Fatten returns a version of the vulnerability with all the available data
 func Fatten(vuln *osvschema.Vulnerability) (*osvschema.Vulnerability, error) {
 	// if the vuln isn't slim, return it immediately
-	if _, ok := slimmed[weak.Make(vuln)]; !ok {
+	if _, ok := slimmed.Load(weak.Make(vuln)); !ok {
 		return vuln, nil
 	}
 
