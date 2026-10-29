@@ -21,15 +21,15 @@ var offlineFlags = map[string]string{
 // a "boolean or list" flag whose presence indicates a summary of licenses should
 // be printed, and whose (optional) value will be a comma-delimited list of licenses
 // that should be considered allowed
-type allowedLicencesFlag struct {
+type allowedLicensesFlag struct {
 	allowlist []string
 }
 
-func (g *allowedLicencesFlag) Get() any {
+func (g *allowedLicensesFlag) Get() any {
 	return g
 }
 
-func (g *allowedLicencesFlag) Set(value string) error {
+func (g *allowedLicensesFlag) Set(value string) error {
 	if value == "" || value == "false" || value == "true" {
 		g.allowlist = nil
 	} else {
@@ -41,11 +41,11 @@ func (g *allowedLicencesFlag) Set(value string) error {
 
 // IsBoolFlag indicates that it is valid to use this flag in a boolean context
 // and is what lets us accept both enable/disable and list-of-licenses values
-func (g *allowedLicencesFlag) IsBoolFlag() bool {
+func (g *allowedLicensesFlag) IsBoolFlag() bool {
 	return true
 }
 
-func (g *allowedLicencesFlag) String() string {
+func (g *allowedLicensesFlag) String() string {
 	return strings.Join(g.allowlist, ",")
 }
 
@@ -189,7 +189,7 @@ func BuildCommonScanFlags(defaultExtractors []string) []cli.Flag {
 		&cli.GenericFlag{
 			Name:  "licenses",
 			Usage: "report on licenses based on an allowlist",
-			Value: &allowedLicencesFlag{},
+			Value: &allowedLicensesFlag{},
 		},
 		&cli.BoolFlag{
 			Name:  "x-flag-deprecated-packages",

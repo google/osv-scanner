@@ -356,7 +356,7 @@ func TestCommand(t *testing.T) {
 		},
 		// Go project with an overridden go version and licenses
 		{
-			Name: "Go_project_with_an_overridden_go_version_and_licences",
+			Name: "Go_project_with_an_overridden_go_version_and_licenses",
 			Args: []string{"", "source", "--config=./testdata/go-project/go-version-config.toml", "--licenses", "./testdata/go-project"},
 			Exit: 0,
 		},
