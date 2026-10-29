@@ -30,11 +30,11 @@ type aliasPackageVulns struct {
 }
 
 type slimVulnerability struct {
-	id string
+	vuln *osvschema.Vulnerability
 }
 
 func (sv *slimVulnerability) MarshalJSON() ([]byte, error) {
-	vuln, err := osvdiet.Fatten(&osvschema.Vulnerability{Id: sv.id})
+	vuln, err := osvdiet.Fatten(sv.vuln)
 
 	if err != nil {
 		return nil, err
@@ -70,7 +70,7 @@ func aliasResults(vulnResult *models.VulnerabilityResults) aliasVulnerabilityRes
 			aliased.Results[i].Packages[j].Vulnerabilities = make([]slimVulnerability, len(pkg.Vulnerabilities))
 
 			for k, vuln := range pkg.Vulnerabilities {
-				aliased.Results[i].Packages[j].Vulnerabilities[k] = slimVulnerability{vuln.GetId()}
+				aliased.Results[i].Packages[j].Vulnerabilities[k] = slimVulnerability{vuln}
 			}
 		}
 	}
