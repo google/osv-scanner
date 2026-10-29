@@ -80,6 +80,22 @@ func store(vuln *osvschema.Vulnerability) error {
 
 // slim returns a version of the vulnerability with a subset of the available data
 func slim(vuln *osvschema.Vulnerability) *osvschema.Vulnerability {
+	vuln.References = nil
+	vuln.DatabaseSpecific = nil
+	vuln.Credits = nil
+	vuln.Related = nil
+
+	for _, affected := range vuln.GetAffected() {
+		affected.DatabaseSpecific = nil
+		affected.EcosystemSpecific = nil
+
+		for _, rang := range affected.GetRanges() {
+			rang.DatabaseSpecific = nil
+		}
+
+		affected.Versions = nil
+	}
+
 	return vuln
 }
 
