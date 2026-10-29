@@ -138,14 +138,14 @@ func (c *Client) store(vuln *osvschema.Vulnerability) error {
 func slim(vuln *osvschema.Vulnerability) {
 	slimmed.Store(weak.Make(vuln), struct{}{})
 
-	vuln.References = nil
+	// vuln.References = nil
 	vuln.DatabaseSpecific = nil
-	vuln.Credits = nil
-	vuln.Related = nil
+	// vuln.Credits = nil
+	// vuln.Related = nil
 
 	for _, affected := range vuln.GetAffected() {
 		affected.DatabaseSpecific = nil
-		affected.EcosystemSpecific = nil
+		// affected.EcosystemSpecific = nil
 
 		for _, rang := range affected.GetRanges() {
 			rang.DatabaseSpecific = nil
