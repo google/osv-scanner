@@ -1,6 +1,9 @@
 package osvscanner
 
 import (
+	"os"
+	"strings"
+
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/config"
 	"github.com/google/osv-scanner/v2/pkg/models"
@@ -12,7 +15,17 @@ func filterResults(vulnResults *models.VulnerabilityResults, configManager *conf
 	removedCount := 0
 	newResults := []models.PackageSource{} // Want 0 vulnerabilities to show in JSON as an empty list, not null.
 	for _, pkgSrc := range vulnResults.Results {
-		configToUse := configManager.Get(pkgSrc.Source.Path)
+		configPath := pkgSrc.Source.Path
+		if vulnResults.ImageMetadata != nil {
+			configPath = ""
+		} else if pkgSrc.Source.Type == models.SourceTypeSBOM {
+			if _, err := os.Stat(configPath); err != nil {
+				if idx := strings.LastIndex(configPath, ":"); idx > 1 {
+					configPath = configPath[:idx]
+				}
+			}
+		}
+		configToUse := configManager.Get(configPath)
 		var newPackages []models.PackageVulns
 		for _, pkgVulns := range pkgSrc.Packages {
 			newVulns := filterPackageVulns(pkgVulns, configToUse)

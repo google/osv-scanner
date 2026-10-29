@@ -54,3 +54,23 @@ func Test_filterResults(t *testing.T) {
 		})
 	}
 }
+
+func Test_filterResults_CDXLocationSuffix(t *testing.T) {
+	t.Parallel()
+
+	configManager := config.Manager{
+		DefaultConfig: config.Config{},
+		ConfigMap:     make(map[string]config.Config),
+	}
+
+	got := testutility.LoadJSONFixture[models.VulnerabilityResults](t, filepath.Join("testdata/filter/all", "input.json"))
+	for i := range got.Results {
+		got.Results[i].Source.Type = models.SourceTypeSBOM
+		got.Results[i].Source.Path += ":sub/package-lock.json"
+	}
+
+	filtered := filterResults(&got, &configManager, false)
+	if filtered != 15 {
+		t.Errorf("filterResults() with CDX location suffix = %v, want 15", filtered)
+	}
+}
