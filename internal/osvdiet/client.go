@@ -4,17 +4,27 @@ package osvdiet
 
 import (
 	"context"
+	"errors"
+	"fmt"
 	"os"
 	"path/filepath"
 	"sync"
+	"weak"
 
 	"github.com/google/osv-scalibr/enricher/vulnmatch/osvdev"
+	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"google.golang.org/protobuf/encoding/protojson"
 	"osv.dev/bindings/go/api"
 )
 
+// ErrFullDataUnavailable is returned by Fatten when a vulnerability was
+// slimmed but its full data is no longer available, e.g. after Cleanup
+var ErrFullDataUnavailable = errors.New("full vulnerability data is not available")
+
 var global *Client
+
+var slimmed = make(map[weak.Pointer[osvschema.Vulnerability]]struct{})
 
 // Client wraps an osvdev.Client to reduce memory usage by returning "slimmed"
 // vulnerabilities, with the full vulnerability data stored on disk so it can
@@ -90,16 +100,18 @@ func (c *Client) GetVulnByID(ctx context.Context, id string) (*osvschema.Vulnera
 		return nil, err
 	}
 
-	// ...store the full data on disk...
-	err = c.store(vuln)
+	// ...attempt to store the full vulnerability on disk,
+	// returning it in full if we can't for some reason...
+	if err = c.store(vuln); err != nil {
+		cmdlogger.Warnf("Failed to store full data for %s, so it will be kept in memory: %v", id, err)
 
-	// todo: maybe we warn instead...?
-	if err != nil {
-		return nil, err
+		return vuln, nil
 	}
 
-	// ...and then return a slimmed version of the advisory
-	return slim(vuln), nil
+	// ...otherwise, return a slimmed version of the vulnerability
+	slim(vuln)
+
+	return vuln, nil
 }
 
 var _ osvdev.Client = &Client{}
@@ -121,8 +133,10 @@ func (c *Client) store(vuln *osvschema.Vulnerability) error {
 	return os.WriteFile(filepath.Join(dir, vuln.GetId()+".json"), content, 0600)
 }
 
-// slim returns a version of the vulnerability with a subset of the available data
-func slim(vuln *osvschema.Vulnerability) *osvschema.Vulnerability {
+// slim trims the data of the vulnerability to only what the scanner needs
+func slim(vuln *osvschema.Vulnerability) {
+	slimmed[weak.Make(vuln)] = struct{}{}
+
 	vuln.References = nil
 	vuln.DatabaseSpecific = nil
 	vuln.Credits = nil
@@ -138,28 +152,30 @@ func slim(vuln *osvschema.Vulnerability) *osvschema.Vulnerability {
 
 		affected.Versions = nil
 	}
-
-	return vuln
 }
 
 // Fatten returns a version of the vulnerability with all the available data
 func Fatten(vuln *osvschema.Vulnerability) (*osvschema.Vulnerability, error) {
-	dir, err := global.getDirectory()
-
-	if err != nil {
-		return nil, err
+	// if the vuln isn't slim, return it immediately
+	if _, ok := slimmed[weak.Make(vuln)]; !ok {
+		return vuln, nil
 	}
 
-	// todo: it's possible for other plugins to add vulns...
-	content, err := os.ReadFile(filepath.Join(dir, vuln.GetId()+".json"))
+	if global == nil || global.dir == "" {
+		return nil, fmt.Errorf("%w: %s", ErrFullDataUnavailable, vuln.GetId())
+	}
+
+	content, err := os.ReadFile(filepath.Join(global.dir, vuln.GetId()+".json"))
 
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("reading full data for %s: %w", vuln.GetId(), err)
 	}
 
 	vulnerability := &osvschema.Vulnerability{}
-	if err := protojson.Unmarshal(content, vulnerability); err != nil {
-		return nil, err
+	err = protojson.Unmarshal(content, vulnerability)
+
+	if err != nil {
+		return nil, fmt.Errorf("parsing full data for %s: %w", vuln.GetId(), err)
 	}
 
 	return vulnerability, nil
