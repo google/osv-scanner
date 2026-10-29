@@ -2,6 +2,7 @@ package sourceanalysis
 
 import (
 	"bytes"
+	"debug/dwarf"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -128,5 +129,27 @@ func Test_extractRlibArchive_noObjectFile(t *testing.T) {
 	}
 	if !strings.Contains(err.Error(), "no object file found") {
 		t.Errorf("expected a 'no object file found' error, got: %v", err)
+	}
+}
+
+// A linkage name that is not a string (e.g. an unresolved string offset) should be skipped
+// rather than causing a panic.
+func Test_addRustFunctionsFromEntry_nonStringLinkageName(t *testing.T) {
+	t.Parallel()
+
+	entry := &dwarf.Entry{
+		Tag: dwarf.TagSubprogram,
+		Field: []dwarf.Field{
+			{Attr: dwarf.AttrLinkageName, Val: int64(42), Class: dwarf.ClassStringAlt},
+			{Attr: dwarf.AttrLinkageName, Val: "_ZN4test4main17h0123456789abcdefE", Class: dwarf.ClassString},
+		},
+	}
+
+	output := map[string]struct{}{}
+	addRustFunctionsFromEntry(entry, output)
+
+	want := map[string]struct{}{"test::main": {}}
+	if !reflect.DeepEqual(output, want) {
+		t.Errorf("addRustFunctionsFromEntry() = %v, want %v", output, want)
 	}
 }

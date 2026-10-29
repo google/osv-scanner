@@ -151,29 +151,41 @@ func functionsFromDWARF(readAt io.ReaderAt) (map[string]struct{}, error) {
 			return nil, fmt.Errorf("error parsing binary DWARF data: %w", err)
 		}
 
-		// We only care about contents in functions
-		if entry.Tag != dwarf.TagSubprogram {
-			continue
-		}
-		// Go through fields
-		for _, field := range entry.Field {
-			// We only care about linkage names (including function names)
-			if field.Attr != dwarf.AttrLinkageName {
-				continue
-			}
-
-			val, err := demangle.ToString(field.Val.(string), demangle.NoClones)
-			if err != nil {
-				// most likely not a rust function, so just ignore it
-				continue
-			}
-
-			val = cleanRustFunctionSymbols(val)
-			output[val] = struct{}{}
-		}
+		addRustFunctionsFromEntry(entry, output)
 	}
 
 	return output, nil
+}
+
+// addRustFunctionsFromEntry adds the demangled linkage names of a DWARF subprogram entry to output
+func addRustFunctionsFromEntry(entry *dwarf.Entry, output map[string]struct{}) {
+	// We only care about contents in functions
+	if entry.Tag != dwarf.TagSubprogram {
+		return
+	}
+	// Go through fields
+	for _, field := range entry.Field {
+		// We only care about linkage names (including function names)
+		if field.Attr != dwarf.AttrLinkageName {
+			continue
+		}
+
+		// The linkage name is not always a string, e.g. when it is stored in a
+		// string offsets section that the DWARF reader could not resolve
+		name, ok := field.Val.(string)
+		if !ok {
+			continue
+		}
+
+		val, err := demangle.ToString(name, demangle.NoClones)
+		if err != nil {
+			// most likely not a rust function, so just ignore it
+			continue
+		}
+
+		val = cleanRustFunctionSymbols(val)
+		output[val] = struct{}{}
+	}
 }
 
 // extractRlibArchive return the file path to a temporary ELF Object file extracted from the given rlib.
