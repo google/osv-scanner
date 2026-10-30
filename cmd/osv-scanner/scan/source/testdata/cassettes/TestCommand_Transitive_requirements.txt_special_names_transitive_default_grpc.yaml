@@ -1088,12 +1088,28 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-09-18T22:08:16Z",
               "versionKey": {
                 "name": "appium-python-client",
                 "system": "PYPI",
                 "version": "6.0.7"
+              }
+            },
+            {
+              "publishedAt": "2026-10-20T15:02:54Z",
+              "versionKey": {
+                "name": "appium-python-client",
+                "system": "PYPI",
+                "version": "6.0.8"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-10-24T17:07:49Z",
+              "versionKey": {
+                "name": "appium-python-client",
+                "system": "PYPI",
+                "version": "6.0.9"
               }
             }
           ]
@@ -6798,12 +6814,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-08-20T11:17:48Z",
               "versionKey": {
                 "name": "zope-interface",
                 "system": "PYPI",
                 "version": "8.6.0"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-10-15T07:24:28Z",
+              "versionKey": {
+                "name": "zope-interface",
+                "system": "PYPI",
+                "version": "8.7.0"
               }
             }
           ]
@@ -6881,7 +6905,7 @@ interactions:
           "versionKey": {
             "name": "zope-interface",
             "system": "PYPI",
-            "version": "8.6.0"
+            "version": "8.7.0"
           }
         }
       response: |-
@@ -6938,6 +6962,6 @@ interactions:
                 "name": "testing"
               }
             ],
-            "requiredPythonVersion": "\u003e=3.10"
+            "requiredPythonVersion": "\u003e=3.11"
           }
         }
