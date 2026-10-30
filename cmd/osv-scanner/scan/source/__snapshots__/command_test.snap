@@ -279,7 +279,7 @@ No issues found
 
 ---
 
-[TestCommand/Go_project_with_an_overridden_go_version_and_licences - 1 - stdout]
+[TestCommand/Go_project_with_an_overridden_go_version_and_licenses - 1 - stdout]
 Scanning dir ./testdata/go-project
 Scanned <rootdir>/testdata/go-project/go.mod file and found 1 package
 
@@ -289,7 +289,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
-[TestCommand/Go_project_with_an_overridden_go_version_and_licences - 2 - stderr]
+[TestCommand/Go_project_with_an_overridden_go_version_and_licenses - 2 - stderr]
 
 ---
 
