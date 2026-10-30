@@ -94,6 +94,12 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "-L", "./testdata/sbom-grouping/npm-scope.cdx.json"},
 			Exit: 1,
 		},
+		// SPDX SBOM with npm scope namespace and Go module ending in /go in PURL
+		{
+			Name: "SPDX_npm_SBOM_with_scope_namespace",
+			Args: []string{"", "source", "-L", "./testdata/sbom-grouping/npm-scope.spdx.json"},
+			Exit: 1,
+		},
 		// one file that does not match the supported sbom file names
 		{
 			Name: "one_file_that_does_not_match_the_supported_sbom_file_names",
@@ -1488,6 +1494,11 @@ func TestCommand_Transitive(t *testing.T) {
 			Name: "requirements.txt_resolution_fallback",
 			Args: []string{"", "source", "./testdata/locks-requirements/unresolvable-requirements.txt"},
 			Exit: 1,
+		},
+		{
+			Name: "requirements.txt_special_names_transitive_default",
+			Args: []string{"", "source", "./testdata/locks-requirements/requirements-special-names.txt"},
+			Exit: 0,
 		},
 	}
 
