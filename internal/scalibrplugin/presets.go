@@ -22,7 +22,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/erlang/mixlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gobinary"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gomod"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/haskell/cabal"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/haskell/cabalprojectfreeze"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/haskell/stacklock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/archive"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/gradlelockfile"
@@ -129,8 +129,8 @@ var ExtractorPresets = map[string]extractors.InitMap{
 		packageslockjson.Name: {protoCfg(packageslockjson.New)},
 
 		// Haskell
-		cabal.Name:     {protoCfg(cabal.New)},
-		stacklock.Name: {protoCfg(stacklock.New)},
+		cabalprojectfreeze.Name: {protoCfg(cabalprojectfreeze.New)},
+		stacklock.Name:          {protoCfg(stacklock.New)},
 
 		osvscannerjson.Name: {protoCfg(osvscannerjson.New)},
 
