@@ -39,6 +39,7 @@ os/chisel
 os/dpkg
 os/homebrew
 os/rpm
+os/ubuntu/binarytosource
 osv/osvscannerjson
 php/composerlock
 python/pdmlock
@@ -135,6 +136,7 @@ license/depsdev
 ---
 
 [TestResolve_Enrichers_Presets/vulns - 1]
+os/ubuntu/binarytosource
 vulnmatch/osvdev
 vulnmatch/osvlocal
 ---
