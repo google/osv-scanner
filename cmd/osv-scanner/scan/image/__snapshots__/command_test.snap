@@ -2767,20 +2767,20 @@ Scanning local image tarball "./testdata/test-python-full.tar"
           },
           "groups": 14,
           "vulnerabilities": [
+            "ALSA-2023:6679",
+            "ALSA-2026:55439",
+            "ALSA-2023:2478",
+            "ALSA-2023:4354",
+            "ALSA-2023:5763",
+            "ALSA-2023:6745",
+            "ALSA-2026:69126",
             "ALSA-2022:8299",
             "ALSA-2023:0333",
             "ALSA-2023:1701",
-            "ALSA-2023:2478",
             "ALSA-2023:2650",
-            "ALSA-2023:4354",
-            "ALSA-2023:5763",
-            "ALSA-2023:6679",
-            "ALSA-2023:6745",
             "ALSA-2024:1129",
             "ALSA-2024:5529",
-            "ALSA-2026:1350",
-            "ALSA-2026:55439",
-            "ALSA-2026:69126"
+            "ALSA-2026:1350"
           ]
         },
         {
@@ -2846,16 +2846,16 @@ Scanning local image tarball "./testdata/test-python-full.tar"
           },
           "groups": 10,
           "vulnerabilities": [
-            "ALSA-2023:0337",
-            "ALSA-2024:1530",
             "ALSA-2024:6754",
+            "ALSA-2024:1530",
+            "ALSA-2026:64812",
+            "ALSA-2026:72663",
+            "ALSA-2023:0337",
             "ALSA-2024:9541",
             "ALSA-2025:22175",
             "ALSA-2025:3531",
             "ALSA-2025:7444",
-            "ALSA-2026:23230",
-            "ALSA-2026:64812",
-            "ALSA-2026:72663"
+            "ALSA-2026:23230"
           ]
         },
         {
@@ -2903,14 +2903,14 @@ Scanning local image tarball "./testdata/test-python-full.tar"
           },
           "groups": 9,
           "vulnerabilities": [
+            "ALSA-2026:55440",
             "ALSA-2023:6631",
-            "ALSA-2024:6464",
             "ALSA-2025:11140",
-            "ALSA-2026:0936",
             "ALSA-2026:15971",
             "ALSA-2026:19361",
+            "ALSA-2024:6464",
+            "ALSA-2026:0936",
             "ALSA-2026:42089",
-            "ALSA-2026:55440",
             "ALSA-2026:64800"
           ]
         },
@@ -2927,15 +2927,15 @@ Scanning local image tarball "./testdata/test-python-full.tar"
           },
           "groups": 9,
           "vulnerabilities": [
-            "ALSA-2023:5453",
             "ALSA-2024:3339",
+            "ALSA-2023:5453",
+            "ALSA-2026:20597",
+            "ALSA-2026:2786",
+            "ALSA-2026:42952",
             "ALSA-2025:4244",
             "ALSA-2025:8655",
             "ALSA-2025:9877",
-            "ALSA-2026:20597",
-            "ALSA-2026:2786",
-            "ALSA-2026:33226",
-            "ALSA-2026:42952"
+            "ALSA-2026:33226"
           ]
         },
         {
@@ -2951,15 +2951,15 @@ Scanning local image tarball "./testdata/test-python-full.tar"
           },
           "groups": 9,
           "vulnerabilities": [
-            "ALSA-2023:5453",
             "ALSA-2024:3339",
+            "ALSA-2023:5453",
+            "ALSA-2026:20597",
+            "ALSA-2026:2786",
+            "ALSA-2026:42952",
             "ALSA-2025:4244",
             "ALSA-2025:8655",
             "ALSA-2025:9877",
-            "ALSA-2026:20597",
-            "ALSA-2026:2786",
-            "ALSA-2026:33226",
-            "ALSA-2026:42952"
+            "ALSA-2026:33226"
           ]
         },
         {
@@ -2975,15 +2975,15 @@ Scanning local image tarball "./testdata/test-python-full.tar"
           },
           "groups": 9,
           "vulnerabilities": [
-            "ALSA-2023:5453",
             "ALSA-2024:3339",
+            "ALSA-2023:5453",
+            "ALSA-2026:20597",
+            "ALSA-2026:2786",
+            "ALSA-2026:42952",
             "ALSA-2025:4244",
             "ALSA-2025:8655",
             "ALSA-2025:9877",
-            "ALSA-2026:20597",
-            "ALSA-2026:2786",
-            "ALSA-2026:33226",
-            "ALSA-2026:42952"
+            "ALSA-2026:33226"
           ]
         },
         {
@@ -3031,14 +3031,14 @@ Scanning local image tarball "./testdata/test-python-full.tar"
           },
           "groups": 8,
           "vulnerabilities": [
-            "ALSA-2023:1141",
+            "ALSA-2026:20612",
+            "ALSA-2025:16116",
             "ALSA-2024:0533",
             "ALSA-2024:1879",
             "ALSA-2024:2570",
-            "ALSA-2025:16116",
-            "ALSA-2025:7076",
-            "ALSA-2026:20612",
-            "ALSA-2026:4188"
+            "ALSA-2026:4188",
+            "ALSA-2023:1141",
+            "ALSA-2025:7076"
           ]
         },
         {
@@ -3087,15 +3087,15 @@ Scanning local image tarball "./testdata/test-python-full.tar"
           },
           "groups": 9,
           "vulnerabilities": [
-            "ALSA-2022:8637",
-            "ALSA-2023:2570",
+            "ALSA-2024:9331",
             "ALSA-2023:6699",
             "ALSA-2024:6166",
-            "ALSA-2024:9331",
+            "ALSA-2026:19357",
+            "ALSA-2022:8637",
+            "ALSA-2023:2570",
             "ALSA-2024:9474",
             "ALSA-2025:7067",
-            "ALSA-2025:9430",
-            "ALSA-2026:19357"
+            "ALSA-2025:9430"
           ]
         },
         {
@@ -3145,12 +3145,12 @@ Scanning local image tarball "./testdata/test-python-full.tar"
           },
           "groups": 6,
           "vulnerabilities": [
+            "ALSA-2026:8510",
             "ALSA-2023:2532",
             "ALSA-2025:14130",
             "ALSA-2025:9431",
             "ALSA-2026:5080",
-            "ALSA-2026:52674",
-            "ALSA-2026:8510"
+            "ALSA-2026:52674"
           ]
         },
         {
@@ -3232,20 +3232,20 @@ Scanning local image tarball "./testdata/test-python-full.tar"
           },
           "groups": 14,
           "vulnerabilities": [
+            "ALSA-2023:6679",
+            "ALSA-2026:55439",
+            "ALSA-2023:2478",
+            "ALSA-2023:4354",
+            "ALSA-2023:5763",
+            "ALSA-2023:6745",
+            "ALSA-2026:69126",
             "ALSA-2022:8299",
             "ALSA-2023:0333",
             "ALSA-2023:1701",
-            "ALSA-2023:2478",
             "ALSA-2023:2650",
-            "ALSA-2023:4354",
-            "ALSA-2023:5763",
-            "ALSA-2023:6679",
-            "ALSA-2023:6745",
             "ALSA-2024:1129",
             "ALSA-2024:5529",
-            "ALSA-2026:1350",
-            "ALSA-2026:55439",
-            "ALSA-2026:69126"
+            "ALSA-2026:1350"
           ]
         },
         {
@@ -3492,20 +3492,20 @@ Scanning local image tarball "./testdata/test-python-full.tar"
           },
           "groups": 14,
           "vulnerabilities": [
+            "ALSA-2026:71585",
+            "ALSA-2025:10699",
             "ALSA-2023:0338",
             "ALSA-2023:4349",
+            "ALSA-2025:13428",
+            "ALSA-2025:2679",
+            "ALSA-2026:61247",
             "ALSA-2023:7747",
             "ALSA-2024:2679",
-            "ALSA-2025:10699",
             "ALSA-2025:12447",
-            "ALSA-2025:13428",
             "ALSA-2025:1350",
             "ALSA-2025:22376",
-            "ALSA-2025:2679",
             "ALSA-2026:28254",
-            "ALSA-2026:39317",
-            "ALSA-2026:61247",
-            "ALSA-2026:71585"
+            "ALSA-2026:39317"
           ]
         },
         {
@@ -3521,8 +3521,8 @@ Scanning local image tarball "./testdata/test-python-full.tar"
           },
           "groups": 3,
           "vulnerabilities": [
-            "ALSA-2022:7329",
             "ALSA-2023:0957",
+            "ALSA-2022:7329",
             "ALSA-2023:2582"
           ]
         },
@@ -3571,20 +3571,20 @@ Scanning local image tarball "./testdata/test-python-full.tar"
           },
           "groups": 14,
           "vulnerabilities": [
+            "ALSA-2026:25239",
+            "ALSA-2026:1473",
+            "ALSA-2026:67165",
             "ALSA-2023:0946",
-            "ALSA-2023:2523",
-            "ALSA-2023:3722",
-            "ALSA-2024:0310",
             "ALSA-2024:2447",
-            "ALSA-2024:6783",
+            "ALSA-2023:3722",
             "ALSA-2024:9333",
+            "ALSA-2026:22312",
+            "ALSA-2023:2523",
+            "ALSA-2024:0310",
+            "ALSA-2024:6783",
             "ALSA-2025:1330",
             "ALSA-2025:21255",
-            "ALSA-2026:1473",
-            "ALSA-2026:19218",
-            "ALSA-2026:22312",
-            "ALSA-2026:25239",
-            "ALSA-2026:67165"
+            "ALSA-2026:19218"
           ]
         },
         {
@@ -3600,20 +3600,20 @@ Scanning local image tarball "./testdata/test-python-full.tar"
           },
           "groups": 14,
           "vulnerabilities": [
+            "ALSA-2026:25239",
+            "ALSA-2026:1473",
+            "ALSA-2026:67165",
             "ALSA-2023:0946",
-            "ALSA-2023:2523",
-            "ALSA-2023:3722",
-            "ALSA-2024:0310",
             "ALSA-2024:2447",
-            "ALSA-2024:6783",
+            "ALSA-2023:3722",
             "ALSA-2024:9333",
+            "ALSA-2026:22312",
+            "ALSA-2023:2523",
+            "ALSA-2024:0310",
+            "ALSA-2024:6783",
             "ALSA-2025:1330",
             "ALSA-2025:21255",
-            "ALSA-2026:1473",
-            "ALSA-2026:19218",
-            "ALSA-2026:22312",
-            "ALSA-2026:25239",
-            "ALSA-2026:67165"
+            "ALSA-2026:19218"
           ]
         },
         {
@@ -3663,10 +3663,10 @@ Scanning local image tarball "./testdata/test-python-full.tar"
           },
           "groups": 6,
           "vulnerabilities": [
+            "ALSA-2025:15099",
             "ALSA-2024:10244",
             "ALSA-2024:11250",
             "ALSA-2024:2438",
-            "ALSA-2025:15099",
             "ALSA-2025:9526",
             "ALSA-2026:64815"
           ]
@@ -3684,30 +3684,30 @@ Scanning local image tarball "./testdata/test-python-full.tar"
           },
           "groups": 26,
           "vulnerabilities": [
-            "ALSA-2022:7323",
+            "ALSA-2025:10136",
+            "ALSA-2025:23342",
+            "ALSA-2026:4168",
+            "ALSA-2026:19216",
             "ALSA-2022:8353",
+            "ALSA-2024:10983",
+            "ALSA-2024:4078",
+            "ALSA-2026:10949",
+            "ALSA-2022:7323",
             "ALSA-2022:8493",
             "ALSA-2023:0953",
             "ALSA-2023:3595",
             "ALSA-2023:5462",
             "ALSA-2023:6659",
             "ALSA-2024:0466",
-            "ALSA-2024:10983",
-            "ALSA-2024:4078",
             "ALSA-2024:4779",
             "ALSA-2024:6163",
             "ALSA-2024:8446",
             "ALSA-2024:9371",
             "ALSA-2024:9468",
-            "ALSA-2025:10136",
             "ALSA-2025:15019",
-            "ALSA-2025:23342",
             "ALSA-2025:6977",
-            "ALSA-2026:10949",
             "ALSA-2026:1478",
-            "ALSA-2026:19216",
             "ALSA-2026:39798",
-            "ALSA-2026:4168",
             "ALSA-2026:54268",
             "ALSA-2026:6766"
           ]
@@ -3725,30 +3725,30 @@ Scanning local image tarball "./testdata/test-python-full.tar"
           },
           "groups": 26,
           "vulnerabilities": [
-            "ALSA-2022:7323",
+            "ALSA-2025:10136",
+            "ALSA-2025:23342",
+            "ALSA-2026:4168",
+            "ALSA-2026:19216",
             "ALSA-2022:8353",
+            "ALSA-2024:10983",
+            "ALSA-2024:4078",
+            "ALSA-2026:10949",
+            "ALSA-2022:7323",
             "ALSA-2022:8493",
             "ALSA-2023:0953",
             "ALSA-2023:3595",
             "ALSA-2023:5462",
             "ALSA-2023:6659",
             "ALSA-2024:0466",
-            "ALSA-2024:10983",
-            "ALSA-2024:4078",
             "ALSA-2024:4779",
             "ALSA-2024:6163",
             "ALSA-2024:8446",
             "ALSA-2024:9371",
             "ALSA-2024:9468",
-            "ALSA-2025:10136",
             "ALSA-2025:15019",
-            "ALSA-2025:23342",
             "ALSA-2025:6977",
-            "ALSA-2026:10949",
             "ALSA-2026:1478",
-            "ALSA-2026:19216",
             "ALSA-2026:39798",
-            "ALSA-2026:4168",
             "ALSA-2026:54268",
             "ALSA-2026:6766"
           ]
@@ -3897,11 +3897,11 @@ Scanning local image tarball "./testdata/test-python-full.tar"
           },
           "groups": 5,
           "vulnerabilities": [
+            "ALSA-2026:58936",
             "ALSA-2023:0339",
             "ALSA-2024:0465",
             "ALSA-2025:11992",
-            "ALSA-2025:20936",
-            "ALSA-2026:58936"
+            "ALSA-2025:20936"
           ]
         },
         {
@@ -3917,8 +3917,8 @@ Scanning local image tarball "./testdata/test-python-full.tar"
           },
           "groups": 6,
           "vulnerabilities": [
-            "ALSA-2023:0336",
             "ALSA-2023:0954",
+            "ALSA-2023:0336",
             "ALSA-2024:2463",
             "ALSA-2025:22660",
             "ALSA-2026:13677",
@@ -3938,8 +3938,8 @@ Scanning local image tarball "./testdata/test-python-full.tar"
           },
           "groups": 6,
           "vulnerabilities": [
-            "ALSA-2023:0336",
             "ALSA-2023:0954",
+            "ALSA-2023:0336",
             "ALSA-2024:2463",
             "ALSA-2025:22660",
             "ALSA-2026:13677",
@@ -3959,8 +3959,8 @@ Scanning local image tarball "./testdata/test-python-full.tar"
           },
           "groups": 6,
           "vulnerabilities": [
-            "ALSA-2023:0336",
             "ALSA-2023:0954",
+            "ALSA-2023:0336",
             "ALSA-2024:2463",
             "ALSA-2025:22660",
             "ALSA-2026:13677",
@@ -3980,8 +3980,8 @@ Scanning local image tarball "./testdata/test-python-full.tar"
           },
           "groups": 6,
           "vulnerabilities": [
-            "ALSA-2023:0336",
             "ALSA-2023:0954",
+            "ALSA-2023:0336",
             "ALSA-2024:2463",
             "ALSA-2025:22660",
             "ALSA-2026:13677",
@@ -4001,9 +4001,9 @@ Scanning local image tarball "./testdata/test-python-full.tar"
           },
           "groups": 3,
           "vulnerabilities": [
+            "ALSA-2026:61581",
             "ALSA-2023:0959",
-            "ALSA-2026:0067",
-            "ALSA-2026:61581"
+            "ALSA-2026:0067"
           ]
         },
         {
@@ -4067,20 +4067,20 @@ Scanning local image tarball "./testdata/test-python-full.tar"
           },
           "groups": 14,
           "vulnerabilities": [
-            "ALSA-2023:0958",
-            "ALSA-2024:9405",
+            "ALSA-2026:66366",
+            "ALSA-2026:47982",
+            "ALSA-2026:38511",
+            "ALSA-2026:8259",
             "ALSA-2025:17742",
             "ALSA-2025:20945",
+            "ALSA-2023:0958",
+            "ALSA-2024:9405",
             "ALSA-2025:7440",
             "ALSA-2026:11510",
             "ALSA-2026:19224",
             "ALSA-2026:22717",
             "ALSA-2026:28209",
-            "ALSA-2026:38511",
-            "ALSA-2026:47982",
-            "ALSA-2026:5602",
-            "ALSA-2026:66366",
-            "ALSA-2026:8259"
+            "ALSA-2026:5602"
           ]
         },
         {
