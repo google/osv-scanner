@@ -28,6 +28,47 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
+      content_length: 119
+      body: |
+        {
+          "code": 14,
+          "message": "upstream connect error or disconnect/reset before headers. reset reason: connection termination"
+        }
+      headers:
+        Content-Length:
+          - "119"
+        Content-Type:
+          - application/json
+      status: 503 Service Unavailable
+      code: 503
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 144
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.8"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
       content_length: 16
       body: |
         {
