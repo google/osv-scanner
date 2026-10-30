@@ -2719,39 +2719,6 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
 
 ---
 
-[TestPrintCycloneDXResults/CycloneDX14_WithVulnerabilities/one_source_with_workflow_command_injection_attempt_in_path - 1]
-{
-  "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
-  "bomFormat": "CycloneDX",
-  "specVersion": "1.4",
-  "version": 1,
-  "components": [
-    {
-      "bom-ref": "pkg:npm/mine1@1.2.3",
-      "type": "library",
-      "name": "mine1",
-      "version": "1.2.3",
-      "licenses": [],
-      "purl": "pkg:npm/mine1@1.2.3"
-    }
-  ],
-  "vulnerabilities": [
-    {
-      "id": "OSV-1",
-      "references": [],
-      "ratings": [],
-      "description": "Test vulnerability",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
-    }
-  ]
-}
-
----
-
 [TestPrintCycloneDXResults/CycloneDX14_WithVulnerabilities/two_sources_with_packages,_one_vulnerability - 1]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
@@ -5552,39 +5519,6 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "references": [],
       "ratings": [],
       "detail": "界界界界界界界界界界界界界界界界界界界界界界界界界界 語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
-    }
-  ]
-}
-
----
-
-[TestPrintCycloneDXResults/CycloneDX15_WithVulnerabilities/one_source_with_workflow_command_injection_attempt_in_path - 1]
-{
-  "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
-  "bomFormat": "CycloneDX",
-  "specVersion": "1.5",
-  "version": 1,
-  "components": [
-    {
-      "bom-ref": "pkg:npm/mine1@1.2.3",
-      "type": "library",
-      "name": "mine1",
-      "version": "1.2.3",
-      "licenses": [],
-      "purl": "pkg:npm/mine1@1.2.3"
-    }
-  ],
-  "vulnerabilities": [
-    {
-      "id": "OSV-1",
-      "references": [],
-      "ratings": [],
-      "description": "Test vulnerability",
       "advisories": [],
       "credits": {
         "organizations": []
@@ -8407,39 +8341,6 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
 
 ---
 
-[TestPrintCycloneDXResults/CycloneDX16_WithVulnerabilities/one_source_with_workflow_command_injection_attempt_in_path - 1]
-{
-  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
-  "bomFormat": "CycloneDX",
-  "specVersion": "1.6",
-  "version": 1,
-  "components": [
-    {
-      "bom-ref": "pkg:npm/mine1@1.2.3",
-      "type": "library",
-      "name": "mine1",
-      "version": "1.2.3",
-      "licenses": [],
-      "purl": "pkg:npm/mine1@1.2.3"
-    }
-  ],
-  "vulnerabilities": [
-    {
-      "id": "OSV-1",
-      "references": [],
-      "ratings": [],
-      "description": "Test vulnerability",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
-    }
-  ]
-}
-
----
-
 [TestPrintCycloneDXResults/CycloneDX16_WithVulnerabilities/two_sources_with_packages,_one_vulnerability - 1]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
@@ -11240,39 +11141,6 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "references": [],
       "ratings": [],
       "detail": "界界界界界界界界界界界界界界界界界界界界界界界界界界 語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
-    }
-  ]
-}
-
----
-
-[TestPrintCycloneDXResults/CycloneDX17_WithVulnerabilities/one_source_with_workflow_command_injection_attempt_in_path - 1]
-{
-  "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
-  "bomFormat": "CycloneDX",
-  "specVersion": "1.7",
-  "version": 1,
-  "components": [
-    {
-      "bom-ref": "pkg:npm/mine1@1.2.3",
-      "type": "library",
-      "name": "mine1",
-      "version": "1.2.3",
-      "licenses": [],
-      "purl": "pkg:npm/mine1@1.2.3"
-    }
-  ],
-  "vulnerabilities": [
-    {
-      "id": "OSV-1",
-      "references": [],
-      "ratings": [],
-      "description": "Test vulnerability",
       "advisories": [],
       "credits": {
         "organizations": []

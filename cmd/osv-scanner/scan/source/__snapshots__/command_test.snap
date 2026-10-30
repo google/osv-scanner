@@ -1286,7 +1286,8 @@ Total 11 packages affected by 26 known vulnerabilities (3 Critical, 10 High, 7 M
 [TestCommand/gh-annotations_with_vulns - 2 - stderr]
 Scanning dir ./testdata/locks-many-with-insecure/package-lock.json
 Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
-::error file=testdata/locks-many-with-insecure/package-lock.json::testdata/locks-many-with-insecure/package-lock.json%0A+-----------+-------------------------------------+------+-----------------+---------------+%0A| PACKAGE   | VULNERABILITY ID                    | CVSS | CURRENT VERSION | FIXED VERSION |%0A+-----------+-------------------------------------+------+-----------------+---------------+%0A| ansi-html | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | 0.0.1           | 0.0.8         |%0A+-----------+-------------------------------------+------+-----------------+---------------+
+::error file=testdata/locks-many-with-insecure/package-lock.json,line=1::testdata/locks-many-with-insecure/package-lock.json%0A+-----------+-------------------------------------+------+-----------------+---------------+%0A| PACKAGE   | VULNERABILITY ID                    | CVSS | CURRENT VERSION | FIXED VERSION |%0A+-----------+-------------------------------------+------+-----------------+---------------+%0A| ansi-html | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | 0.0.1           | 0.0.8         |%0A+-----------+-------------------------------------+------+-----------------+---------------+
+
 ---
 
 [TestCommand/go_packages_in_osv-scanner.json_format - 1 - stdout]
