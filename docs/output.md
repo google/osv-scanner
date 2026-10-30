@@ -153,7 +153,14 @@ The HTML output features a lot more interactivity and information compared to te
 - Severity breakdown
 - Package and ID filtering
 - Vulnerability importance filtering
+- Fix availability filtering
 - Full vulnerability advisory entries
+
+In **Filters**, select **Fix available** to show only vulnerabilities with a known fixed version.
+Packages with partial fixes remain visible if they contain a matching vulnerability.
+Packages with no matching vulnerabilities are hidden unless you also choose to show license violations.
+This filter combines with the vulnerability type and layer filters. Searching for a vulnerability ID resets the filters.
+The count beside **Fix available** excludes uncalled/unimportant vulnerabilities, consistent with the other vulnerability counts.
 
 And additionally for container image scanning:
 
