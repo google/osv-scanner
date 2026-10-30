@@ -188,7 +188,7 @@ func BuildCommonScanFlags(defaultExtractors []string) []cli.Flag {
 		},
 		&cli.GenericFlag{
 			Name:  "licenses",
-			Usage: "report on licenses based on an allowlist",
+			Usage: "report on licenses; optionally pass a comma-separated allowlist of SPDX license IDs to also report violations (e.g. --licenses=\"MIT,Apache-2.0\")",
 			Value: &allowedLicensesFlag{},
 		},
 		&cli.BoolFlag{

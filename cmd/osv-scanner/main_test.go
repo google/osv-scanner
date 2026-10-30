@@ -23,6 +23,12 @@ func Test_run(t *testing.T) {
 			NoVCR: true,
 		},
 		{
+			Name:  "help",
+			Args:  []string{"", "--help"},
+			Exit:  0,
+			NoVCR: true,
+		},
+		{
 			Name:  "version",
 			Args:  []string{"", "--version"},
 			Exit:  0,

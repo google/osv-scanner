@@ -1400,7 +1400,7 @@ OPTIONS:
    --allow-no-lockfiles                                                             has the scanner consider no lockfiles being found as ok
    --all-packages                                                                   when json output is selected, prints all packages
    --all-vulns                                                                      show all vulnerabilities including unimportant and uncalled ones
-   --licenses value                                                                 report on licenses based on an allowlist
+   --licenses value                                                                 report on licenses; optionally pass a comma-separated allowlist of SPDX license IDs to also report violations (e.g. --licenses="MIT,Apache-2.0")
    --x-flag-deprecated-packages                                                     report if package versions are deprecated
    --experimental-flag-deprecated-packages                                          [DEPRECATED] (use "--x-flag-deprecated-packages" instead) report if package versions are deprecated
    --experimental-plugins string [ --experimental-plugins string ]                  [DEPRECATED] (use "--x-plugins" instead) list of specific plugins and presets of plugins to use (default: "lockfile", "sbom", "directory")

@@ -45,6 +45,53 @@ OPTIONS:
 
 ---
 
+[Test_run/help - 1 - stdout]
+
+NAME:
+  osv-scanner - scans various mediums for dependencies and checks them against the OSV database
+
+USAGE:
+  osv-scanner [global options] command [command options]
+
+EXAMPLES:
+  # Scan a source directory
+  $ osv-scanner scan source -r <source_directory>
+
+  # Scan a source directory in offline mode
+  $ osv-scanner scan source --offline-vulnerabilities --download-offline-databases -r <source_directory>
+
+  # Scan a container image
+  $ osv-scanner scan image <image_name>
+
+  # Scan a local image archive (e.g. a tar file) and generate HTML output
+  $ osv-scanner scan image --serve --archive <image_name.tar>
+
+  # Fix vulnerabilities in a manifest file and lockfile (non-interactive mode)
+  $ osv-scanner fix -M <manifest_file> -L <lockfile>
+
+  For full usage details, please refer to the help command of each subcommand (e.g. osv-scanner scan --help).
+
+  Alternatively, you can access the detailed documentation here: https://google.github.io/osv-scanner/
+
+VERSION:
+  2.7.0
+
+COMMANDS:
+  scan  scans projects and container images for dependencies, and checks them against the OSV database.
+  fix   scans a manifest and/or lockfile for vulnerabilities and suggests changes for remediating them
+
+
+GLOBAL OPTIONS:
+  --help, -h     show help
+  --version, -v  print the version
+
+
+---
+
+[Test_run/help - 2 - stderr]
+
+---
+
 [Test_run/version - 1 - stdout]
 osv-scanner version: 2.7.0
 osv-scalibr version: 0.5.3

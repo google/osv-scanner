@@ -46,8 +46,7 @@ COMMANDS:
 {{range .Commands}}{{if and (not .HideHelp) (not .Hidden)}}  {{join .Names ", "}}{{ "\t"}}{{.Usage}}{{ "\n" }}{{end}}{{end}}
 {{if .VisibleFlags}}
 GLOBAL OPTIONS:
-	{{range .VisibleFlags}}  {{.}}{{end}}
-{{end}}
+{{range .VisibleFlags}}  {{.}}{{ "\n" }}{{end}}{{end}}
 `
 }
 
