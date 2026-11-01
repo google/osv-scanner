@@ -76,109 +76,55 @@ builds:
       - amd64
       - arm64
 
-dockers:
-  # Arch: amd64
-  - image_templates:
-      - "ghcr.io/google/osv-scanner:{{ .Tag }}-amd64"
+dockers_v2:
+  - id: osv-scanner
+    images:
+      - "ghcr.io/google/osv-scanner"
+    tags:
+      - "{{ .Tag }}"
+      - "v{{ .Major }}"
+      - "latest"
+      - '{{ if eq (envOrDefault "STABLE" "") "true" }}stable{{ end }}'
     dockerfile: goreleaser.dockerfile
-    use: buildx
-    build_flag_templates:
+    platforms:
+      - linux/amd64
+      - linux/arm64
+    labels:
+      org.opencontainers.image.title: osv-scanner
+      org.opencontainers.image.description: "Vulnerability scanner written in Go which uses the data provided by https://osv.dev"
+      org.opencontainers.image.licenses: Apache-2.0
+      org.opencontainers.image.created: "{{.Date}}"
+      org.opencontainers.image.name: "{{.ProjectName}}"
+      org.opencontainers.image.revision: "{{.FullCommit}}"
+      org.opencontainers.image.version: "{{.Version}}"
+      org.opencontainers.image.source: "{{.GitURL}}"
+      org.opencontainers.image.url: "{{.GitURL}}"
+    flags:
       - "--pull"
-      - "--label=org.opencontainers.image.title=osv-scanner"
-      - "--label=org.opencontainers.image.description=Vulnerability scanner written in Go which uses the data provided by https://osv.dev"
-      - "--label=org.opencontainers.image.licenses=Apache License 2.0"
-      - "--label=org.opencontainers.image.created={{.Date}}"
-      - "--label=org.opencontainers.image.name={{.ProjectName}}"
-      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
-      - "--label=org.opencontainers.image.version={{.Version}}"
-      - "--label=org.opencontainers.image.source={{.GitURL}}"
-      - "--label=org.opencontainers.image.url={{.GitURL}}"
-      - "--platform=linux/amd64"
-  # Arch: arm64
-  - image_templates:
-      - "ghcr.io/google/osv-scanner:{{ .Tag }}-arm64"
-    dockerfile: goreleaser.dockerfile
-    use: buildx
-    build_flag_templates:
-      - "--pull"
-      - "--label=org.opencontainers.image.title=osv-scanner"
-      - "--label=org.opencontainers.image.description=Vulnerability scanner written in Go which uses the data provided by https://osv.dev"
-      - "--label=org.opencontainers.image.licenses=Apache-2.0"
-      - "--label=org.opencontainers.image.created={{.Date}}"
-      - "--label=org.opencontainers.image.name={{.ProjectName}}"
-      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
-      - "--label=org.opencontainers.image.version={{.Version}}"
-      - "--label=org.opencontainers.image.source={{.GitURL}}"
-      - "--label=org.opencontainers.image.url={{.GitURL}}"
-      - "--platform=linux/arm64"
-    goarch: arm64
-  # GitHub Action (amd64)
-  - image_templates:
-      - "ghcr.io/google/osv-scanner-action:{{ .Tag }}-amd64"
+  - id: osv-scanner-action
+    images:
+      - "ghcr.io/google/osv-scanner-action"
+    tags:
+      - "{{ .Tag }}"
+      - "v{{ .Major }}"
     dockerfile: goreleaser-action.dockerfile
-    use: buildx
     extra_files:
       - exit_code_redirect.sh
-    build_flag_templates:
+    platforms:
+      - linux/amd64
+      - linux/arm64
+    labels:
+      org.opencontainers.image.title: osv-scanner-action
+      org.opencontainers.image.description: "Vulnerability scanner written in Go which uses the data provided by https://osv.dev"
+      org.opencontainers.image.licenses: Apache-2.0
+      org.opencontainers.image.created: "{{.Date}}"
+      org.opencontainers.image.name: "{{.ProjectName}}"
+      org.opencontainers.image.revision: "{{.FullCommit}}"
+      org.opencontainers.image.version: "{{.Version}}"
+      org.opencontainers.image.source: "{{.GitURL}}"
+      org.opencontainers.image.url: "{{.GitURL}}"
+    flags:
       - "--pull"
-      - "--label=org.opencontainers.image.title=osv-scanner-action"
-      - "--label=org.opencontainers.image.description=Vulnerability scanner written in Go which uses the data provided by https://osv.dev"
-      - "--label=org.opencontainers.image.licenses=Apache-2.0"
-      - "--label=org.opencontainers.image.created={{.Date}}"
-      - "--label=org.opencontainers.image.name={{.ProjectName}}"
-      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
-      - "--label=org.opencontainers.image.version={{.Version}}"
-      - "--label=org.opencontainers.image.source={{.GitURL}}"
-      - "--label=org.opencontainers.image.url={{.GitURL}}"
-      - "--platform=linux/amd64"
-    goarch: amd64
-  # GitHub Action (arm64)
-  - image_templates:
-      - "ghcr.io/google/osv-scanner-action:{{ .Tag }}-arm64"
-    dockerfile: goreleaser-action.dockerfile
-    use: buildx
-    extra_files:
-      - exit_code_redirect.sh
-    build_flag_templates:
-      - "--pull"
-      - "--label=org.opencontainers.image.title=osv-scanner-action"
-      - "--label=org.opencontainers.image.description=Vulnerability scanner written in Go which uses the data provided by https://osv.dev"
-      - "--label=org.opencontainers.image.licenses=Apache-2.0"
-      - "--label=org.opencontainers.image.created={{.Date}}"
-      - "--label=org.opencontainers.image.name={{.ProjectName}}"
-      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
-      - "--label=org.opencontainers.image.version={{.Version}}"
-      - "--label=org.opencontainers.image.source={{.GitURL}}"
-      - "--label=org.opencontainers.image.url={{.GitURL}}"
-      - "--platform=linux/arm64"
-    goarch: arm64
-
-docker_manifests:
-  - name_template: "ghcr.io/google/osv-scanner:{{ .Tag }}"
-    image_templates:
-      - "ghcr.io/google/osv-scanner:{{ .Tag }}-amd64"
-      - "ghcr.io/google/osv-scanner:{{ .Tag }}-arm64"
-  - name_template: "ghcr.io/google/osv-scanner:v{{ .Major }}"
-    image_templates:
-      - "ghcr.io/google/osv-scanner:{{ .Tag }}-amd64"
-      - "ghcr.io/google/osv-scanner:{{ .Tag }}-arm64"
-  - name_template: "ghcr.io/google/osv-scanner:latest"
-    image_templates:
-      - "ghcr.io/google/osv-scanner:{{ .Tag }}-amd64"
-      - "ghcr.io/google/osv-scanner:{{ .Tag }}-arm64"
-  - name_template: "ghcr.io/google/osv-scanner:stable"
-    image_templates:
-      - "ghcr.io/google/osv-scanner:{{ .Tag }}-amd64"
-      - "ghcr.io/google/osv-scanner:{{ .Tag }}-arm64"
-    skip_push: "{{ ne .Env.STABLE `true` }}"
-  - name_template: "ghcr.io/google/osv-scanner-action:{{ .Tag }}"
-    image_templates:
-      - "ghcr.io/google/osv-scanner-action:{{ .Tag }}-amd64"
-      - "ghcr.io/google/osv-scanner-action:{{ .Tag }}-arm64"
-  - name_template: "ghcr.io/google/osv-scanner-action:v{{ .Major }}"
-    image_templates:
-      - "ghcr.io/google/osv-scanner-action:{{ .Tag }}-amd64"
-      - "ghcr.io/google/osv-scanner-action:{{ .Tag }}-arm64"
 
 archives:
   - formats: binary
