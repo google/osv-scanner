@@ -200,42 +200,68 @@ func (g *groupedSARIFFinding) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// mapIDsToGroupedSARIFFinding creates a map over all vulnerability IDs, with aliased vuln IDs
-// pointing to the same groupedSARIFFinding object
-func mapIDsToGroupedSARIFFinding(vulnResults *models.VulnerabilityResults) map[string]*groupedSARIFFinding {
-	// Map of vuln IDs to their respective groupedSARIFFinding
-	results := map[string]*groupedSARIFFinding{}
+// mapIDsToGroupedSARIFFinding returns the distinct vulnerability alias groups
+// found across all packages and sources, deduplicated and sorted by DisplayID.
+//
+// Each group is reported once, however many IDs it is known by. SARIF emits one
+// result per group per (package, version/commit, source), so returning one entry
+// per ID produced byte-identical results that consumers such as GitHub code
+// scanning showed as separate alerts.
+func mapIDsToGroupedSARIFFinding(vulnResults *models.VulnerabilityResults) []*groupedSARIFFinding {
+	groups := make([]*groupedSARIFFinding, 0)
+	// Map of vuln IDs and aliases to their respective groupedSARIFFinding
+	idsToGroup := map[string]*groupedSARIFFinding{}
 
 	for _, res := range vulnResults.Results {
 		for _, pkg := range res.Packages {
 			for _, gi := range pkg.Groups {
-				var data *groupedSARIFFinding
+				// A group may be known by its own IDs, by its aliases, or both.
+				// Matching only on IDs misses groups that share a CVE alias, and
+				// that shared alias is what bridges two packages into one group.
+				keys := make([]string, 0, len(gi.IDs)+len(gi.Aliases))
+				keys = append(keys, gi.IDs...)
+				keys = append(keys, gi.Aliases...)
+
+				var group *groupedSARIFFinding
 				// See if this vulnerability group already exists (from another package or source)
-				for _, id := range gi.IDs {
-					existingData, ok := results[id]
-					if ok {
-						data = existingData
-						break
+				for _, key := range keys {
+					existing, ok := idsToGroup[key]
+					if !ok {
+						continue
+					}
+					if group == nil {
+						group = existing
+						continue
+					}
+					if existing != group {
+						// A package can bridge two groups: merge rather than keep
+						// the first match, or the earlier group is silently lost.
+						group = mergeSARIFFindings(&groups, idsToGroup, group, existing)
 					}
 				}
 				// If not create this group
-				if data == nil {
-					data = &groupedSARIFFinding{
+				if group == nil {
+					group = &groupedSARIFFinding{
 						PkgSource:    make(pkgSourceSet),
 						AliasedVulns: make(map[string]*osvschema.Vulnerability),
 					}
+					groups = append(groups, group)
 				}
-				// Point all the IDs of the same group to the same data, either newly created or existing
-				for _, id := range gi.IDs {
-					results[id] = data
+				// Point all the IDs and aliases of the same group to the same data,
+				// either newly created or existing
+				for _, key := range keys {
+					idsToGroup[key] = group
 				}
 			}
 			for _, v := range pkg.Vulnerabilities {
+				entry := idsToGroup[v.GetId()]
+				if entry == nil {
+					continue
+				}
 				newPkgSource := pkgWithSource{
 					Package: pkg.Package,
 					Source:  res.Source,
 				}
-				entry := results[v.GetId()]
 				entry.PkgSource[newPkgSource] = struct{}{}
 				entry.AliasedVulns[v.GetId()] = v
 				entry.AliasedIDList = append(entry.AliasedIDList, v.GetId())
@@ -244,11 +270,46 @@ func mapIDsToGroupedSARIFFinding(vulnResults *models.VulnerabilityResults) map[s
 		}
 	}
 
-	for _, gs := range results {
+	for _, gs := range groups {
 		slices.SortFunc(gs.AliasedIDList, identifiers.IDSortFunc)
 		gs.AliasedIDList = slices.Compact(gs.AliasedIDList)
 		gs.DisplayID = gs.AliasedIDList[0]
 	}
 
-	return results
+	// One result per group, in a deterministic order.
+	slices.SortFunc(groups, func(a, b *groupedSARIFFinding) int {
+		return strings.Compare(a.DisplayID, b.DisplayID)
+	})
+
+	return groups
+}
+
+// mergeSARIFFindings folds drop into keep and removes drop from groups.
+// It returns keep, which now holds the union of both groups.
+func mergeSARIFFindings(
+	groups *[]*groupedSARIFFinding,
+	idsToGroup map[string]*groupedSARIFFinding,
+	keep *groupedSARIFFinding,
+	drop *groupedSARIFFinding,
+) *groupedSARIFFinding {
+	for pws := range drop.PkgSource {
+		keep.PkgSource[pws] = struct{}{}
+	}
+	maps.Copy(keep.AliasedVulns, drop.AliasedVulns)
+	keep.AliasedIDList = append(keep.AliasedIDList, drop.AliasedIDList...)
+
+	// Repoint every identifier that led to the dropped group.
+	for id, g := range idsToGroup {
+		if g == drop {
+			idsToGroup[id] = keep
+		}
+	}
+	for i, g := range *groups {
+		if g == drop {
+			*groups = append((*groups)[:i], (*groups)[i+1:]...)
+			break
+		}
+	}
+
+	return keep
 }

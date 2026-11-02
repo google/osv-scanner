@@ -256,20 +256,7 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 	run := sarif.NewRunWithInformationURI("osv-scanner", "https://github.com/google/osv-scanner")
 	run.Tool.Driver.WithVersion(version.OSVVersion)
 
-	vulnIDMap := mapIDsToGroupedSARIFFinding(vulnResult)
-	// Sort the IDs to have deterministic loop of vulnIDMap
-	vulnIDs := make([]string, 0, len(vulnIDMap))
-	for vulnID := range vulnIDMap {
-		vulnIDs = append(vulnIDs, vulnID)
-	}
-	slices.Sort(vulnIDs)
-
-	for _, vulnID := range vulnIDs {
-		gv := vulnIDMap[vulnID]
-		if gv == nil {
-			continue
-		}
-
+	for _, gv := range mapIDsToGroupedSARIFFinding(vulnResult) {
 		helpText := createSARIFHelpText(gv)
 
 		// Pick the "best" description from the alias group based on the source.
