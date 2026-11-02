@@ -11,7 +11,7 @@ require (
 	github.com/go-git/go-git/v5 v5.19.3
 	github.com/gobwas/glob v0.2.3
 	github.com/google/go-cmp v0.7.0
-	github.com/google/osv-scalibr v0.5.4-0.20261020040517-e0b5fafee9c0
+	github.com/google/osv-scalibr v0.5.4-0.20261029180354-d3f328446ec5
 	github.com/ianlancetaylor/demangle v0.0.0-20261012173340-cbb8aaea4290
 	github.com/jedib0t/go-pretty/v6 v6.8.3
 	github.com/modelcontextprotocol/go-sdk v1.8.0
@@ -161,7 +161,6 @@ require (
 	github.com/skeema/knownhosts v1.3.2 // indirect
 	github.com/spdx/gordf v0.0.0-20250128162952-000978ccd6fb // indirect
 	github.com/spdx/tools-golang v0.5.7 // indirect
-	github.com/thoas/go-funk v0.9.3 // indirect
 	github.com/tidwall/jsonc v0.3.3 // indirect
 	github.com/tidwall/match v1.2.0 // indirect
 	github.com/tink-crypto/tink-go/v2 v2.7.0 // indirect
