@@ -2111,8 +2111,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
           },
           "groups": 2,
           "vulnerabilities": [
-            "DLA-3850-1",
-            "DLA-3807-1"
+            "DLA-3807-1",
+            "DLA-3850-1"
           ]
         },
         {
@@ -2128,8 +2128,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
           },
           "groups": 2,
           "vulnerabilities": [
-            "DLA-3850-1",
-            "DLA-3807-1"
+            "DLA-3807-1",
+            "DLA-3850-1"
           ]
         },
         {
@@ -2210,8 +2210,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
           },
           "groups": 2,
           "vulnerabilities": [
-            "DLA-3682-1",
-            "DLA-3586-1"
+            "DLA-3586-1",
+            "DLA-3682-1"
           ]
         },
         {
@@ -2275,8 +2275,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
           },
           "groups": 2,
           "vulnerabilities": [
-            "DLA-3682-1",
-            "DLA-3586-1"
+            "DLA-3586-1",
+            "DLA-3682-1"
           ]
         },
         {
@@ -2340,8 +2340,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
           },
           "groups": 2,
           "vulnerabilities": [
-            "DLA-3682-1",
-            "DLA-3586-1"
+            "DLA-3586-1",
+            "DLA-3682-1"
           ]
         },
         {
@@ -2357,8 +2357,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
           },
           "groups": 2,
           "vulnerabilities": [
-            "DLA-3682-1",
-            "DLA-3586-1"
+            "DLA-3586-1",
+            "DLA-3682-1"
           ]
         },
         {
@@ -6011,11 +6011,11 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
           "groups": 4,
           "vulnerabilities": [
             "USN-7412-1",
+            "USN-7412-2",
             "USN-7946-1",
             "UBUNTU-CVE-2022-3219",
             "UBUNTU-CVE-2025-30258",
-            "UBUNTU-CVE-2025-68973",
-            "USN-7412-2"
+            "UBUNTU-CVE-2025-68973"
           ]
         },
         {
@@ -6083,6 +6083,7 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
           },
           "groups": 6,
           "vulnerabilities": [
+            "USN-8091-1",
             "USN-8702-1",
             "UBUNTU-CVE-2026-13595",
             "UBUNTU-CVE-2026-27456",
@@ -6091,8 +6092,7 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
             "UBUNTU-CVE-2026-76642",
             "UBUNTU-CVE-2026-78408",
             "UBUNTU-CVE-2026-78409",
-            "UBUNTU-CVE-2026-78410",
-            "USN-8091-1"
+            "UBUNTU-CVE-2026-78410"
           ]
         },
         {
@@ -6125,12 +6125,12 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
           },
           "groups": 9,
           "vulnerabilities": [
-            "USN-8611-1",
-            "USN-8737-1",
-            "USN-8005-1",
             "USN-7259-1",
             "USN-7541-1",
             "USN-7760-1",
+            "USN-8005-1",
+            "USN-8611-1",
+            "USN-8737-1",
             "UBUNTU-CVE-2016-20013",
             "UBUNTU-CVE-2025-0395",
             "UBUNTU-CVE-2025-15281",
@@ -6166,12 +6166,12 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
           },
           "groups": 9,
           "vulnerabilities": [
-            "USN-8611-1",
-            "USN-8737-1",
-            "USN-8005-1",
             "USN-7259-1",
             "USN-7541-1",
             "USN-7760-1",
+            "USN-8005-1",
+            "USN-8611-1",
+            "USN-8737-1",
             "UBUNTU-CVE-2016-20013",
             "UBUNTU-CVE-2025-0395",
             "UBUNTU-CVE-2025-15281",
@@ -6263,10 +6263,10 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
           },
           "groups": 4,
           "vulnerabilities": [
-            "USN-8284-1",
+            "USN-7281-1",
             "USN-7635-1",
             "USN-8043-1",
-            "USN-7281-1",
+            "USN-8284-1",
             "UBUNTU-CVE-2024-12243",
             "UBUNTU-CVE-2025-14831",
             "UBUNTU-CVE-2025-32988",
@@ -6301,10 +6301,10 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
           },
           "groups": 5,
           "vulnerabilities": [
-            "USN-7314-1",
-            "USN-8585-1",
             "USN-7257-1",
+            "USN-7314-1",
             "USN-7542-1",
+            "USN-8585-1",
             "UBUNTU-CVE-2018-5709",
             "UBUNTU-CVE-2024-26458",
             "UBUNTU-CVE-2024-26461",
@@ -6329,10 +6329,10 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
           },
           "groups": 5,
           "vulnerabilities": [
-            "USN-7314-1",
-            "USN-8585-1",
             "USN-7257-1",
+            "USN-7314-1",
             "USN-7542-1",
+            "USN-8585-1",
             "UBUNTU-CVE-2018-5709",
             "UBUNTU-CVE-2024-26458",
             "UBUNTU-CVE-2024-26461",
@@ -6357,10 +6357,10 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
           },
           "groups": 5,
           "vulnerabilities": [
-            "USN-7314-1",
-            "USN-8585-1",
             "USN-7257-1",
+            "USN-7314-1",
             "USN-7542-1",
+            "USN-8585-1",
             "UBUNTU-CVE-2018-5709",
             "UBUNTU-CVE-2024-26458",
             "UBUNTU-CVE-2024-26461",
@@ -6385,10 +6385,10 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
           },
           "groups": 5,
           "vulnerabilities": [
-            "USN-7314-1",
-            "USN-8585-1",
             "USN-7257-1",
+            "USN-7314-1",
             "USN-7542-1",
+            "USN-8585-1",
             "UBUNTU-CVE-2018-5709",
             "UBUNTU-CVE-2024-26458",
             "UBUNTU-CVE-2024-26461",
@@ -6446,6 +6446,7 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
           },
           "groups": 6,
           "vulnerabilities": [
+            "USN-8091-1",
             "USN-8702-1",
             "UBUNTU-CVE-2026-13595",
             "UBUNTU-CVE-2026-27456",
@@ -6454,8 +6455,7 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
             "UBUNTU-CVE-2026-76642",
             "UBUNTU-CVE-2026-78408",
             "UBUNTU-CVE-2026-78409",
-            "UBUNTU-CVE-2026-78410",
-            "USN-8091-1"
+            "UBUNTU-CVE-2026-78410"
           ]
         },
         {
@@ -6529,10 +6529,10 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
           "vulnerabilities": [
             "USN-7580-1",
             "USN-8601-1",
+            "USN-8688-1",
             "UBUNTU-CVE-2024-10041",
             "UBUNTU-CVE-2025-6020",
-            "UBUNTU-CVE-2026-54411",
-            "USN-8688-1"
+            "UBUNTU-CVE-2026-54411"
           ]
         },
         {
@@ -6550,10 +6550,10 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
           "vulnerabilities": [
             "USN-7580-1",
             "USN-8601-1",
+            "USN-8688-1",
             "UBUNTU-CVE-2024-10041",
             "UBUNTU-CVE-2025-6020",
-            "UBUNTU-CVE-2026-54411",
-            "USN-8688-1"
+            "UBUNTU-CVE-2026-54411"
           ]
         },
         {
@@ -6571,10 +6571,10 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
           "vulnerabilities": [
             "USN-7580-1",
             "USN-8601-1",
+            "USN-8688-1",
             "UBUNTU-CVE-2024-10041",
             "UBUNTU-CVE-2025-6020",
-            "UBUNTU-CVE-2026-54411",
-            "USN-8688-1"
+            "UBUNTU-CVE-2026-54411"
           ]
         },
         {
@@ -6592,10 +6592,10 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
           "vulnerabilities": [
             "USN-7580-1",
             "USN-8601-1",
+            "USN-8688-1",
             "UBUNTU-CVE-2024-10041",
             "UBUNTU-CVE-2025-6020",
-            "UBUNTU-CVE-2026-54411",
-            "USN-8688-1"
+            "UBUNTU-CVE-2026-54411"
           ]
         },
         {
@@ -6650,6 +6650,7 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
           },
           "groups": 6,
           "vulnerabilities": [
+            "USN-8091-1",
             "USN-8702-1",
             "UBUNTU-CVE-2026-13595",
             "UBUNTU-CVE-2026-27456",
@@ -6658,8 +6659,7 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
             "UBUNTU-CVE-2026-76642",
             "UBUNTU-CVE-2026-78408",
             "UBUNTU-CVE-2026-78409",
-            "UBUNTU-CVE-2026-78410",
-            "USN-8091-1"
+            "UBUNTU-CVE-2026-78410"
           ]
         },
         {
@@ -6675,12 +6675,13 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
           },
           "groups": 7,
           "vulnerabilities": [
-            "USN-7980-1",
-            "USN-8678-1",
-            "USN-8414-1",
-            "USN-8155-1",
-            "USN-7786-1",
             "USN-7278-1",
+            "USN-7786-1",
+            "USN-7980-1",
+            "USN-8155-1",
+            "USN-8414-1",
+            "USN-8625-1",
+            "USN-8678-1",
             "UBUNTU-CVE-2024-13176",
             "UBUNTU-CVE-2024-9143",
             "UBUNTU-CVE-2025-15467",
@@ -6712,8 +6713,7 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
             "UBUNTU-CVE-2026-63076",
             "UBUNTU-CVE-2026-7383",
             "UBUNTU-CVE-2026-75803",
-            "UBUNTU-CVE-2026-9076",
-            "USN-8625-1"
+            "UBUNTU-CVE-2026-9076"
           ]
         },
         {
@@ -6747,10 +6747,10 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
           },
           "groups": 5,
           "vulnerabilities": [
-            "USN-8402-1",
-            "USN-8626-1",
             "USN-7559-1",
             "USN-8119-1",
+            "USN-8402-1",
+            "USN-8626-1",
             "UBUNTU-CVE-2023-7008",
             "UBUNTU-CVE-2025-4598",
             "UBUNTU-CVE-2026-15059",
@@ -6774,8 +6774,8 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
           },
           "groups": 2,
           "vulnerabilities": [
-            "USN-7954-1",
             "USN-7275-1",
+            "USN-7954-1",
             "UBUNTU-CVE-2021-46848",
             "UBUNTU-CVE-2024-12133",
             "UBUNTU-CVE-2025-13151"
@@ -6813,10 +6813,10 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
           },
           "groups": 5,
           "vulnerabilities": [
-            "USN-8402-1",
-            "USN-8626-1",
             "USN-7559-1",
             "USN-8119-1",
+            "USN-8402-1",
+            "USN-8626-1",
             "UBUNTU-CVE-2023-7008",
             "UBUNTU-CVE-2025-4598",
             "UBUNTU-CVE-2026-15059",
@@ -6840,6 +6840,7 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
           },
           "groups": 6,
           "vulnerabilities": [
+            "USN-8091-1",
             "USN-8702-1",
             "UBUNTU-CVE-2026-13595",
             "UBUNTU-CVE-2026-27456",
@@ -6848,8 +6849,7 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
             "UBUNTU-CVE-2026-76642",
             "UBUNTU-CVE-2026-78408",
             "UBUNTU-CVE-2026-78409",
-            "UBUNTU-CVE-2026-78410",
-            "USN-8091-1"
+            "UBUNTU-CVE-2026-78410"
           ]
         },
         {
@@ -6898,6 +6898,7 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
           },
           "groups": 6,
           "vulnerabilities": [
+            "USN-8091-1",
             "USN-8702-1",
             "UBUNTU-CVE-2026-13595",
             "UBUNTU-CVE-2026-27456",
@@ -6906,8 +6907,7 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
             "UBUNTU-CVE-2026-76642",
             "UBUNTU-CVE-2026-78408",
             "UBUNTU-CVE-2026-78409",
-            "UBUNTU-CVE-2026-78410",
-            "USN-8091-1"
+            "UBUNTU-CVE-2026-78410"
           ]
         },
         {
@@ -6978,10 +6978,10 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
           },
           "groups": 15,
           "vulnerabilities": [
-            "USN-8675-1",
-            "USN-8736-1",
             "USN-7434-1",
             "USN-7678-1",
+            "USN-8675-1",
+            "USN-8736-1",
             "UBUNTU-CVE-2023-31486",
             "UBUNTU-CVE-2023-47039",
             "UBUNTU-CVE-2024-56406",
@@ -7033,10 +7033,10 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
           },
           "groups": 4,
           "vulnerabilities": [
+            "USN-8477-1",
             "USN-8477-2",
             "USN-8477-3",
             "USN-8510-1",
-            "USN-8477-1",
             "UBUNTU-CVE-2025-45582",
             "UBUNTU-CVE-2026-18477",
             "UBUNTU-CVE-2026-18508",
@@ -7056,6 +7056,7 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
           },
           "groups": 6,
           "vulnerabilities": [
+            "USN-8091-1",
             "USN-8702-1",
             "UBUNTU-CVE-2026-13595",
             "UBUNTU-CVE-2026-27456",
@@ -7064,8 +7065,7 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
             "UBUNTU-CVE-2026-76642",
             "UBUNTU-CVE-2026-78408",
             "UBUNTU-CVE-2026-78409",
-            "UBUNTU-CVE-2026-78410",
-            "USN-8091-1"
+            "UBUNTU-CVE-2026-78410"
           ]
         },
         {
@@ -7424,11 +7424,11 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           "groups": 4,
           "vulnerabilities": [
             "USN-7412-1",
+            "USN-7412-2",
             "USN-7946-1",
             "UBUNTU-CVE-2022-3219",
             "UBUNTU-CVE-2025-30258",
-            "UBUNTU-CVE-2025-68973",
-            "USN-7412-2"
+            "UBUNTU-CVE-2025-68973"
           ]
         },
         {
@@ -7496,6 +7496,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           },
           "groups": 6,
           "vulnerabilities": [
+            "USN-8091-1",
             "USN-8702-1",
             "UBUNTU-CVE-2026-13595",
             "UBUNTU-CVE-2026-27456",
@@ -7504,8 +7505,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "UBUNTU-CVE-2026-76642",
             "UBUNTU-CVE-2026-78408",
             "UBUNTU-CVE-2026-78409",
-            "UBUNTU-CVE-2026-78410",
-            "USN-8091-1"
+            "UBUNTU-CVE-2026-78410"
           ]
         },
         {
@@ -7538,12 +7538,12 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           },
           "groups": 9,
           "vulnerabilities": [
-            "USN-8611-1",
-            "USN-8737-1",
-            "USN-8005-1",
             "USN-7259-1",
             "USN-7541-1",
             "USN-7760-1",
+            "USN-8005-1",
+            "USN-8611-1",
+            "USN-8737-1",
             "UBUNTU-CVE-2016-20013",
             "UBUNTU-CVE-2025-0395",
             "UBUNTU-CVE-2025-15281",
@@ -7579,12 +7579,12 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           },
           "groups": 9,
           "vulnerabilities": [
-            "USN-8611-1",
-            "USN-8737-1",
-            "USN-8005-1",
             "USN-7259-1",
             "USN-7541-1",
             "USN-7760-1",
+            "USN-8005-1",
+            "USN-8611-1",
+            "USN-8737-1",
             "UBUNTU-CVE-2016-20013",
             "UBUNTU-CVE-2025-0395",
             "UBUNTU-CVE-2025-15281",
@@ -7676,10 +7676,10 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           },
           "groups": 4,
           "vulnerabilities": [
-            "USN-8284-1",
+            "USN-7281-1",
             "USN-7635-1",
             "USN-8043-1",
-            "USN-7281-1",
+            "USN-8284-1",
             "UBUNTU-CVE-2024-12243",
             "UBUNTU-CVE-2025-14831",
             "UBUNTU-CVE-2025-32988",
@@ -7714,10 +7714,10 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           },
           "groups": 5,
           "vulnerabilities": [
-            "USN-7314-1",
-            "USN-8585-1",
             "USN-7257-1",
+            "USN-7314-1",
             "USN-7542-1",
+            "USN-8585-1",
             "UBUNTU-CVE-2018-5709",
             "UBUNTU-CVE-2024-26458",
             "UBUNTU-CVE-2024-26461",
@@ -7742,10 +7742,10 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           },
           "groups": 5,
           "vulnerabilities": [
-            "USN-7314-1",
-            "USN-8585-1",
             "USN-7257-1",
+            "USN-7314-1",
             "USN-7542-1",
+            "USN-8585-1",
             "UBUNTU-CVE-2018-5709",
             "UBUNTU-CVE-2024-26458",
             "UBUNTU-CVE-2024-26461",
@@ -7770,10 +7770,10 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           },
           "groups": 5,
           "vulnerabilities": [
-            "USN-7314-1",
-            "USN-8585-1",
             "USN-7257-1",
+            "USN-7314-1",
             "USN-7542-1",
+            "USN-8585-1",
             "UBUNTU-CVE-2018-5709",
             "UBUNTU-CVE-2024-26458",
             "UBUNTU-CVE-2024-26461",
@@ -7798,10 +7798,10 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           },
           "groups": 5,
           "vulnerabilities": [
-            "USN-7314-1",
-            "USN-8585-1",
             "USN-7257-1",
+            "USN-7314-1",
             "USN-7542-1",
+            "USN-8585-1",
             "UBUNTU-CVE-2018-5709",
             "UBUNTU-CVE-2024-26458",
             "UBUNTU-CVE-2024-26461",
@@ -7859,6 +7859,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           },
           "groups": 6,
           "vulnerabilities": [
+            "USN-8091-1",
             "USN-8702-1",
             "UBUNTU-CVE-2026-13595",
             "UBUNTU-CVE-2026-27456",
@@ -7867,8 +7868,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "UBUNTU-CVE-2026-76642",
             "UBUNTU-CVE-2026-78408",
             "UBUNTU-CVE-2026-78409",
-            "UBUNTU-CVE-2026-78410",
-            "USN-8091-1"
+            "UBUNTU-CVE-2026-78410"
           ]
         },
         {
@@ -7942,10 +7942,10 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           "vulnerabilities": [
             "USN-7580-1",
             "USN-8601-1",
+            "USN-8688-1",
             "UBUNTU-CVE-2024-10041",
             "UBUNTU-CVE-2025-6020",
-            "UBUNTU-CVE-2026-54411",
-            "USN-8688-1"
+            "UBUNTU-CVE-2026-54411"
           ]
         },
         {
@@ -7963,10 +7963,10 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           "vulnerabilities": [
             "USN-7580-1",
             "USN-8601-1",
+            "USN-8688-1",
             "UBUNTU-CVE-2024-10041",
             "UBUNTU-CVE-2025-6020",
-            "UBUNTU-CVE-2026-54411",
-            "USN-8688-1"
+            "UBUNTU-CVE-2026-54411"
           ]
         },
         {
@@ -7984,10 +7984,10 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           "vulnerabilities": [
             "USN-7580-1",
             "USN-8601-1",
+            "USN-8688-1",
             "UBUNTU-CVE-2024-10041",
             "UBUNTU-CVE-2025-6020",
-            "UBUNTU-CVE-2026-54411",
-            "USN-8688-1"
+            "UBUNTU-CVE-2026-54411"
           ]
         },
         {
@@ -8005,10 +8005,10 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           "vulnerabilities": [
             "USN-7580-1",
             "USN-8601-1",
+            "USN-8688-1",
             "UBUNTU-CVE-2024-10041",
             "UBUNTU-CVE-2025-6020",
-            "UBUNTU-CVE-2026-54411",
-            "USN-8688-1"
+            "UBUNTU-CVE-2026-54411"
           ]
         },
         {
@@ -8063,6 +8063,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           },
           "groups": 6,
           "vulnerabilities": [
+            "USN-8091-1",
             "USN-8702-1",
             "UBUNTU-CVE-2026-13595",
             "UBUNTU-CVE-2026-27456",
@@ -8071,8 +8072,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "UBUNTU-CVE-2026-76642",
             "UBUNTU-CVE-2026-78408",
             "UBUNTU-CVE-2026-78409",
-            "UBUNTU-CVE-2026-78410",
-            "USN-8091-1"
+            "UBUNTU-CVE-2026-78410"
           ]
         },
         {
@@ -8088,12 +8088,13 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           },
           "groups": 7,
           "vulnerabilities": [
-            "USN-7980-1",
-            "USN-8678-1",
-            "USN-8414-1",
-            "USN-8155-1",
-            "USN-7786-1",
             "USN-7278-1",
+            "USN-7786-1",
+            "USN-7980-1",
+            "USN-8155-1",
+            "USN-8414-1",
+            "USN-8625-1",
+            "USN-8678-1",
             "UBUNTU-CVE-2024-13176",
             "UBUNTU-CVE-2024-9143",
             "UBUNTU-CVE-2025-15467",
@@ -8125,8 +8126,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "UBUNTU-CVE-2026-63076",
             "UBUNTU-CVE-2026-7383",
             "UBUNTU-CVE-2026-75803",
-            "UBUNTU-CVE-2026-9076",
-            "USN-8625-1"
+            "UBUNTU-CVE-2026-9076"
           ]
         },
         {
@@ -8160,10 +8160,10 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           },
           "groups": 5,
           "vulnerabilities": [
-            "USN-8402-1",
-            "USN-8626-1",
             "USN-7559-1",
             "USN-8119-1",
+            "USN-8402-1",
+            "USN-8626-1",
             "UBUNTU-CVE-2023-7008",
             "UBUNTU-CVE-2025-4598",
             "UBUNTU-CVE-2026-15059",
@@ -8187,8 +8187,8 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           },
           "groups": 2,
           "vulnerabilities": [
-            "USN-7954-1",
             "USN-7275-1",
+            "USN-7954-1",
             "UBUNTU-CVE-2021-46848",
             "UBUNTU-CVE-2024-12133",
             "UBUNTU-CVE-2025-13151"
@@ -8226,10 +8226,10 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           },
           "groups": 5,
           "vulnerabilities": [
-            "USN-8402-1",
-            "USN-8626-1",
             "USN-7559-1",
             "USN-8119-1",
+            "USN-8402-1",
+            "USN-8626-1",
             "UBUNTU-CVE-2023-7008",
             "UBUNTU-CVE-2025-4598",
             "UBUNTU-CVE-2026-15059",
@@ -8253,6 +8253,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           },
           "groups": 6,
           "vulnerabilities": [
+            "USN-8091-1",
             "USN-8702-1",
             "UBUNTU-CVE-2026-13595",
             "UBUNTU-CVE-2026-27456",
@@ -8261,8 +8262,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "UBUNTU-CVE-2026-76642",
             "UBUNTU-CVE-2026-78408",
             "UBUNTU-CVE-2026-78409",
-            "UBUNTU-CVE-2026-78410",
-            "USN-8091-1"
+            "UBUNTU-CVE-2026-78410"
           ]
         },
         {
@@ -8311,6 +8311,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           },
           "groups": 6,
           "vulnerabilities": [
+            "USN-8091-1",
             "USN-8702-1",
             "UBUNTU-CVE-2026-13595",
             "UBUNTU-CVE-2026-27456",
@@ -8319,8 +8320,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "UBUNTU-CVE-2026-76642",
             "UBUNTU-CVE-2026-78408",
             "UBUNTU-CVE-2026-78409",
-            "UBUNTU-CVE-2026-78410",
-            "USN-8091-1"
+            "UBUNTU-CVE-2026-78410"
           ]
         },
         {
@@ -8391,10 +8391,10 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           },
           "groups": 15,
           "vulnerabilities": [
-            "USN-8675-1",
-            "USN-8736-1",
             "USN-7434-1",
             "USN-7678-1",
+            "USN-8675-1",
+            "USN-8736-1",
             "UBUNTU-CVE-2023-31486",
             "UBUNTU-CVE-2023-47039",
             "UBUNTU-CVE-2024-56406",
@@ -8446,10 +8446,10 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           },
           "groups": 4,
           "vulnerabilities": [
+            "USN-8477-1",
             "USN-8477-2",
             "USN-8477-3",
             "USN-8510-1",
-            "USN-8477-1",
             "UBUNTU-CVE-2025-45582",
             "UBUNTU-CVE-2026-18477",
             "UBUNTU-CVE-2026-18508",
@@ -8469,6 +8469,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           },
           "groups": 6,
           "vulnerabilities": [
+            "USN-8091-1",
             "USN-8702-1",
             "UBUNTU-CVE-2026-13595",
             "UBUNTU-CVE-2026-27456",
@@ -8477,8 +8478,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "UBUNTU-CVE-2026-76642",
             "UBUNTU-CVE-2026-78408",
             "UBUNTU-CVE-2026-78409",
-            "UBUNTU-CVE-2026-78410",
-            "USN-8091-1"
+            "UBUNTU-CVE-2026-78410"
           ]
         },
         {

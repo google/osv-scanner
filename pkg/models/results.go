@@ -9,6 +9,7 @@ import (
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/inventory/vex"
+	"github.com/google/osv-scanner/v2/internal/identifiers"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"google.golang.org/protobuf/encoding/protojson"
 )
@@ -224,6 +225,11 @@ func (p *PackageVulns) MarshalJSON() ([]byte, error) {
 	var rawVulnerabilities []json.RawMessage
 	if len(p.Vulnerabilities) > 0 {
 		rawVulnerabilities = make([]json.RawMessage, 0, len(p.Vulnerabilities))
+
+		slices.SortFunc(p.Vulnerabilities, func(a, b *osvschema.Vulnerability) int {
+			return identifiers.IDSortFunc(a.GetId(), b.GetId())
+		})
+
 		for _, vuln := range p.Vulnerabilities {
 			unstableJSON, err := protojson.Marshal(vuln)
 			if err != nil {
