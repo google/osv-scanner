@@ -79,7 +79,7 @@ ignore = true
 
 # ignore a particular ecosystem
 [[PackageOverrides]]
-ecosystem = "go"
+ecosystem = "Go"
 ignore = true
 
 # ignore packages named "axios" regardless of ecosystem or group
