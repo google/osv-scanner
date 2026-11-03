@@ -25,6 +25,7 @@ package ar
 import (
 	"bytes"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 	"strings"
@@ -137,7 +138,11 @@ func (rd *Reader) readHeader() (*Header, error) {
 	header.Name = byteToString(s.next(16))
 	// Skip the next 4 fields, we only need name and size
 	s.next(12 + 6 + 6 + 8)
-	header.Size = byteToDecimal(s.next(10))
+	size, err := strconv.Atoi(byteToString(s.next(10)))
+	if err != nil || size < 0 {
+		return nil, fmt.Errorf("invalid size in ar header for %q", header.Name)
+	}
+	header.Size = size
 
 	rd.bytesToRead = header.Size
 	rd.pad = header.Size % 2
@@ -147,9 +152,4 @@ func (rd *Reader) readHeader() (*Header, error) {
 
 func byteToString(b []byte) string {
 	return strings.TrimRight(string(b), " ")
-}
-
-func byteToDecimal(b []byte) int {
-	n, _ := strconv.Atoi(byteToString(b))
-	return n
 }
