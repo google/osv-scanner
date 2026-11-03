@@ -138,9 +138,10 @@ func (rd *Reader) readHeader() (*Header, error) {
 	header.Name = byteToString(s.next(16))
 	// Skip the next 4 fields, we only need name and size
 	s.next(12 + 6 + 6 + 8)
-	size, err := strconv.Atoi(byteToString(s.next(10)))
+	rawSize := byteToString(s.next(10))
+	size, err := strconv.Atoi(rawSize)
 	if err != nil || size < 0 {
-		return nil, fmt.Errorf("invalid size in ar header for %q", header.Name)
+		return nil, fmt.Errorf("invalid size %q in ar header for %q", rawSize, header.Name)
 	}
 	header.Size = size
 

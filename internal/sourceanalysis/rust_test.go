@@ -131,7 +131,6 @@ func Test_extractRlibArchive_noObjectFile(t *testing.T) {
 	}
 }
 
-// A malformed member header must produce an error, not a panic that kills the scan.
 func Test_extractRlibArchive_malformedHeader(t *testing.T) {
 	t.Parallel()
 
