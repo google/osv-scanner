@@ -27,7 +27,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/wheelegg"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargoauditable"
-	chromeextensions "github.com/google/osv-scalibr/extractor/filesystem/misc/chrome/extensions"
+	browserextensions "github.com/google/osv-scalibr/extractor/filesystem/misc/browser/extensions"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/chisel"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
@@ -92,7 +92,7 @@ func TestResolve(t *testing.T) {
 			name: "one_extractor_and_one_detector_enabled_and_different_extractor_disabled",
 			args: args{
 				enabled:  []string{composerlock.Name, etcshadow.Name},
-				disabled: []string{binary.Name, chromeextensions.Name},
+				disabled: []string{binary.Name, browserextensions.Name},
 			},
 			want: []string{composerlock.Name, etcshadow.Name},
 		},

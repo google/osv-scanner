@@ -15,7 +15,7 @@ func GetScanLicensesAllowlist(cmd *cli.Command) ([]string, error) {
 		return []string{}, nil
 	}
 
-	allowlist := cmd.Generic("licenses").(*allowedLicencesFlag).allowlist
+	allowlist := cmd.Generic("licenses").(*allowedLicensesFlag).allowlist
 
 	if len(allowlist) == 0 {
 		return []string{}, nil

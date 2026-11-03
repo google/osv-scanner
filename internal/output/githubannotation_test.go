@@ -2,7 +2,7 @@ package output_test
 
 import (
 	"bytes"
-	"strings"
+	"path/filepath"
 	"testing"
 
 	"github.com/google/osv-scanner/v2/internal/output"
@@ -61,56 +61,87 @@ func TestPrintGHAnnotationReport_WithMixedIssues(t *testing.T) {
 	})
 }
 
-// TestPrintGHAnnotationReport_CRSanitization verifies that carriage return characters
-// in package paths and names are URL-encoded as %0D rather than emitted raw.
-// Raw \r in GitHub Actions annotation output is treated as a line boundary by the
-// runner, enabling workflow command injection (e.g. ::warning::, ::add-mask::).
-func TestPrintGHAnnotationReport_CRSanitization(t *testing.T) {
+func TestPrintGHAnnotationReport_Escaping(t *testing.T) {
 	t.Parallel()
 
-	// Construct a VulnerabilityResults with \r embedded in the source path,
-	// simulating a crafted file path that could be used for command injection.
-	vulnResult := &models.VulnerabilityResults{
-		Results: []models.PackageSource{
-			{
-				Source: models.SourceInfo{
-					Path: "legitimate-scan\r::warning::INJECTED/package-lock.json",
-					Type: "lockfile",
-				},
-				Packages: []models.PackageVulns{
-					{
-						Package: models.PackageInfo{
-							Name:      "lodash",
-							Version:   "4.17.20",
-							Ecosystem: "npm",
-						},
-						Groups: []models.GroupInfo{
-							{
-								IDs:         []string{"GHSA-35jh-r3h4-6jhm"},
-								MaxSeverity: "7.2",
-							},
-						},
-					},
-				},
-			},
+	cwd := filepath.ToSlash(testutility.GetCurrentWorkingDirectory(t))
+
+	vulnerablePackage := func(name string) models.PackageVulns {
+		return models.PackageVulns{
+			Package: models.PackageInfo{Name: name, Version: "1.2.3", Ecosystem: "npm"},
+			Groups:  []models.GroupInfo{{IDs: []string{"OSV-1"}, MaxSeverity: "7.5"}},
+		}
+	}
+
+	deprecatedPackage := func(name string) models.PackageVulns {
+		return models.PackageVulns{
+			Package: models.PackageInfo{Name: name, Version: "1.2.3", Ecosystem: "npm", Deprecated: true},
+		}
+	}
+
+	tests := []struct {
+		name string
+		path string
+		pkg  models.PackageVulns
+	}{
+		{
+			name: "path_with_newlines",
+			path: cwd + "/path/with\r\n::warning::newlines/lockfile",
+			pkg:  vulnerablePackage("mine1"),
+		},
+		{
+			name: "path_with_colons_and_commas",
+			path: cwd + "/path/with::colons,and=commas/lockfile",
+			pkg:  vulnerablePackage("mine1"),
+		},
+		{
+			name: "path_with_percent_encoded_sequences",
+			path: cwd + "/path/with%0A%0D%25%3A%2C/lockfile",
+			pkg:  vulnerablePackage("mine1"),
+		},
+		{
+			name: "path_outside_working_directory",
+			path: filepath.ToSlash(filepath.Dir(cwd)) + "/elsewhere\n::warning::/lockfile",
+			pkg:  vulnerablePackage("mine1"),
+		},
+		{
+			name: "relative_path",
+			path: "relative/path\n::warning::to/lockfile",
+			pkg:  vulnerablePackage("mine1"),
+		},
+		{
+			name: "package_name_with_special_characters",
+			path: cwd + "/path/to/lockfile",
+			pkg:  vulnerablePackage("mine\r\n::warning::1%0A::,"),
+		},
+		{
+			name: "deprecated_package_with_special_characters",
+			path: cwd + "/path/with\r\n::warning::%0A,/lockfile",
+			pkg:  deprecatedPackage("mine\r\n::warning::1%0A::,"),
 		},
 	}
 
-	outputWriter := &bytes.Buffer{}
-	err := output.PrintGHAnnotationReport(vulnResult, outputWriter)
-	if err != nil {
-		t.Errorf("Error writing GH annotation output: %s", err)
-	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 
-	result := outputWriter.String()
+			vulnResult := &models.VulnerabilityResults{
+				Results: []models.PackageSource{
+					{
+						Source:   models.SourceInfo{Path: tt.path, Type: models.SourceTypeProjectPackage},
+						Packages: []models.PackageVulns{tt.pkg},
+					},
+				},
+			}
 
-	// The output must not contain a raw carriage return — it must be encoded as %0D.
-	if strings.Contains(result, "\r") {
-		t.Errorf("GH annotation output contains raw \\r character, which enables workflow command injection.\nOutput: %q", result)
-	}
+			outputWriter := &bytes.Buffer{}
+			err := output.PrintGHAnnotationReport(vulnResult, outputWriter)
 
-	// The encoded form must be present instead.
-	if !strings.Contains(result, "%0D") {
-		t.Errorf("GH annotation output does not contain %%0D encoding for \\r character.\nOutput: %q", result)
+			if err != nil {
+				t.Errorf("Error writing GH annotation output: %s", err)
+			}
+
+			testutility.NewSnapshot().MatchText(t, outputWriter.String())
+		})
 	}
 }
