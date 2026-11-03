@@ -3,7 +3,7 @@
 set -e
 
 if [ "$TEST_ACCEPTANCE" = true ]; then
-    scripts/build_test_images.sh
+    scripts/build_test_images.sh || exit 3
 fi
 
 if [ "$DOCKER_TEST" = true ]; then

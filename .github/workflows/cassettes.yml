@@ -28,7 +28,7 @@ jobs:
         with:
           go-version-file: "go.mod"
           check-latest: true
-      - run: ./scripts/run_tests.sh || true
+      - run: ./scripts/run_tests.sh || [ $? -eq 1 ]
         env:
           TEST_ACCEPTANCE: true
           TEST_VCR_MODE: recordonly
