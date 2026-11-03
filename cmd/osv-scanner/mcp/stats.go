@@ -6,11 +6,13 @@ import (
 
 	"github.com/google/osv-scalibr/stats"
 	"github.com/google/osv-scanner/v2/internal/output"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 type fileOpenedLogger struct {
 	stats.NoopCollector
 
+	ignore         *ignoreFilter
 	collectedLines []string
 }
 
@@ -21,12 +23,20 @@ func (c *fileOpenedLogger) AfterExtractorRun(_ string, extractorstats *stats.Aft
 		return
 	}
 
+	fullPath := filepath.Join(extractorstats.Root, extractorstats.Path)
+	if c.ignore != nil && c.ignore.matchesSourcePath(models.SourceInfo{
+		Path: fullPath,
+		Type: models.SourceTypeProjectPackage,
+	}) {
+		return
+	}
+
 	pkgsFound := len(extractorstats.Inventory.Packages)
 
 	c.collectedLines = append(c.collectedLines,
 		fmt.Sprintf(
 			"Scanned %s file and found %d %s",
-			filepath.Join(extractorstats.Root, extractorstats.Path),
+			fullPath,
 			pkgsFound,
 			output.Form(pkgsFound, "package", "packages"),
 		))

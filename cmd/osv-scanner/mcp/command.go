@@ -17,6 +17,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/output"
 	"github.com/google/osv-scanner/v2/internal/version"
+	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
 	"github.com/jedib0t/go-pretty/v6/text"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
@@ -57,7 +58,7 @@ type scanVulnerableDependenciesInput struct {
 	Recursive          bool     `json:"recursive"            jsonschema:"Scans directory recursively"`
 }
 
-func action(ctx context.Context, cmd *cli.Command) error {
+func newServer() *mcp.Server {
 	s := mcp.NewServer(&mcp.Implementation{
 		Name: "OSV-Scanner", Version: version.OSVVersion,
 	}, nil)
@@ -84,6 +85,12 @@ func action(ctx context.Context, cmd *cli.Command) error {
 		Name:        "scan_deps",
 		Description: "Scans your project dependencies for known vulnerabilities.",
 	}, handleScanDepsPrompt)
+
+	return s
+}
+
+func action(ctx context.Context, cmd *cli.Command) error {
+	s := newServer()
 
 	// Provide two options, sse on a network port, or stdio.
 	if cmd.IsSet("sse") {
@@ -116,10 +123,24 @@ func action(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleScan(_ context.Context, _ *mcp.CallToolRequest, input *scanVulnerableDependenciesInput) (*mcp.CallToolResult, any, error) {
-	statsCollector := fileOpenedLogger{}
+	filter, err := newIgnoreFilter(input.IgnoreGlobPatterns, input.Paths)
+	if err != nil {
+		return nil, nil, fmt.Errorf("failed to run scanner: %w", err)
+	}
+
+	scanPaths, excludePatterns, allExcluded, err := filter.prepareScanTargets(input.Paths, input.Recursive)
+	if err != nil {
+		return nil, nil, fmt.Errorf("failed to run scanner: %w", err)
+	}
+	if allExcluded {
+		return nil, nil, fmt.Errorf("failed to run scanner: %w", osvscanner.ErrNoPackagesFound)
+	}
+
+	statsCollector := fileOpenedLogger{ignore: filter}
 
 	action := osvscanner.ScannerActions{
-		DirectoryPaths:      input.Paths,
+		DirectoryPaths:      scanPaths,
+		ExcludePatterns:     excludePatterns,
 		ScanLicensesSummary: false,
 		StatsCollector:      &statsCollector,
 		CallAnalysisStates: map[string]bool{
@@ -134,9 +155,18 @@ func handleScan(_ context.Context, _ *mcp.CallToolRequest, input *scanVulnerable
 		return nil, nil, fmt.Errorf("failed to run scanner: %w", err)
 	}
 
+	if !filter.isEmpty() {
+		filterScanResults(&scanResults, filter)
+		if errors.Is(err, osvscanner.ErrVulnerabilitiesFound) && !hasActionableVulns(&scanResults) {
+			err = nil
+		}
+	}
+
 	vulnCacheMu.Lock()
 	for _, vuln := range scanResults.Flatten() {
-		vulnCacheMap[vuln.Vulnerability.GetId()] = vuln.Vulnerability
+		if vuln.Vulnerability != nil {
+			vulnCacheMap[vuln.Vulnerability.GetId()] = vuln.Vulnerability
+		}
 	}
 	vulnCacheMu.Unlock()
 
@@ -148,20 +178,23 @@ func handleScan(_ context.Context, _ *mcp.CallToolRequest, input *scanVulnerable
 		}, nil, nil
 	}
 
-	buf := strings.Builder{}
+	return formatScanResult(&scanResults, statsCollector.collectedLines), nil, nil
+}
 
-	for _, s := range statsCollector.collectedLines {
+func formatScanResult(scanResults *models.VulnerabilityResults, collectedLines []string) *mcp.CallToolResult {
+	buf := strings.Builder{}
+	for _, s := range collectedLines {
 		buf.WriteString(s + "\n")
 	}
 
 	text.DisableColors()
-	output.PrintVerticalResults(&scanResults, &buf, false)
+	output.PrintVerticalResults(scanResults, &buf, false)
 
 	return &mcp.CallToolResult{
 		Content: []mcp.Content{
 			&mcp.TextContent{Text: buf.String()},
 		},
-	}, nil, nil
+	}
 }
 
 // getVulnerabilityDetailsInput is the input for the get_vulnerability_details tool.
