@@ -204,7 +204,7 @@ Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
           "rules": [],
           "supportedTaxonomies": [],
           "taxa": [],
-          "version": "2.7.0"
+          "version": "2.8.0"
         },
         "extensions": []
       },
@@ -476,7 +476,7 @@ Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium,
           ],
           "supportedTaxonomies": [],
           "taxa": [],
-          "version": "2.7.0"
+          "version": "2.8.0"
         },
         "extensions": []
       },
@@ -3690,7 +3690,7 @@ Total 1 package affected by 2 known vulnerabilities (0 Critical, 0 High, 0 Mediu
           ],
           "supportedTaxonomies": [],
           "taxa": [],
-          "version": "2.7.0"
+          "version": "2.8.0"
         },
         "extensions": []
       },
