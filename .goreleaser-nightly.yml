@@ -87,13 +87,14 @@ dockers_v2:
       org.opencontainers.image.url: "{{.GitURL}}"
     flags:
       - "--pull"
+      - "--target=cli"
   # GitHub Action
   - id: osv-scanner-action
     images:
       - "ghcr.io/google/osv-scanner-action"
     tags:
       - nightly
-    dockerfile: goreleaser-action.dockerfile
+    dockerfile: goreleaser.dockerfile
     extra_files:
       - exit_code_redirect.sh
     platforms:
@@ -110,6 +111,7 @@ dockers_v2:
       org.opencontainers.image.url: "{{.GitURL}}"
     flags:
       - "--pull"
+      - "--target=action"
 
 release:
   disable: true
