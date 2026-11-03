@@ -22,6 +22,7 @@
 - [Bug #3155](https://github.com/google/osv-scanner/pull/3155) Print license violations for OS sources without vulnerabilities or deprecations.
 - [Bug #3156](https://github.com/google/osv-scanner/pull/3156) Don't display "No fix available" in table output for packages with license violations and no vulnerabilities.
 - [Bug #3169](https://github.com/google/osv-scanner/pull/3169) Restrict the HTML report server (`--serve`) to bind to the loopback interface (`127.0.0.1`) by default (fixes [#3165](https://github.com/google/osv-scanner/issues/3165)).
+- [Bug #3213](https://github.com/google/osv-scanner/pull/3213) Use the correct `IgnoredVulns` key in MCP configuration instructions (resolves [#3209](https://github.com/google/osv-scanner/issues/3209)).
 - **Fixes via `osv-scalibr`**:
   - Continue matching packages across remaining ecosystems in `vulnmatch/osvlocal` when an offline OSV database fails to load for one ecosystem, and return all database load errors joined together ([google/osv-scalibr#2544](https://github.com/google/osv-scalibr/pull/2544)).
   - Accept string values for `maintainers` and `contributors` fields in `javascript/packagejson` without skipping packages and guard against nil person entries ([google/osv-scalibr#2500](https://github.com/google/osv-scalibr/pull/2500)).
