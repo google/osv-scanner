@@ -331,29 +331,18 @@ function updateTypeFilterText() {
     "uncalled-type-checkbox"
   );
 
-  let selectedText = "";
-  let selectedCount = 0;
-
+  const parts = [];
   if (projectTypeCheckbox && projectTypeCheckbox.checked) {
-    selectedText += `${selectedText ? ", " : ""}Project`;
-    const projectTypeVulnCount = projectTypeCheckbox.getAttribute(
-      "data-type-project-count"
-    );
-    selectedCount += parseInt(projectTypeVulnCount, 10);
+    parts.push("Project");
   }
   if (osTypeCheckbox && osTypeCheckbox.checked) {
-    selectedText += `${selectedText ? ", " : ""}OS`;
-    const osTypeVulnCount = osTypeCheckbox.getAttribute("data-type-os-count");
-    selectedCount += parseInt(osTypeVulnCount, 10);
+    parts.push("OS");
   }
   if (uncalledTypeCheckbox && uncalledTypeCheckbox.checked) {
-    selectedText += `${selectedText ? ", " : ""}Unimportant`;
-    const uncalledTypeVulnCount = uncalledTypeCheckbox.getAttribute(
-      "data-type-uncalled-count"
-    );
-    selectedCount += parseInt(uncalledTypeVulnCount, 10);
+    parts.push("Unimportant");
   }
 
+  let selectedText = parts.join(", ");
   if (
     allTypeCheckbox &&
     allTypeCheckbox.checked &&
@@ -365,17 +354,15 @@ function updateTypeFilterText() {
 
   if (document.getElementById("fixable-checkbox").checked) {
     selectedText += `${selectedText ? ", " : ""}Fix available`;
-    selectedCount = document.querySelectorAll(
-      ".vuln-tr:not(.hide-block)"
-    ).length;
   }
 
   typeSelected.textContent = selectedText;
-  selectedVulnCount.textContent = selectedCount;
+  selectedVulnCount.textContent = document.querySelectorAll(
+    ".vuln-tr:not(.hide-block)"
+  ).length;
 }
 
 function resetFilterText() {
-  document.getElementById("fixable-checkbox").checked = false;
   const layerSelected = document.getElementById("layer-filter-selected");
   const allLayerCheckedBox = document.getElementById("all-layer-checkbox");
   if (layerSelected) {
@@ -446,6 +433,7 @@ function resetTypeCheckbox() {
 
 document.addEventListener("DOMContentLoaded", () => {
   resetFilterText();
+  resetTypeCheckbox();
   showAndHideParentSections();
 
   // Implement filter for vulnerability types
