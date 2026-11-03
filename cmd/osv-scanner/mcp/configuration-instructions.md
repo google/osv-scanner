@@ -24,7 +24,7 @@ To override `osv-scanner.toml` files, pass the `--config=/path/to/config.toml` f
 
 ## Ignore vulnerabilities by ID
 
-To ignore a vulnerability, enter the ID under the `IgnoreVulns` key. Optionally, add an expiry date or reason.
+To ignore a vulnerability, enter the ID under the `IgnoredVulns` key. Optionally, add an expiry date or reason.
 
 ### Example
 
