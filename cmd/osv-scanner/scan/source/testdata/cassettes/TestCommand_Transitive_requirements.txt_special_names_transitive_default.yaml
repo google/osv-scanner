@@ -1,0 +1,85 @@
+---
+version: 2
+interactions:
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 800
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "appium-python-client"
+              },
+              "version": "2.11.1"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "appium-python-client"
+              },
+              "version": "2.11.1"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "ruamel-yaml"
+              },
+              "version": "0.19.1"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "ruamel-yaml"
+              },
+              "version": "0.17.0"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "zope-interface"
+              },
+              "version": "8.6.0"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "zope-interface"
+              },
+              "version": "4.1.3"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 31
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "31"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s

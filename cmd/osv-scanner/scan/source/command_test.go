@@ -94,6 +94,12 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "-L", "./testdata/sbom-grouping/npm-scope.cdx.json"},
 			Exit: 1,
 		},
+		// SPDX SBOM with npm scope namespace and Go module ending in /go in PURL
+		{
+			Name: "SPDX_npm_SBOM_with_scope_namespace",
+			Args: []string{"", "source", "-L", "./testdata/sbom-grouping/npm-scope.spdx.json"},
+			Exit: 1,
+		},
 		// one file that does not match the supported sbom file names
 		{
 			Name: "one_file_that_does_not_match_the_supported_sbom_file_names",
@@ -356,7 +362,7 @@ func TestCommand(t *testing.T) {
 		},
 		// Go project with an overridden go version and licenses
 		{
-			Name: "Go_project_with_an_overridden_go_version_and_licences",
+			Name: "Go_project_with_an_overridden_go_version_and_licenses",
 			Args: []string{"", "source", "--config=./testdata/go-project/go-version-config.toml", "--licenses", "./testdata/go-project"},
 			Exit: 0,
 		},
@@ -457,6 +463,52 @@ func TestCommand_Config_UnusedIgnores(t *testing.T) {
 		{
 			Name: "unused_ignores_are_reported_with_specific_config_and_file",
 			Args: []string{"", "source", "--config", "testdata/osv-scanner-partial-ignores-config.toml", "testdata/sbom-insecure"},
+			Exit: 1,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+
+			testcmd.RunAndMatchSnapshots(t, tt)
+		})
+	}
+}
+
+func TestCommand_Config_UnusedOverrides(t *testing.T) {
+	t.Parallel()
+
+	tests := []testcmd.Case{
+		{
+			Name: "unexpired_license_overrides_usage_not_reported_by_default",
+			Args: []string{
+				"", "source",
+				"--config=./testdata/osv-scanner-expired-overrides-config.toml",
+				"./testdata/locks-many-with-insecure",
+				"./testdata/locks-insecure",
+			},
+			Exit: 1,
+		},
+		{
+			Name: "unused_license_overrides_reported_when_checking_licenses",
+			Args: []string{
+				"", "source",
+				"--config=./testdata/osv-scanner-expired-overrides-config.toml",
+				"--licenses=MIT",
+				"./testdata/locks-many-with-insecure",
+				"./testdata/locks-insecure",
+			},
+			Exit: 1,
+		},
+		{
+			Name: "unused_license_overrides_reported_when_summarizing_licenses",
+			Args: []string{
+				"", "source",
+				"--config=./testdata/osv-scanner-expired-overrides-config.toml",
+				"--licenses=MIT",
+				"./testdata/locks-many-with-insecure",
+				"./testdata/locks-insecure",
+			},
 			Exit: 1,
 		},
 	}
@@ -1442,6 +1494,11 @@ func TestCommand_Transitive(t *testing.T) {
 			Name: "requirements.txt_resolution_fallback",
 			Args: []string{"", "source", "./testdata/locks-requirements/unresolvable-requirements.txt"},
 			Exit: 1,
+		},
+		{
+			Name: "requirements.txt_special_names_transitive_default",
+			Args: []string{"", "source", "./testdata/locks-requirements/requirements-special-names.txt"},
+			Exit: 0,
 		},
 	}
 

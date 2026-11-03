@@ -21,7 +21,7 @@ filesystem/vendored
 go/binary
 go/gomod
 govulncheck/binary
-haskell/cabal
+haskell/cabalprojectfreeze
 haskell/stacklock
 java/archive
 java/gradlelockfile
@@ -39,6 +39,7 @@ os/chisel
 os/dpkg
 os/homebrew
 os/rpm
+os/ubuntu/binarytosource
 osv/osvscannerjson
 php/composerlock
 python/pdmlock
@@ -135,6 +136,7 @@ license/depsdev
 ---
 
 [TestResolve_Enrichers_Presets/vulns - 1]
+os/ubuntu/binarytosource
 vulnmatch/osvdev
 vulnmatch/osvlocal
 ---
@@ -172,7 +174,7 @@ dotnet/packagesconfig
 dotnet/packageslockjson
 erlang/mixlock
 go/gomod
-haskell/cabal
+haskell/cabalprojectfreeze
 haskell/stacklock
 java/gradlelockfile
 java/gradleverificationmetadataxml

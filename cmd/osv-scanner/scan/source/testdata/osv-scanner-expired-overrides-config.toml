@@ -1,0 +1,86 @@
+[[PackageOverrides]]
+ecosystem = "npm"
+effectiveUntil = 2005-01-01
+ignore = true
+
+[[PackageOverrides]]
+ecosystem = "Maven"
+name = "org.apache.logging.log4j:log4j-core"
+ignore = true
+effectiveUntil = 2020-01-01
+
+[[PackageOverrides]]
+ecosystem = "Maven"
+ignore = true
+reason = "it makes the table output really really long"
+
+[[PackageOverrides]]
+name = "drupal/simple_sitemap"
+ignore = true
+effectiveUntil = 2017-05-01
+
+[[PackageOverrides]]
+name = "drupal/.*"
+nameIsRegex = true
+ignore = true
+
+[[PackageOverrides]]
+ecosystem = "Packagist"
+effectiveUntil = 2100-01-01
+license.override = ["0BSD"]
+
+[[PackageOverrides]]
+effectiveUntil = 2017-05-01
+ignore = true
+
+[[PackageOverrides]]
+effectiveUntil = 2017-05-01
+group = "dev"
+version = "1.2.3"
+
+# always "unused" since it has no "action"
+[[PackageOverrides]]
+name = "ssl_client"
+
+# always "unused" since it ignores vulns, and does not match a package
+[[PackageOverrides]]
+name = "does-not-exist"
+vulnerability.ignore = true
+license.ignore = true
+version = "1.0.0"
+
+# always "unused" since it ignores everything, and does not match a package
+[[PackageOverrides]]
+name = "does-not-exist"
+ignore = true
+license.ignore = true
+version = "1.0.1"
+
+# always "unused" as it is no longer effective
+[[PackageOverrides]]
+effectiveUntil = 2017-05-08
+ecosystem = "ca-certificates-bundle"
+license.ignore = true
+
+# always "unused" since "false" is the default value
+# (and we cannot easily know if its "not present")
+[[PackageOverrides]]
+ecosystem = "ast"
+license.ignore = false
+
+# always "unused" since "empty" is the default value
+# (and we cannot easily know if its "not present")
+[[PackageOverrides]]
+name = "zlib"
+license.override = []
+
+# only "unused" if licenses are enabled for the scan
+[[PackageOverrides]]
+name = "does-not-exist"
+version = "1.2.1"
+license.override = ["MIT"]
+
+# not "unused" at all
+[[PackageOverrides]]
+ecosystem = "Alpine"
+license.override = ["MIT"]

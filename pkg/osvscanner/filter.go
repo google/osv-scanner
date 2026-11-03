@@ -39,10 +39,9 @@ func filterPackageVulns(pkgVulns models.PackageVulns, configToUse config.Config)
 	// Iterate over groups first to remove all aliases of ignored vulnerabilities.
 	var newGroups []models.GroupInfo
 	for _, group := range pkgVulns.Groups {
-		ignore := false
+		var ignoreLine *config.IgnoreEntry
 		for _, id := range group.Aliases {
-			var ignoreLine *config.IgnoreEntry
-			if ignore, ignoreLine = configToUse.ShouldIgnore(id); ignore {
+			if ignoreLine = configToUse.FindVulnIgnore(id); ignoreLine != nil {
 				for _, id := range group.Aliases {
 					ignoredVulns[id] = struct{}{}
 				}
@@ -68,7 +67,7 @@ func filterPackageVulns(pkgVulns models.PackageVulns, configToUse config.Config)
 				break
 			}
 		}
-		if !ignore {
+		if ignoreLine == nil {
 			newGroups = append(newGroups, group)
 		}
 	}

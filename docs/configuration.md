@@ -24,19 +24,19 @@ To override `osv-scanner.toml` files, pass the `--config=/path/to/config.toml` f
 
 ## Ignore vulnerabilities by ID
 
-To ignore a vulnerability, enter the ID under the `IgnoreVulns` key. Optionally, add an expiry date or reason.
+To ignore a vulnerability, enter the ID under the `IgnoredVulns` key. Optionally, add an expiry date or reason.
 
 ### Example
 
 ```toml
 [[IgnoredVulns]]
 id = "GO-2022-0968"
-# ignoreUntil = 2022-11-09 # Optional exception expiry date
+# effectiveUntil = 2022-11-09 # Optional exception expiry date, after which the ignore will no longer apply
 reason = "No ssh servers are connected to or hosted in Go lang"
 
 [[IgnoredVulns]]
 id = "GO-2022-1059"
-# ignoreUntil = 2022-11-09 # Optional exception expiry date
+# effectiveUntil = 2022-11-09 # Optional exception expiry date, after which the ignore will no longer apply
 reason = "No external http servers are written in Go lang."
 ```
 
@@ -52,7 +52,7 @@ You can specify overrides for particular packages to have them either ignored en
 name = "lib"
 # nameIsRegex = true # Optional: treat name as a regular expression pattern
 version = "1.0.0"
-ecosystem = "Go"
+ecosystem = "go"
 group = "dev"
 
 # Actions to take for matching packages:
@@ -79,7 +79,7 @@ ignore = true
 
 # ignore a particular ecosystem
 [[PackageOverrides]]
-ecosystem = "go"
+ecosystem = "Go"
 ignore = true
 
 # ignore packages named "axios" regardless of ecosystem or group

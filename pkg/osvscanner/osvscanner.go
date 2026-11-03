@@ -222,9 +222,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		defer os.Remove(path)
 
 		img, err = image.FromTarball(path, image.DefaultConfig())
-		// actions.Image is user-controlled; sanitize \r/\n before logging to
-		// prevent GitHub Actions workflow command injection.
-		cmdlogger.Infof("Scanning image %q", output.SanitizeForWorkflowCommand(actions.Image))
+		cmdlogger.Infof("Scanning image %q", actions.Image)
 	}
 	if err != nil {
 		return models.VulnerabilityResults{}, err
@@ -320,6 +318,34 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 
 			for _, iv := range unusedIgnoredEntries[configFile] {
 				cmdlogger.Warnf(" - %s", iv.ID)
+			}
+		}
+	}
+
+	unusedPackageOverrides := scanResult.ConfigManager.GetUnusedPackageOverrides()
+
+	// if licenses weren't scanned, we cannot reliably know if unexpired license
+	// overrides would match anything, so remove them from the "unused" map
+	if len(actions.ScanLicensesAllowlist) == 0 && !actions.ScanLicensesSummary {
+		for configFile := range unusedPackageOverrides {
+			unusedPackageOverrides[configFile] = config.OmitUnexpiredLicenseOverrides(unusedPackageOverrides[configFile])
+
+			// if all overrides were relating to licenses, remove the config entirely
+			if len(unusedPackageOverrides[configFile]) == 0 {
+				delete(unusedPackageOverrides, configFile)
+			}
+		}
+	}
+
+	if len(unusedPackageOverrides) != 0 {
+		configFiles := slices.Collect(maps.Keys(unusedPackageOverrides))
+		slices.Sort(configFiles)
+
+		for _, configFile := range configFiles {
+			cmdlogger.Warnf("%s has unused overrides:", configFile)
+
+			for _, po := range unusedPackageOverrides[configFile] {
+				cmdlogger.Warnf(" - %s", po.Describe())
 			}
 		}
 	}

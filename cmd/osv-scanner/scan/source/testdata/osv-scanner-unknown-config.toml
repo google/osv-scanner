@@ -21,4 +21,4 @@ license.skip = true
 
 [[IgnoredVulns]]
 id = "GO-2022-0274"
-ignoreuntil = 2020-01-01
+effectiveUntil = 2020-01-01

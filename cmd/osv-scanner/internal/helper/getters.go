@@ -10,11 +10,12 @@ import (
 )
 
 func GetScanLicensesAllowlist(cmd *cli.Command) ([]string, error) {
+	// todo: cleanup naming
 	if !cmd.IsSet("licenses") {
 		return []string{}, nil
 	}
 
-	allowlist := cmd.Generic("licenses").(*allowedLicencesFlag).allowlist
+	allowlist := cmd.Generic("licenses").(*allowedLicensesFlag).allowlist
 
 	if len(allowlist) == 0 {
 		return []string{}, nil

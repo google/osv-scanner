@@ -151,9 +151,7 @@ func printSummaryResult(result Result, outputWriter io.Writer, terminalWidth int
 				continue
 			}
 			outputTable := newTable(outputWriter, terminalWidth)
-			// source.Name is user-controlled; sanitize \r/\n before printing to
-			// prevent GitHub Actions workflow command injection.
-			outputTable.SetTitle("Source:" + SanitizeForWorkflowCommand(simplifySourcePath(source.Name, source.Type)))
+			outputTable.SetTitle("Source:" + simplifySourcePath(source.Name, source.Type))
 			sourcePackageHeader := "Package"
 			if isOSResult(source.Type) {
 				sourcePackageHeader = "Source Package"
@@ -185,14 +183,14 @@ func printSummaryResult(result Result, outputWriter io.Writer, terminalWidth int
 				outputRow := table.Row{}
 				totalCount := pkg.VulnCount.AnalysisCount.Regular
 				var fixAvailable string
-				if pkg.FixedVersion == UnfixedDescription {
+				if totalCount == 0 {
+					fixAvailable = ""
+				} else if pkg.FixedVersion == UnfixedDescription {
 					fixAvailable = UnfixedDescription
+				} else if pkg.VulnCount.FixableCount.UnFixed > 0 {
+					fixAvailable = "Partial fixes Available"
 				} else {
-					if pkg.VulnCount.FixableCount.UnFixed > 0 {
-						fixAvailable = "Partial fixes Available"
-					} else {
-						fixAvailable = "Fix Available"
-					}
+					fixAvailable = "Fix Available"
 				}
 
 				outputRow = append(outputRow, pkg.Name, getInstalledVersionOrCommit(pkg), fixAvailable, totalCount)
@@ -366,9 +364,7 @@ func tableBuilderInner(result Result, vulnAnalysisType VulnAnalysisType) ([]tbIn
 					p = strings.TrimPrefix(p, filepath.ToSlash(workingDir))
 					p = strings.TrimPrefix(p, "/")
 
-					// p is user-controlled; sanitize \r/\n before printing to prevent
-					// GitHub Actions workflow command injection.
-					outputRow = append(outputRow, SanitizeForWorkflowCommand(p))
+					outputRow = append(outputRow, p)
 
 					allOutputRows = append(allOutputRows, tbInnerResponse{
 						row:         outputRow,
@@ -431,9 +427,7 @@ func licenseViolationsTableBuilder(outputTable table.Writer, vulnResult *models.
 				pkg.Package.Ecosystem,
 				pkg.Package.Name,
 				pkg.Package.Version,
-				// path is user-controlled; sanitize \r/\n before printing to
-				// prevent GitHub Actions workflow command injection.
-				SanitizeForWorkflowCommand(path),
+				path,
 			})
 		}
 	}
@@ -468,9 +462,7 @@ func deprecatedPackagesTableBuilder(outputTable table.Writer, vulnResult *models
 				pkg.Package.Ecosystem,
 				pkg.Package.Name,
 				pkg.Package.Version,
-				// path is user-controlled; sanitize \r/\n before printing to
-				// prevent GitHub Actions workflow command injection.
-				SanitizeForWorkflowCommand(path),
+				path,
 			})
 		}
 	}
