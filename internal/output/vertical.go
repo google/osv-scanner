@@ -91,7 +91,7 @@ func printVerticalLicenseViolations(source SourceResult, out io.Writer) {
 
 		fmt.Fprintf(out,
 			"    %s (%s)\n",
-			text.FgYellow.Sprintf("%s@%s", SanitizeForWorkflowCommand(pkg.Name), SanitizeForWorkflowCommand(pkg.InstalledVersion)),
+			text.FgYellow.Sprintf("%s@%s", pkg.Name, pkg.InstalledVersion),
 			text.FgCyan.Sprintf("%s", strings.Join(violations, ", ")),
 		)
 	}
@@ -116,7 +116,7 @@ func printVerticalPkgDeprecatedSummary(source SourceResult, out io.Writer) {
 
 		fmt.Fprintf(out,
 			"    %s\n",
-			text.FgYellow.Sprintf("%s@%s", SanitizeForWorkflowCommand(pkg.Name), SanitizeForWorkflowCommand(pkg.InstalledVersion)),
+			text.FgYellow.Sprintf("%s@%s", pkg.Name, pkg.InstalledVersion),
 		)
 	}
 }
@@ -153,13 +153,10 @@ func printBaseImages(imageResult ImageInfo, out io.Writer) {
 }
 
 func printVerticalHeader(result SourceResult, out io.Writer) {
-	// result.Name is user-controlled; sanitize \r/\n before printing to prevent
-	// GitHub Actions workflow command injection.
-	safeName := SanitizeForWorkflowCommand(result.Name)
 	fmt.Fprintf(
 		out,
 		"%s: found %s %s with issues\n",
-		text.FgMagenta.Sprintf("%s", safeName),
+		text.FgMagenta.Sprintf("%s", result.Name),
 		text.FgYellow.Sprintf("%d", result.PackageTypeCount.Regular),
 		Form(result.PackageTypeCount.Regular, "package", "packages"),
 	)
@@ -186,9 +183,7 @@ func printVerticalVulnerabilitiesCountSummary(count int, printingCalled bool, so
 			count,
 			state,
 			Form(count, "vulnerability", "vulnerabilities"),
-			// sourcePath is user-controlled; sanitize \r/\n before printing to
-			// prevent GitHub Actions workflow command injection.
-			SanitizeForWorkflowCommand(sourcePath),
+			sourcePath,
 		),
 	)
 
@@ -228,7 +223,7 @@ func printVerticalVulnerabilitiesForPackages(packages []PackageResult, out io.Wr
 
 		fmt.Fprintf(out,
 			"  %s%s %s\n",
-			text.FgYellow.Sprintf("%s@%s", SanitizeForWorkflowCommand(pkgSourceName), SanitizeForWorkflowCommand(pkg.InstalledVersion)),
+			text.FgYellow.Sprintf("%s@%s", pkgSourceName, pkg.InstalledVersion),
 			text.FgYellow.Sprintf("%s", pkgNameInfo),
 			text.FgRed.Sprintf("has the following %s vulnerabilities:", state),
 		)

@@ -10,6 +10,25 @@ import (
 	"github.com/jedib0t/go-pretty/v6/table"
 )
 
+var (
+	// escapeGHProperty escapes strings being used as the value of a property (e.g. file=) for a GitHub Actions
+	// workflow command, matching the escaping done in actions/toolkit.
+	//
+	// This escapes:
+	//   - "\r" and "\n", so the command remains on one line (preventing a new command from being started)
+	//   - "%", so that literal sequences (e.g. %0A) are decoded back to themselves, rather than a newline
+	//   - ":", so that "::" cannot be used to end the property list prematurely
+	//   - ",", so that additional properties cannot be added
+	escapeGHProperty = strings.NewReplacer("%", "%25", "\r", "%0D", "\n", "%0A", ":", "%3A", ",", "%2C")
+	// escapeGHData escapes strings being used as message data for a GitHub Actions workflow command,
+	// matching the escaping done in actions/toolkit.
+	//
+	// This escapes:
+	//   - "\r" and "\n", so the command remains on one line (preventing a new command from being started)
+	//   - "%", so that literal sequences (e.g. %0A) are decoded back to themselves, rather than a newline
+	escapeGHData = strings.NewReplacer("%", "%25", "\r", "%0D", "\n", "%0A")
+)
+
 // createSourceRemediationTable creates a vulnerability table which includes the fixed versions for a specific source file
 func createSourceRemediationTable(source models.PackageSource, groupedFixedVersions map[string][]string) (table.Writer, bool) {
 	hasRow := false
@@ -79,33 +98,26 @@ func PrintGHAnnotationReport(vulnResult *models.VulnerabilityResults, outputWrit
 
 		artifactPath = filepath.ToSlash(artifactPath)
 
-		// Sanitize artifactPath to prevent GitHub Actions workflow command injection.
-		// \r and \n in the file= parameter can terminate the annotation early and inject
-		// arbitrary workflow commands (e.g. ::warning::, ::add-mask::) into the runner output.
-		artifactPath = strings.ReplaceAll(artifactPath, "\r", "%0D")
-		artifactPath = strings.ReplaceAll(artifactPath, "\n", "%0A")
-
 		remediationTable, hasVulnTable := createSourceRemediationTable(source, groupedFixedVersions)
 		if hasVulnTable {
 			renderedTable := remediationTable.Render()
-			// This is required as github action annotations must be on the same terminal line
-			// so we URL encode the new line character
-			renderedTable = strings.ReplaceAll(renderedTable, "\n", "%0A")
-			// Sanitize \r to prevent workflow command injection via carriage return in package names
-			renderedTable = strings.ReplaceAll(renderedTable, "\r", "%0D")
 
 			// Prepend the table with a new line to look nicer in the output
-			fmt.Fprintf(outputWriter, "::error file=%s::%s%s", artifactPath, artifactPath, "%0A"+renderedTable)
+			fmt.Fprintf(outputWriter, "::error file=%s,line=1::%s\n",
+				escapeGHProperty.Replace(artifactPath),
+				escapeGHData.Replace(artifactPath+"\n"+renderedTable),
+			)
 		}
 
 		// Create and render package deprecation table
 		deprecationTable, hasDeprecationTable := createDeprecationTable(source)
 		if hasDeprecationTable {
 			renderedDeprecationTable := deprecationTable.Render()
-			renderedDeprecationTable = strings.ReplaceAll(renderedDeprecationTable, "\n", "%0A")
-			// Sanitize \r to prevent workflow command injection via carriage return in package names
-			renderedDeprecationTable = strings.ReplaceAll(renderedDeprecationTable, "\r", "%0D")
-			fmt.Fprintf(outputWriter, "::error file=%s::%s%s", artifactPath, artifactPath, "%0A"+renderedDeprecationTable)
+
+			fmt.Fprintf(outputWriter, "::error file=%s,line=1::%s\n",
+				escapeGHProperty.Replace(artifactPath),
+				escapeGHData.Replace(artifactPath+"\n"+renderedDeprecationTable),
+			)
 		}
 	}
 
