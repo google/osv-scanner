@@ -5050,6 +5050,68 @@ No issues found
 
 ---
 
+[TestCommand_LocalDatabases/npm_local_workspace_and_file_packages_skipped - 1 - stdout]
+Scanned <rootdir>/testdata/locks-scalibr/npm-local/package-lock.json file and found 3 packages
+Loaded npm local db from <tempdir>/osv-scalibr/npm/all.zip
+
+No issues found
+
+---
+
+[TestCommand_LocalDatabases/npm_local_workspace_and_file_packages_skipped - 2 - stderr]
+
+---
+
+[TestCommand_LocalDatabases/npm_local_workspace_and_file_packages_skipped - 3 - stdout]
+Scanned <rootdir>/testdata/locks-scalibr/npm-local/package-lock.json file and found 3 packages
+Loaded npm local db from <tempdir>/osv-scalibr/npm/all.zip
+
+No issues found
+
+---
+
+[TestCommand_LocalDatabases/npm_local_workspace_and_file_packages_skipped - 4 - stderr]
+
+---
+
+[TestCommand_LocalDatabases/npm_omit_resolved_registry_packages_scanned - 1 - stdout]
+Scanned <rootdir>/testdata/locks-scalibr/npm-omit-resolved/package-lock.json file and found 3 packages
+Loaded npm local db from <tempdir>/osv-scalibr/npm/all.zip
+
+Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
++-------------------------------------+------+-----------+-----------+---------+---------------+------------------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                                     |
++-------------------------------------+------+-----------+-----------+---------+---------------+------------------------------------------------------------+
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | testdata/locks-scalibr/npm-omit-resolved/package-lock.json |
++-------------------------------------+------+-----------+-----------+---------+---------------+------------------------------------------------------------+
+
+---
+
+[TestCommand_LocalDatabases/npm_omit_resolved_registry_packages_scanned - 2 - stderr]
+
+---
+
+[TestCommand_LocalDatabases/npm_omit_resolved_registry_packages_scanned - 3 - stdout]
+Scanned <rootdir>/testdata/locks-scalibr/npm-omit-resolved/package-lock.json file and found 3 packages
+Loaded npm local db from <tempdir>/osv-scalibr/npm/all.zip
+
+Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
++-------------------------------------+------+-----------+-----------+---------+---------------+------------------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                                     |
++-------------------------------------+------+-----------+-----------+---------+---------------+------------------------------------------------------------+
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | testdata/locks-scalibr/npm-omit-resolved/package-lock.json |
++-------------------------------------+------+-----------+-----------+---------+---------------+------------------------------------------------------------+
+
+---
+
+[TestCommand_LocalDatabases/npm_omit_resolved_registry_packages_scanned - 4 - stderr]
+
+---
+
 [TestCommand_LocalDatabases/one_specific_supported_lockfile - 1 - stdout]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
@@ -5644,6 +5706,35 @@ Total 2 packages affected by 17 known vulnerabilities (0 Critical, 3 High, 3 Med
 ---
 
 [TestCommand_MoreLockfiles/gems.locked - 2 - stderr]
+
+---
+
+[TestCommand_MoreLockfiles/npm_local_workspace_and_file_packages_skipped - 1 - stdout]
+Scanned <rootdir>/testdata/locks-scalibr/npm-local/package-lock.json file and found 3 packages
+
+No issues found
+
+---
+
+[TestCommand_MoreLockfiles/npm_local_workspace_and_file_packages_skipped - 2 - stderr]
+
+---
+
+[TestCommand_MoreLockfiles/npm_omit_resolved_registry_packages_scanned - 1 - stdout]
+Scanned <rootdir>/testdata/locks-scalibr/npm-omit-resolved/package-lock.json file and found 3 packages
+
+Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
++-------------------------------------+------+-----------+-----------+---------+---------------+------------------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                                     |
++-------------------------------------+------+-----------+-----------+---------+---------------+------------------------------------------------------------+
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | testdata/locks-scalibr/npm-omit-resolved/package-lock.json |
++-------------------------------------+------+-----------+-----------+---------+---------------+------------------------------------------------------------+
+
+---
+
+[TestCommand_MoreLockfiles/npm_omit_resolved_registry_packages_scanned - 2 - stderr]
 
 ---
 
