@@ -130,3 +130,36 @@ func Test_extractRlibArchive_noObjectFile(t *testing.T) {
 		t.Errorf("expected a 'no object file found' error, got: %v", err)
 	}
 }
+
+func Test_extractRlibArchive_malformedHeader(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name string
+		size string
+	}{
+		{name: "negative size", size: "-1000000"},
+		{name: "non-numeric size", size: "abc"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			var archive bytes.Buffer
+			archive.WriteString("!<arch>\n")
+			// name[16] mtime[12] uid[6] gid[6] mode[8] size[10] fmag[2]
+			fmt.Fprintf(&archive, "%-16s%-12d%-6d%-6d%-8s%-10s`\n", "/0", 0, 0, 0, "644", tt.size)
+			archive.WriteString("xxxxxxxxxxxx")
+
+			path := filepath.Join(t.TempDir(), "malformed.rlib")
+			if err := os.WriteFile(path, archive.Bytes(), 0600); err != nil {
+				t.Fatalf("failed to write test archive: %v", err)
+			}
+
+			_, err := extractRlibArchive(path)
+			if err == nil || !strings.Contains(err.Error(), "invalid size") {
+				t.Fatalf("expected an 'invalid size' error, got: %v", err)
+			}
+		})
+	}
+}
