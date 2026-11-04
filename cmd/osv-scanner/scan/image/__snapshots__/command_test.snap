@@ -480,7 +480,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 31 packages affected by 99 known vulnerabilities (12 Critical, 35 High, 40 Medium, 7 Low, 5 Unknown) from 1 ecosystem.
-57 vulnerabilities can be fixed.
+63 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -510,7 +510,7 @@ Ubuntu:22.04
 | openssl        | 3.0.2-0ubuntu1.18            | Fix Available           |          7 | libssl3                 | # 4 Layer        | ubuntu        |
 | p11-kit        | 0.24.0-6build1               | Fix Available           |          1 | libp11-kit0             | # 4 Layer        | ubuntu        |
 | pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          4 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
-| pcre2          | 10.39-3ubuntu0.1             | No fix available        |          8 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
+| pcre2          | 10.39-3ubuntu0.1             | Partial fixes Available |          8 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
 | perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |         14 | perl-base               | # 4 Layer        | ubuntu        |
 | sed            | 4.8-1ubuntu2                 | Fix Available           |          1 | sed                     | # 4 Layer        | ubuntu        |
 | shadow         | 1:4.8.1-2ubuntu2.2           | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
@@ -538,7 +538,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 31 packages affected by 99 known vulnerabilities (12 Critical, 35 High, 40 Medium, 7 Low, 5 Unknown) from 1 ecosystem.
-57 vulnerabilities can be fixed.
+63 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -568,7 +568,7 @@ Ubuntu:22.04
 | openssl        | 3.0.2-0ubuntu1.18            | Fix Available           |          7 | libssl3                 | # 4 Layer        | ubuntu        |
 | p11-kit        | 0.24.0-6build1               | Fix Available           |          1 | libp11-kit0             | # 4 Layer        | ubuntu        |
 | pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          4 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
-| pcre2          | 10.39-3ubuntu0.1             | No fix available        |          8 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
+| pcre2          | 10.39-3ubuntu0.1             | Partial fixes Available |          8 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
 | perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |         14 | perl-base               | # 4 Layer        | ubuntu        |
 | sed            | 4.8-1ubuntu2                 | Fix Available           |          1 | sed                     | # 4 Layer        | ubuntu        |
 | shadow         | 1:4.8.1-2ubuntu2.2           | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
@@ -731,7 +731,7 @@ Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 32 packages affected by 101 known vulnerabilities (12 Critical, 37 High, 40 Medium, 7 Low, 5 Unknown) from 1 ecosystem.
-57 vulnerabilities can be fixed.
+63 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -762,7 +762,7 @@ Ubuntu:22.04
 | openssl        | 3.0.2-0ubuntu1.18            | Fix Available           |          7 | libssl3                 | # 4 Layer        | ubuntu        |
 | p11-kit        | 0.24.0-6build1               | Fix Available           |          1 | libp11-kit0             | # 4 Layer        | ubuntu        |
 | pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          4 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
-| pcre2          | 10.39-3ubuntu0.1             | No fix available        |          8 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
+| pcre2          | 10.39-3ubuntu0.1             | Partial fixes Available |          8 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
 | perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |         14 | perl-base               | # 4 Layer        | ubuntu        |
 | sed            | 4.8-1ubuntu2                 | Fix Available           |          1 | sed                     | # 4 Layer        | ubuntu        |
 | shadow         | 1:4.8.1-2ubuntu2.2           | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
