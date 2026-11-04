@@ -1,0 +1,27 @@
+{
+  "results": [
+    {
+      "source": {
+        "path": "/path/to/osv-scanner.json",
+        "type": "lockfile"
+      },
+      "packages": [
+        { "package": { "name": "nginx", "version": "1.25.3", "ecosystem": "Bitnami" } },
+        { "package": { "name": "symfony/http-kernel", "version": "6.3.0", "ecosystem": "Packagist" } },
+        { "package": { "name": "drupal/simple_sitemap", "version": "1.0.0", "ecosystem": "Packagist:https://packages.drupal.org/8" } },
+        { "package": { "name": "zlib", "version": "1.3.1", "ecosystem": "ConanCenter" } },
+        { "package": { "name": "readxl", "version": "1.4.3", "ecosystem": "CRAN" } },
+        { "package": { "name": "python", "version": "3.12.1", "ecosystem": "Docker Hardened Images" } },
+        { "package": { "name": "actions/checkout", "version": "4.1.0", "ecosystem": "GitHub Actions" } },
+        { "package": { "name": "github.com/gin-gonic/gin", "version": "1.9.1", "ecosystem": "Go" } },
+        { "package": { "name": "aeson", "version": "2.2.1.0", "ecosystem": "Hackage" } },
+        { "package": { "name": "phoenix", "version": "1.7.10", "ecosystem": "Hex" } },
+        { "package": { "name": "HTTP", "version": "1.10.0", "ecosystem": "Julia" } },
+        { "package": { "name": "lodash", "version": "4.17.20", "ecosystem": "npm" } },
+        { "package": { "name": "ocamlfind", "version": "1.9.6", "ecosystem": "opam" } },
+        { "package": { "name": "requests", "version": "2.25.1", "ecosystem": "PyPI" } },
+        { "package": { "name": "github.com/apple/swift-nio", "version": "2.62.0", "ecosystem": "SwiftURL" } }
+      ]
+    }
+  ]
+}
