@@ -52,7 +52,7 @@ You can specify overrides for particular packages to have them either ignored en
 name = "lib"
 # nameIsRegex = true # Optional: treat name as a regular expression pattern
 version = "1.0.0"
-ecosystem = "go"
+ecosystem = "Go"
 group = "dev"
 
 # Actions to take for matching packages:
