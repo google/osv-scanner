@@ -115,18 +115,29 @@ func action(ctx context.Context, cmd *cli.Command) error {
 	return nil
 }
 
-func handleScan(_ context.Context, _ *mcp.CallToolRequest, input *scanVulnerableDependenciesInput) (*mcp.CallToolResult, any, error) {
-	statsCollector := fileOpenedLogger{}
+// buildScanActions converts the scan tool input into scanner actions
+func buildScanActions(input *scanVulnerableDependenciesInput, statsCollector *fileOpenedLogger) osvscanner.ScannerActions {
+	excludePatterns := make([]string, 0, len(input.IgnoreGlobPatterns))
+	for _, pattern := range input.IgnoreGlobPatterns {
+		excludePatterns = append(excludePatterns, "g:"+pattern)
+	}
 
-	action := osvscanner.ScannerActions{
+	return osvscanner.ScannerActions{
 		DirectoryPaths:      input.Paths,
 		ScanLicensesSummary: false,
-		StatsCollector:      &statsCollector,
 		CallAnalysisStates: map[string]bool{
 			"go": true,
 		},
-		Recursive: input.Recursive,
+		Recursive:       input.Recursive,
+		StatsCollector:  statsCollector,
+		ExcludePatterns: excludePatterns,
 	}
+}
+
+func handleScan(_ context.Context, _ *mcp.CallToolRequest, input *scanVulnerableDependenciesInput) (*mcp.CallToolResult, any, error) {
+	statsCollector := fileOpenedLogger{}
+
+	action := buildScanActions(input, &statsCollector)
 
 	//nolint:contextcheck // passing the context in would be a breaking change
 	scanResults, err := osvscanner.DoScan(action)
