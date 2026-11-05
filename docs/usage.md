@@ -124,7 +124,7 @@ See [licenses scanning](./license-scanning.md) for more details.
 
 ### Show all packages
 
-The `--all-packages` flag can be used to output all packages in JSON format (make sure to set `--format=json`).
+The `--all-packages` flag can be used to output all packages in JSON, SPDX, and CycloneDX formats. Without this flag, SBOM formats include only packages with vulnerabilities.
 
 Note that the `PackageOverrides` configuration, specifically the `ignore` action, takes precedence over this flag.
 
