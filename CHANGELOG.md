@@ -1,21 +1,27 @@
-# v2.8.0
+# v2.7.1
 
 ### Features:
 
 - [Feature #3158](https://github.com/google/osv-scanner/pull/3158) Prefer ecosystem priority (such as Ubuntu severity) in table output when available (resolves [#1275](https://github.com/google/osv-scanner/issues/1275)).
+- [Feature #3178](https://github.com/google/osv-scanner/pull/3178) Add a "Fix available" filter checkbox to HTML reports (fixes [#3016](https://github.com/google/osv-scanner/issues/3016)).
 - [Feature #3173](https://github.com/google/osv-scanner/pull/3173) Warn about unused or expired `[[PackageOverrides]]` configuration entries (resolves [#3160](https://github.com/google/osv-scanner/issues/3160)).
 - [Feature #3184](https://github.com/google/osv-scanner/pull/3184) Support `EffectiveUntil` in `[[IgnoredVulns]]` configuration entries and deprecate `IgnoreUntil`.
 - [Feature #3179](https://github.com/google/osv-scanner/pull/3179) Improve GitHub Actions annotation escaping and include line numbers so annotations appear directly on files.
+- [Feature #3159](https://github.com/google/osv-scanner/pull/3159) Support mapping additional ecosystems (`Bitnami`, `GitHub Actions`, `Linux`, `OSS-Fuzz`) to PURL types in `osvscanner.json` (`osv/osvscannerjson`) extractor.
 - **Dependency scanning & lockfile improvements via `osv-scalibr`**:
   - Add Echo OS ecosystem mapping (`Echo`) to the DPKG extractor (`os/dpkg`) and Debian version parsing for `Echo` advisories ([google/osv-scalibr#2453](https://github.com/google/osv-scalibr/pull/2453)).
+  - Add line number support to the `dotnet/paketlock` extractor ([google/osv-scalibr#2561](https://github.com/google/osv-scalibr/pull/2561)).
+  - Append base images in the `deps.dev` `baseimage` enricher instead of overwriting pre-existing base image chains ([google/osv-scalibr#2481](https://github.com/google/osv-scalibr/pull/2481)).
   - Support `.tgz` archive files in `embeddedfs/archive` ([google/osv-scalibr#2540](https://github.com/google/osv-scalibr/pull/2540)).
 - **New extractors and plugin support via `osv-scalibr`**:
   - Enable `os/ubuntu/binarytosource` enricher in the `vulns` preset to map Ubuntu binary package names from Chisel manifests to source package names ([google/osv-scalibr#2482](https://github.com/google/osv-scalibr/pull/2482)).
   - Added extractors for FreeBSD packages (`os/freebsd`, [google/osv-scalibr#2048](https://github.com/google/osv-scalibr/pull/2048)), Go workspaces (`go/gowork`, [google/osv-scalibr#2139](https://github.com/google/osv-scalibr/pull/2139)), Cabal installed packages (`haskell/cabalconf`, [google/osv-scalibr#2447](https://github.com/google/osv-scalibr/pull/2447)), Python `setup.cfg` (`python/setupcfg`, [google/osv-scalibr#2369](https://github.com/google/osv-scalibr/pull/2369)), and installed R packages (`r/rpkg`, [google/osv-scalibr#2040](https://github.com/google/osv-scalibr/pull/2040)), available via `--x-plugins` (`--experimental-plugins`).
-  - Rename `haskell/cabal` extractor to `haskell/cabalprojectfreeze` ([google/osv-scalibr#2447](https://github.com/google/osv-scalibr/pull/2447)) and `chrome/extensions` to `browser/extensions` (with added Edge and Firefox extension support, [google/osv-scalibr#2184](https://github.com/google/osv-scalibr/pull/2184)). See ["Supported Inventory Types"](https://github.com/google/osv-scalibr/blob/a2de590979cd1c89b1d0c031bb1f2bed115449f4/docs/supported_inventory_types.md) for extractor names.
+  - Rename `haskell/cabal` extractor to `haskell/cabalprojectfreeze` ([google/osv-scalibr#2447](https://github.com/google/osv-scalibr/pull/2447)) and `chrome/extensions` to `browser/extensions` (with added Edge and Firefox extension support, [google/osv-scalibr#2184](https://github.com/google/osv-scalibr/pull/2184)). See ["Supported Inventory Types"](https://github.com/google/osv-scalibr/blob/c80efcc25cd9e87731e9e82bf29509bc6ce0a855/docs/supported_inventory_types.md) for extractor names.
 
 ### Fixes:
 
+- [Bug #3216](https://github.com/google/osv-scanner/pull/3216) Scan npm registry packages with omitted `resolved` URLs while skipping local workspace and `file:`/`link:` packages (fixes [#2881](https://github.com/google/osv-scanner/issues/2881), [#3177](https://github.com/google/osv-scanner/issues/3177), [google/osv-scalibr#2560](https://github.com/google/osv-scalibr/pull/2560)).
+- [Bug #3214](https://github.com/google/osv-scanner/pull/3214) Reject malformed `ar` archive member sizes instead of panicking during `--call-analysis=rust` scans (fixes [#3202](https://github.com/google/osv-scanner/issues/3202)).
 - [Bug #3114](https://github.com/google/osv-scanner/pull/3114) Group connected vulnerabilities transitively regardless of the order they are encountered (resolves [#3107](https://github.com/google/osv-scanner/issues/3107)).
 - [Bug #3147](https://github.com/google/osv-scanner/pull/3147) Stop treating `upstream` identifiers as aliases when grouping vulnerabilities.
 - [Bug #3199](https://github.com/google/osv-scanner/pull/3199) Sort package vulnerabilities deterministically by ID in output results.
@@ -24,7 +30,10 @@
 - [Bug #3169](https://github.com/google/osv-scanner/pull/3169) Restrict the HTML report server (`--serve`) to bind to the loopback interface (`127.0.0.1`) by default (fixes [#3165](https://github.com/google/osv-scanner/issues/3165)).
 - [Bug #3213](https://github.com/google/osv-scanner/pull/3213) Use the correct `IgnoredVulns` key in MCP configuration instructions (resolves [#3209](https://github.com/google/osv-scanner/issues/3209)).
 - **Fixes via `osv-scalibr`**:
+  - Normalize `NuGet` and `crates.io` package names before comparing in `vulnmatch/osvlocal` ([google/osv-scalibr#2556](https://github.com/google/osv-scalibr/pull/2556)).
+  - Validate OSV database zip archives before caching and avoid reading the zip archive twice in `vulnmatch/osvlocal` ([google/osv-scalibr#2486](https://github.com/google/osv-scalibr/pull/2486)).
   - Continue matching packages across remaining ecosystems in `vulnmatch/osvlocal` when an offline OSV database fails to load for one ecosystem, and return all database load errors joined together ([google/osv-scalibr#2544](https://github.com/google/osv-scalibr/pull/2544)).
+  - Skip `@patch:` entries in `javascript/yarnlock` so patched packages are not reported twice ([google/osv-scalibr#2498](https://github.com/google/osv-scalibr/pull/2498)).
   - Accept string values for `maintainers` and `contributors` fields in `javascript/packagejson` without skipping packages and guard against nil person entries ([google/osv-scalibr#2500](https://github.com/google/osv-scalibr/pull/2500)).
   - Read backslash-continued lines iteratively in `python/requirements` ([google/osv-scalibr#2457](https://github.com/google/osv-scalibr/pull/2457)).
   - Confine project `.npmrc` reads with `os.OpenRoot`, prevent project `.npmrc` files from overriding `userconfig`, `globalconfig`, or `prefix`, and avoid expanding environment variables from untrusted `.npmrc` files ([google/osv-scalibr#2536](https://github.com/google/osv-scalibr/pull/2536)).
@@ -33,9 +42,9 @@
 
 ### Misc:
 
-- Update `osv-scalibr` to `v0.5.4-0.20261102160558-a2de590979cd` ([#3185](https://github.com/google/osv-scanner/pull/3185), [#3192](https://github.com/google/osv-scanner/pull/3192), [#3153](https://github.com/google/osv-scanner/pull/3153)).
+- Update `osv-scalibr` to `v0.5.4-0.20261105012210-c80efcc25cd9` ([#3232](https://github.com/google/osv-scanner/pull/3232), [#3216](https://github.com/google/osv-scanner/pull/3216), [#3185](https://github.com/google/osv-scanner/pull/3185), [#3192](https://github.com/google/osv-scanner/pull/3192), [#3153](https://github.com/google/osv-scanner/pull/3153)).
 - Update Go version to 1.27.3 ([#3152](https://github.com/google/osv-scanner/pull/3152)).
-- Switch GoReleaser Docker builds to Buildx (`dockers_v2`) for native multi-arch images ([#3132](https://github.com/google/osv-scanner/pull/3132)).
+- Switch GoReleaser Docker builds to Buildx (`dockers_v2`) for native multi-arch images and merge GoReleaser Dockerfiles ([#3132](https://github.com/google/osv-scanner/pull/3132), [#3131](https://github.com/google/osv-scanner/pull/3131)).
 
 # v2.7.0
 
