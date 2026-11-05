@@ -7,6 +7,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gomod"
 	dpkgmeta "github.com/google/osv-scalibr/extractor/filesystem/os/dpkg/metadata"
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/purl"
@@ -152,6 +153,105 @@ func TestAnnotator_Annotate(t *testing.T) {
 
 			if diff := cmp.Diff(tt.wantFilteredPackages, a.FilteredPackages(), opt); diff != "" {
 				t.Errorf("Annotate() filtered packages mismatch (-want +got):\n%s", diff)
+			}
+		})
+	}
+}
+
+func TestAnnotator_Annotate_GoStdlib(t *testing.T) {
+	t.Parallel()
+
+	// these are created per test as the annotator can modify the package version
+	goModStdlib := func(version string) *extractor.Package {
+		return &extractor.Package{
+			Name:     "stdlib",
+			Version:  version,
+			PURLType: purl.TypeGolang,
+			Plugins:  []string{gomod.Name},
+		}
+	}
+	goBinaryStdlib := func(version string) *extractor.Package {
+		return &extractor.Package{
+			Name:     "stdlib",
+			Version:  version,
+			PURLType: purl.TypeGolang,
+			Plugins:  []string{"go/binary"},
+		}
+	}
+	withConfig := func(cfg config.Config) *config.Manager {
+		return &config.Manager{OverrideConfig: &cfg}
+	}
+
+	tests := []struct {
+		name            string
+		isContainerScan bool
+		configManager   *config.Manager
+		inputPackages   []*extractor.Package
+		wantPackages    []*extractor.Package
+	}{
+		{
+			name:          "go_mod_stdlib_is_filtered_by_default",
+			configManager: withConfig(config.Config{}),
+			inputPackages: []*extractor.Package{goModStdlib("1.21.0")},
+			wantPackages:  []*extractor.Package{},
+		},
+		{
+			name:          "go_mod_stdlib_is_filtered_by_default_even_with_override",
+			configManager: withConfig(config.Config{GoVersionOverride: "1.25.0"}),
+			inputPackages: []*extractor.Package{goModStdlib("1.21.0")},
+			wantPackages:  []*extractor.Package{},
+		},
+		{
+			name:          "go_mod_stdlib_is_kept_when_scanning_go_mod_version",
+			configManager: withConfig(config.Config{ScanGoModVersion: true}),
+			inputPackages: []*extractor.Package{goModStdlib("1.21.0")},
+			wantPackages:  []*extractor.Package{goModStdlib("1.21.0")},
+		},
+		{
+			name:          "go_mod_stdlib_version_is_overridden",
+			configManager: withConfig(config.Config{ScanGoModVersion: true, GoVersionOverride: "1.25.0"}),
+			inputPackages: []*extractor.Package{goModStdlib("1.21.0")},
+			wantPackages:  []*extractor.Package{goModStdlib("1.25.0")},
+		},
+		{
+			name:          "go_binary_stdlib_is_kept_by_default",
+			configManager: withConfig(config.Config{}),
+			inputPackages: []*extractor.Package{goBinaryStdlib("1.21.0")},
+			wantPackages:  []*extractor.Package{goBinaryStdlib("1.21.0")},
+		},
+		{
+			name:          "go_binary_stdlib_version_is_overridden",
+			configManager: withConfig(config.Config{GoVersionOverride: "1.25.0"}),
+			inputPackages: []*extractor.Package{goBinaryStdlib("1.21.0")},
+			wantPackages:  []*extractor.Package{goBinaryStdlib("1.25.0")},
+		},
+		{
+			name:            "container_scans_are_not_affected",
+			isContainerScan: true,
+			configManager:   withConfig(config.Config{GoVersionOverride: "1.25.0"}),
+			inputPackages:   []*extractor.Package{goModStdlib("1.21.0"), goBinaryStdlib("1.21.0")},
+			wantPackages:    []*extractor.Package{goModStdlib("1.21.0"), goBinaryStdlib("1.21.0")},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			a := NewAnnotator(tt.configManager, tt.isContainerScan, false)
+			results := &inventory.Inventory{Packages: tt.inputPackages}
+
+			err := a.Annotate(context.Background(), nil, results)
+			if err != nil {
+				t.Fatalf("Annotate() error = %v", err)
+			}
+
+			opts := []cmp.Option{
+				cmpopts.EquateEmpty(),
+				cmpopts.SortSlices(func(a, b *extractor.Package) bool { return a.Plugins[0] < b.Plugins[0] }),
+			}
+			if diff := cmp.Diff(tt.wantPackages, results.Packages, opts...); diff != "" {
+				t.Errorf("Annotate() packages mismatch (-want +got):\n%s", diff)
 			}
 		})
 	}

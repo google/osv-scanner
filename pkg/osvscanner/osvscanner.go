@@ -16,8 +16,6 @@ import (
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
 	"github.com/google/osv-scalibr/binary/proto"
-	"github.com/google/osv-scalibr/extractor"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gomod"
 	"github.com/google/osv-scalibr/inventory"
 	scalibrlog "github.com/google/osv-scalibr/log"
 	"github.com/google/osv-scalibr/plugin"
@@ -25,14 +23,12 @@ import (
 	"github.com/google/osv-scalibr/stats"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/config"
-	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/imodels/results"
 	"github.com/google/osv-scanner/v2/internal/output"
 	localscalibr "github.com/google/osv-scanner/v2/internal/scalibr"
 	"github.com/google/osv-scanner/v2/internal/scalibrannotator/filter"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/imagehelpers"
-	"github.com/ossf/osv-schema/bindings/go/osvconstants"
 	"osv.dev/bindings/go/osvdev"
 )
 
@@ -155,9 +151,6 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 	}
 
 	scanResults.Inventory = *packagesAndFindings
-
-	// ----- Custom Overrides -----
-	filterAndOverrideGoVersion(&scanResults)
 
 	// Retrieve the unscannable packages that were filtered out during annotation
 	// and add them back to the output if ShowAllPackages is enabled.
@@ -439,40 +432,6 @@ func determineReturnErr(vulnResults models.VulnerabilityResults, showAllVulns bo
 	}
 
 	return nil
-}
-
-// TODO(V2): Add context
-
-// Filters out Go version or Overrides it using osv-scanner.toml
-func filterAndOverrideGoVersion(scanResults *results.ScanResults) {
-	// Filter inventory packages
-	scanResults.Inventory.Packages = slices.DeleteFunc(scanResults.Inventory.Packages, func(pkg *extractor.Package) bool {
-		parsedPkg := imodels.ParsePackage(pkg)
-		if parsedPkg.Name == "stdlib" && parsedPkg.Ecosystem.Ecosystem == osvconstants.EcosystemGo {
-			// Only apply the filter if it's from a go.mod file.
-			// The 'go' directive in go.mod specifies the minimum required language version,
-			// not the actual toolchain version used to build/run, which can lead to false positives.
-			// We still want to scan binary stdlib versions as they represent the actual toolchain used.
-			if slices.Contains(pkg.Plugins, gomod.Name) {
-				configToUse := scanResults.ConfigManager.Get(imodels.Location(pkg))
-
-				return !configToUse.ScanGoModVersion
-			}
-		}
-
-		return false
-	})
-
-	// Override versions for remaining inventory packages
-	for i, pkg := range scanResults.Inventory.Packages {
-		parsedPkg := imodels.ParsePackage(pkg)
-		if parsedPkg.Name == "stdlib" && parsedPkg.Ecosystem.Ecosystem == osvconstants.EcosystemGo {
-			configToUse := scanResults.ConfigManager.Get(imodels.Location(pkg))
-			if configToUse.GoVersionOverride != "" {
-				scanResults.Inventory.Packages[i].Version = configToUse.GoVersionOverride
-			}
-		}
-	}
 }
 
 // SetLogger sets the global slog handler for the cmdlogger.
