@@ -9,7 +9,7 @@ require (
 	github.com/CycloneDX/cyclonedx-go v0.12.0
 	github.com/gkampitakis/go-snaps v0.5.24
 	github.com/go-git/go-git/v5 v5.19.3
-	github.com/gobwas/glob v0.2.3
+	github.com/gobwas/glob v1.1.0
 	github.com/google/go-cmp v0.7.0
 	github.com/google/osv-scalibr v0.5.4-0.20261105012210-c80efcc25cd9
 	github.com/ianlancetaylor/demangle v0.0.0-20261012173340-cbb8aaea4290
