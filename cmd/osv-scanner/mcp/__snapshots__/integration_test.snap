@@ -11,6 +11,7 @@
 ---
 
 [TestIntegration_MCP_SSE_Subprocess/ScanVulnerableDependencies - 1]
+Scanned <rootdir>/testdata/go-project/go.mod file and found 2 packages
 
 Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 1 vulnerability can be fixed.
