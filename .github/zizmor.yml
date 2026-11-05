@@ -2,3 +2,11 @@ rules:
   cache-poisoning:
     ignore:
       - .github/workflows/checks.yml
+  unpinned-uses:
+    config:
+      policies:
+        # this action cannot use a hash: https://github.com/slsa-framework/slsa-github-generator/blob/main/README.md#referencing-slsa-builders-and-generators
+        slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml: ref-pin
+        # these are our actions, so we want to use the latest version of them
+        google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml: ref-pin
+        google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml: ref-pin
