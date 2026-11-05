@@ -183,3 +183,25 @@ jobs:
             echo "One or more test jobs failed."
             exit 1
           fi
+  precommit:
+    permissions:
+      contents: read # to fetch code (actions/checkout)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          ref: ${{ inputs.commit }}
+      - run: |
+          version=$(sed -n 's/^var OSVVersion = "\(.*\)"$/\1/p' internal/version/version.go)
+          if [ -z "$version" ]; then
+            echo "::error file=internal/version/version.go::Could not extract OSVVersion"
+            exit 1
+          fi
+
+          if ! grep -qF -e "--workdir=/src ghcr.io/google/osv-scanner:v$version" .pre-commit-hooks.yaml; then
+            line=$(grep -n 'ghcr.io/google/osv-scanner:' .pre-commit-hooks.yaml | cut -d: -f1)
+            echo "::error file=.pre-commit-hooks.yaml,line=$line::The docker hook image needs to be updated to v$version"
+            exit 1
+          fi
