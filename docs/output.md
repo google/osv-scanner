@@ -153,6 +153,7 @@ The HTML output features a lot more interactivity and information compared to te
 - Severity breakdown
 - Package and ID filtering
 - Vulnerability importance filtering
+- Fix availability filtering
 - Full vulnerability advisory entries
 
 And additionally for container image scanning:
