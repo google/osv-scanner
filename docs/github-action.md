@@ -238,6 +238,7 @@ jobs:
 
 #### Using download-artifact with matrix
 
+{% raw %}
 ```yml
 jobs:
   extract-deps:
@@ -285,5 +286,6 @@ jobs:
       contents: read
       actions: read
 ```
+{% endraw %}
 
 </details>
