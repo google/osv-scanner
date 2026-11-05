@@ -117,14 +117,13 @@ func TestIntegration_MCP_SSE_Subprocess(t *testing.T) {
 		}
 
 		// check that only the not-excluded lockfile has been scanned
-		included := filepath.Join(globProjectPath, "package-lock.json")
-		if !strings.Contains(textRes.Text, included) {
+		included := "mcp/testdata/glob-project/package-lock.json"
+		if !strings.Contains(textRes.Text, included+": found 1 package with issues") {
 			t.Errorf("expected %s to be scanned, got:\n%s", included, textRes.Text)
 		}
 
-		excluded := filepath.Join(globProjectPath, "excluded")
-		if strings.Contains(textRes.Text, excluded) {
-			t.Errorf("expected nothing under %s to be scanned, got:\n%s", excluded, textRes.Text)
+		if strings.Contains(textRes.Text, "excluded") {
+			t.Errorf("expected nothing under excluded to be scanned, got:\n%s", textRes.Text)
 		}
 	})
 
