@@ -238,6 +238,7 @@ jobs:
 
 #### Using download-artifact with matrix
 
+{% raw %}
 ```yml
 jobs:
   extract-deps:
@@ -246,7 +247,7 @@ jobs:
         matrix:
           platform: [
           {target_arch: amd64},
-          {target_arch: armv7}
+          {target_arch: armv7},
           {target_arch: armhf},
           {target_arch: aarch64}
         ]
@@ -268,7 +269,7 @@ jobs:
       matrix:
         platform: [
           {target_arch: amd64},
-          {target_arch: armv7}
+          {target_arch: armv7},
           {target_arch: armhf},
           {target_arch: aarch64}
         ]
@@ -285,5 +286,6 @@ jobs:
       contents: read
       actions: read
 ```
+{% endraw %}
 
 </details>
