@@ -1219,6 +1219,16 @@ func TestCommand_LocalDatabases(t *testing.T) {
 			Args: []string{"", "source", "--download-offline-databases", "./testdata/locks-many"},
 			Exit: 127,
 		},
+		{
+			Name: "npm_local_workspace_and_file_packages_skipped",
+			Args: []string{"", "source", "--offline", "--download-offline-databases", "-L", "./testdata/locks-scalibr/npm-local/package-lock.json"},
+			Exit: 0,
+		},
+		{
+			Name: "npm_omit_resolved_registry_packages_scanned",
+			Args: []string{"", "source", "--offline", "--download-offline-databases", "-L", "./testdata/locks-scalibr/npm-omit-resolved/package-lock.json"},
+			Exit: 1,
+		},
 	}
 
 	for _, tt := range tests {
@@ -1569,6 +1579,16 @@ func TestCommand_MoreLockfiles(t *testing.T) {
 			Name: "Dart_package_config_json",
 			Args: []string{"", "source", "-L", "./testdata/locks-scalibr/dart/package_config.json"},
 			Exit: 0,
+		},
+		{
+			Name: "npm_local_workspace_and_file_packages_skipped",
+			Args: []string{"", "source", "-L", "./testdata/locks-scalibr/npm-local/package-lock.json"},
+			Exit: 0,
+		},
+		{
+			Name: "npm_omit_resolved_registry_packages_scanned",
+			Args: []string{"", "source", "-L", "./testdata/locks-scalibr/npm-omit-resolved/package-lock.json"},
+			Exit: 1,
 		},
 	}
 

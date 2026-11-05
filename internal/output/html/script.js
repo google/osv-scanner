@@ -263,11 +263,12 @@ function applyFilters(selectedTypeFilterValue, selectedLayerFilterValue) {
   showAllVulns();
   applyTypeFilter(selectedTypeFilterValue);
   applyLayerFilter(selectedLayerFilterValue);
+  applyFixFilter();
+  updateTypeFilterText();
   showAndHideParentSections();
 }
 
 function applyTypeFilter(selectedValue) {
-  updateTypeFilterText();
   const selectedAll = selectedValue.has("all");
   const selectedProject = selectedAll || selectedValue.has("project");
   const selectedOS = selectedAll || selectedValue.has("os");
@@ -306,6 +307,19 @@ function applyLayerFilter(selectedLayerID) {
   });
 }
 
+function applyFixFilter() {
+  const fixableCheckbox = document.getElementById("fixable-checkbox");
+  if (!fixableCheckbox.checked) {
+    return;
+  }
+
+  document.querySelectorAll(".vuln-tr").forEach(vuln => {
+    if (vuln.getAttribute("data-fixable") !== "true") {
+      vuln.classList.add("hide-block");
+    }
+  });
+}
+
 function updateTypeFilterText() {
   const typeSelected = document.getElementById("type-filter-selected");
   const selectedVulnCount = document.getElementById("selected-count");
@@ -317,29 +331,18 @@ function updateTypeFilterText() {
     "uncalled-type-checkbox"
   );
 
-  let selectedText = "";
-  let selectedCount = 0;
-
+  const parts = [];
   if (projectTypeCheckbox && projectTypeCheckbox.checked) {
-    selectedText += `${selectedText ? ", " : ""}Project`;
-    const projectTypeVulnCount = projectTypeCheckbox.getAttribute(
-      "data-type-project-count"
-    );
-    selectedCount += parseInt(projectTypeVulnCount, 10);
+    parts.push("Project");
   }
   if (osTypeCheckbox && osTypeCheckbox.checked) {
-    selectedText += `${selectedText ? ", " : ""}OS`;
-    const osTypeVulnCount = osTypeCheckbox.getAttribute("data-type-os-count");
-    selectedCount += parseInt(osTypeVulnCount, 10);
+    parts.push("OS");
   }
   if (uncalledTypeCheckbox && uncalledTypeCheckbox.checked) {
-    selectedText += `${selectedText ? ", " : ""}Unimportant`;
-    const uncalledTypeVulnCount = uncalledTypeCheckbox.getAttribute(
-      "data-type-uncalled-count"
-    );
-    selectedCount += parseInt(uncalledTypeVulnCount, 10);
+    parts.push("Unimportant");
   }
 
+  let selectedText = parts.join(", ");
   if (
     allTypeCheckbox &&
     allTypeCheckbox.checked &&
@@ -349,8 +352,14 @@ function updateTypeFilterText() {
     selectedText = "Default";
   }
 
+  if (document.getElementById("fixable-checkbox").checked) {
+    selectedText += `${selectedText ? ", " : ""}Fix available`;
+  }
+
   typeSelected.textContent = selectedText;
-  selectedVulnCount.textContent = selectedCount;
+  selectedVulnCount.textContent = document.querySelectorAll(
+    ".vuln-tr:not(.hide-block)"
+  ).length;
 }
 
 function resetFilterText() {
@@ -397,6 +406,7 @@ function resetSearchText() {
 }
 
 function resetTypeCheckbox() {
+  document.getElementById("fixable-checkbox").checked = false;
   const allTypeCheckbox = document.getElementById("all-type-checkbox");
   const osTypeCheckbox = document.getElementById("os-type-checkbox");
   const projectTypeCheckbox = document.getElementById("project-type-checkbox");
@@ -423,6 +433,7 @@ function resetTypeCheckbox() {
 
 document.addEventListener("DOMContentLoaded", () => {
   resetFilterText();
+  resetTypeCheckbox();
   showAndHideParentSections();
 
   // Implement filter for vulnerability types

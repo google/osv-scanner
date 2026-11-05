@@ -153,6 +153,7 @@ The HTML output features a lot more interactivity and information compared to te
 - Severity breakdown
 - Package and ID filtering
 - Vulnerability importance filtering
+- Fix availability filtering
 - Full vulnerability advisory entries
 
 And additionally for container image scanning:
@@ -560,7 +561,12 @@ osv-scanner scan --format cyclonedx-1-5 --all-packages your/project/dir
 
 Outputs the result in the [CycloneDX](https://cyclonedx.org/) format.
 
-You can also specify cyclonedx 1.4 using `--format cyclonedx-1.4`.
+We support the following versions:
+
+- `cyclonedx-1-4`
+- `cyclonedx-1-5`
+- `cyclonedx-1-6`
+- `cyclonedx-1-7`
 
 <details markdown="1">
 <summary><b>Sample CycloneDX output</b></summary>
