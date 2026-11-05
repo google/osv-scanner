@@ -103,6 +103,11 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "fix", "--strategy=override", "-L", "./testdata/in-place-npm/package-lock.json"},
 			Exit: 127,
 		},
+		{
+			Name: "errors_when_apply_top_is_zero",
+			Args: []string{"", "fix", "--strategy=in-place", "-L", "./testdata/in-place-npm/package-lock.json", "--apply-top=0"},
+			Exit: 127,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
