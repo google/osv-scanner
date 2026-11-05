@@ -98,7 +98,7 @@ which can be used to verify the source and provenance of the binaries with the [
 E.g.
 
 ```bash
-slsa-verifier verify-artifact ./osv-scanner_1.2.0_linux_amd64 --provenance-path multiple.intoto2.jsonl --source-uri github.com/google/osv-scanner --source-tag v1.2.0
+slsa-verifier verify-artifact ./osv-scanner_linux_amd64 --provenance-path multiple.intoto.jsonl --source-uri github.com/google/osv-scanner --source-tag v2.7.0
 ```
 
 ## SemVer Adherence
