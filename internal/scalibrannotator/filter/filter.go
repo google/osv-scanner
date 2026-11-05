@@ -11,7 +11,9 @@ import (
 
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/annotator"
+	"github.com/google/osv-scalibr/enricher/vulnmatch/osvutil"
 	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gomod"
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
@@ -155,6 +157,23 @@ func (a *Annotator) Annotate(_ context.Context, _ *annotator.ScanInput, results 
 			}
 		}
 
+		// 4. Filter or override the Go stdlib version according to config
+		if !a.isContainerScan && a.configManager != nil && isGoStdlib(parsedPkg) {
+			configToUse := a.configManager.Get(imodels.Location(psr))
+
+			// The 'go' directive in go.mod specifies the minimum required language version,
+			// not the actual toolchain version used to build/run, which can lead to false positives.
+			// We still want to scan binary stdlib versions as they represent the actual toolchain used.
+			if slices.Contains(psr.Plugins, gomod.Name) && !configToUse.ScanGoModVersion {
+				continue
+			}
+
+			// this must happen before matching so that the advisories are for the overridden version
+			if configToUse.GoVersionOverride != "" {
+				psr.Version = configToUse.GoVersionOverride
+			}
+		}
+
 		packageResults = append(packageResults, psr)
 	}
 
@@ -185,6 +204,10 @@ func (a *Annotator) Annotate(_ context.Context, _ *annotator.ScanInput, results 
 	results.Packages = packageResults
 
 	return nil
+}
+
+func isGoStdlib(pkg osvutil.NormalizedPackage) bool {
+	return pkg.Name == "stdlib" && pkg.Ecosystem.Ecosystem == osvconstants.EcosystemGo
 }
 
 // FilteredPackages returns the list of packages filtered out that should be preserved.
