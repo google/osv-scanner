@@ -246,7 +246,7 @@ jobs:
         matrix:
           platform: [
           {target_arch: amd64},
-          {target_arch: armv7}
+          {target_arch: armv7},
           {target_arch: armhf},
           {target_arch: aarch64}
         ]
@@ -268,7 +268,7 @@ jobs:
       matrix:
         platform: [
           {target_arch: amd64},
-          {target_arch: armv7}
+          {target_arch: armv7},
           {target_arch: armhf},
           {target_arch: aarch64}
         ]
