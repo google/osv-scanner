@@ -161,22 +161,22 @@ pre-commit run --all-files --verbose osv-scanner-docker
 # Scan the project root
 repos:
   - repo: https://github.com/google/osv-scanner/
-    rev: v2.3.3
+    rev: v2.7.0
     hooks:
       - id: osv-scanner
 
 # Scan the project root using a container
 repos:
   - repo: https://github.com/google/osv-scanner/
-    rev: v2.3.3
+    rev: v2.7.0
     hooks:
-      - id: osv-scanner
+      - id: osv-scanner-docker
 
 # Scan the current directory, this equivalent as the previous one, but with
 # custom user defined arguments. The arguments (`args` key) are the defaults.
 repos:
   - repo: https://github.com/google/osv-scanner/
-    rev: v2.3.3
+    rev: v2.7.0
     hooks:
       - id: osv-scanner
         args:
