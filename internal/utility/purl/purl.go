@@ -31,6 +31,7 @@ var ecosystemPURLExtractor = map[osvconstants.Ecosystem]ParameterExtractor{
 	osvconstants.EcosystemMaven:     FromMaven,
 	osvconstants.EcosystemGo:        FromGo,
 	osvconstants.EcosystemPackagist: FromComposer,
+	osvconstants.EcosystemNPM:       FromNpm,
 }
 
 func FromPackage(packageInfo models.PackageInfo) (*packageurl.PackageURL, error) {

@@ -157,3 +157,46 @@ func TestGroupPackageByPURL_ShouldUnifyPackages(t *testing.T) {
 		}
 	}
 }
+
+func TestGroupPackageByPURL_NpmScopedPackage(t *testing.T) {
+	t.Parallel()
+	input := []models.PackageSource{
+		{
+			Source: models.SourceInfo{
+				Path: "/dir/package-lock.json",
+				Type: "",
+			},
+			Packages: []models.PackageVulns{
+				{
+					Package: models.PackageInfo{
+						Name:      "@babel/traverse",
+						Version:   "7.23.0",
+						Ecosystem: string(osvconstants.EcosystemNPM),
+					},
+				},
+				{
+					Package: models.PackageInfo{
+						Name:      "lodash",
+						Version:   "4.17.21",
+						Ecosystem: string(osvconstants.EcosystemNPM),
+					},
+				},
+			},
+		},
+	}
+
+	result, errors := purl.Group(input)
+	if len(errors) > 0 {
+		t.Fatalf("Unexpected errors: %v", errors)
+	}
+
+	expectedScopedPURL := "pkg:npm/%40babel/traverse@7.23.0"
+	if _, ok := result[expectedScopedPURL]; !ok {
+		t.Errorf("Expected result to contain canonical scoped npm PURL %q", expectedScopedPURL)
+	}
+
+	expectedUnscopedPURL := "pkg:npm/lodash@4.17.21"
+	if _, ok := result[expectedUnscopedPURL]; !ok {
+		t.Errorf("Expected result to contain canonical unscoped npm PURL %q", expectedUnscopedPURL)
+	}
+}
