@@ -1,3 +1,4 @@
+// Package sbom provides functionality to generate SBOMs from scan results.
 package sbom
 
 import (
