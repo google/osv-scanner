@@ -8,6 +8,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"runtime"
+	"strings"
 	"testing"
 	"time"
 
@@ -85,6 +86,45 @@ func TestIntegration_MCP_SSE_Subprocess(t *testing.T) {
 		testutility.NewSnapshot().MatchText(t, output)
 
 		vulnID = "GO-2023-1558"
+	})
+
+	// Step 1.1: Scan for vulnerabilities with a glob ignore pattern
+	t.Run("ScanVulnerableDependencies_IgnoreGlobPatterns", func(t *testing.T) {
+		globProjectPath, err := filepath.Abs("testdata/glob-project")
+		if err != nil {
+			t.Fatalf("failed to get absolute path: %v", err)
+		}
+
+		scanResult, err := client.CallTool(ctx, &mcp.CallToolParams{
+			Name: "scan_vulnerable_dependencies",
+			Arguments: map[string]any{
+				"paths":                []string{globProjectPath},
+				"recursive":            true,
+				"ignore_glob_patterns": []string{"**/excluded"},
+			},
+		})
+		if err != nil {
+			t.Fatalf("call to scan_vulnerable_dependencies failed: %v", err)
+		}
+
+		if len(scanResult.Content) == 0 {
+			t.Fatal("scan result content is empty")
+		}
+
+		textRes, ok := scanResult.Content[0].(*mcp.TextContent)
+		if !ok {
+			t.Fatalf("expected TextContent, got %T", scanResult.Content[0])
+		}
+
+		// check that only the not-excluded lockfile has been scanned
+		included := "mcp/testdata/glob-project/package-lock.json"
+		if !strings.Contains(textRes.Text, included+": found 1 package with issues") {
+			t.Errorf("expected %s to be scanned, got:\n%s", included, textRes.Text)
+		}
+
+		if strings.Contains(textRes.Text, "excluded") {
+			t.Errorf("expected nothing under excluded to be scanned, got:\n%s", textRes.Text)
+		}
 	})
 
 	// Step 2: Get details for the found vulnerability
