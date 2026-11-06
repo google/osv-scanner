@@ -1295,6 +1295,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "id": "OSV-3",
       "ratings": [
         {
+          "score": 0,
           "severity": "none",
           "method": "CVSSv3",
           "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:N"
@@ -3753,6 +3754,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "id": "OSV-3",
       "ratings": [
         {
+          "score": 0,
           "severity": "none",
           "method": "CVSSv3",
           "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:N"
@@ -6211,6 +6213,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "id": "OSV-3",
       "ratings": [
         {
+          "score": 0,
           "severity": "none",
           "method": "CVSSv3",
           "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:N"
@@ -8669,6 +8672,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "id": "OSV-3",
       "ratings": [
         {
+          "score": 0,
           "severity": "none",
           "method": "CVSSv3",
           "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:N"
