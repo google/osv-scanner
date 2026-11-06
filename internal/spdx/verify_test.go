@@ -37,3 +37,46 @@ func TestUnrecognized(t *testing.T) {
 		})
 	}
 }
+
+func TestIsSPDX(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		license string
+		want    bool
+	}{
+		{"MIT", true},
+		{"mit", true},
+		{"Apache-2.0", true},
+		{"ISC", true},
+		{"gpl-2.0-with-classpath-exception", true},
+		{"non-standard", false},
+		{"UNKNOWN", false},
+		{"MIT AND Zlib", false},
+	}
+	for _, tt := range tests {
+		if got := spdx.IsSPDX(tt.license); got != tt.want {
+			t.Errorf("IsSPDX(%q) = %v, want %v", tt.license, got, tt.want)
+		}
+	}
+}
+
+func TestIsExpression(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		license string
+		want    bool
+	}{
+		{"MIT", false},
+		{"ISC", false},
+		{"non-standard", false},
+		{"MIT AND Zlib", true},
+		{"Apache-2.0 OR MIT", true},
+		{"GPL-2.0-or-later WITH Classpath-exception-2.0", true},
+		{"(MIT AND ISC)", true},
+	}
+	for _, tt := range tests {
+		if got := spdx.IsExpression(tt.license); got != tt.want {
+			t.Errorf("IsExpression(%q) = %v, want %v", tt.license, got, tt.want)
+		}
+	}
+}

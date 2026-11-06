@@ -185,7 +185,7 @@
       "licenses": [
         {
           "license": {
-            "id": "UNKNOWN"
+            "name": "UNKNOWN"
           }
         }
       ],
@@ -465,7 +465,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "licenses": [
         {
           "license": {
-            "id": "UNKNOWN"
+            "name": "UNKNOWN"
           }
         }
       ],
@@ -2996,7 +2996,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "licenses": [
         {
           "license": {
-            "id": "UNKNOWN"
+            "name": "UNKNOWN"
           }
         }
       ],
@@ -3276,7 +3276,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "licenses": [
         {
           "license": {
-            "id": "UNKNOWN"
+            "name": "UNKNOWN"
           }
         }
       ],
@@ -5807,7 +5807,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "licenses": [
         {
           "license": {
-            "id": "UNKNOWN"
+            "name": "UNKNOWN"
           }
         }
       ],
@@ -6087,7 +6087,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "licenses": [
         {
           "license": {
-            "id": "UNKNOWN"
+            "name": "UNKNOWN"
           }
         }
       ],
@@ -8618,7 +8618,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "licenses": [
         {
           "license": {
-            "id": "UNKNOWN"
+            "name": "UNKNOWN"
           }
         }
       ],
@@ -8898,7 +8898,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "licenses": [
         {
           "license": {
-            "id": "UNKNOWN"
+            "name": "UNKNOWN"
           }
         }
       ],

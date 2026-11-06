@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/CycloneDX/cyclonedx-go"
+	"github.com/google/osv-scanner/v2/internal/spdx"
 	"github.com/google/osv-scanner/v2/internal/utility/severity"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
@@ -57,10 +58,23 @@ func fillLicenses(component *cyclonedx.Component, packageDetail models.PackageVu
 	licenses := make(cyclonedx.Licenses, len(packageDetail.Licenses))
 
 	for index, license := range packageDetail.Licenses {
-		licenses[index] = cyclonedx.LicenseChoice{
-			License: &cyclonedx.License{
-				ID: string(license),
-			},
+		licStr := string(license)
+		if spdx.IsExpression(licStr) {
+			licenses[index] = cyclonedx.LicenseChoice{
+				Expression: licStr,
+			}
+		} else if spdx.IsSPDX(licStr) {
+			licenses[index] = cyclonedx.LicenseChoice{
+				License: &cyclonedx.License{
+					ID: licStr,
+				},
+			}
+		} else {
+			licenses[index] = cyclonedx.LicenseChoice{
+				License: &cyclonedx.License{
+					Name: licStr,
+				},
+			}
 		}
 	}
 	component.Licenses = &licenses

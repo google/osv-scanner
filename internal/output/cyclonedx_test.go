@@ -2,6 +2,7 @@ package output_test
 
 import (
 	"bytes"
+	"strings"
 	"testing"
 
 	"github.com/google/osv-scanner/v2/internal/output"
@@ -52,5 +53,60 @@ func TestPrintCycloneDXResults(t *testing.T) {
 			t.Parallel()
 			testCycloneDXResults(t, tt.version, tt.testFn)
 		})
+	}
+}
+
+func TestPrintCycloneDXResults_LicensesFormatting(t *testing.T) {
+	t.Parallel()
+
+	vulnResult := &models.VulnerabilityResults{
+		Results: []models.PackageSource{
+			{
+				Source: models.SourceInfo{Path: "/test/package-lock.json", Type: "lockfile"},
+				Packages: []models.PackageVulns{
+					{
+						Package: models.PackageInfo{
+							Name:      "pako",
+							Version:   "1.0.11",
+							Ecosystem: "npm",
+						},
+						Licenses: []models.License{"MIT AND Zlib"},
+					},
+					{
+						Package: models.PackageInfo{
+							Name:      "custom-pkg",
+							Version:   "1.0.0",
+							Ecosystem: "npm",
+						},
+						Licenses: []models.License{"non-standard"},
+					},
+					{
+						Package: models.PackageInfo{
+							Name:      "standard-pkg",
+							Version:   "2.0.0",
+							Ecosystem: "npm",
+						},
+						Licenses: []models.License{"MIT"},
+					},
+				},
+			},
+		},
+	}
+
+	buf := &bytes.Buffer{}
+	err := output.PrintCycloneDXResults(vulnResult, models.CycloneDXVersion15, buf)
+	if err != nil {
+		t.Fatalf("PrintCycloneDXResults error: %v", err)
+	}
+
+	outStr := buf.String()
+	if !strings.Contains(outStr, `"expression": "MIT AND Zlib"`) {
+		t.Errorf("expected output to contain expression 'MIT AND Zlib', got:\n%s", outStr)
+	}
+	if !strings.Contains(outStr, `"name": "non-standard"`) {
+		t.Errorf("expected output to contain license name 'non-standard', got:\n%s", outStr)
+	}
+	if !strings.Contains(outStr, `"id": "MIT"`) {
+		t.Errorf("expected output to contain license id 'MIT', got:\n%s", outStr)
 	}
 }
