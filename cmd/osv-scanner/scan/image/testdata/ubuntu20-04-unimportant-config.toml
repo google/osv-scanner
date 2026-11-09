@@ -129,3 +129,14 @@ name = "diffutils"
 reason = "Just want to test only unimportant vulns"
 ignore = true
 
+[[PackageOverrides]]
+name = "apt"
+reason = "Just want to test only unimportant vulns"
+ignore = true
+
+[[PackageOverrides]]
+name = "dash"
+reason = "Just want to test only unimportant vulns"
+ignore = true
+
+

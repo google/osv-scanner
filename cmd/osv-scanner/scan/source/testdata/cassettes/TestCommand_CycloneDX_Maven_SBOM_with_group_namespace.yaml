@@ -28,7 +28,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 2405
+      content_length: 2685
       body: |
         {
           "results": [
@@ -69,6 +69,14 @@ interactions:
                 {
                   "id": "GHSA-5mp6-jrq3-r938",
                   "modified": "2026-09-11T08:25:26.202863Z"
+                },
+                {
+                  "id": "GHSA-5v3h-fjv2-54fg",
+                  "modified": "2026-11-04T16:41:04.583757Z"
+                },
+                {
+                  "id": "GHSA-7895-gffq-w6jq",
+                  "modified": "2026-11-04T16:41:00.614199Z"
                 },
                 {
                   "id": "GHSA-7jqf-v358-p8g7",
@@ -131,12 +139,20 @@ interactions:
                   "modified": "2026-09-11T08:25:26.501986Z"
                 },
                 {
+                  "id": "GHSA-h792-v28v-ppgr",
+                  "modified": "2026-11-04T17:11:10.238803Z"
+                },
+                {
                   "id": "GHSA-hgrr-935x-pq79",
                   "modified": "2026-09-10T03:50:30.251352Z"
                 },
                 {
                   "id": "GHSA-mgp5-rv84-w37q",
-                  "modified": "2026-09-10T03:50:35.574464Z"
+                  "modified": "2026-11-04T03:30:50.704997Z"
+                },
+                {
+                  "id": "GHSA-mqg3-r7h5-24x4",
+                  "modified": "2026-11-04T16:55:37.235582Z"
                 },
                 {
                   "id": "GHSA-r29c-68gh-xp6x",
@@ -176,7 +192,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "2405"
+          - "2685"
         Content-Type:
           - application/json
       status: 200 OK
