@@ -1,6 +1,7 @@
 package output
 
 import (
+	"cmp"
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
@@ -42,6 +43,65 @@ type VulnDescription struct {
 	ID      string
 	Details string
 }
+
+const (
+	SARIFDeprecatedRuleID           = "deprecated-package"
+	SARIFDeprecatedShortDescription = "Deprecated package dependency"
+	SARIFDeprecatedFullDescription  = "A dependency version is flagged as deprecated, yanked, or unsupported in its package registry."
+)
+
+type DeprecatedPackageConfig struct {
+	Path     string
+	Packages []models.PackageInfo
+}
+
+type DeprecatedHelpTemplateData struct {
+	DeprecatedPackagesTable string
+	PackageConfigs          []DeprecatedPackageConfig
+	PathSeparator           string
+}
+
+// SARIFDeprecatedTemplate is used as the help text for deprecated package findings.
+//
+// Note that double double-quotes ("") are used to represent a single backtick (`),
+// since backticks cannot be escaped in raw strings
+const SARIFDeprecatedTemplate = `
+**Your dependency is flagged as deprecated or yanked.**
+
+Deprecated or yanked packages are no longer supported by their maintainers or have been removed from the package registry, and may contain unpatched bugs or security issues.
+
+---
+
+### Deprecated Packages
+
+{{.DeprecatedPackagesTable}}
+
+## Remediation
+
+To resolve this finding, update the deprecated dependency to a supported version or replace it with a maintained alternative.
+
+If you wish to ignore a deprecated package completely (including any vulnerabilities and license violations), add a package override in an
+""osv-scanner.toml"" file located in the same directory as the lockfile containing the dependency.
+
+See the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/
+
+Add or append these values to the following config files to ignore the deprecated package:
+
+{{range .PackageConfigs -}}
+""{{.Path}}{{$.PathSeparator}}osv-scanner.toml""
+
+""""""{{range $i, $pkg := .Packages}}{{if $i}}
+{{end}}
+[[PackageOverrides]]
+name = "{{$pkg.Name}}"{{if $pkg.Version}}
+version = "{{$pkg.Version}}"{{end}}{{if $pkg.Ecosystem}}
+ecosystem = "{{$pkg.Ecosystem}}"{{end}}
+ignore = true
+reason = "Your reason for ignoring this package"
+{{- end}}
+""""""
+{{end}}
+`
 
 // SARIFTemplate is used as the help text for findings.
 //
@@ -143,7 +203,11 @@ func createSARIFFixedPkgTable(fixedPkgTableData []FixedPkgTableData) table.Write
 	helpTable.AppendHeader(table.Row{"Vulnerability ID", "Package Name", "Fixed Version"})
 
 	slices.SortFunc(fixedPkgTableData, func(a, b FixedPkgTableData) int {
-		return strings.Compare(a.VulnID, b.VulnID)
+		return cmp.Or(
+			strings.Compare(a.VulnID, b.VulnID),
+			strings.Compare(a.PackageName, b.PackageName),
+			strings.Compare(a.FixedVersion, b.FixedVersion),
+		)
 	})
 
 	for _, data := range fixedPkgTableData {
@@ -160,6 +224,78 @@ func createSARIFFixedPkgTable(fixedPkgTableData []FixedPkgTableData) table.Write
 // stripGitHubWorkspace strips /github/workspace/ from the given path.
 func stripGitHubWorkspace(path string) string {
 	return strings.TrimPrefix(path, "/github/workspace/")
+}
+
+// sarifArtifactPath normalizes a source path into a SARIF artifact path or file URI.
+func sarifArtifactPath(sourcePath string) string {
+	artifactPath := stripGitHubWorkspace(sourcePath)
+	if filepath.IsAbs(artifactPath) {
+		// this only errors if the file path is not absolute,
+		// which we've already confirmed is not the case
+		p, err := url.FromFilePath(artifactPath)
+		if err == nil && p != nil {
+			artifactPath = p.String()
+		}
+	}
+
+	return artifactPath
+}
+
+// createSARIFDeprecatedPkgTable creates a table of deprecated packages and their sources
+func createSARIFDeprecatedPkgTable(pkgWithSrc []pkgWithSource) table.Writer {
+	helpTable := table.NewWriter()
+	helpTable.AppendHeader(table.Row{"Source", "Package Name", "Package Version"})
+
+	for _, ps := range pkgWithSrc {
+		ver := ps.Package.Version
+		if ps.Package.Commit != "" {
+			ver = ps.Package.Commit
+		}
+		helpTable.AppendRow(table.Row{
+			ps.Source.String(),
+			ps.Package.Name,
+			ver,
+		})
+	}
+
+	return helpTable
+}
+
+// createSARIFDeprecatedHelpText returns the text for the deprecated-package SARIF rule's help field
+func createSARIFDeprecatedHelpText(pkgWithSrcKeys []pkgWithSource) string {
+	backtickTemplate := strings.ReplaceAll(strings.TrimSpace(SARIFDeprecatedTemplate), `""`, "`")
+	helpTextTemplate, err := template.New("deprecatedHelpText").Parse(backtickTemplate)
+	if err != nil {
+		log.Panicf("failed to parse sarif deprecated help text template: %v", err)
+	}
+
+	var packageConfigs []DeprecatedPackageConfig
+	for _, pws := range pkgWithSrcKeys {
+		dirPath := stripGitHubWorkspace(filepath.Dir(pws.Source.Path))
+		if len(packageConfigs) == 0 || packageConfigs[len(packageConfigs)-1].Path != dirPath {
+			packageConfigs = append(packageConfigs, DeprecatedPackageConfig{
+				Path: dirPath,
+			})
+		}
+		cfg := &packageConfigs[len(packageConfigs)-1]
+		if !slices.ContainsFunc(cfg.Packages, func(p models.PackageInfo) bool {
+			return p.Name == pws.Package.Name && p.Version == pws.Package.Version && p.Ecosystem == pws.Package.Ecosystem
+		}) {
+			cfg.Packages = append(cfg.Packages, pws.Package)
+		}
+	}
+
+	helpText := strings.Builder{}
+	err = helpTextTemplate.Execute(&helpText, DeprecatedHelpTemplateData{
+		DeprecatedPackagesTable: createSARIFDeprecatedPkgTable(pkgWithSrcKeys).RenderMarkdown(),
+		PackageConfigs:          packageConfigs,
+		PathSeparator:           string(filepath.Separator),
+	})
+	if err != nil {
+		log.Panicf("failed to execute sarif deprecated help text template")
+	}
+
+	return helpText.String()
 }
 
 // createSARIFFingerprint generates a stable fingerprint for a SARIF result
@@ -332,15 +468,7 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 		rule.DeprecatedIds = gv.AliasedIDList
 
 		for _, pws := range gv.PkgSource.StableKeys() {
-			artifactPath := stripGitHubWorkspace(pws.Source.Path)
-			if filepath.IsAbs(artifactPath) {
-				// this only errors if the file path is not absolute,
-				// which we've already confirmed is not the case
-				p, err := url.FromFilePath(artifactPath)
-				if err == nil && p != nil {
-					artifactPath = p.String()
-				}
-			}
+			artifactPath := sarifArtifactPath(pws.Source.Path)
 
 			run.AddDistinctArtifact(artifactPath)
 
@@ -383,6 +511,42 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 					// combination of vulnerability ID, package, and location rather than source code lines.
 					"primaryLocationLineHash": fingerprint,
 				})
+		}
+	}
+
+	deprecatedPkgSources := collectDeprecatedPkgSources(vulnResult)
+	if len(deprecatedPkgSources) > 0 {
+		helpText := createSARIFDeprecatedHelpText(deprecatedPkgSources)
+		rule := run.AddRule(SARIFDeprecatedRuleID)
+		if rule != nil {
+			rule.WithName(SARIFDeprecatedRuleID).
+				WithShortDescription(sarif.NewMultiformatMessageString().WithText(SARIFDeprecatedShortDescription).WithMarkdown(SARIFDeprecatedShortDescription)).
+				WithFullDescription(sarif.NewMultiformatMessageString().WithText(SARIFDeprecatedFullDescription).WithMarkdown(SARIFDeprecatedFullDescription)).
+				WithMarkdownHelp(helpText)
+
+			for _, pws := range deprecatedPkgSources {
+				artifactPath := sarifArtifactPath(pws.Source.Path)
+				run.AddDistinctArtifact(artifactPath)
+
+				fingerprint := createSARIFFingerprint(SARIFDeprecatedRuleID, artifactPath, pws.Package)
+
+				run.CreateResultForRule(SARIFDeprecatedRuleID).
+					WithLevel("warning").
+					WithMessage(
+						sarif.NewTextMessage(
+							fmt.Sprintf(
+								"Package '%s' is deprecated.",
+								results.PkgToString(pws.Package),
+							))).
+					AddLocation(
+						sarif.NewLocationWithPhysicalLocation(
+							sarif.NewPhysicalLocation().
+								WithArtifactLocation(sarif.NewSimpleArtifactLocation(artifactPath)),
+						)).
+					WithPartialFingerprints(map[string]string{
+						"primaryLocationLineHash": fingerprint,
+					})
+			}
 		}
 	}
 

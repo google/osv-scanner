@@ -51,7 +51,7 @@ When enabled, the output reports deprecated packages as follows:
 
 - **Table, Markdown, HTML**: A dedicated section listing deprecated packages.
 - **JSON**: A `deprecated` field in the `package` object.
-- **SARIF**: A "Deprecated" column in the "Affected Packages" table.
+- **SARIF**: A `deprecated-package` rule reporting deprecated packages as warnings, and a "Deprecated" column in the "Affected Packages" table for vulnerabilities.
 - **CycloneDX**: A `deprecated` property in `component`.
 
 If no deprecated packages are detected, the corresponding section or field is omitted.

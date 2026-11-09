@@ -1908,6 +1908,30 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 			},
 			Exit: 1,
 		},
+		{
+			Name: "package_deprecated_true_no_vuln_sarif",
+			Args: []string{
+				"", "source", "--format=sarif",
+				"--x-flag-deprecated-packages",
+				"./testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock",
+			},
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.ReplacePartialFingerprintHash,
+			},
+			Exit: 1,
+		},
+		{
+			Name: "package_deprecated_true_with_vuln_sarif",
+			Args: []string{
+				"", "source", "--format=sarif",
+				"--x-flag-deprecated-packages",
+				"./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock",
+			},
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.ReplacePartialFingerprintHash,
+			},
+			Exit: 1,
+		},
 		// covers both the deprecated flag, and the general logic for deprecated (bool) flags
 		{
 			Name: "package_deprecated_true_with_vuln_table_using_old_flag",
