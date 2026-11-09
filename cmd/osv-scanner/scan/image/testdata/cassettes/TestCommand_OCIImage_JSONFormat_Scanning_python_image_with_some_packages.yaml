@@ -43,7 +43,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "werkzeug"
               },
-              "version": "3.1.3"
+              "version": "3.1.4"
             },
             {
               "package": {
@@ -798,7 +798,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 10512
+      content_length: 10376
       body: |
         {
           "results": [
@@ -935,16 +935,8 @@ interactions:
                   "modified": "2026-10-15T14:56:11.020811Z"
                 },
                 {
-                  "id": "GHSA-hgf8-39gv-g3f2",
-                  "modified": "2026-09-10T03:50:31.900494Z"
-                },
-                {
                   "id": "PYSEC-2026-2044",
                   "modified": "2026-07-07T17:47:56.418445Z"
-                },
-                {
-                  "id": "PYSEC-2026-2046",
-                  "modified": "2026-07-07T17:47:56.418201Z"
                 },
                 {
                   "id": "PYSEC-2026-2320",
@@ -1614,7 +1606,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "10512"
+          - "10376"
         Content-Type:
           - application/json
       status: 200 OK

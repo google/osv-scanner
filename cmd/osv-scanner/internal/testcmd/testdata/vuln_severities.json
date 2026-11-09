@@ -1534,13 +1534,13 @@
   ],
   "CVE-2024-12797": [
     {
-      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:L/I:L/A:L",
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
       "type": "CVSS_V3"
     }
   ],
   "CVE-2024-13176": [
     {
-      "score": "CVSS:3.1/AV:P/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:L",
+      "score": "CVSS:3.1/AV:P/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
       "type": "CVSS_V3"
     }
   ],
@@ -1582,7 +1582,7 @@
   ],
   "CVE-2024-4741": [
     {
-      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
       "type": "CVSS_V3"
     }
   ],
@@ -1606,7 +1606,7 @@
   ],
   "CVE-2024-9143": [
     {
-      "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:N",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
       "type": "CVSS_V3"
     }
   ],
@@ -1726,7 +1726,7 @@
   ],
   "CVE-2025-9231": [
     {
-      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:L",
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
       "type": "CVSS_V3"
     }
   ],
