@@ -31,6 +31,7 @@
 - [Bug #3169](https://github.com/google/osv-scanner/pull/3169) Restrict the HTML report server (`--serve`) to bind to the loopback interface (`127.0.0.1`) by default (fixes [#3165](https://github.com/google/osv-scanner/issues/3165)).
 - [Bug #3213](https://github.com/google/osv-scanner/pull/3213) Use the correct `IgnoredVulns` key in MCP configuration instructions (resolves [#3209](https://github.com/google/osv-scanner/issues/3209)).
 - [Bug #3241](https://github.com/google/osv-scanner/pull/3241) Clarify that `--all-packages` applies to JSON and SBOM output formats (fixes [#3220](https://github.com/google/osv-scanner/issues/3220)).
+- [Bug #3252](https://github.com/google/osv-scanner/pull/3252) Reject `--apply-top=0` in `osv-scanner fix` instead of applying all patches (resolves [#3234](https://github.com/google/osv-scanner/issues/3234)).
 - [Bug #3246](https://github.com/google/osv-scanner/pull/3246) Update the `osv-scanner-docker` pre-commit hook image to `v2.7.1` (resolves [#3225](https://github.com/google/osv-scanner/issues/3225)).
 - **Fixes via `osv-scalibr`**:
   - Normalize `NuGet` and `crates.io` package names before comparing in `vulnmatch/osvlocal` ([google/osv-scalibr#2556](https://github.com/google/osv-scalibr/pull/2556)).
