@@ -707,7 +707,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 5572
+      content_length: 5712
       body: |
         {
           "results": [
@@ -1106,6 +1106,10 @@ interactions:
                   "modified": "2026-08-07T08:12:25.181519Z"
                 },
                 {
+                  "id": "GHSA-xmj3-9gf7-h52w",
+                  "modified": "2026-10-23T22:00:03.739009Z"
+                },
+                {
                   "id": "PYSEC-2022-43012",
                   "modified": "2026-06-10T17:02:40.148961Z"
                 },
@@ -1140,6 +1144,10 @@ interactions:
                 {
                   "id": "GHSA-r9hx-vwmv-q579",
                   "modified": "2026-08-07T08:12:25.181519Z"
+                },
+                {
+                  "id": "GHSA-xmj3-9gf7-h52w",
+                  "modified": "2026-10-23T22:00:03.739009Z"
                 },
                 {
                   "id": "PYSEC-2022-43012",
@@ -1205,7 +1213,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "5572"
+          - "5712"
         Content-Type:
           - application/json
       status: 200 OK
