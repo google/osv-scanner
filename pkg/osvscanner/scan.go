@@ -330,10 +330,17 @@ SBOMLoop:
 
 	// For each root, run scalibr's scan() once.
 	for root, paths := range rootMap {
+		scanRoots := fs.RealFSScanRoots(root)
+		if root == "/" {
+			// DirFS cannot escape the host filesystem root, and unlike os.Root
+			// it does not require permission to open "/" itself. Keep os.Root
+			// confinement for subdirectory and image filesystems.
+			scanRoots[0].FS = os.DirFS("/").(fs.FS)
+		}
 		sr := scanner.Scan(context.Background(), &scalibr.ScanConfig{
 			Plugins:               filteredPlugins,
 			Capabilities:          &capabilities,
-			ScanRoots:             fs.RealFSScanRoots(root),
+			ScanRoots:             scanRoots,
 			PathsToExtract:        paths,
 			IgnoreSubDirs:         !actions.Recursive,
 			DirsToSkip:            excludePatterns.dirsToSkip,
