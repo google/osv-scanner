@@ -241,9 +241,7 @@ func scan(
 	// List of specific paths the user passes in so that we can check that they all get processed.
 	specificPaths := make([]string, 0, len(actions.LockfilePaths)+len(actions.SBOMPaths))
 
-	statsCollector := fileOpenedPrinter{
-		filesExtracted: make(map[string]struct{}),
-	}
+	statsCollector := newFileOpenedPrinter(actions.StatsCollector)
 
 	// --- Directories ---
 	for _, path := range actions.DirectoryPaths {
@@ -342,7 +340,7 @@ SBOMLoop:
 			SkipDirRegex:          excludePatterns.regexPattern,
 			SkipDirGlob:           excludePatterns.globPattern,
 			UseGitignore:          !actions.NoIgnore,
-			Stats:                 &statsCollector,
+			Stats:                 statsCollector,
 			ReadSymlinks:          false,
 			MaxInodes:             0,
 			StoreAbsolutePath:     false,

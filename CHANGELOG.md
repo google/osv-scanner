@@ -22,6 +22,7 @@
 
 - [Bug #3216](https://github.com/google/osv-scanner/pull/3216) Scan npm registry packages with omitted `resolved` URLs while skipping local workspace and `file:`/`link:` packages (fixes [#2881](https://github.com/google/osv-scanner/issues/2881), [#3177](https://github.com/google/osv-scanner/issues/3177), [google/osv-scalibr#2560](https://github.com/google/osv-scalibr/pull/2560)).
 - [Bug #3214](https://github.com/google/osv-scanner/pull/3214) Reject malformed `ar` archive member sizes instead of panicking during `--call-analysis=rust` scans (fixes [#3202](https://github.com/google/osv-scanner/issues/3202)).
+- [Bug #3251](https://github.com/google/osv-scanner/pull/3251) Pass extraction stats to `ScannerActions.StatsCollector` when provided.
 - [Bug #3114](https://github.com/google/osv-scanner/pull/3114) Group connected vulnerabilities transitively regardless of the order they are encountered (resolves [#3107](https://github.com/google/osv-scanner/issues/3107)).
 - [Bug #3147](https://github.com/google/osv-scanner/pull/3147) Stop treating `upstream` identifiers as aliases when grouping vulnerabilities.
 - [Bug #3199](https://github.com/google/osv-scanner/pull/3199) Sort package vulnerabilities deterministically by ID in output results.
@@ -29,6 +30,8 @@
 - [Bug #3156](https://github.com/google/osv-scanner/pull/3156) Don't display "No fix available" in table output for packages with license violations and no vulnerabilities.
 - [Bug #3169](https://github.com/google/osv-scanner/pull/3169) Restrict the HTML report server (`--serve`) to bind to the loopback interface (`127.0.0.1`) by default (fixes [#3165](https://github.com/google/osv-scanner/issues/3165)).
 - [Bug #3213](https://github.com/google/osv-scanner/pull/3213) Use the correct `IgnoredVulns` key in MCP configuration instructions (resolves [#3209](https://github.com/google/osv-scanner/issues/3209)).
+- [Bug #3241](https://github.com/google/osv-scanner/pull/3241) Clarify that `--all-packages` applies to JSON and SBOM output formats (fixes [#3220](https://github.com/google/osv-scanner/issues/3220)).
+- [Bug #3246](https://github.com/google/osv-scanner/pull/3246) Update the `osv-scanner-docker` pre-commit hook image to `v2.7.1` (resolves [#3225](https://github.com/google/osv-scanner/issues/3225)).
 - **Fixes via `osv-scalibr`**:
   - Normalize `NuGet` and `crates.io` package names before comparing in `vulnmatch/osvlocal` ([google/osv-scalibr#2556](https://github.com/google/osv-scalibr/pull/2556)).
   - Validate OSV database zip archives before caching and avoid reading the zip archive twice in `vulnmatch/osvlocal` ([google/osv-scalibr#2486](https://github.com/google/osv-scalibr/pull/2486)).

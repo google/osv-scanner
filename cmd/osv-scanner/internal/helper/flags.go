@@ -180,7 +180,7 @@ func BuildCommonScanFlags(defaultExtractors []string) []cli.Flag {
 		},
 		&cli.BoolFlag{
 			Name:  "all-packages",
-			Usage: "when json output is selected, prints all packages",
+			Usage: "prints all packages in JSON and SBOM output",
 		},
 		&cli.BoolFlag{
 			Name:  "all-vulns",

@@ -76,8 +76,6 @@ type ExperimentalScannerActions struct {
 	PluginsDisabled   []string
 	PluginsNoDefaults bool
 
-	// Currently unused.
-	// TODO(another-rex): Use or wrap this
 	StatsCollector stats.Collector
 
 	HTTPClient *http.Client

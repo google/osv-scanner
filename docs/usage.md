@@ -124,7 +124,7 @@ See [licenses scanning](./license-scanning.md) for more details.
 
 ### Show all packages
 
-The `--all-packages` flag can be used to output all packages in JSON format (make sure to set `--format=json`).
+The `--all-packages` flag can be used to output all packages in JSON, SPDX, and CycloneDX formats. Without this flag, SBOM formats include only packages with vulnerabilities.
 
 Note that the `PackageOverrides` configuration, specifically the `ignore` action, takes precedence over this flag.
 
@@ -161,22 +161,22 @@ pre-commit run --all-files --verbose osv-scanner-docker
 # Scan the project root
 repos:
   - repo: https://github.com/google/osv-scanner/
-    rev: v2.3.3
+    rev: v{{ site.scanner_version }}
     hooks:
       - id: osv-scanner
 
 # Scan the project root using a container
 repos:
   - repo: https://github.com/google/osv-scanner/
-    rev: v2.3.3
+    rev: v{{ site.scanner_version }}
     hooks:
-      - id: osv-scanner
+      - id: osv-scanner-docker
 
 # Scan the current directory, this equivalent as the previous one, but with
 # custom user defined arguments. The arguments (`args` key) are the defaults.
 repos:
   - repo: https://github.com/google/osv-scanner/
-    rev: v2.3.3
+    rev: v{{ site.scanner_version }}
     hooks:
       - id: osv-scanner
         args:
@@ -192,7 +192,7 @@ repos:
 # need to do it with containers, use a system hook and run docker directly.
 repos:
   - repo: https://github.com/google/osv-scanner/
-    rev: v2.2.4
+    rev: v{{ site.scanner_version }}
     hooks:
       - id: osv-scanner
         args:
