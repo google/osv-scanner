@@ -5524,7 +5524,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 ---
 
 [TestCommand_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 2 - stderr]
-Error during extraction: (extracting as vulnmatch/osvlocal) could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+Error during vulnerability matching: (matching with vulnmatch/osvlocal) could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 could not load db for Packagist ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 could not load db for PyPI ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 could not load db for RubyGems ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
@@ -5562,7 +5562,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 ---
 
 [TestCommand_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 4 - stderr]
-Error during extraction: (extracting as vulnmatch/osvlocal) could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+Error during vulnerability matching: (matching with vulnmatch/osvlocal) could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 could not load db for Packagist ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 could not load db for PyPI ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 could not load db for RubyGems ecosystem: unable to fetch OSV database: no offline version of the OSV database is available

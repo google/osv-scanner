@@ -217,3 +217,44 @@ func Test_isDescendent(t *testing.T) {
 		})
 	}
 }
+
+func Test_pluginFailureLabel(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name       string
+		pluginName string
+		want       string
+	}{
+		{
+			name:       "osvdev_vulnmatch",
+			pluginName: "vulnmatch/osvdev",
+			want:       "Error during vulnerability matching: (matching with vulnmatch/osvdev)",
+		},
+		{
+			name:       "osvlocal_vulnmatch",
+			pluginName: osvlocal.Name,
+			want:       "Error during vulnerability matching: (matching with vulnmatch/osvlocal)",
+		},
+		{
+			name:       "extractor_plugin",
+			pluginName: "php/composerlock",
+			want:       "Error during extraction: (extracting as php/composerlock)",
+		},
+		{
+			name:       "transitive_enricher",
+			pluginName: "transitivedependency/requirements",
+			want:       "Error during extraction: (extracting as transitivedependency/requirements)",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			if got := pluginFailureLabel(tt.pluginName); got != tt.want {
+				t.Errorf("pluginFailureLabel(%q) = %q, want %q", tt.pluginName, got, tt.want)
+			}
+		})
+	}
+}

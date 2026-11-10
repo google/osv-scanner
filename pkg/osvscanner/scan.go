@@ -559,6 +559,17 @@ func dedupPackageVulns(vulns []*inventory.PackageVuln) []*inventory.PackageVuln 
 	return result
 }
 
+const vulnMatchPluginPrefix = "vulnmatch/"
+
+// pluginFailureLabel describes which scan phase a failed plugin belongs to.
+func pluginFailureLabel(name string) string {
+	if strings.HasPrefix(name, vulnMatchPluginPrefix) {
+		return "Error during vulnerability matching: (matching with " + name + ")"
+	}
+
+	return "Error during extraction: (extracting as " + name + ")"
+}
+
 func logPluginStatus(statuses []*plugin.Status, specificPaths []string, root string) error {
 	var criticalError bool
 	for _, status := range statuses {
@@ -586,7 +597,7 @@ func logPluginStatus(statuses []*plugin.Status, specificPaths []string, root str
 			msg = builder.String()
 		}
 
-		cmdlogger.Errorf("Error during extraction: (extracting as %s) %s", status.Name, msg)
+		cmdlogger.Errorf("%s %s", pluginFailureLabel(status.Name), msg)
 		if criticalError {
 			return errors.New("extraction failed on specified lockfile")
 		}
