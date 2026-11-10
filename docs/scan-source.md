@@ -145,11 +145,15 @@ Call stack analysis can be performed on some languages to check if the
 vulnerable code is actually being executed by your project. If the code
 is not being executed, these vulnerabilities will be marked as unexecuted.
 
-To enable call analysis in all languages, call OSV-Scanner with the `--call-analysis=all` flag. By default, call analysis in Go is enabled, but you can disable it using the `--no-call-analysis=go` flag.
+To enable call analysis in all languages, call OSV-Scanner with the `--call-analysis=all` flag. By default, call analysis in Go is enabled; you can disable Go call analysis with `--no-call-analysis=go`, or disable call analysis for all languages with `--no-call-analysis=all`. When call analysis is disabled, reachability information is not computed and vulnerabilities in dependencies are not filtered by whether vulnerable symbols are called.
+
+Call analysis is separate from manifest transitive dependency resolution (controlled by `--no-resolve`; see [Transitive Dependency Scanning](./supported_languages_and_lockfiles.md#transitive-dependency-scanning)) and from online OSV vulnerability queries (disabling call analysis does not make online vulnerability matching network-free; see [Offline Mode](./offline-mode.md)).
 
 ### Call analysis in Go
 
-OSV-Scanner uses the [`govulncheck`](https://pkg.go.dev/golang.org/x/vuln/cmd/govulncheck) library to analyze Go source code to identify called vulnerable functions.
+Go call analysis is enabled by default. OSV-Scanner uses the [`govulncheck`](https://pkg.go.dev/golang.org/x/vuln/cmd/govulncheck) library to analyze Go source code to identify called vulnerable functions.
+
+When scanning a directory containing Go source code, `govulncheck` loads packages using the `go` toolchain under the active Go environment. If required modules are not already cached locally, this step can download missing module dependencies over the network and write persistent entries to the Go module cache (`GOMODCACHE`) and Go build cache (`GOCACHE`). Pass `--no-call-analysis=go` or `--no-call-analysis=all` to skip Go source call analysis and avoid these downloads and cache writes.
 
 #### Additional Dependencies
 
