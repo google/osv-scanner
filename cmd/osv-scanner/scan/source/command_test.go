@@ -13,6 +13,7 @@ import (
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/testcmd"
 	"github.com/google/osv-scanner/v2/internal/testutility"
+	"github.com/sergi/go-diff/diffmatchpatch"
 )
 
 func TestCommand(t *testing.T) {
@@ -1944,6 +1945,87 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 			t.Parallel()
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
+	}
+}
+
+func TestCommand_DietClient(t *testing.T) { //nolint:tparallel
+	t.Parallel()
+
+	tests := []testcmd.Case{
+		{
+			Name: "basic",
+			Args: []string{
+				"", "source", "--format=table",
+				"./testdata/locks-many-with-insecure/package-lock.json",
+			},
+			Exit: 1,
+		},
+		{
+			Name: "basic_json",
+			Args: []string{
+				"", "source", "--format=json",
+				"./testdata/locks-many-with-insecure/package-lock.json",
+			},
+			Exit: 1,
+		},
+		{
+			Name: "many",
+			Args: []string{
+				"", "source", "--format=vertical",
+				"./testdata/locks-many-with-insecure/",
+			},
+			Exit: 1,
+		},
+		{
+			Name: "many_json",
+			Args: []string{
+				"", "source", "--format=json",
+				"./testdata/locks-many-with-insecure/",
+			},
+			Exit: 1,
+		},
+		{
+			Name: "sbom",
+			Args: []string{"", "source", "./testdata/sbom-insecure/"},
+			Exit: 1,
+		},
+		{
+			Name: "sbom_json",
+			Args: []string{"", "source", "--format=json", "./testdata/sbom-insecure/"},
+			Exit: 1,
+		},
+	}
+	for _, tt := range tests { //nolint:paralleltest
+		t.Run(tt.Name, func(t *testing.T) {
+			// capture the output when we're not using the diet client
+			stdoutFat, stderrFat := testcmd.RunAndNormalize(t, tt)
+
+			// capture the output when we are using the diet client
+			old := tt.Args
+			tt.Args = []string{"", "source", "--x-disk-backed-vulns"}
+			tt.Args = append(tt.Args, old[2:]...)
+
+			stdoutThin, stderrThin := testcmd.RunAndNormalize(t, tt)
+
+			// expect that the output matches
+			diffThese(t, testutility.NormalizeSnapshot(t, stdoutFat), testutility.NormalizeSnapshot(t, stdoutThin))
+			diffThese(t, testutility.NormalizeSnapshot(t, stderrFat), testutility.NormalizeSnapshot(t, stderrThin))
+		})
+	}
+}
+
+func diffThese(t *testing.T, a, b string) {
+	t.Helper()
+
+	dmp := diffmatchpatch.New()
+	diffs := dmp.DiffMain(a, b, false)
+
+	for _, diff := range diffs {
+		if diff.Type != diffmatchpatch.DiffEqual {
+			t.Errorf("mismatch (-want +got):\n%s", dmp.DiffPrettyText(diffs))
+
+			break
+		}
 	}
 }
 
