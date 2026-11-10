@@ -20,6 +20,7 @@ require (
 	github.com/owenrumney/go-sarif/v3 v3.3.2
 	github.com/package-url/packageurl-go v0.1.7
 	github.com/pandatix/go-cvss v0.6.4
+	github.com/sergi/go-diff v1.4.0
 	github.com/tidwall/gjson v1.20.0
 	github.com/tidwall/pretty v1.2.2
 	github.com/tidwall/sjson v1.2.5
@@ -158,7 +159,6 @@ require (
 	github.com/santhosh-tekuri/jsonschema/v6 v6.0.2 // indirect
 	github.com/segmentio/asm v1.2.1 // indirect
 	github.com/segmentio/encoding v0.5.4 // indirect
-	github.com/sergi/go-diff v1.4.0 // indirect
 	github.com/shirou/gopsutil/v3 v3.24.5 // indirect
 	github.com/shoenig/go-m1cpu v0.1.6 // indirect
 	github.com/sirupsen/logrus v1.10.1 // indirect
