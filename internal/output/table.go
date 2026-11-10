@@ -347,8 +347,7 @@ func tableBuilderInner(result Result, vulnAnalysisType VulnAnalysisType) ([]tbIn
 						if depgroups.IsDevGroup(osvecosystem.MustParse(eco.Name).Ecosystem, pkg.DepGroups) {
 							name += " (dev)"
 						}
-						outputRow = append(outputRow, name)
-						outputRow = append(outputRow, pkg.InstalledVersion)
+						outputRow = append(outputRow, name, pkg.InstalledVersion)
 					}
 
 					if vuln.IsFixable {

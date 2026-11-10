@@ -56,9 +56,8 @@ func getPlugins(
 	configManager *scanconfig.Manager,
 	isContainerScan bool,
 ) []plugin.Plugin {
-	pluginSpecific := make([]*cpb.PluginSpecificConfig, 0, 4)
-	pluginSpecific = append(pluginSpecific,
-		&cpb.PluginSpecificConfig{
+	pluginSpecific := []*cpb.PluginSpecificConfig{
+		{
 			Config: &cpb.PluginSpecificConfig_PomXmlNet{
 				PomXmlNet: &cpb.POMXMLNetConfig{
 					UpstreamRegistry:    actions.TransitiveScanning.MavenRegistry,
@@ -66,31 +65,30 @@ func getPlugins(
 				},
 			},
 		},
-		&cpb.PluginSpecificConfig{
+		{
 			Config: &cpb.PluginSpecificConfig_PythonRequirementsTransitive{
 				PythonRequirementsTransitive: &cpb.PythonRequirementsTransitiveConfig{
 					DepsDevRequirements: !actions.TransitiveScanning.NativeDataSource,
 				},
 			},
 		},
-	)
-
-	pluginSpecific = append(pluginSpecific, &cpb.PluginSpecificConfig{
-		Config: &cpb.PluginSpecificConfig_Osvlocal{
-			Osvlocal: &cpb.OSVLocalConfig{
-				Download:   actions.DownloadDatabases,
-				LocalPath:  actions.LocalDBPath,
-				RemoteHost: "https://osv-vulnerabilities.storage.googleapis.com",
+		{
+			Config: &cpb.PluginSpecificConfig_Osvlocal{
+				Osvlocal: &cpb.OSVLocalConfig{
+					Download:   actions.DownloadDatabases,
+					LocalPath:  actions.LocalDBPath,
+					RemoteHost: "https://osv-vulnerabilities.storage.googleapis.com",
+				},
 			},
 		},
-	})
-	pluginSpecific = append(pluginSpecific, &cpb.PluginSpecificConfig{
-		Config: &cpb.PluginSpecificConfig_Osvdev{
-			Osvdev: &cpb.OSVDevConfig{
-				InitialQueryTimeoutSeconds: 300, // 5 minutes
+		{
+			Config: &cpb.PluginSpecificConfig_Osvdev{
+				Osvdev: &cpb.OSVDevConfig{
+					InitialQueryTimeoutSeconds: 300, // 5 minutes
+				},
 			},
 		},
-	})
+	}
 
 	var finalScalibrConfig *config.PluginConfig
 	if scalibrConfig != nil {
