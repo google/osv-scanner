@@ -21,6 +21,16 @@ type VulnerabilityResults struct {
 	ExperimentalGenericFindings []*inventory.GenericFinding `json:"experimental_generic_findings,omitempty"`
 	ImageMetadata               *ImageMetadata              `json:"image_metadata,omitempty"`
 	LicenseSummary              []LicenseCount              `json:"license_summary,omitempty"`
+	Diagnostics                 []Diagnostic                `json:"diagnostics,omitempty"`
+}
+
+// Diagnostic records a non-fatal extraction, filesystem traversal, or
+// vulnerability-matching failure encountered during a scan.
+type Diagnostic struct {
+	Phase   string `json:"phase"`
+	Plugin  string `json:"plugin,omitempty"`
+	Path    string `json:"path,omitempty"`
+	Message string `json:"message"`
 }
 
 type LicenseCount struct {

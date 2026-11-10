@@ -5,11 +5,15 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"io"
+	iofs "io/fs"
 	"os"
+	"path"
 	"path/filepath"
 	"runtime"
 	"slices"
 	"strings"
+	"sync"
 
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/annotator"
@@ -33,6 +37,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 	"github.com/google/osv-scanner/v2/internal/scalibrplugin"
 	"github.com/google/osv-scanner/v2/internal/testlogger"
+	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/scanners"
 )
 
@@ -205,14 +210,21 @@ func countNotEnrichersOrAnnotators(plugins []plugin.Plugin) int {
 	return count
 }
 
+type scanOutput struct {
+	inventory   inventory.Inventory
+	filterAnno  *filter.Annotator
+	diagnostics []models.Diagnostic
+}
+
 // scan essentially converts ScannerActions into imodels.ScanResult by performing the extractions
 func scan(
 	accessors ExternalAccessors,
 	actions ScannerActions,
 	scalibrConfig *config.PluginConfig,
 	configManager *scanconfig.Manager,
-) (*inventory.Inventory, *filter.Annotator, error) {
+) (*scanOutput, error) {
 	var inv inventory.Inventory
+	var diagnostics []models.Diagnostic
 
 	plugins := getPlugins(
 		[]string{"lockfile", "sbom", "directory"},
@@ -226,7 +238,7 @@ func scan(
 	// technically having one detector enabled would also be sufficient, but we're
 	// not mentioning them to avoid confusion since they're still in their infancy
 	if countNotEnrichersOrAnnotators(plugins) == 0 {
-		return nil, nil, errors.New("at least one extractor must be enabled")
+		return nil, errors.New("at least one extractor must be enabled")
 	}
 
 	scanner := scalibr.New()
@@ -247,7 +259,7 @@ func scan(
 	for _, path := range actions.DirectoryPaths {
 		cmdlogger.Infof("Scanning dir %s", path)
 		if _, err := pathToRootMap(rootMap, path, actions.Recursive); err != nil {
-			return nil, nil, err
+			return nil, err
 		}
 	}
 
@@ -256,7 +268,7 @@ func scan(
 		parseAs, path := scanners.ParseLockfilePath(lockfileElem)
 		absPath, err := pathToRootMap(rootMap, path, actions.Recursive)
 		if err != nil {
-			return nil, nil, err
+			return nil, err
 		}
 
 		specificPaths = append(specificPaths, absPath)
@@ -264,7 +276,7 @@ func scan(
 		if parseAs != "" {
 			plug, err := scanners.ParseAsToPlugin(parseAs, plugins)
 			if err != nil {
-				return nil, nil, err
+				return nil, err
 			}
 			overrideMap[absPath] = plug
 		}
@@ -281,7 +293,7 @@ SBOMLoop:
 	for _, sbomPath := range actions.SBOMPaths {
 		absPath, err := pathToRootMap(rootMap, sbomPath, actions.Recursive)
 		if err != nil {
-			return nil, nil, err
+			return nil, err
 		}
 		specificPaths = append(specificPaths, absPath)
 
@@ -296,7 +308,7 @@ SBOMLoop:
 		cmdlogger.Errorf("Failed to parse SBOM %q: Invalid SBOM filename.", sbomPath)
 		cmdlogger.Errorf("If you believe this is a valid SBOM, make sure the filename follows format per your SBOMs specification.")
 
-		return nil, nil, fmt.Errorf("invalid SBOM filename: %s", sbomPath)
+		return nil, fmt.Errorf("invalid SBOM filename: %s", sbomPath)
 	}
 
 	// --- Add git commits directly ---
@@ -315,7 +327,7 @@ SBOMLoop:
 	// Parse exclude patterns (supports exact names, glob, and regex)
 	excludePatterns, err := parseExcludePatterns(actions.ExcludePatterns)
 	if err != nil {
-		return nil, nil, fmt.Errorf("failed to parse exclude patterns: %w", err)
+		return nil, fmt.Errorf("failed to parse exclude patterns: %w", err)
 	}
 
 	capabilities := plugin.Capabilities{
@@ -330,10 +342,16 @@ SBOMLoop:
 
 	// For each root, run scalibr's scan() once.
 	for root, paths := range rootMap {
+		trackedFS := newTrackingFS(root)
 		sr := scanner.Scan(context.Background(), &scalibr.ScanConfig{
-			Plugins:               filteredPlugins,
-			Capabilities:          &capabilities,
-			ScanRoots:             fs.RealFSScanRoots(root),
+			Plugins:      filteredPlugins,
+			Capabilities: &capabilities,
+			ScanRoots: []*fs.ScanRoot{
+				{
+					FS:   trackedFS,
+					Path: root,
+				},
+			},
 			PathsToExtract:        paths,
 			IgnoreSubDirs:         !actions.Recursive,
 			DirsToSkip:            excludePatterns.dirsToSkip,
@@ -357,13 +375,17 @@ SBOMLoop:
 			},
 		})
 
+		diagnostics = append(diagnostics, trackedFS.Diagnostics()...)
+		diagnostics = append(diagnostics, diagnosticsFromStatuses(sr.PluginStatus, root)...)
+		sortDiagnostics(diagnostics)
+
 		// --- Check status of the run ---
 		if sr.Status != nil && sr.Status.Status == plugin.ScanStatusFailed {
-			return nil, nil, errors.New(sr.Status.FailureReason)
+			return &scanOutput{diagnostics: diagnostics}, errors.New(sr.Status.FailureReason)
 		}
 
 		if err := logPluginStatus(sr.PluginStatus, specificPaths, root); err != nil {
-			return nil, nil, err
+			return &scanOutput{diagnostics: diagnostics}, err
 		}
 
 		slices.SortFunc(sr.Inventory.Packages, inventorySort)
@@ -402,7 +424,7 @@ SBOMLoop:
 	// This allows us to error if a specific file provided by the user failed to extract, and return an error for them.
 	for _, path := range specificPaths {
 		if _, ok := statsCollector.filesExtracted[path]; !ok {
-			return nil, nil, fmt.Errorf("%w: %q", ErrExtractorNotFound, path)
+			return &scanOutput{diagnostics: diagnostics}, fmt.Errorf("%w: %q", ErrExtractorNotFound, path)
 		}
 	}
 
@@ -410,16 +432,22 @@ SBOMLoop:
 	// any packages that were filtered out during the scan.
 	filterAnno := findFilterAnnotator(plugins)
 
+	out := &scanOutput{
+		inventory:   inv,
+		filterAnno:  filterAnno,
+		diagnostics: diagnostics,
+	}
+
 	packagesExtracted := len(inv.Packages)
 	if filterAnno != nil {
 		packagesExtracted = filterAnno.PreFilteredPackageCount()
 	}
 
 	if packagesExtracted == 0 {
-		return nil, nil, ErrNoPackagesFound
+		return out, ErrNoPackagesFound
 	}
 
-	return &inv, filterAnno, nil
+	return out, nil
 }
 
 // pathToRootMap saves the absolute path into the root map, and returns the absolute path.
@@ -593,4 +621,160 @@ func logPluginStatus(statuses []*plugin.Status, specificPaths []string, root str
 	}
 
 	return nil
+}
+
+const (
+	diagnosticPhaseExtraction            = "extraction"
+	diagnosticPhaseTraversal             = "traversal"
+	diagnosticPhaseVulnerabilityMatching = "vulnerability_matching"
+	vulnMatchPluginPrefix                = "vulnmatch/"
+)
+
+func pluginDiagnosticPhase(name string) string {
+	if strings.HasPrefix(name, vulnMatchPluginPrefix) {
+		return diagnosticPhaseVulnerabilityMatching
+	}
+
+	return diagnosticPhaseExtraction
+}
+
+func diagnosticsFromStatuses(statuses []*plugin.Status, root string) []models.Diagnostic {
+	var diagnostics []models.Diagnostic
+	for _, status := range statuses {
+		if status == nil || status.Status == nil || status.Status.Status == plugin.ScanStatusSucceeded {
+			continue
+		}
+
+		phase := pluginDiagnosticPhase(status.Name)
+		if len(status.Status.FileErrors) > 0 {
+			for _, fileError := range status.Status.FileErrors {
+				if fileError == nil {
+					continue
+				}
+				diagPath := fileError.FilePath
+				if root != "" && diagPath != "" {
+					diagPath = filepath.Join(root, filepath.FromSlash(diagPath))
+				}
+				diagnostics = append(diagnostics, models.Diagnostic{
+					Phase:   phase,
+					Plugin:  status.Name,
+					Path:    filepath.ToSlash(diagPath),
+					Message: fileError.ErrorMessage,
+				})
+			}
+
+			continue
+		}
+
+		diagnostics = append(diagnostics, models.Diagnostic{
+			Phase:   phase,
+			Plugin:  status.Name,
+			Message: status.Status.FailureReason,
+		})
+	}
+
+	return diagnostics
+}
+
+func sortDiagnostics(diagnostics []models.Diagnostic) {
+	slices.SortFunc(diagnostics, func(a, b models.Diagnostic) int {
+		return cmp.Or(
+			cmp.Compare(a.Phase, b.Phase),
+			cmp.Compare(a.Plugin, b.Plugin),
+			cmp.Compare(a.Path, b.Path),
+			cmp.Compare(a.Message, b.Message),
+		)
+	})
+}
+
+type trackingFS struct {
+	fs.FS
+	root        string
+	mu          sync.Mutex
+	seenPaths   map[string]struct{}
+	diagnostics []models.Diagnostic
+}
+
+func newTrackingFS(root string) *trackingFS {
+	return &trackingFS{
+		FS:        fs.DirFS(root),
+		root:      root,
+		seenPaths: make(map[string]struct{}),
+	}
+}
+
+func (t *trackingFS) recordTraversalError(name string, err error) {
+	diagPath := name
+	if t.root != "" {
+		diagPath = filepath.Join(t.root, filepath.FromSlash(name))
+	}
+	diagPath = filepath.ToSlash(diagPath)
+
+	t.mu.Lock()
+	defer t.mu.Unlock()
+	if _, exists := t.seenPaths[diagPath]; exists {
+		return
+	}
+	t.seenPaths[diagPath] = struct{}{}
+	t.diagnostics = append(t.diagnostics, models.Diagnostic{
+		Phase:   diagnosticPhaseTraversal,
+		Path:    diagPath,
+		Message: err.Error(),
+	})
+}
+
+func (t *trackingFS) Open(name string) (iofs.File, error) {
+	f, err := t.FS.Open(name)
+	if err != nil && path.Base(name) == ".gitignore" && errors.Is(err, iofs.ErrPermission) {
+		if _, dirErr := t.FS.Open(path.Dir(name)); dirErr != nil {
+			// When a directory itself is unreadable, SCALIBR probes "<dir>/.gitignore"
+			// before reading the directory entries. Returning ErrNotExist for that
+			// probe allows the walk to proceed to ReadDir("<dir>") where the directory
+			// traversal error is recorded and the unreadable subtree is skipped.
+			return nil, iofs.ErrNotExist
+		}
+	}
+
+	return f, err
+}
+
+func (t *trackingFS) ReadDir(name string) ([]iofs.DirEntry, error) {
+	entries, err := t.FS.ReadDir(name)
+	if err != nil {
+		t.recordTraversalError(name, err)
+	}
+
+	return entries, err
+}
+
+func (t *trackingFS) Stat(name string) (iofs.FileInfo, error) {
+	info, err := t.FS.Stat(name)
+	if err != nil && !errors.Is(err, iofs.ErrNotExist) {
+		t.recordTraversalError(name, err)
+	}
+
+	return info, err
+}
+
+func (t *trackingFS) ReadFile(name string) ([]byte, error) {
+	if rf, ok := t.FS.(iofs.ReadFileFS); ok {
+		return rf.ReadFile(name)
+	}
+
+	return iofs.ReadFile(t.FS, name)
+}
+
+func (t *trackingFS) Close() error {
+	if closer, ok := t.FS.(io.Closer); ok {
+		return closer.Close()
+	}
+
+	return nil
+}
+
+func (t *trackingFS) Diagnostics() []models.Diagnostic {
+	t.mu.Lock()
+	defer t.mu.Unlock()
+
+	return slices.Clone(t.diagnostics)
 }

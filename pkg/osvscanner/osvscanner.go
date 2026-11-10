@@ -147,19 +147,24 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 	defer cleanup()
 
 	// ----- Perform Scanning -----
-	packagesAndFindings, filterAnno, err := scan(accessors, actions, scalibrConfig, &scanResults.ConfigManager)
+	scanOut, err := scan(accessors, actions, scalibrConfig, &scanResults.ConfigManager)
+	if scanOut != nil {
+		scanResults.Diagnostics = scanOut.diagnostics
+	}
 	if err != nil {
-		return models.VulnerabilityResults{}, err
+		return models.VulnerabilityResults{
+			Diagnostics: scanResults.Diagnostics,
+		}, err
 	}
 
-	scanResults.Inventory = *packagesAndFindings
+	scanResults.Inventory = scanOut.inventory
 
 	// ----- Custom Overrides -----
 	filterAndOverrideGoVersion(&scanResults)
 
 	// Retrieve the unscannable packages that were filtered out during annotation
 	// and add them back to the output if ShowAllPackages is enabled.
-	reattachUnscannablePackages(filterAnno, &scanResults.Inventory)
+	reattachUnscannablePackages(scanOut.filterAnno, &scanResults.Inventory)
 
 	return finalizeScanResult(scanResults, actions)
 }
@@ -260,12 +265,19 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		return models.VulnerabilityResults{}, errors.New(scalibrSR.Status.FailureReason)
 	}
 
+	scanResults.Diagnostics = diagnosticsFromStatuses(scalibrSR.PluginStatus, "")
+	sortDiagnostics(scanResults.Diagnostics)
+
 	if err := logPluginStatus(scalibrSR.PluginStatus, nil, ""); err != nil {
-		return models.VulnerabilityResults{}, err
+		return models.VulnerabilityResults{
+			Diagnostics: scanResults.Diagnostics,
+		}, err
 	}
 
 	if inventoryIsEmpty(scalibrSR.Inventory) {
-		return models.VulnerabilityResults{}, ErrNoPackagesFound
+		return models.VulnerabilityResults{
+			Diagnostics: scanResults.Diagnostics,
+		}, ErrNoPackagesFound
 	}
 
 	// --- Save Scalibr Scan Results ---

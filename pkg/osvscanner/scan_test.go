@@ -1,12 +1,17 @@
 package osvscanner
 
 import (
+	"encoding/json"
+	"os"
 	"path/filepath"
+	"runtime"
+	"strings"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/osv-scalibr/enricher/vulnmatch/osvlocal"
 	"github.com/google/osv-scalibr/plugin"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 func Test_networkCapability(t *testing.T) {
@@ -216,4 +221,188 @@ func Test_isDescendent(t *testing.T) {
 			}
 		})
 	}
+}
+
+func Test_diagnosticsFromStatuses(t *testing.T) {
+	t.Parallel()
+
+	statuses := []*plugin.Status{
+		nil,
+		{
+			Name: "javascript/packagelockjson",
+			Status: &plugin.ScanStatus{
+				Status: plugin.ScanStatusSucceeded,
+			},
+		},
+		{
+			Name: "javascript/packagejson",
+			Status: &plugin.ScanStatus{
+				Status:        plugin.ScanStatusPartiallySucceeded,
+				FailureReason: "encountered 1 error(s) while running plugin",
+				FileErrors: []*plugin.FileError{
+					{
+						FilePath:     "work/node_modules/minimist/package.json",
+						ErrorMessage: "failed to parse package.json",
+					},
+				},
+			},
+		},
+		{
+			Name: "vulnmatch/osvdev",
+			Status: &plugin.ScanStatus{
+				Status:        plugin.ScanStatusFailed,
+				FailureReason: "connection refused",
+			},
+		},
+	}
+
+	got := diagnosticsFromStatuses(statuses, "/")
+	want := []models.Diagnostic{
+		{
+			Phase:   "extraction",
+			Plugin:  "javascript/packagejson",
+			Path:    "/work/node_modules/minimist/package.json",
+			Message: "failed to parse package.json",
+		},
+		{
+			Phase:   "vulnerability_matching",
+			Plugin:  "vulnmatch/osvdev",
+			Message: "connection refused",
+		},
+	}
+
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("diagnosticsFromStatuses() mismatch (-want +got):\n%s", diff)
+	}
+}
+
+func TestDoScan_Diagnostics(t *testing.T) {
+	t.Parallel()
+
+	t.Run("extraction_failure_and_valid_package", func(t *testing.T) {
+		t.Parallel()
+
+		tmpDir := t.TempDir()
+		lodashDir := filepath.Join(tmpDir, "node_modules", "lodash")
+		minimistDir := filepath.Join(tmpDir, "node_modules", "minimist")
+		if err := os.MkdirAll(lodashDir, 0o755); err != nil {
+			t.Fatal(err)
+		}
+		if err := os.MkdirAll(minimistDir, 0o755); err != nil {
+			t.Fatal(err)
+		}
+
+		lodashPath := filepath.Join(lodashDir, "package.json")
+		minimistPath := filepath.Join(minimistDir, "package.json")
+		if err := os.WriteFile(lodashPath, []byte(`{"name":"lodash","version":"4.17.20"}`), 0o600); err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile(minimistPath, []byte(`{"name":"minimist","version":"1.2.5","contributors":42}`), 0o600); err != nil {
+			t.Fatal(err)
+		}
+
+		res, err := DoScan(ScannerActions{
+			DirectoryPaths:   []string{tmpDir},
+			Recursive:        true,
+			NoIgnore:         true,
+			ShowAllPackages:  true,
+			CompareOffline:   true,
+			ExperimentalScannerActions: ExperimentalScannerActions{
+				PluginsEnabled:    []string{"javascript/packagejson"},
+				PluginsNoDefaults: true,
+			},
+		})
+		if err != nil {
+			t.Fatalf("DoScan() unexpected error: %v", err)
+		}
+
+		if len(res.Results) != 1 {
+			t.Fatalf("len(res.Results) = %d, want 1", len(res.Results))
+		}
+
+		var foundExtractionDiag, foundMatchingDiag bool
+		wantMinimistPath := filepath.ToSlash(minimistPath)
+		for _, d := range res.Diagnostics {
+			if d.Phase == "extraction" && d.Plugin == "javascript/packagejson" && d.Path == wantMinimistPath {
+				foundExtractionDiag = true
+			}
+			if d.Phase == "vulnerability_matching" && d.Plugin == osvlocal.Name {
+				foundMatchingDiag = true
+			}
+		}
+		if !foundExtractionDiag {
+			t.Errorf("expected extraction diagnostic for %q in %+v", wantMinimistPath, res.Diagnostics)
+		}
+		if !foundMatchingDiag {
+			t.Errorf("expected vulnerability_matching diagnostic for %q in %+v", osvlocal.Name, res.Diagnostics)
+		}
+	})
+
+	t.Run("traversal_failure_and_valid_package", func(t *testing.T) {
+		t.Parallel()
+
+		if runtime.GOOS == "windows" || os.Geteuid() == 0 {
+			t.Skip("skipping chmod 0000 traversal test on Windows or root")
+		}
+
+		tmpDir := t.TempDir()
+		lodashDir := filepath.Join(tmpDir, "node_modules", "lodash")
+		unreadableDir := filepath.Join(tmpDir, "unreadable_subtree")
+		if err := os.MkdirAll(lodashDir, 0o755); err != nil {
+			t.Fatal(err)
+		}
+		if err := os.MkdirAll(unreadableDir, 0o755); err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile(filepath.Join(lodashDir, "package.json"), []byte(`{"name":"lodash","version":"4.17.20"}`), 0o600); err != nil {
+			t.Fatal(err)
+		}
+		if err := os.Chmod(unreadableDir, 0o000); err != nil {
+			t.Fatal(err)
+		}
+		t.Cleanup(func() {
+			_ = os.Chmod(unreadableDir, 0o755)
+		})
+
+		res, err := DoScan(ScannerActions{
+			DirectoryPaths:  []string{tmpDir},
+			Recursive:       true,
+			NoIgnore:        true,
+			ShowAllPackages: true,
+			CompareOffline:  true,
+			ExperimentalScannerActions: ExperimentalScannerActions{
+				PluginsEnabled:    []string{"javascript/packagejson"},
+				PluginsNoDefaults: true,
+			},
+		})
+		if err != nil {
+			t.Fatalf("DoScan() unexpected error: %v", err)
+		}
+
+		wantUnreadablePath := filepath.ToSlash(unreadableDir)
+		var foundTraversalDiag bool
+		for _, d := range res.Diagnostics {
+			if d.Phase == "traversal" && d.Path == wantUnreadablePath {
+				foundTraversalDiag = true
+			}
+		}
+		if !foundTraversalDiag {
+			t.Errorf("expected traversal diagnostic for %q in %+v", wantUnreadablePath, res.Diagnostics)
+		}
+	})
+
+	t.Run("clean_results_omit_diagnostics_in_json", func(t *testing.T) {
+		t.Parallel()
+
+		res := models.VulnerabilityResults{
+			Results: []models.PackageSource{},
+		}
+		raw, err := json.Marshal(res)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if strings.Contains(string(raw), `"diagnostics"`) {
+			t.Errorf("expected empty diagnostics to be omitted from JSON, got: %s", string(raw))
+		}
+	})
 }

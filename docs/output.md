@@ -183,6 +183,8 @@ Outputs the results as a JSON object to stdout, with all other output being dire
 osv-scanner scan --format json -L path/to/lockfile > /path/to/file.json
 ```
 
+When package extraction, filesystem traversal, or vulnerability matching encounters non-fatal errors during a scan, the JSON output includes an optional top-level `diagnostics` array (omitted when no errors occur) with `phase` (`extraction`, `traversal`, or `vulnerability_matching`), `plugin`, `path`, and `message` fields.
+
 <details markdown="1">
 <summary><b>Sample JSON output</b></summary>
 

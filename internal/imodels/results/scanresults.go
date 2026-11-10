@@ -5,6 +5,7 @@ import (
 	spb "github.com/google/osv-scalibr/binary/proto/scan_result_go_proto"
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scanner/v2/internal/config"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 // ScanResults represents the complete results of a scan.
@@ -22,4 +23,7 @@ type ScanResults struct {
 
 	// For container scanning, metadata including layer information
 	ImageMetadata *spb.ContainerImageMetadata
+
+	// Non-fatal scan diagnostics (extraction, traversal, or vulnerability matching failures)
+	Diagnostics []models.Diagnostic
 }
