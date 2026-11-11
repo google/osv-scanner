@@ -283,6 +283,25 @@ No issues found
 
 ---
 
+[TestCommand/Go_project_with_an_overridden_go_version_and_go_mod_version_scanning - 1 - stdout]
+Scanning dir ./testdata/go-project-scan-go-mod-version
+Scanned <rootdir>/testdata/go-project-scan-go-mod-version/go.mod file and found 1 package
+
+Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
++------------------------------+------+-----------+---------+---------+---------------+------------------------------------------------+
+| OSV URL                      | CVSS | ECOSYSTEM | PACKAGE | VERSION | FIXED VERSION | SOURCE                                         |
++------------------------------+------+-----------+---------+---------+---------------+------------------------------------------------+
+| https://osv.dev/GO-2026-6809 |      | Go        | stdlib  | 1.26.9  | 1.26.10       | testdata/go-project-scan-go-mod-version/go.mod |
++------------------------------+------+-----------+---------+---------+---------------+------------------------------------------------+
+
+---
+
+[TestCommand/Go_project_with_an_overridden_go_version_and_go_mod_version_scanning - 2 - stderr]
+
+---
+
 [TestCommand/Go_project_with_an_overridden_go_version_and_licenses - 1 - stdout]
 Scanning dir ./testdata/go-project
 Scanned <rootdir>/testdata/go-project/go.mod file and found 1 package

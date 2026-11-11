@@ -378,6 +378,12 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "--config=./testdata/go-project/go-version-config.toml", "-r", "./testdata/go-project"},
 			Exit: 0,
 		},
+		// Go project with an overridden go version, when scanning the go.mod version
+		{
+			Name: "Go_project_with_an_overridden_go_version_and_go_mod_version_scanning",
+			Args: []string{"", "source", "--config=./testdata/go-project-scan-go-mod-version/go-version-config.toml", "--no-call-analysis=go", "./testdata/go-project-scan-go-mod-version"},
+			Exit: 1,
+		},
 		// broad config file that overrides a whole ecosystem
 		{
 			Name: "config_file_can_be_broad",
