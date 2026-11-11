@@ -23,6 +23,9 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Setup Git authentication for Go modules
+        run: git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
+
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
         with:
           go-version-file: "go.mod"
