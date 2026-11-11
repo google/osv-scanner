@@ -15,6 +15,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"google.golang.org/protobuf/encoding/protojson"
+	"google.golang.org/protobuf/types/known/structpb"
 	"osv.dev/bindings/go/api"
 )
 
@@ -145,7 +146,12 @@ func slim(vuln *osvschema.Vulnerability) {
 
 	for _, affected := range vuln.GetAffected() {
 		affected.DatabaseSpecific = nil
-		// affected.EcosystemSpecific = nil
+		affected.EcosystemSpecific = only(affected.GetEcosystemSpecific(), []string{
+			"urgency",
+			"ubuntu_priority",
+			"affects",
+			"imports",
+		})
 
 		for _, rang := range affected.GetRanges() {
 			rang.DatabaseSpecific = nil
@@ -153,6 +159,24 @@ func slim(vuln *osvschema.Vulnerability) {
 
 		affected.Versions = nil
 	}
+}
+
+func only(currentStruct *structpb.Struct, fields []string) *structpb.Struct {
+	currentFields := currentStruct.GetFields()
+
+	if currentFields == nil {
+		return nil
+	}
+
+	newStruct := &structpb.Struct{Fields: make(map[string]*structpb.Value, len(fields))}
+
+	for _, field := range fields {
+		if currentValue, ok := currentFields[field]; ok {
+			newStruct.Fields[field] = currentValue
+		}
+	}
+
+	return newStruct
 }
 
 // Fatten returns a version of the vulnerability with all the available data
