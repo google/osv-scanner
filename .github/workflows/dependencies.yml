@@ -26,6 +26,10 @@ jobs:
         with:
           persist-credentials: false
 
+      # YEH NAYA STEP HAI - GITHUB AUTH FIX KE LIYE
+      - name: Configure Git for authentication
+        run: git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
+
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
         with:
           go-version-file: "go.mod"
@@ -46,7 +50,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: "feat: update osv-scalibr"
-          body: "This updates osv-scalibr."
+          body: "This updates osv-scalibr dependency."
           branch: "bot/update-scalibr"
           author: "osv-robot <osv-robot@google.com>"
           commit-message: "feat: update osv-scalibr"
