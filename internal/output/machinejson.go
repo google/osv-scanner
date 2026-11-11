@@ -4,7 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"slices"
 
+	"github.com/google/osv-scanner/v2/internal/identifiers"
 	"github.com/google/osv-scanner/v2/internal/osvdiet"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
@@ -24,9 +26,26 @@ type aliasPackageSource struct {
 }
 
 type aliasPackageVulns struct {
-	Vulnerabilities []slimVulnerability
+	models.PackageVulns
 
-	models.PackageVulns //nolint:embeddedstructfieldcheck // needs to be here to preserve field order
+	vulns []slimVulnerability
+}
+
+// MarshalJSON shadows the MarshalJSON promoted from the embedded
+// models.PackageVulns, which would otherwise marshal the (slimmed)
+// vulnerabilities directly without ever fattening them
+func (a *aliasPackageVulns) MarshalJSON() ([]byte, error) {
+	// avoid models.PackageVulns.MarshalJSON by using a method-less alias
+	type plain models.PackageVulns
+
+	return json.Marshal(&struct {
+		*plain
+
+		Vulnerabilities []slimVulnerability `json:"vulnerabilities,omitempty"`
+	}{
+		plain:           (*plain)(&a.PackageVulns),
+		Vulnerabilities: a.vulns,
+	})
 }
 
 type slimVulnerability struct {
@@ -67,11 +86,16 @@ func aliasResults(vulnResult *models.VulnerabilityResults) aliasVulnerabilityRes
 
 		for j, pkg := range ps.Packages {
 			aliased.Results[i].Packages[j].PackageVulns = pkg
-			aliased.Results[i].Packages[j].Vulnerabilities = make([]slimVulnerability, len(pkg.Vulnerabilities))
+			aliased.Results[i].Packages[j].vulns = make([]slimVulnerability, len(pkg.Vulnerabilities))
 
 			for k, vuln := range pkg.Vulnerabilities {
-				aliased.Results[i].Packages[j].Vulnerabilities[k] = slimVulnerability{vuln}
+				aliased.Results[i].Packages[j].vulns[k] = slimVulnerability{vuln}
 			}
+
+			// match the ordering applied by models.PackageVulns.MarshalJSON
+			slices.SortFunc(aliased.Results[i].Packages[j].vulns, func(a, b slimVulnerability) int {
+				return identifiers.IDSortFunc(a.vuln.GetId(), b.vuln.GetId())
+			})
 		}
 	}
 
