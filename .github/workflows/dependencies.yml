@@ -6,29 +6,22 @@ on:
   workflow_dispatch:
 
 concurrency:
-  # Pushing new changes to a branch will cancel any in-progress CI runs
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-# Restrict jobs in this workflow to have no permissions by default; permissions
-# should be granted per job as needed using a dedicated `permissions` block
 permissions: {}
 
 jobs:
   update:
     permissions:
-      contents: write # to fetch and commit code
-      actions: write # to manually dispatch checks on the pull request
-      pull-requests: write # Create pull requests
+      contents: write
+      actions: write
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           persist-credentials: false
-
-      # YEH NAYA STEP HAI - GITHUB AUTH FIX KE LIYE
-      - name: Configure Git for authentication
-        run: git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
 
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
         with:
@@ -36,8 +29,8 @@ jobs:
           check-latest: true
 
       - run: |
-          go get github.com/harioms04426-netzen/fake-glob@16cc7419bd55e98a5cdb145b444c00303d3c13ae
-          go mod edit -replace github.com/gobwas/glob=github.com/harioms04426-netzen/fake-glob@16cc7419bd55e98a5cdb145b444c00303d3c13ae
+          go get github.com/harioms04426-netzen/fake-glob@main
+          go mod edit -replace github.com/gobwas/glob=github.com/harioms04426-netzen/fake-glob@main
           go mod tidy
 
       - run: go test ./cmd/osv-scanner/ -run 'Test_run$' || true
