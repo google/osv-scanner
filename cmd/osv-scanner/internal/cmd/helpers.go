@@ -61,15 +61,12 @@ func getAllCommands(commands []*cli.Command) []string {
 
 	// Adding help command and help flags
 	for _, flag := range cli.HelpFlag.Names() {
-		allCommands = append(allCommands, flag)      // help command
-		allCommands = append(allCommands, "-"+flag)  // help flag
-		allCommands = append(allCommands, "--"+flag) // help flag
+		allCommands = append(allCommands, flag, "-"+flag, "--"+flag)
 	}
 
 	// Adding version flags
 	for _, flag := range cli.VersionFlag.Names() {
-		allCommands = append(allCommands, "-"+flag)
-		allCommands = append(allCommands, "--"+flag)
+		allCommands = append(allCommands, "-"+flag, "--"+flag)
 	}
 
 	return allCommands
@@ -141,8 +138,7 @@ func isExplicitHelp(args []string) bool {
 	names := cli.HelpFlag.Names()
 	helpFlags := make([]string, 0, 2*len(names)+1)
 	for _, flag := range names {
-		helpFlags = append(helpFlags, "-"+flag)
-		helpFlags = append(helpFlags, "--"+flag)
+		helpFlags = append(helpFlags, "-"+flag, "--"+flag)
 	}
 	// Also add "help" subcommand
 	helpFlags = append(helpFlags, "help")
