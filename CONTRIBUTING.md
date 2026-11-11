@@ -48,8 +48,9 @@ Please review the documentation [README](docs/README.md) for more information ab
 
 Install:
 
-1. [Go](https://go.dev/) 1.21+, use `go version` to check.
-2. [GoReleaser](https://goreleaser.com/) (Optional, only if you want reproducible builds).
+1. [Go](https://go.dev/) matching the version in `go.mod` (Go 1.21+ will automatically download the required toolchain when `GOTOOLCHAIN` is enabled); use `go version` to check.
+2. [Node.js / npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) (Optional, required to run Prettier via `./scripts/run_formatters.sh`).
+3. [GoReleaser](https://goreleaser.com/) (Optional, only if you want reproducible builds).
 
 > **Note**
 >
@@ -99,9 +100,10 @@ To get consistent test results, please run with `GOTOOLCHAIN=go<go version in go
 The `Makefile` defines several modes you can use to change how tests run:
 
 - `SNAPS=true`: Update snapshot tests.
-- `ACC=true`: Run acceptance tests that require additional dependencies.
+- `ACC=true`: Run acceptance tests that require additional dependencies (such as Docker for building container test images).
 - `SHORT=false`: Run the full test suite instead of the default short suite.
-- `VCR=<mode>`: Set the VCR recording mode (see below).
+- `UPDATE_DBS=true`: Update local offline database mocks from live GCS.
+- `VCR=<mode>`: Set the HTTP and gRPC VCR recording mode (see below).
 
 By default, tests that require additional dependencies beyond the go toolchain are skipped.
 Enable these tests by running:
@@ -135,13 +137,16 @@ To update all snapshots for all tests, matching the CI test environment, use:
 make refresh-all
 ```
 
-`cmd` tests use [`go-vcr`](https://github.com/dnaeon/go-vcr) to provide a custom `http.Client` for osv.dev requests to the `querybulk` endpoint which uses
-snapshots of requests called cassettes to reduce noise from changes to advisories while still providing a high degree
-of confidence.
+`cmd` tests record network interactions to reduce noise from upstream advisory and registry changes while maintaining realistic end-to-end coverage:
+
+- **HTTP requests** (such as `osv.dev` `querybulk` queries) use [`go-vcr`](https://github.com/dnaeon/go-vcr) cassettes (`testdata/cassettes/<Test>.yaml`).
+- **gRPC requests** (such as `deps.dev` resolution and license queries) use [`internal/grpcvcr`](./internal/grpcvcr/grpcvcr.go) cassettes (`testdata/cassettes/<Test>_grpc.yaml`).
+- **Vulnerability severities** from `/v1/vulns/` lookups are normalized against [`vuln_severities.json`](./cmd/osv-scanner/internal/testcmd/testdata/vuln_severities.json).
+- **Offline databases** are built in memory from JSON fixtures under `cmd/osv-scanner/internal/testcmd/testdata/offline-dbs/` (refresh with `make update-offline-dbs`).
 
 You can control the recording behaviour by passing `VCR=<mode>` as an argument to `make test`.
 The `<mode>` can be one of the [supported modes](https://github.com/dnaeon/go-vcr/blob/v4/pkg/recorder/recorder.go#L51),
-specified either by [its name without the `Mode` suffix or by its int value](./cmd/osv-scanner/internal/testcmd/vcr.go#L16).
+specified either by [its name without the `Mode` suffix or by its int value](./cmd/osv-scanner/internal/testcmd/vcr.go).
 
 ```shell
 # Example: Disable VCR tests to passthrough network requests
@@ -150,17 +155,22 @@ make test VCR=Passthrough
 
 The default mode locally is `ReplayWithNewEpisodes`, meaning existing interactions will be replayed while any new ones will
 be recorded and added to the existing cassette; when running in CI, the default mode is `ReplayOnly` meaning an error will be
-raised if an http interaction is missing from a test's cassette.
+raised if an HTTP/gRPC interaction or baseline severity is missing.
+
+When skipping tests in packages that use snapshots, use `testutility.Skip` (or `testutility.SkipIfShort` / `testutility.SkipIfNotAcceptanceTesting`) rather than `t.Skip` so skipped snapshots are not marked as obsolete, and ensure `testmain_test.go` calls `testutility.CleanSnapshots(m)`.
 
 If adding a lockfile with known vulnerabilities for test data, also add an [`osv-scanner.toml`](https://google.github.io/osv-scanner/configuration/) config file to exclude those vulnerabilities from scans of the repository.
 
-### Linting
+### Linting and formatting
 
-To lint your code, run
+To lint your Go code and format files, run:
 
 ```shell
 ./scripts/run_lints.sh
+./scripts/run_formatters.sh
 ```
+
+If you modify Go imports or dependencies, also ensure `go.mod` and `go.sum` are tidy by running `go mod tidy`.
 
 ### Making commits
 
@@ -188,4 +198,4 @@ Please follow these steps to successfully contribute documentation.
 4. If you are satisfied with the changes, open a PR.
 5. In the PR, link to your fork's GitHub page, so we can preview the changes.
 
-For information on how to run the documentation locally, please see our [documentation readme](https://github.com/google/osv-scanner/blob/main/docs/README.md/#running-docs-locally).
+For information on how to run the documentation locally, please see our [documentation README](docs/README.md).
