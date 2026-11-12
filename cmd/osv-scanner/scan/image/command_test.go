@@ -610,3 +610,38 @@ func TestCommand_HtmlFile(t *testing.T) {
 		t.Errorf("Unexpected %v", err)
 	}
 }
+
+func TestCommand_MultipleImages(t *testing.T) {
+	t.Parallel()
+
+	tests := []testcmd.Case{
+		{
+			Name:  "multiple_image_arguments",
+			Args:  []string{"", "image", "alpine:latest", "ubuntu:latest"},
+			Exit:  127,
+			NoVCR: true,
+		},
+		{
+			Name:  "multiple_image_archive_arguments",
+			Args:  []string{"", "image", "--archive", "image1.tar", "image2.tar"},
+			Exit:  127,
+			NoVCR: true,
+		},
+		{
+			Name:  "multiple_image_archive_arguments_three_targets",
+			Args:  []string{"", "image", "--archive", "image1.tar", "image2.tar", "image3.tar"},
+			Exit:  127,
+			NoVCR: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+
+			_, stderr := testcmd.RunAndNormalize(t, tt)
+			if !strings.Contains(stderr, "only one image can be scanned at a time") {
+				t.Errorf("expected stderr to contain 'only one image can be scanned at a time', got: %s", stderr)
+			}
+		})
+	}
+}

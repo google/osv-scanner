@@ -41,6 +41,9 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 	if cmd.Args().Len() == 0 {
 		return errors.New("please provide an image name or see the help document")
 	}
+	if cmd.Args().Len() > 1 {
+		return errors.New("only one image can be scanned at a time")
+	}
 
 	isImageArchive := cmd.Bool("archive")
 	image := cmd.Args().First()
