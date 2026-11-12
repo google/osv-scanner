@@ -52,17 +52,19 @@ func New(backend osvdev.Client) *Client {
 // Cleanup removes the global Client after clearing its storage directory.
 //
 // Subsequent calls to Fatten will fail unless a New Client is initialized.
-func Cleanup() error {
+func Cleanup() {
 	if global == nil {
-		return nil
+		return
 	}
 
 	// todo: return, or ignore?
 	err := os.RemoveAll(global.dir)
 
-	global = nil
+	if err != nil {
+		cmdlogger.Warnf("failed to remove %s: %v", global.dir, err)
+	}
 
-	return err
+	global = nil
 }
 
 // getDirectory returns the temporary directory to store vulnerabilities in,
