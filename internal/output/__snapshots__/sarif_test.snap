@@ -1939,6 +1939,17 @@
   "runs": [
     {
       "addresses": [],
+      "artifacts": [
+        {
+          "length": -1,
+          "location": {
+            "index": -1,
+            "uri": "file://<rootdir>/path/to/lockfile"
+          },
+          "parentIndex": -1,
+          "roles": []
+        }
+      ],
       "graphs": [],
       "invocations": [],
       "language": "en-US",
@@ -1949,7 +1960,44 @@
       ],
       "policies": [],
       "redactionTokens": [],
-      "results": [],
+      "results": [
+        {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
+          "kind": "fail",
+          "level": "warning",
+          "locations": [
+            {
+              "annotations": [],
+              "id": -1,
+              "logicalLocations": [],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": -1,
+                  "uri": "file://<rootdir>/path/to/lockfile"
+                }
+              },
+              "relationships": []
+            }
+          ],
+          "message": {
+            "arguments": [],
+            "text": "Package 'deprecated-pkg@1.0.0' is deprecated."
+          },
+          "partialFingerprints": {
+            "primaryLocationLineHash": "[line-hash]"
+          },
+          "rank": -1,
+          "relatedLocations": [],
+          "ruleId": "deprecated-package",
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
+        }
+      ],
       "runAggregates": [],
       "taxonomies": [],
       "threadFlowLocations": [],
@@ -1965,7 +2013,25 @@
           "locations": [],
           "name": "osv-scanner",
           "notifications": [],
-          "rules": [],
+          "rules": [
+            {
+              "fullDescription": {
+                "markdown": "A dependency version is flagged as deprecated, yanked, or unsupported in its package registry.",
+                "text": "A dependency version is flagged as deprecated, yanked, or unsupported in its package registry."
+              },
+              "help": {
+                "markdown": "**Your dependency is flagged as deprecated or yanked.**\n\nDeprecated or yanked packages are no longer supported by their maintainers or have been removed from the package registry, and may contain unpatched bugs or security issues.\n\n---\n\n### Deprecated Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/path/to/lockfile | deprecated-pkg | 1.0.0 |\n\n## Remediation\n\nTo resolve this finding, update the deprecated dependency to a supported version or replace it with a maintained alternative.\n\nIf you wish to ignore a deprecated package completely (including any vulnerabilities and license violations), add a package override in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore the deprecated package:\n\n`<rootdir>/path/to/osv-scanner.toml`\n\n```\n[[PackageOverrides]]\nname = \"deprecated-pkg\"\nversion = \"1.0.0\"\necosystem = \"npm\"\nignore = true\nreason = \"Your reason for ignoring this package\"\n```\n",
+                "text": "**Your dependency is flagged as deprecated or yanked.**\n\nDeprecated or yanked packages are no longer supported by their maintainers or have been removed from the package registry, and may contain unpatched bugs or security issues.\n\n---\n\n### Deprecated Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/path/to/lockfile | deprecated-pkg | 1.0.0 |\n\n## Remediation\n\nTo resolve this finding, update the deprecated dependency to a supported version or replace it with a maintained alternative.\n\nIf you wish to ignore a deprecated package completely (including any vulnerabilities and license violations), add a package override in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore the deprecated package:\n\n`<rootdir>/path/to/osv-scanner.toml`\n\n```\n[[PackageOverrides]]\nname = \"deprecated-pkg\"\nversion = \"1.0.0\"\necosystem = \"npm\"\nignore = true\nreason = \"Your reason for ignoring this package\"\n```\n"
+              },
+              "id": "deprecated-package",
+              "name": "deprecated-package",
+              "relationships": [],
+              "shortDescription": {
+                "markdown": "Deprecated package dependency",
+                "text": "Deprecated package dependency"
+              }
+            }
+          ],
           "supportedTaxonomies": [],
           "taxa": [],
           "version": "2.7.1"

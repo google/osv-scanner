@@ -3506,6 +3506,129 @@ Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock
 
 ---
 
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_no_vuln_sarif - 1 - stdout]
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "addresses": [],
+      "artifacts": [
+        {
+          "length": -1,
+          "location": {
+            "index": -1,
+            "uri": "file://<rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock"
+          },
+          "parentIndex": -1,
+          "roles": []
+        }
+      ],
+      "graphs": [],
+      "invocations": [],
+      "language": "en-US",
+      "logicalLocations": [],
+      "newlineSequences": [
+        "/r/n",
+        "/n"
+      ],
+      "policies": [],
+      "redactionTokens": [],
+      "results": [
+        {
+          "partialFingerprints": {
+            "primaryLocationLineHash": "[line-hash]"
+          },
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
+          "kind": "fail",
+          "level": "warning",
+          "locations": [
+            {
+              "annotations": [],
+              "id": -1,
+              "logicalLocations": [],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": -1,
+                  "uri": "file://<rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock"
+                }
+              },
+              "relationships": []
+            }
+          ],
+          "message": {
+            "arguments": [],
+            "text": "Package 'url@2.5.3' is deprecated."
+          },
+          "rank": -1,
+          "relatedLocations": [],
+          "ruleId": "deprecated-package",
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
+        }
+      ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
+      "tool": {
+        "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
+          "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
+          "language": "en-US",
+          "locations": [],
+          "name": "osv-scanner",
+          "notifications": [],
+          "rules": [
+            {
+              "fullDescription": {
+                "markdown": "A dependency version is flagged as deprecated, yanked, or unsupported in its package registry.",
+                "text": "A dependency version is flagged as deprecated, yanked, or unsupported in its package registry."
+              },
+              "help": {
+                "markdown": "**Your dependency is flagged as deprecated or yanked.**\n\nDeprecated or yanked packages are no longer supported by their maintainers or have been removed from the package registry, and may contain unpatched bugs or security issues.\n\n---\n\n### Deprecated Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock | url | 2.5.3 |\n\n## Remediation\n\nTo resolve this finding, update the deprecated dependency to a supported version or replace it with a maintained alternative.\n\nIf you wish to ignore a deprecated package completely (including any vulnerabilities and license violations), add a package override in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore the deprecated package:\n\n`<rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-novuln/osv-scanner.toml`\n\n```\n[[PackageOverrides]]\nname = \"url\"\nversion = \"2.5.3\"\necosystem = \"crates.io\"\nignore = true\nreason = \"Your reason for ignoring this package\"\n```\n",
+                "text": "**Your dependency is flagged as deprecated or yanked.**\n\nDeprecated or yanked packages are no longer supported by their maintainers or have been removed from the package registry, and may contain unpatched bugs or security issues.\n\n---\n\n### Deprecated Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock | url | 2.5.3 |\n\n## Remediation\n\nTo resolve this finding, update the deprecated dependency to a supported version or replace it with a maintained alternative.\n\nIf you wish to ignore a deprecated package completely (including any vulnerabilities and license violations), add a package override in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore the deprecated package:\n\n`<rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-novuln/osv-scanner.toml`\n\n```\n[[PackageOverrides]]\nname = \"url\"\nversion = \"2.5.3\"\necosystem = \"crates.io\"\nignore = true\nreason = \"Your reason for ignoring this package\"\n```\n"
+              },
+              "id": "deprecated-package",
+              "name": "deprecated-package",
+              "relationships": [],
+              "shortDescription": {
+                "markdown": "Deprecated package dependency",
+                "text": "Deprecated package dependency"
+              }
+            }
+          ],
+          "supportedTaxonomies": [],
+          "taxa": [],
+          "version": "2.7.1"
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
+    }
+  ],
+  "properties": {}
+}
+
+---
+
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_no_vuln_sarif - 2 - stderr]
+Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock
+Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock file and found 36 packages
+
+---
+
 [TestCommand_FlagDeprecatedPackages/package_deprecated_true_no_vuln_table - 1 - stdout]
 Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock
 Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock file and found 36 packages
@@ -3568,6 +3691,321 @@ Total 1 package deprecated.
 ---
 
 [TestCommand_FlagDeprecatedPackages/package_deprecated_true_with_vuln_json - 2 - stderr]
+Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock
+Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock file and found 7 packages
+
+---
+
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_with_vuln_sarif - 1 - stdout]
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "addresses": [],
+      "artifacts": [
+        {
+          "length": -1,
+          "location": {
+            "index": -1,
+            "uri": "file://<rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock"
+          },
+          "parentIndex": -1,
+          "roles": []
+        }
+      ],
+      "graphs": [],
+      "invocations": [],
+      "language": "en-US",
+      "logicalLocations": [],
+      "newlineSequences": [
+        "/r/n",
+        "/n"
+      ],
+      "policies": [],
+      "redactionTokens": [],
+      "results": [
+        {
+          "partialFingerprints": {
+            "primaryLocationLineHash": "[line-hash]"
+          },
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
+          "kind": "fail",
+          "level": "warning",
+          "locations": [
+            {
+              "annotations": [],
+              "id": -1,
+              "logicalLocations": [],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": -1,
+                  "uri": "file://<rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock"
+                }
+              },
+              "relationships": []
+            }
+          ],
+          "message": {
+            "arguments": [],
+            "text": "Package 'net2@0.2.33' is vulnerable to 'CVE-2020-35919' (also known as 'CVE-2020-35920', 'RUSTSEC-2020-0078', 'RUSTSEC-2020-0079', 'GHSA-458v-4hrf-g3m4', 'GHSA-c79c-gwph-gqfm')."
+          },
+          "rank": -1,
+          "relatedLocations": [],
+          "ruleId": "CVE-2020-35919",
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
+        },
+        {
+          "partialFingerprints": {
+            "primaryLocationLineHash": "[line-hash]"
+          },
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
+          "kind": "fail",
+          "level": "warning",
+          "locations": [
+            {
+              "annotations": [],
+              "id": -1,
+              "logicalLocations": [],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": -1,
+                  "uri": "file://<rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock"
+                }
+              },
+              "relationships": []
+            }
+          ],
+          "message": {
+            "arguments": [],
+            "text": "Package 'net2@0.2.33' is vulnerable to 'CVE-2020-35919' (also known as 'CVE-2020-35920', 'RUSTSEC-2020-0078', 'RUSTSEC-2020-0079', 'GHSA-458v-4hrf-g3m4', 'GHSA-c79c-gwph-gqfm')."
+          },
+          "rank": -1,
+          "relatedLocations": [],
+          "ruleId": "CVE-2020-35919",
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
+        },
+        {
+          "partialFingerprints": {
+            "primaryLocationLineHash": "[line-hash]"
+          },
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
+          "kind": "fail",
+          "level": "warning",
+          "locations": [
+            {
+              "annotations": [],
+              "id": -1,
+              "logicalLocations": [],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": -1,
+                  "uri": "file://<rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock"
+                }
+              },
+              "relationships": []
+            }
+          ],
+          "message": {
+            "arguments": [],
+            "text": "Package 'net2@0.2.33' is vulnerable to 'RUSTSEC-2020-0016'."
+          },
+          "rank": -1,
+          "relatedLocations": [],
+          "ruleId": "RUSTSEC-2020-0016",
+          "ruleIndex": 1,
+          "stacks": [],
+          "taxa": []
+        },
+        {
+          "partialFingerprints": {
+            "primaryLocationLineHash": "[line-hash]"
+          },
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
+          "kind": "fail",
+          "level": "warning",
+          "locations": [
+            {
+              "annotations": [],
+              "id": -1,
+              "logicalLocations": [],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": -1,
+                  "uri": "file://<rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock"
+                }
+              },
+              "relationships": []
+            }
+          ],
+          "message": {
+            "arguments": [],
+            "text": "Package 'net2@0.2.33' is vulnerable to 'CVE-2020-35919' (also known as 'CVE-2020-35920', 'RUSTSEC-2020-0078', 'RUSTSEC-2020-0079', 'GHSA-458v-4hrf-g3m4', 'GHSA-c79c-gwph-gqfm')."
+          },
+          "rank": -1,
+          "relatedLocations": [],
+          "ruleId": "CVE-2020-35919",
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
+        },
+        {
+          "partialFingerprints": {
+            "primaryLocationLineHash": "[line-hash]"
+          },
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
+          "kind": "fail",
+          "level": "warning",
+          "locations": [
+            {
+              "annotations": [],
+              "id": -1,
+              "logicalLocations": [],
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": -1,
+                  "uri": "file://<rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock"
+                }
+              },
+              "relationships": []
+            }
+          ],
+          "message": {
+            "arguments": [],
+            "text": "Package 'net2@0.2.33' is deprecated."
+          },
+          "rank": -1,
+          "relatedLocations": [],
+          "ruleId": "deprecated-package",
+          "ruleIndex": 2,
+          "stacks": [],
+          "taxa": []
+        }
+      ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
+      "tool": {
+        "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
+          "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
+          "language": "en-US",
+          "locations": [],
+          "name": "osv-scanner",
+          "notifications": [],
+          "rules": [
+            {
+              "deprecatedIds": [
+                "CVE-2020-35919",
+                "CVE-2020-35920",
+                "RUSTSEC-2020-0078",
+                "RUSTSEC-2020-0079",
+                "GHSA-458v-4hrf-g3m4",
+                "GHSA-c79c-gwph-gqfm"
+              ],
+              "fullDescription": {
+                "markdown": "The [`net2`](https://crates.io/crates/net2) crate has assumed `std::net::SocketAddrV4`\nand `std::net::SocketAddrV6` have the same memory layout as the system C representation\n`sockaddr`. It has simply casted the pointers to convert the socket addresses to the\nsystem representation. The standard library does not say anything about the memory\nlayout, and this will cause invalid memory access if the standard library\nchanges the implementation. No warnings or errors will be emitted once the\nchange happens.",
+                "text": "The [`net2`](https://crates.io/crates/net2) crate has assumed `std::net::SocketAddrV4`\nand `std::net::SocketAddrV6` have the same memory layout as the system C representation\n`sockaddr`. It has simply casted the pointers to convert the socket addresses to the\nsystem representation. The standard library does not say anything about the memory\nlayout, and this will cause invalid memory access if the standard library\nchanges the implementation. No warnings or errors will be emitted once the\nchange happens."
+              },
+              "help": {
+                "markdown": "**Your dependency is vulnerable to [CVE-2020-35919](https://osv.dev/CVE-2020-35919)**\n(Also published as: [RUSTSEC-2020-0078](https://osv.dev/RUSTSEC-2020-0078), [GHSA-458v-4hrf-g3m4](https://osv.dev/GHSA-458v-4hrf-g3m4), [GHSA-c79c-gwph-gqfm](https://osv.dev/GHSA-c79c-gwph-gqfm), ).\n\n## [RUSTSEC-2020-0078](https://osv.dev/RUSTSEC-2020-0078)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e The [`net2`](https://crates.io/crates/net2) crate has assumed `std::net::SocketAddrV4`\n\u003e and `std::net::SocketAddrV6` have the same memory layout as the system C representation\n\u003e `sockaddr`. It has simply casted the pointers to convert the socket addresses to the\n\u003e system representation. The standard library does not say anything about the memory\n\u003e layout, and this will cause invalid memory access if the standard library\n\u003e changes the implementation. No warnings or errors will be emitted once the\n\u003e change happens.\n\n\u003c/details\u003e\n\n## [GHSA-458v-4hrf-g3m4](https://osv.dev/GHSA-458v-4hrf-g3m4)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e The socket2 crate has assumed `std::net::SocketAddrV4` and `std::net::SocketAddrV6` have the same memory layout as the system C representation `sockaddr`. It has simply casted the pointers to convert the socket addresses to the system representation. The standard library does not say anything about the memory layout, and this will cause invalid memory access if the standard library changes the implementation. No warnings or errors will be emitted once the change happens.\n\u003e \n\n\u003c/details\u003e\n\n## [GHSA-c79c-gwph-gqfm](https://osv.dev/GHSA-c79c-gwph-gqfm)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e The net2 crate has assumed std::net::SocketAddrV4 and std::net::SocketAddrV6 have the same memory layout as the system C representation sockaddr. It has simply casted the pointers to convert the socket addresses to the system representation. The standard library does not say anything about the memory layout, and this will cause invalid memory access if the standard library changes the implementation. No warnings or errors will be emitted once the change happens.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version | Deprecated |\n| --- | --- | --- | --- |\n| lockfile:<rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock | net2 | 0.2.33 | true |\n\n## Remediation\n\nTo fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.\n\n### Fixed Versions\n\n| Vulnerability ID | Package Name | Fixed Version |\n| --- | --- | --- |\n| GHSA-458v-4hrf-g3m4 | net2 | 0.2.36 |\n| GHSA-458v-4hrf-g3m4 | socket2 | 0.3.16 |\n| GHSA-c79c-gwph-gqfm | net2 | 0.2.36 |\n| RUSTSEC-2020-0078 | net2 | 0.2.36 |\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2020-35919\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
+                "text": "**Your dependency is vulnerable to [CVE-2020-35919](https://osv.dev/CVE-2020-35919)**\n(Also published as: [RUSTSEC-2020-0078](https://osv.dev/RUSTSEC-2020-0078), [GHSA-458v-4hrf-g3m4](https://osv.dev/GHSA-458v-4hrf-g3m4), [GHSA-c79c-gwph-gqfm](https://osv.dev/GHSA-c79c-gwph-gqfm), ).\n\n## [RUSTSEC-2020-0078](https://osv.dev/RUSTSEC-2020-0078)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e The [`net2`](https://crates.io/crates/net2) crate has assumed `std::net::SocketAddrV4`\n\u003e and `std::net::SocketAddrV6` have the same memory layout as the system C representation\n\u003e `sockaddr`. It has simply casted the pointers to convert the socket addresses to the\n\u003e system representation. The standard library does not say anything about the memory\n\u003e layout, and this will cause invalid memory access if the standard library\n\u003e changes the implementation. No warnings or errors will be emitted once the\n\u003e change happens.\n\n\u003c/details\u003e\n\n## [GHSA-458v-4hrf-g3m4](https://osv.dev/GHSA-458v-4hrf-g3m4)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e The socket2 crate has assumed `std::net::SocketAddrV4` and `std::net::SocketAddrV6` have the same memory layout as the system C representation `sockaddr`. It has simply casted the pointers to convert the socket addresses to the system representation. The standard library does not say anything about the memory layout, and this will cause invalid memory access if the standard library changes the implementation. No warnings or errors will be emitted once the change happens.\n\u003e \n\n\u003c/details\u003e\n\n## [GHSA-c79c-gwph-gqfm](https://osv.dev/GHSA-c79c-gwph-gqfm)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e The net2 crate has assumed std::net::SocketAddrV4 and std::net::SocketAddrV6 have the same memory layout as the system C representation sockaddr. It has simply casted the pointers to convert the socket addresses to the system representation. The standard library does not say anything about the memory layout, and this will cause invalid memory access if the standard library changes the implementation. No warnings or errors will be emitted once the change happens.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version | Deprecated |\n| --- | --- | --- | --- |\n| lockfile:<rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock | net2 | 0.2.33 | true |\n\n## Remediation\n\nTo fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.\n\n### Fixed Versions\n\n| Vulnerability ID | Package Name | Fixed Version |\n| --- | --- | --- |\n| GHSA-458v-4hrf-g3m4 | net2 | 0.2.36 |\n| GHSA-458v-4hrf-g3m4 | socket2 | 0.3.16 |\n| GHSA-c79c-gwph-gqfm | net2 | 0.2.36 |\n| RUSTSEC-2020-0078 | net2 | 0.2.36 |\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2020-35919\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n"
+              },
+              "id": "CVE-2020-35919",
+              "name": "CVE-2020-35919",
+              "properties": {
+                "security-severity": "5.5"
+              },
+              "relationships": [],
+              "shortDescription": {
+                "markdown": "CVE-2020-35919: `net2` invalidly assumes the memory layout of std::net::SocketAddr",
+                "text": "CVE-2020-35919: `net2` invalidly assumes the memory layout of std::net::SocketAddr"
+              }
+            },
+            {
+              "deprecatedIds": [
+                "RUSTSEC-2020-0016"
+              ],
+              "fullDescription": {
+                "markdown": "The [`net2`](https://crates.io/crates/net2) crate has been deprecated/nand users are encouraged to considered [`socket2`](https://crates.io/crates/socket2) instead.",
+                "text": "The [`net2`](https://crates.io/crates/net2) crate has been deprecated/nand users are encouraged to considered [`socket2`](https://crates.io/crates/socket2) instead."
+              },
+              "help": {
+                "markdown": "**Your dependency is vulnerable to [RUSTSEC-2020-0016](https://osv.dev/RUSTSEC-2020-0016)**.\n\n## [RUSTSEC-2020-0016](https://osv.dev/RUSTSEC-2020-0016)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e The [`net2`](https://crates.io/crates/net2) crate has been deprecated\n\u003e and users are encouraged to considered [`socket2`](https://crates.io/crates/socket2) instead.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version | Deprecated |\n| --- | --- | --- | --- |\n| lockfile:<rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock | net2 | 0.2.33 | true |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"RUSTSEC-2020-0016\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
+                "text": "**Your dependency is vulnerable to [RUSTSEC-2020-0016](https://osv.dev/RUSTSEC-2020-0016)**.\n\n## [RUSTSEC-2020-0016](https://osv.dev/RUSTSEC-2020-0016)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e The [`net2`](https://crates.io/crates/net2) crate has been deprecated\n\u003e and users are encouraged to considered [`socket2`](https://crates.io/crates/socket2) instead.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version | Deprecated |\n| --- | --- | --- | --- |\n| lockfile:<rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock | net2 | 0.2.33 | true |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"RUSTSEC-2020-0016\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n"
+              },
+              "id": "RUSTSEC-2020-0016",
+              "name": "RUSTSEC-2020-0016",
+              "relationships": [],
+              "shortDescription": {
+                "markdown": "RUSTSEC-2020-0016: `net2` crate has been deprecated; use `socket2` instead",
+                "text": "RUSTSEC-2020-0016: `net2` crate has been deprecated; use `socket2` instead"
+              }
+            },
+            {
+              "fullDescription": {
+                "markdown": "A dependency version is flagged as deprecated, yanked, or unsupported in its package registry.",
+                "text": "A dependency version is flagged as deprecated, yanked, or unsupported in its package registry."
+              },
+              "help": {
+                "markdown": "**Your dependency is flagged as deprecated or yanked.**\n\nDeprecated or yanked packages are no longer supported by their maintainers or have been removed from the package registry, and may contain unpatched bugs or security issues.\n\n---\n\n### Deprecated Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock | net2 | 0.2.33 |\n\n## Remediation\n\nTo resolve this finding, update the deprecated dependency to a supported version or replace it with a maintained alternative.\n\nIf you wish to ignore a deprecated package completely (including any vulnerabilities and license violations), add a package override in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore the deprecated package:\n\n`<rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/osv-scanner.toml`\n\n```\n[[PackageOverrides]]\nname = \"net2\"\nversion = \"0.2.33\"\necosystem = \"crates.io\"\nignore = true\nreason = \"Your reason for ignoring this package\"\n```\n",
+                "text": "**Your dependency is flagged as deprecated or yanked.**\n\nDeprecated or yanked packages are no longer supported by their maintainers or have been removed from the package registry, and may contain unpatched bugs or security issues.\n\n---\n\n### Deprecated Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock | net2 | 0.2.33 |\n\n## Remediation\n\nTo resolve this finding, update the deprecated dependency to a supported version or replace it with a maintained alternative.\n\nIf you wish to ignore a deprecated package completely (including any vulnerabilities and license violations), add a package override in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore the deprecated package:\n\n`<rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/osv-scanner.toml`\n\n```\n[[PackageOverrides]]\nname = \"net2\"\nversion = \"0.2.33\"\necosystem = \"crates.io\"\nignore = true\nreason = \"Your reason for ignoring this package\"\n```\n"
+              },
+              "id": "deprecated-package",
+              "name": "deprecated-package",
+              "relationships": [],
+              "shortDescription": {
+                "markdown": "Deprecated package dependency",
+                "text": "Deprecated package dependency"
+              }
+            }
+          ],
+          "supportedTaxonomies": [],
+          "taxa": [],
+          "version": "2.7.1"
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
+    }
+  ],
+  "properties": {}
+}
+
+---
+
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_with_vuln_sarif - 2 - stderr]
 Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock
 Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock file and found 7 packages
 
