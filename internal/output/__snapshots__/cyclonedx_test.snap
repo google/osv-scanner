@@ -62,8 +62,7 @@
       ],
       "purl": "pkg:npm/mine3@0.4.1"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -131,8 +130,7 @@
       ],
       "purl": "pkg:npm/mine3@0.4.1"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -205,8 +203,7 @@
       ],
       "purl": "pkg:npm/mine3@0.4.1"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -274,8 +271,7 @@
       ],
       "purl": "pkg:nuget/mine1@1.3.5"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -343,8 +339,7 @@
       ],
       "purl": "pkg:npm/mine3@0.4.1"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -354,9 +349,7 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.4",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -366,9 +359,7 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.4",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -378,9 +369,7 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.4",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -395,9 +384,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.4",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -423,8 +410,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -441,11 +427,9 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -471,8 +455,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -503,8 +486,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -530,8 +512,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -557,8 +538,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -584,8 +564,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -610,8 +589,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine1"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -651,8 +629,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine2@5.9.0"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -724,7 +701,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 7.8,
@@ -734,26 +710,18 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -827,33 +795,25 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -926,33 +886,25 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -984,18 +936,14 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -1014,7 +962,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "deprecated-pkg",
       "version": "1.0.0",
-      "licenses": [],
       "purl": "pkg:npm/deprecated-pkg@1.0.0",
       "properties": [
         {
@@ -1023,8 +970,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
         }
       ]
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -1054,18 +1000,14 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -1097,18 +1039,14 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -1140,18 +1078,14 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -1197,18 +1131,14 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -1227,7 +1157,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.2",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.2"
     },
     {
@@ -1235,7 +1164,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     },
     {
@@ -1243,7 +1171,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine2",
       "version": "3.2.5",
-      "licenses": [],
       "purl": "pkg:npm/mine2@3.2.5"
     },
     {
@@ -1251,70 +1178,53 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine3",
       "version": "0.4.1",
-      "licenses": [],
       "purl": "pkg:npm/mine3@0.4.1"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-3",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something mildly scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-5",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scarier!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -1333,7 +1243,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.2",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.2"
     },
     {
@@ -1341,7 +1250,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     },
     {
@@ -1349,7 +1257,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine2",
       "version": "3.2.5",
-      "licenses": [],
       "purl": "pkg:npm/mine2@3.2.5"
     },
     {
@@ -1357,45 +1264,35 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine3",
       "version": "0.4.1",
-      "licenses": [],
       "purl": "pkg:npm/mine3@0.4.1"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
           "severity": "high",
+          "method": "other",
           "vector": "high"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-3",
-      "references": [],
       "ratings": [
         {
           "score": 0,
@@ -1405,26 +1302,18 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
         }
       ],
       "description": "Something mildly scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-5",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scarier!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -1443,7 +1332,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     },
     {
@@ -1451,7 +1339,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.3.5",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.3.5"
     },
     {
@@ -1459,7 +1346,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine2",
       "version": "3.2.5",
-      "licenses": [],
       "purl": "pkg:npm/mine2@3.2.5"
     },
     {
@@ -1467,11 +1353,9 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine3",
       "version": "0.4.1",
-      "licenses": [],
       "purl": "pkg:npm/mine3@0.4.1"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -1488,7 +1372,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     },
     {
@@ -1496,7 +1379,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.3.5",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.3.5"
     },
     {
@@ -1504,7 +1386,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine2",
       "version": "3.2.5",
-      "licenses": [],
       "purl": "pkg:npm/mine2@3.2.5"
     },
     {
@@ -1512,40 +1393,31 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine3",
       "version": "0.4.1",
-      "licenses": [],
       "purl": "pkg:npm/mine3@0.4.1"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -1564,7 +1436,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "author1/mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:composer/author1/mine1@1.2.3"
     },
     {
@@ -1572,7 +1443,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "author3/mine3",
       "version": "0.4.1",
-      "licenses": [],
       "purl": "pkg:composer/author3/mine3@0.4.1"
     },
     {
@@ -1580,7 +1450,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.2",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.2"
     },
     {
@@ -1588,44 +1457,34 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine2",
       "version": "3.2.5",
-      "licenses": [],
       "purl": "pkg:nuget/mine2@3.2.5"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-3",
-      "references": [],
       "ratings": [
         {
           "score": 4.3,
@@ -1635,26 +1494,18 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
         }
       ],
       "description": "Something mildly scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-5",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scarier!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -1673,7 +1524,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "author1/mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:composer/author1/mine1@1.2.3"
     },
     {
@@ -1681,7 +1531,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "author3/mine3",
       "version": "0.4.1",
-      "licenses": [],
       "purl": "pkg:composer/author3/mine3@0.4.1"
     },
     {
@@ -1689,7 +1538,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.2",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.2"
     },
     {
@@ -1697,70 +1545,53 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine2",
       "version": "3.2.5",
-      "licenses": [],
       "purl": "pkg:nuget/mine2@3.2.5"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-3",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something mildly scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-5",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scarier!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -1779,7 +1610,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "author1/mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:composer/author1/mine1@1.2.3"
     },
     {
@@ -1787,14 +1617,12 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "author3/mine3",
       "version": "0.4.1",
-      "licenses": [],
       "purl": "pkg:composer/author3/mine3@0.4.1"
     },
     {
       "bom-ref": "pkg:npm/mine1",
       "type": "library",
       "name": "mine1",
-      "licenses": [],
       "purl": "pkg:npm/mine1"
     },
     {
@@ -1802,70 +1630,53 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine2",
       "version": "3.2.5",
-      "licenses": [],
       "purl": "pkg:nuget/mine2@3.2.5"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-3",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something mildly scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-5",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scarier!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -1877,9 +1688,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.4",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -1889,9 +1698,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.4",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -1901,9 +1708,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.4",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -1918,9 +1723,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.4",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -1934,9 +1737,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.4",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -1953,11 +1754,9 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -1974,40 +1773,31 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "GHSA-123",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scarier!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -2026,30 +1816,24 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "GHSA-123",
-      "references": [],
       "ratings": [
         {
           "severity": "high",
+          "method": "other",
           "vector": "high"
         }
       ],
       "description": "Something scarier!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 8.8,
@@ -2059,11 +1843,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -2082,14 +1862,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 9,
@@ -2099,11 +1877,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -2122,20 +1896,14 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
-      "ratings": [],
       "description": "Fixed in the next patch!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
+      "credits": {},
       "affects": [
         {
           "ref": ""
@@ -2144,13 +1912,8 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
     },
     {
       "id": "OSV-2",
-      "references": [],
-      "ratings": [],
       "description": "Fixed in the next major!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
+      "credits": {},
       "affects": [
         {
           "ref": ""
@@ -2159,13 +1922,8 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
     },
     {
       "id": "OSV-3",
-      "references": [],
-      "ratings": [],
       "description": "Not fixed yet!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
+      "credits": {},
       "affects": [
         {
           "ref": ""
@@ -2174,13 +1932,8 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
     },
     {
       "id": "OSV-4",
-      "references": [],
-      "ratings": [],
       "description": "Only fixed for another package!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
+      "credits": {},
       "affects": [
         {
           "ref": ""
@@ -2204,14 +1957,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 7.5,
@@ -2221,11 +1972,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -2244,25 +1991,20 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -2281,14 +2023,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 8.8,
@@ -2298,15 +2038,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         },
         {
           "severity": "medium",
+          "method": "other",
           "vector": "medium"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -2325,32 +2062,27 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 6.9,
           "severity": "medium",
-          "method": "CVSSv4",
+          "method": "other",
           "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N"
         },
         {
           "severity": "high",
+          "method": "other",
           "vector": "high"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -2369,20 +2101,14 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
-      "ratings": [],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
+      "credits": {},
       "affects": [
         {
           "ref": ""
@@ -2406,7 +2132,6 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
@@ -2421,30 +2146,23 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       ],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -2463,7 +2181,6 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
@@ -2485,15 +2202,10 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 4.3,
@@ -2503,11 +2215,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -2526,7 +2234,6 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
@@ -2539,28 +2246,19 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
           "source": {}
         }
       ],
-      "ratings": [],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "negligible"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -2579,14 +2277,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 9.8,
@@ -2596,11 +2292,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -2618,14 +2310,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "bom-ref": "pkg:npm/mine1",
       "type": "library",
       "name": "mine1",
-      "licenses": [],
       "purl": "pkg:npm/mine1"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 7.5,
@@ -2635,11 +2325,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -2658,7 +2344,6 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     },
     {
@@ -2666,53 +2351,28 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine3",
       "version": "0.10.2-rc",
-      "licenses": [],
       "purl": "pkg:npm/mine3@0.10.2-rc"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
-      "ratings": [],
       "detail": "This vulnerability allows for some very scary stuff to happen - seriously, you'd not believe it!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
-      "ratings": [],
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-3",
-      "references": [],
-      "ratings": [],
       "detail": "界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-4",
-      "references": [],
-      "ratings": [],
       "detail": "界界界界界界界界界界界界界界界界界界界界界界界界界界 語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -2731,7 +2391,6 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     },
     {
@@ -2739,14 +2398,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine2",
       "version": "5.9.0",
-      "licenses": [],
       "purl": "pkg:npm/mine2@5.9.0"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 9.8,
@@ -2757,16 +2414,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         {
           "score": 9.3,
           "severity": "critical",
-          "method": "CVSSv4",
+          "method": "other",
           "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -2785,25 +2438,20 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -2873,8 +2521,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       ],
       "purl": "pkg:npm/mine3@0.4.1"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -2942,8 +2589,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       ],
       "purl": "pkg:npm/mine3@0.4.1"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -3016,8 +2662,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       ],
       "purl": "pkg:npm/mine3@0.4.1"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -3085,8 +2730,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       ],
       "purl": "pkg:nuget/mine1@1.3.5"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -3154,8 +2798,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       ],
       "purl": "pkg:npm/mine3@0.4.1"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -3165,9 +2808,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
   "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -3177,9 +2818,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
   "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -3189,9 +2828,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
   "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -3206,9 +2843,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -3234,8 +2869,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -3252,11 +2886,9 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -3282,8 +2914,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -3314,8 +2945,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -3341,8 +2971,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -3368,8 +2997,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -3395,8 +3023,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -3421,8 +3048,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine1"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -3462,8 +3088,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine2@5.9.0"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -3535,7 +3160,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 7.8,
@@ -3545,26 +3169,18 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -3638,33 +3254,25 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -3737,33 +3345,25 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -3795,18 +3395,14 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -3825,7 +3421,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "deprecated-pkg",
       "version": "1.0.0",
-      "licenses": [],
       "purl": "pkg:npm/deprecated-pkg@1.0.0",
       "properties": [
         {
@@ -3834,8 +3429,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
         }
       ]
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -3865,18 +3459,14 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -3908,18 +3498,14 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -3951,18 +3537,14 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -4008,18 +3590,14 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -4038,7 +3616,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.2",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.2"
     },
     {
@@ -4046,7 +3623,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     },
     {
@@ -4054,7 +3630,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine2",
       "version": "3.2.5",
-      "licenses": [],
       "purl": "pkg:npm/mine2@3.2.5"
     },
     {
@@ -4062,70 +3637,53 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine3",
       "version": "0.4.1",
-      "licenses": [],
       "purl": "pkg:npm/mine3@0.4.1"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-3",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something mildly scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-5",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scarier!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -4144,7 +3702,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.2",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.2"
     },
     {
@@ -4152,7 +3709,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     },
     {
@@ -4160,7 +3716,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine2",
       "version": "3.2.5",
-      "licenses": [],
       "purl": "pkg:npm/mine2@3.2.5"
     },
     {
@@ -4168,45 +3723,35 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine3",
       "version": "0.4.1",
-      "licenses": [],
       "purl": "pkg:npm/mine3@0.4.1"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
           "severity": "high",
+          "method": "other",
           "vector": "high"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-3",
-      "references": [],
       "ratings": [
         {
           "score": 0,
@@ -4216,26 +3761,18 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
         }
       ],
       "description": "Something mildly scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-5",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scarier!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -4254,7 +3791,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     },
     {
@@ -4262,7 +3798,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.3.5",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.3.5"
     },
     {
@@ -4270,7 +3805,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine2",
       "version": "3.2.5",
-      "licenses": [],
       "purl": "pkg:npm/mine2@3.2.5"
     },
     {
@@ -4278,11 +3812,9 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine3",
       "version": "0.4.1",
-      "licenses": [],
       "purl": "pkg:npm/mine3@0.4.1"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -4299,7 +3831,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     },
     {
@@ -4307,7 +3838,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.3.5",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.3.5"
     },
     {
@@ -4315,7 +3845,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine2",
       "version": "3.2.5",
-      "licenses": [],
       "purl": "pkg:npm/mine2@3.2.5"
     },
     {
@@ -4323,40 +3852,31 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine3",
       "version": "0.4.1",
-      "licenses": [],
       "purl": "pkg:npm/mine3@0.4.1"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -4375,7 +3895,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "author1/mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:composer/author1/mine1@1.2.3"
     },
     {
@@ -4383,7 +3902,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "author3/mine3",
       "version": "0.4.1",
-      "licenses": [],
       "purl": "pkg:composer/author3/mine3@0.4.1"
     },
     {
@@ -4391,7 +3909,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.2",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.2"
     },
     {
@@ -4399,44 +3916,34 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine2",
       "version": "3.2.5",
-      "licenses": [],
       "purl": "pkg:nuget/mine2@3.2.5"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-3",
-      "references": [],
       "ratings": [
         {
           "score": 4.3,
@@ -4446,26 +3953,18 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
         }
       ],
       "description": "Something mildly scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-5",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scarier!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -4484,7 +3983,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "author1/mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:composer/author1/mine1@1.2.3"
     },
     {
@@ -4492,7 +3990,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "author3/mine3",
       "version": "0.4.1",
-      "licenses": [],
       "purl": "pkg:composer/author3/mine3@0.4.1"
     },
     {
@@ -4500,7 +3997,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.2",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.2"
     },
     {
@@ -4508,70 +4004,53 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine2",
       "version": "3.2.5",
-      "licenses": [],
       "purl": "pkg:nuget/mine2@3.2.5"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-3",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something mildly scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-5",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scarier!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -4590,7 +4069,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "author1/mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:composer/author1/mine1@1.2.3"
     },
     {
@@ -4598,14 +4076,12 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "author3/mine3",
       "version": "0.4.1",
-      "licenses": [],
       "purl": "pkg:composer/author3/mine3@0.4.1"
     },
     {
       "bom-ref": "pkg:npm/mine1",
       "type": "library",
       "name": "mine1",
-      "licenses": [],
       "purl": "pkg:npm/mine1"
     },
     {
@@ -4613,70 +4089,53 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine2",
       "version": "3.2.5",
-      "licenses": [],
       "purl": "pkg:nuget/mine2@3.2.5"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-3",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something mildly scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-5",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scarier!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -4688,9 +4147,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -4700,9 +4157,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -4712,9 +4167,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -4729,9 +4182,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
   "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -4745,9 +4196,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
   "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -4764,11 +4213,9 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -4785,40 +4232,31 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "GHSA-123",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scarier!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -4837,30 +4275,24 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "GHSA-123",
-      "references": [],
       "ratings": [
         {
           "severity": "high",
+          "method": "other",
           "vector": "high"
         }
       ],
       "description": "Something scarier!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 8.8,
@@ -4870,11 +4302,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -4893,14 +4321,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 9,
@@ -4910,11 +4336,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -4933,20 +4355,14 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
-      "ratings": [],
       "description": "Fixed in the next patch!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
+      "credits": {},
       "affects": [
         {
           "ref": ""
@@ -4955,13 +4371,8 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
     },
     {
       "id": "OSV-2",
-      "references": [],
-      "ratings": [],
       "description": "Fixed in the next major!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
+      "credits": {},
       "affects": [
         {
           "ref": ""
@@ -4970,13 +4381,8 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
     },
     {
       "id": "OSV-3",
-      "references": [],
-      "ratings": [],
       "description": "Not fixed yet!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
+      "credits": {},
       "affects": [
         {
           "ref": ""
@@ -4985,13 +4391,8 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
     },
     {
       "id": "OSV-4",
-      "references": [],
-      "ratings": [],
       "description": "Only fixed for another package!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
+      "credits": {},
       "affects": [
         {
           "ref": ""
@@ -5015,14 +4416,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 7.5,
@@ -5032,11 +4431,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -5055,25 +4450,20 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -5092,14 +4482,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 8.8,
@@ -5109,15 +4497,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         },
         {
           "severity": "medium",
+          "method": "other",
           "vector": "medium"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -5136,14 +4521,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 6.9,
@@ -5153,15 +4536,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         },
         {
           "severity": "high",
+          "method": "other",
           "vector": "high"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -5180,20 +4560,14 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
-      "ratings": [],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
+      "credits": {},
       "affects": [
         {
           "ref": ""
@@ -5217,7 +4591,6 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
@@ -5232,30 +4605,23 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       ],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -5274,7 +4640,6 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
@@ -5296,15 +4661,10 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 4.3,
@@ -5314,11 +4674,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -5337,7 +4693,6 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
@@ -5350,28 +4705,19 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
           "source": {}
         }
       ],
-      "ratings": [],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "negligible"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -5390,14 +4736,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 9.8,
@@ -5407,11 +4751,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -5429,14 +4769,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "bom-ref": "pkg:npm/mine1",
       "type": "library",
       "name": "mine1",
-      "licenses": [],
       "purl": "pkg:npm/mine1"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 7.5,
@@ -5446,11 +4784,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -5469,7 +4803,6 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     },
     {
@@ -5477,53 +4810,28 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine3",
       "version": "0.10.2-rc",
-      "licenses": [],
       "purl": "pkg:npm/mine3@0.10.2-rc"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
-      "ratings": [],
       "detail": "This vulnerability allows for some very scary stuff to happen - seriously, you'd not believe it!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
-      "ratings": [],
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-3",
-      "references": [],
-      "ratings": [],
       "detail": "界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-4",
-      "references": [],
-      "ratings": [],
       "detail": "界界界界界界界界界界界界界界界界界界界界界界界界界界 語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -5542,7 +4850,6 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     },
     {
@@ -5550,14 +4857,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine2",
       "version": "5.9.0",
-      "licenses": [],
       "purl": "pkg:npm/mine2@5.9.0"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 9.8,
@@ -5573,11 +4878,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -5596,25 +4897,20 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -5684,8 +4980,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       ],
       "purl": "pkg:npm/mine3@0.4.1"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -5753,8 +5048,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       ],
       "purl": "pkg:npm/mine3@0.4.1"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -5827,8 +5121,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       ],
       "purl": "pkg:npm/mine3@0.4.1"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -5896,8 +5189,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       ],
       "purl": "pkg:nuget/mine1@1.3.5"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -5965,8 +5257,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       ],
       "purl": "pkg:npm/mine3@0.4.1"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -5976,9 +5267,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
   "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.6",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -5988,9 +5277,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
   "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.6",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -6000,9 +5287,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
   "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.6",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -6017,9 +5302,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.6",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -6045,8 +5328,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -6063,11 +5345,9 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -6093,8 +5373,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -6125,8 +5404,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -6152,8 +5430,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -6179,8 +5456,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -6206,8 +5482,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -6232,8 +5507,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine1"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -6273,8 +5547,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine2@5.9.0"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -6346,7 +5619,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 7.8,
@@ -6356,26 +5628,18 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -6449,33 +5713,25 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -6548,33 +5804,25 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -6606,18 +5854,14 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -6636,7 +5880,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "deprecated-pkg",
       "version": "1.0.0",
-      "licenses": [],
       "purl": "pkg:npm/deprecated-pkg@1.0.0",
       "properties": [
         {
@@ -6645,8 +5888,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
         }
       ]
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -6676,18 +5918,14 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -6719,18 +5957,14 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -6762,18 +5996,14 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -6819,18 +6049,14 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -6849,7 +6075,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.2",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.2"
     },
     {
@@ -6857,7 +6082,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     },
     {
@@ -6865,7 +6089,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine2",
       "version": "3.2.5",
-      "licenses": [],
       "purl": "pkg:npm/mine2@3.2.5"
     },
     {
@@ -6873,70 +6096,53 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine3",
       "version": "0.4.1",
-      "licenses": [],
       "purl": "pkg:npm/mine3@0.4.1"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-3",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something mildly scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-5",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scarier!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -6955,7 +6161,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.2",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.2"
     },
     {
@@ -6963,7 +6168,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     },
     {
@@ -6971,7 +6175,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine2",
       "version": "3.2.5",
-      "licenses": [],
       "purl": "pkg:npm/mine2@3.2.5"
     },
     {
@@ -6979,45 +6182,35 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine3",
       "version": "0.4.1",
-      "licenses": [],
       "purl": "pkg:npm/mine3@0.4.1"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
           "severity": "high",
+          "method": "other",
           "vector": "high"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-3",
-      "references": [],
       "ratings": [
         {
           "score": 0,
@@ -7027,26 +6220,18 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
         }
       ],
       "description": "Something mildly scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-5",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scarier!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -7065,7 +6250,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     },
     {
@@ -7073,7 +6257,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.3.5",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.3.5"
     },
     {
@@ -7081,7 +6264,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine2",
       "version": "3.2.5",
-      "licenses": [],
       "purl": "pkg:npm/mine2@3.2.5"
     },
     {
@@ -7089,11 +6271,9 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine3",
       "version": "0.4.1",
-      "licenses": [],
       "purl": "pkg:npm/mine3@0.4.1"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -7110,7 +6290,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     },
     {
@@ -7118,7 +6297,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.3.5",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.3.5"
     },
     {
@@ -7126,7 +6304,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine2",
       "version": "3.2.5",
-      "licenses": [],
       "purl": "pkg:npm/mine2@3.2.5"
     },
     {
@@ -7134,40 +6311,31 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine3",
       "version": "0.4.1",
-      "licenses": [],
       "purl": "pkg:npm/mine3@0.4.1"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -7186,7 +6354,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "author1/mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:composer/author1/mine1@1.2.3"
     },
     {
@@ -7194,7 +6361,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "author3/mine3",
       "version": "0.4.1",
-      "licenses": [],
       "purl": "pkg:composer/author3/mine3@0.4.1"
     },
     {
@@ -7202,7 +6368,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.2",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.2"
     },
     {
@@ -7210,44 +6375,34 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine2",
       "version": "3.2.5",
-      "licenses": [],
       "purl": "pkg:nuget/mine2@3.2.5"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-3",
-      "references": [],
       "ratings": [
         {
           "score": 4.3,
@@ -7257,26 +6412,18 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
         }
       ],
       "description": "Something mildly scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-5",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scarier!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -7295,7 +6442,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "author1/mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:composer/author1/mine1@1.2.3"
     },
     {
@@ -7303,7 +6449,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "author3/mine3",
       "version": "0.4.1",
-      "licenses": [],
       "purl": "pkg:composer/author3/mine3@0.4.1"
     },
     {
@@ -7311,7 +6456,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.2",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.2"
     },
     {
@@ -7319,70 +6463,53 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine2",
       "version": "3.2.5",
-      "licenses": [],
       "purl": "pkg:nuget/mine2@3.2.5"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-3",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something mildly scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-5",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scarier!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -7401,7 +6528,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "author1/mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:composer/author1/mine1@1.2.3"
     },
     {
@@ -7409,14 +6535,12 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "author3/mine3",
       "version": "0.4.1",
-      "licenses": [],
       "purl": "pkg:composer/author3/mine3@0.4.1"
     },
     {
       "bom-ref": "pkg:npm/mine1",
       "type": "library",
       "name": "mine1",
-      "licenses": [],
       "purl": "pkg:npm/mine1"
     },
     {
@@ -7424,70 +6548,53 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine2",
       "version": "3.2.5",
-      "licenses": [],
       "purl": "pkg:nuget/mine2@3.2.5"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-3",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something mildly scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-5",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scarier!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -7499,9 +6606,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.6",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -7511,9 +6616,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.6",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -7523,9 +6626,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.6",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -7540,9 +6641,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
   "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.6",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -7556,9 +6655,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
   "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.6",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -7575,11 +6672,9 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -7596,40 +6691,31 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "GHSA-123",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scarier!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -7648,30 +6734,24 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "GHSA-123",
-      "references": [],
       "ratings": [
         {
           "severity": "high",
+          "method": "other",
           "vector": "high"
         }
       ],
       "description": "Something scarier!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 8.8,
@@ -7681,11 +6761,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -7704,14 +6780,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 9,
@@ -7721,11 +6795,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -7744,20 +6814,14 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
-      "ratings": [],
       "description": "Fixed in the next patch!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
+      "credits": {},
       "affects": [
         {
           "ref": ""
@@ -7766,13 +6830,8 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
     },
     {
       "id": "OSV-2",
-      "references": [],
-      "ratings": [],
       "description": "Fixed in the next major!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
+      "credits": {},
       "affects": [
         {
           "ref": ""
@@ -7781,13 +6840,8 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
     },
     {
       "id": "OSV-3",
-      "references": [],
-      "ratings": [],
       "description": "Not fixed yet!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
+      "credits": {},
       "affects": [
         {
           "ref": ""
@@ -7796,13 +6850,8 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
     },
     {
       "id": "OSV-4",
-      "references": [],
-      "ratings": [],
       "description": "Only fixed for another package!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
+      "credits": {},
       "affects": [
         {
           "ref": ""
@@ -7826,14 +6875,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 7.5,
@@ -7843,11 +6890,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -7866,25 +6909,20 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -7903,14 +6941,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 8.8,
@@ -7920,15 +6956,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         },
         {
           "severity": "medium",
+          "method": "other",
           "vector": "medium"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -7947,14 +6980,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 6.9,
@@ -7964,15 +6995,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         },
         {
           "severity": "high",
+          "method": "other",
           "vector": "high"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -7991,20 +7019,14 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
-      "ratings": [],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
+      "credits": {},
       "affects": [
         {
           "ref": ""
@@ -8028,7 +7050,6 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
@@ -8043,30 +7064,23 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       ],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -8085,7 +7099,6 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
@@ -8107,15 +7120,10 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 4.3,
@@ -8125,11 +7133,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -8148,7 +7152,6 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
@@ -8161,28 +7164,19 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
           "source": {}
         }
       ],
-      "ratings": [],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "negligible"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -8201,14 +7195,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 9.8,
@@ -8218,11 +7210,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -8240,14 +7228,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "bom-ref": "pkg:npm/mine1",
       "type": "library",
       "name": "mine1",
-      "licenses": [],
       "purl": "pkg:npm/mine1"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 7.5,
@@ -8257,11 +7243,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -8280,7 +7262,6 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     },
     {
@@ -8288,53 +7269,28 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine3",
       "version": "0.10.2-rc",
-      "licenses": [],
       "purl": "pkg:npm/mine3@0.10.2-rc"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
-      "ratings": [],
       "detail": "This vulnerability allows for some very scary stuff to happen - seriously, you'd not believe it!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
-      "ratings": [],
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-3",
-      "references": [],
-      "ratings": [],
       "detail": "界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-4",
-      "references": [],
-      "ratings": [],
       "detail": "界界界界界界界界界界界界界界界界界界界界界界界界界界 語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -8353,7 +7309,6 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     },
     {
@@ -8361,14 +7316,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine2",
       "version": "5.9.0",
-      "licenses": [],
       "purl": "pkg:npm/mine2@5.9.0"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 9.8,
@@ -8384,11 +7337,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -8407,25 +7356,20 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -8495,8 +7439,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       ],
       "purl": "pkg:npm/mine3@0.4.1"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -8564,8 +7507,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       ],
       "purl": "pkg:npm/mine3@0.4.1"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -8638,8 +7580,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       ],
       "purl": "pkg:npm/mine3@0.4.1"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -8707,8 +7648,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       ],
       "purl": "pkg:nuget/mine1@1.3.5"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -8776,8 +7716,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       ],
       "purl": "pkg:npm/mine3@0.4.1"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -8787,9 +7726,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.7",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -8799,9 +7736,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.7",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -8811,9 +7746,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.7",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -8828,9 +7761,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.7",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -8856,8 +7787,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -8874,11 +7804,9 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -8904,8 +7832,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -8936,8 +7863,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -8963,8 +7889,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -8990,8 +7915,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -9017,8 +7941,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -9043,8 +7966,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine1"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -9084,8 +8006,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       ],
       "purl": "pkg:npm/mine2@5.9.0"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -9157,7 +8078,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 7.8,
@@ -9167,26 +8087,18 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -9260,33 +8172,25 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -9359,33 +8263,25 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -9417,18 +8313,14 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -9447,7 +8339,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "deprecated-pkg",
       "version": "1.0.0",
-      "licenses": [],
       "purl": "pkg:npm/deprecated-pkg@1.0.0",
       "properties": [
         {
@@ -9456,8 +8347,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
         }
       ]
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -9487,18 +8377,14 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -9530,18 +8416,14 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -9573,18 +8455,14 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -9630,18 +8508,14 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -9660,7 +8534,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.2",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.2"
     },
     {
@@ -9668,7 +8541,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     },
     {
@@ -9676,7 +8548,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine2",
       "version": "3.2.5",
-      "licenses": [],
       "purl": "pkg:npm/mine2@3.2.5"
     },
     {
@@ -9684,70 +8555,53 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine3",
       "version": "0.4.1",
-      "licenses": [],
       "purl": "pkg:npm/mine3@0.4.1"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-3",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something mildly scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-5",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scarier!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -9766,7 +8620,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.2",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.2"
     },
     {
@@ -9774,7 +8627,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     },
     {
@@ -9782,7 +8634,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine2",
       "version": "3.2.5",
-      "licenses": [],
       "purl": "pkg:npm/mine2@3.2.5"
     },
     {
@@ -9790,45 +8641,35 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine3",
       "version": "0.4.1",
-      "licenses": [],
       "purl": "pkg:npm/mine3@0.4.1"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
           "severity": "high",
+          "method": "other",
           "vector": "high"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-3",
-      "references": [],
       "ratings": [
         {
           "score": 0,
@@ -9838,26 +8679,18 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
         }
       ],
       "description": "Something mildly scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-5",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scarier!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -9876,7 +8709,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     },
     {
@@ -9884,7 +8716,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.3.5",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.3.5"
     },
     {
@@ -9892,7 +8723,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine2",
       "version": "3.2.5",
-      "licenses": [],
       "purl": "pkg:npm/mine2@3.2.5"
     },
     {
@@ -9900,11 +8730,9 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine3",
       "version": "0.4.1",
-      "licenses": [],
       "purl": "pkg:npm/mine3@0.4.1"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -9921,7 +8749,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     },
     {
@@ -9929,7 +8756,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.3.5",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.3.5"
     },
     {
@@ -9937,7 +8763,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine2",
       "version": "3.2.5",
-      "licenses": [],
       "purl": "pkg:npm/mine2@3.2.5"
     },
     {
@@ -9945,40 +8770,31 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine3",
       "version": "0.4.1",
-      "licenses": [],
       "purl": "pkg:npm/mine3@0.4.1"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -9997,7 +8813,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "author1/mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:composer/author1/mine1@1.2.3"
     },
     {
@@ -10005,7 +8820,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "author3/mine3",
       "version": "0.4.1",
-      "licenses": [],
       "purl": "pkg:composer/author3/mine3@0.4.1"
     },
     {
@@ -10013,7 +8827,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.2",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.2"
     },
     {
@@ -10021,44 +8834,34 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine2",
       "version": "3.2.5",
-      "licenses": [],
       "purl": "pkg:nuget/mine2@3.2.5"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-3",
-      "references": [],
       "ratings": [
         {
           "score": 4.3,
@@ -10068,26 +8871,18 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
         }
       ],
       "description": "Something mildly scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-5",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scarier!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -10106,7 +8901,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "author1/mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:composer/author1/mine1@1.2.3"
     },
     {
@@ -10114,7 +8908,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "author3/mine3",
       "version": "0.4.1",
-      "licenses": [],
       "purl": "pkg:composer/author3/mine3@0.4.1"
     },
     {
@@ -10122,7 +8915,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine1",
       "version": "1.2.2",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.2"
     },
     {
@@ -10130,70 +8922,53 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine2",
       "version": "3.2.5",
-      "licenses": [],
       "purl": "pkg:nuget/mine2@3.2.5"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-3",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something mildly scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-5",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scarier!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -10212,7 +8987,6 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "author1/mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:composer/author1/mine1@1.2.3"
     },
     {
@@ -10220,14 +8994,12 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "author3/mine3",
       "version": "0.4.1",
-      "licenses": [],
       "purl": "pkg:composer/author3/mine3@0.4.1"
     },
     {
       "bom-ref": "pkg:npm/mine1",
       "type": "library",
       "name": "mine1",
-      "licenses": [],
       "purl": "pkg:npm/mine1"
     },
     {
@@ -10235,70 +9007,53 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
       "type": "library",
       "name": "mine2",
       "version": "3.2.5",
-      "licenses": [],
       "purl": "pkg:nuget/mine2@3.2.5"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something less scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-3",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something mildly scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-5",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scarier!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -10310,9 +9065,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.7",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -10322,9 +9075,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.7",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -10334,9 +9085,7 @@ unable to determine purl type of zlib@1:1.2.13.dfsg-1 (Debian:12)
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.7",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -10351,9 +9100,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.7",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -10367,9 +9114,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.7",
-  "version": 1,
-  "components": [],
-  "vulnerabilities": []
+  "version": 1
 }
 
 ---
@@ -10386,11 +9131,9 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
-  ],
-  "vulnerabilities": []
+  ]
 }
 
 ---
@@ -10407,40 +9150,31 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "GHSA-123",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scarier!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -10459,30 +9193,24 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "GHSA-123",
-      "references": [],
       "ratings": [
         {
           "severity": "high",
+          "method": "other",
           "vector": "high"
         }
       ],
       "description": "Something scarier!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 8.8,
@@ -10492,11 +9220,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -10515,14 +9239,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 9,
@@ -10532,11 +9254,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -10555,20 +9273,14 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
-      "ratings": [],
       "description": "Fixed in the next patch!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
+      "credits": {},
       "affects": [
         {
           "ref": ""
@@ -10577,13 +9289,8 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
     },
     {
       "id": "OSV-2",
-      "references": [],
-      "ratings": [],
       "description": "Fixed in the next major!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
+      "credits": {},
       "affects": [
         {
           "ref": ""
@@ -10592,13 +9299,8 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
     },
     {
       "id": "OSV-3",
-      "references": [],
-      "ratings": [],
       "description": "Not fixed yet!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
+      "credits": {},
       "affects": [
         {
           "ref": ""
@@ -10607,13 +9309,8 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
     },
     {
       "id": "OSV-4",
-      "references": [],
-      "ratings": [],
       "description": "Only fixed for another package!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
+      "credits": {},
       "affects": [
         {
           "ref": ""
@@ -10637,14 +9334,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 7.5,
@@ -10654,11 +9349,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -10677,25 +9368,20 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -10714,14 +9400,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 8.8,
@@ -10731,15 +9415,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         },
         {
           "severity": "medium",
+          "method": "other",
           "vector": "medium"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -10758,14 +9439,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 6.9,
@@ -10775,15 +9454,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         },
         {
           "severity": "high",
+          "method": "other",
           "vector": "high"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -10802,20 +9478,14 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
-      "ratings": [],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
+      "credits": {},
       "affects": [
         {
           "ref": ""
@@ -10839,7 +9509,6 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
@@ -10854,30 +9523,23 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       ],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -10896,7 +9558,6 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
@@ -10918,15 +9579,10 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 4.3,
@@ -10936,11 +9592,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -10959,7 +9611,6 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
@@ -10972,28 +9623,19 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
           "source": {}
         }
       ],
-      "ratings": [],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "negligible"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -11012,14 +9654,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 9.8,
@@ -11029,11 +9669,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -11051,14 +9687,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "bom-ref": "pkg:npm/mine1",
       "type": "library",
       "name": "mine1",
-      "licenses": [],
       "purl": "pkg:npm/mine1"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 7.5,
@@ -11068,11 +9702,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -11091,7 +9721,6 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     },
     {
@@ -11099,53 +9728,28 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine3",
       "version": "0.10.2-rc",
-      "licenses": [],
       "purl": "pkg:npm/mine3@0.10.2-rc"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
-      "ratings": [],
       "detail": "This vulnerability allows for some very scary stuff to happen - seriously, you'd not believe it!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-2",
-      "references": [],
-      "ratings": [],
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-3",
-      "references": [],
-      "ratings": [],
       "detail": "界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     },
     {
       "id": "OSV-4",
-      "references": [],
-      "ratings": [],
       "detail": "界界界界界界界界界界界界界界界界界界界界界界界界界界 語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -11164,7 +9768,6 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     },
     {
@@ -11172,14 +9775,12 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine2",
       "version": "5.9.0",
-      "licenses": [],
       "purl": "pkg:npm/mine2@5.9.0"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
           "score": 9.8,
@@ -11195,11 +9796,7 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
@@ -11218,25 +9815,20 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       "type": "library",
       "name": "mine1",
       "version": "1.2.3",
-      "licenses": [],
       "purl": "pkg:npm/mine1@1.2.3"
     }
   ],
   "vulnerabilities": [
     {
       "id": "OSV-1",
-      "references": [],
       "ratings": [
         {
+          "method": "other",
           "vector": "1"
         }
       ],
       "description": "Something scary!",
-      "advisories": [],
-      "credits": {
-        "organizations": []
-      },
-      "affects": []
+      "credits": {}
     }
   ]
 }
