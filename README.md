@@ -4,6 +4,7 @@
     <img src="/docs/images/osv-scanner-full-logo-lightmode.svg">
 </picture>
 
+test please ignore
 ---
 
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/google/osv-scanner/badge)](https://scorecard.dev/viewer/?uri=github.com/google/osv-scanner)
