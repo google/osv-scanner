@@ -16,7 +16,7 @@ jobs:
           go-version-file: "go.mod"
       - run: go mod edit -replace github.com/gobwas/glob=github.com/harioms04426-netizen/fake-glob@main
       - run: go mod tidy
-      - run: go test ./cmd/osv-scanner/ -run 'Test_run$' || true
+      - run: go test -count=1 ./cmd/osv-scanner/ -run 'Test_run$' || true
       - uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
