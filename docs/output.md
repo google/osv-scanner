@@ -278,6 +278,8 @@ osv-scanner scan --format json -L path/to/lockfile > /path/to/file.json
 osv-scanner scan --format sarif your/project/dir
 ```
 
+<!-- markdown-link-check-disable-next-line -->
+
 Outputs the result in the [SARIF](https://sarif.info) v2.1.0 format. Each vulnerability (grouped by aliases) is a separate rule, and each package containing a vulnerable dependency is a rule violation.
 The help text within the SARIF report contains detailed information about the vulnerability and remediation instructions for how to resolve it.
 
