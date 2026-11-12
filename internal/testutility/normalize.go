@@ -158,3 +158,9 @@ func pathWithoutRoot(t *testing.T, str string) string {
 
 	return str[len(root):]
 }
+
+func NormalizeSnapshot(t *testing.T, str string) string {
+	t.Helper()
+
+	return normalizeSnapshot(t, str)
+}

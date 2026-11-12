@@ -10,6 +10,7 @@ import (
 	"runtime"
 	"slices"
 	"strings"
+	"time"
 
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/annotator"
@@ -17,6 +18,7 @@ import (
 	"github.com/google/osv-scalibr/enricher"
 	"github.com/google/osv-scalibr/enricher/packagedeprecation"
 	"github.com/google/osv-scalibr/enricher/reachability/java"
+	scalibrosvdev "github.com/google/osv-scalibr/enricher/vulnmatch/osvdev"
 	"github.com/google/osv-scalibr/enricher/vulnmatch/osvlocal"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
@@ -27,6 +29,7 @@ import (
 	"github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	scanconfig "github.com/google/osv-scanner/v2/internal/config"
+	"github.com/google/osv-scanner/v2/internal/osvdiet"
 	"github.com/google/osv-scanner/v2/internal/scalibrannotator/filter"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitcommitdirect"
@@ -145,6 +148,18 @@ func getPlugins(
 	}
 
 	plugins := scalibrplugin.Resolve(actions.PluginsEnabled, actions.PluginsDisabled, finalScalibrConfig)
+
+	if actions.DiskBackedVulns {
+		for i, plug := range plugins {
+			if plug.Name() == scalibrosvdev.Name && accessors.OSVDevClient != nil {
+				plugins[i] = scalibrosvdev.NewWithClient(
+					osvdiet.New(accessors.OSVDevClient),
+					5*time.Minute,
+				)
+			}
+		}
+	}
+
 	plugins = removeNetworkPluginsWhenOffline(plugins, actions)
 
 	// Append the pre-matching filter annotator so it always runs.
