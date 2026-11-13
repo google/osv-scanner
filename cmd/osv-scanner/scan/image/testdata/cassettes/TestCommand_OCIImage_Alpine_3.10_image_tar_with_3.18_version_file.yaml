@@ -119,7 +119,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 6493
+      content_length: 6209
       body: |
         {
           "results": [
@@ -270,36 +270,28 @@ interactions:
                   "modified": "2026-10-26T17:17:58.669072Z"
                 },
                 {
-                  "id": "ALPINE-CVE-2023-6237",
-                  "modified": "2026-10-26T17:17:58.670583Z"
-                },
-                {
                   "id": "ALPINE-CVE-2024-0727",
                   "modified": "2026-11-02T11:17:50.049229Z"
                 },
                 {
                   "id": "ALPINE-CVE-2024-13176",
-                  "modified": "2026-11-07T09:30:03.904509Z"
+                  "modified": "2026-11-10T09:30:02.963464Z"
                 },
                 {
                   "id": "ALPINE-CVE-2024-2511",
                   "modified": "2026-11-07T09:30:02.822716Z"
                 },
                 {
-                  "id": "ALPINE-CVE-2024-4603",
-                  "modified": "2026-11-02T11:17:50.114193Z"
-                },
-                {
                   "id": "ALPINE-CVE-2024-4741",
-                  "modified": "2026-11-07T09:30:02.877686Z"
+                  "modified": "2026-11-10T09:30:02.923606Z"
                 },
                 {
                   "id": "ALPINE-CVE-2024-5535",
-                  "modified": "2026-11-02T11:17:50.128109Z"
+                  "modified": "2026-11-11T09:30:03.004145Z"
                 },
                 {
                   "id": "ALPINE-CVE-2024-9143",
-                  "modified": "2026-11-07T09:30:02.892965Z"
+                  "modified": "2026-11-10T09:30:02.970382Z"
                 }
               ]
             },
@@ -362,36 +354,28 @@ interactions:
                   "modified": "2026-10-26T17:17:58.669072Z"
                 },
                 {
-                  "id": "ALPINE-CVE-2023-6237",
-                  "modified": "2026-10-26T17:17:58.670583Z"
-                },
-                {
                   "id": "ALPINE-CVE-2024-0727",
                   "modified": "2026-11-02T11:17:50.049229Z"
                 },
                 {
                   "id": "ALPINE-CVE-2024-13176",
-                  "modified": "2026-11-07T09:30:03.904509Z"
+                  "modified": "2026-11-10T09:30:02.963464Z"
                 },
                 {
                   "id": "ALPINE-CVE-2024-2511",
                   "modified": "2026-11-07T09:30:02.822716Z"
                 },
                 {
-                  "id": "ALPINE-CVE-2024-4603",
-                  "modified": "2026-11-02T11:17:50.114193Z"
-                },
-                {
                   "id": "ALPINE-CVE-2024-4741",
-                  "modified": "2026-11-07T09:30:02.877686Z"
+                  "modified": "2026-11-10T09:30:02.923606Z"
                 },
                 {
                   "id": "ALPINE-CVE-2024-5535",
-                  "modified": "2026-11-02T11:17:50.128109Z"
+                  "modified": "2026-11-11T09:30:03.004145Z"
                 },
                 {
                   "id": "ALPINE-CVE-2024-9143",
-                  "modified": "2026-11-07T09:30:02.892965Z"
+                  "modified": "2026-11-10T09:30:02.970382Z"
                 }
               ]
             },
@@ -521,7 +505,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "6493"
+          - "6209"
         Content-Type:
           - application/json
       status: 200 OK

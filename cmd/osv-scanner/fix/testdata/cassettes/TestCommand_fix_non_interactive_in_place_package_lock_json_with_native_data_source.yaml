@@ -38618,15 +38618,15 @@ interactions:
         Cf-Cache-Status:
           - HIT
         Cf-Ray:
-          - a57975538ff43fcd-SYD
+          - a5a0acf70e4db55b-ATL
         Content-Type:
           - application/json
         Last-Modified:
           - Fri, 24 Apr 2026 15:22:18 GMT
         Set-Cookie:
-          - __cf_bm=aO8XrVgp3QNiex.Y_hm5T_Qh5LkKjtiaVoLnMRMEDbs-1794192085.049725-1.0.1.1-H64i3AvjMbJnML8PFJ1E1MXR7Di5.2FtdIfVG_ZGOQKEYl7RMhNuXXqV5HtQ.kqNfHUhZ0vPgm57KGEKQ9dk97uA08UPAB6dxfxJZFpr3TtDaPxQnsZ2fd9XSROTdijh;
+          - __cf_bm=4CktEw1aNCqZ3b.b07PT.bTs2LNJjVAJZB3EVqFjLWg-1794603308.6434882-1.0.1.1-QsfvuEVnY2uHp1QYqU3rpwkbuIJYfoED1nG59dqUGmdwCFT_.xn0utLHl18b6sP3bk7ZYnsCuChfauR4J25O1s2Ie6b2I6OOTdlaW7y.rhuS5jPxSBkBuMA7qDQNLVS_;
             HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=npmjs.org;
-            Expires=Mon, 09 Nov 2026 03:11:25 GMT
+            Expires=Fri, 13 Nov 2026 21:25:08 GMT
         Vary:
           - accept-encoding, accept
       status: 200 OK
@@ -38649,19 +38649,19 @@ interactions:
       body: |
         {
           "_id": "brace-expansion",
-          "_rev": "79-3832f2b245fe718fa6a32c358f25de91",
+          "_rev": "83-9f9a05718456071a797c9699aa9bb972",
           "bugs": {
             "url": "https://github.com/juliangruber/brace-expansion/issues"
           },
           "description": "Brace expansion as known from sh/bash",
           "dist-tags": {
-            "1.x": "1.1.21",
-            "2.x": "2.1.7",
-            "3.x": "3.0.9",
-            "latest": "5.0.12",
-            "maintenance-v1": "1.1.18",
-            "maintenance-v2": "2.1.4",
-            "maintenance-v3": "3.0.6"
+            "1.x": "1.1.22",
+            "2.x": "2.1.8",
+            "3.x": "3.0.10",
+            "latest": "5.0.13",
+            "maintenance-v1": "1.1.22",
+            "maintenance-v2": "2.1.8",
+            "maintenance-v3": "3.0.10"
           },
           "homepage": "https://github.com/juliangruber/brace-expansion#readme",
           "license": "MIT",
@@ -38701,6 +38701,7 @@ interactions:
             "1.1.2": "2015-11-28T12:58:57.647Z",
             "1.1.20": "2026-09-14T21:49:58.092Z",
             "1.1.21": "2026-09-14T21:59:28.332Z",
+            "1.1.22": "2026-11-11T12:32:33.050Z",
             "1.1.3": "2016-02-11T18:51:31.874Z",
             "1.1.4": "2016-05-01T19:14:21.252Z",
             "1.1.5": "2016-06-15T11:21:03.644Z",
@@ -38720,8 +38721,10 @@ interactions:
             "2.1.5": "2026-09-14T21:40:14.665Z",
             "2.1.6": "2026-09-14T21:51:19.666Z",
             "2.1.7": "2026-09-14T22:02:58.810Z",
+            "2.1.8": "2026-11-11T12:30:22.695Z",
             "3.0.0": "2023-10-07T13:31:03.177Z",
             "3.0.1": "2025-06-11T08:44:12.277Z",
+            "3.0.10": "2026-11-11T12:30:57.166Z",
             "3.0.2": "2026-03-27T08:41:41.330Z",
             "3.0.3": "2026-07-27T19:35:49.758Z",
             "3.0.4": "2026-07-27T22:27:17.871Z",
@@ -38735,6 +38738,7 @@ interactions:
             "5.0.10": "2026-09-14T21:37:19.459Z",
             "5.0.11": "2026-09-14T21:49:31.581Z",
             "5.0.12": "2026-09-14T21:59:00.288Z",
+            "5.0.13": "2026-11-11T12:27:55.676Z",
             "5.0.2": "2026-02-12T08:18:54.923Z",
             "5.0.3": "2026-02-22T11:37:25.657Z",
             "5.0.4": "2026-02-27T09:37:56.676Z",
@@ -38744,7 +38748,7 @@ interactions:
             "5.0.8": "2026-07-23T11:39:25.744Z",
             "5.0.9": "2026-07-30T10:00:32.762Z",
             "created": "2013-10-13T12:58:47.118Z",
-            "modified": "2026-09-14T22:02:58.999Z"
+            "modified": "2026-11-11T12:32:33.328Z"
           },
           "users": {
             "flumpus-dev": true,
@@ -40309,6 +40313,104 @@ interactions:
                 "files": "test/*.js"
               },
               "version": "1.1.21"
+            },
+            "1.1.22": {
+              "_hasShrinkwrap": false,
+              "_id": "brace-expansion@1.1.22",
+              "_nodeVersion": "24.16.0",
+              "_npmOperationalInternal": {
+                "host": "s3://npm-registry-packages-npm-production",
+                "tmp": "tmp/brace-expansion_1.1.22_1794400352944_0.1919601932177799"
+              },
+              "_npmUser": {
+                "email": "julian@juliangruber.com",
+                "name": "juliangruber"
+              },
+              "_npmVersion": "11.13.0",
+              "author": {
+                "email": "mail@juliangruber.com",
+                "name": "Julian Gruber",
+                "url": "http://juliangruber.com"
+              },
+              "bugs": {
+                "url": "https://github.com/juliangruber/brace-expansion/issues"
+              },
+              "dependencies": {
+                "balanced-match": "^1.0.0",
+                "concat-map": "0.0.1"
+              },
+              "description": "Brace expansion as known from sh/bash",
+              "devDependencies": {
+                "matcha": "^0.7.0",
+                "prettier": "^3.9.8",
+                "tape": "^4.6.0"
+              },
+              "directories": {},
+              "dist": {
+                "fileCount": 4,
+                "integrity": "sha512-CKLDTuSsN0+r1ThM0WkzzBI7dnPI6xEGfa/JnVYIK9JNBA1N1NyPwXVHor//NKD/y3sDxp764sZdLhFK7pH8XQ==",
+                "shasum": "82f87655acd0bae5c8a717bb0a81573e43ab42c0",
+                "signatures": [
+                  {
+                    "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+                    "sig": "MEUCIQCuPmi5Ubnf0C9m20HrDiPEpF4Qp7NA9cEYGMOMHEKLuAIgSx5JhtgmTc7QVkH/TQ2JccgpbJ2dn0sHgi3y4ku5MZ0="
+                  },
+                  {
+                    "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+                    "sig": "MEUCIQCaVJt69hn0D1bJ4wgPYz3sasvbFIrDeMFdqLpDzqSrrwIgH0rdE47UVkfNw7IBk2HwlHqLFbI4gHfgRxOlQ7+nJZg="
+                  }
+                ],
+                "tarball": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.22.tgz",
+                "unpackedSize": 31346
+              },
+              "gitHead": "2525391e57e2d2a602eacd9c9522ec3a6f45c80c",
+              "homepage": "https://github.com/juliangruber/brace-expansion",
+              "keywords": [],
+              "license": "MIT",
+              "main": "index.js",
+              "maintainers": [
+                {
+                  "email": "julian@juliangruber.com",
+                  "name": "juliangruber"
+                },
+                {
+                  "email": "i@izs.me",
+                  "name": "isaacs"
+                }
+              ],
+              "name": "brace-expansion",
+              "publishConfig": {
+                "tag": "1.x"
+              },
+              "readmeFilename": "README.md",
+              "repository": {
+                "type": "git",
+                "url": "git://github.com/juliangruber/brace-expansion.git"
+              },
+              "scripts": {
+                "bench": "matcha test/perf/bench.js",
+                "format": "prettier --write .",
+                "format:check": "prettier --check .",
+                "gentest": "bash test/generate.sh",
+                "test": "tape test/*.js"
+              },
+              "testling": {
+                "browsers": [
+                  "ie/8..latest",
+                  "firefox/20..latest",
+                  "firefox/nightly",
+                  "chrome/25..latest",
+                  "chrome/canary",
+                  "opera/12..latest",
+                  "opera/next",
+                  "safari/5.1..latest",
+                  "ipad/6.0..latest",
+                  "iphone/6.0..latest",
+                  "android-browser/4.2..latest"
+                ],
+                "files": "test/*.js"
+              },
+              "version": "1.1.22"
             },
             "1.1.3": {
               "_from": ".",
@@ -41998,6 +42100,103 @@ interactions:
               },
               "version": "2.1.7"
             },
+            "2.1.8": {
+              "_hasShrinkwrap": false,
+              "_id": "brace-expansion@2.1.8",
+              "_nodeVersion": "24.16.0",
+              "_npmOperationalInternal": {
+                "host": "s3://npm-registry-packages-npm-production",
+                "tmp": "tmp/brace-expansion_2.1.8_1794400222601_0.8667171273338796"
+              },
+              "_npmUser": {
+                "email": "julian@juliangruber.com",
+                "name": "juliangruber"
+              },
+              "_npmVersion": "11.13.0",
+              "author": {
+                "email": "mail@juliangruber.com",
+                "name": "Julian Gruber",
+                "url": "http://juliangruber.com"
+              },
+              "bugs": {
+                "url": "https://github.com/juliangruber/brace-expansion/issues"
+              },
+              "dependencies": {
+                "balanced-match": "^1.0.0"
+              },
+              "description": "Brace expansion as known from sh/bash",
+              "devDependencies": {
+                "@c4312/matcha": "^1.3.1",
+                "prettier": "^3.9.8",
+                "tape": "^4.6.0"
+              },
+              "directories": {},
+              "dist": {
+                "fileCount": 4,
+                "integrity": "sha512-BnlDzDYQoplTsZSvPi86CNzmbcb07X8ufR8fk1zivaiEJlXJkiq1MQyDCVmlWcsWbj6aWXqHnrwwevbrm/Saig==",
+                "shasum": "b4cf1e18069418e97732d5f30b39bb321c41bd9b",
+                "signatures": [
+                  {
+                    "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+                    "sig": "MEYCIQDhAnm/EA0KCOSX9k1lErTr/T8rRP+BuupnXAb6+lTaKAIhAJqvQgajbBiVI+tyO0WuUokBrUBVQEN9z/XEtYE0uOLP"
+                  },
+                  {
+                    "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+                    "sig": "MEYCIQDC/QgF68N+ow+HaZdxX9x6j6/14sEj+cLbjIbpbzTdPQIhAJVFHbrWxIDuJEZbeBO+qt1Ns0w6LGgN402tXhgn812o"
+                  }
+                ],
+                "tarball": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-2.1.8.tgz",
+                "unpackedSize": 29410
+              },
+              "gitHead": "50b40bd4c9ca047ae9931258cd07ec4a0620f7fb",
+              "homepage": "https://github.com/juliangruber/brace-expansion",
+              "keywords": [],
+              "license": "MIT",
+              "main": "index.js",
+              "maintainers": [
+                {
+                  "email": "julian@juliangruber.com",
+                  "name": "juliangruber"
+                },
+                {
+                  "email": "i@izs.me",
+                  "name": "isaacs"
+                }
+              ],
+              "name": "brace-expansion",
+              "publishConfig": {
+                "tag": "2.x"
+              },
+              "readmeFilename": "README.md",
+              "repository": {
+                "type": "git",
+                "url": "git://github.com/juliangruber/brace-expansion.git"
+              },
+              "scripts": {
+                "bench": "matcha test/perf/bench.js",
+                "format": "prettier --write .",
+                "format:check": "prettier --check .",
+                "gentest": "bash test/generate.sh",
+                "test": "tape test/*.js"
+              },
+              "testling": {
+                "browsers": [
+                  "ie/8..latest",
+                  "firefox/20..latest",
+                  "firefox/nightly",
+                  "chrome/25..latest",
+                  "chrome/canary",
+                  "opera/12..latest",
+                  "opera/next",
+                  "safari/5.1..latest",
+                  "ipad/6.0..latest",
+                  "iphone/6.0..latest",
+                  "android-browser/4.2..latest"
+                ],
+                "files": "test/*.js"
+              },
+              "version": "2.1.8"
+            },
             "3.0.0": {
               "_hasShrinkwrap": false,
               "_id": "brace-expansion@3.0.0",
@@ -42181,6 +42380,106 @@ interactions:
               },
               "type": "module",
               "version": "3.0.1"
+            },
+            "3.0.10": {
+              "_hasShrinkwrap": false,
+              "_id": "brace-expansion@3.0.10",
+              "_nodeVersion": "24.16.0",
+              "_npmOperationalInternal": {
+                "host": "s3://npm-registry-packages-npm-production",
+                "tmp": "tmp/brace-expansion_3.0.10_1794400257074_0.36439110941342656"
+              },
+              "_npmUser": {
+                "email": "julian@juliangruber.com",
+                "name": "juliangruber"
+              },
+              "_npmVersion": "11.13.0",
+              "author": {
+                "email": "mail@juliangruber.com",
+                "name": "Julian Gruber",
+                "url": "http://juliangruber.com"
+              },
+              "bugs": {
+                "url": "https://github.com/juliangruber/brace-expansion/issues"
+              },
+              "dependencies": {
+                "balanced-match": "^3.0.0"
+              },
+              "description": "Brace expansion as known from sh/bash",
+              "devDependencies": {
+                "@c4312/matcha": "^1.3.1",
+                "prettier": "^3.9.8"
+              },
+              "directories": {},
+              "dist": {
+                "fileCount": 5,
+                "integrity": "sha512-p5GRqUDU+zdfJgjcBqBz2Xd2cVjgA/hOkVscKAjaIzrgY5m2ZFde/kplf3BUqzmF0IEYCGYmEAs/FF/Ef+YaVw==",
+                "shasum": "b558b97df8205fc8f62ef1118fe3779169d2f84f",
+                "signatures": [
+                  {
+                    "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+                    "sig": "MEYCIQD0laDvxuTwLO+1YvBZ10+D5zxysEAsdlpr+XGCQoEMkQIhAKW43BxKb+GSqWInv5wFH0RxAZCebuMjdQcY7Z3aB06i"
+                  },
+                  {
+                    "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+                    "sig": "MEYCIQD53grZWAdZgoTKjrh65Z+8uwulFMUi8voazuHApwlsHAIhAIiNWuqZAfKE/t7UZJdF940bkVdXdahUtkWQWh5pxJrW"
+                  }
+                ],
+                "tarball": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-3.0.10.tgz",
+                "unpackedSize": 31498
+              },
+              "engines": {
+                "node": ">= 18"
+              },
+              "exports": "./index.js",
+              "gitHead": "29428fd4352661c1e0ce4061e33d93c11646ea8f",
+              "homepage": "https://github.com/juliangruber/brace-expansion",
+              "keywords": [],
+              "license": "MIT",
+              "maintainers": [
+                {
+                  "email": "julian@juliangruber.com",
+                  "name": "juliangruber"
+                },
+                {
+                  "email": "i@izs.me",
+                  "name": "isaacs"
+                }
+              ],
+              "name": "brace-expansion",
+              "publishConfig": {
+                "tag": "3.x"
+              },
+              "readmeFilename": "README.md",
+              "repository": {
+                "type": "git",
+                "url": "git://github.com/juliangruber/brace-expansion.git"
+              },
+              "scripts": {
+                "bench": "matcha bench/bench.js",
+                "format": "prettier --write .",
+                "format:check": "prettier --check .",
+                "gentest": "bash test/generate.sh",
+                "test": "node --test"
+              },
+              "testling": {
+                "browsers": [
+                  "ie/8..latest",
+                  "firefox/20..latest",
+                  "firefox/nightly",
+                  "chrome/25..latest",
+                  "chrome/canary",
+                  "opera/12..latest",
+                  "opera/next",
+                  "safari/5.1..latest",
+                  "ipad/6.0..latest",
+                  "iphone/6.0..latest",
+                  "android-browser/4.2..latest"
+                ],
+                "files": "test/*.js"
+              },
+              "type": "module",
+              "version": "3.0.10"
             },
             "3.0.2": {
               "_hasShrinkwrap": false,
@@ -43464,6 +43763,113 @@ interactions:
               "types": "./dist/commonjs/index.d.ts",
               "version": "5.0.12"
             },
+            "5.0.13": {
+              "_hasShrinkwrap": false,
+              "_id": "brace-expansion@5.0.13",
+              "_nodeVersion": "24.16.0",
+              "_npmOperationalInternal": {
+                "host": "s3://npm-registry-packages-npm-production",
+                "tmp": "tmp/brace-expansion_5.0.13_1794400075569_0.8467723389526041"
+              },
+              "_npmUser": {
+                "email": "julian@juliangruber.com",
+                "name": "juliangruber"
+              },
+              "_npmVersion": "11.13.0",
+              "bugs": {
+                "url": "https://github.com/juliangruber/brace-expansion/issues"
+              },
+              "dependencies": {
+                "balanced-match": "^4.0.2"
+              },
+              "description": "Brace expansion as known from sh/bash",
+              "devDependencies": {
+                "@types/brace-expansion": "^1.1.2",
+                "@types/node": "^25.2.1",
+                "mkdirp": "^3.0.1",
+                "prettier": "^3.3.2",
+                "tap": "^21.6.2",
+                "tshy": "^3.0.2",
+                "typedoc": "^0.28.5"
+              },
+              "directories": {},
+              "dist": {
+                "fileCount": 13,
+                "integrity": "sha512-Vh3dmFbc4wZeox7M9I/0L9GfFd83Su4+yCck/OF9Gi/P/dAHn0RT7X4K9R7gMNMhDck3DvhR6QXsnQdjjgwNvQ==",
+                "shasum": "e2d4497370f7e385e6f96b57bd7ff11d77d85851",
+                "signatures": [
+                  {
+                    "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+                    "sig": "MEUCIQDEi64QEfNJRXN2DPvEsQk/9dqT8lN6Q7jbbKoKbDXEpgIgNYN8/QLKOb81eBWaabssCsqF1jNzJaPTarf0EcEMDww="
+                  },
+                  {
+                    "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+                    "sig": "MEUCIFuOeZek/M/5gkHdwe1VtOz7vF5ECZGkxTb542HlL+SJAiEA+fLKGP0A9f6NzgNsIA18ZbdQtd/1YKQcYFSDQnckhxY="
+                  }
+                ],
+                "tarball": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-5.0.13.tgz",
+                "unpackedSize": 133109
+              },
+              "engines": {
+                "node": "20 || >=22"
+              },
+              "exports": {
+                ".": {
+                  "import": {
+                    "default": "./dist/esm/index.js",
+                    "types": "./dist/esm/index.d.ts"
+                  },
+                  "require": {
+                    "default": "./dist/commonjs/index.js",
+                    "types": "./dist/commonjs/index.d.ts"
+                  }
+                },
+                "./package.json": "./package.json"
+              },
+              "gitHead": "420ede4ada8375a94c8afa31d62fc038da44b9a1",
+              "homepage": "https://github.com/juliangruber/brace-expansion#readme",
+              "license": "MIT",
+              "main": "./dist/commonjs/index.js",
+              "maintainers": [
+                {
+                  "email": "julian@juliangruber.com",
+                  "name": "juliangruber"
+                },
+                {
+                  "email": "i@izs.me",
+                  "name": "isaacs"
+                }
+              ],
+              "module": "./dist/esm/index.js",
+              "name": "brace-expansion",
+              "repository": {
+                "type": "git",
+                "url": "git+https://github.com/juliangruber/brace-expansion.git"
+              },
+              "scripts": {
+                "benchmark": "node benchmark/index.js",
+                "format": "prettier --write .",
+                "format:check": "prettier --check .",
+                "postversion": "npm publish",
+                "prepare": "tshy",
+                "prepublishOnly": "git push origin --follow-tags",
+                "presnap": "npm run prepare",
+                "pretest": "npm run prepare",
+                "preversion": "npm test",
+                "snap": "tap",
+                "test": "tap",
+                "typedoc": "typedoc --tsconfig .tshy/esm.json ./src/*.ts"
+              },
+              "tshy": {
+                "exports": {
+                  ".": "./src/index.ts",
+                  "./package.json": "./package.json"
+                }
+              },
+              "type": "module",
+              "types": "./dist/commonjs/index.d.ts",
+              "version": "5.0.13"
+            },
             "5.0.2": {
               "_hasShrinkwrap": false,
               "_id": "brace-expansion@5.0.2",
@@ -44294,15 +44700,15 @@ interactions:
         Cf-Cache-Status:
           - HIT
         Cf-Ray:
-          - a57975522c4f3fcd-SYD
+          - a5a0acf78f78b55b-ATL
         Content-Type:
           - application/json
         Last-Modified:
-          - Mon, 14 Sep 2026 22:03:00 GMT
+          - Wed, 11 Nov 2026 12:32:34 GMT
         Set-Cookie:
-          - __cf_bm=1xeLndRoEQ0DSGCL7_WUADrWzjoZdVOI93nIlfItsfU-1794192084.8224459-1.0.1.1-pdCz8yQ72H5y0tNdvcw1KRZXwyRl.suHiByzqkzFYYOZvjbCReTNZElWsKZGIjk4YjQHJcX4Up9wzAPrAOdloQSmo9jUvBVBDxmv5GhWbnE7ke_3msl7FFPrrERB09w6;
+          - __cf_bm=KRGVOxTM99oj3Pk4pGH3Bq.mL6KxjJkcIkUvsBtFrww-1794603308.7294176-1.0.1.1-1W1k_cazuuun6xz94TqdqYVCmdVEj.dpX992GyQbJAEQ8g7HlXZYfDauM9yd14B5hR9RnKNSxtW6JnToAsolEKCepqX1yrxG9n1Wy4hXSLnr4loibbK5byJ6lAd9kRxW;
             HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=npmjs.org;
-            Expires=Mon, 09 Nov 2026 03:11:24 GMT
+            Expires=Fri, 13 Nov 2026 21:25:08 GMT
         Vary:
           - accept-encoding, accept
       status: 200 OK
@@ -45114,15 +45520,15 @@ interactions:
         Cf-Cache-Status:
           - HIT
         Cf-Ray:
-          - a5797552ee323fcd-SYD
+          - a5a0acf98aeab55b-ATL
         Content-Type:
           - application/json
         Last-Modified:
           - Sat, 06 Apr 2024 21:32:31 GMT
         Set-Cookie:
-          - __cf_bm=vFKHa9PKYPKYTI9f_Yc6uEh1Rg8RRaIddIZ6Lt2GzI0-1794192084.9447336-1.0.1.1-9VvHe1mxVFi97zFXPS05rFB87aaMTS7JgO8BkaMBU2B4PpZvyQghyj4WYbVz_RClWjKAt2Mdmm5qfQ.3Pbj_QDUzHuICiJ0vh_bIMbFO4IekR_yZyKKfNw3Ig.EHXcQZ;
+          - __cf_bm=NxQdtMBQhZOlPNP4edIBE3UuMSTMaEgyQV8x1j5r89U-1794603309.0450826-1.0.1.1-R2uldAvfcm7bTigdy335Hy0N8Xl3x5XsEP23TvfwQjGGn7Tt0Evk12XRBMVWQEGF7.wPSjuX3.hyGTNlkWVw2CbnK0pUyQtCMnkPRCDLd4O1fQV3DYXM9z2ZMgfZOEBh;
             HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=npmjs.org;
-            Expires=Mon, 09 Nov 2026 03:11:24 GMT
+            Expires=Fri, 13 Nov 2026 21:25:09 GMT
         Vary:
           - accept-encoding, accept
       status: 200 OK
@@ -47741,15 +48147,15 @@ interactions:
         Cf-Cache-Status:
           - HIT
         Cf-Ray:
-          - a57975537fb13fcd-SYD
+          - a5a0acf7afa4b55b-ATL
         Content-Type:
           - application/json
         Last-Modified:
           - Wed, 12 Jul 2023 19:11:31 GMT
         Set-Cookie:
-          - __cf_bm=WaC7qgzO3uZ2J2fW16Ey.kS59Ds1Lj9uvjYvzDqkbHs-1794192085.034683-1.0.1.1-4SqEgJBOb.MYeEG8Knf0tlrqw5s_ZP0PYrcX1zVr4SUMMnGkQeG9QABSWPlx1OH.Ok0KHSaUviNCkII70ruPoW_BqXYMUeXQSZZp0BKs.VdW9wX9Zz3SrWWm6fD2nxiT;
+          - __cf_bm=49ti62f2Zu6G6EL4ttaoHbU85kRdcOWtJYSRzXSwMUk-1794603308.7471225-1.0.1.1-d8q.9Dnzjd8sxhtaI4vnqdh7Z8F7tua3KAlf8eeBzkLaTFkqnYYL_ws49vgk1xd4t9mq21NElhScbRW6zd3igIfnSf8GJHT7QWE41lGV42BoGAgy1UXmbRUdoGgL1O.5;
             HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=npmjs.org;
-            Expires=Mon, 09 Nov 2026 03:11:25 GMT
+            Expires=Fri, 13 Nov 2026 21:25:08 GMT
         Vary:
           - accept-encoding, accept
       status: 200 OK
@@ -53526,15 +53932,15 @@ interactions:
         Cf-Cache-Status:
           - HIT
         Cf-Ray:
-          - a57975523c933fcd-SYD
+          - a5a0acf7cfdcb55b-ATL
         Content-Type:
           - application/json
         Last-Modified:
           - Fri, 12 Jun 2026 17:39:57 GMT
         Set-Cookie:
-          - __cf_bm=E5DHE2qdOSdKdgvYjL0zKdEXhxOHGoweQsMCiYNmFOk-1794192084.8409545-1.0.1.1-oO46Ks_g_3NKe6YgsAuC30LNWhKQPgPddC.AK4UgWl6V8gPSzOXGw5Y_O6yGRM2GoWvJmepwSDtEed1Eg7WjBX.tuL_CqX9uA1QZ517_W9CAT93p7eYErtEHYG7J4sXn;
+          - __cf_bm=x5u0wQ2ku9rfx3GvjdqfgaJnVIPezrYy9I3fNqGw1fo-1794603308.7631967-1.0.1.1-POT7iyJluqL38pSFahvHpN9zqlYSW7hxJYsSc32cPITGYyV0qSllLPKVqCB4FjGnpW6W_I8ooNUY.QulwdGjmWlJv8yalkiX1JZDxLoXuhyy0FP4f7n19ur2H1PBFZ_m;
             HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=npmjs.org;
-            Expires=Mon, 09 Nov 2026 03:11:24 GMT
+            Expires=Fri, 13 Nov 2026 21:25:08 GMT
         Vary:
           - accept-encoding, accept
       status: 200 OK
@@ -60188,15 +60594,15 @@ interactions:
         Cf-Cache-Status:
           - HIT
         Cf-Ray:
-          - a57975520bfb3fcd-SYD
+          - a5a0acf858d7b55b-ATL
         Content-Type:
           - application/json
         Last-Modified:
           - Wed, 09 Sep 2026 20:10:55 GMT
         Set-Cookie:
-          - __cf_bm=8UtQVbLxCDU2SvlyCZEqEtbCOSroAJiguPhGvfjltLQ-1794192084.801679-1.0.1.1-yUMMozmopI2b5LG5bS5kuGYPeCq25HTC9pphusNJBE4WtBSako36EC1ax0zfWBqpfSuJRB_G9A4QSdrjtlUwCSFd0MuNdGO3pSBwQ41rXLr3eqmhfqJv7PfQEoDzxBG7;
+          - __cf_bm=7XCecze2_bTG_xsDG5AOU7Z3wMhakhIN4tOtTa8_ej4-1794603308.8589344-1.0.1.1-f5TPDi4TPX44vwHbWhtO28jBZXj9mUTcKwxeGnsRcrLCBF5L54PtZibmLknbsXn.LZQO1FMp54arQ6uVMDmB5mJocmX_oTkccImD_h8nYY2TA2cFUrJWKEuselkzzE3.;
             HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=npmjs.org;
-            Expires=Mon, 09 Nov 2026 03:11:24 GMT
+            Expires=Fri, 13 Nov 2026 21:25:08 GMT
         Vary:
           - accept-encoding, accept
       status: 200 OK
@@ -60219,7 +60625,7 @@ interactions:
       body: |
         {
           "_id": "minimatch",
-          "_rev": "328-1dcdce89acbbbe92d309529ed3fcd76b",
+          "_rev": "331-6b459980c115f7ca30a5fe5eeaab53d6",
           "author": {
             "email": "i@izs.me",
             "name": "Isaac Z. Schlueter",
@@ -60230,7 +60636,7 @@ interactions:
           },
           "description": "a glob matcher in javascript",
           "dist-tags": {
-            "latest": "11.0.5",
+            "latest": "11.0.8",
             "legacy-v3": "3.1.5",
             "legacy-v4": "4.2.6",
             "legacy-v5": "5.1.9",
@@ -60248,7 +60654,7 @@ interactions:
             }
           ],
           "name": "minimatch",
-          "readme": "# minimatch\n\nA glob matching utility.\n\nThis is the matching library used internally by\n[node-glob](https://npm.im/node-glob).\n\nIt works by splitting glob expressions on `/`, and testing each\npath portion with a `Matcher` from\n[@isaacs/nonrecursive-glob-match](http://npm.im/@isaacs/nonrecursive-glob-match).\n\n## Why Not Regular Expressions?\n\nRegular Expressions are very powerful, and for many applications,\nextremely fast.\n\nHowever, in JavaScript, they are subject to\n[ReDoS](https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS)\nin certain cases. Libraries that assemble Regular Expressions\nfrom arbitrary input are thus vulnerable to patterns that cause\npathological behavior. For example, patterns like\n`a*a*a*a*a*a*a*a*a*a*a` when matched against a string like\n`'a'.repeat(50) + 'b'` would have to repeatedly backtrack through\nevery failure.\n\nMost other glob matchers in JavaScript (including versions up\nthrough v10 of this library) convert the glob pattern to Regular\nExpressions, and then use that to test the string. This is fine\nfor trusted input, but can fall over badly in cases that cause\nrecursive backtracking.\n\n## Important Security Consideration!\n\nThough this library is _not_ vulnerable to ReDOS, _any_ library\nthat performs pattern matching based on arbitrary input will\npotentially have edge cases where it performs suboptimally.\n\nTo be extremely clear:\n\n> [!WARNING]  \n> **If you create a system where you take user input, and use\n> that input as the source of a pattern matcher, in this or any\n> extant glob matcher in JavaScript, you may be pwned.**\n\nThe pattern matching library that Minimatch uses in v11 and above\nwill not be backported to earlier versions. It is a much too deep\nof a change to do so.\n\n## Usage\n\n```ts\n// hybrid module, load with require() or import\nimport { minimatch } from 'minimatch'\n// or:\n// const { minimatch } = require('minimatch')\n\nminimatch('bar.foo', '*.foo') // true!\nminimatch('bar.foo', '*.bar') // false!\nminimatch('bar.foo', '*.+(bar|foo)') // true!\n```\n\n## Features\n\nSupports these glob features:\n\n- Brace Expansion\n- Extended glob matching\n- \"Globstar\" `**` matching\n- [Posix character\n  classes](https://www.gnu.org/software/bash/manual/html_node/Pattern-Matching.html),\n  like `[[:alpha:]]`, supporting the full range of Unicode\n  characters. For example, `[[:alpha:]]` will match against\n  `'é'`, though `[a-zA-Z]` will not. Collating symbol and set\n  matching is not supported, so `[[=e=]]` will _not_ match `'é'`\n  and `[[.ch.]]` will not match `'ch'` in locales where `ch` is\n  considered a single character.\n\nSee:\n\n- `man sh`\n- `man bash` [Pattern\n  Matching](https://www.gnu.org/software/bash/manual/html_node/Pattern-Matching.html)\n- `man 3 fnmatch`\n- `man 5 gitignore`\n\n## Windows\n\n**Please only use forward-slashes in glob expressions.**\n\nThough windows uses either `/` or `\\` as its path separator, only `/`\ncharacters are used by this glob implementation. You must use\nforward-slashes **only** in glob expressions. Back-slashes in patterns\nwill always be interpreted as escape characters, not path separators.\n\nNote that `\\` or `/` _will_ be interpreted as path separators in paths on\nWindows, and will match against `/` in glob expressions.\n\nSo just always use `/` in patterns.\n\n### UNC Paths\n\nOn Windows, UNC paths like `//?/c:/...` or\n`//ComputerName/Share/...` are handled specially.\n\n- Patterns starting with a double-slash followed by some\n  non-slash characters will preserve their double-slash. As a\n  result, a pattern like `//*` will match `//x`, but not `/x`.\n- Patterns staring with `//?/<drive letter>:` will _not_ treat\n  the `?` as a wildcard character. Instead, it will be treated\n  as a normal string.\n- Patterns starting with `//?/<drive letter>:/...` will match\n  file paths starting with `<drive letter>:/...`, and vice versa,\n  as if the `//?/` was not present. This behavior only is\n  present when the drive letters are a case-insensitive match to\n  one another. The remaining portions of the path/pattern are\n  compared case sensitively, unless `nocase:true` is set.\n- The host and share of a pattern starting with\n  `//<host>/<share>/...` are compared case-insensitively with\n  those of the file path, if neither has magic. For example,\n  `//host/share/*` matches `//HOST/SHARE/x`.\n- Patterns starting with `//?/UNC/<host>/<share>/...` will match\n  file paths starting with `//<host>/<share>/...`, and vice\n  versa, the same as `//?/<drive letter>:`. The `?` is not a\n  wildcard character.\n\nNote that specifying a UNC path using `\\` characters as path\nseparators is always allowed in the file path argument, but only\nallowed in the pattern argument when `windowsPathsNoEscape: true`\nis set in the options.\n\n## Minimatch Class\n\nCreate a minimatch object by instantiating the `minimatch.Minimatch` class.\n\n```javascript\nimport { Minimatch } from 'minimatch'\nconst mm = new Minimatch(pattern, options)\n```\n\n### Properties\n\n- `pattern` The original pattern the minimatch object represents.\n- `options` The options supplied to the constructor.\n- `set` A 2-dimensional array of `Matcher` or string expressions.\n  Each row in the\n  array corresponds to a brace-expanded pattern. Each item in the row\n  corresponds to a single path-part. For example, the pattern\n  `{a,b/c}/d` would expand to a set of patterns like:\n\n        [ [ a, d ]\n        , [ b, c, d ] ]\n\n  If a portion of the pattern doesn't have any \"magic\" in it\n  (that is, it's something like `\"foo\"` rather than `fo*o?`), then it\n  will be left as a string rather than converted to a `Matcher`.\n\n  A numeric range of 100 or more values, such as `{0..999}`, is\n  not expanded. It stays in one row, and the `Matcher` for its\n  portion tests for a number in the range.\n\n- `negate` True if the pattern is negated.\n- `comment` True if the pattern is a comment.\n- `empty` True if the pattern is `\"\"`.\n\n### Methods\n\n- `match(fname)` Return true if the filename matches the pattern, or\n  false otherwise.\n- `hasMagic()` Returns true if the parsed pattern contains any\n  magic characters. Returns false if all comparator parts are\n  string literals. If the `magicalBraces` option is set on the\n  constructor, then it will consider brace expansions which are\n  not otherwise magical to be magic. If not set, then a pattern\n  like `a{b,c}d` will return `false`, because neither `abd` nor\n  `acd` contain any special glob characters.\n\n  This does **not** mean that the pattern string can be used as a\n  literal filename, as it may contain magic glob characters that\n  are escaped. For example, the pattern `\\\\*` or `[*]` would not\n  be considered to have magic, as the matching portion parses to\n  the literal string `'*'` and would match a path named `'*'`,\n  not `'\\\\*'` or `'[*]'`. The `minimatch.unescape()` method may\n  be used to remove escape characters.\n\nAll other methods are internal, and will be called as necessary.\n\n### minimatch(path, pattern, options)\n\nMain export. Tests a path against the pattern using the options.\n\n```javascript\nconst isJS = minimatch(file, '*.js', { matchBase: true })\n```\n\nIt keeps the 256 `Minimatch` objects that it used most recently,\nso a pattern that it tests again with the same options is not\ncompiled again. To test many paths against one pattern, a\n`Minimatch` object or `minimatch.filter()` is still a bit faster.\n\n### minimatch.filter(pattern, options)\n\nReturns a function that tests its\nsupplied argument, suitable for use with `Array.filter`. Example:\n\n```javascript\nconst javascripts = fileList.filter(\n  minimatch.filter('*.js', { matchBase: true }),\n)\n```\n\n### minimatch.escape(pattern, options = {})\n\nEscape all magic characters in a glob pattern, so that it will\nonly ever match literal strings.\n\nIf the `windowsPathsNoEscape` option is used, then characters are\nescaped by wrapping in `[]`, because a magic character wrapped in\na character class can only be satisfied by that exact character.\n\nSlashes (and backslashes in `windowsPathsNoEscape` mode) cannot\nbe escaped or unescaped.\n\n### minimatch.unescape(pattern, options = {})\n\nUn-escape a glob string that may contain some escaped characters.\n\nIf the `windowsPathsNoEscape` option is used, then square-brace\nescapes are removed, but not backslash escapes. For example, it\nwill turn the string `'[*]'` into `*`, but it will not turn\n`'\\\\*'` into `'*'`, because `\\` is a path separator in\n`windowsPathsNoEscape` mode.\n\nWhen `windowsPathsNoEscape` is not set, then both brace escapes\nand backslash escapes are removed.\n\nSlashes (and backslashes in `windowsPathsNoEscape` mode) cannot\nbe escaped or unescaped.\n\n### minimatch.match(list, pattern, options)\n\nMatch against the list of\nfiles, in the style of fnmatch or glob. If nothing is matched, and\noptions.nonull is set, then return a list containing the pattern itself.\n\n```javascript\nconst javascripts = minimatch.match(fileList, '*.js', { matchBase: true })\n```\n\n## Options\n\nAll options are `false` by default.\n\n### nobrace\n\nDo not expand `{a,b}` and `{1..3}` brace sets.\n\n### noglobstar\n\nDisable `**` matching against multiple folder names.\n\n### dot\n\nAllow patterns to match filenames starting with a period, even if\nthe pattern does not explicitly have a period in that spot.\n\nNote that by default, `a/**/b` will **not** match `a/.d/b`, unless `dot`\nis set.\n\n### noext\n\nDisable \"extglob\" style patterns like `+(a|b)`.\n\n### nocase\n\nPerform a case-insensitive match. Case is folded one code point at\na time, with Unicode simple case folding. See [Comparisons to other\nfnmatch/glob\nimplementations](#comparisons-to-other-fnmatchglob-implementations).\n\n### nocaseMagicOnly\n\nWhen used with `{nocase: true}`, create matchers that\nare case-insensitive, but leave string match portions untouched.\nHas no effect when used without `{nocase: true}`.\n\nUseful when some other form of case-insensitive matching is used,\nor if the original string representation is useful in some other\nway.\n\n### normalize\n\nNormalize unicode in the pattern, and in each portion of the tested\npath, with this form: `'NFC'`, `'NFD'`, `'NFKC'`, or `'NFKD'`. `true`\nmeans `'NFC'`.\n\nA char such as `é` can be one code point, or `e` followed by a\ncombining accent. Some file systems, such as on macOS, can give file\nnames in the second form. Without this option, the two forms do not\nmatch.\n\n- The path is split on `/` before it is normalized. So with NFKC, a\n  full width `／` normalizes to `/`, but it does not split the path.\n  It is a char in its portion.\n- The syntax of the pattern is parsed before it is normalized. So\n  with NFKC, a full width `＊` is a literal, which matches `*`, and\n  not a wildcard.\n- With `nocase`, the strings are normalized, and then case is folded.\n\nSee [@isaacs/nonrecursive-glob-match](http://npm.im/@isaacs/nonrecursive-glob-match#unicode-normalization)\nfor how classes and combining marks after wildcards are normalized.\n\n### nonull\n\nWhen a match is not found by `minimatch.match`, return a list containing\nthe pattern itself if this option is set. When not set, an empty list\nis returned if there are no matches.\n\n### magicalBraces\n\nThis only affects the results of the `Minimatch.hasMagic` method.\n\nIf the pattern contains brace expansions, such as `a{b,c}d`, but\nno other magic characters, then the `Minimatch.hasMagic()` method\nwill return `false` by default. When this option set, it will\nreturn `true` for brace expansion as well as other magic glob\ncharacters.\n\n### matchBase\n\nIf set, then patterns without slashes will be matched\nagainst the basename of the path if it contains slashes. For example,\n`a?b` would match the path `/xyz/123/acb`, but not `/xyz/acb/123`.\n\n### nocomment\n\nSuppress the behavior of treating `#` at the start of a pattern as a\ncomment.\n\n### nonegate\n\nSuppress the behavior of treating a leading `!` character as negation.\n\n### flipNegate\n\nReturns from negate expressions the same as if they were not negated.\n(Ie, true on a hit, false on a miss.)\n\n### partial\n\nCompare a partial path to a pattern. As long as the parts of the path that\nare present are not contradicted by the pattern, it will be treated as a\nmatch. This is useful in applications where you're walking through a\nfolder structure, and don't yet have the full path, but want to ensure that\nyou do not walk down paths that can never be a match.\n\nFor example,\n\n```js\nminimatch('/a/b', '/a/*/c/d', { partial: true }) // true, might be /a/b/c/d\nminimatch('/a/b', '/**/d', { partial: true }) // true, might be /a/b/.../d\nminimatch('/x/y/z', '/a/**/z', { partial: true }) // false, because x !== a\n```\n\n### windowsPathsNoEscape\n\nUse `\\\\` as a path separator _only_, and _never_ as an escape\ncharacter. If set, all `\\\\` characters are replaced with `/` in\nthe pattern. Note that this makes it **impossible** to match\nagainst paths containing literal glob pattern characters, but\nallows matching with patterns constructed using `path.join()` and\n`path.resolve()` on Windows platforms, mimicking the (buggy!)\nbehavior of earlier versions on Windows. Please use with\ncaution, and be mindful of [the caveat about Windows\npaths](#windows).\n\nFor legacy reasons, this is also set if\n`options.allowWindowsEscape` is set to the exact value `false`.\n\n### windowsNoMagicRoot\n\nWhen a pattern starts with a UNC path or drive letter, and in\n`nocase:true` mode, do not convert the root portions of the\npattern into a case-insensitive matchers, and instead\nleave them as strings.\n\nThis is the default when the platform is `win32` and\n`nocase:true` is set.\n\n### preserveMultipleSlashes\n\nBy default, multiple `/` characters (other than the leading `//`\nin a UNC path, see \"UNC Paths\" above) are treated as a single\n`/`.\n\nThat is, a pattern like `a///b` will match the file path `a/b`.\n\nSet `preserveMultipleSlashes: true` to suppress this behavior.\n\n### optimizationLevel\n\nA number indicating the level of optimization that should be done\nto the pattern prior to parsing and using it for matches.\n\nGlobstar parts `**` are always converted to `*` when `noglobstar`\nis set, and multiple adjacent `**` parts are converted into a\nsingle `**` (ie, `a/**/**/b` will be treated as `a/**/b`, as this\nis equivalent in all cases).\n\n- `0` - Make no further changes. In this mode, `.` and `..` are\n  maintained in the pattern, meaning that they must also appear\n  in the same position in the test path string. Eg, a pattern\n  like `a/*/../c` will match the string `a/b/../c` but not the\n  string `a/c`.\n- `1` - (default) Remove cases where a double-dot `..` follows a\n  pattern portion that is not `**`, `.`, `..`, or empty `''`. For\n  example, the pattern `./a/b/../*` is converted to `./a/*`, and\n  so it will match the path string `./a/c`, but not the path\n  string `./a/b/../c`. Dots and empty path portions in the\n  pattern are preserved. On Windows, a `..` never removes the\n  drive letter or the UNC host and share at the start of a\n  pattern, the same as it never removes the `/` at the start of\n  a posix pattern. So `C:/a/../../x` is converted to `C:/../x`.\n- `2` (or higher) - Much more aggressive optimizations, suitable\n  for use with file-walking cases:\n  - Remove cases where a double-dot `..` follows a pattern\n    portion that is not `**`, `.`, or empty `''`, or a Windows\n    root as above. Remove empty\n    and `.` portions of the pattern, where safe to do so (ie,\n    anywhere other than the last position, the first position, or\n    the second position in a pattern starting with `/`, as this\n    may indicate a UNC path on Windows).\n  - Convert patterns containing `<pre>/**/../<p>/<rest>` into the\n    equivalent `<pre>/{..,**}/<p>/<rest>`, where `<p>` is a\n    a pattern portion other than `.`, `..`, `**`, or empty\n    `''`. If this would make more than `braceExpandMax` patterns,\n    or add more than 1,000,000 path portions in total,\n    construction throws a `RangeError`.\n  - Remove duplicate patterns.\n  - Remove a pattern when another pattern has `*` at one or more\n    positions, and the same portions at all other positions. The\n    portions that `*` replaces must be non-dot patterns other than\n    `**` or `''`. So `a/{*,x}/b` becomes `a/*/b`, because `*` can\n    match against `x`. This step is skipped when the number of\n    patterns times the number of different sets of `*` positions\n    is more than 100,000.\n\n  While these optimizations improve the performance of\n  file-walking use cases such as [glob](http://npm.im/glob) (ie,\n  the reason this module exists), there are cases where it will\n  fail to match a literal string that would have been matched in\n  optimization level 1 or 0.\n\n### platform\n\nWhen set to `win32`, this will trigger all windows-specific\nbehaviors (special handling for UNC paths, and treating `\\` as\nseparators in file paths for comparison.)\n\nDefaults to the value of `process.platform`.\n\n### maxGlobstarRecursion\n\nMax number of non-adjacent `**` patterns to recursively walk\ndown.\n\nThe default of `200` is almost certainly high enough for most\npurposes, and can handle absurdly excessive patterns.\n\nIf the limit is exceeded (which would require very excessively\nlong patterns and paths containing lots of `**` patterns!), then\nit is treated as non-matching, even if the path would normally\nmatch the pattern provided.\n\nThat is, this is an intentional false negative, deemed an\nacceptable break in correctness for security and performance.\n\n## Comparisons to other fnmatch/glob implementations\n\nWhile strict compliance with the existing standards is a\nworthwhile goal, some discrepancies exist between minimatch and\nother implementations. Some are intentional, and some are\nunavoidable.\n\nIf the pattern starts with a `!` character, then it is negated. Set the\n`nonegate` flag to suppress this behavior, and treat leading `!`\ncharacters normally. This is perhaps relevant if you wish to start the\npattern with a negative extglob pattern like `!(a|B)`. Multiple `!`\ncharacters at the start of a pattern will negate the pattern multiple\ntimes.\n\nIf a pattern starts with `#`, then it is treated as a comment, and\nwill not match anything. Use `\\#` to match a literal `#` at the\nstart of a line, or set the `nocomment` flag to suppress this behavior.\n\nThe double-star character `**` is supported by default, unless the\n`noglobstar` flag is set. This is supported in the manner of bsdglob\nand bash 4.1, where `**` only has special significance if it is the only\nthing in a path part. That is, `a/**/b` will match `a/x/y/b`, but\n`a/**b` will not.\n\nIf an escaped pattern has no matches, and the `nonull` flag is set,\nthen minimatch.match returns the pattern as-provided, rather than\ninterpreting the character escapes. For example,\n`minimatch.match([], \"\\\\*a\\\\?\")` will return `\"\\\\*a\\\\?\"` rather than\n`\"*a?\"`. This is like bash with the `nullglob` option off (the\ndefault), except that bash also removes the escapes.\n\nIf brace expansion is not disabled, then it is performed before any\nother interpretation of the glob pattern. Thus, a pattern like\n`+(a|{b),c)}`, which would not be valid in bash or zsh, is expanded\n**first** into the set of `+(a|b)` and `+(a|c)`, and those patterns are\nchecked for validity. Since those two are valid, matching proceeds.\n\nA numeric range of 100 or more values, such as `{0..999}` or\n`{001..500}`, is the exception. It is not expanded, but it matches\nthe same strings as its expansion. A range is expanded as usual if\nit has a step, such as `{0..999..2}`, if a `\\` or `$` is before\nit, or if a `[` is before it in the same path portion, because it\nmight be inside a class.\n\nEach portion of a pattern between `/` characters is matched with\n[@isaacs/nonrecursive-glob-match](http://npm.im/@isaacs/nonrecursive-glob-match),\nwhich uses Bash 5 as its reference, and does not use regular\nexpressions. So negated extglobs such as `<start>!(<pattern>*|)*`\nmatch the same strings as in Bash. These are the known\ndifferences:\n\n- If `dot` is not set, a portion that starts with `.` only matches\n  if a literal `.` in the pattern matches that first character.\n  Extglobs before that `.` can match the empty string, so the\n  pattern can still match. For example, with `nonegate`,\n  `!(.a|js)@(.*)` matches `.a`, `.a.js`, and `.js`, because\n  `!(.a|js)` matches the empty string. Bash does not match these\n  dotfiles.\n- If an extglob such as `?(a` is not closed, Bash matches the\n  whole pattern as a literal string. In this library, only the\n  `?(` is literal, and the rest of the pattern is still matched\n  as a glob. So `a?(b*` matches `a?(bcc` here, but not in Bash.\n- A pattern is split into portions on every `/`, including a `/`\n  inside an extglob. So `@(a|b/c)/*` becomes the portions\n  `@(a|b`, `c)`, and `*`, and its extglob is not closed. Bash\n  keeps the extglob whole, and drops each alternative with a `/`\n  in it, as no portion can contain a `/`. So in Bash, `@(a|b/c)/*`\n  is the same as `@(a)/*`. Leave out the alternatives with a `/`\n  to get the same result here.\n- With `nocase`, case is folded one code point at a time with\n  Unicode simple case folding, the same as a JavaScript RegExp\n  with the `iu` flags. Bash uses the case functions of the C\n  library for the current locale, so its results can change with\n  the locale.\n\nNote that `fnmatch(3)` in libc is an extremely naive string comparison\nmatcher, which does not do anything special for slashes. This library is\ndesigned to be used in glob searching and file walkers, and so it does do\nspecial things with `/`. Thus, `foo*` will not match `foo/bar` in this\nlibrary, even though it would in `fnmatch(3)`.\n",
+          "readme": "# minimatch\n\nA glob matching utility.\n\nThis is the matching library used internally by\n[node-glob](https://npm.im/node-glob).\n\nIt works by splitting glob expressions on `/`, and testing each\npath portion with a `Matcher` from\n[@isaacs/nonrecursive-glob-match](http://npm.im/@isaacs/nonrecursive-glob-match).\n\n## Why Not Regular Expressions?\n\nRegular Expressions are very powerful, and for many applications,\nextremely fast.\n\nHowever, in JavaScript, they are subject to\n[ReDoS](https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS)\nin certain cases. Libraries that assemble Regular Expressions\nfrom arbitrary input are thus vulnerable to patterns that cause\npathological behavior. For example, patterns like\n`a*a*a*a*a*a*a*a*a*a*a` when matched against a string like\n`'a'.repeat(50) + 'b'` would have to repeatedly backtrack through\nevery failure.\n\nMost other glob matchers in JavaScript (including versions up\nthrough v10 of this library) convert the glob pattern to Regular\nExpressions, and then use that to test the string. This is fine\nfor trusted input, but can fall over badly in cases that cause\nrecursive backtracking.\n\n## Important Security Consideration!\n\nThough this library is _not_ vulnerable to ReDOS, _any_ library\nthat performs pattern matching based on arbitrary input will\npotentially have edge cases where it performs suboptimally.\n\nTo be extremely clear:\n\n> [!WARNING]  \n> **If you create a system where you take user input, and use\n> that input as the source of a pattern matcher, in this or any\n> extant glob matcher in JavaScript, you may be pwned.**\n\nThe pattern matching library that Minimatch uses in v11 and above\nwill not be backported to earlier versions. It is a much too deep\nof a change to do so.\n\n## Usage\n\n```ts\n// hybrid module, load with require() or import\nimport { minimatch } from 'minimatch'\n// or:\n// const { minimatch } = require('minimatch')\n\nminimatch('bar.foo', '*.foo') // true!\nminimatch('bar.foo', '*.bar') // false!\nminimatch('bar.foo', '*.+(bar|foo)') // true!\n```\n\n## Features\n\nSupports these glob features:\n\n- Brace Expansion\n- Extended glob matching\n- \"Globstar\" `**` matching\n- [Posix character\n  classes](https://www.gnu.org/software/bash/manual/html_node/Pattern-Matching.html),\n  like `[[:alpha:]]`, supporting the full range of Unicode\n  characters. For example, `[[:alpha:]]` will match against\n  `'é'`, though `[a-zA-Z]` will not. Collating symbol and set\n  matching is not supported, so `[[=e=]]` will _not_ match `'é'`\n  and `[[.ch.]]` will not match `'ch'` in locales where `ch` is\n  considered a single character.\n\nSee:\n\n- `man sh`\n- `man bash` [Pattern\n  Matching](https://www.gnu.org/software/bash/manual/html_node/Pattern-Matching.html)\n- `man 3 fnmatch`\n- `man 5 gitignore`\n\n## Windows\n\n**Please only use forward-slashes in glob expressions.**\n\nThough windows uses either `/` or `\\` as its path separator, only `/`\ncharacters are used by this glob implementation. You must use\nforward-slashes **only** in glob expressions. Back-slashes in patterns\nwill always be interpreted as escape characters, not path separators.\n\nNote that `\\` or `/` _will_ be interpreted as path separators in paths on\nWindows, and will match against `/` in glob expressions.\n\nSo just always use `/` in patterns.\n\n### UNC Paths\n\nOn Windows, UNC paths like `//?/c:/...` or\n`//ComputerName/Share/...` are handled specially.\n\n- Patterns starting with a double-slash followed by some\n  non-slash characters will preserve their double-slash. As a\n  result, a pattern like `//*` will match `//x`, but not `/x`.\n- Patterns staring with `//?/<drive letter>:` will _not_ treat\n  the `?` as a wildcard character. Instead, it will be treated\n  as a normal string.\n- Patterns starting with `//?/<drive letter>:/...` will match\n  file paths starting with `<drive letter>:/...`, and vice versa,\n  as if the `//?/` was not present. This behavior only is\n  present when the drive letters are a case-insensitive match to\n  one another. The remaining portions of the path/pattern are\n  compared case sensitively, unless `nocase:true` is set.\n- The host and share of a pattern starting with\n  `//<host>/<share>/...` are compared case-insensitively with\n  those of the file path, if neither has magic. For example,\n  `//host/share/*` matches `//HOST/SHARE/x`.\n- Patterns starting with `//?/UNC/<host>/<share>/...` will match\n  file paths starting with `//<host>/<share>/...`, and vice\n  versa, the same as `//?/<drive letter>:`. The `?` is not a\n  wildcard character.\n\nNote that specifying a UNC path using `\\` characters as path\nseparators is always allowed in the file path argument, but only\nallowed in the pattern argument when `windowsPathsNoEscape: true`\nis set in the options.\n\n## Minimatch Class\n\nCreate a minimatch object by instantiating the `minimatch.Minimatch` class.\n\n```javascript\nimport { Minimatch } from 'minimatch'\nconst mm = new Minimatch(pattern, options)\n```\n\n### Properties\n\n- `pattern` The original pattern the minimatch object represents.\n- `options` The options supplied to the constructor.\n- `set` A 2-dimensional array of `Matcher` or string expressions.\n  Each row in the\n  array corresponds to a brace-expanded pattern. Each item in the row\n  corresponds to a single path-part. For example, the pattern\n  `{a,b/c}/d` would expand to a set of patterns like:\n\n        [ [ a, d ]\n        , [ b, c, d ] ]\n\n  If a portion of the pattern doesn't have any \"magic\" in it\n  (that is, it's something like `\"foo\"` rather than `fo*o?`), then it\n  will be left as a string rather than converted to a `Matcher`.\n\n  A numeric range of 100 or more values, such as `{0..999}`, is\n  not expanded. It stays in one row, and the `Matcher` for its\n  portion tests for a number in the range.\n\n- `negate` True if the pattern is negated.\n- `comment` True if the pattern is a comment.\n- `empty` True if the pattern is `\"\"`.\n\n### Methods\n\n- `match(fname)` Return true if the filename matches the pattern, or\n  false otherwise.\n- `hasMagic()` Returns true if the parsed pattern contains any\n  magic characters. Returns false if all comparator parts are\n  string literals. If the `magicalBraces` option is set on the\n  constructor, then it will consider brace expansions which are\n  not otherwise magical to be magic. If not set, then a pattern\n  like `a{b,c}d` will return `false`, because neither `abd` nor\n  `acd` contain any special glob characters.\n\n  This does **not** mean that the pattern string can be used as a\n  literal filename, as it may contain magic glob characters that\n  are escaped. For example, the pattern `\\\\*` or `[*]` would not\n  be considered to have magic, as the matching portion parses to\n  the literal string `'*'` and would match a path named `'*'`,\n  not `'\\\\*'` or `'[*]'`. The `minimatch.unescape()` method may\n  be used to remove escape characters.\n\nAll other methods are internal, and will be called as necessary.\n\n### minimatch(path, pattern, options)\n\nMain export. Tests a path against the pattern using the options.\n\n```javascript\nconst isJS = minimatch(file, '*.js', { matchBase: true })\n```\n\nIt keeps at least the 256 `Minimatch` objects that it used most\nrecently, so a pattern that it tests again with the same options\nis not compiled again. To test many paths against one pattern, a\n`Minimatch` object or `minimatch.filter()` is still a bit faster.\n\n### minimatch.filter(pattern, options)\n\nReturns a function that tests its\nsupplied argument, suitable for use with `Array.filter`. Example:\n\n```javascript\nconst javascripts = fileList.filter(\n  minimatch.filter('*.js', { matchBase: true }),\n)\n```\n\n### minimatch.escape(pattern, options = {})\n\nEscape all magic characters in a glob pattern, so that it will\nonly ever match literal strings.\n\nIf the `windowsPathsNoEscape` option is used, then characters are\nescaped by wrapping in `[]`, because a magic character wrapped in\na character class can only be satisfied by that exact character.\n\nBraces (`{` and `}`) are only escaped if the `magicalBraces`\noption is set. Without it, a brace expansion in the input such as\n`{a,b}` is left as-is, and will be expanded when matching.\n\nA leading `!` or `#` is escaped, so that the result is never a\nnegated pattern or a comment. In `windowsPathsNoEscape` mode, a\nleading `!` is written as `@(!)`, which only matches `!` (and\nmatches nothing if `noext` is set).\n\nSlashes (and backslashes in `windowsPathsNoEscape` mode) cannot\nbe escaped or unescaped.\n\n### minimatch.unescape(pattern, options = {})\n\nUn-escape a glob string that may contain some escaped characters.\n\nIf the `windowsPathsNoEscape` option is used, then square-brace\nescapes are removed, but not backslash escapes. For example, it\nwill turn the string `'[*]'` into `*`, but it will not turn\n`'\\\\*'` into `'*'`, because `\\` is a path separator in\n`windowsPathsNoEscape` mode.\n\nWhen `windowsPathsNoEscape` is not set, then both brace escapes\nand backslash escapes are removed.\n\nSlashes (and backslashes in `windowsPathsNoEscape` mode) cannot\nbe escaped or unescaped.\n\n### minimatch.match(list, pattern, options)\n\nMatch against the list of\nfiles, in the style of fnmatch or glob. If nothing is matched, and\noptions.nonull is set, then return a list containing the pattern itself.\n\n```javascript\nconst javascripts = minimatch.match(fileList, '*.js', { matchBase: true })\n```\n\n## Options\n\nAll options are `false` by default.\n\n### nobrace\n\nDo not expand `{a,b}` and `{1..3}` brace sets.\n\n### noglobstar\n\nDisable `**` matching against multiple folder names.\n\n### dot\n\nAllow patterns to match filenames starting with a period, even if\nthe pattern does not explicitly have a period in that spot.\n\nNote that by default, `a/**/b` will **not** match `a/.d/b`, unless `dot`\nis set.\n\n### noext\n\nDisable \"extglob\" style patterns like `+(a|b)`.\n\n### nocase\n\nPerform a case-insensitive match. Case is folded one code point at\na time, with Unicode simple case folding. See [Comparisons to other\nfnmatch/glob\nimplementations](#comparisons-to-other-fnmatchglob-implementations).\n\n### nocaseMagicOnly\n\nWhen used with `{nocase: true}`, create matchers that\nare case-insensitive, but leave string match portions untouched.\nHas no effect when used without `{nocase: true}`.\n\nUseful when some other form of case-insensitive matching is used,\nor if the original string representation is useful in some other\nway.\n\n### normalize\n\nNormalize unicode in the pattern, and in each portion of the tested\npath, with this form: `'NFC'`, `'NFD'`, `'NFKC'`, or `'NFKD'`. `true`\nmeans `'NFC'`.\n\nA char such as `é` can be one code point, or `e` followed by a\ncombining accent. Some file systems, such as on macOS, can give file\nnames in the second form. Without this option, the two forms do not\nmatch.\n\n- The path is split on `/` before it is normalized. So with NFKC, a\n  full width `／` normalizes to `/`, but it does not split the path.\n  It is a char in its portion.\n- The syntax of the pattern is parsed before it is normalized. So\n  with NFKC, a full width `＊` is a literal, which matches `*`, and\n  not a wildcard.\n- With `nocase`, the strings are normalized, and then case is folded.\n\nSee [@isaacs/nonrecursive-glob-match](http://npm.im/@isaacs/nonrecursive-glob-match#unicode-normalization)\nfor how classes and combining marks after wildcards are normalized.\n\n### nonull\n\nWhen a match is not found by `minimatch.match`, return a list containing\nthe pattern itself if this option is set. When not set, an empty list\nis returned if there are no matches.\n\n### magicalBraces\n\nThis only affects the results of the `Minimatch.hasMagic` method.\n\nIf the pattern contains brace expansions, such as `a{b,c}d`, but\nno other magic characters, then the `Minimatch.hasMagic()` method\nwill return `false` by default. When this option set, it will\nreturn `true` for brace expansion as well as other magic glob\ncharacters.\n\n### matchBase\n\nIf set, then patterns without slashes will be matched\nagainst the basename of the path if it contains slashes. For example,\n`a?b` would match the path `/xyz/123/acb`, but not `/xyz/acb/123`.\n\n### nocomment\n\nSuppress the behavior of treating `#` at the start of a pattern as a\ncomment.\n\n### nonegate\n\nSuppress the behavior of treating a leading `!` character as negation.\n\n### flipNegate\n\nReturns from negate expressions the same as if they were not negated.\n(Ie, true on a hit, false on a miss.)\n\n### partial\n\nCompare a partial path to a pattern. As long as the parts of the path that\nare present are not contradicted by the pattern, it will be treated as a\nmatch. This is useful in applications where you're walking through a\nfolder structure, and don't yet have the full path, but want to ensure that\nyou do not walk down paths that can never be a match.\n\nFor example,\n\n```js\nminimatch('/a/b', '/a/*/c/d', { partial: true }) // true, might be /a/b/c/d\nminimatch('/a/b', '/**/d', { partial: true }) // true, might be /a/b/.../d\nminimatch('/x/y/z', '/a/**/z', { partial: true }) // false, because x !== a\n```\n\n### windowsPathsNoEscape\n\nUse `\\\\` as a path separator _only_, and _never_ as an escape\ncharacter. If set, all `\\\\` characters are replaced with `/` in\nthe pattern. Note that this makes it **impossible** to match\nagainst paths containing literal glob pattern characters, but\nallows matching with patterns constructed using `path.join()` and\n`path.resolve()` on Windows platforms, mimicking the (buggy!)\nbehavior of earlier versions on Windows. Please use with\ncaution, and be mindful of [the caveat about Windows\npaths](#windows).\n\nFor legacy reasons, this is also set if\n`options.allowWindowsEscape` is set to the exact value `false`.\n\n### windowsNoMagicRoot\n\nWhen a pattern starts with a UNC path or drive letter, and in\n`nocase:true` mode, do not convert the root portions of the\npattern into a case-insensitive matchers, and instead\nleave them as strings.\n\nThis is the default when the platform is `win32` and\n`nocase:true` is set.\n\n### preserveMultipleSlashes\n\nBy default, multiple `/` characters (other than the leading `//`\nin a UNC path, see \"UNC Paths\" above) are treated as a single\n`/`.\n\nThat is, a pattern like `a///b` will match the file path `a/b`.\n\nSet `preserveMultipleSlashes: true` to suppress this behavior.\n\n### optimizationLevel\n\nA number indicating the level of optimization that should be done\nto the pattern prior to parsing and using it for matches.\n\nGlobstar parts `**` are always converted to `*` when `noglobstar`\nis set, and multiple adjacent `**` parts are converted into a\nsingle `**` (ie, `a/**/**/b` will be treated as `a/**/b`, as this\nis equivalent in all cases).\n\n- `0` - Make no further changes. In this mode, `.` and `..` are\n  maintained in the pattern, meaning that they must also appear\n  in the same position in the test path string. Eg, a pattern\n  like `a/*/../c` will match the string `a/b/../c` but not the\n  string `a/c`.\n- `1` - (default) Remove cases where a double-dot `..` follows a\n  pattern portion that is not `**`, `.`, `..`, or empty `''`. For\n  example, the pattern `./a/b/../*` is converted to `./a/*`, and\n  so it will match the path string `./a/c`, but not the path\n  string `./a/b/../c`. Dots and empty path portions in the\n  pattern are preserved. On Windows, a `..` never removes the\n  drive letter or the UNC host and share at the start of a\n  pattern, the same as it never removes the `/` at the start of\n  a posix pattern. So `C:/a/../../x` is converted to `C:/../x`.\n- `2` (or higher) - Much more aggressive optimizations, suitable\n  for use with file-walking cases:\n  - Remove cases where a double-dot `..` follows a pattern\n    portion that is not `**`, `.`, or empty `''`, or a Windows\n    root as above. Remove empty\n    and `.` portions of the pattern, where safe to do so (ie,\n    anywhere other than the last position, the first position, or\n    the second position in a pattern starting with `/`, as this\n    may indicate a UNC path on Windows).\n  - Convert patterns containing `<pre>/**/../<p>/<rest>` into the\n    equivalent `<pre>/{..,**}/<p>/<rest>`, where `<p>` is a\n    a pattern portion other than `.`, `..`, `**`, or empty\n    `''`. If this would make more than `braceExpandMax` patterns,\n    or add more than 1,000,000 path portions in total,\n    construction throws a `RangeError`.\n  - Remove duplicate patterns.\n  - Remove a pattern when another pattern has `*` at one or more\n    positions, and the same portions at all other positions. The\n    portions that `*` replaces must be non-dot patterns other than\n    `**` or `''`. So `a/{*,x}/b` becomes `a/*/b`, because `*` can\n    match against `x`. This step is skipped when the number of\n    patterns times the number of different sets of `*` positions\n    is more than 100,000.\n\n  While these optimizations improve the performance of\n  file-walking use cases such as [glob](http://npm.im/glob) (ie,\n  the reason this module exists), there are cases where it will\n  fail to match a literal string that would have been matched in\n  optimization level 1 or 0.\n\n### platform\n\nWhen set to `win32`, this will trigger all windows-specific\nbehaviors (special handling for UNC paths, and treating `\\` as\nseparators in file paths for comparison.)\n\nDefaults to the value of `process.platform`.\n\n### maxGlobstarRecursion\n\nMax number of non-adjacent `**` patterns to recursively walk\ndown.\n\nThe default of `200` is almost certainly high enough for most\npurposes, and can handle absurdly excessive patterns.\n\nIf the limit is exceeded (which would require very excessively\nlong patterns and paths containing lots of `**` patterns!), then\nit is treated as non-matching, even if the path would normally\nmatch the pattern provided.\n\nThat is, this is an intentional false negative, deemed an\nacceptable break in correctness for security and performance.\n\n## Comparisons to other fnmatch/glob implementations\n\nWhile strict compliance with the existing standards is a\nworthwhile goal, some discrepancies exist between minimatch and\nother implementations. Some are intentional, and some are\nunavoidable.\n\nIf the pattern starts with a `!` character, then it is negated. Set the\n`nonegate` flag to suppress this behavior, and treat leading `!`\ncharacters normally. This is perhaps relevant if you wish to start the\npattern with a negative extglob pattern like `!(a|B)`. Multiple `!`\ncharacters at the start of a pattern will negate the pattern multiple\ntimes.\n\nIf a pattern starts with `#`, then it is treated as a comment, and\nwill not match anything. Use `\\#` to match a literal `#` at the\nstart of a line, or set the `nocomment` flag to suppress this behavior.\n\nThe double-star character `**` is supported by default, unless the\n`noglobstar` flag is set. This is supported in the manner of bsdglob\nand bash 4.1, where `**` only has special significance if it is the only\nthing in a path part. That is, `a/**/b` will match `a/x/y/b`, but\n`a/**b` will not.\n\nIf an escaped pattern has no matches, and the `nonull` flag is set,\nthen minimatch.match returns the pattern as-provided, rather than\ninterpreting the character escapes. For example,\n`minimatch.match([], \"\\\\*a\\\\?\")` will return `\"\\\\*a\\\\?\"` rather than\n`\"*a?\"`. This is like bash with the `nullglob` option off (the\ndefault), except that bash also removes the escapes.\n\nIf brace expansion is not disabled, then it is performed before any\nother interpretation of the glob pattern. Thus, a pattern like\n`+(a|{b),c)}`, which would not be valid in bash or zsh, is expanded\n**first** into the set of `+(a|b)` and `+(a|c)`, and those patterns are\nchecked for validity. Since those two are valid, matching proceeds.\n\nA numeric range of 100 or more values, such as `{0..999}` or\n`{001..500}`, is the exception. It is not expanded, but it matches\nthe same strings as its expansion. A range is expanded as usual if\nit has a step, such as `{0..999..2}`, if a `\\` or `$` is before\nit, or if a `[` is before it in the same path portion, because it\nmight be inside a class.\n\nEach portion of a pattern between `/` characters is matched with\n[@isaacs/nonrecursive-glob-match](http://npm.im/@isaacs/nonrecursive-glob-match),\nwhich uses Bash 5 as its reference, and does not use regular\nexpressions. So negated extglobs such as `<start>!(<pattern>*|)*`\nmatch the same strings as in Bash. These are the known\ndifferences:\n\n- If `dot` is not set, a portion that starts with `.` only matches\n  if a literal `.` in the pattern matches that first character.\n  Extglobs before that `.` can match the empty string, so the\n  pattern can still match. For example, with `nonegate`,\n  `!(.a|js)@(.*)` matches `.a`, `.a.js`, and `.js`, because\n  `!(.a|js)` matches the empty string. Bash does not match these\n  dotfiles.\n- If an extglob such as `?(a` is not closed, Bash matches the\n  whole pattern as a literal string. In this library, only the\n  `?(` is literal, and the rest of the pattern is still matched\n  as a glob. So `a?(b*` matches `a?(bcc` here, but not in Bash.\n- A pattern is split into portions on every `/`, including a `/`\n  inside an extglob. So `@(a|b/c)/*` becomes the portions\n  `@(a|b`, `c)`, and `*`, and its extglob is not closed. Bash\n  keeps the extglob whole, and drops each alternative with a `/`\n  in it, as no portion can contain a `/`. So in Bash, `@(a|b/c)/*`\n  is the same as `@(a)/*`. Leave out the alternatives with a `/`\n  to get the same result here.\n- With `nocase`, case is folded one code point at a time with\n  Unicode simple case folding, the same as a JavaScript RegExp\n  with the `iu` flags. Bash uses the case functions of the C\n  library for the current locale, so its results can change with\n  the locale.\n\nNote that `fnmatch(3)` in libc is an extremely naive string comparison\nmatcher, which does not do anything special for slashes. This library is\ndesigned to be used in glob searching and file walkers, and so it does do\nspecial things with `/`. Thus, `foo*` will not match `foo/bar` in this\nlibrary, even though it would in `fnmatch(3)`.\n",
           "readmeFilename": "README.md",
           "repository": {
             "type": "git",
@@ -60302,6 +60708,9 @@ interactions:
             "11.0.3": "2026-10-28T20:00:34.713Z",
             "11.0.4": "2026-11-02T04:50:40.232Z",
             "11.0.5": "2026-11-05T23:30:59.365Z",
+            "11.0.6": "2026-11-10T16:35:22.551Z",
+            "11.0.7": "2026-11-10T23:03:46.619Z",
+            "11.0.8": "2026-11-11T09:50:19.549Z",
             "2.0.0": "2014-12-01T02:12:02.529Z",
             "2.0.1": "2014-12-01T16:30:35.174Z",
             "2.0.10": "2015-07-23T01:51:41.664Z",
@@ -60407,7 +60816,7 @@ interactions:
             "9.0.8": "2026-02-25T17:13:38.475Z",
             "9.0.9": "2026-02-26T19:32:47.083Z",
             "created": "2011-07-16T08:52:46.242Z",
-            "modified": "2026-11-05T23:30:59.550Z"
+            "modified": "2026-11-11T09:50:19.836Z"
           },
           "users": {
             "326060588": true,
@@ -64427,6 +64836,381 @@ interactions:
               "type": "module",
               "types": "./dist/commonjs/index.d.ts",
               "version": "11.0.5"
+            },
+            "11.0.6": {
+              "_hasShrinkwrap": false,
+              "_id": "minimatch@11.0.6",
+              "_nodeVersion": "26.13.0",
+              "_npmOperationalInternal": {
+                "host": "s3://npm-registry-packages-npm-production",
+                "tmp": "tmp/minimatch_11.0.6_1794328522442_0.39462172704213117"
+              },
+              "_npmUser": {
+                "approver": {
+                  "email": "i@izs.me",
+                  "name": "isaacs"
+                },
+                "email": "npm-oidc-no-reply@github.com",
+                "name": "GitHub Actions",
+                "trustedPublisher": {
+                  "id": "github",
+                  "oidcConfigId": "0641b694-7c8b-47ba-9c97-7dc1897b9deb"
+                }
+              },
+              "_npmVersion": "11.20.0",
+              "author": {
+                "email": "i@izs.me",
+                "name": "Isaac Z. Schlueter",
+                "url": "http://blog.izs.me"
+              },
+              "bugs": {
+                "url": "https://github.com/isaacs/minimatch/issues"
+              },
+              "dependencies": {
+                "@isaacs/nonrecursive-glob-match": "^1.1.0",
+                "brace-expansion": "^5.0.12"
+              },
+              "description": "a glob matcher in javascript",
+              "devDependencies": {
+                "@types/node": "^26.6.5",
+                "mkdirp": "^3.0.1",
+                "oxlint": "^1.90.0",
+                "oxlint-tsgolint": "^7.0.2001",
+                "prettier": "^3.9.6",
+                "tap": "^21.7.5",
+                "tshy": "^4.1.3",
+                "typedoc": "^0.28.20"
+              },
+              "directories": {},
+              "dist": {
+                "attestations": {
+                  "provenance": {
+                    "predicateType": "https://slsa.dev/provenance/v1"
+                  },
+                  "url": "https://registry.npmjs.org/-/npm/v1/attestations/minimatch@11.0.6"
+                },
+                "fileCount": 37,
+                "integrity": "sha512-6NZbDPQIRnsJFjJ9wbd5659OKaTHCqpPHdldE3WwArjxr5wLxHIwnx4eTGcPebpVBZZQbITvQQIx8K0VGXoT3Q==",
+                "shasum": "99b1cdf4592b77aac7b12a83d2d76dfa78420016",
+                "signatures": [
+                  {
+                    "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+                    "sig": "MEUCIQC93iWriuYpRj1E6RWeDiOtUbpOhebcCdsFHXgI5x97rwIgVgo4oQTF4QU1NJHgMzstDHRzgt+uvay40DgcNMnStgs="
+                  }
+                ],
+                "tarball": "https://registry.npmjs.org/minimatch/-/minimatch-11.0.6.tgz",
+                "unpackedSize": 464435
+              },
+              "engines": {
+                "node": "20 || >=22"
+              },
+              "exports": {
+                ".": {
+                  "import": {
+                    "default": "./dist/esm/index.js",
+                    "types": "./dist/esm/index.d.ts"
+                  },
+                  "require": {
+                    "default": "./dist/commonjs/index.js",
+                    "types": "./dist/commonjs/index.d.ts"
+                  }
+                },
+                "./package.json": "./package.json"
+              },
+              "funding": {
+                "url": "https://github.com/sponsors/isaacs"
+              },
+              "gitHead": "4362d0b3597a1778932a3531210b5120df3a5a36",
+              "homepage": "https://github.com/isaacs/minimatch#readme",
+              "license": "BlueOak-1.0.0",
+              "main": "./dist/commonjs/index.js",
+              "maintainers": [
+                {
+                  "email": "i@izs.me",
+                  "name": "isaacs"
+                }
+              ],
+              "module": "./dist/esm/index.js",
+              "name": "minimatch",
+              "repository": {
+                "type": "git",
+                "url": "git+ssh://git@github.com/isaacs/minimatch.git"
+              },
+              "scripts": {
+                "benchmark": "node benchmark/index.js",
+                "format": "prettier --write .",
+                "lint": "oxlint --fix src test",
+                "postlint": "npm run format",
+                "postsnap": "npm run lint",
+                "postversion": "git push origin --follow-tags",
+                "prepare": "tshy",
+                "presnap": "npm run prepare",
+                "pretest": "npm run prepare",
+                "preversion": "npm test",
+                "snap": "tap",
+                "test": "tap",
+                "typedoc": "typedoc --tsconfig .tshy/esm.json ./src/*.ts"
+              },
+              "tshy": {
+                "exports": {
+                  ".": "./src/index.ts",
+                  "./package.json": "./package.json"
+                },
+                "selfLink": false
+              },
+              "type": "module",
+              "types": "./dist/commonjs/index.d.ts",
+              "version": "11.0.6"
+            },
+            "11.0.7": {
+              "_hasShrinkwrap": false,
+              "_id": "minimatch@11.0.7",
+              "_nodeVersion": "26.13.0",
+              "_npmOperationalInternal": {
+                "host": "s3://npm-registry-packages-npm-production",
+                "tmp": "tmp/minimatch_11.0.7_1794351826479_0.4294164845207765"
+              },
+              "_npmUser": {
+                "approver": {
+                  "email": "i@izs.me",
+                  "name": "isaacs"
+                },
+                "email": "npm-oidc-no-reply@github.com",
+                "name": "GitHub Actions",
+                "trustedPublisher": {
+                  "id": "github",
+                  "oidcConfigId": "0641b694-7c8b-47ba-9c97-7dc1897b9deb"
+                }
+              },
+              "_npmVersion": "11.20.0",
+              "author": {
+                "email": "i@izs.me",
+                "name": "Isaac Z. Schlueter",
+                "url": "http://blog.izs.me"
+              },
+              "bugs": {
+                "url": "https://github.com/isaacs/minimatch/issues"
+              },
+              "dependencies": {
+                "@isaacs/nonrecursive-glob-match": "^1.1.0",
+                "brace-expansion": "^5.0.12"
+              },
+              "description": "a glob matcher in javascript",
+              "devDependencies": {
+                "@types/node": "^26.6.5",
+                "mkdirp": "^3.0.1",
+                "oxlint": "^1.90.0",
+                "oxlint-tsgolint": "^7.0.2001",
+                "prettier": "^3.9.6",
+                "tap": "^21.7.5",
+                "tshy": "^4.1.3",
+                "typedoc": "^0.28.20"
+              },
+              "directories": {},
+              "dist": {
+                "attestations": {
+                  "provenance": {
+                    "predicateType": "https://slsa.dev/provenance/v1"
+                  },
+                  "url": "https://registry.npmjs.org/-/npm/v1/attestations/minimatch@11.0.7"
+                },
+                "fileCount": 37,
+                "integrity": "sha512-Tnk+M9mPjqKDZlUd77eMSjPjhnlBIa1mABOwetMryIshUwi1YmOBdGFfQnHgn4Z8A66eLT8ENzJrxwYmKfqrZg==",
+                "shasum": "696d78046604553717a82bb45b451b5319d63d34",
+                "signatures": [
+                  {
+                    "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+                    "sig": "MEUCIHYSc2/WpZ0AySd4A1bUwhQy9O9C34kk0O7epmsQSqHBAiEA8qdFkarWpOrXqmMVxVkEfB28Hjc1Ys8Jkm1hmFVrnSM="
+                  }
+                ],
+                "tarball": "https://registry.npmjs.org/minimatch/-/minimatch-11.0.7.tgz",
+                "unpackedSize": 478861
+              },
+              "engines": {
+                "node": "20 || >=22"
+              },
+              "exports": {
+                ".": {
+                  "import": {
+                    "default": "./dist/esm/index.js",
+                    "types": "./dist/esm/index.d.ts"
+                  },
+                  "require": {
+                    "default": "./dist/commonjs/index.js",
+                    "types": "./dist/commonjs/index.d.ts"
+                  }
+                },
+                "./package.json": "./package.json"
+              },
+              "funding": {
+                "url": "https://github.com/sponsors/isaacs"
+              },
+              "gitHead": "9880b42628158305340c2bbe2602261206027984",
+              "homepage": "https://github.com/isaacs/minimatch#readme",
+              "license": "BlueOak-1.0.0",
+              "main": "./dist/commonjs/index.js",
+              "maintainers": [
+                {
+                  "email": "i@izs.me",
+                  "name": "isaacs"
+                }
+              ],
+              "module": "./dist/esm/index.js",
+              "name": "minimatch",
+              "repository": {
+                "type": "git",
+                "url": "git+ssh://git@github.com/isaacs/minimatch.git"
+              },
+              "scripts": {
+                "benchmark": "node benchmark/index.js",
+                "format": "prettier --write .",
+                "lint": "oxlint --fix src test",
+                "postlint": "npm run format",
+                "postsnap": "npm run lint",
+                "postversion": "git push origin --follow-tags",
+                "prepare": "tshy",
+                "presnap": "npm run prepare",
+                "pretest": "npm run prepare",
+                "preversion": "npm test",
+                "snap": "tap",
+                "test": "tap",
+                "typedoc": "typedoc --tsconfig .tshy/esm.json ./src/*.ts"
+              },
+              "tshy": {
+                "exports": {
+                  ".": "./src/index.ts",
+                  "./package.json": "./package.json"
+                },
+                "selfLink": false
+              },
+              "type": "module",
+              "types": "./dist/commonjs/index.d.ts",
+              "version": "11.0.7"
+            },
+            "11.0.8": {
+              "_hasShrinkwrap": false,
+              "_id": "minimatch@11.0.8",
+              "_nodeVersion": "26.13.0",
+              "_npmOperationalInternal": {
+                "host": "s3://npm-registry-packages-npm-production",
+                "tmp": "tmp/minimatch_11.0.8_1794390619438_0.08080625255611451"
+              },
+              "_npmUser": {
+                "approver": {
+                  "email": "i@izs.me",
+                  "name": "isaacs"
+                },
+                "email": "npm-oidc-no-reply@github.com",
+                "name": "GitHub Actions",
+                "trustedPublisher": {
+                  "id": "github",
+                  "oidcConfigId": "0641b694-7c8b-47ba-9c97-7dc1897b9deb"
+                }
+              },
+              "_npmVersion": "11.20.0",
+              "author": {
+                "email": "i@izs.me",
+                "name": "Isaac Z. Schlueter",
+                "url": "http://blog.izs.me"
+              },
+              "bugs": {
+                "url": "https://github.com/isaacs/minimatch/issues"
+              },
+              "dependencies": {
+                "@isaacs/nonrecursive-glob-match": "^1.1.0",
+                "brace-expansion": "^5.0.12"
+              },
+              "description": "a glob matcher in javascript",
+              "devDependencies": {
+                "@types/node": "^26.6.5",
+                "mkdirp": "^3.0.1",
+                "oxlint": "^1.90.0",
+                "oxlint-tsgolint": "^7.0.2001",
+                "prettier": "^3.9.6",
+                "tap": "^21.7.5",
+                "tshy": "^4.1.3",
+                "typedoc": "^0.28.20"
+              },
+              "directories": {},
+              "dist": {
+                "attestations": {
+                  "provenance": {
+                    "predicateType": "https://slsa.dev/provenance/v1"
+                  },
+                  "url": "https://registry.npmjs.org/-/npm/v1/attestations/minimatch@11.0.8"
+                },
+                "fileCount": 37,
+                "integrity": "sha512-nFQuYSTVrGvysVBps5Ih+0BdnYFN/Cj3C816r6+p7yK+FHrVLGE4O4N9AFwykrlNlvM2HYt+Rad1Uiro6h88Ig==",
+                "shasum": "715fc3509cd7f76ed9af2f702a98411b1b0288c8",
+                "signatures": [
+                  {
+                    "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+                    "sig": "MEQCIDv1uKndKTp5uF8EnOfx3W0patnaByYWGnokabgsjPaZAiBs28XnHVRyQ0SpOTIsbON9LCRuqoOjjvGtsNdeT6OV5g=="
+                  }
+                ],
+                "tarball": "https://registry.npmjs.org/minimatch/-/minimatch-11.0.8.tgz",
+                "unpackedSize": 501013
+              },
+              "engines": {
+                "node": "20 || >=22"
+              },
+              "exports": {
+                ".": {
+                  "import": {
+                    "default": "./dist/esm/index.js",
+                    "types": "./dist/esm/index.d.ts"
+                  },
+                  "require": {
+                    "default": "./dist/commonjs/index.js",
+                    "types": "./dist/commonjs/index.d.ts"
+                  }
+                },
+                "./package.json": "./package.json"
+              },
+              "funding": {
+                "url": "https://github.com/sponsors/isaacs"
+              },
+              "gitHead": "35c928bb604f2a93fb8ee06bb8db5accefc3facb",
+              "homepage": "https://github.com/isaacs/minimatch#readme",
+              "license": "BlueOak-1.0.0",
+              "main": "./dist/commonjs/index.js",
+              "maintainers": [
+                {
+                  "email": "i@izs.me",
+                  "name": "isaacs"
+                }
+              ],
+              "module": "./dist/esm/index.js",
+              "name": "minimatch",
+              "repository": {
+                "type": "git",
+                "url": "git+ssh://git@github.com/isaacs/minimatch.git"
+              },
+              "scripts": {
+                "benchmark": "node benchmark/index.js",
+                "format": "prettier --write .",
+                "lint": "oxlint --fix src test",
+                "postlint": "npm run format",
+                "postsnap": "npm run lint",
+                "postversion": "git push origin --follow-tags",
+                "prepare": "tshy",
+                "presnap": "npm run prepare",
+                "pretest": "npm run prepare",
+                "preversion": "npm test",
+                "snap": "tap",
+                "test": "tap",
+                "typedoc": "typedoc --tsconfig .tshy/esm.json ./src/*.ts"
+              },
+              "tshy": {
+                "exports": {
+                  ".": "./src/index.ts",
+                  "./package.json": "./package.json"
+                },
+                "selfLink": false
+              },
+              "type": "module",
+              "types": "./dist/commonjs/index.d.ts",
+              "version": "11.0.8"
             },
             "2.0.0": {
               "_from": ".",
@@ -74634,15 +75418,15 @@ interactions:
         Cf-Cache-Status:
           - HIT
         Cf-Ray:
-          - a5797552fe633fcd-SYD
+          - a5a0acf88919b55b-ATL
         Content-Type:
           - application/json
         Last-Modified:
-          - Thu, 05 Nov 2026 23:31:01 GMT
+          - Wed, 11 Nov 2026 09:50:21 GMT
         Set-Cookie:
-          - __cf_bm=LR1fT0E1v0Jsl0usEPCsOKiQFxPof0eYB1MDpcYACNo-1794192084.959947-1.0.1.1-6KUa6Miic0RXN0EpJgP0G5kFCZsUMNg_N_ZNi6un.sotb9RkNZXZAxerBSIxYDi.r6FkHIqMQWbDNA7n0D.L6b.7nKyOHzwfyvMxPkomhgQvgX6p_933FuiJsZAjUEFj;
+          - __cf_bm=9VGMN70fFkxP6tVSqRMl8jx.N8TfzFToMo_s0iFiiN4-1794603308.889007-1.0.1.1-w2IRv9U_gU8OoqehJpSVHJ12x5jlEer.p2qWjrl.yBkjvpARd0geo7eMORDSkbW5dzY7Gr_RdwYlPKbJMaCgY4CmBSrBb1_5ZIQr2BEk16tFhhfOhEUcsUAbeMI5uZ5B;
             HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=npmjs.org;
-            Expires=Mon, 09 Nov 2026 03:11:24 GMT
+            Expires=Fri, 13 Nov 2026 21:25:08 GMT
         Vary:
           - accept-encoding, accept
       status: 200 OK
@@ -88756,15 +89540,15 @@ interactions:
         Cf-Cache-Status:
           - HIT
         Cf-Ray:
-          - a57975525ce73fcd-SYD
+          - a5a0acf8e9c6b55b-ATL
         Content-Type:
           - application/json
         Last-Modified:
           - Wed, 28 Oct 2026 23:41:49 GMT
         Set-Cookie:
-          - __cf_bm=ELAkhavVAmYeoYqhgzlZ4WWwUBynGcObV9d03ghKmOo-1794192084.8581717-1.0.1.1-WhEyGTkz_0HiCT9O0flD1RNuCl0q8C_00zVJNnq45cLy.HKHTeGpkf4lZ4pWdajWhUhoL5zYXzwulN6lsA3K8Sp6Yv8Zxh2TKbf3RWh2EVfWOPts4uDOAR5Z8pHsxua6;
+          - __cf_bm=DX4mVDq4595n6DOcW3EGKJrrsv3O927Z2JyNkSdDqh4-1794603308.9415605-1.0.1.1-n89DI7q6nBorlfukFHdOvRNsC4w.ALVCG_LcTf85yv_JOUli0cw7O1LOn.sp8I_1VosOleIcUhTaaQTe0UANMcoRveywbA3iBT5_O_J7wNYDIfK6DbOFfL66ufGhVPTs;
             HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=npmjs.org;
-            Expires=Mon, 09 Nov 2026 03:11:24 GMT
+            Expires=Fri, 13 Nov 2026 21:25:08 GMT
         Vary:
           - accept-encoding, accept
       status: 200 OK
@@ -100009,15 +100793,15 @@ interactions:
         Cf-Cache-Status:
           - HIT
         Cf-Ray:
-          - a57975528d433fcd-SYD
+          - a5a0acf9ab17b55b-ATL
         Content-Type:
           - application/json
         Last-Modified:
           - Fri, 17 Jul 2026 17:10:14 GMT
         Set-Cookie:
-          - __cf_bm=skBmvxfWn964FyHeE_zzd7y3.QDA4z_WEk8K.ZsS9Rk-1794192084.891036-1.0.1.1-tl2EFKtOvzNJ77VrR.jayqjnn2u04cLAK5M1yE0tr3LwpdG.uK8a1LGKwkTwl5Gui4DKVxeTq5pk1fDg8Y.zQo.Dp66oxe30d7bjLGqOCiTNTIAd2Vih_m_t2fkHUF5k;
+          - __cf_bm=pRdN8bcj9sIjeT1qqa4W4pKVxOC8088MITqOAfuhgrA-1794603309.0611937-1.0.1.1-ZoUe9UPmn4ZuNHbDEg37nzjNX2GR2AIyXJsO4opVbTD2Lg4KIE9AuGtUS8fAnHt8PfQsz9dZJRAqu3GNOgsBm8rsOJ6Hp8voi9MBcOTkxoTNWkxZWlFCKwz3Rsulr.Hn;
             HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=npmjs.org;
-            Expires=Mon, 09 Nov 2026 03:11:24 GMT
+            Expires=Fri, 13 Nov 2026 21:25:09 GMT
         Vary:
           - accept-encoding, accept
       status: 200 OK
@@ -109604,15 +110388,15 @@ interactions:
         Cf-Cache-Status:
           - HIT
         Cf-Ray:
-          - a57975533f083fcd-SYD
+          - a5a0acf91a26b55b-ATL
         Content-Type:
           - application/json
         Last-Modified:
           - Mon, 02 Nov 2026 19:47:46 GMT
         Set-Cookie:
-          - __cf_bm=ccTFwt8pHioIkNtvFGzhZDnhH9wnRUypOPGeSNjwThw-1794192084.9922369-1.0.1.1-jHFwgHAcVW9dIoVmrfIBD5a19FQ1anFzvhQ.gkhwS0wOHcflbzKGfI9uHcrKV.LB8zMOif9qdzdD0jxUN16YCJtefu_Nm6P6RjeserBFBkOJgugTH1fV4de5QVTNHUn9;
+          - __cf_bm=VUsuw4uXzhU2WxH3GTbSEk617gWgm3yFn3OZhOynET0-1794603308.975957-1.0.1.1-7GidjqCh2ocNR1iA28NDv7wmlkMeKHhOl0s4aNi6xyPWz9dH_QuQswicG.K9c_G4aMIDHbBEQvAyNtstWkwh.1YLsCMhHn.sVn_mStVbsAcBzwigS1OBQtPMcAq4tIBy;
             HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=npmjs.org;
-            Expires=Mon, 09 Nov 2026 03:11:24 GMT
+            Expires=Fri, 13 Nov 2026 21:25:08 GMT
         Vary:
           - accept-encoding, accept
       status: 200 OK
@@ -116396,15 +117180,15 @@ interactions:
         Cf-Cache-Status:
           - HIT
         Cf-Ray:
-          - a57975535f673fcd-SYD
+          - a5a0acf95a8fb55b-ATL
         Content-Type:
           - application/json
         Last-Modified:
           - Fri, 06 Nov 2026 17:26:03 GMT
         Set-Cookie:
-          - __cf_bm=0rDx8s.b6RBvVrnizKNhh0MNsgkKQiw2bPE37d75pPY-1794192085.0163958-1.0.1.1-HrpigH93HnUsgtak3wv8F6mrnImr8ZtHk1.0fe_5aXhK0diExQiBnQT0b3SwhBjpCswK8OxGHTJCzQvwdCEaq6ZqygD812ZDQY_gOed3URNrQKzigMvq1kwHODifOdf9;
+          - __cf_bm=rpN1tKflN9J_rl3qHUO6AcYLkt5mzTebmKkCJIor2bE-1794603309.0142765-1.0.1.1-5wHGH0e30bi.auw4qtrXnfT54QGfEbMqoMO2tWIJE5DvnV5WPPPxJK3ig_LaKe0RLrkSCsCB5riN3VdvYSJwKpuhYSgJEX7SJYCHlnHxFV6.XAU0biOqaJ3Bk8C_Qcrp;
             HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=npmjs.org;
-            Expires=Mon, 09 Nov 2026 03:11:25 GMT
+            Expires=Fri, 13 Nov 2026 21:25:09 GMT
         Vary:
           - accept-encoding, accept
       status: 200 OK
@@ -125238,15 +126022,15 @@ interactions:
         Cf-Cache-Status:
           - HIT
         Cf-Ray:
-          - a5797552bdb33fcd-SYD
+          - a5a0acf9db91b55b-ATL
         Content-Type:
           - application/json
         Last-Modified:
           - Sat, 10 Oct 2026 00:30:21 GMT
         Set-Cookie:
-          - __cf_bm=D0zIJk9rX_n0Hef3Bv3dlSJfbCtzTeeBCM0ZeEZQvHk-1794192084.9191394-1.0.1.1-gl7qutAGRYwjn2cL62ld4BfwGGn2PS5yBNlfvnjFl6xA74jYWSwsAU07CWHPssqiDcxjjcAvld2qyNJAdQsveXkb8.c3RpmdnOfmaAX9Wes5fE7gYZCT.YgFtQzTo3aE;
+          - __cf_bm=J0gvnblMjl.IzV_a3GBzSKZ_Btuo9w3.A4NTiEQ8UFw-1794603309.0995734-1.0.1.1-72waBGozKE_58rKSJucAHpyEt.dAGfjivz07i4dhoqX8gSpX95GvWOlB.kAwxHLVDb8kDTSXbCT6A_Deu9A5KdBRjRrFQo2AGstSnJh6FGHeT8gwHL3TYTaOzrxnCBk.;
             HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=npmjs.org;
-            Expires=Mon, 09 Nov 2026 03:11:24 GMT
+            Expires=Fri, 13 Nov 2026 21:25:09 GMT
         Vary:
           - accept-encoding, accept
       status: 200 OK

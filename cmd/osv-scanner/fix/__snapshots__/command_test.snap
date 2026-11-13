@@ -6997,7 +6997,7 @@ unsupported strategy "force" - must be one of: in-place, relax, override
 Guided remediation (the fix command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
 Found 24 vulnerabilities matching the filter
 Can fix 14/24 matching vulnerabilities by changing 5 dependencies
-UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.21
+UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.22
 UPGRADED-PACKAGE: minimatch,3.1.2,3.1.5
 UPGRADED-PACKAGE: ajv,6.12.6,6.15.0
 UPGRADED-PACKAGE: concat-stream,1.5.0,1.6.1
@@ -7114,9 +7114,9 @@ UNFIXABLE-VULNS: 10
       }
     },
     "node_modules/brace-expansion": {
-      "version": "1.1.21",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.21.tgz",
-      "integrity": "sha512-9zeA+KLZNNzglF2TPKRQEDyx6Yby7daAkuy8MiPzpXPsYDWi/DRM8jmwUDxokQjYqBpv5DgPiwD4h4ZZSy1Ujw==",
+      "version": "1.1.22",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.22.tgz",
+      "integrity": "sha512-CKLDTuSsN0+r1ThM0WkzzBI7dnPI6xEGfa/JnVYIK9JNBA1N1NyPwXVHor//NKD/y3sDxp764sZdLhFK7pH8XQ==",
       "dependencies": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
@@ -8034,9 +8034,9 @@ UNFIXABLE-VULNS: 10
       }
     },
     "brace-expansion": {
-      "version": "1.1.21",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.21.tgz",
-      "integrity": "sha512-9zeA+KLZNNzglF2TPKRQEDyx6Yby7daAkuy8MiPzpXPsYDWi/DRM8jmwUDxokQjYqBpv5DgPiwD4h4ZZSy1Ujw==",
+      "version": "1.1.22",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.22.tgz",
+      "integrity": "sha512-CKLDTuSsN0+r1ThM0WkzzBI7dnPI6xEGfa/JnVYIK9JNBA1N1NyPwXVHor//NKD/y3sDxp764sZdLhFK7pH8XQ==",
       "requires": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
@@ -8975,7 +8975,7 @@ UNFIXABLE-VULNS: 10
         {
           "name": "brace-expansion",
           "versionFrom": "1.1.11",
-          "versionTo": "1.1.21",
+          "versionTo": "1.1.22",
           "transitive": true
         }
       ],
@@ -9268,9 +9268,9 @@ Guided remediation (the fix command) can be risky when run on untrusted projects
       }
     },
     "node_modules/brace-expansion": {
-      "version": "1.1.21",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.21.tgz",
-      "integrity": "sha512-9zeA+KLZNNzglF2TPKRQEDyx6Yby7daAkuy8MiPzpXPsYDWi/DRM8jmwUDxokQjYqBpv5DgPiwD4h4ZZSy1Ujw==",
+      "version": "1.1.22",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.22.tgz",
+      "integrity": "sha512-CKLDTuSsN0+r1ThM0WkzzBI7dnPI6xEGfa/JnVYIK9JNBA1N1NyPwXVHor//NKD/y3sDxp764sZdLhFK7pH8XQ==",
       "dependencies": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
@@ -10188,9 +10188,9 @@ Guided remediation (the fix command) can be risky when run on untrusted projects
       }
     },
     "brace-expansion": {
-      "version": "1.1.21",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.21.tgz",
-      "integrity": "sha512-9zeA+KLZNNzglF2TPKRQEDyx6Yby7daAkuy8MiPzpXPsYDWi/DRM8jmwUDxokQjYqBpv5DgPiwD4h4ZZSy1Ujw==",
+      "version": "1.1.22",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.22.tgz",
+      "integrity": "sha512-CKLDTuSsN0+r1ThM0WkzzBI7dnPI6xEGfa/JnVYIK9JNBA1N1NyPwXVHor//NKD/y3sDxp764sZdLhFK7pH8XQ==",
       "requires": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
@@ -11531,7 +11531,7 @@ UNFIXABLE-VULNS: 7
 Guided remediation (the fix command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
 Found 24 vulnerabilities matching the filter
 Can fix 14/24 matching vulnerabilities by changing 5 dependencies
-UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.21
+UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.22
 UPGRADED-PACKAGE: minimatch,3.1.2,3.1.5
 UPGRADED-PACKAGE: ajv,6.12.6,6.15.0
 UPGRADED-PACKAGE: concat-stream,1.5.0,1.6.1
@@ -11648,9 +11648,9 @@ UNFIXABLE-VULNS: 10
       }
     },
     "node_modules/brace-expansion": {
-      "version": "1.1.21",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.21.tgz",
-      "integrity": "sha512-9zeA+KLZNNzglF2TPKRQEDyx6Yby7daAkuy8MiPzpXPsYDWi/DRM8jmwUDxokQjYqBpv5DgPiwD4h4ZZSy1Ujw==",
+      "version": "1.1.22",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.22.tgz",
+      "integrity": "sha512-CKLDTuSsN0+r1ThM0WkzzBI7dnPI6xEGfa/JnVYIK9JNBA1N1NyPwXVHor//NKD/y3sDxp764sZdLhFK7pH8XQ==",
       "dependencies": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
@@ -12568,9 +12568,9 @@ UNFIXABLE-VULNS: 10
       }
     },
     "brace-expansion": {
-      "version": "1.1.21",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.21.tgz",
-      "integrity": "sha512-9zeA+KLZNNzglF2TPKRQEDyx6Yby7daAkuy8MiPzpXPsYDWi/DRM8jmwUDxokQjYqBpv5DgPiwD4h4ZZSy1Ujw==",
+      "version": "1.1.22",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.22.tgz",
+      "integrity": "sha512-CKLDTuSsN0+r1ThM0WkzzBI7dnPI6xEGfa/JnVYIK9JNBA1N1NyPwXVHor//NKD/y3sDxp764sZdLhFK7pH8XQ==",
       "requires": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
