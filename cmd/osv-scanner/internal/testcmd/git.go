@@ -43,7 +43,7 @@ func SetupGitFixtures() (func(), error) {
 	}
 
 	for _, f := range gitIgnoreFiles {
-		gitignoreFile, err := copyFile(f, filepath.Join(filepath.Dir(f), ".gitignore"))
+		gitignoreFile, err := CopyFile(f, filepath.Join(filepath.Dir(f), ".gitignore"))
 
 		if err != nil {
 			return cleaner, err
