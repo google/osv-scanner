@@ -200,23 +200,39 @@ func (g *groupedSARIFFinding) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// mapIDsToGroupedSARIFFinding creates a map over all vulnerability IDs, with aliased vuln IDs
-// pointing to the same groupedSARIFFinding object
-func mapIDsToGroupedSARIFFinding(vulnResults *models.VulnerabilityResults) map[string]*groupedSARIFFinding {
-	// Map of vuln IDs to their respective groupedSARIFFinding
+// groupSARIFFindings groups vulnerabilities across all packages and sources by aliases,
+// returning one groupedSARIFFinding per alias group sorted by DisplayID
+func groupSARIFFindings(vulnResults *models.VulnerabilityResults) []*groupedSARIFFinding {
+	// Map of vuln IDs and aliases to their respective groupedSARIFFinding
 	results := map[string]*groupedSARIFFinding{}
+	groups := []*groupedSARIFFinding{}
 
 	for _, res := range vulnResults.Results {
 		for _, pkg := range res.Packages {
 			for _, gi := range pkg.Groups {
+				ids := slices.Concat(gi.IDs, gi.Aliases)
+
 				var data *groupedSARIFFinding
-				// See if this vulnerability group already exists (from another package or source)
-				for _, id := range gi.IDs {
+				// See if this vulnerability group already exists (from another package or source),
+				// merging all existing groups that this group bridges
+				for _, id := range ids {
 					existingData, ok := results[id]
-					if ok {
-						data = existingData
-						break
+					if !ok || existingData == data {
+						continue
 					}
+					if data == nil {
+						data = existingData
+						continue
+					}
+					maps.Copy(data.PkgSource, existingData.PkgSource)
+					maps.Copy(data.AliasedVulns, existingData.AliasedVulns)
+					data.AliasedIDList = append(data.AliasedIDList, existingData.AliasedIDList...)
+					for k, v := range results {
+						if v == existingData {
+							results[k] = data
+						}
+					}
+					groups = slices.DeleteFunc(groups, func(g *groupedSARIFFinding) bool { return g == existingData })
 				}
 				// If not create this group
 				if data == nil {
@@ -224,9 +240,10 @@ func mapIDsToGroupedSARIFFinding(vulnResults *models.VulnerabilityResults) map[s
 						PkgSource:    make(pkgSourceSet),
 						AliasedVulns: make(map[string]*osvschema.Vulnerability),
 					}
+					groups = append(groups, data)
 				}
 				// Point all the IDs of the same group to the same data, either newly created or existing
-				for _, id := range gi.IDs {
+				for _, id := range ids {
 					results[id] = data
 				}
 			}
@@ -244,11 +261,15 @@ func mapIDsToGroupedSARIFFinding(vulnResults *models.VulnerabilityResults) map[s
 		}
 	}
 
-	for _, gs := range results {
+	for _, gs := range groups {
 		slices.SortFunc(gs.AliasedIDList, identifiers.IDSortFunc)
 		gs.AliasedIDList = slices.Compact(gs.AliasedIDList)
 		gs.DisplayID = gs.AliasedIDList[0]
 	}
 
-	return results
+	slices.SortFunc(groups, func(a, b *groupedSARIFFinding) int {
+		return strings.Compare(a.DisplayID, b.DisplayID)
+	})
+
+	return groups
 }
