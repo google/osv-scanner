@@ -1176,12 +1176,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-11-06T07:14:50Z",
               "versionKey": {
                 "name": "appium-python-client",
                 "system": "PYPI",
                 "version": "6.1.5"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-11-12T21:01:33Z",
+              "versionKey": {
+                "name": "appium-python-client",
+                "system": "PYPI",
+                "version": "6.1.6"
               }
             }
           ]
@@ -1890,7 +1898,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2019-07-17T08:36:38Z",
+              "publishedAt": "2019-07-17T08:37:33Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2170,7 +2178,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-07-12T17:51:49Z",
+              "publishedAt": "2018-07-12T17:51:44Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2178,7 +2186,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-07-14T07:43:14Z",
+              "publishedAt": "2018-07-14T07:42:16Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2186,7 +2194,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-07-26T21:45:15Z",
+              "publishedAt": "2018-07-26T21:46:52Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2194,7 +2202,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-07-29T13:25:30Z",
+              "publishedAt": "2018-07-29T13:26:08Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2202,7 +2210,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-07-31T22:06:54Z",
+              "publishedAt": "2018-07-31T22:07:34Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2210,7 +2218,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-08-03T20:28:52Z",
+              "publishedAt": "2018-08-03T20:29:20Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2218,7 +2226,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-08-05T10:36:21Z",
+              "publishedAt": "2018-08-05T10:36:51Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2234,7 +2242,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-08-05T21:32:01Z",
+              "publishedAt": "2018-08-05T21:32:29Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2242,7 +2250,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-08-08T16:17:32Z",
+              "publishedAt": "2018-08-08T16:18:06Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2250,7 +2258,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-08-09T06:56:14Z",
+              "publishedAt": "2018-08-09T06:56:45Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2258,7 +2266,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-08-12T08:29:33Z",
+              "publishedAt": "2018-08-12T08:30:02Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2266,7 +2274,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-08-13T09:32:23Z",
+              "publishedAt": "2018-08-13T09:32:53Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2274,7 +2282,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-08-14T19:12:49Z",
+              "publishedAt": "2018-08-14T19:13:19Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2282,7 +2290,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-08-15T14:35:10Z",
+              "publishedAt": "2018-08-15T14:35:39Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2290,7 +2298,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-08-15T19:27:28Z",
+              "publishedAt": "2018-08-15T19:31:17Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2298,7 +2306,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-08-17T06:45:22Z",
+              "publishedAt": "2018-08-17T06:45:51Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2306,7 +2314,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-08-17T16:35:38Z",
+              "publishedAt": "2018-08-17T16:36:11Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2322,7 +2330,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-08-19T18:01:20Z",
+              "publishedAt": "2018-08-19T18:01:52Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2330,7 +2338,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-08-23T06:37:55Z",
+              "publishedAt": "2018-08-23T06:38:21Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2338,7 +2346,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-08-29T11:28:55Z",
+              "publishedAt": "2018-08-29T11:29:43Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2346,7 +2354,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-08-29T15:43:40Z",
+              "publishedAt": "2018-08-29T15:44:07Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2354,7 +2362,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-08-30T19:44:23Z",
+              "publishedAt": "2018-08-30T19:44:51Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2362,7 +2370,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-09-07T08:39:00Z",
+              "publishedAt": "2018-09-07T08:39:22Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2370,7 +2378,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-09-07T12:34:15Z",
+              "publishedAt": "2018-09-07T12:34:43Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2378,7 +2386,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-09-19T19:42:01Z",
+              "publishedAt": "2018-09-19T19:42:32Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2386,7 +2394,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-09-20T12:42:18Z",
+              "publishedAt": "2018-09-20T12:42:47Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2394,7 +2402,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-09-20T15:04:37Z",
+              "publishedAt": "2018-09-20T15:05:06Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2410,7 +2418,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-09-21T18:50:34Z",
+              "publishedAt": "2018-09-21T18:51:02Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2418,7 +2426,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-09-26T21:16:27Z",
+              "publishedAt": "2018-09-26T21:17:08Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2426,7 +2434,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-10-06T17:57:18Z",
+              "publishedAt": "2018-10-06T17:57:55Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2434,7 +2442,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-10-16T15:41:05Z",
+              "publishedAt": "2018-10-16T15:41:36Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2442,7 +2450,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-10-17T08:07:58Z",
+              "publishedAt": "2018-10-17T08:08:35Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2450,7 +2458,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-10-27T16:36:52Z",
+              "publishedAt": "2018-10-27T16:37:30Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2458,7 +2466,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-11-01T15:04:28Z",
+              "publishedAt": "2018-11-01T15:05:06Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2466,7 +2474,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-11-09T10:09:58Z",
+              "publishedAt": "2018-11-09T10:10:38Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2474,7 +2482,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-11-15T17:20:26Z",
+              "publishedAt": "2018-11-15T17:21:17Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2482,7 +2490,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-11-21T09:31:20Z",
+              "publishedAt": "2018-11-21T09:32:12Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2498,7 +2506,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-11-26T09:00:18Z",
+              "publishedAt": "2018-11-26T09:01:02Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2506,7 +2514,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-12-06T17:55:16Z",
+              "publishedAt": "2018-12-06T17:56:07Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2514,7 +2522,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2018-12-28T17:12:53Z",
+              "publishedAt": "2018-12-28T17:13:48Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2522,7 +2530,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2019-01-02T19:56:42Z",
+              "publishedAt": "2019-01-02T19:57:32Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2530,7 +2538,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2019-01-07T14:54:30Z",
+              "publishedAt": "2019-01-07T14:55:27Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2538,7 +2546,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2019-01-08T08:24:31Z",
+              "publishedAt": "2019-01-08T08:25:24Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2546,7 +2554,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2019-01-16T08:44:59Z",
+              "publishedAt": "2019-01-16T08:45:52Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2554,7 +2562,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2019-01-22T21:52:56Z",
+              "publishedAt": "2019-01-22T21:53:39Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2562,7 +2570,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2019-02-12T21:51:57Z",
+              "publishedAt": "2019-02-12T21:52:52Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2570,7 +2578,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2019-02-27T22:05:49Z",
+              "publishedAt": "2019-02-27T22:06:43Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2586,7 +2594,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2019-04-04T06:41:29Z",
+              "publishedAt": "2019-04-04T06:42:25Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2594,7 +2602,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2019-04-05T20:16:22Z",
+              "publishedAt": "2019-04-05T20:17:17Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2602,7 +2610,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2019-04-16T07:02:38Z",
+              "publishedAt": "2019-04-16T07:03:32Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2610,7 +2618,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2019-04-21T15:54:36Z",
+              "publishedAt": "2019-04-21T15:55:28Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2618,7 +2626,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2019-04-23T07:05:49Z",
+              "publishedAt": "2019-04-23T07:06:35Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2626,7 +2634,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2019-05-15T22:44:53Z",
+              "publishedAt": "2019-05-15T22:45:39Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2634,7 +2642,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2019-05-16T20:58:28Z",
+              "publishedAt": "2019-05-16T20:59:19Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2642,7 +2650,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2019-06-06T05:28:15Z",
+              "publishedAt": "2019-06-06T05:29:08Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2650,7 +2658,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2019-07-09T11:09:05Z",
+              "publishedAt": "2019-07-09T11:09:55Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
@@ -2658,7 +2666,7 @@ interactions:
               }
             },
             {
-              "publishedAt": "2019-07-12T06:14:21Z",
+              "publishedAt": "2019-07-12T06:15:13Z",
               "versionKey": {
                 "name": "ruamel-yaml",
                 "system": "PYPI",
