@@ -488,7 +488,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 34 packages affected by 121 known vulnerabilities (13 Critical, 41 High, 50 Medium, 12 Low, 5 Unknown) from 1 ecosystem.
-61 vulnerabilities can be fixed.
+68 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -549,7 +549,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 34 packages affected by 121 known vulnerabilities (13 Critical, 41 High, 50 Medium, 12 Low, 5 Unknown) from 1 ecosystem.
-61 vulnerabilities can be fixed.
+68 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -750,7 +750,7 @@ Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 35 packages affected by 124 known vulnerabilities (13 Critical, 43 High, 50 Medium, 13 Low, 5 Unknown) from 1 ecosystem.
-61 vulnerabilities can be fixed.
+68 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -7480,19 +7480,19 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
         "diff_id": "",
         "command": "/bin/sh -c #(nop)  ARG RELEASE",
         "is_empty": true,
-        "base_image_index": 2
+        "base_image_index": 3
       },
       {
         "diff_id": "",
         "command": "/bin/sh -c #(nop)  ARG LAUNCHPAD_BUILD_ARCH",
         "is_empty": true,
-        "base_image_index": 2
+        "base_image_index": 3
       },
       {
         "diff_id": "",
         "command": "/bin/sh -c #(nop)  LABEL org.opencontainers.image.ref.name=ubuntu",
         "is_empty": true,
-        "base_image_index": 1
+        "base_image_index": 2
       },
       {
         "diff_id": "",
@@ -7517,6 +7517,10 @@ Scanning local image tarball "./testdata/test-opensuse-leap-15.5.tar"
       {},
       {
         "name": "ubuntu",
+        "tags": null
+      },
+      {
+        "name": "virtualdisk/ipxe-cloud-iso-builder",
         "tags": null
       },
       {
@@ -9045,19 +9049,19 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
         "diff_id": "",
         "command": "/bin/sh -c #(nop)  ARG RELEASE",
         "is_empty": true,
-        "base_image_index": 2
+        "base_image_index": 3
       },
       {
         "diff_id": "",
         "command": "/bin/sh -c #(nop)  ARG LAUNCHPAD_BUILD_ARCH",
         "is_empty": true,
-        "base_image_index": 2
+        "base_image_index": 3
       },
       {
         "diff_id": "",
         "command": "/bin/sh -c #(nop)  LABEL org.opencontainers.image.ref.name=ubuntu",
         "is_empty": true,
-        "base_image_index": 1
+        "base_image_index": 2
       },
       {
         "diff_id": "",
@@ -9094,6 +9098,10 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
       {},
       {
         "name": "ubuntu",
+        "tags": null
+      },
+      {
+        "name": "virtualdisk/ipxe-cloud-iso-builder",
         "tags": null
       },
       {
