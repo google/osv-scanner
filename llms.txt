@@ -1,46 +1,70 @@
 # osv-scanner
 
-> A high-performance vulnerability scanner for Open Source Vulnerabilities (OSV), written in Go.
+> A vulnerability scanner for Open Source Vulnerabilities (OSV), written in Go and powered by `osv-scalibr`.
+
+For contribution rules, CI checks, and testing requirements, read [AGENTS.md](./AGENTS.md) and [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## Overview & Role
-`osv-scanner` is a user-facing command-line interface (CLI) tool and the primary consumer of the `osv-scalibr` library. It handles user interaction, parses arguments, configures the scan, and formats results.
+
+`osv-scanner` is the user-facing command-line interface (CLI), programmatic Go wrapper, GitHub Action reporter, and MCP server built on top of [osv-scalibr](https://github.com/google/osv-scalibr). It parses CLI flags and `osv-scanner.toml` configuration, resolves `osv-scalibr` plugin presets, injects shared HTTP/gRPC clients, runs Go/Rust source call analysis, invokes `osv-scalibr` guided remediation (`fix`/`update`), and renders scan results across multiple formats.
 
 ## Scan Workflow
-`osv-scanner` relies on the rich set of built-in plugins available within `osv-scalibr`. When a user runs `osv-scanner`, it:
-1.  Determines the scan targets.
-2.  Initializes `osv-scalibr` with a configuration.
-3.  Selects the appropriate `osv-scalibr` plugins to enable based on the scan type and user flags. This typically includes various Extractors for different ecosystems.
-4.  Executes the scan using `osv-scalibr`.
-5.  Receives the structured `ScanResults` from `osv-scalibr`.
-6.  Formats these results for display to the user.
+
+When `osv-scanner` runs a scan (`pkg/osvscanner/osvscanner.go` and `pkg/osvscanner/scan.go`), it:
+
+1. Resolves scan targets (directories, explicit `-L <parse-as>:<path>` lockfiles, SBOMs, or container images/archives).
+2. Initializes shared HTTP and gRPC client factories (`internal/scalibr/client_factories.go`) in `plugin/config.PluginConfig`.
+3. Builds plugin-specific configuration, resolves enabled/disabled plugins via `internal/scalibrplugin/resolve.go` and `internal/scalibrplugin/presets.go`, and assembles `scalibr.ScanConfig`.
+4. Executes `osv-scalibr` end-to-end across:
+   - **Extractors:** Ecosystem lockfiles/manifests, SBOMs, container OS packages, compiled artifacts, and scanner-specific extractors (`internal/scalibrextract/`).
+   - **Annotators:** OS duplicate package markers and `osv-scanner` config/unscannable package filtering (`internal/scalibrannotator/filter/`).
+   - **Enrichers:** Online/local OSV vulnerability matching (`vulnmatch/osvdev`, `vulnmatch/osvlocal`), license matching, `deps.dev`/native transitive dependency resolution (`pom.xml`, `requirements.txt`), package deprecation, and JAR reachability.
+   - **Detectors:** Optional security detectors enabled via `--x-plugins`.
+5. Optionally runs Go/Rust source call analysis (`internal/sourceanalysis/`).
+6. Converts `scalibr.ScanResult` into `osv-scanner` result models (`pkg/models/`) and renders output (`internal/reporter/`, `internal/output/`).
 
 ## Integration with osv-scalibr
 
-`osv-scanner` acts as the presentation and orchestration layer, while `osv-scalibr` (https://github.com/google/osv-scalibr) provides the core analysis engine.
+`osv-scanner` acts as the orchestration and presentation layer, while `osv-scalibr` (https://github.com/google/osv-scalibr) provides the extraction, enrichment, and matching engine.
 
-- **Explicit Enablement:** Plugins from `osv-scalibr` are NOT automatically used by `osv-scanner`. They must be explicitly imported and added to the `Plugins` slice within the `scalibr.ScanConfig`.
-- **Plugin Configuration:** The primary logic for configuring which osv-scalibr plugins to run is within `pkg/osvscanner/scan.go` (and related files like `pkg/osvscanner/osvscanner.go`). Look for where `scalibr.ScanConfig` is created and populated.
-- **Default Plugins:** `osv-scanner` maintains a list of default `osv-scalibr` extractors and enrichers it considers essential for a good baseline scan. This list is hardcoded in the `osv-scanner` codebase.
-- **Experimental Plugins:** New or less stable plugins from `osv-scalibr` might be gated behind `osv-scanner` CLI flags (e.g., an `--x` flag) before being enabled by default.
+- **Explicit Enablement:** Plugins from `osv-scalibr` are NOT automatically active in `osv-scanner`. They must be imported and registered in `internal/scalibrplugin/presets.go` (or resolved by name in `internal/scalibrplugin/resolve.go`).
+- **Plugin Orchestration:** `pkg/osvscanner/scan.go` (`getPlugins`) assembles default presets (`sbom`, `lockfile`, `directory`, `artifact`), conditional enrichers (`transitive`, `licenses`, `vulnmatch/osvdev`, `vulnmatch/osvlocal`, deprecation, reachability), and user overrides (`--x-plugins`, `--x-disable-plugins`, `--x-no-default-plugins`).
+- **Experimental Features:** Experimental flags in `osv-scanner` use the `--x-` prefix (for example, `--x-plugins`), replacing the deprecated `--experimental-` prefix.
 
-### Example Workflow: Adding a new osv-scalibr plugin and using it in osv-scanner
-1.  **Develop in `osv-scalibr`:**
-    *   Implement your new Extractor (e.g., `MyLangExtractor`) within the `google/osv-scalibr` repository, following its contribution guidelines and plugin interface.
-    *   Place the extractor in the appropriate subdirectory under `extractor/filesystem/language/` (or similar).
-    *   Register the new extractor in `osv-scalibr/plugin/list/list.go` so it can be enabled by name.
-    *   Add thorough tests within `osv-scalibr`.
-    *   Get the changes merged into `osv-scalibr`.
+### Example Workflow: Adding a new osv-scalibr extractor and wiring it into osv-scanner
+
+1. **Develop in `osv-scalibr`:**
+   - Implement the extractor under `extractor/filesystem/language/` (or `os/` / `sbom/`) in `google/osv-scalibr`.
+   - Register the extractor in `osv-scalibr`'s `extractor/filesystem/list/list.go`.
+   - Add unit tests in `osv-scalibr` and merge upstream.
 
 2. **Enable in `osv-scanner`:**
-    *   **Update dependencies:** Run `go get github.com/google/osv-scalibr@v...` to pull in the new version containing your plugin. This might already be done automatically by dependabot.
-    *   **Register in presets:** Open `internal/scalibrplugin/presets.go`, import the new plugin, and add it to the preset map if appropriate using its name and constructor.
-    *   **Experimental features:** If the feature is experimental, instead of adding it to a  preset, add logic in `pkg/osvscanner/scan.go` to enable it based on a CLI flag.
+   - **Update dependency:** Run `go get github.com/google/osv-scalibr@<commit-or-version>` and `go mod tidy`.
+   - **Register in presets:** Import the plugin in `internal/scalibrplugin/presets.go` and add it to the appropriate `ExtractorPresets` map (`lockfile` or `artifact`), or gate behind an `--x-` flag in `pkg/osvscanner/scan.go` if experimental. Update `internal/scalibrplugin/resolve_test.go` (if modifying `artifact`) and `internal/scalibrplugin/__snapshots__/resolve_test.snap`.
+   - **Add `-L` parse-as mapping:** For lockfiles/manifests, add an entry to `osvscannerScalibrExtractionMapping` in `pkg/osvscanner/internal/scanners/lockfile.go`.
+   - **Update documentation:** Add the supported lockfile or artifact to `docs/supported_languages_and_lockfiles.md` and run `make format`.
+   - **Add E2E tests:** Add test fixtures (plus an `osv-scanner.toml` ignore file in new vulnerable `testdata/` directories), record HTTP/gRPC VCR cassettes and `vuln_severities.json`, and update snapshots (`make update-snapshots`).
 
 ## Development & Testing Tips
-- **Test Data:** Mock lockfiles and test fixtures are typically located in `testdata/` directories within the relevant packages.
+
+- **Verification:** Run `./scripts/run_lints.sh`, `./scripts/run_formatters.sh`, `go mod tidy`, and `make test` before submitting changes.
+- **Snapshots & Cassettes:** CLI tests in `cmd/osv-scanner/` use `go-snaps` (`__snapshots__/*.snap`), HTTP VCR cassettes (`testdata/cassettes/*.yaml`), gRPC VCR cassettes (`testdata/cassettes/*_grpc.yaml`), pinned severities (`cmd/osv-scanner/internal/testcmd/testdata/vuln_severities.json`), and mocked offline DB fixtures (`cmd/osv-scanner/internal/testcmd/testdata/offline-dbs/`).
+- **Skipping Tests:** Use `testutility.Skip` (not `t.Skip`) in packages with snapshots, and ensure `testmain_test.go` calls `testutility.CleanSnapshots(m)`.
 
 ## Repository Map
-- [/cmd/osv-scanner](https://github.com/google/osv-scanner/tree/main/cmd/osv-scanner): Main CLI entry point.
-- [/pkg/osvscanner](https://github.com/google/osv-scanner/tree/main/pkg/osvscanner): Public programmatic API.
-- [/internal/output](https://github.com/google/osv-scanner/tree/main/internal/output): Result rendering (JSON, Table, SBOM).
-- [/pkg/osvscanner/testdata](https://github.com/google/osv-scanner/tree/main/pkg/osvscanner/testdata): Test fixtures for scanner tests.
+
+- `/cmd/osv-scanner`: Main CLI entry point and subcommands (`scan`, `scan source`, `scan image`, `fix`, `update`, `experimental-mcp`).
+- `/cmd/osv-scanner/internal/testcmd`: CLI test runner, HTTP/gRPC VCR recording, severity normalization, and offline DB mocks.
+- `/cmd/osv-reporter`: GitHub Actions CI reporter and vulnerability diffing binary.
+- `/pkg/osvscanner`: Public Go API and `osv-scalibr` scan orchestration (`scan.go`, `osvscanner.go`).
+- `/pkg/models`: Public JSON/SBOM output data structures.
+- `/internal/scalibrplugin`: Plugin preset definitions (`presets.go`) and name resolution (`resolve.go`).
+- `/internal/scalibr`: Shared HTTP and gRPC client factories (`client_factories.go`).
+- `/internal/scalibrextract`: `osv-scanner`-specific extractors (`gitrepo`, `gitcommitdirect`, `vendored`, `nodemodules`, `osvscannerjson`).
+- `/internal/scalibrannotator/filter`: Package and `osv-scanner.toml` ignore filtering annotator.
+- `/internal/sourceanalysis`: Go (`govulncheck`) and Rust reachability/call analysis.
+- `/internal/config`: `osv-scanner.toml` parser, validation, and override matching.
+- `/internal/output` & `/internal/reporter`: Formatters for table, vertical, markdown, JSON, SARIF, HTML, GitHub annotations, CycloneDX, and SPDX.
+- `/internal/grpcvcr`: Unary gRPC VCR recorder/replayer for `deps.dev` test interactions.
+- `/internal/testutility`: Snapshot helpers, normalization, and test directory utilities.
+- `/docs`: Jekyll user documentation site (`https://google.github.io/osv-scanner/`).
