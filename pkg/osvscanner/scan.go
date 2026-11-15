@@ -584,7 +584,7 @@ func logPluginStatus(statuses []*plugin.Status, specificPaths []string, root str
 			msg = builder.String()
 		}
 
-		cmdlogger.Errorf("Error running %s plugin: %s", status.Name, msg)
+		cmdlogger.Errorf("Error running %s %s: %s", status.Name, scalibrplugin.DeterminePluginType(status.Name), msg)
 		if criticalError {
 			return errors.New("extraction failed on specified lockfile")
 		}

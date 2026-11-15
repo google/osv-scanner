@@ -5,8 +5,11 @@ import (
 	"fmt"
 	"slices"
 
+	"github.com/google/osv-scalibr/annotator"
 	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
+	"github.com/google/osv-scalibr/detector"
 	"github.com/google/osv-scalibr/enricher"
+	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scalibr/plugin/list"
@@ -16,6 +19,27 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 )
+
+func DeterminePluginType(name string) string {
+	plug, err := resolveFromName(name, nil)
+
+	if err != nil {
+		return "plugin"
+	}
+
+	switch plug.(type) {
+	case annotator.Annotator:
+		return "annotator"
+	case detector.Detector:
+		return "detector"
+	case enricher.Enricher:
+		return "enricher"
+	case extractor.Extractor:
+		return "extractor"
+	default:
+		return "plugin"
+	}
+}
 
 func resolveFromName(name string, scalibrConfig *config.PluginConfig) (plugin.Plugin, error) {
 	plug, err := list.FromName(name, scalibrConfig)
