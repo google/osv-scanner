@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.9.0)
+    addressable (2.9.2)
       public_suffix (>= 2.0.2, < 8.0)
     base64 (0.3.0)
     bigdecimal (4.1.3)
@@ -54,7 +54,7 @@ GEM
       octokit (>= 4, < 7, != 4.4.0)
     jekyll-include-cache (0.3.0)
       jekyll (>= 3.7, < 5.0)
-    jekyll-optional-front-matter (0.3.4)
+    jekyll-optional-front-matter (0.3.5)
       jekyll (>= 3.0, < 5.0)
     jekyll-readme-index (0.5.1)
       jekyll (>= 3.0, < 5.0)
