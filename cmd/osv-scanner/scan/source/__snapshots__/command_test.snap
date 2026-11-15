@@ -550,7 +550,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 ---
 
 [TestCommand/all_supported_lockfiles_in_the_directory_should_be_checked - 2 - stderr]
-Error during extraction: (extracting as php/composerlock) <rootdir>/testdata/locks-many-with-invalid/composer.lock: could not extract: invalid character ',' looking for beginning of object key string
+Error running php/composerlock plugin: <rootdir>/testdata/locks-many-with-invalid/composer.lock: could not extract: invalid character ',' looking for beginning of object key string
 
 ---
 
@@ -5120,7 +5120,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 ---
 
 [TestCommand_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked#01 - 2 - stderr]
-Error during extraction: (extracting as php/composerlock) <rootdir>/testdata/locks-many-with-invalid/composer.lock: could not extract: invalid character ',' looking for beginning of object key string
+Error running php/composerlock plugin: <rootdir>/testdata/locks-many-with-invalid/composer.lock: could not extract: invalid character ',' looking for beginning of object key string
 
 ---
 
@@ -5138,7 +5138,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 ---
 
 [TestCommand_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked#01 - 4 - stderr]
-Error during extraction: (extracting as php/composerlock) <rootdir>/testdata/locks-many-with-invalid/composer.lock: could not extract: invalid character ',' looking for beginning of object key string
+Error running php/composerlock plugin: <rootdir>/testdata/locks-many-with-invalid/composer.lock: could not extract: invalid character ',' looking for beginning of object key string
 
 ---
 
@@ -5524,7 +5524,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 ---
 
 [TestCommand_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 2 - stderr]
-Error during extraction: (extracting as vulnmatch/osvlocal) could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+Error running vulnmatch/osvlocal plugin: could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 could not load db for Packagist ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 could not load db for PyPI ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 could not load db for RubyGems ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
@@ -5562,7 +5562,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 ---
 
 [TestCommand_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 4 - stderr]
-Error during extraction: (extracting as vulnmatch/osvlocal) could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+Error running vulnmatch/osvlocal plugin: could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 could not load db for Packagist ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 could not load db for PyPI ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 could not load db for RubyGems ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
@@ -5587,7 +5587,7 @@ No issues found
 ---
 
 [TestCommand_LockfileWithExplicitParseAs/absolute_paths_can_have_explicit_parse_as - 2 - stderr]
-Error during extraction: (extracting as javascript/packagelockjson) <rootdir>/testdata/locks-many/yarn.lock: could not extract: invalid character '#' looking for beginning of value
+Error running javascript/packagelockjson plugin: <rootdir>/testdata/locks-many/yarn.lock: could not extract: invalid character '#' looking for beginning of value
 extraction failed on specified lockfile
 
 ---
@@ -5664,7 +5664,7 @@ Scanning dir ./testdata/locks-many
 ---
 
 [TestCommand_LockfileWithExplicitParseAs/files_that_error_on_parsing_stop_parsable_files_from_being_checked - 2 - stderr]
-Error during extraction: (extracting as rust/cargolock) <rootdir>/testdata/locks-insecure/my-package-lock.json: could not extract: toml: line 1: expected '.' or '=', but got '{' instead
+Error running rust/cargolock plugin: <rootdir>/testdata/locks-insecure/my-package-lock.json: could not extract: toml: line 1: expected '.' or '=', but got '{' instead
 extraction failed on specified lockfile
 
 ---
@@ -5738,7 +5738,7 @@ No issues found
 ---
 
 [TestCommand_LockfileWithExplicitParseAs/parse-as_takes_priority_even_if_its_wrong - 2 - stderr]
-Error during extraction: (extracting as javascript/packagelockjson) <rootdir>/testdata/locks-many/yarn.lock: could not extract: invalid character '#' looking for beginning of value
+Error running javascript/packagelockjson plugin: <rootdir>/testdata/locks-many/yarn.lock: could not extract: invalid character '#' looking for beginning of value
 extraction failed on specified lockfile
 
 ---
@@ -6300,7 +6300,7 @@ Total 3 packages affected by 9 known vulnerabilities (0 Critical, 3 High, 5 Medi
 ---
 
 [TestCommand_Transitive/requirements.txt_resolution_fallback - 2 - stderr]
-Error during extraction: (extracting as transitivedependency/requirements) failed resolution for <rootdir>/testdata/locks-requirements/unresolvable-requirements.txt: resolution impossible:
+Error running transitivedependency/requirements plugin: failed resolution for <rootdir>/testdata/locks-requirements/unresolvable-requirements.txt: resolution impossible:
 no candidates at all for: pytz ">=2011k"
 
 
