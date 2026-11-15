@@ -21,14 +21,24 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 )
 
-func DeterminePluginType(name string) string {
-	plug, err := resolveFromName(name, nil)
+func findPlugin(loadedPlugins []plugin.Plugin, name string) *plugin.Plugin {
+	for _, plug := range loadedPlugins {
+		if plug.Name() == name {
+			return &plug
+		}
+	}
 
-	if err != nil {
+	return nil
+}
+
+func DeterminePluginType(loadedPlugins []plugin.Plugin, name string) string {
+	plug := findPlugin(loadedPlugins, name)
+
+	if plug == nil {
 		return "plugin"
 	}
 
-	switch plug.(type) {
+	switch (*plug).(type) {
 	case annotator.Annotator:
 		return "annotator"
 	case detector.Detector:

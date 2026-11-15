@@ -360,7 +360,7 @@ SBOMLoop:
 			return nil, nil, errors.New(sr.Status.FailureReason)
 		}
 
-		if err := logPluginStatus(sr.PluginStatus, specificPaths, root); err != nil {
+		if err := logPluginStatus(sr.PluginStatus, specificPaths, root, filteredPlugins); err != nil {
 			return nil, nil, err
 		}
 
@@ -557,7 +557,7 @@ func dedupPackageVulns(vulns []*inventory.PackageVuln) []*inventory.PackageVuln 
 	return result
 }
 
-func logPluginStatus(statuses []*plugin.Status, specificPaths []string, root string) error {
+func logPluginStatus(statuses []*plugin.Status, specificPaths []string, root string, loadedPlugins []plugin.Plugin) error {
 	var criticalError bool
 	for _, status := range statuses {
 		if status == nil || status.Status == nil || status.Status.Status == plugin.ScanStatusSucceeded {
@@ -584,7 +584,7 @@ func logPluginStatus(statuses []*plugin.Status, specificPaths []string, root str
 			msg = builder.String()
 		}
 
-		cmdlogger.Errorf("Error running %s %s: %s", status.Name, scalibrplugin.DeterminePluginType(status.Name), msg)
+		cmdlogger.Errorf("Error running %s %s: %s", status.Name, scalibrplugin.DeterminePluginType(loadedPlugins, status.Name), msg)
 		if criticalError {
 			return errors.New("extraction failed on specified lockfile")
 		}

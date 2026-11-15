@@ -260,7 +260,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		return models.VulnerabilityResults{}, errors.New(scalibrSR.Status.FailureReason)
 	}
 
-	if err := logPluginStatus(scalibrSR.PluginStatus, nil, ""); err != nil {
+	if err := logPluginStatus(scalibrSR.PluginStatus, nil, "", plugins); err != nil {
 		return models.VulnerabilityResults{}, err
 	}
 
