@@ -9,7 +9,8 @@ import (
 	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
 	"github.com/google/osv-scalibr/detector"
 	"github.com/google/osv-scalibr/enricher"
-	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/extractor/filesystem"
+	"github.com/google/osv-scalibr/extractor/standalone"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scalibr/plugin/list"
@@ -34,7 +35,9 @@ func DeterminePluginType(name string) string {
 		return "detector"
 	case enricher.Enricher:
 		return "enricher"
-	case extractor.Extractor:
+	case filesystem.Extractor:
+		return "extractor"
+	case standalone.Extractor:
 		return "extractor"
 	default:
 		return "plugin"
