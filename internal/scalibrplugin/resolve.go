@@ -41,9 +41,7 @@ func DeterminePluginType(loadedPlugins []plugin.Plugin, name string) string {
 		return "detector"
 	case enricher.Enricher:
 		return "enricher"
-	case filesystem.Extractor:
-		return "extractor"
-	case standalone.Extractor:
+	case filesystem.Extractor, standalone.Extractor:
 		return "extractor"
 	default:
 		return "plugin"
