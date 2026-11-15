@@ -18,7 +18,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/packageslockjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/erlang/mixlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gomod"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/haskell/cabal"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/haskell/cabalprojectfreeze"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/haskell/stacklock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/gradlelockfile"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/gradleverificationmetadataxml"
@@ -74,7 +74,7 @@ var osvscannerScalibrExtractionMapping = map[string][]string{
 	"bun.lock":                    {bunlock.Name},
 	"Gemfile.lock":                {gemfilelock.Name},
 	"gems.locked":                 {gemfilelock.Name},
-	"cabal.project.freeze":        {cabal.Name},
+	"cabal.project.freeze":        {cabalprojectfreeze.Name},
 	"stack.yaml.lock":             {stacklock.Name},
 	// "Package.resolved":            {packageresolved.Name},
 }

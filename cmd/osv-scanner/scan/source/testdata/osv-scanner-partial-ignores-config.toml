@@ -9,8 +9,8 @@ id = "GO-2022-0274" # in postgres-stretch.cdx.xml
 
 [[IgnoredVulns]]
 id = "CVE-2019-5188"
-ignoreUntil = 2020-01-01
+ignoreUntil = 2020-01-01 # deprecated property
 
 [[IgnoredVulns]]
 id = "CVE-2022-1304"
-ignoreUntil = 2100-01-01
+effectiveUntil = 2100-01-01

@@ -145,3 +145,53 @@ func TestExtractor_Extract(t *testing.T) {
 		})
 	}
 }
+
+func TestExtractor_Extract_PURLs(t *testing.T) {
+	t.Parallel()
+
+	extr := osvscannerjson.Extractor{}
+
+	scanInput := extracttest.GenerateScanInputMock(t, extracttest.ScanInputMockConfig{
+		Path: "testdata/multiple-ecosystems.json",
+	})
+	defer extracttest.CloseTestScanInput(t, scanInput)
+
+	got, err := extr.Extract(t.Context(), &scanInput)
+	if err != nil {
+		t.Fatalf("%s.Extract() unexpected error: %v", extr.Name(), err)
+	}
+
+	gotPURLs := make([]string, 0, len(got.Packages))
+	for _, pkg := range got.Packages {
+		p := pkg.PURL()
+		if p == nil {
+			gotPURLs = append(gotPURLs, "<nil> ("+pkg.Name+")")
+
+			continue
+		}
+		gotPURLs = append(gotPURLs, p.String())
+	}
+
+	wantPURLs := []string{
+		"pkg:bitnami/nginx@1.25.3",
+		"pkg:composer/symfony/http-kernel@6.3.0",
+		"<nil> (drupal/simple_sitemap)",
+		"pkg:conan/zlib@1.3.1",
+		"pkg:cran/readxl@1.4.3",
+		"pkg:dhi/python@3.12.1",
+		"pkg:github/actions/checkout@4.1.0",
+		"pkg:golang/github.com/gin-gonic/gin@1.9.1",
+		"pkg:hackage/aeson@2.2.1.0",
+		"pkg:hex/phoenix@1.7.10",
+		"pkg:julia/HTTP@1.10.0",
+		"pkg:npm/lodash@4.17.20",
+		"pkg:opam/ocamlfind@1.9.6",
+		"pkg:pypi/requests@2.25.1",
+		// matches what scalibr produces when scanning a Package.resolved directly
+		"pkg:swift/github.com%2Fapple%2Fswift-nio@2.62.0",
+	}
+
+	if diff := cmp.Diff(wantPURLs, gotPURLs); diff != "" {
+		t.Errorf("%s.Extract() PURLs diff (-want +got):\n%s", extr.Name(), diff)
+	}
+}

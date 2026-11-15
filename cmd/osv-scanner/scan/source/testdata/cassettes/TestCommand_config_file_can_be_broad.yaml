@@ -198,7 +198,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 2048
+      content_length: 2394
       body: |
         {
           "results": [
@@ -268,6 +268,18 @@ interactions:
                   "modified": "2026-07-15T20:56:45.672035Z"
                 },
                 {
+                  "id": "DRUPAL-CORE-2026-014",
+                  "modified": "2026-10-14T19:09:54Z"
+                },
+                {
+                  "id": "DRUPAL-CORE-2026-015",
+                  "modified": "2026-10-14T18:11:06.211689Z"
+                },
+                {
+                  "id": "DRUPAL-CORE-2026-016",
+                  "modified": "2026-10-17T17:00:03.186936Z"
+                },
+                {
                   "id": "GHSA-83v7-c2cf-p9c2",
                   "modified": "2025-12-10T23:41:07.744028Z"
                 },
@@ -311,11 +323,11 @@ interactions:
               "vulns": [
                 {
                   "id": "CVE-2023-39137",
-                  "modified": "2026-08-12T03:51:24.195394Z"
+                  "modified": "2026-10-28T02:30:53.096171Z"
                 },
                 {
                   "id": "CVE-2023-39139",
-                  "modified": "2026-08-12T03:51:23.236509Z"
+                  "modified": "2026-10-28T02:30:21.830378Z"
                 }
               ]
             },
@@ -325,6 +337,10 @@ interactions:
                 {
                   "id": "GHSA-9f46-5r25-5wfm",
                   "modified": "2026-07-08T06:28:00.604230Z"
+                },
+                {
+                  "id": "GHSA-cxf4-7mrp-vvpr",
+                  "modified": "2026-09-30T21:30:04.116870Z"
                 }
               ]
             },
@@ -333,6 +349,10 @@ interactions:
                 {
                   "id": "GHSA-9f46-5r25-5wfm",
                   "modified": "2026-07-08T06:28:00.604230Z"
+                },
+                {
+                  "id": "GHSA-cxf4-7mrp-vvpr",
+                  "modified": "2026-09-30T21:30:04.116870Z"
                 }
               ]
             },
@@ -359,7 +379,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "2048"
+          - "2394"
         Content-Type:
           - application/json
       status: 200 OK

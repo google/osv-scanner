@@ -153,6 +153,7 @@ The HTML output features a lot more interactivity and information compared to te
 - Severity breakdown
 - Package and ID filtering
 - Vulnerability importance filtering
+- Fix availability filtering
 - Full vulnerability advisory entries
 
 And additionally for container image scanning:
@@ -277,8 +278,12 @@ osv-scanner scan --format json -L path/to/lockfile > /path/to/file.json
 osv-scanner scan --format sarif your/project/dir
 ```
 
-Outputs the result in the [SARIF](https://sarifweb.azurewebsites.net/) v2.1.0 format. Each vulnerability (grouped by aliases) is a separate rule, and each package containing a vulnerable dependency is a rule violation.
+<!-- markdown-link-check-disable -->
+
+Outputs the result in the [SARIF](https://sarif.info) v2.1.0 format. Each vulnerability (grouped by aliases) is a separate rule, and each package containing a vulnerable dependency is a rule violation.
 The help text within the SARIF report contains detailed information about the vulnerability and remediation instructions for how to resolve it.
+
+<!-- markdown-link-check-enable -->
 
 <details markdown="1">
 <summary><b>Sample SARIF output</b></summary>
@@ -560,7 +565,12 @@ osv-scanner scan --format cyclonedx-1-5 --all-packages your/project/dir
 
 Outputs the result in the [CycloneDX](https://cyclonedx.org/) format.
 
-You can also specify cyclonedx 1.4 using `--format cyclonedx-1.4`.
+We support the following versions:
+
+- `cyclonedx-1-4`
+- `cyclonedx-1-5`
+- `cyclonedx-1-6`
+- `cyclonedx-1-7`
 
 <details markdown="1">
 <summary><b>Sample CycloneDX output</b></summary>

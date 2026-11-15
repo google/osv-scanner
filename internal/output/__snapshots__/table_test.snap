@@ -85,13 +85,13 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 
 Debian:12
-╭───────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
-│ Source:os:var/lib/dpkg/status                                                                                     │
-├────────────────┬───────────────────┬──────────────────┬────────────┬─────────────────────────┬────────────────────┤
-│ SOURCE PACKAGE │ INSTALLED VERSION │ FIX AVAILABLE    │ VULN COUNT │ BINARY PACKAGES (COUNT) │ LICENSE VIOLATIONS │
-├────────────────┼───────────────────┼──────────────────┼────────────┼─────────────────────────┼────────────────────┤
-│ libxml2        │ 2.9.14+dfsg-1.3   │ No fix available │          0 │ libxml2                 │ [MIT]              │
-╰────────────────┴───────────────────┴──────────────────┴────────────┴─────────────────────────┴────────────────────╯
+╭────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Source:os:var/lib/dpkg/status                                                                                  │
+├────────────────┬───────────────────┬───────────────┬────────────┬─────────────────────────┬────────────────────┤
+│ SOURCE PACKAGE │ INSTALLED VERSION │ FIX AVAILABLE │ VULN COUNT │ BINARY PACKAGES (COUNT) │ LICENSE VIOLATIONS │
+├────────────────┼───────────────────┼───────────────┼────────────┼─────────────────────────┼────────────────────┤
+│ libxml2        │ 2.9.14+dfsg-1.3   │               │          0 │ libxml2                 │ [MIT]              │
+╰────────────────┴───────────────────┴───────────────┴────────────┴─────────────────────────┴────────────────────╯
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
 You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
@@ -805,19 +805,6 @@ Total 2 packages affected by 4 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
-[TestPrintTableResults_LongTerminalWidth_WithVulnerabilities/one_source_with_workflow_command_injection_attempt_in_path - 1]
-
-Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
-0 vulnerabilities can be fixed.
-
-╭───────────────────────┬──────┬───────────┬─────────┬─────────┬───────────────┬────────────────────────────────────────────────────────────────────────╮
-│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ FIXED VERSION │ SOURCE                                                                 │
-├───────────────────────┼──────┼───────────┼─────────┼─────────┼───────────────┼────────────────────────────────────────────────────────────────────────┤
-│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ --            │ dir%0D::stop-commands::T%0D::error::INJECTED%0A::warning::pwn/lockfile │
-╰───────────────────────┴──────┴───────────┴─────────┴─────────┴───────────────┴────────────────────────────────────────────────────────────────────────╯
-
----
-
 [TestPrintTableResults_LongTerminalWidth_WithVulnerabilities/two_sources_with_packages,_one_vulnerability - 1]
 
 Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -931,13 +918,13 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 
 Debian:12
-+-------------------------------------------------------------------------------------------------------------------+
-| Source:os:var/lib/dpkg/status                                                                                     |
-+----------------+-------------------+------------------+------------+-------------------------+--------------------+
-| SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE    | VULN COUNT | BINARY PACKAGES (COUNT) | LICENSE VIOLATIONS |
-+----------------+-------------------+------------------+------------+-------------------------+--------------------+
-| libxml2        | 2.9.14+dfsg-1.3   | No fix available |          0 | libxml2                 | [MIT]              |
-+----------------+-------------------+------------------+------------+-------------------------+--------------------+
++----------------------------------------------------------------------------------------------------------------+
+| Source:os:var/lib/dpkg/status                                                                                  |
++----------------+-------------------+---------------+------------+-------------------------+--------------------+
+| SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | LICENSE VIOLATIONS |
++----------------+-------------------+---------------+------------+-------------------------+--------------------+
+| libxml2        | 2.9.14+dfsg-1.3   |               |          0 | libxml2                 | [MIT]              |
++----------------+-------------------+---------------+------------+-------------------------+--------------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
 You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
@@ -1651,19 +1638,6 @@ Total 2 packages affected by 4 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
-[TestPrintTableResults_NoTerminalWidth_WithVulnerabilities/one_source_with_workflow_command_injection_attempt_in_path - 1]
-
-Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
-0 vulnerabilities can be fixed.
-
-+-----------------------+------+-----------+---------+---------+---------------+------------------------------------------------------------------------+
-| OSV URL               | CVSS | ECOSYSTEM | PACKAGE | VERSION | FIXED VERSION | SOURCE                                                                 |
-+-----------------------+------+-----------+---------+---------+---------------+------------------------------------------------------------------------+
-| https://osv.dev/OSV-1 |      | npm       | mine1   | 1.2.3   | --            | dir%0D::stop-commands::T%0D::error::INJECTED%0A::warning::pwn/lockfile |
-+-----------------------+------+-----------+---------+---------+---------------+------------------------------------------------------------------------+
-
----
-
 [TestPrintTableResults_NoTerminalWidth_WithVulnerabilities/two_sources_with_packages,_one_vulnerability - 1]
 
 Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -1739,11 +1713,11 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 Debian:12
 ╭──────────────────────────────────────────────────────────────────────────────╮
 │ Source:os:var/lib/dpkg/status                                                │
-├────────────────┬───────────────────┬──────────────────┬────────────┬──────── ≈
-│ SOURCE PACKAGE │ INSTALLED VERSION │ FIX AVAILABLE    │ VULN COUNT │ BINARY  ≈
-├────────────────┼───────────────────┼──────────────────┼────────────┼──────── ≈
-│ libxml2        │ 2.9.14+dfsg-1.3   │ No fix available │          0 │ libxml2 ≈
-╰────────────────┴───────────────────┴──────────────────┴────────────┴──────── ≈
+├────────────────┬───────────────────┬───────────────┬────────────┬─────────── ≈
+│ SOURCE PACKAGE │ INSTALLED VERSION │ FIX AVAILABLE │ VULN COUNT │ BINARY PAC ≈
+├────────────────┼───────────────────┼───────────────┼────────────┼─────────── ≈
+│ libxml2        │ 2.9.14+dfsg-1.3   │               │          0 │ libxml2    ≈
+╰────────────────┴───────────────────┴───────────────┴────────────┴─────────── ≈
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
 You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
@@ -1898,11 +1872,11 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 Debian:12
 ╭──────────────────────────────────────────────────────────────────────────────╮
 │ Source:os:var/lib/dpkg/status                                                │
-├────────────────┬───────────────────┬──────────────────┬────────────┬──────── ≈
-│ SOURCE PACKAGE │ INSTALLED VERSION │ FIX AVAILABLE    │ VULN COUNT │ BINARY  ≈
-├────────────────┼───────────────────┼──────────────────┼────────────┼──────── ≈
-│ libxml2        │ 2.9.14+dfsg-1.3   │ No fix available │          0 │ libxml2 ≈
-╰────────────────┴───────────────────┴──────────────────┴────────────┴──────── ≈
+├────────────────┬───────────────────┬───────────────┬────────────┬─────────── ≈
+│ SOURCE PACKAGE │ INSTALLED VERSION │ FIX AVAILABLE │ VULN COUNT │ BINARY PAC ≈
+├────────────────┼───────────────────┼───────────────┼────────────┼─────────── ≈
+│ libxml2        │ 2.9.14+dfsg-1.3   │               │          0 │ libxml2    ≈
+╰────────────────┴───────────────────┴───────────────┴────────────┴─────────── ≈
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
 You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
@@ -2616,19 +2590,6 @@ Total 2 packages affected by 4 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
-[TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities/one_source_with_workflow_command_injection_attempt_in_path - 1]
-
-Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
-0 vulnerabilities can be fixed.
-
-╭───────────────────────┬──────┬───────────┬─────────┬─────────┬────────────── ≈
-│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ FIXED VERSION ≈
-├───────────────────────┼──────┼───────────┼─────────┼─────────┼────────────── ≈
-│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ --            ≈
-╰───────────────────────┴──────┴───────────┴─────────┴─────────┴────────────── ≈
-
----
-
 [TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities/two_sources_with_packages,_one_vulnerability - 1]
 
 Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -3034,19 +2995,6 @@ Total 2 packages affected by 4 known vulnerabilities (0 Critical, 0 High, 0 Medi
 │ https://osv.dev/OSV-4 │      │ npm       │ mine1   │ 1.2.3     │ --          ≈
 │ https://osv.dev/OSV-2 │      │ npm       │ mine3   │ 0.10.2-rc │ --          ≈
 ╰───────────────────────┴──────┴───────────┴─────────┴───────────┴──────────── ≈
-
----
-
-[TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities_WithoutAllVulns/one_source_with_workflow_command_injection_attempt_in_path - 1]
-
-Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
-0 vulnerabilities can be fixed.
-
-╭───────────────────────┬──────┬───────────┬─────────┬─────────┬────────────── ≈
-│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ FIXED VERSION ≈
-├───────────────────────┼──────┼───────────┼─────────┼─────────┼────────────── ≈
-│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ --            ≈
-╰───────────────────────┴──────┴───────────┴─────────┴─────────┴────────────── ≈
 
 ---
 

@@ -27,7 +27,6 @@ import (
 	"github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	scanconfig "github.com/google/osv-scanner/v2/internal/config"
-	"github.com/google/osv-scanner/v2/internal/output"
 	"github.com/google/osv-scanner/v2/internal/scalibrannotator/filter"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitcommitdirect"
@@ -57,9 +56,8 @@ func getPlugins(
 	configManager *scanconfig.Manager,
 	isContainerScan bool,
 ) []plugin.Plugin {
-	pluginSpecific := make([]*cpb.PluginSpecificConfig, 0, 4)
-	pluginSpecific = append(pluginSpecific,
-		&cpb.PluginSpecificConfig{
+	pluginSpecific := []*cpb.PluginSpecificConfig{
+		{
 			Config: &cpb.PluginSpecificConfig_PomXmlNet{
 				PomXmlNet: &cpb.POMXMLNetConfig{
 					UpstreamRegistry:    actions.TransitiveScanning.MavenRegistry,
@@ -67,31 +65,30 @@ func getPlugins(
 				},
 			},
 		},
-		&cpb.PluginSpecificConfig{
+		{
 			Config: &cpb.PluginSpecificConfig_PythonRequirementsTransitive{
 				PythonRequirementsTransitive: &cpb.PythonRequirementsTransitiveConfig{
 					DepsDevRequirements: !actions.TransitiveScanning.NativeDataSource,
 				},
 			},
 		},
-	)
-
-	pluginSpecific = append(pluginSpecific, &cpb.PluginSpecificConfig{
-		Config: &cpb.PluginSpecificConfig_Osvlocal{
-			Osvlocal: &cpb.OSVLocalConfig{
-				Download:   actions.DownloadDatabases,
-				LocalPath:  actions.LocalDBPath,
-				RemoteHost: "https://osv-vulnerabilities.storage.googleapis.com",
+		{
+			Config: &cpb.PluginSpecificConfig_Osvlocal{
+				Osvlocal: &cpb.OSVLocalConfig{
+					Download:   actions.DownloadDatabases,
+					LocalPath:  actions.LocalDBPath,
+					RemoteHost: "https://osv-vulnerabilities.storage.googleapis.com",
+				},
 			},
 		},
-	})
-	pluginSpecific = append(pluginSpecific, &cpb.PluginSpecificConfig{
-		Config: &cpb.PluginSpecificConfig_Osvdev{
-			Osvdev: &cpb.OSVDevConfig{
-				InitialQueryTimeoutSeconds: 300, // 5 minutes
+		{
+			Config: &cpb.PluginSpecificConfig_Osvdev{
+				Osvdev: &cpb.OSVDevConfig{
+					InitialQueryTimeoutSeconds: 300, // 5 minutes
+				},
 			},
 		},
-	})
+	}
 
 	var finalScalibrConfig *config.PluginConfig
 	if scalibrConfig != nil {
@@ -242,17 +239,11 @@ func scan(
 	// List of specific paths the user passes in so that we can check that they all get processed.
 	specificPaths := make([]string, 0, len(actions.LockfilePaths)+len(actions.SBOMPaths))
 
-	statsCollector := fileOpenedPrinter{
-		filesExtracted: make(map[string]struct{}),
-	}
+	statsCollector := newFileOpenedPrinter(actions.StatsCollector)
 
 	// --- Directories ---
 	for _, path := range actions.DirectoryPaths {
-		// path is user-controlled and is logged to stdout, which the GitHub Actions
-		// runner parses for ::command::value sequences regardless of --format.
-		// Sanitize \r/\n so an attacker-supplied directory name cannot inject
-		// workflow commands.
-		cmdlogger.Infof("Scanning dir %s", output.SanitizeForWorkflowCommand(path))
+		cmdlogger.Infof("Scanning dir %s", path)
 		if _, err := pathToRootMap(rootMap, path, actions.Recursive); err != nil {
 			return nil, nil, err
 		}
@@ -347,7 +338,7 @@ SBOMLoop:
 			SkipDirRegex:          excludePatterns.regexPattern,
 			SkipDirGlob:           excludePatterns.globPattern,
 			UseGitignore:          !actions.NoIgnore,
-			Stats:                 &statsCollector,
+			Stats:                 statsCollector,
 			ReadSymlinks:          false,
 			MaxInodes:             0,
 			StoreAbsolutePath:     false,

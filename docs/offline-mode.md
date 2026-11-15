@@ -28,7 +28,7 @@ The local database file structure is in this form:
 
 ```
 {local_db_dir}/
-  osv-scanner/
+  osv-scalibr/
     npm/all.zip
     PyPI/all.zip
     …
