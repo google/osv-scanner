@@ -1,0 +1,23 @@
+# Package overrides for chiseled Ubuntu images, which can match either the
+# binary or the source package name (which is filled in by an enricher)
+
+# Matched by source name, so this is only applied after enrichment
+[[PackageOverrides]]
+name = "glibc"
+ecosystem = "Ubuntu"
+ignore = true
+reason = "ignored by source name"
+
+# Matched by binary name, so this is applied before enrichment
+[[PackageOverrides]]
+name = "libssl3t64"
+ecosystem = "Ubuntu"
+ignore = true
+reason = "ignored by binary name"
+
+# Vulnerabilities ignored by binary name (zlib1g is built from zlib)
+[[PackageOverrides]]
+name = "zlib1g"
+ecosystem = "Ubuntu"
+vulnerability.ignore = true
+reason = "vulnerabilities ignored by binary name"

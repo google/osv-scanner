@@ -142,12 +142,7 @@ func (a *Annotator) Annotate(_ context.Context, _ *annotator.ScanInput, results 
 			configToUse := a.configManager.Get(imodels.Location(psr))
 			if ignoreLine := configToUse.FindIgnorePackageOverride(psr); ignoreLine != nil {
 				ignoredCount++
-				pkgString := fmt.Sprintf("%s/%s/%s", parsedPkg.Ecosystem.String(), parsedPkg.Name, parsedPkg.Version)
-				reason := ignoreLine.Reason
-				if reason == "" {
-					reason = "(no reason given)"
-				}
-				infos = append(infos, fmt.Sprintf("Package %s has been filtered out because: %s", pkgString, reason))
+				infos = append(infos, IgnoredPackageMessage(psr, ignoreLine))
 
 				ignoreLine.MarkAsUsed()
 
@@ -201,4 +196,66 @@ func (a *Annotator) PreFilteredPackageCount() int {
 	defer a.mu.Unlock()
 
 	return a.preFilteredPackageCount
+}
+
+// IgnoredPackageMessage returns the message logged when a package is filtered
+// out because of an `ignore = true` package override.
+func IgnoredPackageMessage(pkg *extractor.Package, ignoreLine *config.PackageOverrideEntry) string {
+	parsedPkg := imodels.ParsePackage(pkg)
+	pkgString := fmt.Sprintf("%s/%s/%s", parsedPkg.Ecosystem.String(), imodels.DisplayName(pkg), parsedPkg.Version)
+
+	reason := ignoreLine.Reason
+	if reason == "" {
+		reason = "(no reason given)"
+	}
+
+	return fmt.Sprintf("Package %s has been filtered out because: %s", pkgString, reason)
+}
+
+// RemoveIgnoredPackagesAfterEnrichment removes packages that are ignored by a
+// package override, along with their vulnerabilities.
+//
+// Ignored packages are normally removed by the Annotator before enrichment, but
+// some packages only match an override once they've been enriched, such as:
+//   - Ubuntu chisel packages, whose source package names are filled in by an enricher
+//   - packages added by enrichers, such as transitive dependencies
+//
+// As enrichment includes vulnerability matching, these packages will have
+// already been queried for vulnerabilities by the time they are removed.
+func RemoveIgnoredPackagesAfterEnrichment(inv *inventory.Inventory, configManager *config.Manager) {
+	if configManager == nil {
+		return
+	}
+
+	removed := make(map[*extractor.Package]struct{})
+	var infos []string
+
+	inv.Packages = slices.DeleteFunc(inv.Packages, func(pkg *extractor.Package) bool {
+		configToUse := configManager.Get(imodels.Location(pkg))
+		ignoreLine := configToUse.FindIgnorePackageOverride(pkg)
+		if ignoreLine == nil {
+			return false
+		}
+
+		infos = append(infos, IgnoredPackageMessage(pkg, ignoreLine))
+		ignoreLine.MarkAsUsed()
+		removed[pkg] = struct{}{}
+
+		return true
+	})
+
+	if len(removed) == 0 {
+		return
+	}
+
+	inv.PackageVulns = slices.DeleteFunc(inv.PackageVulns, func(pv *inventory.PackageVuln) bool {
+		_, ok := removed[pv.Package]
+		return ok
+	})
+
+	slices.Sort(infos)
+	for _, info := range infos {
+		cmdlogger.Infof("%s", info)
+	}
+	cmdlogger.Infof("Filtered %d ignored package/s from the scan after enrichment.", len(removed))
 }

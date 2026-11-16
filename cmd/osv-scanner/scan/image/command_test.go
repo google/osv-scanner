@@ -629,6 +629,17 @@ func TestCommand_OCIImage_ChiselBinaryToSource(t *testing.T) {
 			},
 			Exit: 1,
 		},
+		{
+			// Package overrides can match either the binary or source package name,
+			// including source names which are only known after enrichment.
+			Name: "package_overrides_match_binary_and_source_names",
+			Args: []string{
+				"", "image",
+				"--config", "./testdata/chisel-package-overrides.toml",
+				"--archive", "./testdata/test-chisel.tar",
+			},
+			Exit: 1,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {

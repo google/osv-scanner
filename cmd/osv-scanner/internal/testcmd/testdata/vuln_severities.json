@@ -4590,6 +4590,7 @@
   "GO-2026-6613": [],
   "GO-2026-6617": [],
   "GO-2026-6809": [],
+  "GO-2026-6859": [],
   "HSEC-2024-0009": [],
   "OSV-2018-389": [],
   "OSV-2022-24": [],
@@ -6500,6 +6501,16 @@
       "type": "Ubuntu"
     }
   ],
+  "UBUNTU-CVE-2026-100290": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
   "UBUNTU-CVE-2026-102010": [
     {
       "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:H",
@@ -6550,6 +6561,12 @@
       "type": "Ubuntu"
     }
   ],
+  "UBUNTU-CVE-2026-107496": [
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
   "UBUNTU-CVE-2026-107708": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:N/I:N/A:H",
@@ -6585,6 +6602,16 @@
     },
     {
       "score": "high",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-111943": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:N",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
       "type": "Ubuntu"
     }
   ],
@@ -6642,6 +6669,16 @@
       "type": "Ubuntu"
     }
   ],
+  "UBUNTU-CVE-2026-115819": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:L",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
   "UBUNTU-CVE-2026-118131": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
@@ -6665,6 +6702,16 @@
   "UBUNTU-CVE-2026-12087": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:H",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-121876": [
+    {
+      "score": "CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:C/C:H/I:H/A:N",
       "type": "CVSS_V3"
     },
     {
@@ -7824,6 +7871,26 @@
       "type": "Ubuntu"
     }
   ],
+  "UBUNTU-CVE-2026-56857": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-56866": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
   "UBUNTU-CVE-2026-5704": [
     {
       "score": "CVSS:3.1/AV:L/AC:L/PR:L/UI:R/S:U/C:N/I:H/A:N",
@@ -8106,9 +8173,69 @@
       "type": "Ubuntu"
     }
   ],
+  "UBUNTU-CVE-2026-78659": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-78660": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-78661": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
   "UBUNTU-CVE-2026-78662": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-78663": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:H",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-78667": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-78669": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
       "type": "CVSS_V3"
     },
     {
@@ -8264,6 +8391,18 @@
       "type": "Ubuntu"
     }
   ],
+  "UBUNTU-CVE-2026-88822": [
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-88823": [
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
   "UBUNTU-CVE-2026-89092": [
     {
       "score": "CVSS:3.1/AV:A/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:L",
@@ -8368,6 +8507,56 @@
       "type": "Ubuntu"
     }
   ],
+  "UBUNTU-CVE-2026-94439": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-94440": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-94444": [
+    {
+      "score": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-94447": [
+    {
+      "score": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-94448": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
   "UBUNTU-CVE-2026-95184": [
     {
       "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
@@ -8422,11 +8611,135 @@
       "type": "Ubuntu"
     }
   ],
+  "UBUNTU-CVE-2026-95691": [
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-95692": [
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
   "UBUNTU-CVE-2026-95818": [
     {
       "score": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:N",
       "type": "CVSS_V3"
     },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-97030": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-97031": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-97032": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-97033": [
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-97034": [
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-97035": [
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-97036": [
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-97037": [
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-97038": [
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-97039": [
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-97040": [
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-97041": [
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-97042": [
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-97043": [
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-97045": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+      "type": "CVSS_V3"
+    },
+    {
+      "score": "medium",
+      "type": "Ubuntu"
+    }
+  ],
+  "UBUNTU-CVE-2026-97054": [
     {
       "score": "medium",
       "type": "Ubuntu"
@@ -8505,6 +8818,8 @@
   "USN-8847-1": [],
   "USN-8861-1": [],
   "USN-8945-1": [],
+  "USN-8954-1": [],
   "USN-8974-1": [],
-  "USN-8996-1": []
+  "USN-8996-1": [],
+  "USN-9065-1": []
 }

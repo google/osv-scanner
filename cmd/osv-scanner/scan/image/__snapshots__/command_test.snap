@@ -1846,6 +1846,87 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
+[TestCommand_OCIImage_ChiselBinaryToSource/package_overrides_match_binary_and_source_names - 1 - stdout]
+Scanning local image tarball "./testdata/test-chisel.tar"
+Package Ubuntu:26.04/libssl3t64/3.5.5-1ubuntu3 has been filtered out because: ignored by binary name
+Filtered 1 ignored package/s from the scan.
+Package Ubuntu:26.04/libc6 (source: glibc)/2.43-2ubuntu2 has been filtered out because: ignored by source name
+Filtered 1 ignored package/s from the scan after enrichment.
+
+
+Container Scanning Result (Ubuntu 26.04 LTS):
+Total 14 packages affected by 348 known vulnerabilities (5 Critical, 25 High, 10 Medium, 2 Low, 306 Unknown) from 2 ecosystems.
+298 vulnerabilities can be fixed.
+
+
+Go
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/lib/go-1.26/bin/go                                                     |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| stdlib  | 1.26.0            | Fix Available |         48 | # 0 Layer        | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/lib/go-1.26/bin/gofmt                                                  |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| stdlib  | 1.26.0            | Fix Available |         48 | # 0 Layer        | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/asm                                   |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| stdlib  | 1.26.0            | Fix Available |         48 | # 0 Layer        | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/compile                               |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| stdlib  | 1.26.0            | Fix Available |         48 | # 0 Layer        | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/link                                  |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| stdlib  | 1.26.0            | Fix Available |         48 | # 0 Layer        | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/vet                                   |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| stdlib  | 1.26.0            | Fix Available |         48 | # 0 Layer        | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
+Ubuntu:26.04
++------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/var/lib/chisel/manifest.wall                                                                                                              |
++----------------+-----------------------------+-------------------------+------------+-----------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION           | FIX AVAILABLE           | VULN COUNT | BINARY PACKAGES (COUNT)     | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+-----------------------------+-------------------------+------------+-----------------------------+------------------+---------------+
+| acl            | 2.3.2-2                     | No fix available        |          2 | libacl1                     | # 0 Layer        | --            |
+| attr           | 1:2.5.2-4                   | Fix Available           |          1 | libattr1                    | # 0 Layer        | --            |
+| coreutils      | 9.5-1ubuntu2+0.0.0~ubuntu25 | Fix Available           |          1 | coreutils                   | # 0 Layer        | --            |
+| coreutils      | 9.7-3ubuntu2                | Fix Available           |          1 | gnu-coreutils               | # 0 Layer        | --            |
+| golang-1.26    | 1.26.0-1                    | No fix available        |         41 | golang-1.26-go... (2)       | # 0 Layer        | --            |
+| openssl        | 3.5.5-1ubuntu3              | Partial fixes Available |         10 | openssl-provider-leg... (1) | # 0 Layer        | --            |
+| pcre2          | 10.46-1build1               | Fix Available           |          1 | libpcre2-8-0                | # 0 Layer        | --            |
+| systemd        | 259.5-0ubuntu3              | Partial fixes Available |          3 | libsystemd0                 | # 0 Layer        | --            |
++----------------+-----------------------------+-------------------------+------------+-----------------------------+------------------+---------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
+
+---
+
+[TestCommand_OCIImage_ChiselBinaryToSource/package_overrides_match_binary_and_source_names - 2 - stderr]
+
+---
+
 [TestCommand_OCIImage_JSONFormat/Scanning_python_image_with_some_packages - 1 - stdout]
 {
   "results": [
