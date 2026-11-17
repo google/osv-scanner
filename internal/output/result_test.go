@@ -88,17 +88,9 @@ func Test_groupSARIFFindings_Merging(t *testing.T) {
 	source := models.SourceInfo{Path: "/path/to/lockfile", Type: models.SourceTypeProjectPackage}
 
 	pkgVulns := func(name, version string, vulns ...*osvschema.Vulnerability) models.PackageVulns {
-		group := models.GroupInfo{}
-		for _, v := range vulns {
-			group.IDs = append(group.IDs, v.GetId())
-			group.Aliases = append(group.Aliases, v.GetId())
-			group.Aliases = append(group.Aliases, v.GetAliases()...)
-		}
-
 		return models.PackageVulns{
 			Package:         models.PackageInfo{Name: name, Version: version, Ecosystem: "npm"},
 			Vulnerabilities: vulns,
-			Groups:          []models.GroupInfo{group},
 		}
 	}
 
@@ -128,10 +120,10 @@ func Test_groupSARIFFindings_Merging(t *testing.T) {
 			packages: []models.PackageVulns{
 				pkgVulns("pkg-a", "1.0.0", &osvschema.Vulnerability{Id: "GHSA-1"}),
 				pkgVulns("pkg-b", "1.0.0", &osvschema.Vulnerability{Id: "GO-1"}),
-				pkgVulns("pkg-c", "1.0.0", &osvschema.Vulnerability{Id: "GHSA-1"}, &osvschema.Vulnerability{Id: "GO-1"}),
+				pkgVulns("pkg-c", "1.0.0", &osvschema.Vulnerability{Id: "OSV-3", Aliases: []string{"GHSA-1", "GO-1"}}),
 			},
 			want: []groupSummary{
-				{DisplayID: "GO-1", AliasedIDList: []string{"GO-1", "GHSA-1"}, Packages: []string{"pkg-a@1.0.0", "pkg-b@1.0.0", "pkg-c@1.0.0"}},
+				{DisplayID: "GO-1", AliasedIDList: []string{"GO-1", "OSV-3", "GHSA-1"}, Packages: []string{"pkg-a@1.0.0", "pkg-b@1.0.0", "pkg-c@1.0.0"}},
 			},
 		},
 		{
