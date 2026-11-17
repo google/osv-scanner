@@ -268,7 +268,7 @@ func groupSARIFFindings(vulnResults *models.VulnerabilityResults) []*groupedSARI
 	}
 
 	slices.SortFunc(groups, func(a, b *groupedSARIFFinding) int {
-		return strings.Compare(a.DisplayID, b.DisplayID)
+		return identifiers.IDSortFunc(a.DisplayID, b.DisplayID)
 	})
 
 	return groups
