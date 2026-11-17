@@ -2,6 +2,8 @@ name: Check markdown links
 
 on:
   push:
+    branches:
+      - main
     paths:
       - "**.md"
   pull_request:
@@ -27,4 +29,4 @@ jobs:
         with:
           use-quiet-mode: "yes"
           base-branch: "main"
-          check-modified-files-only: ${{ github.event_name == 'schedule' && 'yes' || 'no'}}
+          check-modified-files-only: ${{ github.event_name == 'pull_request' && 'yes' || 'no'}}

@@ -1615,7 +1615,6 @@ interactions:
                 "cooldown": {
                   "end": "2023-12-11T17:26:51Z"
                 },
-                "isDefault": true,
                 "licenseDetails": [
                   {
                     "license": "Apache-2.0 OR MIT",

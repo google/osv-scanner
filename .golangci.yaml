@@ -54,6 +54,8 @@ linters:
           msg: use `testutility.GetCurrentWorkingDirectory`
       analyze-types: true
     gocritic:
+      enabled-checks:
+        - appendCombine
       disabled-checks:
         - ifElseChain
     gomoddirectives:

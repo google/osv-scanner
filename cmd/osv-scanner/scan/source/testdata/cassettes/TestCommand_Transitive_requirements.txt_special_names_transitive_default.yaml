@@ -43,7 +43,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "zope-interface"
               },
-              "version": "8.6.0"
+              "version": "8.7.0"
             },
             {
               "package": {

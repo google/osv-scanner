@@ -1,8 +1,8 @@
 {
-  "schema_version": "1.7.3",
+  "schema_version": "1.9.0",
   "id": "OSV-2023-1161",
   "published": "2023-11-14T13:03:13.962614Z",
-  "modified": "2025-03-18T00:34:06.623648Z",
+  "modified": "2026-10-20T17:24:03.225216364Z",
   "summary": "Heap-buffer-overflow in std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<ch",
   "details": "OSS-Fuzz report: https://bugs.chromium.org/p/oss-fuzz/issues/detail?id=64151\n\n```\nCrash type: Heap-buffer-overflow READ {*}\nCrash state:\nstd::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<ch\nExiv2::QuickTimeVideo::NikonTagsDecoder\nExiv2::QuickTimeVideo::userDataDecoder\n```\n",
   "affected": [
@@ -22,6 +22,9 @@
             },
             {
               "fixed": "84ce408771859570d2534effaaecb3dbf535b1c4"
+            },
+            {
+              "fixed": "f2de729719d9ccd3678eebb70466ccdb42811f1d"
             }
           ]
         }
@@ -33,7 +36,11 @@
         "v0.28.2",
         "v0.28.3",
         "v0.28.4",
-        "v0.28.5"
+        "v0.28.5",
+        "v0.28.9",
+        "v0.28.8",
+        "v0.28.7",
+        "v0.28.6"
       ],
       "ecosystem_specific": {
         "severity": "MEDIUM"

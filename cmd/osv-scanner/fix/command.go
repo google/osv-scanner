@@ -142,6 +142,13 @@ func Command(stdout, _ io.Writer, clientFactories config.ClientFactories) *cli.C
 				Name:     "apply-top",
 				Usage:    "apply the top N patches",
 				Value:    -1,
+				Action: func(_ context.Context, _ *cli.Command, n int) error {
+					if n == 0 {
+						return errors.New("--apply-top must be a positive number, or -1 to apply all patches")
+					}
+
+					return nil
+				},
 			},
 			&cli.BoolFlag{
 				Category: autoModeCategory,

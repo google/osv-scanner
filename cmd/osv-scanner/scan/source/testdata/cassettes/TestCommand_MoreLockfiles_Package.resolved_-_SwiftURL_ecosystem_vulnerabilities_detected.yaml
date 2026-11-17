@@ -75,15 +75,15 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-84m3-f99p-cqx5",
-                  "modified": "2026-06-29T12:26:32.919067Z"
+                  "modified": "2026-10-27T16:45:04.578480Z"
                 },
                 {
                   "id": "GHSA-9m39-3mf3-xwch",
-                  "modified": "2026-06-29T12:26:17.882155Z"
+                  "modified": "2026-10-27T16:45:04.555623Z"
                 },
                 {
                   "id": "GHSA-f9hx-c6jf-3qxm",
-                  "modified": "2026-06-29T12:26:29.765857Z"
+                  "modified": "2026-10-27T16:45:04.555731Z"
                 },
                 {
                   "id": "GHSA-h952-963h-rv99",
@@ -91,11 +91,11 @@ interactions:
                 },
                 {
                   "id": "GHSA-hj95-mhgf-jxc4",
-                  "modified": "2026-06-29T12:26:26.721719Z"
+                  "modified": "2026-10-27T16:45:04.544792Z"
                 },
                 {
                   "id": "GHSA-xc7w-r669-48pf",
-                  "modified": "2026-06-29T12:26:16.176986Z"
+                  "modified": "2026-10-27T16:45:04.559235Z"
                 }
               ]
             }
