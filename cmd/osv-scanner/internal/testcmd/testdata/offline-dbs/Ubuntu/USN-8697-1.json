@@ -1,0 +1,226 @@
+{
+  "schema_version": "1.9.0",
+  "id": "USN-8697-1",
+  "published": "2026-08-31T11:40:50Z",
+  "modified": "2026-08-31T17:26:24.789222646Z",
+  "related": [
+    "UBUNTU-CVE-2025-5278",
+    "UBUNTU-CVE-2026-56391"
+  ],
+  "upstream": [
+    "CVE-2025-5278",
+    "CVE-2026-56391",
+    "UBUNTU-CVE-2025-5278",
+    "UBUNTU-CVE-2026-56391"
+  ],
+  "summary": "coreutils vulnerabilities",
+  "details": "It was discovered that GNU Core Utilities sort had a heap buffer under-read\nin its begfield() function. A local attacker could possibly use this issue\nto cause GNU Core Utilities to crash, resulting in a denial of service, or\nobtain sensitive information. (CVE-2025-5278)\n\nIt was discovered that GNU Core Utilities uniq had an out-of-bounds read\nwhen the -w option was used with crafted multibyte input. A local attacker\ncould possibly use this issue to cause GNU Core Utilities to crash,\nresulting in a denial of service, or obtain sensitive information. This\nissue only affected Ubuntu 26.04 LTS. (CVE-2026-56391)",
+  "affected": [
+    {
+      "package": {
+        "name": "coreutils",
+        "ecosystem": "Ubuntu:22.04:LTS",
+        "purl": "pkg:deb/ubuntu/coreutils?arch=source&distro=jammy"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "8.32-4.1ubuntu1.4"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "8.32-4ubuntu2",
+        "8.32-4ubuntu3",
+        "8.32-4.1ubuntu1",
+        "8.32-4.1ubuntu1.1",
+        "8.32-4.1ubuntu1.2",
+        "8.32-4.1ubuntu1.3"
+      ],
+      "ecosystem_specific": {
+        "availability": "No subscription required",
+        "binaries": [
+          {
+            "binary_name": "coreutils",
+            "binary_version": "8.32-4.1ubuntu1.4"
+          }
+        ]
+      },
+      "database_specific": {
+        "cves_map": {
+          "cves": [
+            {
+              "id": "CVE-2025-5278",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:L/I:N/A:L",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "low",
+                  "type": "Ubuntu"
+                }
+              ]
+            }
+          ],
+          "ecosystem": "Ubuntu:22.04:LTS"
+        },
+        "source": "https://github.com/canonical/ubuntu-security-notices/blob/main/osv/usn/USN-8697-1.json"
+      }
+    },
+    {
+      "package": {
+        "name": "coreutils",
+        "ecosystem": "Ubuntu:24.04:LTS",
+        "purl": "pkg:deb/ubuntu/coreutils?arch=source&distro=noble"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "9.4-3ubuntu6.3"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "9.1-1ubuntu2",
+        "9.4-2ubuntu1",
+        "9.4-2ubuntu2",
+        "9.4-2ubuntu3",
+        "9.4-2ubuntu4",
+        "9.4-3ubuntu3",
+        "9.4-3ubuntu5",
+        "9.4-3ubuntu6",
+        "9.4-3ubuntu6.1",
+        "9.4-3ubuntu6.2"
+      ],
+      "ecosystem_specific": {
+        "availability": "No subscription required",
+        "binaries": [
+          {
+            "binary_name": "coreutils",
+            "binary_version": "9.4-3ubuntu6.3"
+          }
+        ]
+      },
+      "database_specific": {
+        "cves_map": {
+          "cves": [
+            {
+              "id": "CVE-2025-5278",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:L/I:N/A:L",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "low",
+                  "type": "Ubuntu"
+                }
+              ]
+            }
+          ],
+          "ecosystem": "Ubuntu:24.04:LTS"
+        },
+        "source": "https://github.com/canonical/ubuntu-security-notices/blob/main/osv/usn/USN-8697-1.json"
+      }
+    },
+    {
+      "package": {
+        "name": "coreutils",
+        "ecosystem": "Ubuntu:26.04:LTS",
+        "purl": "pkg:deb/ubuntu/coreutils?arch=source&distro=resolute"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "9.7-3ubuntu2.1"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "9.5-1ubuntu4",
+        "9.7-3ubuntu1",
+        "9.7-3ubuntu2"
+      ],
+      "ecosystem_specific": {
+        "availability": "No subscription required",
+        "binaries": [
+          {
+            "binary_name": "gnu-coreutils",
+            "binary_version": "9.7-3ubuntu2.1"
+          }
+        ]
+      },
+      "database_specific": {
+        "cves_map": {
+          "cves": [
+            {
+              "id": "CVE-2025-5278",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:L/I:N/A:L",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "low",
+                  "type": "Ubuntu"
+                }
+              ]
+            },
+            {
+              "id": "CVE-2026-56391",
+              "severity": [
+                {
+                  "score": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:A/VC:L/VI:N/VA:L/SC:N/SI:N/SA:N",
+                  "type": "CVSS_V4"
+                },
+                {
+                  "score": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:L/I:N/A:H",
+                  "type": "CVSS_V3"
+                },
+                {
+                  "score": "medium",
+                  "type": "Ubuntu"
+                }
+              ]
+            }
+          ],
+          "ecosystem": "Ubuntu:26.04:LTS"
+        },
+        "source": "https://github.com/canonical/ubuntu-security-notices/blob/main/osv/usn/USN-8697-1.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://ubuntu.com/security/notices/USN-8697-1"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://ubuntu.com/security/CVE-2025-5278"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://ubuntu.com/security/CVE-2026-56391"
+    }
+  ]
+}

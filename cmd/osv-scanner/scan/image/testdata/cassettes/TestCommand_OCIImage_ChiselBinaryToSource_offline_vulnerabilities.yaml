@@ -1,0 +1,118 @@
+---
+version: 2
+interactions:
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 523
+      host: api.osv.dev
+      body: |
+        {
+          "binary_names": [
+            "base-files",
+            "bash",
+            "coreutils",
+            "coreutils-from-gnu",
+            "gcc-16-base",
+            "gnu-coreutils",
+            "golang",
+            "golang-1.26-go",
+            "golang-1.26-src",
+            "golang-go",
+            "golang-src",
+            "libacl1",
+            "libattr1",
+            "libc6",
+            "libcap2",
+            "libgcc-s1",
+            "libgmp10",
+            "libpcre2-8-0",
+            "libselinux1",
+            "libssl3t64",
+            "libsystemd0",
+            "libtinfo6",
+            "libzstd1",
+            "make",
+            "openssl-provider-legacy",
+            "zlib1g"
+          ],
+          "ecosystem": "Ubuntu:26.04"
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1experimental/ubuntu/binary-to-source
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 475
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "source_names": ["coreutils"]
+            },
+            {
+              "source_names": ["golang-defaults"]
+            },
+            {
+              "source_names": ["golang-1.26"]
+            },
+            {
+              "source_names": ["golang-1.26"]
+            },
+            {
+              "source_names": ["golang-defaults"]
+            },
+            {
+              "source_names": ["golang-defaults"]
+            },
+            {
+              "source_names": ["acl"]
+            },
+            {
+              "source_names": ["attr"]
+            },
+            {
+              "source_names": ["glibc"]
+            },
+            {},
+            {},
+            {},
+            {
+              "source_names": ["pcre2"]
+            },
+            {},
+            {
+              "source_names": ["openssl"]
+            },
+            {
+              "source_names": ["systemd"]
+            },
+            {},
+            {},
+            {},
+            {
+              "source_names": ["openssl"]
+            },
+            {
+              "source_names": ["zlib"]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "475"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s

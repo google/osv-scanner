@@ -336,56 +336,56 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 [TestCommand_OCIImage/Empty_Ubuntu_20.04_image_tar_with_no_vulns_shown - 1 - stdout]
 Scanning local image tarball "./testdata/test-ubuntu-20-04.tar"
-Package Ubuntu:20.04/acl/2.2.53-6 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/apt/2.0.10 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/apt/2.0.10 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/attr/1:2.4.48-5 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/bzip2/1.0.8-2 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/bsdutils (source: util-linux)/1:2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/bzip2/1.0.8-2 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/coreutils/8.30-3ubuntu2 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/dash/0.5.10.2-6 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/diffutils/1:3.7-3 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/dpkg/1.19.7ubuntu3.2 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/gcc-10/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/gcc-10/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/gcc-10/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/glibc/2.31-0ubuntu9.17 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/glibc/2.31-0ubuntu9.17 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/gnupg2/2.2.19-3ubuntu2.4 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/gnutls28/3.6.13-2ubuntu1.12 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/fdisk (source: util-linux)/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/gcc-10-base (source: gcc-10)/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/gpgv (source: gnupg2)/2.2.19-3ubuntu2.4 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/gzip/1.10-0ubuntu4.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libacl1 (source: acl)/2.2.53-6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libapt-pkg6.0 (source: apt)/2.0.10 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libattr1 (source: attr)/1:2.4.48-5 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libblkid1 (source: util-linux)/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libbz2-1.0 (source: bzip2)/1.0.8-2 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libc-bin (source: glibc)/2.31-0ubuntu9.17 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libc6 (source: glibc)/2.31-0ubuntu9.17 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libfdisk1 (source: util-linux)/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libgcc-s1 (source: gcc-10)/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/libgcrypt20/1.8.5-5ubuntu1.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libgnutls30 (source: gnutls28)/3.6.13-2ubuntu1.12 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/liblz4-1 (source: lz4)/1.9.2-2ubuntu0.20.04.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/liblzma5 (source: xz-utils)/5.2.4-1ubuntu1.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libmount1 (source: util-linux)/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libncurses6 (source: ncurses)/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libncursesw6 (source: ncurses)/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libp11-kit0 (source: p11-kit)/0.23.20-1ubuntu0.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libpam-modules (source: pam)/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libpam-modules-bin (source: pam)/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libpam-runtime (source: pam)/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libpam0g (source: pam)/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libpcre2-8-0 (source: pcre2)/10.34-7ubuntu0.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libsmartcols1 (source: util-linux)/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libstdc++6 (source: gcc-10)/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libsystemd0 (source: systemd)/245.4-4ubuntu3.24 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/libtasn1-6/4.16.0-2ubuntu0.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/lz4/1.9.2-2ubuntu0.20.04.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/p11-kit/0.23.20-1ubuntu0.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/pam/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/pam/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/pam/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/pam/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/pcre2/10.34-7ubuntu0.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/perl/5.30.0-9ubuntu0.5 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libtinfo6 (source: ncurses)/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libudev1 (source: systemd)/245.4-4ubuntu3.24 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libuuid1 (source: util-linux)/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/login (source: shadow)/1:4.8.1-1ubuntu5.20.04.5 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/mount (source: util-linux)/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/ncurses-base (source: ncurses)/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/ncurses-bin (source: ncurses)/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/passwd (source: shadow)/1:4.8.1-1ubuntu5.20.04.5 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/perl-base (source: perl)/5.30.0-9ubuntu0.5 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/sed/4.7-1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/shadow/1:4.8.1-1ubuntu5.20.04.5 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/shadow/1:4.8.1-1ubuntu5.20.04.5 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/systemd/245.4-4ubuntu3.24 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/systemd/245.4-4ubuntu3.24 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/tar/1.30+dfsg-7ubuntu0.20.04.4 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/util-linux/1:2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/xz-utils/5.2.4-1ubuntu1.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/zlib/1:1.2.11.dfsg-2ubuntu1.5 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/zlib1g (source: zlib)/1:1.2.11.dfsg-2ubuntu1.5 has been filtered out because: Just want to test only unimportant vulns
 Filtered 50 ignored package/s from the scan.
 
 
@@ -407,56 +407,56 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 [TestCommand_OCIImage/Empty_Ubuntu_20.04_image_tar_with_only_unimportant_vulns_shown - 1 - stdout]
 Scanning local image tarball "./testdata/test-ubuntu-20-04.tar"
-Package Ubuntu:20.04/acl/2.2.53-6 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/apt/2.0.10 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/apt/2.0.10 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/attr/1:2.4.48-5 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/bzip2/1.0.8-2 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/bsdutils (source: util-linux)/1:2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/bzip2/1.0.8-2 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/coreutils/8.30-3ubuntu2 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/dash/0.5.10.2-6 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/diffutils/1:3.7-3 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/dpkg/1.19.7ubuntu3.2 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/gcc-10/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/gcc-10/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/gcc-10/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/glibc/2.31-0ubuntu9.17 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/glibc/2.31-0ubuntu9.17 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/gnupg2/2.2.19-3ubuntu2.4 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/gnutls28/3.6.13-2ubuntu1.12 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/fdisk (source: util-linux)/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/gcc-10-base (source: gcc-10)/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/gpgv (source: gnupg2)/2.2.19-3ubuntu2.4 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/gzip/1.10-0ubuntu4.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libacl1 (source: acl)/2.2.53-6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libapt-pkg6.0 (source: apt)/2.0.10 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libattr1 (source: attr)/1:2.4.48-5 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libblkid1 (source: util-linux)/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libbz2-1.0 (source: bzip2)/1.0.8-2 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libc-bin (source: glibc)/2.31-0ubuntu9.17 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libc6 (source: glibc)/2.31-0ubuntu9.17 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libfdisk1 (source: util-linux)/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libgcc-s1 (source: gcc-10)/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/libgcrypt20/1.8.5-5ubuntu1.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libgnutls30 (source: gnutls28)/3.6.13-2ubuntu1.12 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/liblz4-1 (source: lz4)/1.9.2-2ubuntu0.20.04.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/liblzma5 (source: xz-utils)/5.2.4-1ubuntu1.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libmount1 (source: util-linux)/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libncurses6 (source: ncurses)/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libncursesw6 (source: ncurses)/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libp11-kit0 (source: p11-kit)/0.23.20-1ubuntu0.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libpam-modules (source: pam)/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libpam-modules-bin (source: pam)/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libpam-runtime (source: pam)/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libpam0g (source: pam)/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libpcre2-8-0 (source: pcre2)/10.34-7ubuntu0.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libsmartcols1 (source: util-linux)/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libstdc++6 (source: gcc-10)/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libsystemd0 (source: systemd)/245.4-4ubuntu3.24 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/libtasn1-6/4.16.0-2ubuntu0.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/lz4/1.9.2-2ubuntu0.20.04.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/p11-kit/0.23.20-1ubuntu0.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/pam/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/pam/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/pam/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/pam/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/pcre2/10.34-7ubuntu0.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/perl/5.30.0-9ubuntu0.5 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libtinfo6 (source: ncurses)/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libudev1 (source: systemd)/245.4-4ubuntu3.24 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libuuid1 (source: util-linux)/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/login (source: shadow)/1:4.8.1-1ubuntu5.20.04.5 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/mount (source: util-linux)/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/ncurses-base (source: ncurses)/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/ncurses-bin (source: ncurses)/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/passwd (source: shadow)/1:4.8.1-1ubuntu5.20.04.5 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/perl-base (source: perl)/5.30.0-9ubuntu0.5 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/sed/4.7-1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/shadow/1:4.8.1-1ubuntu5.20.04.5 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/shadow/1:4.8.1-1ubuntu5.20.04.5 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/systemd/245.4-4ubuntu3.24 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/systemd/245.4-4ubuntu3.24 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/tar/1.30+dfsg-7ubuntu0.20.04.4 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/util-linux/1:2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/xz-utils/5.2.4-1ubuntu1.1 has been filtered out because: Just want to test only unimportant vulns
-Package Ubuntu:20.04/zlib/1:1.2.11.dfsg-2ubuntu1.5 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/zlib1g (source: zlib)/1:1.2.11.dfsg-2ubuntu1.5 has been filtered out because: Just want to test only unimportant vulns
 Filtered 50 ignored package/s from the scan.
 
 
@@ -1429,8 +1429,8 @@ Scanning local image tarball "./testdata/test-chisel.tar"
 
 
 Container Scanning Result (Ubuntu 26.04 LTS):
-Total 7 packages affected by 283 known vulnerabilities (0 Critical, 0 High, 1 Medium, 0 Low, 282 Unknown) from 2 ecosystems.
-283 vulnerabilities can be fixed.
+Total 17 packages affected by 320 known vulnerabilities (4 Critical, 20 High, 14 Medium, 5 Low, 277 Unknown) from 2 ecosystems.
+302 vulnerabilities can be fixed.
 
 
 Go
@@ -1439,51 +1439,61 @@ Go
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.26.0            | Fix Available |         47 | # 0 Layer        | --            |
+| stdlib  | 1.26.0            | Fix Available |         46 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/lib/go-1.26/bin/gofmt                                                  |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.26.0            | Fix Available |         47 | # 0 Layer        | --            |
+| stdlib  | 1.26.0            | Fix Available |         46 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/asm                                   |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.26.0            | Fix Available |         47 | # 0 Layer        | --            |
+| stdlib  | 1.26.0            | Fix Available |         46 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/compile                               |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.26.0            | Fix Available |         47 | # 0 Layer        | --            |
+| stdlib  | 1.26.0            | Fix Available |         46 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/link                                  |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.26.0            | Fix Available |         47 | # 0 Layer        | --            |
+| stdlib  | 1.26.0            | Fix Available |         46 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/vet                                   |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.26.0            | Fix Available |         47 | # 0 Layer        | --            |
+| stdlib  | 1.26.0            | Fix Available |         46 | # 0 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 Ubuntu:26.04
-+----------------------------------------------------------------------------------------------------------------------------------------+
-| Source:os:/var/lib/chisel/manifest.wall                                                                                                |
-+----------------+-----------------------------+---------------+------------+-------------------------+------------------+---------------+
-| SOURCE PACKAGE | INSTALLED VERSION           | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
-+----------------+-----------------------------+---------------+------------+-------------------------+------------------+---------------+
-| coreutils      | 9.5-1ubuntu2+0.0.0~ubuntu25 | Fix Available |          1 | coreutils               | # 0 Layer        | --            |
-+----------------+-----------------------------+---------------+------------+-------------------------+------------------+---------------+
++--------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/var/lib/chisel/manifest.wall                                                                                                                |
++-----------------+---------------------------------+-------------------------+------------+--------------------------+------------------+---------------+
+| SOURCE PACKAGE  | INSTALLED VERSION               | FIX AVAILABLE           | VULN COUNT | BINARY PACKAGES (COUNT)  | INTRODUCED LAYER | IN BASE IMAGE |
++-----------------+---------------------------------+-------------------------+------------+--------------------------+------------------+---------------+
+| acl             | 2.3.2-2                         | No fix available        |          2 | libacl1                  | # 0 Layer        | --            |
+| attr            | 1:2.5.2-4                       | Fix Available           |          1 | libattr1                 | # 0 Layer        | --            |
+| coreutils       | 9.5-1ubuntu2+0.0.0~ubuntu25     | Fix Available           |          1 | coreutils                | # 0 Layer        | --            |
+| coreutils       | 9.7-3ubuntu2                    | Fix Available           |          1 | gnu-coreutils            | # 0 Layer        | --            |
+| glibc           | 2.43-2ubuntu2                   | Partial fixes Available |          8 | libc6                    | # 0 Layer        | --            |
+| golang-1.26     | 1.26.0-1                        | No fix available        |         12 | golang-1.26-go... (2)    | # 0 Layer        | --            |
+| golang-defaults | 2:1.26~1                        | No fix available        |          2 | golang, golang-go... (3) | # 0 Layer        | --            |
+| openssl         | 3.5.5-1ubuntu3                  | Fix Available           |          5 | libssl3t64... (2)        | # 0 Layer        | --            |
+| pcre2           | 10.46-1build1                   | Fix Available           |          8 | libpcre2-8-0             | # 0 Layer        | --            |
+| systemd         | 259.5-0ubuntu3                  | Partial fixes Available |          2 | libsystemd0              | # 0 Layer        | --            |
+| zlib            | 1:1.3.dfsg+really1.3.1-1ubuntu3 | Fix Available           |          2 | zlib1g                   | # 0 Layer        | --            |
++-----------------+---------------------------------+-------------------------+------------+--------------------------+------------------+---------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
 You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
@@ -1702,6 +1712,218 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 ---
 
 [TestCommand_OCIImage/scanning_ubuntu_image_with_homebrew_extractor - 2 - stderr]
+
+---
+
+[TestCommand_OCIImage_ChiselBinaryToSource/binarytosource_enricher_disabled - 1 - stdout]
+Scanning local image tarball "./testdata/test-chisel.tar"
+
+
+Container Scanning Result (Ubuntu 26.04 LTS):
+Total 7 packages affected by 277 known vulnerabilities (0 Critical, 0 High, 1 Medium, 0 Low, 276 Unknown) from 2 ecosystems.
+277 vulnerabilities can be fixed.
+
+
+Go
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/lib/go-1.26/bin/go                                                     |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| stdlib  | 1.26.0            | Fix Available |         46 | # 0 Layer        | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/lib/go-1.26/bin/gofmt                                                  |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| stdlib  | 1.26.0            | Fix Available |         46 | # 0 Layer        | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/asm                                   |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| stdlib  | 1.26.0            | Fix Available |         46 | # 0 Layer        | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/compile                               |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| stdlib  | 1.26.0            | Fix Available |         46 | # 0 Layer        | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/link                                  |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| stdlib  | 1.26.0            | Fix Available |         46 | # 0 Layer        | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/vet                                   |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| stdlib  | 1.26.0            | Fix Available |         46 | # 0 Layer        | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
+Ubuntu:26.04
++----------------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/var/lib/chisel/manifest.wall                                                                                                |
++----------------+-----------------------------+---------------+------------+-------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION           | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+-----------------------------+---------------+------------+-------------------------+------------------+---------------+
+| coreutils      | 9.5-1ubuntu2+0.0.0~ubuntu25 | Fix Available |          1 | coreutils               | # 0 Layer        | --            |
++----------------+-----------------------------+---------------+------------+-------------------------+------------------+---------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
+
+---
+
+[TestCommand_OCIImage_ChiselBinaryToSource/binarytosource_enricher_disabled - 2 - stderr]
+
+---
+
+[TestCommand_OCIImage_ChiselBinaryToSource/offline - 1 - stdout]
+Scanning local image tarball "./testdata/test-chisel.tar"
+Loaded Ubuntu local db from <tempdir>/osv-scalibr/Ubuntu/all.zip
+Loaded Go local db from <tempdir>/osv-scalibr/Go/all.zip
+
+
+Container Scanning Result (Ubuntu 26.04 LTS):
+Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
+
+Ubuntu:26.04
++----------------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/var/lib/chisel/manifest.wall                                                                                                |
++----------------+-----------------------------+---------------+------------+-------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION           | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+-----------------------------+---------------+------------+-------------------------+------------------+---------------+
+| coreutils      | 9.5-1ubuntu2+0.0.0~ubuntu25 | Fix Available |          1 | coreutils               | # 0 Layer        | --            |
++----------------+-----------------------------+---------------+------------+-------------------------+------------------+---------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
+
+---
+
+[TestCommand_OCIImage_ChiselBinaryToSource/offline - 2 - stderr]
+
+---
+
+[TestCommand_OCIImage_ChiselBinaryToSource/offline_vulnerabilities - 1 - stdout]
+Scanning local image tarball "./testdata/test-chisel.tar"
+Loaded Ubuntu local db from <tempdir>/osv-scalibr/Ubuntu/all.zip
+Loaded Go local db from <tempdir>/osv-scalibr/Go/all.zip
+
+
+Container Scanning Result (Ubuntu 26.04 LTS):
+Total 4 packages affected by 4 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 4 Unknown) from 1 ecosystem.
+4 vulnerabilities can be fixed.
+
+
+Ubuntu:26.04
++----------------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/var/lib/chisel/manifest.wall                                                                                                |
++----------------+-----------------------------+---------------+------------+-------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION           | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+-----------------------------+---------------+------------+-------------------------+------------------+---------------+
+| coreutils      | 9.5-1ubuntu2+0.0.0~ubuntu25 | Fix Available |          1 | coreutils               | # 0 Layer        | --            |
+| coreutils      | 9.7-3ubuntu2                | Fix Available |          1 | gnu-coreutils           | # 0 Layer        | --            |
+| glibc          | 2.43-2ubuntu2               | Fix Available |          1 | libc6                   | # 0 Layer        | --            |
+| openssl        | 3.5.5-1ubuntu3              | Fix Available |          1 | libssl3t64... (2)       | # 0 Layer        | --            |
++----------------+-----------------------------+---------------+------------+-------------------------+------------------+---------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
+
+---
+
+[TestCommand_OCIImage_ChiselBinaryToSource/offline_vulnerabilities - 2 - stderr]
+
+---
+
+[TestCommand_OCIImage_ChiselBinaryToSource/package_overrides_match_binary_and_source_names - 1 - stdout]
+Scanning local image tarball "./testdata/test-chisel.tar"
+Package Ubuntu:26.04/libssl3t64/3.5.5-1ubuntu3 has been filtered out because: ignored by binary name
+Filtered 1 ignored package/s from the scan.
+Package Ubuntu:26.04/libc6 (source: glibc)/2.43-2ubuntu2 has been filtered out because: ignored by source name
+Filtered 1 ignored package/s from the scan after enrichment.
+
+
+Container Scanning Result (Ubuntu 26.04 LTS):
+Total 14 packages affected by 348 known vulnerabilities (5 Critical, 25 High, 10 Medium, 2 Low, 306 Unknown) from 2 ecosystems.
+298 vulnerabilities can be fixed.
+
+
+Go
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/lib/go-1.26/bin/go                                                     |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| stdlib  | 1.26.0            | Fix Available |         48 | # 0 Layer        | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/lib/go-1.26/bin/gofmt                                                  |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| stdlib  | 1.26.0            | Fix Available |         48 | # 0 Layer        | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/asm                                   |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| stdlib  | 1.26.0            | Fix Available |         48 | # 0 Layer        | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/compile                               |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| stdlib  | 1.26.0            | Fix Available |         48 | # 0 Layer        | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/link                                  |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| stdlib  | 1.26.0            | Fix Available |         48 | # 0 Layer        | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/lib/go-1.26/pkg/tool/linux_amd64/vet                                   |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| stdlib  | 1.26.0            | Fix Available |         48 | # 0 Layer        | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
+Ubuntu:26.04
++------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/var/lib/chisel/manifest.wall                                                                                                              |
++----------------+-----------------------------+-------------------------+------------+-----------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION           | FIX AVAILABLE           | VULN COUNT | BINARY PACKAGES (COUNT)     | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+-----------------------------+-------------------------+------------+-----------------------------+------------------+---------------+
+| acl            | 2.3.2-2                     | No fix available        |          2 | libacl1                     | # 0 Layer        | --            |
+| attr           | 1:2.5.2-4                   | Fix Available           |          1 | libattr1                    | # 0 Layer        | --            |
+| coreutils      | 9.5-1ubuntu2+0.0.0~ubuntu25 | Fix Available           |          1 | coreutils                   | # 0 Layer        | --            |
+| coreutils      | 9.7-3ubuntu2                | Fix Available           |          1 | gnu-coreutils               | # 0 Layer        | --            |
+| golang-1.26    | 1.26.0-1                    | No fix available        |         41 | golang-1.26-go... (2)       | # 0 Layer        | --            |
+| openssl        | 3.5.5-1ubuntu3              | Partial fixes Available |         10 | openssl-provider-leg... (1) | # 0 Layer        | --            |
+| pcre2          | 10.46-1build1               | Fix Available           |          1 | libpcre2-8-0                | # 0 Layer        | --            |
+| systemd        | 259.5-0ubuntu3              | Partial fixes Available |          3 | libsystemd0                 | # 0 Layer        | --            |
++----------------+-----------------------------+-------------------------+------------+-----------------------------+------------------+---------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
+
+---
+
+[TestCommand_OCIImage_ChiselBinaryToSource/package_overrides_match_binary_and_source_names - 2 - stderr]
 
 ---
 
@@ -5270,7 +5492,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
               "index": 0
             }
           },
-          "groups": 47,
+          "groups": 46,
           "vulnerabilities": [
             "GO-2026-4599",
             "GO-2026-4600",
@@ -5317,8 +5539,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             "GO-2026-6611",
             "GO-2026-6612",
             "GO-2026-6613",
-            "GO-2026-6617",
-            "GO-2026-6809"
+            "GO-2026-6617"
           ]
         }
       ]
@@ -5339,7 +5560,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
               "index": 0
             }
           },
-          "groups": 47,
+          "groups": 46,
           "vulnerabilities": [
             "GO-2026-4599",
             "GO-2026-4600",
@@ -5386,8 +5607,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             "GO-2026-6611",
             "GO-2026-6612",
             "GO-2026-6613",
-            "GO-2026-6617",
-            "GO-2026-6809"
+            "GO-2026-6617"
           ]
         }
       ]
@@ -5408,7 +5628,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
               "index": 0
             }
           },
-          "groups": 47,
+          "groups": 46,
           "vulnerabilities": [
             "GO-2026-4599",
             "GO-2026-4600",
@@ -5455,8 +5675,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             "GO-2026-6611",
             "GO-2026-6612",
             "GO-2026-6613",
-            "GO-2026-6617",
-            "GO-2026-6809"
+            "GO-2026-6617"
           ]
         }
       ]
@@ -5477,7 +5696,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
               "index": 0
             }
           },
-          "groups": 47,
+          "groups": 46,
           "vulnerabilities": [
             "GO-2026-4599",
             "GO-2026-4600",
@@ -5524,8 +5743,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             "GO-2026-6611",
             "GO-2026-6612",
             "GO-2026-6613",
-            "GO-2026-6617",
-            "GO-2026-6809"
+            "GO-2026-6617"
           ]
         }
       ]
@@ -5546,7 +5764,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
               "index": 0
             }
           },
-          "groups": 47,
+          "groups": 46,
           "vulnerabilities": [
             "GO-2026-4599",
             "GO-2026-4600",
@@ -5593,8 +5811,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             "GO-2026-6611",
             "GO-2026-6612",
             "GO-2026-6613",
-            "GO-2026-6617",
-            "GO-2026-6809"
+            "GO-2026-6617"
           ]
         }
       ]
@@ -5615,7 +5832,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
               "index": 0
             }
           },
-          "groups": 47,
+          "groups": 46,
           "vulnerabilities": [
             "GO-2026-4599",
             "GO-2026-4600",
@@ -5662,8 +5879,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             "GO-2026-6611",
             "GO-2026-6612",
             "GO-2026-6613",
-            "GO-2026-6617",
-            "GO-2026-6809"
+            "GO-2026-6617"
           ]
         }
       ]
@@ -5690,6 +5906,376 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             "USN-8697-1",
             "UBUNTU-CVE-2025-5278",
             "UBUNTU-CVE-2026-56391"
+          ]
+        },
+        {
+          "package": {
+            "name": "coreutils",
+            "os_package_name": "gnu-coreutils",
+            "version": "9.7-3ubuntu2",
+            "ecosystem": "Ubuntu:26.04",
+            "purl": "pkg:deb/ubuntu/gnu-coreutils@9.7-3ubuntu2?arch=amd64/u0026distro=resolute/u0026source=coreutils",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "USN-8697-1",
+            "UBUNTU-CVE-2025-5278",
+            "UBUNTU-CVE-2026-56391"
+          ]
+        },
+        {
+          "package": {
+            "name": "golang-defaults",
+            "os_package_name": "golang",
+            "version": "2:1.26~1",
+            "ecosystem": "Ubuntu:26.04",
+            "purl": "pkg:deb/ubuntu/golang@2:1.26~1?arch=amd64/u0026distro=resolute/u0026source=golang-defaults",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "UBUNTU-CVE-2026-56855",
+            "UBUNTU-CVE-2026-78662"
+          ]
+        },
+        {
+          "package": {
+            "name": "golang-1.26",
+            "os_package_name": "golang-1.26-go",
+            "version": "1.26.0-1",
+            "ecosystem": "Ubuntu:26.04",
+            "purl": "pkg:deb/ubuntu/golang-1.26-go@1.26.0-1?arch=amd64/u0026distro=resolute/u0026source=golang-1.26",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 12,
+          "vulnerabilities": [
+            "UBUNTU-CVE-2026-25679",
+            "UBUNTU-CVE-2026-27137",
+            "UBUNTU-CVE-2026-27138",
+            "UBUNTU-CVE-2026-27139",
+            "UBUNTU-CVE-2026-27142",
+            "UBUNTU-CVE-2026-27145",
+            "UBUNTU-CVE-2026-33814",
+            "UBUNTU-CVE-2026-39821",
+            "UBUNTU-CVE-2026-42504",
+            "UBUNTU-CVE-2026-42507",
+            "UBUNTU-CVE-2026-56855",
+            "UBUNTU-CVE-2026-78662"
+          ]
+        },
+        {
+          "package": {
+            "name": "golang-1.26",
+            "os_package_name": "golang-1.26-src",
+            "version": "1.26.0-1",
+            "ecosystem": "Ubuntu:26.04",
+            "purl": "pkg:deb/ubuntu/golang-1.26-src@1.26.0-1?arch=all/u0026distro=resolute/u0026source=golang-1.26",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 12,
+          "vulnerabilities": [
+            "UBUNTU-CVE-2026-25679",
+            "UBUNTU-CVE-2026-27137",
+            "UBUNTU-CVE-2026-27138",
+            "UBUNTU-CVE-2026-27139",
+            "UBUNTU-CVE-2026-27142",
+            "UBUNTU-CVE-2026-27145",
+            "UBUNTU-CVE-2026-33814",
+            "UBUNTU-CVE-2026-39821",
+            "UBUNTU-CVE-2026-42504",
+            "UBUNTU-CVE-2026-42507",
+            "UBUNTU-CVE-2026-56855",
+            "UBUNTU-CVE-2026-78662"
+          ]
+        },
+        {
+          "package": {
+            "name": "golang-defaults",
+            "os_package_name": "golang-go",
+            "version": "2:1.26~1",
+            "ecosystem": "Ubuntu:26.04",
+            "purl": "pkg:deb/ubuntu/golang-go@2:1.26~1?arch=amd64/u0026distro=resolute/u0026source=golang-defaults",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "UBUNTU-CVE-2026-56855",
+            "UBUNTU-CVE-2026-78662"
+          ]
+        },
+        {
+          "package": {
+            "name": "golang-defaults",
+            "os_package_name": "golang-src",
+            "version": "2:1.26~1",
+            "ecosystem": "Ubuntu:26.04",
+            "purl": "pkg:deb/ubuntu/golang-src@2:1.26~1?arch=all/u0026distro=resolute/u0026source=golang-defaults",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "UBUNTU-CVE-2026-56855",
+            "UBUNTU-CVE-2026-78662"
+          ]
+        },
+        {
+          "package": {
+            "name": "acl",
+            "os_package_name": "libacl1",
+            "version": "2.3.2-2",
+            "ecosystem": "Ubuntu:26.04",
+            "purl": "pkg:deb/ubuntu/libacl1@2.3.2-2?arch=amd64/u0026distro=resolute/u0026source=acl",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "UBUNTU-CVE-2026-54369",
+            "UBUNTU-CVE-2026-54370"
+          ]
+        },
+        {
+          "package": {
+            "name": "attr",
+            "os_package_name": "libattr1",
+            "version": "1:2.5.2-4",
+            "ecosystem": "Ubuntu:26.04",
+            "purl": "pkg:deb/ubuntu/libattr1@1:2.5.2-4?arch=amd64/u0026distro=resolute/u0026source=attr",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "USN-8691-1",
+            "UBUNTU-CVE-2026-54371"
+          ]
+        },
+        {
+          "package": {
+            "name": "glibc",
+            "os_package_name": "libc6",
+            "version": "2.43-2ubuntu2",
+            "ecosystem": "Ubuntu:26.04",
+            "purl": "pkg:deb/ubuntu/libc6@2.43-2ubuntu2?arch=amd64/u0026distro=resolute/u0026source=glibc",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 8,
+          "vulnerabilities": [
+            "USN-8611-1",
+            "USN-8737-1",
+            "UBUNTU-CVE-2026-18374",
+            "UBUNTU-CVE-2026-19499",
+            "UBUNTU-CVE-2026-19542",
+            "UBUNTU-CVE-2026-4046",
+            "UBUNTU-CVE-2026-5435",
+            "UBUNTU-CVE-2026-5450",
+            "UBUNTU-CVE-2026-5928",
+            "UBUNTU-CVE-2026-6238",
+            "UBUNTU-CVE-2026-6368",
+            "UBUNTU-CVE-2026-6791",
+            "UBUNTU-CVE-2026-77117",
+            "UBUNTU-CVE-2026-80489",
+            "UBUNTU-CVE-2026-8674",
+            "UBUNTU-CVE-2026-86805",
+            "UBUNTU-CVE-2026-89092",
+            "UBUNTU-CVE-2026-95818",
+            "UBUNTU-CVE-2026-97399"
+          ]
+        },
+        {
+          "package": {
+            "name": "pcre2",
+            "os_package_name": "libpcre2-8-0",
+            "version": "10.46-1build1",
+            "ecosystem": "Ubuntu:26.04",
+            "purl": "pkg:deb/ubuntu/libpcre2-8-0@10.46-1build1?arch=amd64/u0026distro=resolute/u0026source=pcre2",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 8,
+          "vulnerabilities": [
+            "UBUNTU-CVE-2026-103111",
+            "UBUNTU-CVE-2026-86145",
+            "UBUNTU-CVE-2026-89156",
+            "UBUNTU-CVE-2026-89157",
+            "UBUNTU-CVE-2026-89158",
+            "UBUNTU-CVE-2026-89160",
+            "UBUNTU-CVE-2026-89161",
+            "UBUNTU-CVE-2026-89162"
+          ]
+        },
+        {
+          "package": {
+            "name": "openssl",
+            "os_package_name": "libssl3t64",
+            "version": "3.5.5-1ubuntu3",
+            "ecosystem": "Ubuntu:26.04",
+            "purl": "pkg:deb/ubuntu/libssl3t64@3.5.5-1ubuntu3?arch=amd64/u0026distro=resolute/u0026source=openssl",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 5,
+          "vulnerabilities": [
+            "USN-8414-1",
+            "USN-8625-1",
+            "USN-8678-1",
+            "USN-8678-3",
+            "USN-8847-1",
+            "USN-8861-1",
+            "UBUNTU-CVE-2026-14456",
+            "UBUNTU-CVE-2026-14457",
+            "UBUNTU-CVE-2026-18798",
+            "UBUNTU-CVE-2026-34180",
+            "UBUNTU-CVE-2026-34181",
+            "UBUNTU-CVE-2026-34182",
+            "UBUNTU-CVE-2026-34183",
+            "UBUNTU-CVE-2026-35189",
+            "UBUNTU-CVE-2026-35191",
+            "UBUNTU-CVE-2026-42764",
+            "UBUNTU-CVE-2026-42766",
+            "UBUNTU-CVE-2026-42767",
+            "UBUNTU-CVE-2026-42768",
+            "UBUNTU-CVE-2026-42769",
+            "UBUNTU-CVE-2026-42770",
+            "UBUNTU-CVE-2026-42772",
+            "UBUNTU-CVE-2026-45445",
+            "UBUNTU-CVE-2026-45446",
+            "UBUNTU-CVE-2026-45447",
+            "UBUNTU-CVE-2026-54872",
+            "UBUNTU-CVE-2026-54873",
+            "UBUNTU-CVE-2026-54874",
+            "UBUNTU-CVE-2026-54875",
+            "UBUNTU-CVE-2026-63072",
+            "UBUNTU-CVE-2026-63073",
+            "UBUNTU-CVE-2026-63074",
+            "UBUNTU-CVE-2026-63075",
+            "UBUNTU-CVE-2026-63076",
+            "UBUNTU-CVE-2026-72897",
+            "UBUNTU-CVE-2026-7383",
+            "UBUNTU-CVE-2026-75803",
+            "UBUNTU-CVE-2026-75804",
+            "UBUNTU-CVE-2026-75805",
+            "UBUNTU-CVE-2026-75806",
+            "UBUNTU-CVE-2026-77696",
+            "UBUNTU-CVE-2026-84782",
+            "UBUNTU-CVE-2026-84784",
+            "UBUNTU-CVE-2026-9076"
+          ]
+        },
+        {
+          "package": {
+            "name": "systemd",
+            "os_package_name": "libsystemd0",
+            "version": "259.5-0ubuntu3",
+            "ecosystem": "Ubuntu:26.04",
+            "purl": "pkg:deb/ubuntu/libsystemd0@259.5-0ubuntu3?arch=amd64/u0026distro=resolute/u0026source=systemd",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "USN-8626-1",
+            "UBUNTU-CVE-2026-15059",
+            "UBUNTU-CVE-2026-15060",
+            "UBUNTU-CVE-2026-16742",
+            "UBUNTU-CVE-2026-40228"
+          ]
+        },
+        {
+          "package": {
+            "name": "openssl",
+            "os_package_name": "openssl-provider-legacy",
+            "version": "3.5.5-1ubuntu3",
+            "ecosystem": "Ubuntu:26.04",
+            "purl": "pkg:deb/ubuntu/openssl-provider-legacy@3.5.5-1ubuntu3?arch=amd64/u0026distro=resolute/u0026source=openssl",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 5,
+          "vulnerabilities": [
+            "USN-8414-1",
+            "USN-8625-1",
+            "USN-8678-1",
+            "USN-8678-3",
+            "USN-8847-1",
+            "USN-8861-1",
+            "UBUNTU-CVE-2026-14456",
+            "UBUNTU-CVE-2026-14457",
+            "UBUNTU-CVE-2026-18798",
+            "UBUNTU-CVE-2026-34180",
+            "UBUNTU-CVE-2026-34181",
+            "UBUNTU-CVE-2026-34182",
+            "UBUNTU-CVE-2026-34183",
+            "UBUNTU-CVE-2026-35189",
+            "UBUNTU-CVE-2026-35191",
+            "UBUNTU-CVE-2026-42764",
+            "UBUNTU-CVE-2026-42766",
+            "UBUNTU-CVE-2026-42767",
+            "UBUNTU-CVE-2026-42768",
+            "UBUNTU-CVE-2026-42769",
+            "UBUNTU-CVE-2026-42770",
+            "UBUNTU-CVE-2026-42772",
+            "UBUNTU-CVE-2026-45445",
+            "UBUNTU-CVE-2026-45446",
+            "UBUNTU-CVE-2026-45447",
+            "UBUNTU-CVE-2026-54872",
+            "UBUNTU-CVE-2026-54873",
+            "UBUNTU-CVE-2026-54874",
+            "UBUNTU-CVE-2026-54875",
+            "UBUNTU-CVE-2026-63072",
+            "UBUNTU-CVE-2026-63073",
+            "UBUNTU-CVE-2026-63074",
+            "UBUNTU-CVE-2026-63075",
+            "UBUNTU-CVE-2026-63076",
+            "UBUNTU-CVE-2026-72897",
+            "UBUNTU-CVE-2026-7383",
+            "UBUNTU-CVE-2026-75803",
+            "UBUNTU-CVE-2026-75804",
+            "UBUNTU-CVE-2026-75805",
+            "UBUNTU-CVE-2026-75806",
+            "UBUNTU-CVE-2026-77696",
+            "UBUNTU-CVE-2026-84782",
+            "UBUNTU-CVE-2026-84784",
+            "UBUNTU-CVE-2026-9076"
+          ]
+        },
+        {
+          "package": {
+            "name": "zlib",
+            "os_package_name": "zlib1g",
+            "version": "1:1.3.dfsg+really1.3.1-1ubuntu3",
+            "ecosystem": "Ubuntu:26.04",
+            "purl": "pkg:deb/ubuntu/zlib1g@1:1.3.dfsg%2Breally1.3.1-1ubuntu3?arch=amd64/u0026distro=resolute/u0026source=zlib",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "USN-8706-1",
+            "UBUNTU-CVE-2026-27171",
+            "UBUNTU-CVE-2026-85091"
           ]
         }
       ]

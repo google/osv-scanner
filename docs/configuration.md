@@ -106,6 +106,26 @@ reason = "internal packages should not be checked"
 
 When `nameIsRegex` is set to `true`, the `name` field is treated as a regular expression pattern. The pattern is automatically anchored to match the full package name (i.e. `^pattern$`). Standard [Go regular expression syntax](https://pkg.go.dev/regexp/syntax) is supported. An invalid regex pattern will cause a config loading error.
 
+### OS packages
+
+OS packages (such as Debian, Ubuntu, and Alpine packages) can be matched by either their binary (installed) package name or their source package name:
+
+```toml
+# ignore the "libc6" binary package
+[[PackageOverrides]]
+name = "libc6"
+ecosystem = "Ubuntu"
+ignore = true
+
+# ignore vulnerabilities for all binary packages built from the "openssl" source package (e.g. "libssl3t64")
+[[PackageOverrides]]
+name = "openssl"
+ecosystem = "Ubuntu"
+vulnerability.ignore = true
+```
+
+For some packages, such as those in chiseled Ubuntu images, the source package name is only determined after vulnerability matching has started, so packages ignored by their source package name might still be queried for vulnerabilities before being removed from the results.
+
 ## Scan Go Mod Version
 
 By default, OSV-Scanner does not scan the Go version from `go.mod` files because the `go` directive specifies the minimum required language version, not necessarily the toolchain version used to build or run the project. This can lead to misleading vulnerabilities.

@@ -9,6 +9,7 @@ import (
 	detectors "github.com/google/osv-scalibr/detector/list"
 	"github.com/google/osv-scalibr/enricher/baseimage"
 	"github.com/google/osv-scalibr/enricher/enricherlist"
+	"github.com/google/osv-scalibr/enricher/os/ubuntu/binarytosource"
 	transitivedependencypomxml "github.com/google/osv-scalibr/enricher/transitivedependency/pomxml"
 	transitivedependencyrequirements "github.com/google/osv-scalibr/enricher/transitivedependency/requirements"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/cpp/conanlock"
@@ -175,6 +176,9 @@ var ExtractorPresets = map[string]extractors.InitMap{
 var enricherPresets = map[string]enricherlist.InitMap{
 	"artifact": {
 		baseimage.Name: {baseimage.New},
+		// Fills in source package names for chisel-extracted Ubuntu packages so
+		// they can be matched against Ubuntu advisories (keyed by source package).
+		binarytosource.Name: {binarytosource.New},
 	},
 	"vulns":    enricherlist.VulnMatching,
 	"licenses": enricherlist.License,

@@ -77,7 +77,12 @@ func DepGroups(pkg *extractor.Package) []string {
 	return []string{}
 }
 
-func osPackageName(pkg *extractor.Package) string {
+// OSPackageName returns the binary (installed) package name of an OS package,
+// or an empty string if the package is not an OS package.
+//
+// For OS packages, the name returned by ParsePackage is the source package name
+// when it is known, as that is what vulnerabilities are matched against.
+func OSPackageName(pkg *extractor.Package) string {
 	if metadata, ok := pkg.Metadata.(*apkmetadata.Metadata); ok {
 		return metadata.PackageName
 	}
@@ -91,6 +96,39 @@ func osPackageName(pkg *extractor.Package) string {
 	return ""
 }
 
+// Names returns the names a package can be referred to by: the binary package
+// name first (for OS packages), followed by the (source) package name if it differs.
+func Names(pkg *extractor.Package) []string {
+	return NamesWithParsedName(pkg, ParsePackage(pkg).Name)
+}
+
+// NamesWithParsedName is like Names, but uses the given parsed package name
+// (i.e. ParsePackage(pkg).Name) to avoid parsing the package again.
+func NamesWithParsedName(pkg *extractor.Package, parsedName string) []string {
+	binaryName := OSPackageName(pkg)
+
+	switch {
+	case binaryName == "" || binaryName == parsedName:
+		return []string{parsedName}
+	case parsedName == "":
+		return []string{binaryName}
+	default:
+		return []string{binaryName, parsedName}
+	}
+}
+
+// DisplayName returns a human-readable name for the package, preferring the
+// binary package name for OS packages and including the source package name
+// if it differs, e.g. "libc6 (source: glibc)".
+func DisplayName(pkg *extractor.Package) string {
+	names := Names(pkg)
+	if len(names) == 1 {
+		return names[0]
+	}
+
+	return names[0] + " (source: " + names[1] + ")"
+}
+
 func PackageVulns(p *extractor.Package) models.PackageVulns {
 	return models.PackageVulns{Package: PackageInfo(p), DepGroups: DepGroups(p)}
 }
@@ -102,7 +140,7 @@ func PackageInfo(p *extractor.Package) models.PackageInfo {
 		Name:          parsedPkg.Name,
 		Version:       parsedPkg.Version,
 		Ecosystem:     parsedPkg.Ecosystem.String(),
-		OSPackageName: osPackageName(p),
+		OSPackageName: OSPackageName(p),
 		Commit:        parsedPkg.Commit,
 		Deprecated:    p.Deprecated,
 		Inventory:     p,

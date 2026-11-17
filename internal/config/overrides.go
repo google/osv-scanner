@@ -58,19 +58,9 @@ func (e *PackageOverrideEntry) Describe() string {
 
 func (e *PackageOverrideEntry) matches(pkg *extractor.Package) bool {
 	parsedPkg := imodels.ParsePackage(pkg)
-	if e.Name != "" {
-		if e.NameIsRegex {
-			re, err := cachedregexp.Compile("^(?:" + e.Name + ")$")
-			if err != nil {
-				// This should not happen as regex is validated at config load time
-				return false
-			}
-			if !re.MatchString(parsedPkg.Name) {
-				return false
-			}
-		} else if e.Name != parsedPkg.Name {
-			return false
-		}
+	// OS packages can be referred to by either their binary or source package name
+	if e.Name != "" && !slices.ContainsFunc(imodels.NamesWithParsedName(pkg, parsedPkg.Name), e.matchesName) {
+		return false
 	}
 	if e.Version != "" && e.Version != parsedPkg.Version {
 		return false
@@ -86,6 +76,20 @@ func (e *PackageOverrideEntry) matches(pkg *extractor.Package) bool {
 	}
 
 	return true
+}
+
+func (e *PackageOverrideEntry) matchesName(name string) bool {
+	if !e.NameIsRegex {
+		return e.Name == name
+	}
+
+	re, err := cachedregexp.Compile("^(?:" + e.Name + ")$")
+	if err != nil {
+		// This should not happen as regex is validated at config load time
+		return false
+	}
+
+	return re.MatchString(name)
 }
 
 type Vulnerability struct {

@@ -157,6 +157,9 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 	// ----- Custom Overrides -----
 	filterAndOverrideGoVersion(&scanResults)
 
+	// Remove packages that only match an ignore override after enrichment
+	filter.RemoveIgnoredPackagesAfterEnrichment(&scanResults.Inventory, &scanResults.ConfigManager)
+
 	// Retrieve the unscannable packages that were filtered out during annotation
 	// and add them back to the output if ShowAllPackages is enabled.
 	reattachUnscannablePackages(filterAnno, &scanResults.Inventory)
@@ -282,6 +285,10 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	} else {
 		cmdlogger.Warnf("No container image metadata found in scan results")
 	}
+
+	// Remove packages that only match an ignore override after enrichment
+	// (e.g. Ubuntu chisel packages whose source names are filled in by an enricher)
+	filter.RemoveIgnoredPackagesAfterEnrichment(&scanResults.Inventory, &scanResults.ConfigManager)
 
 	// Retrieve the unscannable packages that were filtered out during annotation
 	// and add them back to the output if ShowAllPackages is enabled.

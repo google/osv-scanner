@@ -17,6 +17,7 @@ import (
 	"github.com/google/osv-scalibr/detector/weakcredentials/filebrowser"
 	"github.com/google/osv-scalibr/detector/weakcredentials/winlocal"
 	"github.com/google/osv-scalibr/enricher/baseimage"
+	"github.com/google/osv-scalibr/enricher/os/ubuntu/binarytosource"
 	transitivedependencypomxml "github.com/google/osv-scalibr/enricher/transitivedependency/pomxml"
 	transitivedependencyrequirements "github.com/google/osv-scalibr/enricher/transitivedependency/requirements"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/packageslockjson"
@@ -531,6 +532,7 @@ func TestResolve_Extractors(t *testing.T) {
 				apk.Name,
 				archive.Name,
 				baseimage.Name,
+				binarytosource.Name,
 				cargoauditable.Name,
 				dpkg.Name,
 				chisel.Name,
@@ -554,6 +556,7 @@ func TestResolve_Extractors(t *testing.T) {
 				apk.Name,
 				archive.Name,
 				baseimage.Name,
+				binarytosource.Name,
 				cargoauditable.Name,
 				dpkg.Name,
 				chisel.Name,
@@ -584,6 +587,7 @@ func TestResolve_Extractors(t *testing.T) {
 			want: []string{
 				apk.Name,
 				baseimage.Name,
+				binarytosource.Name,
 				dpkg.Name,
 				chisel.Name,
 				gobinary.Name,
@@ -606,6 +610,7 @@ func TestResolve_Extractors(t *testing.T) {
 				apk.Name,
 				archive.Name,
 				baseimage.Name,
+				binarytosource.Name,
 				cargoauditable.Name,
 				dpkg.Name,
 				chisel.Name,

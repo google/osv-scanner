@@ -80,6 +80,7 @@ os/chisel
 os/dpkg
 os/homebrew
 os/rpm
+os/ubuntu/binarytosource
 python/wheelegg
 rust/cargoauditable
 vex/os-duplicate/apk
@@ -121,6 +122,7 @@ os/chisel
 os/dpkg
 os/homebrew
 os/rpm
+os/ubuntu/binarytosource
 python/wheelegg
 rust/cargoauditable
 vex/os-duplicate/apk
@@ -152,6 +154,7 @@ os/chisel
 os/dpkg
 os/homebrew
 os/rpm
+os/ubuntu/binarytosource
 python/wheelegg
 rust/cargoauditable
 vex/os-duplicate/apk
