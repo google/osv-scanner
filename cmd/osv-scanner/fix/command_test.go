@@ -33,6 +33,13 @@ func TestCommand(t *testing.T) {
 			Exit: 0,
 		},
 		{
+			Name: "fix_non-interactive_json_in-place_package-lock.json",
+			Args: []string{"", "fix", "--strategy=in-place", "--format=json", "-L", "./testdata/in-place-npm/package-lock.json"},
+			Exit: 0,
+
+			CassetteName: "TestCommand_fix_non-interactive_in-place_package-lock.json",
+		},
+		{
 			Name: "fix_non_interactive_in_place_package_lock_json_with_native_data_source",
 			Args: []string{"", "fix", "--strategy=in-place", "--data-source", "native", "-L", "./testdata/in-place-npm/package-lock.json"},
 			Exit: 0,
@@ -43,30 +50,29 @@ func TestCommand(t *testing.T) {
 			Exit: 0,
 		},
 		{
-			Name: "fix_non-interactive_override_pom.xml",
-			Args: []string{"", "fix", "--strategy=override", "-M", "./testdata/override-maven/pom.xml"},
-			Exit: 0,
-		},
-		{
-			Name: "fix_non_interactive_override_pom_xml_with_native_data_source",
-			Args: []string{"", "fix", "--strategy=override", "--data-source", "native", "-M", "./testdata/override-maven/pom.xml"},
-			Exit: 0,
-			Skip: "Skipping for now as Maven is enforcing stricter 429s",
-		},
-		{
-			Name: "fix_non-interactive_json_in-place_package-lock.json",
-			Args: []string{"", "fix", "--strategy=in-place", "--format=json", "-L", "./testdata/in-place-npm/package-lock.json"},
-			Exit: 0,
-		},
-		{
 			Name: "fix_non-interactive_json_relax_package.json",
 			Args: []string{"", "fix", "--strategy=relax", "--format=json", "-M", "./testdata/relax-npm/package.json"},
+			Exit: 0,
+
+			CassetteName: "TestCommand_fix_non-interactive_relax_package.json",
+		},
+		{
+			Name: "fix_non-interactive_override_pom.xml",
+			Args: []string{"", "fix", "--strategy=override", "-M", "./testdata/override-maven/pom.xml"},
 			Exit: 0,
 		},
 		{
 			Name: "fix_non-interactive_json_override_pom.xml",
 			Args: []string{"", "fix", "--strategy=override", "--format=json", "-M", "./testdata/override-maven/pom.xml"},
 			Exit: 0,
+
+			CassetteName: "TestCommand_fix_non-interactive_override_pom.xml",
+		},
+		{
+			Name: "fix_non_interactive_override_pom_xml_with_native_data_source",
+			Args: []string{"", "fix", "--strategy=override", "--data-source", "native", "-M", "./testdata/override-maven/pom.xml"},
+			Exit: 0,
+			Skip: "Skipping for now as Maven is enforcing stricter 429s",
 		},
 		{
 			Name: "errors_with_invalid_data_source",
