@@ -6,15 +6,11 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"os"
-	"path/filepath"
 	"strings"
 
 	scalibrconfig "github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/helper"
-	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/version"
-	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
 	"github.com/urfave/cli/v3"
 )
@@ -37,7 +33,7 @@ func Command(stdout, stderr io.Writer, clientFactories scalibrconfig.ClientFacto
 	}
 }
 
-func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clientFactories scalibrconfig.ClientFactories) error {
+func action(ctx context.Context, cmd *cli.Command, stdout, stderr io.Writer, clientFactories scalibrconfig.ClientFactories) error {
 	if cmd.Args().Len() == 0 {
 		return errors.New("please provide an image name or see the help document")
 	}
@@ -48,75 +44,16 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 		return fmt.Errorf("%q is not a tagged image name", image)
 	}
 
-	format := cmd.String("format")
-	outputPath := cmd.String(helper.FallbackToDeprecatedName(cmd, "output-file", "output"))
-	serve := cmd.Bool("serve")
-	if serve {
-		format = "html"
-		if outputPath == "" {
-			// Create a temporary directory
-			tmpDir, err := os.MkdirTemp("", "osv-scanner-result")
-			if err != nil {
-				return fmt.Errorf("failed creating temporary directory: %w\n"+
-					"Please use `--output-file result.html` to specify the output path", err)
-			}
+	return helper.Action(
+		ctx, cmd,
+		stdout, stderr,
+		clientFactories,
+		func(actions *osvscanner.ScannerActions) {
+			actions.RequestUserAgent = "osv-scanner_scan-image/" + version.OSVVersion
 
-			// Remove the created temporary directory after
-			defer os.RemoveAll(tmpDir)
-			outputPath = filepath.Join(tmpDir, "index.html")
-		}
-	}
-
-	scanLicensesAllowlist, err := helper.GetScanLicensesAllowlist(cmd)
-	if err != nil {
-		return err
-	}
-
-	scannerActions := helper.GetCommonScannerActions(cmd, scanLicensesAllowlist)
-
-	scannerActions.Image = cmd.Args().First()
-	scannerActions.IsImageArchive = cmd.Bool("archive")
-	scannerActions.ExperimentalScannerActions = helper.GetExperimentalScannerActions(cmd)
-	scannerActions.RequestUserAgent = "osv-scanner_scan-image/" + version.OSVVersion
-
-	if clientFactories != nil {
-		scannerActions.ScalibrConfig = &scalibrconfig.PluginConfig{
-			ClientFactories: clientFactories,
-		}
-	}
-
-	var vulnResult models.VulnerabilityResults
-	//nolint:contextcheck // passing the context in would be a breaking change
-	vulnResult, err = osvscanner.DoContainerScan(scannerActions)
-
-	// ensure that the results property is always an array
-	//goland:noinspection GoDfaErrorMayBeNotNil // false positive
-	if vulnResult.Results == nil {
-		vulnResult.Results = []models.PackageSource{}
-	}
-
-	if cmd.Bool("allow-no-lockfiles") && errors.Is(err, osvscanner.ErrNoPackagesFound) {
-		cmdlogger.Warnf("No package sources found")
-		err = nil
-	}
-
-	if err != nil && !errors.Is(err, osvscanner.ErrVulnerabilitiesFound) {
-		return err
-	}
-
-	if errPrint := helper.PrintResult(stdout, stderr, outputPath, format, &vulnResult, scannerActions.ShowAllVulns); errPrint != nil {
-		return fmt.Errorf("failed to write output: %w", errPrint)
-	}
-
-	// Auto-open outputted HTML file for users.
-	if outputPath != "" {
-		if serve {
-			helper.ServeHTML(outputPath)
-		} else if format == "html" {
-			cmdlogger.Infof("HTML output available at: %s", outputPath)
-		}
-	}
-
-	// This may be nil.
-	return err
+			actions.Image = cmd.Args().First()
+			actions.IsImageArchive = cmd.Bool("archive")
+		},
+		osvscanner.DoContainerScan,
+	)
 }
