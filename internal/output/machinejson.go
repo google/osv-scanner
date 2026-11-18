@@ -25,27 +25,17 @@ type aliasPackageSource struct {
 	Packages []aliasPackageVulns `json:"packages"`
 }
 
+// plainPackageVulns is a method-less copy of models.PackageVulns, so that
+// embedding it doesn't promote models.PackageVulns.MarshalJSON, which would
+// otherwise marshal the (slimmed) vulnerabilities without ever fattening them
+type plainPackageVulns models.PackageVulns
+
 type aliasPackageVulns struct {
-	models.PackageVulns
+	plainPackageVulns
 
-	vulns []slimVulnerability
-}
-
-// MarshalJSON shadows the MarshalJSON promoted from the embedded
-// models.PackageVulns, which would otherwise marshal the (slimmed)
-// vulnerabilities directly without ever fattening them
-func (a *aliasPackageVulns) MarshalJSON() ([]byte, error) {
-	// avoid models.PackageVulns.MarshalJSON by using a method-less alias
-	type plain models.PackageVulns
-
-	return json.Marshal(&struct {
-		*plain
-
-		Vulnerabilities []slimVulnerability `json:"vulnerabilities,omitempty"`
-	}{
-		plain:           (*plain)(&a.PackageVulns),
-		Vulnerabilities: a.vulns,
-	})
+	// shadows plainPackageVulns.Vulnerabilities, as shallower fields
+	// take precedence when marshaling
+	Vulnerabilities []slimVulnerability `json:"vulnerabilities,omitempty"`
 }
 
 type slimVulnerability struct {
@@ -81,15 +71,15 @@ func aliasResults(vulnResult *models.VulnerabilityResults) aliasVulnerabilityRes
 		aliased.Results[i].Packages = make([]aliasPackageVulns, len(ps.Packages))
 
 		for j, pkg := range ps.Packages {
-			aliased.Results[i].Packages[j].PackageVulns = pkg
-			aliased.Results[i].Packages[j].vulns = make([]slimVulnerability, len(pkg.Vulnerabilities))
+			aliased.Results[i].Packages[j].plainPackageVulns = plainPackageVulns(pkg)
+			aliased.Results[i].Packages[j].Vulnerabilities = make([]slimVulnerability, len(pkg.Vulnerabilities))
 
 			for k, vuln := range pkg.Vulnerabilities {
-				aliased.Results[i].Packages[j].vulns[k] = slimVulnerability{vuln}
+				aliased.Results[i].Packages[j].Vulnerabilities[k] = slimVulnerability{vuln}
 			}
 
 			// match the ordering applied by models.PackageVulns.MarshalJSON
-			slices.SortFunc(aliased.Results[i].Packages[j].vulns, func(a, b slimVulnerability) int {
+			slices.SortFunc(aliased.Results[i].Packages[j].Vulnerabilities, func(a, b slimVulnerability) int {
 				return identifiers.IDSortFunc(a.vuln.GetId(), b.vuln.GetId())
 			})
 		}
