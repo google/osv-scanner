@@ -50,7 +50,7 @@ func Action(
 	}
 
 	scannerActions := GetCommonScannerActions(cmd, scanLicensesAllowlist)
-	scannerActions.ExperimentalScannerActions = GetExperimentalScannerActions(cmd)
+	scannerActions.ExperimentalScannerActions = getExperimentalScannerActions(cmd)
 
 	if clientFactories != nil {
 		scannerActions.ScalibrConfig = &scalibrconfig.PluginConfig{
@@ -78,14 +78,14 @@ func Action(
 		return err
 	}
 
-	if errPrint := PrintResult(stdout, stderr, outputPath, format, &vulnResult, scannerActions.ShowAllVulns); errPrint != nil {
+	if errPrint := printResult(stdout, stderr, outputPath, format, &vulnResult, scannerActions.ShowAllVulns); errPrint != nil {
 		return fmt.Errorf("failed to write output: %w", errPrint)
 	}
 
 	// Auto-open outputted HTML file for users.
 	if outputPath != "" {
 		if serve {
-			ServeHTML(outputPath)
+			serveHTML(outputPath)
 		} else if format == "html" {
 			cmdlogger.Infof("HTML output available at: %s", outputPath)
 		}

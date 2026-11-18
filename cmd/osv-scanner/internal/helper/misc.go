@@ -22,10 +22,10 @@ var (
 
 const serveHost = "127.0.0.1"
 
-// ServeHTML serves the single HTML file on the loopback interface.
+// serveHTML serves the single HTML file on the loopback interface.
 // The program will keep running to serve the HTML report on localhost
 // until the user manually terminates it (e.g. using Ctrl+C).
-func ServeHTML(outputPath string) {
+func serveHTML(outputPath string) {
 	server := &http.Server{
 		Addr: net.JoinHostPort(serveHost, servePort),
 		Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -42,7 +42,7 @@ func ServeHTML(outputPath string) {
 	}
 }
 
-func PrintResult(stdout, stderr io.Writer, outputPath, format string, diffVulns *models.VulnerabilityResults, showAllVulns bool) error {
+func printResult(stdout, stderr io.Writer, outputPath, format string, diffVulns *models.VulnerabilityResults, showAllVulns bool) error {
 	termWidth := 0
 	var err error
 	if outputPath != "" { // Output is definitely a file
