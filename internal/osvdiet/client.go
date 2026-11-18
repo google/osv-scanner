@@ -6,17 +6,19 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"net/http"
 	"os"
 	"path/filepath"
 	"sync"
 	"weak"
 
-	"github.com/google/osv-scalibr/enricher/vulnmatch/osvdev"
+	scalibrosvdev "github.com/google/osv-scalibr/enricher/vulnmatch/osvdev"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/types/known/structpb"
 	"osv.dev/bindings/go/api"
+	"osv.dev/bindings/go/osvdev"
 )
 
 // ErrFullDataUnavailable is returned by Fatten when a vulnerability was
@@ -30,17 +32,23 @@ var slimmed sync.Map
 // vulnerabilities, with the full vulnerability data stored on disk so it can
 // be retrieved if needed such as for outputting
 type Client struct {
-	backend osvdev.Client
+	backend scalibrosvdev.Client
 	mu      sync.Mutex
 	dir     string
 }
 
-// New returns a Client that uses the given backend for making requests.
-//
-// The same client will be used until Cleanup is called, after which
-// the next New will return a new Client instance
-func New(backend osvdev.Client) *Client {
-	return &Client{backend: backend}
+// New returns a Client that can be used by osvdev.Enricher to make requests
+func New(httpClient *http.Client, userAgent string) *Client {
+	cfg := osvdev.DefaultConfig()
+	cfg.UserAgent = userAgent
+
+	return &Client{
+		backend: &osvdev.OSVClient{
+			HTTPClient:  httpClient,
+			Config:      cfg,
+			BaseHostURL: osvdev.DefaultBaseURL,
+		},
+	}
 }
 
 // Cleanup removes the global Client after clearing its storage directory.
@@ -120,7 +128,7 @@ func (c *Client) GetVulnByID(ctx context.Context, id string) (*osvschema.Vulnera
 	return vuln, nil
 }
 
-var _ osvdev.Client = &Client{}
+var _ scalibrosvdev.Client = &Client{}
 
 // store writes the vulnerability to disk
 func (c *Client) store(vuln *osvschema.Vulnerability) error {

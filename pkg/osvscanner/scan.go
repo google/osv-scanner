@@ -29,7 +29,6 @@ import (
 	"github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	scanconfig "github.com/google/osv-scanner/v2/internal/config"
-	"github.com/google/osv-scanner/v2/internal/osvdiet"
 	"github.com/google/osv-scanner/v2/internal/scalibrannotator/filter"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitcommitdirect"
@@ -149,11 +148,11 @@ func getPlugins(
 
 	plugins := scalibrplugin.Resolve(actions.PluginsEnabled, actions.PluginsDisabled, finalScalibrConfig)
 
-	if actions.DiskBackedVulns {
+	if actions.OSVDevClient != nil {
 		for i, plug := range plugins {
-			if plug.Name() == scalibrosvdev.Name && accessors.OSVDevClient != nil {
+			if plug.Name() == scalibrosvdev.Name {
 				plugins[i] = scalibrosvdev.NewWithClient(
-					osvdiet.New(accessors.OSVDevClient),
+					actions.OSVDevClient,
 					5*time.Minute,
 				)
 			}

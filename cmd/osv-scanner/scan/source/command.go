@@ -13,6 +13,7 @@ import (
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/helper"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/osvdiet"
+	localscalibr "github.com/google/osv-scanner/v2/internal/scalibr"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
@@ -143,14 +144,30 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 
 	scannerAction.ExperimentalScannerActions = experimentalScannerActions
 
-	if scannerAction.DiskBackedVulns {
-		defer osvdiet.Cleanup()
-	}
-
 	if clientFactories != nil {
 		scannerAction.ScalibrConfig = &scalibrconfig.PluginConfig{
 			ClientFactories: clientFactories,
 		}
+	}
+
+	if cmd.Bool("x-disk-backed-vulns") {
+		if scannerAction.ScalibrConfig == nil {
+			var toClose io.Closer
+			scannerAction.ScalibrConfig, toClose = localscalibr.NewPluginConfig(scannerAction.HTTPClient, scannerAction.RequestUserAgent)
+
+			defer func() {
+				if err := toClose.Close(); err != nil {
+					cmdlogger.Errorf("Failed to close scalibr client factories: %v", err)
+				}
+			}()
+		}
+
+		scannerAction.OSVDevClient = osvdiet.New(
+			scannerAction.ScalibrConfig.ClientFactories.HTTPClient(),
+			scannerAction.RequestUserAgent,
+		)
+
+		defer osvdiet.Cleanup()
 	}
 
 	var vulnResult models.VulnerabilityResults
