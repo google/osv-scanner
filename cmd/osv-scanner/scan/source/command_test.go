@@ -2029,6 +2029,9 @@ func TestCommand_DietClient(t *testing.T) { //nolint:tparallel
 	}
 	for _, tt := range tests { //nolint:paralleltest
 		t.Run(tt.Name, func(t *testing.T) {
+			// reuse the cassettes and interactions of the "not json" runs since they should be the same
+			tt.HTTPClient = testcmd.InsertCassetteWithName(t, strings.TrimSuffix(t.Name(), "_json"))
+
 			// capture the output when we're not using the diet client
 			stdoutFat, stderrFat := testcmd.RunAndNormalize(t, tt)
 
@@ -2036,6 +2039,9 @@ func TestCommand_DietClient(t *testing.T) { //nolint:tparallel
 			old := tt.Args
 			tt.Args = []string{"", "source", "--x-disk-backed-vulns"}
 			tt.Args = append(tt.Args, old[2:]...)
+
+			// reuse the cassettes and interactions of the "not json" runs since they should be the same
+			tt.HTTPClient = testcmd.InsertCassetteWithName(t, strings.TrimSuffix(t.Name(), "_json"))
 
 			stdoutThin, stderrThin := testcmd.RunAndNormalize(t, tt)
 
