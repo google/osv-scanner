@@ -4,11 +4,10 @@ The [OSV-Scanner docs](https://google.github.io/osv-scanner) are hosted on a [Gi
 
 ## Running docs locally (docker)
 
-You can run the docs locally consistently through docker:
+You can run the docs locally consistently through docker by running the following in the project directory:
 
-```bash
-docker build -t osv-scanner-docs -f docs.Dockerfile .
-docker run -p 4000:4000 osv-scanner-docs
+```shell
+./scripts/run_local_docs.sh
 ```
 
 ## Running docs locally (native)
