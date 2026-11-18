@@ -19,7 +19,7 @@ import (
 //   - regexPattern: regex patterns (r:pattern syntax)
 type excludePatterns struct {
 	dirsToSkip   []string       // Exact directory names to skip
-	globPattern  glob.Glob      // Combined glob pattern using {p1,p2,...} syntax
+	globPattern  *glob.Pattern  // Combined glob pattern using {p1,p2,...} syntax
 	regexPattern *regexp.Regexp // Combined regex pattern using (p1|p2|...) syntax
 }
 
