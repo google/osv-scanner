@@ -168,7 +168,7 @@ func (c *Client) slim(vuln *osvschema.Vulnerability) {
 func only(currentStruct *structpb.Struct, fields []string) *structpb.Struct {
 	currentFields := currentStruct.GetFields()
 
-	if currentFields == nil {
+	if len(currentFields) == 0 {
 		return nil
 	}
 
@@ -178,6 +178,10 @@ func only(currentStruct *structpb.Struct, fields []string) *structpb.Struct {
 		if currentValue, ok := currentFields[field]; ok {
 			newStruct.Fields[field] = currentValue
 		}
+	}
+
+	if len(newStruct.GetFields()) == 0 {
+		return nil
 	}
 
 	return newStruct
