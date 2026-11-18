@@ -4,6 +4,7 @@ package reporter
 import (
 	"io"
 
+	"github.com/google/osv-scanner/v2/internal/osvdiet"
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
@@ -19,8 +20,9 @@ func PrintResult(
 	writer io.Writer,
 	terminalWidth int,
 	showAllVulns bool,
+	dietClient *osvdiet.Client,
 ) error {
-	r, err := newResultPrinter(format, writer, terminalWidth, showAllVulns)
+	r, err := newResultPrinter(format, writer, terminalWidth, showAllVulns, dietClient)
 
 	if err != nil {
 		return err

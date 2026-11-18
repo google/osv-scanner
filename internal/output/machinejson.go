@@ -39,11 +39,12 @@ type aliasPackageVulns struct {
 }
 
 type slimVulnerability struct {
-	vuln *osvschema.Vulnerability
+	client *osvdiet.Client
+	vuln   *osvschema.Vulnerability
 }
 
 func (sv *slimVulnerability) MarshalJSON() ([]byte, error) {
-	vuln, err := osvdiet.Fatten(sv.vuln)
+	vuln, err := sv.client.Fatten(sv.vuln)
 
 	if err != nil {
 		return nil, err
@@ -61,7 +62,7 @@ func (sv *slimVulnerability) MarshalJSON() ([]byte, error) {
 	return json.Marshal(fullVuln)
 }
 
-func aliasResults(vulnResult *models.VulnerabilityResults) aliasVulnerabilityResults {
+func aliasResults(vulnResult *models.VulnerabilityResults, dietClient *osvdiet.Client) aliasVulnerabilityResults {
 	aliased := aliasVulnerabilityResults{VulnerabilityResults: *vulnResult}
 
 	aliased.Results = make([]aliasPackageSource, len(vulnResult.Results))
@@ -75,7 +76,7 @@ func aliasResults(vulnResult *models.VulnerabilityResults) aliasVulnerabilityRes
 			aliased.Results[i].Packages[j].Vulnerabilities = make([]slimVulnerability, len(pkg.Vulnerabilities))
 
 			for k, vuln := range pkg.Vulnerabilities {
-				aliased.Results[i].Packages[j].Vulnerabilities[k] = slimVulnerability{vuln}
+				aliased.Results[i].Packages[j].Vulnerabilities[k] = slimVulnerability{dietClient, vuln}
 			}
 
 			// match the ordering applied by models.PackageVulns.MarshalJSON
@@ -89,9 +90,15 @@ func aliasResults(vulnResult *models.VulnerabilityResults) aliasVulnerabilityRes
 }
 
 // PrintJSONResults writes results to the provided writer in JSON format
-func PrintJSONResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) error {
+func PrintJSONResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer, dietClient *osvdiet.Client) error {
 	encoder := json.NewEncoder(outputWriter)
 	encoder.SetIndent("", "  ")
 
-	return encoder.Encode(aliasResults(vulnResult))
+	// if the diet client was used, alias the results
+	// so they can be fattened as part of marshalling
+	if dietClient != nil {
+		return encoder.Encode(aliasResults(vulnResult, dietClient))
+	}
+
+	return encoder.Encode(vulnResult)
 }

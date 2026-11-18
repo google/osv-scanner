@@ -25,9 +25,6 @@ import (
 // slimmed but its full data is no longer available, e.g. after Cleanup
 var ErrFullDataUnavailable = errors.New("full vulnerability data is not available")
 
-// slimmed tracks (weak) pointers to osvschema.Vulnerability that have been slimmed
-var slimmed sync.Map
-
 // Client wraps an osvdev.Client to reduce memory usage by returning "slimmed"
 // vulnerabilities, with the full vulnerability data stored on disk so it can
 // be retrieved if needed such as for outputting
@@ -35,6 +32,9 @@ type Client struct {
 	backend scalibrosvdev.Client
 	mu      sync.Mutex
 	dir     string
+
+	// slimmed tracks (weak) pointers to osvschema.Vulnerability that have been slimmed
+	slimmed sync.Map
 }
 
 // New returns a Client that can be used by osvdev.Enricher to make requests
@@ -51,30 +51,19 @@ func New(httpClient *http.Client, userAgent string) *Client {
 	}
 }
 
-// Cleanup removes the global Client after clearing its storage directory.
-//
-// Subsequent calls to Fatten will fail unless a New Client is initialized.
-func Cleanup() {
-	seen := map[any]bool{}
+// Cleanup removes any vulnerabilities this Client has saved to disk
+func (c *Client) Cleanup() {
+	c.mu.Lock()
+	defer c.mu.Unlock()
 
-	// todo: it might be more efficient to store the "slimmed" map on the client
-	//  and have a global slice of clients...
-	slimmed.Range(func(_, value any) bool {
-		if !seen[value] {
-			seen[value] = true
-			client := value.(*Client)
+	// todo: return, or ignore?
+	err := os.RemoveAll(c.dir)
 
-			// todo: return, or ignore?
-			err := os.RemoveAll(client.dir)
+	if err != nil {
+		cmdlogger.Warnf("failed to remove %s: %v", c.dir, err)
+	}
 
-			if err != nil {
-				cmdlogger.Warnf("failed to remove %s: %v", client.dir, err)
-			}
-		}
-
-		return true
-	})
-	slimmed.Clear()
+	c.dir = ""
 }
 
 // getDirectory returns the temporary directory to store vulnerabilities in,
@@ -149,7 +138,7 @@ func (c *Client) store(vuln *osvschema.Vulnerability) error {
 
 // slim trims the data of the vulnerability to only what the scanner needs
 func (c *Client) slim(vuln *osvschema.Vulnerability) {
-	slimmed.Store(weak.Make(vuln), c)
+	c.slimmed.Store(weak.Make(vuln), c)
 
 	// vuln.References = nil
 	vuln.DatabaseSpecific = nil
@@ -196,25 +185,23 @@ func only(currentStruct *structpb.Struct, fields []string) *structpb.Struct {
 }
 
 // Fatten returns a version of the vulnerability with all the available data
-func Fatten(vuln *osvschema.Vulnerability) (*osvschema.Vulnerability, error) {
-	key, ok := slimmed.Load(weak.Make(vuln))
+func (c *Client) Fatten(vuln *osvschema.Vulnerability) (*osvschema.Vulnerability, error) {
+	_, ok := c.slimmed.Load(weak.Make(vuln))
 
 	// if the vuln isn't slim, return it immediately
 	if !ok {
 		return vuln, nil
 	}
 
-	var client *Client
+	c.mu.Lock()
+	dir := c.dir
+	c.mu.Unlock()
 
-	if key != nil {
-		client = key.(*Client)
-	}
-
-	if client == nil || client.dir == "" {
+	if dir == "" {
 		return nil, fmt.Errorf("%w: %s", ErrFullDataUnavailable, vuln.GetId())
 	}
 
-	content, err := os.ReadFile(filepath.Join(client.dir, vuln.GetId()+".json"))
+	content, err := os.ReadFile(filepath.Join(dir, vuln.GetId()+".json"))
 
 	if err != nil {
 		return nil, fmt.Errorf("reading full data for %s: %w", vuln.GetId(), err)

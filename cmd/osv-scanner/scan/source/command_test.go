@@ -1980,7 +1980,7 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 	}
 }
 
-func TestCommand_DietClient(t *testing.T) { //nolint:tparallel
+func TestCommand_DietClient(t *testing.T) {
 	t.Parallel()
 
 	tests := []testcmd.Case{
@@ -2027,8 +2027,10 @@ func TestCommand_DietClient(t *testing.T) { //nolint:tparallel
 			Exit: 1,
 		},
 	}
-	for _, tt := range tests { //nolint:paralleltest
+	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+
 			// reuse the cassettes and interactions of the "not json" runs since they should be the same
 			tt.HTTPClient = testcmd.InsertCassetteWithName(t, strings.TrimSuffix(t.Name(), "_json"))
 

@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
+	"github.com/google/osv-scanner/v2/internal/osvdiet"
 	"github.com/google/osv-scanner/v2/internal/reporter"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"golang.org/x/term"
@@ -42,7 +43,13 @@ func ServeHTML(outputPath string) {
 	}
 }
 
-func PrintResult(stdout, stderr io.Writer, outputPath, format string, diffVulns *models.VulnerabilityResults, showAllVulns bool) error {
+func PrintResult(
+	stdout, stderr io.Writer,
+	outputPath, format string,
+	diffVulns *models.VulnerabilityResults,
+	showAllVulns bool,
+	dietClient *osvdiet.Client,
+) error {
 	termWidth := 0
 	var err error
 	if outputPath != "" { // Output is definitely a file
@@ -65,5 +72,5 @@ func PrintResult(stdout, stderr io.Writer, outputPath, format string, diffVulns 
 		writer = stderr
 	}
 
-	return reporter.PrintResult(diffVulns, format, writer, termWidth, showAllVulns)
+	return reporter.PrintResult(diffVulns, format, writer, termWidth, showAllVulns, dietClient)
 }

@@ -88,6 +88,7 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 		}
 	}
 
+	var dietClient *osvdiet.Client
 	if cmd.Bool("x-disk-backed-vulns") {
 		if scannerAction.ScalibrConfig == nil {
 			var toClose io.Closer
@@ -100,12 +101,14 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 			}()
 		}
 
-		scannerAction.OSVDevClient = osvdiet.New(
+		dietClient = osvdiet.New(
 			scannerAction.ScalibrConfig.ClientFactories.HTTPClient(),
 			scannerAction.RequestUserAgent,
 		)
 
-		defer osvdiet.Cleanup()
+		scannerAction.OSVDevClient = dietClient
+
+		defer dietClient.Cleanup()
 	}
 
 	var vulnResult models.VulnerabilityResults
@@ -127,7 +130,7 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 		return err
 	}
 
-	if errPrint := helper.PrintResult(stdout, stderr, outputPath, format, &vulnResult, scannerAction.ShowAllVulns); errPrint != nil {
+	if errPrint := helper.PrintResult(stdout, stderr, outputPath, format, &vulnResult, scannerAction.ShowAllVulns, dietClient); errPrint != nil {
 		return fmt.Errorf("failed to write output: %w", errPrint)
 	}
 
