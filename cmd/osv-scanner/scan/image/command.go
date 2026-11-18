@@ -72,22 +72,22 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 		return err
 	}
 
-	scannerAction := helper.GetCommonScannerActions(cmd, scanLicensesAllowlist)
+	scannerActions := helper.GetCommonScannerActions(cmd, scanLicensesAllowlist)
 
-	scannerAction.Image = cmd.Args().First()
-	scannerAction.IsImageArchive = cmd.Bool("archive")
-	userAgent := "osv-scanner_scan-image/" + version.OSVVersion
-	scannerAction.ExperimentalScannerActions = helper.GetExperimentalScannerActions(cmd)
-	scannerAction.RequestUserAgent = userAgent
+	scannerActions.Image = cmd.Args().First()
+	scannerActions.IsImageArchive = cmd.Bool("archive")
+	scannerActions.ExperimentalScannerActions = helper.GetExperimentalScannerActions(cmd)
+	scannerActions.RequestUserAgent = "osv-scanner_scan-image/" + version.OSVVersion
 
 	if clientFactories != nil {
-		scannerAction.ScalibrConfig = &scalibrconfig.PluginConfig{
+		scannerActions.ScalibrConfig = &scalibrconfig.PluginConfig{
 			ClientFactories: clientFactories,
 		}
 	}
+
 	var vulnResult models.VulnerabilityResults
 	//nolint:contextcheck // passing the context in would be a breaking change
-	vulnResult, err = osvscanner.DoContainerScan(scannerAction)
+	vulnResult, err = osvscanner.DoContainerScan(scannerActions)
 
 	// ensure that the results property is always an array
 	//goland:noinspection GoDfaErrorMayBeNotNil // false positive
@@ -104,7 +104,7 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 		return err
 	}
 
-	if errPrint := helper.PrintResult(stdout, stderr, outputPath, format, &vulnResult, scannerAction.ShowAllVulns); errPrint != nil {
+	if errPrint := helper.PrintResult(stdout, stderr, outputPath, format, &vulnResult, scannerActions.ShowAllVulns); errPrint != nil {
 		return fmt.Errorf("failed to write output: %w", errPrint)
 	}
 

@@ -120,37 +120,35 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 		return err
 	}
 
-	userAgent := "osv-scanner_scan-source/" + version.OSVVersion
-	scannerAction := helper.GetCommonScannerActions(cmd, scanLicensesAllowlist)
+	scannerActions := helper.GetCommonScannerActions(cmd, scanLicensesAllowlist)
 
-	scannerAction.LockfilePaths = cmd.StringSlice("lockfile")
+	scannerActions.LockfilePaths = cmd.StringSlice("lockfile")
 	//nolint:staticcheck // ignore our own deprecated field
-	scannerAction.SBOMPaths = cmd.StringSlice("sbom")
-	scannerAction.Recursive = cmd.Bool("recursive")
-	scannerAction.NoIgnore = cmd.Bool("no-ignore")
-	scannerAction.DirectoryPaths = cmd.Args().Slice()
+	scannerActions.SBOMPaths = cmd.StringSlice("sbom")
+	scannerActions.Recursive = cmd.Bool("recursive")
+	scannerActions.NoIgnore = cmd.Bool("no-ignore")
+	scannerActions.DirectoryPaths = cmd.Args().Slice()
 
-	experimentalScannerActions := helper.GetExperimentalScannerActions(cmd)
-	experimentalScannerActions.RequestUserAgent = userAgent
-	experimentalScannerActions.ExcludePatterns = cmd.StringSlice(helper.FallbackToDeprecatedName(cmd, "x-exclude", "experimental-exclude"))
+	scannerActions.ExperimentalScannerActions = helper.GetExperimentalScannerActions(cmd)
+	scannerActions.RequestUserAgent = "osv-scanner_scan-source/" + version.OSVVersion
+
 	// Add `source` specific experimental configs
-	experimentalScannerActions.TransitiveScanning = osvscanner.TransitiveScanningActions{
+	scannerActions.ExcludePatterns = cmd.StringSlice(helper.FallbackToDeprecatedName(cmd, "x-exclude", "experimental-exclude"))
+	scannerActions.TransitiveScanning = osvscanner.TransitiveScanningActions{
 		Disabled:         cmd.Bool("no-resolve"),
 		NativeDataSource: cmd.String("data-source") == "native",
 		MavenRegistry:    cmd.String("maven-registry"),
 	}
 
-	scannerAction.ExperimentalScannerActions = experimentalScannerActions
-
 	if clientFactories != nil {
-		scannerAction.ScalibrConfig = &scalibrconfig.PluginConfig{
+		scannerActions.ScalibrConfig = &scalibrconfig.PluginConfig{
 			ClientFactories: clientFactories,
 		}
 	}
 
 	var vulnResult models.VulnerabilityResults
 	//nolint:contextcheck // passing the context in would be a breaking change
-	vulnResult, err = osvscanner.DoScan(scannerAction)
+	vulnResult, err = osvscanner.DoScan(scannerActions)
 
 	// ensure that the results property is always an array
 	//goland:noinspection GoDfaErrorMayBeNotNil // false positive
@@ -167,7 +165,7 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 		return err
 	}
 
-	if errPrint := helper.PrintResult(stdout, stderr, outputPath, format, &vulnResult, scannerAction.ShowAllVulns); errPrint != nil {
+	if errPrint := helper.PrintResult(stdout, stderr, outputPath, format, &vulnResult, scannerActions.ShowAllVulns); errPrint != nil {
 		return fmt.Errorf("failed to write output: %w", errPrint)
 	}
 
