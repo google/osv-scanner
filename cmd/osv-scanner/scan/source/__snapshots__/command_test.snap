@@ -813,9 +813,7 @@ No issues found
       ],
       "published": "2026-09-29T18:10:14Z",
       "updated": "2026-09-30T21:30:04Z",
-      "credits": {
-        "organizations": []
-      },
+      "credits": {},
       "affects": [
         {
           "ref": "pkg:composer/league/flysystem"
@@ -936,9 +934,7 @@ Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found
       ],
       "published": "2026-09-29T18:10:14Z",
       "updated": "2026-09-30T21:30:04Z",
-      "credits": {
-        "organizations": []
-      },
+      "credits": {},
       "affects": [
         {
           "ref": "pkg:composer/league/flysystem"
@@ -1059,9 +1055,7 @@ Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found
       ],
       "published": "2026-09-29T18:10:14Z",
       "updated": "2026-09-30T21:30:04Z",
-      "credits": {
-        "organizations": []
-      },
+      "credits": {},
       "affects": [
         {
           "ref": "pkg:composer/league/flysystem"
@@ -1182,9 +1176,7 @@ Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found
       ],
       "published": "2026-09-29T18:10:14Z",
       "updated": "2026-09-30T21:30:04Z",
-      "credits": {
-        "organizations": []
-      },
+      "credits": {},
       "affects": [
         {
           "ref": "pkg:composer/league/flysystem"
