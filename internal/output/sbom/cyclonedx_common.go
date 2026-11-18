@@ -1,3 +1,4 @@
+// Package sbom provides functionality to generate SBOMs from scan results.
 package sbom
 
 import (
@@ -12,7 +13,7 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-func buildCycloneDXBom(uniquePackages map[string]models.PackageVulns) *cyclonedx.BOM {
+func BuildCycloneDXBom(uniquePackages map[string]models.PackageVulns) *cyclonedx.BOM {
 	bom := cyclonedx.NewBOM()
 	components := make([]cyclonedx.Component, 0, len(uniquePackages))
 	vulnerabilities := make(map[string]cyclonedx.Vulnerability)
