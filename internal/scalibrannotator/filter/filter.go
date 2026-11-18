@@ -164,7 +164,7 @@ func (a *Annotator) Annotate(_ context.Context, _ *annotator.ScanInput, results 
 			// The 'go' directive in go.mod specifies the minimum required language version,
 			// not the actual toolchain version used to build/run, which can lead to false positives.
 			// We still want to scan binary stdlib versions as they represent the actual toolchain used.
-			if slices.Contains(psr.Plugins, gomod.Name) && !configToUse.ScanGoModVersion {
+			if !configToUse.ScanGoModVersion && slices.Contains(psr.Plugins, gomod.Name) {
 				continue
 			}
 
