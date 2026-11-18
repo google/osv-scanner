@@ -211,10 +211,7 @@ func groupSARIFFindings(vulnResults *models.VulnerabilityResults) []*groupedSARI
 	for _, res := range vulnResults.Results {
 		for _, pkg := range res.Packages {
 			for _, v := range pkg.Vulnerabilities {
-				if !seen[v.GetId()] {
-					seen[v.GetId()] = true
-					allVulns = append(allVulns, v)
-				}
+				allVulns = append(allVulns, v)
 			}
 		}
 	}
