@@ -172,7 +172,7 @@ func TestAnnotator_Annotate_GoStdlib(t *testing.T) {
 	}
 	goBinaryStdlib := func(version string) *extractor.Package {
 		return &extractor.Package{
-			Name:     "stdlib",
+			Name:     "go",
 			Version:  version,
 			PURLType: purl.TypeGolang,
 			Plugins:  []string{"go/binary"},
