@@ -73,6 +73,34 @@ func loadModule(t *testing.T) []*packages.Package {
 	return pkgs
 }
 
+// isClientMethod reports if fn is a method on osvdiet.Client (with either a
+// pointer or value receiver), using the type checker rather than the syntax
+// of the receiver so that all the ways of writing it are handled
+func isClientMethod(info *types.Info, fn *ast.FuncDecl) bool {
+	obj, ok := info.Defs[fn.Name].(*types.Func)
+
+	if !ok {
+		return false
+	}
+
+	// this will be nil if fn is a plain function rather than a method
+	recv := obj.Signature().Recv()
+
+	if recv == nil {
+		return false
+	}
+
+	recvType := recv.Type()
+
+	if ptr, ok := recvType.(*types.Pointer); ok {
+		recvType = ptr.Elem()
+	}
+
+	named, ok := types.Unalias(recvType).(*types.Named)
+
+	return ok && named.Obj().Name() == "Client"
+}
+
 func findDietPkgAndSlimFunc(t *testing.T, pkgs []*packages.Package) (*packages.Package, *ast.FuncDecl) {
 	t.Helper()
 
@@ -85,11 +113,13 @@ func findDietPkgAndSlimFunc(t *testing.T, pkgs []*packages.Package) (*packages.P
 			for _, decl := range file.Decls {
 				fn, ok := decl.(*ast.FuncDecl)
 
-				if !ok || fn.Name.Name != "slim" || fn.Recv != nil {
+				if !ok || fn.Name.Name != "slim" {
 					continue
 				}
 
-				return pkg, fn
+				if isClientMethod(pkg.TypesInfo, fn) {
+					return pkg, fn
+				}
 			}
 		}
 	}
