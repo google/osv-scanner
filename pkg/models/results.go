@@ -114,7 +114,7 @@ func (v *VulnerabilityFlattened) MarshalJSON() ([]byte, error) {
 		if err := json.Unmarshal(unstableJSON, &vuln); err != nil {
 			return nil, err
 		}
-		b, err := json.MarshalIndent(vuln, "", "  ")
+		b, err := json.Marshal(vuln)
 		if err != nil {
 			return nil, err
 		}
@@ -239,7 +239,7 @@ func (p *PackageVulns) MarshalJSON() ([]byte, error) {
 			if err := json.Unmarshal(unstableJSON, &vuln); err != nil {
 				return nil, err
 			}
-			b, err := json.MarshalIndent(vuln, "", "  ")
+			b, err := json.Marshal(vuln)
 			if err != nil {
 				return nil, err
 			}
