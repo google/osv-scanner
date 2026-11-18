@@ -59,6 +59,8 @@ func TestCommand(t *testing.T) {
 			Name: "one_specific_supported_sbom_with_vulns_using_-L_flag",
 			Args: []string{"", "source", "-L", "./testdata/sbom-insecure/alpine.cdx.xml"},
 			Exit: 1,
+
+			CassetteName: "TestCommand_one_specific_supported_sbom_with_vulns",
 		},
 		// one specific supported sbom with vulns and invalid PURLs
 		{
@@ -70,6 +72,8 @@ func TestCommand(t *testing.T) {
 			Name: "one_specific_supported_sbom_with_invalid_PURLs_using_-L_flag",
 			Args: []string{"", "source", "-L", "./testdata/sbom-insecure/bad-purls.cdx.xml"},
 			Exit: 0,
+
+			CassetteName: "TestCommand_one_specific_supported_sbom_with_invalid_PURLs",
 		},
 		// one specific supported sbom with duplicate PURLs
 		{
@@ -81,6 +85,8 @@ func TestCommand(t *testing.T) {
 			Name: "one_specific_supported_sbom_with_duplicate_PURLs_using_-L_flag",
 			Args: []string{"", "source", "-L", "./testdata/sbom-insecure/with-duplicates.cdx.xml"},
 			Exit: 1,
+
+			CassetteName: "TestCommand_one_specific_supported_sbom_with_duplicate_PURLs",
 		},
 		// CycloneDX SBOM with Maven group namespace in PURL
 		{
@@ -194,6 +200,8 @@ func TestCommand(t *testing.T) {
 			Name: "exclude_with_exact_directory_name_using_deprecated_flag",
 			Args: []string{"", "source", "--recursive", "--experimental-exclude=nested", "./testdata/locks-one-with-nested"},
 			Exit: 0,
+
+			CassetteName: "TestCommand_exclude_with_exact_directory_name",
 		},
 		{
 			Name: "exclude_with_glob_pattern",
@@ -928,6 +936,8 @@ func TestCommand_CallAnalysis(t *testing.T) {
 				"--config=./testdata/osv-scanner-call-analysis-config.toml",
 				"./testdata/call-analysis-go-project-all-uncalled"},
 			Exit: 1,
+
+			CassetteName: "TestCommand_CallAnalysis_Run_with_govulncheck_all_uncalled",
 		},
 	}
 	for _, tt := range tests {
@@ -1017,6 +1027,8 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 				filepath.FromSlash("./testdata/locks-insecure"),
 			},
 			Exit: 1,
+
+			CassetteName: "TestCommand_LockfileWithExplicitParseAs_multiple_output_order_is_deterministic",
 		},
 		{
 			Name: "files_that_error_on_parsing_stop_parsable_files_from_being_checked",
@@ -1321,6 +1333,8 @@ func TestCommand_Licenses(t *testing.T) {
 			Name: "No_vulnerabilities_with_license_summary_in_markdown",
 			Args: []string{"", "source", "--licenses", "--format=markdown", "./testdata/locks-many"},
 			Exit: 0,
+
+			CassetteName: "TestCommand_Licenses_No_vulnerabilities_with_license_summary",
 		},
 		{
 			Name: "Vulnerabilities_and_license_summary",
@@ -1654,6 +1668,8 @@ func TestCommand_HtmlFile_Deprecated(t *testing.T) {
 		Name: "one_specific_supported_lockfile",
 		Args: []string{"", "source", "--format=html", "--output", testDir + "/report.html", "./testdata/locks-many/composer.lock"},
 		Exit: 0,
+
+		CassetteName: "TestCommand_HtmlFile",
 	})
 
 	_, err := os.Stat(testDir + "/report.html")
@@ -1852,6 +1868,15 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 			Exit: 0,
 		},
 		{
+			Name: "package_deprecated_true_no_vuln_table",
+			Args: []string{
+				"", "source", "--format=table",
+				"--x-flag-deprecated-packages",
+				"./testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock",
+			},
+			Exit: 1,
+		},
+		{
 			Name: "package_deprecated_true_no_vuln_json",
 			Args: []string{
 				"", "source", "--format=json",
@@ -1863,6 +1888,17 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 				testutility.GroupsAsArrayLen,
 				testutility.OnlyIDVulnsRule,
 			},
+
+			CassetteName: "TestCommand_FlagDeprecatedPackages_package_deprecated_true_no_vuln_table",
+		},
+		{
+			Name: "package_deprecated_true_with_vuln_table",
+			Args: []string{
+				"", "source", "--format=table",
+				"--x-flag-deprecated-packages",
+				"./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock",
+			},
+			Exit: 1,
 		},
 		{
 			Name: "package_deprecated_true_with_vuln_json",
@@ -1876,6 +1912,8 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 				testutility.GroupsAsArrayLen,
 				testutility.OnlyIDVulnsRule,
 			},
+
+			CassetteName: "TestCommand_FlagDeprecatedPackages_package_deprecated_true_with_vuln_table",
 		},
 		{
 			Name: "package_deprecated_npm_json",
@@ -1890,24 +1928,6 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 				testutility.OnlyIDVulnsRule,
 			},
 		},
-		{
-			Name: "package_deprecated_true_no_vuln_table",
-			Args: []string{
-				"", "source", "--format=table",
-				"--x-flag-deprecated-packages",
-				"./testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock",
-			},
-			Exit: 1,
-		},
-		{
-			Name: "package_deprecated_true_with_vuln_table",
-			Args: []string{
-				"", "source", "--format=table",
-				"--x-flag-deprecated-packages",
-				"./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock",
-			},
-			Exit: 1,
-		},
 		// covers both the deprecated flag, and the general logic for deprecated (bool) flags
 		{
 			Name: "package_deprecated_true_with_vuln_table_using_old_flag",
@@ -1917,6 +1937,8 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 				"./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock",
 			},
 			Exit: 1,
+
+			CassetteName: "TestCommand_FlagDeprecatedPackages_package_deprecated_true_with_vuln_table",
 		},
 		{
 			Name: "package_deprecated_true_with_vuln_table_and_new_flag_false",
@@ -1927,6 +1949,8 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 				"./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock",
 			},
 			Exit: 1,
+
+			CassetteName: "TestCommand_FlagDeprecatedPackages_package_deprecated_true_with_vuln_table",
 		},
 		{
 			Name: "package_deprecated_true_with_vuln_table_and_old_flag_false",
@@ -1937,6 +1961,8 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 				"./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock",
 			},
 			Exit: 1,
+
+			CassetteName: "TestCommand_FlagDeprecatedPackages_package_deprecated_true_with_vuln_table",
 		},
 	}
 	for _, tt := range tests {

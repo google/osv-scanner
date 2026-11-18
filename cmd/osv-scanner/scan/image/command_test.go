@@ -236,6 +236,8 @@ func TestCommand_OCIImage(t *testing.T) {
 			Name: "Empty_Ubuntu_22.04_image_tar_with_unimportant_vulns",
 			Args: []string{"", "image", "--all-vulns", "--archive", "./testdata/test-ubuntu.tar"},
 			Exit: 1,
+
+			CassetteName: "TestCommand_OCIImage_Empty_Ubuntu_22.04_image_tar",
 		},
 		{
 			Name: "Empty_Ubuntu_20.04_image_tar_with_only_unimportant_vulns_shown",
@@ -253,6 +255,8 @@ func TestCommand_OCIImage(t *testing.T) {
 				"--config=./testdata/ubuntu20-04-unimportant-config.toml",
 				"./testdata/test-ubuntu-20-04.tar"},
 			Exit: 0,
+
+			CassetteName: "TestCommand_OCIImage_Empty_Ubuntu_20.04_image_tar_with_only_unimportant_vulns_shown",
 		},
 		{
 			// This tests that the fzf go binary is not being reported because it's a OS package
@@ -269,6 +273,8 @@ func TestCommand_OCIImage(t *testing.T) {
 			Name: "rockylinux_empty_image_all_vulns",
 			Args: []string{"", "image", "--all-vulns", "--archive", "./testdata/test-rockylinux.tar"},
 			Exit: 1,
+
+			CassetteName: "TestCommand_OCIImage_rockylinux_empty_image",
 		},
 		{
 			Name: "Scanning_python_image_with_some_packages",
@@ -427,6 +433,8 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 				testutility.NormalizeHistoryCommand,
 				testutility.ShortenHistoryCommandLength,
 			},
+
+			CassetteName: "TestCommand_OCIImage_Scanning_python_image_with_some_packages",
 		},
 		{
 			Name: "scanning_node_modules_using_npm_with_some_packages",
@@ -440,6 +448,8 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 				testutility.NormalizeHistoryCommand,
 				testutility.ShortenHistoryCommandLength,
 			},
+
+			CassetteName: "TestCommand_OCIImage_scanning_node_modules_using_npm_with_some_packages",
 		},
 		{
 			Name: "scanning_image_with_go_binary",
@@ -474,6 +484,8 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 				testutility.OnlyFirstBaseImage,
 				testutility.AnyDiffID,
 			},
+
+			CassetteName: "TestCommand_OCIImage_Scanning_AlmaLinux_9_image",
 		},
 		{
 			// This tests that the fzf go binary is not being reported because it's a OS package
@@ -486,6 +498,8 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 				testutility.OnlyFirstBaseImage,
 				testutility.AnyDiffID,
 			},
+
+			CassetteName: "TestCommand_OCIImage_Scanning_Ubuntu_image_with_go_OS_packages_json",
 		},
 		{
 			Name: "scanning_insecure_alpine_image_with_specific_detector_enabled",
@@ -502,6 +516,8 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 				testutility.OnlyFirstBaseImage,
 				testutility.AnyDiffID,
 			},
+
+			CassetteName: "TestCommand_OCIImage_scanning_insecure_alpine_image_with_specific_detector_enabled",
 		},
 		{
 			Name: "scanning_insecure_alpine_image_with_detector_preset",
@@ -518,6 +534,8 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 				testutility.OnlyFirstBaseImage,
 				testutility.AnyDiffID,
 			},
+
+			CassetteName: "TestCommand_OCIImage_scanning_insecure_alpine_image_with_detector_preset",
 		},
 		{
 			Name: "scanning_image_with_deprecated_packages",
@@ -547,6 +565,8 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 				testutility.OnlyFirstBaseImage,
 				testutility.AnyDiffID,
 			},
+
+			CassetteName: "TestCommand_OCIImage_scanning_insecure_chiseled_ubuntu_image",
 		},
 		{
 			Name: "scanning_opensuse_leap_15.5_image",
@@ -558,6 +578,8 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 				testutility.OnlyFirstBaseImage,
 				testutility.AnyDiffID,
 			},
+
+			CassetteName: "TestCommand_OCIImage_Scanning_openSUSE_Leap_15.5_image",
 		},
 	}
 	for _, tt := range tests {
