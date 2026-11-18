@@ -7,6 +7,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gobinary"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gomod"
 	dpkgmeta "github.com/google/osv-scalibr/extractor/filesystem/os/dpkg/metadata"
 	"github.com/google/osv-scalibr/inventory"
@@ -175,7 +176,7 @@ func TestAnnotator_Annotate_GoStdlib(t *testing.T) {
 			Name:     "go",
 			Version:  version,
 			PURLType: purl.TypeGolang,
-			Plugins:  []string{"go/binary"},
+			Plugins:  []string{gobinary.Name},
 		}
 	}
 	withConfig := func(cfg config.Config) *config.Manager {
