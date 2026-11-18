@@ -67,12 +67,8 @@ func (sv *slimVulnerability) MarshalJSON() ([]byte, error) {
 	if err := json.Unmarshal(unstableJSON, &fullVuln); err != nil {
 		return nil, err
 	}
-	b, err := json.MarshalIndent(fullVuln, "", "  ")
-	if err != nil {
-		return nil, err
-	}
 
-	return b, nil
+	return json.Marshal(fullVuln)
 }
 
 func aliasResults(vulnResult *models.VulnerabilityResults) aliasVulnerabilityResults {
