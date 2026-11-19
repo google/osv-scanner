@@ -47,7 +47,7 @@
     id="table-tr-{{ $index }}" onclick="showPackageDetails('{{ $index }}')">
     <td class="icon-td">
       <div class="expand-icon">
-        <i class="material-icons">play_arrow</i>
+        <i class="material-icons">{{ template "icon_play_arrow" }}</i>
       </div>
     </td>
     <td {{ if $isUncalled }}class="uncalled-text" {{ end }}>{{ $element.Name }}</td>

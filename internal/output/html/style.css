@@ -85,10 +85,21 @@ header {
 }
 
 .material-icons {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  line-height: 1;
   vertical-align: middle;
   transform: rotate(0deg);
   transition: transform 0.2s ease;
   user-select: none;
+}
+
+.material-icons svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
 }
 
 .material-icons.expanded {
