@@ -75,7 +75,11 @@ header {
   align-items: center;
 }
 
-#header-right ::after {
+#header-right .scanner-version {
+  margin-right: 20px;
+}
+
+#header-right .improvement-link::after {
   display: inline-block;
   content: " ";
   background-image: url(https://osv.dev/static/img/external-link.svg);
