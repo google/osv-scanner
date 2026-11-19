@@ -22,11 +22,15 @@ func TestCommand(t *testing.T) {
 			Name: "update_pom.xml_with_in-place_changes",
 			Args: []string{"", "update", "-M=./testdata/pom.xml"},
 			Exit: 0,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "update_pom_with_in_place_changes_using_deps_dev_data_source",
 			Args: []string{"", "update", "--data-source", "deps.dev", "-M", "./testdata/pom.xml"},
 			Exit: 0,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "update_pom_with_in_place_changes_using_native_data_source",
