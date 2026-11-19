@@ -183,6 +183,22 @@ func InsertCassette(t *testing.T) *http.Client {
 	return InsertCassetteWithName(t, t.Name())
 }
 
+// isPassthroughRequest determines if the given request should bypass the cassette,
+// meaning it will never be recorded or replayed
+func isPassthroughRequest(req *http.Request) bool {
+	// exclude requests for info on a specific vuln since they can be quite large
+	// and their changes should be less impactful to our snapshots than the query
+	// endpoint, as those reqs are what results in specific vulns being looked up
+	if strings.HasPrefix(req.URL.Path, "/v1/vulns/") {
+		return true
+	}
+	// exclude requests for binary file downloads from cassettes (e.g. zip databases, jar files)
+	ext := strings.ToLower(filepath.Ext(req.URL.Path))
+	binaryExts := []string{".zip", ".gz", ".bin", ".db", ".tar", ".tgz", ".jar", ".aar", ".whl"}
+
+	return slices.Contains(binaryExts, ext)
+}
+
 // InsertCassetteWithName returns an http.Client backed by a [recorder.Recorder] which
 // will record and (re)play responses from a cassette based on the specified name
 func InsertCassetteWithName(t *testing.T, name string) *http.Client {
@@ -204,19 +220,7 @@ func InsertCassetteWithName(t *testing.T, name string) *http.Client {
 		recorder.WithRealTransport(&vcrResponseNormalizingTransport{
 			underlying: http.DefaultTransport,
 		}),
-		recorder.WithPassthrough(func(req *http.Request) bool {
-			// exclude requests for info on a specific vuln since they can be quite large
-			// and their changes should be less impactful to our snapshots than the query
-			// endpoint, as those reqs are what results in specific vulns being looked up
-			if strings.HasPrefix(req.URL.Path, "/v1/vulns/") {
-				return true
-			}
-			// exclude requests for binary file downloads from cassettes (e.g. zip databases, jar files)
-			ext := strings.ToLower(filepath.Ext(req.URL.Path))
-			binaryExts := []string{".zip", ".gz", ".bin", ".db", ".tar", ".tgz", ".jar", ".aar", ".whl"}
-
-			return slices.Contains(binaryExts, ext)
-		}),
+		recorder.WithPassthrough(isPassthroughRequest),
 		recorder.WithMatcher(matcher),
 		recorder.WithHook(func(i *cassette.Interaction) error {
 			// remove headers that are not important to reduce cassette size and noise
@@ -396,7 +400,10 @@ type vcrErrorWrappingTransport struct {
 }
 
 func (t *vcrErrorWrappingTransport) RoundTrip(req *http.Request) (*http.Response, error) {
-	t.requests.Add(1)
+	// only count requests that would be recorded in the cassette
+	if !isPassthroughRequest(req) {
+		t.requests.Add(1)
+	}
 
 	resp, err := t.wrapper.RoundTrip(req)
 	if err != nil && errors.Is(err, cassette.ErrInteractionNotFound) {
