@@ -20,6 +20,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"sync/atomic"
 	"testing"
 	"time"
 
@@ -270,20 +271,29 @@ func InsertCassetteWithName(t *testing.T, name string) *http.Client {
 	if err != nil {
 		t.Fatal(err)
 	}
+
+	client := r.GetDefaultClient()
+
+	transport := &vcrErrorWrappingTransport{
+		t:            t,
+		wrapper:      client.Transport,
+		cassettePath: path,
+	}
+
+	client.Transport = transport
+
 	t.Cleanup(func() {
+		if name != NoInteractions && transport.requests.Load() == 0 {
+			t.Errorf("this test should be using testcmd.NoInteractions as it does not make any HTTP requests")
+			return // skip Stop(), so no empty cassette gets written
+		}
+
 		if err := r.Stop(); err != nil {
 			t.Error(err)
 		}
 
 		sortCassetteInteractions(t, path)
 	})
-
-	client := r.GetDefaultClient()
-	client.Transport = &vcrErrorWrappingTransport{
-		t:            t,
-		wrapper:      client.Transport,
-		cassettePath: path,
-	}
 
 	return client
 }
@@ -382,9 +392,12 @@ type vcrErrorWrappingTransport struct {
 	t            *testing.T
 	wrapper      http.RoundTripper
 	cassettePath string
+	requests     atomic.Int64
 }
 
 func (t *vcrErrorWrappingTransport) RoundTrip(req *http.Request) (*http.Response, error) {
+	t.requests.Add(1)
+
 	resp, err := t.wrapper.RoundTrip(req)
 	if err != nil && errors.Is(err, cassette.ErrInteractionNotFound) {
 		t.logRequestMismatch(req)
