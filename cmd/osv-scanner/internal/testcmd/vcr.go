@@ -39,9 +39,13 @@ import (
 )
 
 const (
-	gcsBucketHost              = "osv-vulnerabilities.storage.googleapis.com"
-	offlineDBRelativePath      = "cmd/osv-scanner/internal/testcmd/testdata/offline-dbs"
-	vulnSeveritiesRelativePath = "cmd/osv-scanner/internal/testcmd/testdata/vuln_severities.json"
+	gcsBucketHost                      = "osv-vulnerabilities.storage.googleapis.com"
+	offlineDBRelativePath              = "cmd/osv-scanner/internal/testcmd/testdata/offline-dbs"
+	vulnSeveritiesRelativePath         = "cmd/osv-scanner/internal/testcmd/testdata/vuln_severities.json"
+	noInteractionsCassetteRelativePath = "cmd/osv-scanner/internal/testcmd/testdata/no_interactions.yaml"
+
+	// NoInteractions indicates that the test should not have any interactions with external parties
+	NoInteractions = "no_interactions"
 )
 
 var (
@@ -184,12 +188,18 @@ func InsertCassetteWithName(t *testing.T, name string) *http.Client {
 	t.Helper()
 
 	path := filepath.Join("testdata/cassettes", strings.ReplaceAll(name, "/", "_"))
+	mode := determineRecorderMode()
+
+	if name == NoInteractions {
+		path = strings.TrimSuffix(filepath.Join(findRepoRoot(), noInteractionsCassetteRelativePath), ".yaml")
+		mode = recorder.ModeReplayOnly
+	}
 
 	r, err := recorder.New(
 		path,
 		recorder.WithMarshalFunc(marshalCassettes),
 		recorder.WithSkipRequestLatency(true),
-		recorder.WithMode(determineRecorderMode()),
+		recorder.WithMode(mode),
 		recorder.WithRealTransport(&vcrResponseNormalizingTransport{
 			underlying: http.DefaultTransport,
 		}),
