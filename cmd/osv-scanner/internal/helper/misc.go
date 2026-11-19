@@ -12,7 +12,10 @@ import (
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/osvdiet"
 	"github.com/google/osv-scanner/v2/internal/reporter"
+	localscalibr "github.com/google/osv-scanner/v2/internal/scalibr"
 	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/google/osv-scanner/v2/pkg/osvscanner"
+	"github.com/urfave/cli/v3"
 	"golang.org/x/term"
 )
 
@@ -73,4 +76,34 @@ func PrintResult(
 	}
 
 	return reporter.PrintResult(diffVulns, format, writer, termWidth, showAllVulns, dietClient)
+}
+
+func SetupDietClient(cmd *cli.Command, scannerAction *osvscanner.ScannerActions) (*osvdiet.Client, func()) {
+	if !cmd.Bool("x-disk-backed-vulns") {
+		return nil, func() {}
+	}
+	var toClose io.Closer
+
+	if scannerAction.ScalibrConfig == nil {
+		scannerAction.ScalibrConfig, toClose = localscalibr.NewPluginConfig(scannerAction.HTTPClient, scannerAction.RequestUserAgent)
+	}
+
+	dietClient := osvdiet.New(
+		scannerAction.ScalibrConfig.ClientFactories.HTTPClient(),
+		scannerAction.RequestUserAgent,
+	)
+
+	scannerAction.OSVDevClient = dietClient
+
+	return dietClient, func() {
+		dietClient.Cleanup()
+
+		if toClose == nil {
+			return
+		}
+
+		if err := toClose.Close(); err != nil {
+			cmdlogger.Errorf("Failed to close scalibr client factories: %v", err)
+		}
+	}
 }

@@ -12,8 +12,6 @@ import (
 	scalibrconfig "github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/helper"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
-	"github.com/google/osv-scanner/v2/internal/osvdiet"
-	localscalibr "github.com/google/osv-scanner/v2/internal/scalibr"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
@@ -150,28 +148,8 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 		}
 	}
 
-	var dietClient *osvdiet.Client
-	if cmd.Bool("x-disk-backed-vulns") {
-		if scannerAction.ScalibrConfig == nil {
-			var toClose io.Closer
-			scannerAction.ScalibrConfig, toClose = localscalibr.NewPluginConfig(scannerAction.HTTPClient, scannerAction.RequestUserAgent)
-
-			defer func() {
-				if err := toClose.Close(); err != nil {
-					cmdlogger.Errorf("Failed to close scalibr client factories: %v", err)
-				}
-			}()
-		}
-
-		dietClient = osvdiet.New(
-			scannerAction.ScalibrConfig.ClientFactories.HTTPClient(),
-			scannerAction.RequestUserAgent,
-		)
-
-		scannerAction.OSVDevClient = dietClient
-
-		defer dietClient.Cleanup()
-	}
+	dietClient, cleanup := helper.SetupDietClient(cmd, &scannerAction)
+	defer cleanup()
 
 	var vulnResult models.VulnerabilityResults
 	//nolint:contextcheck // passing the context in would be a breaking change
