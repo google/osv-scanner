@@ -8,7 +8,6 @@ import (
 	"fmt"
 	"net/http"
 	"os"
-	"path/filepath"
 	"sync"
 	"weak"
 
@@ -31,7 +30,9 @@ var ErrFullDataUnavailable = errors.New("full vulnerability data is not availabl
 type Client struct {
 	backend scalibrosvdev.Client
 	mu      sync.Mutex
-	dir     string
+
+	// root is the directory vulnerabilities are stored in
+	root *os.Root
 
 	// slimmed tracks (weak) pointers to osvschema.Vulnerability that have been slimmed
 	slimmed sync.Map
@@ -56,35 +57,48 @@ func (c *Client) Cleanup() {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
-	// todo: return, or ignore?
-	err := os.RemoveAll(c.dir)
-
-	if err != nil {
-		cmdlogger.Warnf("failed to remove %s: %v", c.dir, err)
+	if c.root == nil {
+		return
 	}
 
-	c.dir = ""
+	dir := c.root.Name()
+
+	if err := c.root.Close(); err != nil {
+		cmdlogger.Warnf("failed to close %s: %v", dir, err)
+	}
+
+	if err := os.RemoveAll(dir); err != nil {
+		cmdlogger.Warnf("failed to remove %s: %v", dir, err)
+	}
+
+	c.root = nil
 }
 
-// getDirectory returns the temporary directory to store vulnerabilities in,
+// getRoot returns the temporary directory to store vulnerabilities in,
 // creating it if it does not already exist
-func (c *Client) getDirectory() (string, error) {
+func (c *Client) getRoot() (*os.Root, error) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
-	if c.dir != "" {
-		return c.dir, nil
+	if c.root != nil {
+		return c.root, nil
 	}
 
-	var err error
-
-	c.dir, err = os.MkdirTemp("", "osv-scanner-vulnerabilities-")
+	dir, err := os.MkdirTemp("", "osv-scanner-vulnerabilities-")
 
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
-	return c.dir, nil
+	c.root, err = os.OpenRoot(dir)
+
+	if err != nil {
+		_ = os.RemoveAll(dir)
+
+		return nil, err
+	}
+
+	return c.root, nil
 }
 
 func (c *Client) Query(ctx context.Context, query *api.Query) (*api.VulnerabilityList, error) {
@@ -127,13 +141,13 @@ func (c *Client) store(vuln *osvschema.Vulnerability) error {
 		return err
 	}
 
-	dir, err := c.getDirectory()
+	root, err := c.getRoot()
 
 	if err != nil {
 		return err
 	}
 
-	return os.WriteFile(filepath.Join(dir, vuln.GetId()+".json"), content, 0600)
+	return root.WriteFile(vuln.GetId()+".json", content, 0600)
 }
 
 // slim trims the data of the vulnerability to only what the scanner needs
@@ -194,14 +208,14 @@ func (c *Client) Fatten(vuln *osvschema.Vulnerability) (*osvschema.Vulnerability
 	}
 
 	c.mu.Lock()
-	dir := c.dir
+	root := c.root
 	c.mu.Unlock()
 
-	if dir == "" {
+	if root == nil {
 		return nil, fmt.Errorf("%w: %s", ErrFullDataUnavailable, vuln.GetId())
 	}
 
-	content, err := os.ReadFile(filepath.Join(dir, vuln.GetId()+".json"))
+	content, err := root.ReadFile(vuln.GetId() + ".json")
 
 	if err != nil {
 		return nil, fmt.Errorf("reading full data for %s: %w", vuln.GetId(), err)
