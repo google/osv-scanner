@@ -6,7 +6,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"io"
 	"log/slog"
 	"maps"
 	"net/http"
@@ -518,26 +517,14 @@ func SetupClientFactories(clientFactories scalibrconfig.ClientFactories, httpCli
 // setupAccessors initializes client factories and external accessors.
 // It returns a cleanup function that the caller must defer to close the client factories.
 func setupAccessors(actions ScannerActions) (*scalibrconfig.PluginConfig, ExternalAccessors, func()) {
-	var scalibrConfig *scalibrconfig.PluginConfig
-	var toClose io.Closer
-
+	scalibrConfig := &scalibrconfig.PluginConfig{}
 	if actions.ScalibrConfig != nil {
-		scalibrConfig = actions.ScalibrConfig
-	} else {
-		cf := localscalibr.NewClientFactories(actions.HTTPClient, actions.RequestUserAgent)
-		scalibrConfig = &scalibrconfig.PluginConfig{
-			ClientFactories: cf,
-		}
-		toClose = cf
+		// copy so that filling in defaults doesn't modify the caller's config
+		*scalibrConfig = *actions.ScalibrConfig
 	}
 
-	cleanup := func() {
-		if toClose != nil {
-			if err := toClose.Close(); err != nil {
-				cmdlogger.Errorf("Failed to close scalibr client factories: %v", err)
-			}
-		}
-	}
+	cf, cleanup := SetupClientFactories(scalibrConfig.ClientFactories, actions.HTTPClient, actions.RequestUserAgent)
+	scalibrConfig.ClientFactories = cf
 
 	accessors := ExternalAccessors{}
 	if !actions.CompareOffline {
