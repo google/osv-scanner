@@ -4,7 +4,7 @@ body {
   background: #292929;
   color: #fff;
   overflow-y: scroll;
-  font-family: "Overpass Mono", monospace;
+  font-family: monospace;
   font-size: 12pt;
   font-weight: 100;
   min-width: fit-content;
@@ -36,7 +36,6 @@ h3 {
 h1,
 h2,
 h3 {
-  font-family: "Overpass Mono", monospace;
   font-weight: normal;
 }
 
