@@ -149,6 +149,11 @@ func TestCommand_Docker(t *testing.T) {
 			Exit: 127,
 		},
 		{
+			Name: "multiple_image_arguments",
+			Args: []string{"", "image", "alpine:non-existent-tag", "hello-world:linux"},
+			Exit: 127,
+		},
+		{
 			Name: "Fake_alpine_image",
 			Args: []string{"", "image", "alpine:non-existent-tag"},
 			Exit: 127,
