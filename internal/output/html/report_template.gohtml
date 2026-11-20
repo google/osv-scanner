@@ -4,7 +4,6 @@
 <head>
   <title>Vulnerability Scan Report</title>
   <link rel="icon" href="https://google.github.io/osv.dev/assets/icon.png" type="image/x-icon" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <style>
   {{ template "style.css" }}
   </style>
@@ -53,7 +52,7 @@
 
         <div class="search-box">
           <div class="search-icon">
-            <i class="material-icons">search</i>
+            <i class="material-icons">{{ template "icon_search" }}</i>
           </div>
           <input type="text" id="vuln-search" placeholder="Search vulnerability ID...">
         </div>
@@ -65,6 +64,7 @@
     </div>
 
   </div>
+  <template id="close-icon-template">{{ template "icon_close" }}</template>
   <script>
   {{ template "script.js" }}
   </script>
