@@ -296,7 +296,9 @@ func InsertCassetteWithName(t *testing.T, name string) *http.Client {
 			t.Error(err)
 		}
 
-		sortCassetteInteractions(t, path)
+		if name != NoInteractions {
+			sortCassetteInteractions(t, path)
+		}
 	})
 
 	return client
