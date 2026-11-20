@@ -9,6 +9,7 @@ import (
 	"slices"
 	"strings"
 
+	"github.com/google/osv-scanner/v2/internal/grouper"
 	"github.com/google/osv-scanner/v2/internal/identifiers"
 	"github.com/google/osv-scanner/v2/internal/utility/vulns"
 	"github.com/google/osv-scanner/v2/pkg/models"
@@ -200,36 +201,37 @@ func (g *groupedSARIFFinding) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// mapIDsToGroupedSARIFFinding creates a map over all vulnerability IDs, with aliased vuln IDs
-// pointing to the same groupedSARIFFinding object
-func mapIDsToGroupedSARIFFinding(vulnResults *models.VulnerabilityResults) map[string]*groupedSARIFFinding {
+// groupSARIFFindings groups vulnerabilities across all packages and sources by aliases,
+// returning one groupedSARIFFinding per alias group sorted by DisplayID
+func groupSARIFFindings(vulnResults *models.VulnerabilityResults) []*groupedSARIFFinding {
+	// Group the vulnerabilities of all packages and sources together,
+	// so that aliases shared across packages end up in the same group
+	allVulns := []*osvschema.Vulnerability{}
+	for _, res := range vulnResults.Results {
+		for _, pkg := range res.Packages {
+			allVulns = append(allVulns, pkg.Vulnerabilities...)
+		}
+	}
+
+	groupInfos := grouper.Group(grouper.ConvertVulnerabilityToIDAliases(allVulns))
+
 	// Map of vuln IDs to their respective groupedSARIFFinding
 	results := map[string]*groupedSARIFFinding{}
+	groups := make([]*groupedSARIFFinding, 0, len(groupInfos))
+
+	for _, gi := range groupInfos {
+		data := &groupedSARIFFinding{
+			PkgSource:    make(pkgSourceSet),
+			AliasedVulns: make(map[string]*osvschema.Vulnerability),
+		}
+		for _, id := range gi.IDs {
+			results[id] = data
+		}
+		groups = append(groups, data)
+	}
 
 	for _, res := range vulnResults.Results {
 		for _, pkg := range res.Packages {
-			for _, gi := range pkg.Groups {
-				var data *groupedSARIFFinding
-				// See if this vulnerability group already exists (from another package or source)
-				for _, id := range gi.IDs {
-					existingData, ok := results[id]
-					if ok {
-						data = existingData
-						break
-					}
-				}
-				// If not create this group
-				if data == nil {
-					data = &groupedSARIFFinding{
-						PkgSource:    make(pkgSourceSet),
-						AliasedVulns: make(map[string]*osvschema.Vulnerability),
-					}
-				}
-				// Point all the IDs of the same group to the same data, either newly created or existing
-				for _, id := range gi.IDs {
-					results[id] = data
-				}
-			}
 			for _, v := range pkg.Vulnerabilities {
 				newPkgSource := pkgWithSource{
 					Package: pkg.Package,
@@ -244,11 +246,15 @@ func mapIDsToGroupedSARIFFinding(vulnResults *models.VulnerabilityResults) map[s
 		}
 	}
 
-	for _, gs := range results {
+	for _, gs := range groups {
 		slices.SortFunc(gs.AliasedIDList, identifiers.IDSortFunc)
 		gs.AliasedIDList = slices.Compact(gs.AliasedIDList)
 		gs.DisplayID = gs.AliasedIDList[0]
 	}
 
-	return results
+	slices.SortFunc(groups, func(a, b *groupedSARIFFinding) int {
+		return identifiers.IDSortFunc(a.DisplayID, b.DisplayID)
+	})
+
+	return groups
 }
