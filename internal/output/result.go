@@ -207,12 +207,9 @@ func groupSARIFFindings(vulnResults *models.VulnerabilityResults) []*groupedSARI
 	// Group the vulnerabilities of all packages and sources together,
 	// so that aliases shared across packages end up in the same group
 	allVulns := []*osvschema.Vulnerability{}
-	seen := map[string]bool{}
 	for _, res := range vulnResults.Results {
 		for _, pkg := range res.Packages {
-			for _, v := range pkg.Vulnerabilities {
-				allVulns = append(allVulns, v)
-			}
+			allVulns = append(allVulns, pkg.Vulnerabilities...)
 		}
 	}
 
