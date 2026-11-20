@@ -11,28 +11,27 @@ import (
 func Test_run(t *testing.T) {
 	tests := []testcmd.Case{
 		{
-			Name:  "",
-			Args:  []string{""},
-			Exit:  127,
-			NoVCR: true,
+			Name: "",
+			Args: []string{""},
+			Exit: 127,
 		},
 		{
-			Name:  "",
-			Args:  []string{"--help"},
-			Exit:  0,
-			NoVCR: true,
+			Name: "",
+			Args: []string{"--help"},
+			Exit: 0,
 		},
 		{
-			Name:  "version",
-			Args:  []string{"", "--version"},
-			Exit:  0,
-			NoVCR: true,
+			Name: "version",
+			Args: []string{"", "--version"},
+			Exit: 0,
 		},
 	}
 
 	// No parallel because --version output is not thread safe.
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
+			tt.CassetteName = testcmd.NoInteractions
+
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}

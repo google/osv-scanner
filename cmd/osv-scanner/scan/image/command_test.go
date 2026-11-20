@@ -102,6 +102,8 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 				"testdata/test-alpine-sbom.tar",
 			},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "extractors_cancelled_out_with_presets",
@@ -114,6 +116,8 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 				"testdata/test-alpine-sbom.tar",
 			},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "extractors_cancelled_out",
@@ -126,6 +130,8 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 				"testdata/test-alpine-sbom.tar",
 			},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 	}
 	for _, tt := range tests {
@@ -147,36 +153,50 @@ func TestCommand_Docker(t *testing.T) {
 			Name: "no_image_argument",
 			Args: []string{"", "image"},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "Fake_alpine_image",
 			Args: []string{"", "image", "alpine:non-existent-tag"},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "Fake_image_entirely",
 			Args: []string{"", "image", "this-image-definitely-does-not-exist-abcde:with-tag"},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "Real_empty_image_with_no_tag_invalid_scan_target",
 			Args: []string{"", "image", "hello-world"},
 			Exit: 127, // Invalid scan target
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "Real_empty_image_with_tag",
 			Args: []string{"", "image", "hello-world:linux"},
 			Exit: 128, // No package found
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "real_empty_image_with_tag_and_allow_no_lockfiles_flag",
 			Args: []string{"", "image", "--allow-no-lockfiles", "hello-world:linux"},
 			Exit: 0,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "real_empty_image_with_tag_and_allow_no_lockfiles_flag_json",
 			Args: []string{"", "image", "--format", "json", "--allow-no-lockfiles", "hello-world:linux"},
 			Exit: 0,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "Real_Alpine_image",
@@ -190,6 +210,8 @@ func TestCommand_Docker(t *testing.T) {
 			Name: "real_alpine_image_without_apk_extractor_enabled",
 			Args: []string{"", "image", "--x-disable-plugins=os/apk", "alpine:3.18.9"},
 			Exit: 128,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 	}
 	for _, tt := range tests {
@@ -216,6 +238,8 @@ func TestCommand_OCIImage(t *testing.T) {
 			Name: "Invalid_path",
 			Args: []string{"", "image", "--archive", "../../testdata/locks-manyoci-image/no-file-here.tar"},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "Alpine_3.10_image_tar_with_3.18_version_file",

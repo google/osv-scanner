@@ -20,6 +20,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"sync/atomic"
 	"testing"
 	"time"
 
@@ -39,9 +40,13 @@ import (
 )
 
 const (
-	gcsBucketHost              = "osv-vulnerabilities.storage.googleapis.com"
-	offlineDBRelativePath      = "cmd/osv-scanner/internal/testcmd/testdata/offline-dbs"
-	vulnSeveritiesRelativePath = "cmd/osv-scanner/internal/testcmd/testdata/vuln_severities.json"
+	gcsBucketHost                      = "osv-vulnerabilities.storage.googleapis.com"
+	offlineDBRelativePath              = "cmd/osv-scanner/internal/testcmd/testdata/offline-dbs"
+	vulnSeveritiesRelativePath         = "cmd/osv-scanner/internal/testcmd/testdata/vuln_severities.json"
+	noInteractionsCassetteRelativePath = "cmd/osv-scanner/internal/testcmd/testdata/no_interactions.yaml"
+
+	// NoInteractions indicates that the test should not have any interactions with external parties
+	NoInteractions = "no_interactions"
 )
 
 var (
@@ -178,34 +183,44 @@ func InsertCassette(t *testing.T) *http.Client {
 	return InsertCassetteWithName(t, t.Name())
 }
 
+// isPassthroughRequest determines if the given request should bypass the cassette,
+// meaning it will never be recorded or replayed
+func isPassthroughRequest(req *http.Request) bool {
+	// exclude requests for info on a specific vuln since they can be quite large
+	// and their changes should be less impactful to our snapshots than the query
+	// endpoint, as those reqs are what results in specific vulns being looked up
+	if strings.HasPrefix(req.URL.Path, "/v1/vulns/") {
+		return true
+	}
+	// exclude requests for binary file downloads from cassettes (e.g. zip databases, jar files)
+	ext := strings.ToLower(filepath.Ext(req.URL.Path))
+	binaryExts := []string{".zip", ".gz", ".bin", ".db", ".tar", ".tgz", ".jar", ".aar", ".whl"}
+
+	return slices.Contains(binaryExts, ext)
+}
+
 // InsertCassetteWithName returns an http.Client backed by a [recorder.Recorder] which
 // will record and (re)play responses from a cassette based on the specified name
 func InsertCassetteWithName(t *testing.T, name string) *http.Client {
 	t.Helper()
 
 	path := filepath.Join("testdata/cassettes", strings.ReplaceAll(name, "/", "_"))
+	mode := determineRecorderMode()
+
+	if name == NoInteractions {
+		path = strings.TrimSuffix(filepath.Join(findRepoRoot(), noInteractionsCassetteRelativePath), ".yaml")
+		mode = recorder.ModeReplayOnly
+	}
 
 	r, err := recorder.New(
 		path,
 		recorder.WithMarshalFunc(marshalCassettes),
 		recorder.WithSkipRequestLatency(true),
-		recorder.WithMode(determineRecorderMode()),
+		recorder.WithMode(mode),
 		recorder.WithRealTransport(&vcrResponseNormalizingTransport{
 			underlying: http.DefaultTransport,
 		}),
-		recorder.WithPassthrough(func(req *http.Request) bool {
-			// exclude requests for info on a specific vuln since they can be quite large
-			// and their changes should be less impactful to our snapshots than the query
-			// endpoint, as those reqs are what results in specific vulns being looked up
-			if strings.HasPrefix(req.URL.Path, "/v1/vulns/") {
-				return true
-			}
-			// exclude requests for binary file downloads from cassettes (e.g. zip databases, jar files)
-			ext := strings.ToLower(filepath.Ext(req.URL.Path))
-			binaryExts := []string{".zip", ".gz", ".bin", ".db", ".tar", ".tgz", ".jar", ".aar", ".whl"}
-
-			return slices.Contains(binaryExts, ext)
-		}),
+		recorder.WithPassthrough(isPassthroughRequest),
 		recorder.WithMatcher(matcher),
 		recorder.WithHook(func(i *cassette.Interaction) error {
 			// remove headers that are not important to reduce cassette size and noise
@@ -260,20 +275,31 @@ func InsertCassetteWithName(t *testing.T, name string) *http.Client {
 	if err != nil {
 		t.Fatal(err)
 	}
-	t.Cleanup(func() {
-		if err := r.Stop(); err != nil {
-			t.Error(err)
-		}
-
-		sortCassetteInteractions(t, path)
-	})
 
 	client := r.GetDefaultClient()
-	client.Transport = &vcrErrorWrappingTransport{
+
+	transport := &vcrErrorWrappingTransport{
 		t:            t,
 		wrapper:      client.Transport,
 		cassettePath: path,
 	}
+
+	client.Transport = transport
+
+	t.Cleanup(func() {
+		if name != NoInteractions && transport.requests.Load() == 0 {
+			t.Errorf("this test should be using testcmd.NoInteractions as it does not make any HTTP requests")
+			return // skip Stop(), so no empty cassette gets written
+		}
+
+		if err := r.Stop(); err != nil {
+			t.Error(err)
+		}
+
+		if name != NoInteractions {
+			sortCassetteInteractions(t, path)
+		}
+	})
 
 	return client
 }
@@ -372,9 +398,15 @@ type vcrErrorWrappingTransport struct {
 	t            *testing.T
 	wrapper      http.RoundTripper
 	cassettePath string
+	requests     atomic.Int64
 }
 
 func (t *vcrErrorWrappingTransport) RoundTrip(req *http.Request) (*http.Response, error) {
+	// only count requests that would be recorded in the cassette
+	if !isPassthroughRequest(req) {
+		t.requests.Add(1)
+	}
+
 	resp, err := t.wrapper.RoundTrip(req)
 	if err != nil && errors.Is(err, cassette.ErrInteractionNotFound) {
 		t.logRequestMismatch(req)
