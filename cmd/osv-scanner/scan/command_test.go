@@ -12,10 +12,11 @@ func TestCommand_SubCommands(t *testing.T) {
 
 	tests := []testcmd.Case{
 		{
-			Name:  "with_no_arguments",
-			Args:  []string{"", "scan"},
-			Exit:  127,
-			NoVCR: true,
+			Name: "with_no_arguments",
+			Args: []string{"", "scan"},
+			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		// without subcommands
 		{
@@ -28,6 +29,8 @@ func TestCommand_SubCommands(t *testing.T) {
 			Name: "with_scan_subcommand",
 			Args: []string{"", "scan", "./testdata/locks-many/composer.lock"},
 			Exit: 0,
+
+			CassetteName: "TestCommand_SubCommands_with_no_subcommand",
 		},
 		// scan with a flag
 		{

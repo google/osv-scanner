@@ -59,6 +59,8 @@ func TestCommand(t *testing.T) {
 			Name: "one_specific_supported_sbom_with_vulns_using_-L_flag",
 			Args: []string{"", "source", "-L", "./testdata/sbom-insecure/alpine.cdx.xml"},
 			Exit: 1,
+
+			CassetteName: "TestCommand_one_specific_supported_sbom_with_vulns",
 		},
 		// one specific supported sbom with vulns and invalid PURLs
 		{
@@ -70,6 +72,8 @@ func TestCommand(t *testing.T) {
 			Name: "one_specific_supported_sbom_with_invalid_PURLs_using_-L_flag",
 			Args: []string{"", "source", "-L", "./testdata/sbom-insecure/bad-purls.cdx.xml"},
 			Exit: 0,
+
+			CassetteName: "TestCommand_one_specific_supported_sbom_with_invalid_PURLs",
 		},
 		// one specific supported sbom with duplicate PURLs
 		{
@@ -81,6 +85,8 @@ func TestCommand(t *testing.T) {
 			Name: "one_specific_supported_sbom_with_duplicate_PURLs_using_-L_flag",
 			Args: []string{"", "source", "-L", "./testdata/sbom-insecure/with-duplicates.cdx.xml"},
 			Exit: 1,
+
+			CassetteName: "TestCommand_one_specific_supported_sbom_with_duplicate_PURLs",
 		},
 		// CycloneDX SBOM with Maven group namespace in PURL
 		{
@@ -105,17 +111,23 @@ func TestCommand(t *testing.T) {
 			Name: "one_file_that_does_not_match_the_supported_sbom_file_names",
 			Args: []string{"", "source", "--sbom", "./testdata/locks-many/composer.lock"},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "one_file_that_does_not_match_the_supported_sbom_file_names_using_-L_flag",
 			Args: []string{"", "source", "-L", "spdx:./testdata/locks-many/composer.lock"},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		// one specific unsupported lockfile
 		{
 			Name: "one_specific_unsupported_lockfile",
 			Args: []string{"", "source", "./testdata/locks-many/not-a-lockfile.toml"},
 			Exit: 128,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		// all supported lockfiles in the directory should be checked
 		{
@@ -134,16 +146,22 @@ func TestCommand(t *testing.T) {
 			Name: "no_lockfiles_without_recursion_or_allow_flag_give_an_error",
 			Args: []string{"", "source", "./testdata/locks-none"},
 			Exit: 128,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "no_lockfiles_without_recursion_but_with_allow_flag_are_fine",
 			Args: []string{"", "source", "--allow-no-lockfiles", "./testdata/locks-none"},
 			Exit: 0,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "no_lockfiles_with_allow_flag_but_another_error_happens_is_not_fine",
 			Args: []string{"", "source", "--allow-no-lockfiles", "./testdata/locks-none-does-not-exist"},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "no_lockfiles_with_recursion_but_without_allow_flag_are_fine",
@@ -159,6 +177,8 @@ func TestCommand(t *testing.T) {
 			Name: "no_lockfiles_with_json_and_allow_flag_still_have_results_property",
 			Args: []string{"", "source", "--format", "json", "--allow-no-lockfiles", "./testdata/locks-none"},
 			Exit: 0,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		// only the files in the given directories are checked by default (no recursion)
 		{
@@ -194,6 +214,8 @@ func TestCommand(t *testing.T) {
 			Name: "exclude_with_exact_directory_name_using_deprecated_flag",
 			Args: []string{"", "source", "--recursive", "--experimental-exclude=nested", "./testdata/locks-one-with-nested"},
 			Exit: 0,
+
+			CassetteName: "TestCommand_exclude_with_exact_directory_name",
 		},
 		{
 			Name: "exclude_with_glob_pattern",
@@ -209,6 +231,8 @@ func TestCommand(t *testing.T) {
 			Name: "exclude_with_invalid_regex_returns_error",
 			Args: []string{"", "source", "--x-exclude=r:[invalid", "./testdata/locks-many"},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "exclude_with_multiple_exact_directories",
@@ -328,6 +352,8 @@ func TestCommand(t *testing.T) {
 			Name: "output_format_unsupported",
 			Args: []string{"", "source", "--format", "unknown", "./testdata/locks-many/composer.lock"},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		// one specific supported lockfile with ignore
 		{
@@ -339,6 +365,8 @@ func TestCommand(t *testing.T) {
 			Name: "invalid_--verbosity_value",
 			Args: []string{"", "source", "--verbosity", "unknown", "./testdata/locks-many/composer.lock"},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "verbosity_level_error",
@@ -359,24 +387,38 @@ func TestCommand(t *testing.T) {
 			Name: "PURL_SBOM_case_sensitivity_local",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "--format", "table", "./testdata/sbom-insecure/alpine.cdx.xml"},
 			Exit: 1,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		// Go project with an overridden go version and licenses
 		{
 			Name: "Go_project_with_an_overridden_go_version_and_licenses",
 			Args: []string{"", "source", "--config=./testdata/go-project/go-version-config.toml", "--licenses", "./testdata/go-project"},
 			Exit: 0,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		// Go project with an overridden go version
 		{
 			Name: "Go_project_with_an_overridden_go_version",
 			Args: []string{"", "source", "--config=./testdata/go-project/go-version-config.toml", "./testdata/go-project"},
 			Exit: 0,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		// Go project with an overridden go version, recursive
 		{
 			Name: "Go_project_with_an_overridden_go_version_recursive",
 			Args: []string{"", "source", "--config=./testdata/go-project/go-version-config.toml", "-r", "./testdata/go-project"},
 			Exit: 0,
+
+			CassetteName: testcmd.NoInteractions,
+		},
+		// Go project with an overridden go version, when scanning the go.mod version
+		{
+			Name: "Go_project_with_an_overridden_go_version_and_go_mod_version_scanning",
+			Args: []string{"", "source", "--config=./testdata/go-project-scan-go-mod-version/go-version-config.toml", "--no-call-analysis=go", "./testdata/go-project-scan-go-mod-version"},
+			Exit: 1,
 		},
 		// broad config file that overrides a whole ecosystem
 		{
@@ -401,12 +443,16 @@ func TestCommand(t *testing.T) {
 			Name: "config_files_cannot_have_unknown_keys",
 			Args: []string{"", "source", "--config=./testdata/osv-scanner-unknown-config.toml", "./testdata/locks-many"},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		// config file with invalid regex in package override
 		{
 			Name: "config_file_with_invalid_regex",
 			Args: []string{"", "source", "--config=./testdata/osv-scanner-invalid-regex-config.toml", "./testdata/locks-many"},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		// config file with multiple ignores with the same id
 		{
@@ -435,6 +481,8 @@ func TestCommand(t *testing.T) {
 			Name: "help",
 			Args: []string{"", "source", "--help"},
 			Exit: 0,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 	}
 	for _, tt := range tests {
@@ -589,6 +637,8 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 			Name: "empty_plugins_flag_does_default",
 			Args: []string{"", "source", "--x-plugins="},
 			Exit: 128,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "extractors_cancelled_out_specified_individually",
@@ -599,6 +649,8 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 				"--x-disable-plugins=sbom",
 			},
 			Exit: 128,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "extractors_cancelled_out_specified_together",
@@ -608,6 +660,8 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 				"--x-disable-plugins=sbom",
 			},
 			Exit: 128,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "extractors_cancelled_out_with_presets",
@@ -617,6 +671,8 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 				"--x-disable-plugins=sbom",
 			},
 			Exit: 128,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			// this will scan all the lockfiles as we have not explicitly disabled the
@@ -705,12 +761,16 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 				"-L", "package-lock.json:./testdata/locks-many/composer.lock",
 			},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		// when using deprecated versions of the flags
 		{
 			Name: "deprecated_empty_plugins_flag_does_nothing",
 			Args: []string{"", "source", "--experimental-plugins="},
 			Exit: 128,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "deprecated_extractors_cancelled_out_specified_individually",
@@ -721,6 +781,8 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 				"--experimental-disable-plugins=sbom",
 			},
 			Exit: 128,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 	}
 	for _, tt := range tests {
@@ -740,6 +802,8 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 			Name: "empty_plugins_flag_does_nothing",
 			Args: []string{"", "source", "--x-no-default-plugins", "--x-plugins="},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "extractors_cancelled_out_specified_individually",
@@ -751,6 +815,8 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 				"--x-no-default-plugins",
 			},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "extractors_cancelled_out_specified_together",
@@ -761,6 +827,8 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 				"--x-no-default-plugins",
 			},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "extractors_cancelled_out_with_presets",
@@ -771,6 +839,8 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 				"--x-no-default-plugins",
 			},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			// this will scan just the package-lock.json file as we've explicitly
@@ -856,6 +926,8 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 				"./testdata/locks-many/composer.lock",
 			},
 			Exit: 128,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			// this will result in an error about not being able to determine the extractor
@@ -869,12 +941,16 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 				"-L", "package-lock.json:./testdata/locks-many/composer.lock",
 			},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		// when using deprecated versions of the flags
 		{
 			Name: "deprecated_empty_plugins_flag_does_nothing",
 			Args: []string{"", "source", "--experimental-no-default-plugins", "--experimental-plugins="},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "deprecated_extractors_cancelled_out_specified_individually",
@@ -886,6 +962,8 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 				"--experimental-no-default-plugins",
 			},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 	}
 	for _, tt := range tests {
@@ -928,6 +1006,8 @@ func TestCommand_CallAnalysis(t *testing.T) {
 				"--config=./testdata/osv-scanner-call-analysis-config.toml",
 				"./testdata/call-analysis-go-project-all-uncalled"},
 			Exit: 1,
+
+			CassetteName: "TestCommand_CallAnalysis_Run_with_govulncheck_all_uncalled",
 		},
 	}
 	for _, tt := range tests {
@@ -949,6 +1029,8 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			Name: "unsupported_parse-as",
 			Args: []string{"", "source", "-L", "my-file:./testdata/locks-many/composer.lock"},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "empty_is_default",
@@ -969,6 +1051,8 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 				":" + filepath.FromSlash("./path/to/my:file"),
 			},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "empty_works_as_an_escape_no_fixture_because_its_not_valid_on_Windows",
@@ -979,11 +1063,15 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 				":" + filepath.FromSlash("./path/to/my:project/package-lock.json"),
 			},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "one_lockfile_with_local_path",
 			Args: []string{"", "source", "--lockfile=go.mod:./testdata/locks-many/replace-local.mod"},
 			Exit: 0,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "when_an_explicit_parse-as_is_given_its_applied_to_that_file",
@@ -1017,6 +1105,8 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 				filepath.FromSlash("./testdata/locks-insecure"),
 			},
 			Exit: 1,
+
+			CassetteName: "TestCommand_LockfileWithExplicitParseAs_multiple_output_order_is_deterministic",
 		},
 		{
 			Name: "files_that_error_on_parsing_stop_parsable_files_from_being_checked",
@@ -1039,6 +1129,8 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 				"package-lock.json:" + filepath.FromSlash("./testdata/locks-many/yarn.lock"),
 			},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "apk-installed is supported",
@@ -1101,6 +1193,8 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 				"package-lock.json:" + filepath.FromSlash(filepath.Join(cwd, "./testdata/locks-many/yarn.lock")),
 			},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 	}
 	for _, tt := range tests {
@@ -1183,6 +1277,8 @@ func TestCommand_LocalDatabases(t *testing.T) {
 			Name: "all_supported_lockfiles_in_the_directory_should_be_checked",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "./testdata/locks-many-with-invalid"},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "only_the_files_in_the_given_directories_are_checked_by_default_no_recursion",
@@ -1235,6 +1331,9 @@ func TestCommand_LocalDatabases(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
+			// the only requests the tests should make is to download databases
+			tt.CassetteName = testcmd.NoInteractions
+
 			testDir := testutility.CreateTestDir(t)
 			old := tt.Args
 			tt.Args = []string{"", "source", "--local-db-path", testDir}
@@ -1256,6 +1355,8 @@ func TestCommand_LocalDatabases_AlwaysOffline(t *testing.T) {
 			Name: "a_bunch_of_different_lockfiles_and_ecosystem",
 			Args: []string{"", "source", "--offline", "./testdata/locks-requirements", "./testdata/locks-many-with-insecure"},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 	}
 
@@ -1291,6 +1392,8 @@ func TestCommand_CommitSupport(t *testing.T) {
 			Name: "offline_uses_git_tags",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "--lockfile", "osv-scanner:./testdata/locks-git/osv-scanner.json"},
 			Exit: 1,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 	}
 
@@ -1321,6 +1424,8 @@ func TestCommand_Licenses(t *testing.T) {
 			Name: "No_vulnerabilities_with_license_summary_in_markdown",
 			Args: []string{"", "source", "--licenses", "--format=markdown", "./testdata/locks-many"},
 			Exit: 0,
+
+			CassetteName: "TestCommand_Licenses_No_vulnerabilities_with_license_summary",
 		},
 		{
 			Name: "Vulnerabilities_and_license_summary",
@@ -1381,6 +1486,8 @@ func TestCommand_Licenses(t *testing.T) {
 			Name: "Licenses_with_invalid_licenses_in_flag",
 			Args: []string{"", "source", "--licenses=MIT,something-something", "./testdata/locks-licenses/package-lock.json"},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "Licenses_with_invalid_expression_in_config",
@@ -1391,16 +1498,22 @@ func TestCommand_Licenses(t *testing.T) {
 			Name: "When_offline_licenses_summary_cannot_be_printed",
 			Args: []string{"", "source", "--offline", "--licenses", "./testdata/locks-many/package-lock.json"},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "When_offline_licenses_cannot_be_checked",
 			Args: []string{"", "source", "--offline", "--licenses=MIT", "./testdata/locks-many/package-lock.json"},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "When_offline_licenses_are_still_validated",
 			Args: []string{"", "source", "--offline", "--licenses=MIT,something-something", "./testdata/locks-many/package-lock.json"},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 	}
 
@@ -1454,26 +1567,36 @@ func TestCommand_Transitive(t *testing.T) {
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "./testdata/maven-transitive/pom.xml"},
 			// Direct dependencies do not have any vulnerability.
 			Exit: 0,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "pom.xml_offline_vulnerabilities_keeps_transitive",
 			Args: []string{"", "source", "--offline-vulnerabilities", "--download-offline-databases", "./testdata/maven-transitive/pom.xml"},
 			Exit: 1,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "pom.xml_ignore_direct_prevents_transitive",
 			Args: []string{"", "source", "--config", "./testdata/osv-scanner-ignore-log4j-web.toml", "./testdata/maven-transitive/pom.xml"},
 			Exit: 0,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "pom.xml_enricher_requires_extractor",
 			Args: []string{"", "source", "--x-disable-plugins=java/pomxml", "./testdata/maven-transitive/abc.xml"},
 			Exit: 128,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "invalid_data_source_error",
 			Args: []string{"", "source", "--data-source=github", "-L", "pom.xml:./testdata/maven-transitive/registry.xml"},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "requirements.txt_transitive_default",
@@ -1494,11 +1617,15 @@ func TestCommand_Transitive(t *testing.T) {
 			Name: "requirements.txt_offline_no_transitive",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "./testdata/locks-requirements/requirements.txt"},
 			Exit: 1,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "requirements.txt_enricher_requires_extractor",
 			Args: []string{"", "source", "--x-disable-plugins=python/requirements", "./testdata/locks-requirements/requirements-transitive.txt"},
 			Exit: 128,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "requirements.txt_resolution_fallback",
@@ -1569,6 +1696,8 @@ func TestCommand_MoreLockfiles(t *testing.T) {
 			Name: "Podfile.lock_-_Unsupported_ecosystem_should_not_be_scanned",
 			Args: []string{"", "source", "-L", "./testdata/locks-scalibr/Podfile.lock"},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "Package.resolved_-_SwiftURL_ecosystem_vulnerabilities_detected",
@@ -1654,6 +1783,8 @@ func TestCommand_HtmlFile_Deprecated(t *testing.T) {
 		Name: "one_specific_supported_lockfile",
 		Args: []string{"", "source", "--format=html", "--output", testDir + "/report.html", "./testdata/locks-many/composer.lock"},
 		Exit: 0,
+
+		CassetteName: "TestCommand_HtmlFile",
 	})
 
 	_, err := os.Stat(testDir + "/report.html")
@@ -1822,11 +1953,15 @@ func TestCommand_Filter(t *testing.T) {
 			Name: "bun_lock_with_short_commit_hash_skipped",
 			Args: []string{"", "source", "--format=json", "./testdata/locks-bun-shorthash"},
 			Exit: 0,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "bun_lock_with_short_commit_hash_skipped_show_all",
 			Args: []string{"", "source", "--format=json", "--all-packages", "./testdata/locks-bun-shorthash"},
 			Exit: 0,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 	}
 
@@ -1852,6 +1987,15 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 			Exit: 0,
 		},
 		{
+			Name: "package_deprecated_true_no_vuln_table",
+			Args: []string{
+				"", "source", "--format=table",
+				"--x-flag-deprecated-packages",
+				"./testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock",
+			},
+			Exit: 1,
+		},
+		{
 			Name: "package_deprecated_true_no_vuln_json",
 			Args: []string{
 				"", "source", "--format=json",
@@ -1863,6 +2007,17 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 				testutility.GroupsAsArrayLen,
 				testutility.OnlyIDVulnsRule,
 			},
+
+			CassetteName: "TestCommand_FlagDeprecatedPackages_package_deprecated_true_no_vuln_table",
+		},
+		{
+			Name: "package_deprecated_true_with_vuln_table",
+			Args: []string{
+				"", "source", "--format=table",
+				"--x-flag-deprecated-packages",
+				"./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock",
+			},
+			Exit: 1,
 		},
 		{
 			Name: "package_deprecated_true_with_vuln_json",
@@ -1876,6 +2031,8 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 				testutility.GroupsAsArrayLen,
 				testutility.OnlyIDVulnsRule,
 			},
+
+			CassetteName: "TestCommand_FlagDeprecatedPackages_package_deprecated_true_with_vuln_table",
 		},
 		{
 			Name: "package_deprecated_npm_json",
@@ -1889,24 +2046,8 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 				testutility.GroupsAsArrayLen,
 				testutility.OnlyIDVulnsRule,
 			},
-		},
-		{
-			Name: "package_deprecated_true_no_vuln_table",
-			Args: []string{
-				"", "source", "--format=table",
-				"--x-flag-deprecated-packages",
-				"./testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock",
-			},
-			Exit: 1,
-		},
-		{
-			Name: "package_deprecated_true_with_vuln_table",
-			Args: []string{
-				"", "source", "--format=table",
-				"--x-flag-deprecated-packages",
-				"./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock",
-			},
-			Exit: 1,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		// covers both the deprecated flag, and the general logic for deprecated (bool) flags
 		{
@@ -1917,6 +2058,8 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 				"./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock",
 			},
 			Exit: 1,
+
+			CassetteName: "TestCommand_FlagDeprecatedPackages_package_deprecated_true_with_vuln_table",
 		},
 		{
 			Name: "package_deprecated_true_with_vuln_table_and_new_flag_false",
@@ -1927,6 +2070,8 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 				"./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock",
 			},
 			Exit: 1,
+
+			CassetteName: "TestCommand_FlagDeprecatedPackages_package_deprecated_true_with_vuln_table",
 		},
 		{
 			Name: "package_deprecated_true_with_vuln_table_and_old_flag_false",
@@ -1937,6 +2082,8 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 				"./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock",
 			},
 			Exit: 1,
+
+			CassetteName: "TestCommand_FlagDeprecatedPackages_package_deprecated_true_with_vuln_table",
 		},
 	}
 	for _, tt := range tests {

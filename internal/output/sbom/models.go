@@ -7,21 +7,12 @@ import (
 	"github.com/CycloneDX/cyclonedx-go"
 )
 
-var SpecVersionToBomCreator = map[models.CycloneDXVersion]CycloneDXBomCreator{
-	models.CycloneDXVersion14: ToCycloneDX14Bom,
-	models.CycloneDXVersion15: ToCycloneDX15Bom,
-	models.CycloneDXVersion16: ToCycloneDX16Bom,
-	models.CycloneDXVersion17: ToCycloneDX17Bom,
+var SpecVersionToSpecVersion = map[models.CycloneDXVersion]cyclonedx.SpecVersion{
+	models.CycloneDXVersion14: cyclonedx.SpecVersion1_4,
+	models.CycloneDXVersion15: cyclonedx.SpecVersion1_5,
+	models.CycloneDXVersion16: cyclonedx.SpecVersion1_6,
+	models.CycloneDXVersion17: cyclonedx.SpecVersion1_7,
 }
-
-type CycloneDXBomCreator func(packageSources map[string]models.PackageVulns) *cyclonedx.BOM
-
-const (
-	cycloneDx14Schema = "http://cyclonedx.org/schema/bom-1.4.schema.json"
-	cycloneDx15Schema = "http://cyclonedx.org/schema/bom-1.5.schema.json"
-	cycloneDx16Schema = "http://cyclonedx.org/schema/bom-1.6.schema.json"
-	cycloneDx17Schema = "http://cyclonedx.org/schema/bom-1.7.schema.json"
-)
 
 const libraryComponentType = "library"
 

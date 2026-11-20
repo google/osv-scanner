@@ -189,10 +189,14 @@ jobs:
       contents: read # to fetch code (actions/checkout)
     runs-on: ubuntu-latest
     needs:
+      - osv-scan
+      - links
       - format
+      - tidy
       - lint
       - tests
-      - osv-scan
+      - generators
+      - precommit
     steps:
       - name: Print Scripts
         env:

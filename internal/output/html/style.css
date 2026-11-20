@@ -4,7 +4,7 @@ body {
   background: #292929;
   color: #fff;
   overflow-y: scroll;
-  font-family: "Overpass Mono", monospace;
+  font-family: monospace;
   font-size: 12pt;
   font-weight: 100;
   min-width: fit-content;
@@ -36,7 +36,6 @@ h3 {
 h1,
 h2,
 h3 {
-  font-family: "Overpass Mono", monospace;
   font-weight: normal;
 }
 
@@ -75,7 +74,11 @@ header {
   align-items: center;
 }
 
-#header-right ::after {
+#header-right .scanner-version {
+  margin-right: 20px;
+}
+
+#header-right .improvement-link::after {
   display: inline-block;
   content: " ";
   background-image: url(https://osv.dev/static/img/external-link.svg);
@@ -86,10 +89,21 @@ header {
 }
 
 .material-icons {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  line-height: 1;
   vertical-align: middle;
   transform: rotate(0deg);
   transition: transform 0.2s ease;
   user-select: none;
+}
+
+.material-icons svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
 }
 
 .material-icons.expanded {

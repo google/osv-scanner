@@ -13,10 +13,9 @@ func TestCommand(t *testing.T) {
 
 	tests := []testcmd.Case{
 		{
-			Name:  "with_no_arguments",
-			Args:  []string{"", "update"},
-			Exit:  127,
-			NoVCR: true,
+			Name: "with_no_arguments",
+			Args: []string{"", "update"},
+			Exit: 127,
 		},
 		{
 			Name: "update_pom.xml_with_in-place_changes",
@@ -36,16 +35,14 @@ func TestCommand(t *testing.T) {
 			Skip: "Skipping for now as Maven is enforcing stricter 429s. (This is returning 0 even though it failed to get any versions as well)",
 		},
 		{
-			Name:  "errors_with_invalid_data_source",
-			Args:  []string{"", "update", "--data-source", "github", "-M", "./testdata/pom.xml"},
-			Exit:  127,
-			NoVCR: true,
+			Name: "errors_with_invalid_data_source",
+			Args: []string{"", "update", "--data-source", "github", "-M", "./testdata/pom.xml"},
+			Exit: 127,
 		},
 		{
-			Name:  "file_does_not_exist",
-			Args:  []string{"", "update", "-M", "./testdata/does_not_exist.xml"},
-			Exit:  127,
-			NoVCR: true,
+			Name: "file_does_not_exist",
+			Args: []string{"", "update", "-M", "./testdata/does_not_exist.xml"},
+			Exit: 127,
 		},
 		// TODO: add other test cases.
 	}
@@ -53,6 +50,8 @@ func TestCommand(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
+
+			tt.CassetteName = testcmd.NoInteractions
 
 			// Update action overwrites files, copy them to a temporary directory.
 			testDir := testutility.CreateTestDir(t)

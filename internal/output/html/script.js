@@ -105,7 +105,9 @@ function openVulnInNewTab(inputString) {
 
   const closeIcon = document.createElement("span");
   closeIcon.className = "material-icons";
-  closeIcon.textContent = "close";
+  closeIcon.appendChild(
+    document.getElementById("close-icon-template").content.cloneNode(true)
+  );
   // Add the onclick function to the close icon
   closeIcon.onclick = event => {
     event.stopPropagation(); // Prevent the click from opening the tab

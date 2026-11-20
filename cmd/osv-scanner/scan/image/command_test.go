@@ -102,6 +102,8 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 				"testdata/test-alpine-sbom.tar",
 			},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "extractors_cancelled_out_with_presets",
@@ -114,6 +116,8 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 				"testdata/test-alpine-sbom.tar",
 			},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "extractors_cancelled_out",
@@ -126,6 +130,8 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 				"testdata/test-alpine-sbom.tar",
 			},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 	}
 	for _, tt := range tests {
@@ -147,36 +153,50 @@ func TestCommand_Docker(t *testing.T) {
 			Name: "no_image_argument",
 			Args: []string{"", "image"},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "Fake_alpine_image",
 			Args: []string{"", "image", "alpine:non-existent-tag"},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "Fake_image_entirely",
 			Args: []string{"", "image", "this-image-definitely-does-not-exist-abcde:with-tag"},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "Real_empty_image_with_no_tag_invalid_scan_target",
 			Args: []string{"", "image", "hello-world"},
 			Exit: 127, // Invalid scan target
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "Real_empty_image_with_tag",
 			Args: []string{"", "image", "hello-world:linux"},
 			Exit: 128, // No package found
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "real_empty_image_with_tag_and_allow_no_lockfiles_flag",
 			Args: []string{"", "image", "--allow-no-lockfiles", "hello-world:linux"},
 			Exit: 0,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "real_empty_image_with_tag_and_allow_no_lockfiles_flag_json",
 			Args: []string{"", "image", "--format", "json", "--allow-no-lockfiles", "hello-world:linux"},
 			Exit: 0,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "Real_Alpine_image",
@@ -190,6 +210,8 @@ func TestCommand_Docker(t *testing.T) {
 			Name: "real_alpine_image_without_apk_extractor_enabled",
 			Args: []string{"", "image", "--x-disable-plugins=os/apk", "alpine:3.18.9"},
 			Exit: 128,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 	}
 	for _, tt := range tests {
@@ -216,6 +238,8 @@ func TestCommand_OCIImage(t *testing.T) {
 			Name: "Invalid_path",
 			Args: []string{"", "image", "--archive", "../../testdata/locks-manyoci-image/no-file-here.tar"},
 			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "Alpine_3.10_image_tar_with_3.18_version_file",
@@ -236,6 +260,8 @@ func TestCommand_OCIImage(t *testing.T) {
 			Name: "Empty_Ubuntu_22.04_image_tar_with_unimportant_vulns",
 			Args: []string{"", "image", "--all-vulns", "--archive", "./testdata/test-ubuntu.tar"},
 			Exit: 1,
+
+			CassetteName: "TestCommand_OCIImage_Empty_Ubuntu_22.04_image_tar",
 		},
 		{
 			Name: "Empty_Ubuntu_20.04_image_tar_with_only_unimportant_vulns_shown",
@@ -253,6 +279,8 @@ func TestCommand_OCIImage(t *testing.T) {
 				"--config=./testdata/ubuntu20-04-unimportant-config.toml",
 				"./testdata/test-ubuntu-20-04.tar"},
 			Exit: 0,
+
+			CassetteName: "TestCommand_OCIImage_Empty_Ubuntu_20.04_image_tar_with_only_unimportant_vulns_shown",
 		},
 		{
 			// This tests that the fzf go binary is not being reported because it's a OS package
@@ -269,6 +297,8 @@ func TestCommand_OCIImage(t *testing.T) {
 			Name: "rockylinux_empty_image_all_vulns",
 			Args: []string{"", "image", "--all-vulns", "--archive", "./testdata/test-rockylinux.tar"},
 			Exit: 1,
+
+			CassetteName: "TestCommand_OCIImage_rockylinux_empty_image",
 		},
 		{
 			Name: "Scanning_python_image_with_some_packages",
@@ -427,6 +457,8 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 				testutility.NormalizeHistoryCommand,
 				testutility.ShortenHistoryCommandLength,
 			},
+
+			CassetteName: "TestCommand_OCIImage_Scanning_python_image_with_some_packages",
 		},
 		{
 			Name: "scanning_node_modules_using_npm_with_some_packages",
@@ -440,6 +472,8 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 				testutility.NormalizeHistoryCommand,
 				testutility.ShortenHistoryCommandLength,
 			},
+
+			CassetteName: "TestCommand_OCIImage_scanning_node_modules_using_npm_with_some_packages",
 		},
 		{
 			Name: "scanning_image_with_go_binary",
@@ -474,6 +508,8 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 				testutility.OnlyFirstBaseImage,
 				testutility.AnyDiffID,
 			},
+
+			CassetteName: "TestCommand_OCIImage_Scanning_AlmaLinux_9_image",
 		},
 		{
 			// This tests that the fzf go binary is not being reported because it's a OS package
@@ -486,6 +522,8 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 				testutility.OnlyFirstBaseImage,
 				testutility.AnyDiffID,
 			},
+
+			CassetteName: "TestCommand_OCIImage_Scanning_Ubuntu_image_with_go_OS_packages_json",
 		},
 		{
 			Name: "scanning_insecure_alpine_image_with_specific_detector_enabled",
@@ -502,6 +540,8 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 				testutility.OnlyFirstBaseImage,
 				testutility.AnyDiffID,
 			},
+
+			CassetteName: "TestCommand_OCIImage_scanning_insecure_alpine_image_with_specific_detector_enabled",
 		},
 		{
 			Name: "scanning_insecure_alpine_image_with_detector_preset",
@@ -518,6 +558,8 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 				testutility.OnlyFirstBaseImage,
 				testutility.AnyDiffID,
 			},
+
+			CassetteName: "TestCommand_OCIImage_scanning_insecure_alpine_image_with_detector_preset",
 		},
 		{
 			Name: "scanning_image_with_deprecated_packages",
@@ -547,6 +589,8 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 				testutility.OnlyFirstBaseImage,
 				testutility.AnyDiffID,
 			},
+
+			CassetteName: "TestCommand_OCIImage_scanning_insecure_chiseled_ubuntu_image",
 		},
 		{
 			Name: "scanning_opensuse_leap_15.5_image",
@@ -558,6 +602,8 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 				testutility.OnlyFirstBaseImage,
 				testutility.AnyDiffID,
 			},
+
+			CassetteName: "TestCommand_OCIImage_Scanning_openSUSE_Leap_15.5_image",
 		},
 	}
 	for _, tt := range tests {

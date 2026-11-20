@@ -19,11 +19,11 @@ type Case struct {
 	// ReplaceRules are only used for JSON output
 	ReplaceRules []testutility.JSONReplaceRule
 
-	// NoVCR disables automatic VCR recording/replaying for this test case.
-	NoVCR bool
-
 	// CassetteName overrides the cassette name used for recording/replaying.
+	//
 	// If empty, t.Name() is used.
+	//
+	// Tests that don't expect any interactions should use testcmd.NoInteractions
 	CassetteName string
 
 	HTTPClient      *http.Client

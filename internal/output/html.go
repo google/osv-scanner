@@ -8,6 +8,7 @@ import (
 
 	"github.com/google/osv-scanner/v2/internal/utility/results"
 	"github.com/google/osv-scanner/v2/internal/utility/severity"
+	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
@@ -89,6 +90,9 @@ func PrintHTMLResults(vulnResult *models.VulnerabilityResults, outputWriter io.W
 		"hasOSResult":                 hasOSResult,
 		"GetShortCommit":              results.GetShortCommit,
 		"isOSResult":                  isOSResult,
+		"scannerVersion": func() string {
+			return version.OSVVersion
+		},
 	}
 
 	tmpl := template.Must(template.New("").Funcs(funcMap).ParseFS(templates, TemplateDir))

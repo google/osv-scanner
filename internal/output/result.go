@@ -181,7 +181,7 @@ func (g *groupedSARIFFinding) MarshalJSON() ([]byte, error) {
 			if err := json.Unmarshal(unstableJSON, &vuln); err != nil {
 				return nil, err
 			}
-			b, err := json.MarshalIndent(vuln, "", "  ")
+			b, err := json.Marshal(vuln)
 			if err != nil {
 				return nil, err
 			}

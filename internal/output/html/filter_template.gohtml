@@ -6,7 +6,7 @@
       <div id="layer-filter" class="filter" onclick="toggleFilter('layer')">
         <p id="layer-filter-selected" class="filter-selected"></p>
         <div class="filter-icon">
-          <i class="material-icons">keyboard_arrow_down</i>
+          <i class="material-icons">{{ template "icon_keyboard_arrow_down" }}</i>
         </div>
       </div>
       <div id="layer-filter-option-container" class="filter-option-container hide-block">
@@ -51,7 +51,7 @@
           <span>(<span id="selected-count"></span>/{{ add .VulnTypeSummary.All .VulnTypeSummary.Hidden }})</span>
         </p>
         <div class="filter-icon">
-          <i class="material-icons">keyboard_arrow_down</i>
+          <i class="material-icons">{{ template "icon_keyboard_arrow_down" }}</i>
         </div>
       </div>
       <div id="type-filter-option-container" class="filter-option-container hide-block">

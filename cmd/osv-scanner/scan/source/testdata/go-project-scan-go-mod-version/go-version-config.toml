@@ -1,0 +1,2 @@
+ScanGoModVersion = true
+GoVersionOverride = "1.26.9"

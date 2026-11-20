@@ -5,7 +5,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 1604
+      content_length: 1605
       host: api.osv.dev
       body: |
         {
@@ -15,7 +15,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "certifi"
               },
-              "version": "2026.7.22"
+              "version": "2026.10.23"
             },
             {
               "package": {
@@ -112,22 +112,11 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 3991
+      content_length: 3846
       body: |
         {
           "results": [
-            {
-              "vulns": [
-                {
-                  "id": "GHSA-6q48-6c7w-9gw2",
-                  "modified": "2026-10-26T16:15:35.371128Z"
-                },
-                {
-                  "id": "PYSEC-2026-4320",
-                  "modified": "2026-10-30T14:00:02.590922Z"
-                }
-              ]
-            },
+            {},
             {},
             {},
             {
@@ -379,7 +368,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "3991"
+          - "3846"
         Content-Type:
           - application/json
       status: 200 OK
