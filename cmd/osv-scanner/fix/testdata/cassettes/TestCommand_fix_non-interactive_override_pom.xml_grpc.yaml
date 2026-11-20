@@ -1411,6 +1411,22 @@ interactions:
               }
             },
             {
+              "publishedAt": "2026-11-14T23:24:43Z",
+              "versionKey": {
+                "name": "org.codehaus.plexus:plexus-utils",
+                "system": "MAVEN",
+                "version": "3.6.3"
+              }
+            },
+            {
+              "publishedAt": "2026-11-14T23:41:14Z",
+              "versionKey": {
+                "name": "org.codehaus.plexus:plexus-utils",
+                "system": "MAVEN",
+                "version": "3.6.4"
+              }
+            },
+            {
               "publishedAt": "2023-05-22T15:15:07Z",
               "versionKey": {
                 "name": "org.codehaus.plexus:plexus-utils",
@@ -1443,12 +1459,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-08-19T13:41:11Z",
               "versionKey": {
                 "name": "org.codehaus.plexus:plexus-utils",
                 "system": "MAVEN",
                 "version": "4.1.0"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-11-14T23:24:43Z",
+              "versionKey": {
+                "name": "org.codehaus.plexus:plexus-utils",
+                "system": "MAVEN",
+                "version": "4.2.0"
               }
             }
           ]
