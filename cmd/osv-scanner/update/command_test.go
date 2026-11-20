@@ -16,22 +16,16 @@ func TestCommand(t *testing.T) {
 			Name: "with_no_arguments",
 			Args: []string{"", "update"},
 			Exit: 127,
-
-			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "update_pom.xml_with_in-place_changes",
 			Args: []string{"", "update", "-M=./testdata/pom.xml"},
 			Exit: 0,
-
-			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "update_pom_with_in_place_changes_using_deps_dev_data_source",
 			Args: []string{"", "update", "--data-source", "deps.dev", "-M", "./testdata/pom.xml"},
 			Exit: 0,
-
-			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "update_pom_with_in_place_changes_using_native_data_source",
@@ -44,15 +38,11 @@ func TestCommand(t *testing.T) {
 			Name: "errors_with_invalid_data_source",
 			Args: []string{"", "update", "--data-source", "github", "-M", "./testdata/pom.xml"},
 			Exit: 127,
-
-			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "file_does_not_exist",
 			Args: []string{"", "update", "-M", "./testdata/does_not_exist.xml"},
 			Exit: 127,
-
-			CassetteName: testcmd.NoInteractions,
 		},
 		// TODO: add other test cases.
 	}
@@ -60,6 +50,8 @@ func TestCommand(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
+
+			tt.CassetteName = testcmd.NoInteractions
 
 			// Update action overwrites files, copy them to a temporary directory.
 			testDir := testutility.CreateTestDir(t)

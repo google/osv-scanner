@@ -14,28 +14,24 @@ func Test_run(t *testing.T) {
 			Name: "",
 			Args: []string{""},
 			Exit: 127,
-
-			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "",
 			Args: []string{"--help"},
 			Exit: 0,
-
-			CassetteName: testcmd.NoInteractions,
 		},
 		{
 			Name: "version",
 			Args: []string{"", "--version"},
 			Exit: 0,
-
-			CassetteName: testcmd.NoInteractions,
 		},
 	}
 
 	// No parallel because --version output is not thread safe.
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
+			tt.CassetteName = testcmd.NoInteractions
+
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
