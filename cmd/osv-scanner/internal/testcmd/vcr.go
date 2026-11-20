@@ -20,6 +20,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"sync/atomic"
 	"testing"
 	"time"
 
@@ -185,6 +186,10 @@ func InsertCassetteWithName(t *testing.T, name string) *http.Client {
 
 	path := filepath.Join("testdata/cassettes", strings.ReplaceAll(name, "/", "_"))
 
+	// tracks how many interactions were captured from the real transport (rather than replayed),
+	// so we know if the cassette actually needs to be written
+	var captured atomic.Int64
+
 	r, err := recorder.New(
 		path,
 		recorder.WithMarshalFunc(marshalCassettes),
@@ -208,6 +213,8 @@ func InsertCassetteWithName(t *testing.T, name string) *http.Client {
 		}),
 		recorder.WithMatcher(matcher),
 		recorder.WithHook(func(i *cassette.Interaction) error {
+			captured.Add(1)
+
 			// remove headers that are not important to reduce cassette size and noise
 			for _, header := range []string{
 				"Alt-Svc",
@@ -261,6 +268,12 @@ func InsertCassetteWithName(t *testing.T, name string) *http.Client {
 		t.Fatal(err)
 	}
 	t.Cleanup(func() {
+		// if nothing new was captured then the cassette on disk is already up to date,
+		// so skip writing it to avoid racing with parallel tests sharing the cassette
+		if captured.Load() == 0 {
+			return
+		}
+
 		if err := r.Stop(); err != nil {
 			t.Error(err)
 		}
