@@ -53,7 +53,7 @@ func Command(_, _ io.Writer, _ scalibrconfig.ClientFactories) *cli.Command {
 // scanVulnerableDependenciesInput is the input for the scan_vulnerable_dependencies tool.
 type scanVulnerableDependenciesInput struct {
 	Paths              []string `json:"paths"                jsonschema:"A list of absolute or relative path to a file or directory to scan."`
-	IgnoreGlobPatterns []string `json:"ignore_glob_patterns" jsonschema:"A list of glob patterns to ignore when scanning."`
+	IgnoreGlobPatterns []string `json:"ignore_glob_patterns" jsonschema:"A list of glob patterns for directories to skip when scanning. Patterns are matched against directory paths relative to the filesystem root without a leading slash (e.g. home/user/project/vendor), so start patterns with **/ to match at any depth (e.g. **/vendor)."`
 	Recursive          bool     `json:"recursive"            jsonschema:"Scans directory recursively"`
 }
 
