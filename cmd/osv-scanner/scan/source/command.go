@@ -3,17 +3,13 @@ package source
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"io"
-	"os"
-	"path/filepath"
 
 	scalibrconfig "github.com/google/osv-scalibr/plugin/config"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/helper"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/version"
-	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
 	"github.com/urfave/cli/v3"
 )
@@ -94,92 +90,28 @@ func Command(stdout, stderr io.Writer, clientFactories scalibrconfig.ClientFacto
 	}
 }
 
-func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clientFactories scalibrconfig.ClientFactories) error {
-	format := cmd.String("format")
+func action(ctx context.Context, cmd *cli.Command, stdout, stderr io.Writer, clientFactories scalibrconfig.ClientFactories) error {
+	return helper.Action(
+		ctx, cmd,
+		stdout, stderr,
+		clientFactories,
+		func(actions *osvscanner.ScannerActions) {
+			actions.RequestUserAgent = "osv-scanner_scan-source/" + version.OSVVersion
 
-	outputPath := cmd.String(helper.FallbackToDeprecatedName(cmd, "output-file", "output"))
-	serve := cmd.Bool("serve")
-	if serve {
-		format = "html"
-		if outputPath == "" {
-			// Create a temporary directory
-			tmpDir, err := os.MkdirTemp("", "osv-scanner-result")
-			if err != nil {
-				return fmt.Errorf("failed creating temporary directory: %w\n"+
-					"Please use `--output-file result.html` to specify the output path", err)
+			actions.LockfilePaths = cmd.StringSlice("lockfile")
+			//nolint:staticcheck // ignore our own deprecated field
+			actions.SBOMPaths = cmd.StringSlice("sbom")
+			actions.Recursive = cmd.Bool("recursive")
+			actions.NoIgnore = cmd.Bool("no-ignore")
+			actions.DirectoryPaths = cmd.Args().Slice()
+
+			actions.ExcludePatterns = cmd.StringSlice(helper.FallbackToDeprecatedName(cmd, "x-exclude", "experimental-exclude"))
+			actions.TransitiveScanning = osvscanner.TransitiveScanningActions{
+				Disabled:         cmd.Bool("no-resolve"),
+				NativeDataSource: cmd.String("data-source") == "native",
+				MavenRegistry:    cmd.String("maven-registry"),
 			}
-
-			// Remove the created temporary directory after
-			defer os.RemoveAll(tmpDir)
-			outputPath = filepath.Join(tmpDir, "index.html")
-		}
-	}
-
-	scanLicensesAllowlist, err := helper.GetScanLicensesAllowlist(cmd)
-	if err != nil {
-		return err
-	}
-
-	userAgent := "osv-scanner_scan-source/" + version.OSVVersion
-	scannerAction := helper.GetCommonScannerActions(cmd, scanLicensesAllowlist)
-
-	scannerAction.LockfilePaths = cmd.StringSlice("lockfile")
-	//nolint:staticcheck // ignore our own deprecated field
-	scannerAction.SBOMPaths = cmd.StringSlice("sbom")
-	scannerAction.Recursive = cmd.Bool("recursive")
-	scannerAction.NoIgnore = cmd.Bool("no-ignore")
-	scannerAction.DirectoryPaths = cmd.Args().Slice()
-
-	experimentalScannerActions := helper.GetExperimentalScannerActions(cmd)
-	experimentalScannerActions.RequestUserAgent = userAgent
-	experimentalScannerActions.ExcludePatterns = cmd.StringSlice(helper.FallbackToDeprecatedName(cmd, "x-exclude", "experimental-exclude"))
-	// Add `source` specific experimental configs
-	experimentalScannerActions.TransitiveScanning = osvscanner.TransitiveScanningActions{
-		Disabled:         cmd.Bool("no-resolve"),
-		NativeDataSource: cmd.String("data-source") == "native",
-		MavenRegistry:    cmd.String("maven-registry"),
-	}
-
-	scannerAction.ExperimentalScannerActions = experimentalScannerActions
-
-	if clientFactories != nil {
-		scannerAction.ScalibrConfig = &scalibrconfig.PluginConfig{
-			ClientFactories: clientFactories,
-		}
-	}
-
-	var vulnResult models.VulnerabilityResults
-	//nolint:contextcheck // passing the context in would be a breaking change
-	vulnResult, err = osvscanner.DoScan(scannerAction)
-
-	// ensure that the results property is always an array
-	//goland:noinspection GoDfaErrorMayBeNotNil // false positive
-	if vulnResult.Results == nil {
-		vulnResult.Results = []models.PackageSource{}
-	}
-
-	if cmd.Bool("allow-no-lockfiles") && errors.Is(err, osvscanner.ErrNoPackagesFound) {
-		cmdlogger.Warnf("No package sources found")
-		err = nil
-	}
-
-	if err != nil && !errors.Is(err, osvscanner.ErrVulnerabilitiesFound) {
-		return err
-	}
-
-	if errPrint := helper.PrintResult(stdout, stderr, outputPath, format, &vulnResult, scannerAction.ShowAllVulns); errPrint != nil {
-		return fmt.Errorf("failed to write output: %w", errPrint)
-	}
-
-	// Auto-open outputted HTML file for users.
-	if outputPath != "" {
-		if serve {
-			helper.ServeHTML(outputPath)
-		} else if format == "html" {
-			cmdlogger.Infof("HTML output available at: %s", outputPath)
-		}
-	}
-
-	// This may be nil.
-	return err
+		},
+		osvscanner.DoScan,
+	)
 }
