@@ -58,22 +58,20 @@ func run(t *testing.T, tc Case) (string, string) {
 		httpClient := tc.HTTPClient
 		grpcRecorder := tc.GRPCRecorder
 
-		if !tc.NoVCR {
-			cassetteName := t.Name()
-			if tc.CassetteName != "" {
-				cassetteName = tc.CassetteName
+		cassetteName := t.Name()
+		if tc.CassetteName != "" {
+			cassetteName = tc.CassetteName
+		}
+		if httpClient == nil {
+			httpClient = InsertCassetteWithName(t, cassetteName)
+		}
+		if grpcRecorder == nil {
+			// it's not worth the extra work to support this for gRPC cassettes
+			if cassetteName == NoInteractions {
+				cassetteName = t.Name()
 			}
-			if httpClient == nil {
-				httpClient = InsertCassetteWithName(t, cassetteName)
-			}
-			if grpcRecorder == nil {
-				// it's not worth the extra work to support this for gRPC cassettes
-				if cassetteName == NoInteractions {
-					cassetteName = t.Name()
-				}
 
-				grpcRecorder = InsertGRPCRecorderWithName(t, cassetteName)
-			}
+			grpcRecorder = InsertGRPCRecorderWithName(t, cassetteName)
 		}
 
 		cf = &TestClientFactories{

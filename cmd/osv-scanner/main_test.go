@@ -11,22 +11,25 @@ import (
 func Test_run(t *testing.T) {
 	tests := []testcmd.Case{
 		{
-			Name:  "",
-			Args:  []string{""},
-			Exit:  127,
-			NoVCR: true,
+			Name: "",
+			Args: []string{""},
+			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
-			Name:  "",
-			Args:  []string{"--help"},
-			Exit:  0,
-			NoVCR: true,
+			Name: "",
+			Args: []string{"--help"},
+			Exit: 0,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		{
-			Name:  "version",
-			Args:  []string{"", "--version"},
-			Exit:  0,
-			NoVCR: true,
+			Name: "version",
+			Args: []string{"", "--version"},
+			Exit: 0,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 	}
 

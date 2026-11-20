@@ -12,10 +12,11 @@ func TestCommand_SubCommands(t *testing.T) {
 
 	tests := []testcmd.Case{
 		{
-			Name:  "with_no_arguments",
-			Args:  []string{"", "scan"},
-			Exit:  127,
-			NoVCR: true,
+			Name: "with_no_arguments",
+			Args: []string{"", "scan"},
+			Exit: 127,
+
+			CassetteName: testcmd.NoInteractions,
 		},
 		// without subcommands
 		{
