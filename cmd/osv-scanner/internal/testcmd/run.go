@@ -67,6 +67,11 @@ func run(t *testing.T, tc Case) (string, string) {
 				httpClient = InsertCassetteWithName(t, cassetteName)
 			}
 			if grpcRecorder == nil {
+				// it's not worth the extra work to support this for gRPC cassettes
+				if cassetteName == NoInteractions {
+					cassetteName = t.Name()
+				}
+
 				grpcRecorder = InsertGRPCRecorderWithName(t, cassetteName)
 			}
 		}
