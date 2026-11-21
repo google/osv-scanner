@@ -76,12 +76,21 @@ No package sources found, --help for usage information.
 
 ---
 
+[TestCommand_Docker/multiple_image_arguments - 1 - stdout]
+
+---
+
+[TestCommand_Docker/multiple_image_arguments - 2 - stderr]
+please provide the name of a single image (got 2) or see the help document
+
+---
+
 [TestCommand_Docker/no_image_argument - 1 - stdout]
 
 ---
 
 [TestCommand_Docker/no_image_argument - 2 - stderr]
-please provide an image name or see the help document
+please provide the name of a single image (got 0) or see the help document
 
 ---
 
