@@ -162,7 +162,16 @@ func functionsFromDWARF(readAt io.ReaderAt) (map[string]struct{}, error) {
 				continue
 			}
 
-			val, err := demangle.ToString(field.Val.(string), demangle.NoClones)
+			// The DWARF form backing DW_AT_linkage_name is attacker-controlled, so
+			// field.Val is not guaranteed to be a string. A malformed ELF can encode
+			// this attribute with e.g. DW_FORM_flag (bool) or DW_FORM_udata (int64);
+			// an unchecked type assertion would panic and crash the scanner.
+			name, ok := field.Val.(string)
+			if !ok {
+				continue
+			}
+
+			val, err := demangle.ToString(name, demangle.NoClones)
 			if err != nil {
 				// most likely not a rust function, so just ignore it
 				continue
