@@ -85,6 +85,10 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 			ClientFactories: clientFactories,
 		}
 	}
+
+	dietClient, cleanup := helper.SetupDietClient(cmd, &scannerAction)
+	defer cleanup()
+
 	var vulnResult models.VulnerabilityResults
 	//nolint:contextcheck // passing the context in would be a breaking change
 	vulnResult, err = osvscanner.DoContainerScan(scannerAction)
@@ -104,7 +108,7 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 		return err
 	}
 
-	if errPrint := helper.PrintResult(stdout, stderr, outputPath, format, &vulnResult, scannerAction.ShowAllVulns); errPrint != nil {
+	if errPrint := helper.PrintResult(stdout, stderr, outputPath, format, &vulnResult, scannerAction.ShowAllVulns, dietClient); errPrint != nil {
 		return fmt.Errorf("failed to write output: %w", errPrint)
 	}
 
