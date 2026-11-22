@@ -5,16 +5,13 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 571
+      content_length: 505
       host: api.osv.dev
       body: |
         {
           "queries": [
             {
-              "package": {
-                "ecosystem": "NuGet",
-                "name": "AWSSDK.Core"
-              },
+              "package": { "ecosystem": "NuGet", "name": "AWSSDK.Core" },
               "version": "3.7.10.6"
             },
             {
@@ -25,17 +22,11 @@ interactions:
               "version": "6.0.0"
             },
             {
-              "package": {
-                "ecosystem": "NuGet",
-                "name": "System.Linq.Dynamic.Core"
-              },
+              "package": { "ecosystem": "NuGet", "name": "System.Linq.Dynamic.Core" },
               "version": "1.3.7"
             },
             {
-              "package": {
-                "ecosystem": "NuGet",
-                "name": "TestLibrary"
-              },
+              "package": { "ecosystem": "NuGet", "name": "TestLibrary" },
               "version": "1.0.0"
             }
           ]
@@ -53,8 +44,8 @@ interactions:
       body: |
         {
           "results": [
-            {},
-            {},
+            { },
+            { },
             {
               "vulns": [
                 {
@@ -63,7 +54,7 @@ interactions:
                 }
               ]
             },
-            {}
+            { }
           ]
         }
       headers:

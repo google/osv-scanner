@@ -5,16 +5,13 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 151
+      content_length: 129
       host: api.osv.dev
       body: |
         {
           "queries": [
             {
-              "package": {
-                "ecosystem": "Packagist",
-                "name": "sentry/sdk"
-              },
+              "package": { "ecosystem": "Packagist", "name": "sentry/sdk" },
               "version": "2.0.4"
             }
           ]
@@ -30,11 +27,7 @@ interactions:
       proto_minor: 0
       content_length: 16
       body: |
-        {
-          "results": [
-            {}
-          ]
-        }
+        { "results": [{ }] }
       headers:
         Content-Length:
           - "16"

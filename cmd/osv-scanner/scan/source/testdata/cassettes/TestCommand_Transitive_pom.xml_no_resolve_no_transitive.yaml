@@ -30,11 +30,7 @@ interactions:
       proto_minor: 0
       content_length: 16
       body: |
-        {
-          "results": [
-            {}
-          ]
-        }
+        { "results": [{ }] }
       headers:
         Content-Length:
           - "16"

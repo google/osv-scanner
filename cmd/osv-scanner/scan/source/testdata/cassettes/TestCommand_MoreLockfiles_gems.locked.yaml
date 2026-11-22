@@ -5,191 +5,113 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 3342
+      content_length: 2770
       host: api.osv.dev
       body: |
         {
           "queries": [
             {
-              "package": {
-                "ecosystem": "RubyGems",
-                "name": "async"
-              },
+              "package": { "ecosystem": "RubyGems", "name": "async" },
               "version": "2.23.0"
             },
             {
-              "package": {
-                "ecosystem": "RubyGems",
-                "name": "async-dns"
-              },
+              "package": { "ecosystem": "RubyGems", "name": "async-dns" },
               "version": "1.4.1"
             },
             {
-              "package": {
-                "ecosystem": "RubyGems",
-                "name": "async-http"
-              },
+              "package": { "ecosystem": "RubyGems", "name": "async-http" },
               "version": "0.87.0"
             },
             {
-              "package": {
-                "ecosystem": "RubyGems",
-                "name": "async-pool"
-              },
+              "package": { "ecosystem": "RubyGems", "name": "async-pool" },
               "version": "0.10.3"
             },
             {
-              "package": {
-                "ecosystem": "RubyGems",
-                "name": "console"
-              },
+              "package": { "ecosystem": "RubyGems", "name": "console" },
               "version": "1.29.2"
             },
             {
-              "package": {
-                "ecosystem": "RubyGems",
-                "name": "fiber-annotation"
-              },
+              "package": { "ecosystem": "RubyGems", "name": "fiber-annotation" },
               "version": "0.2.0"
             },
             {
-              "package": {
-                "ecosystem": "RubyGems",
-                "name": "fiber-local"
-              },
+              "package": { "ecosystem": "RubyGems", "name": "fiber-local" },
               "version": "1.1.0"
             },
             {
-              "package": {
-                "ecosystem": "RubyGems",
-                "name": "fiber-storage"
-              },
+              "package": { "ecosystem": "RubyGems", "name": "fiber-storage" },
               "version": "1.0.0"
             },
             {
-              "package": {
-                "ecosystem": "RubyGems",
-                "name": "geoip"
-              },
+              "package": { "ecosystem": "RubyGems", "name": "geoip" },
               "version": "1.6.4"
             },
             {
-              "package": {
-                "ecosystem": "RubyGems",
-                "name": "io-endpoint"
-              },
+              "package": { "ecosystem": "RubyGems", "name": "io-endpoint" },
               "version": "0.15.1"
             },
             {
-              "package": {
-                "ecosystem": "RubyGems",
-                "name": "io-event"
-              },
+              "package": { "ecosystem": "RubyGems", "name": "io-event" },
               "version": "1.9.0"
             },
             {
-              "package": {
-                "ecosystem": "RubyGems",
-                "name": "io-stream"
-              },
+              "package": { "ecosystem": "RubyGems", "name": "io-stream" },
               "version": "0.6.1"
             },
             {
-              "package": {
-                "ecosystem": "RubyGems",
-                "name": "json"
-              },
+              "package": { "ecosystem": "RubyGems", "name": "json" },
               "version": "2.10.1"
             },
             {
-              "package": {
-                "ecosystem": "RubyGems",
-                "name": "metrics"
-              },
+              "package": { "ecosystem": "RubyGems", "name": "metrics" },
               "version": "0.12.1"
             },
             {
-              "package": {
-                "ecosystem": "RubyGems",
-                "name": "nokogiri"
-              },
+              "package": { "ecosystem": "RubyGems", "name": "nokogiri" },
               "version": "1.18.2"
             },
             {
-              "package": {
-                "ecosystem": "RubyGems",
-                "name": "nokogiri"
-              },
+              "package": { "ecosystem": "RubyGems", "name": "nokogiri" },
               "version": "1.18.2"
             },
             {
-              "package": {
-                "ecosystem": "RubyGems",
-                "name": "process-daemon"
-              },
+              "package": { "ecosystem": "RubyGems", "name": "process-daemon" },
               "version": "1.0.1"
             },
             {
-              "package": {
-                "ecosystem": "RubyGems",
-                "name": "protocol-hpack"
-              },
+              "package": { "ecosystem": "RubyGems", "name": "protocol-hpack" },
               "version": "1.5.1"
             },
             {
-              "package": {
-                "ecosystem": "RubyGems",
-                "name": "protocol-http"
-              },
+              "package": { "ecosystem": "RubyGems", "name": "protocol-http" },
               "version": "0.49.0"
             },
             {
-              "package": {
-                "ecosystem": "RubyGems",
-                "name": "protocol-http1"
-              },
+              "package": { "ecosystem": "RubyGems", "name": "protocol-http1" },
               "version": "0.30.0"
             },
             {
-              "package": {
-                "ecosystem": "RubyGems",
-                "name": "protocol-http2"
-              },
+              "package": { "ecosystem": "RubyGems", "name": "protocol-http2" },
               "version": "0.22.1"
             },
             {
-              "package": {
-                "ecosystem": "RubyGems",
-                "name": "racc"
-              },
+              "package": { "ecosystem": "RubyGems", "name": "racc" },
               "version": "1.8.1"
             },
             {
-              "package": {
-                "ecosystem": "RubyGems",
-                "name": "rainbow"
-              },
+              "package": { "ecosystem": "RubyGems", "name": "rainbow" },
               "version": "2.2.2"
             },
             {
-              "package": {
-                "ecosystem": "RubyGems",
-                "name": "rake"
-              },
+              "package": { "ecosystem": "RubyGems", "name": "rake" },
               "version": "13.2.1"
             },
             {
-              "package": {
-                "ecosystem": "RubyGems",
-                "name": "rubydns"
-              },
+              "package": { "ecosystem": "RubyGems", "name": "rubydns" },
               "version": "2.0.2"
             },
             {
-              "package": {
-                "ecosystem": "RubyGems",
-                "name": "traces"
-              },
+              "package": { "ecosystem": "RubyGems", "name": "traces" },
               "version": "0.15.2"
             }
           ]
@@ -207,18 +129,18 @@ interactions:
       body: |
         {
           "results": [
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
+            { },
+            { },
+            { },
+            { },
+            { },
+            { },
+            { },
+            { },
+            { },
+            { },
+            { },
+            { },
             {
               "vulns": [
                 {
@@ -231,7 +153,7 @@ interactions:
                 }
               ]
             },
-            {},
+            { },
             {
               "vulns": [
                 {
@@ -360,16 +282,16 @@ interactions:
                 }
               ]
             },
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {}
+            { },
+            { },
+            { },
+            { },
+            { },
+            { },
+            { },
+            { },
+            { },
+            { }
           ]
         }
       headers:

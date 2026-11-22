@@ -5,30 +5,18 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 386
+      content_length: 304
       host: api.osv.dev
       body: |
         {
           "queries": [
             {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "django"
-              },
+              "package": { "ecosystem": "PyPI", "name": "django" },
               "version": "1.11.29"
             },
+            { "package": { "ecosystem": "PyPI", "name": "flask" }, "version": "1.0.0" },
             {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "flask"
-              },
-              "version": "1.0.0"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "requests"
-              },
+              "package": { "ecosystem": "PyPI", "name": "requests" },
               "version": "2.20.0"
             }
           ]
@@ -108,22 +96,10 @@ interactions:
                   "id": "GHSA-wvqv-fj8w-qmhm",
                   "modified": "2026-10-01T17:56:17.845009Z"
                 },
-                {
-                  "id": "PYSEC-2021-98",
-                  "modified": "2023-12-06T01:01:16.755410Z"
-                },
-                {
-                  "id": "PYSEC-2026-1297",
-                  "modified": "2026-07-07T17:57:34.018251Z"
-                },
-                {
-                  "id": "PYSEC-2026-3717",
-                  "modified": "2026-10-01T17:15:02.507678Z"
-                },
-                {
-                  "id": "PYSEC-2026-4035",
-                  "modified": "2026-10-01T17:56:17.845009Z"
-                }
+                { "id": "PYSEC-2021-98", "modified": "2023-12-06T01:01:16.755410Z" },
+                { "id": "PYSEC-2026-1297", "modified": "2026-07-07T17:57:34.018251Z" },
+                { "id": "PYSEC-2026-3717", "modified": "2026-10-01T17:15:02.507678Z" },
+                { "id": "PYSEC-2026-4035", "modified": "2026-10-01T17:56:17.845009Z" }
               ]
             },
             {
@@ -136,14 +112,8 @@ interactions:
                   "id": "GHSA-m2qf-hxjv-5gpq",
                   "modified": "2026-09-10T03:50:01.763387Z"
                 },
-                {
-                  "id": "PYSEC-2023-62",
-                  "modified": "2023-11-08T04:12:28.231927Z"
-                },
-                {
-                  "id": "PYSEC-2026-2151",
-                  "modified": "2026-07-13T07:15:25.033843Z"
-                }
+                { "id": "PYSEC-2023-62", "modified": "2023-11-08T04:12:28.231927Z" },
+                { "id": "PYSEC-2026-2151", "modified": "2026-07-13T07:15:25.033843Z" }
               ]
             },
             {
@@ -164,22 +134,10 @@ interactions:
                   "id": "GHSA-j8r2-6x86-q33q",
                   "modified": "2026-09-10T03:50:01.756149Z"
                 },
-                {
-                  "id": "PYSEC-2023-74",
-                  "modified": "2023-11-08T04:12:35.436175Z"
-                },
-                {
-                  "id": "PYSEC-2026-1872",
-                  "modified": "2026-07-07T17:47:00.332079Z"
-                },
-                {
-                  "id": "PYSEC-2026-1873",
-                  "modified": "2026-07-07T17:46:36.762141Z"
-                },
-                {
-                  "id": "PYSEC-2026-2275",
-                  "modified": "2026-07-13T07:15:43.964902Z"
-                }
+                { "id": "PYSEC-2023-74", "modified": "2023-11-08T04:12:35.436175Z" },
+                { "id": "PYSEC-2026-1872", "modified": "2026-07-07T17:47:00.332079Z" },
+                { "id": "PYSEC-2026-1873", "modified": "2026-07-07T17:46:36.762141Z" },
+                { "id": "PYSEC-2026-2275", "modified": "2026-07-13T07:15:43.964902Z" }
               ]
             }
           ]

@@ -5,16 +5,13 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 158
+      content_length: 136
       host: api.osv.dev
       body: |
         {
           "queries": [
             {
-              "package": {
-                "ecosystem": "Go",
-                "name": "github.com/gogo/protobuf"
-              },
+              "package": { "ecosystem": "Go", "name": "github.com/gogo/protobuf" },
               "version": "1.3.1"
             }
           ]
@@ -38,10 +35,7 @@ interactions:
                   "id": "GHSA-c3h9-896r-86jm",
                   "modified": "2026-09-10T03:49:28.264074Z"
                 },
-                {
-                  "id": "GO-2021-0053",
-                  "modified": "2026-02-04T03:28:45.369468Z"
-                }
+                { "id": "GO-2021-0053", "modified": "2026-02-04T03:28:45.369468Z" }
               ]
             }
           ]

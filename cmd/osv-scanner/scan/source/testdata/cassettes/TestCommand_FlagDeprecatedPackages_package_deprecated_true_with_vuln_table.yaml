@@ -5,44 +5,29 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 953
+      content_length: 843
       host: api.osv.dev
       body: |
         {
           "queries": [
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "cfg-if"
-              },
+              "package": { "ecosystem": "crates.io", "name": "cfg-if" },
               "version": "0.1.10"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "libc"
-              },
+              "package": { "ecosystem": "crates.io", "name": "libc" },
               "version": "0.2.177"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "net2"
-              },
+              "package": { "ecosystem": "crates.io", "name": "net2" },
               "version": "0.2.33"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "rust_vuln_deprecated"
-              },
+              "package": { "ecosystem": "crates.io", "name": "rust_vuln_deprecated" },
               "version": "0.1.0"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "winapi"
-              },
+              "package": { "ecosystem": "crates.io", "name": "winapi" },
               "version": "0.3.9"
             },
             {
@@ -74,32 +59,23 @@ interactions:
       body: |
         {
           "results": [
-            {},
-            {},
+            { },
+            { },
             {
               "vulns": [
-                {
-                  "id": "GHSA-458v-4hrf-g3m4",
-                  "modified": "2024-02-12T15:55:27Z"
-                },
+                { "id": "GHSA-458v-4hrf-g3m4", "modified": "2024-02-12T15:55:27Z" },
                 {
                   "id": "GHSA-c79c-gwph-gqfm",
                   "modified": "2023-11-08T04:03:39.408679Z"
                 },
-                {
-                  "id": "RUSTSEC-2020-0016",
-                  "modified": "2020-10-02T01:29:11Z"
-                },
-                {
-                  "id": "RUSTSEC-2020-0078",
-                  "modified": "2023-11-08T04:03:39.408679Z"
-                }
+                { "id": "RUSTSEC-2020-0016", "modified": "2020-10-02T01:29:11Z" },
+                { "id": "RUSTSEC-2020-0078", "modified": "2023-11-08T04:03:39.408679Z" }
               ]
             },
-            {},
-            {},
-            {},
-            {}
+            { },
+            { },
+            { },
+            { }
           ]
         }
       headers:

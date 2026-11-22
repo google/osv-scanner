@@ -5,30 +5,21 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 429
+      content_length: 363
       host: api.osv.dev
       body: |
         {
           "queries": [
             {
-              "package": {
-                "ecosystem": "npm",
-                "name": "@aws-sdk/client-lambda"
-              },
+              "package": { "ecosystem": "npm", "name": "@aws-sdk/client-lambda" },
               "version": "3.1037.0"
             },
             {
-              "package": {
-                "ecosystem": "Go",
-                "name": "github.com/json-iterator/go"
-              },
+              "package": { "ecosystem": "Go", "name": "github.com/json-iterator/go" },
               "version": "1.1.12"
             },
             {
-              "package": {
-                "ecosystem": "npm",
-                "name": "@babel/traverse"
-              },
+              "package": { "ecosystem": "npm", "name": "@babel/traverse" },
               "version": "7.23.0"
             }
           ]
@@ -46,8 +37,8 @@ interactions:
       body: |
         {
           "results": [
-            {},
-            {},
+            { },
+            { },
             {
               "vulns": [
                 {

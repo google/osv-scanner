@@ -5,18 +5,12 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 141
+      content_length: 103
       host: api.osv.dev
       body: |
         {
           "queries": [
-            {
-              "package": {
-                "ecosystem": "Go",
-                "name": "stdlib"
-              },
-              "version": "1.26.9"
-            }
+            { "package": { "ecosystem": "Go", "name": "stdlib" }, "version": "1.26.9" }
           ]
         }
       headers:
@@ -34,10 +28,7 @@ interactions:
           "results": [
             {
               "vulns": [
-                {
-                  "id": "GO-2026-6809",
-                  "modified": "2026-10-29T10:55:54.096394Z"
-                }
+                { "id": "GO-2026-6809", "modified": "2026-10-29T10:55:54.096394Z" }
               ]
             }
           ]

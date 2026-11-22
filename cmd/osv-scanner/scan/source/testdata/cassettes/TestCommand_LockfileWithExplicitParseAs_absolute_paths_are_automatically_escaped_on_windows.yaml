@@ -5,16 +5,13 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 149
+      content_length: 127
       host: api.osv.dev
       body: |
         {
           "queries": [
             {
-              "package": {
-                "ecosystem": "npm",
-                "name": "balanced-match"
-              },
+              "package": { "ecosystem": "npm", "name": "balanced-match" },
               "version": "1.0.2"
             }
           ]
@@ -30,11 +27,7 @@ interactions:
       proto_minor: 0
       content_length: 16
       body: |
-        {
-          "results": [
-            {}
-          ]
-        }
+        { "results": [{ }] }
       headers:
         Content-Length:
           - "16"
