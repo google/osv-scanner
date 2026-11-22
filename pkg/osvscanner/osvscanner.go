@@ -82,7 +82,7 @@ type ExperimentalScannerActions struct {
 	// Report deprecated packages as findings
 	FlagDeprecatedPackages bool
 
-	// Update config file(s) to ignore all found vulnerabilities
+	// Update config file(s) to ignore vulnerabilities - must be one of: none, unused, or all
 	UpdateConfigIgnores string
 
 	// Allows specifying user agent
