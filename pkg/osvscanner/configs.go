@@ -8,14 +8,13 @@ import (
 	"github.com/google/osv-scanner/v2/internal/config"
 	"github.com/google/osv-scanner/v2/internal/output"
 	"github.com/google/osv-scanner/v2/pkg/models"
-	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 func addVulnConfigIgnoresAndSave(
 	vulnResults *models.VulnerabilityResults,
 	manager *config.Manager,
 ) (map[string][]*config.IgnoreEntry, error) {
-	configVulns := make(map[string][]*osvschema.Vulnerability)
+	configVulns := make(map[string][]models.GroupInfo)
 	configPaths := make(map[string]config.Config)
 
 	entries := make(map[string][]*config.IgnoreEntry)
@@ -31,16 +30,16 @@ func addVulnConfigIgnoresAndSave(
 		configPaths[c.LoadPath] = c
 
 		for _, pkgVulns := range pkgSrc.Packages {
-			configVulns[c.LoadPath] = append(configVulns[c.LoadPath], pkgVulns.Vulnerabilities...)
+			configVulns[c.LoadPath] = append(configVulns[c.LoadPath], pkgVulns.Groups...)
 		}
 	}
 
 	// update each config to ignore all the vulnerabilities
 	// found across all packages that are using that config
-	for p, vulns := range configVulns {
+	for p, groups := range configVulns {
 		c := configPaths[p]
 
-		c.IgnoreVulns(vulns)
+		c.IgnoreVulns(groups)
 
 		err := c.Save()
 		if err != nil {

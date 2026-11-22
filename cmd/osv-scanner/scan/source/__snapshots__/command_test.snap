@@ -6621,13 +6621,14 @@ id = "GHSA-2g4f-4pwh-qvx6"
 ScanGoModVersion = false
 
 [[IgnoredVulns]]
+id = "CVE-2021-23424"
+reason = "Test manifest file (package-lock.json)"
+
+[[IgnoredVulns]]
 id = "GHSA-2g4f-4pwh-qvx6"
 
 [[IgnoredVulns]]
 id = "GHSA-v88g-cgmw-v5xw"
-
-[[IgnoredVulns]]
-id = "GHSA-whgm-jr23-g3j9"
 
 ---
 
@@ -6690,7 +6691,7 @@ GHSA-wx95-c6cv-8532 and 1 alias have been filtered out because: (no reason given
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-v88g-cgmw-v5xw and 1 alias have been filtered out because: (no reason given)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
-GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
+CVE-2021-23424 and 1 alias have been filtered out because: Test manifest file (package-lock.json)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-v88g-cgmw-v5xw and 1 alias have been filtered out because: (no reason given)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)

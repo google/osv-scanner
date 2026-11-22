@@ -11,7 +11,7 @@ import (
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/identifiers"
-	"github.com/ossf/osv-schema/bindings/go/osvschema"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 var OSVScannerConfigName = "osv-scanner.toml"
@@ -26,36 +26,58 @@ type Config struct {
 	LoadPath string `toml:"-"`
 }
 
-// IgnoreVulns updates Config.IgnoredVulns to hold only the given vulnerabilities
-func (c *Config) IgnoreVulns(vulns []*osvschema.Vulnerability) {
+// IgnoreVulns updates Config.IgnoredVulns to hold only entries for the given
+// vulnerability groups, which are expected to come from models.PackageVulns.Groups
+func (c *Config) IgnoreVulns(groups []models.GroupInfo) {
 	existingIgnores := make(map[string]*IgnoreEntry, len(c.IgnoredVulns))
 	for _, ignoredVuln := range c.IgnoredVulns {
-		existingIgnores[ignoredVuln.ID] = ignoredVuln
+		// keep the first entry if an id is configured more than once
+		if _, ok := existingIgnores[ignoredVuln.ID]; !ok {
+			existingIgnores[ignoredVuln.ID] = ignoredVuln
+		}
 	}
 
 	// use a fresh slice to ensure vulns that are no longer present are removed
-	c.IgnoredVulns = make([]*IgnoreEntry, 0, len(vulns))
+	c.IgnoredVulns = make([]*IgnoreEntry, 0, len(groups))
 
-	seen := make(map[string]struct{}, len(vulns))
+	// the ids of the entries we're keeping
+	kept := make(map[string]struct{}, len(groups))
 
-	for _, vuln := range vulns {
-		if _, ok := seen[vuln.GetId()]; ok {
+	for _, group := range groups {
+		if isGroupCoveredBy(group, kept) {
 			continue
 		}
 
-		// if the vuln was already ignored, we want to persist its other fields
-		ignore, ok := existingIgnores[vuln.GetId()]
+		// if the vuln was already ignored (possibly under an alias), we want to
+		// keep that entry as is; this checks aliases in the same order as the
+		// filtering does, so we keep the entry whose reason gets reported
+		var ignore *IgnoreEntry
+		for _, id := range group.Aliases {
+			if ignore = existingIgnores[id]; ignore != nil {
+				break
+			}
+		}
 
-		if !ok {
-			ignore = &IgnoreEntry{ID: vuln.GetId()}
+		if ignore == nil {
+			ignore = &IgnoreEntry{ID: group.IDs[0]}
 		}
 
 		c.IgnoredVulns = append(c.IgnoredVulns, ignore)
-		seen[vuln.GetId()] = struct{}{}
+		kept[ignore.ID] = struct{}{}
 	}
 
 	slices.SortFunc(c.IgnoredVulns, func(a, b *IgnoreEntry) int {
 		return identifiers.IDSortFunc(a.ID, b.ID)
+	})
+}
+
+// isGroupCoveredBy reports if the given group would be ignored by an entry
+// with one of the given ids, as done when filtering results
+func isGroupCoveredBy(group models.GroupInfo, ids map[string]struct{}) bool {
+	return slices.ContainsFunc(group.Aliases, func(id string) bool {
+		_, ok := ids[id]
+
+		return ok
 	})
 }
 
