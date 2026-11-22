@@ -21,7 +21,7 @@ require (
 	github.com/package-url/packageurl-go v0.1.7
 	github.com/pandatix/go-cvss v0.6.4
 	github.com/tidwall/gjson v1.20.0
-	github.com/tidwall/pretty v1.2.2
+	github.com/tidwall/pretty v1.3.0
 	github.com/tidwall/sjson v1.2.5
 	github.com/urfave/cli/v3 v3.14.0
 	go.yaml.in/yaml/v4 v4.0.0-rc.7
