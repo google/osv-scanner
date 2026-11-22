@@ -25,13 +25,13 @@ func vulnsFromAllPkgs(pkgs []models.PackageVulns) ([]*osvschema.Vulnerability, m
 }
 
 // Run runs the language specific analyzers on the code given packages and source info
-func Run(source models.SourceInfo, pkgs []models.PackageVulns, callAnalysis map[string]bool) {
+func Run(source models.SourceInfo, pkgs []models.PackageVulns, callAnalysis map[string]bool, offline bool) {
 	// GoVulnCheck
 	if source.Type == "lockfile" && filepath.Base(source.Path) == "go.mod" && callAnalysis["go"] {
-		goAnalysis(pkgs, source)
+		goAnalysis(pkgs, source, offline)
 	}
 
 	if source.Type == "lockfile" && filepath.Base(source.Path) == "Cargo.lock" && callAnalysis["rust"] {
-		rustAnalysis(pkgs, source)
+		rustAnalysis(pkgs, source, offline)
 	}
 }

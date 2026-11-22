@@ -32,8 +32,8 @@ const (
 	RustLibExtension = ".rcgu.o/"
 )
 
-func rustAnalysis(pkgs []models.PackageVulns, source models.SourceInfo) {
-	binaryPaths, err := rustBuildSource(source)
+func rustAnalysis(pkgs []models.PackageVulns, source models.SourceInfo, offline bool) {
+	binaryPaths, err := rustBuildSource(source, offline)
 	if err != nil {
 		cmdlogger.Errorf("failed to build cargo/rust project from source: %s", err)
 		return
@@ -227,16 +227,30 @@ func extractRlibArchive(rlibPath string) (bytes.Buffer, error) {
 	return buf, nil
 }
 
-func rustBuildSource(source models.SourceInfo) ([]string, error) {
-	projectBaseDir := filepath.Dir(source.Path)
+func cargoBuildCmd(ctx context.Context, projectBaseDir string, offline bool) *exec.Cmd {
+	args := []string{"build", "--workspace", "--all-targets", "--release"}
+	if offline {
+		args = append(args, "--offline")
+	}
 
-	// TODO: This will be moved to enrichers which does have context.
-	cmd := exec.CommandContext(context.TODO(), "cargo", "build", "--workspace", "--all-targets", "--release")
+	cmd := exec.CommandContext(ctx, "cargo", args...)
 	cmd.Env = append(cmd.Environ(), RustFlagsEnv)
+	if offline {
+		cmd.Env = append(cmd.Env, "CARGO_NET_OFFLINE=true")
+	}
 	cmd.Dir = projectBaseDir
 	if errors.Is(cmd.Err, exec.ErrDot) {
 		cmd.Err = nil
 	}
+
+	return cmd
+}
+
+func rustBuildSource(source models.SourceInfo, offline bool) ([]string, error) {
+	projectBaseDir := filepath.Dir(source.Path)
+
+	// TODO: This will be moved to enrichers which does have context.
+	cmd := cargoBuildCmd(context.TODO(), projectBaseDir, offline)
 
 	stdoutBuffer := bytes.Buffer{}
 	stderrBuffer := bytes.Buffer{}

@@ -2,10 +2,12 @@ package sourceanalysis
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"os"
 	"path/filepath"
 	"reflect"
+	"slices"
 	"strings"
 	"testing"
 
@@ -93,7 +95,7 @@ func Test_rustBuildSource(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		got, err := rustBuildSource(tt.args.source)
+		got, err := rustBuildSource(tt.args.source, false)
 		if (err != nil) != tt.wantErr {
 			t.Errorf("rustBuildSource() error = %v, wantErr %v", err, tt.wantErr)
 			return
@@ -159,6 +161,43 @@ func Test_extractRlibArchive_malformedHeader(t *testing.T) {
 			_, err := extractRlibArchive(path)
 			if err == nil || !strings.Contains(err.Error(), "invalid size") {
 				t.Fatalf("expected an 'invalid size' error, got: %v", err)
+			}
+		})
+	}
+}
+
+func Test_cargoBuildCmd(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name        string
+		offline     bool
+		wantOffline bool
+	}{
+		{
+			name:        "online mode does not add offline flags or env",
+			offline:     false,
+			wantOffline: false,
+		},
+		{
+			name:        "offline mode adds --offline flag and CARGO_NET_OFFLINE env",
+			offline:     true,
+			wantOffline: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			cmd := cargoBuildCmd(context.Background(), "/test/dir", tt.offline)
+			hasOfflineArg := slices.Contains(cmd.Args, "--offline")
+			hasOfflineEnv := slices.Contains(cmd.Env, "CARGO_NET_OFFLINE=true")
+
+			if hasOfflineArg != tt.wantOffline {
+				t.Errorf("cargoBuildCmd() Args has --offline = %v, want %v", hasOfflineArg, tt.wantOffline)
+			}
+			if hasOfflineEnv != tt.wantOffline {
+				t.Errorf("cargoBuildCmd() Env has CARGO_NET_OFFLINE=true = %v, want %v", hasOfflineEnv, tt.wantOffline)
 			}
 		})
 	}

@@ -20,7 +20,7 @@ import (
 	"google.golang.org/protobuf/encoding/protojson"
 )
 
-func goAnalysis(pkgs []models.PackageVulns, source models.SourceInfo) {
+func goAnalysis(pkgs []models.PackageVulns, source models.SourceInfo, offline bool) {
 	// TODO: This will be moved to enrichers which does have context.
 	cmd := exec.CommandContext(context.TODO(), "go", "version")
 	_, err := cmd.Output()
@@ -48,7 +48,7 @@ func goAnalysis(pkgs []models.PackageVulns, source models.SourceInfo) {
 		}
 	}
 
-	res, err := runGovulncheck(filepath.Dir(source.Path), filteredVulns, goVersion)
+	res, err := runGovulncheck(filepath.Dir(source.Path), filteredVulns, goVersion, offline)
 	if err != nil {
 		// TODO: Better method to identify the type of error and give advice specific to the error
 		cmdlogger.Errorf(
@@ -136,7 +136,17 @@ func fillNotImportedAnalysisInfo(vulnsByID map[string]*osvschema.Vulnerability, 
 	}
 }
 
-func runGovulncheck(moddir string, vulns []*osvschema.Vulnerability, goVersion string) (map[string][]*govulncheck.Finding, error) {
+func govulncheckCmd(ctx context.Context, dbURL, moddir, goVersion string, offline bool) *scan.Cmd {
+	cmd := scan.Command(ctx, "-db", dbURL, "-C", moddir, "-json", "./...")
+	cmd.Env = append(os.Environ(), "GOVERSION=go"+goVersion)
+	if offline {
+		cmd.Env = append(cmd.Env, "GOPROXY=off", "GOTOOLCHAIN=local")
+	}
+
+	return cmd
+}
+
+func runGovulncheck(moddir string, vulns []*osvschema.Vulnerability, goVersion string, offline bool) (map[string][]*govulncheck.Finding, error) {
 	// Create a temporary directory containing all the vulnerabilities that
 	// are passed in to check against govulncheck.
 	//
@@ -175,10 +185,9 @@ func runGovulncheck(moddir string, vulns []*osvschema.Vulnerability, goVersion s
 
 	// Run govulncheck on the module at moddir and vulnerability database that
 	// was just created.
-	cmd := scan.Command(context.Background(), "-db", dbdirURL.String(), "-C", moddir, "-json", "./...")
+	cmd := govulncheckCmd(context.Background(), dbdirURL.String(), moddir, goVersion, offline)
 	var b bytes.Buffer
 	cmd.Stdout = &b
-	cmd.Env = append(os.Environ(), "GOVERSION=go"+goVersion)
 	if err := cmd.Start(); err != nil {
 		return nil, err
 	}
