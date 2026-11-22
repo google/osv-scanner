@@ -2,6 +2,7 @@
 package config
 
 import (
+	"bytes"
 	"os"
 	"slices"
 	"time"
@@ -60,16 +61,17 @@ func (c *Config) IgnoreVulns(vulns []*osvschema.Vulnerability) {
 
 // Save writes the configuration file to disk, overriding the existing content
 func (c *Config) Save() error {
-	f, err := os.OpenFile(c.LoadPath, os.O_TRUNC|os.O_WRONLY, os.ModePerm)
+	var buf bytes.Buffer
 
-	if err != nil {
+	encoder := toml.NewEncoder(&buf)
+	encoder.Indent = ""
+
+	if err := encoder.Encode(c); err != nil {
 		return err
 	}
 
-	encoder := toml.NewEncoder(f)
-	encoder.Indent = ""
-
-	return encoder.Encode(c)
+	// the permissions are only used if the file does not already exist
+	return os.WriteFile(c.LoadPath, buf.Bytes(), 0o600)
 }
 
 func (c *Config) UnusedIgnoredVulns() []*IgnoreEntry {
