@@ -16,7 +16,7 @@ type PackageOverrideEntry struct {
 	Version        string        `toml:"version,omitempty"`
 	Ecosystem      string        `toml:"ecosystem,omitempty"`
 	Group          string        `toml:"group,omitempty"`
-	NameIsRegex    bool          `toml:"nameIsRegex"`
+	NameIsRegex    bool          `toml:"nameIsRegex,omitempty"`
 	Ignore         bool          `toml:"ignore,omitempty"`
 	Vulnerability  Vulnerability `toml:"vulnerability,omitempty"`
 	License        License       `toml:"license,omitempty"`

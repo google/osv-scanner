@@ -18,7 +18,7 @@ var OSVScannerConfigName = "osv-scanner.toml"
 
 type Config struct {
 	GoVersionOverride string                  `toml:"GoVersionOverride,omitempty"`
-	ScanGoModVersion  bool                    `toml:"ScanGoModVersion"`
+	ScanGoModVersion  bool                    `toml:"ScanGoModVersion,omitempty"`
 	PackageOverrides  []*PackageOverrideEntry `toml:"PackageOverrides,omitempty"`
 	IgnoredVulns      []*IgnoreEntry          `toml:"IgnoredVulns,omitempty"`
 	// The path to config file that this config was loaded from,

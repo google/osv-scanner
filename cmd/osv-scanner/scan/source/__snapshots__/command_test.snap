@@ -6555,8 +6555,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 ---
 
 [TestCommand_UpdateConfigIgnores_All/deep - 3]
-ScanGoModVersion = false
-
 [[IgnoredVulns]]
 id = "GHSA-3w22-6jfg-527w"
 
@@ -6618,8 +6616,6 @@ id = "GHSA-2g4f-4pwh-qvx6"
 ---
 
 [TestCommand_UpdateConfigIgnores_All/deep - 5]
-ScanGoModVersion = false
-
 [[IgnoredVulns]]
 id = "CVE-2021-23424"
 reason = "Test manifest file (package-lock.json)"
@@ -6633,8 +6629,6 @@ id = "GHSA-v88g-cgmw-v5xw"
 ---
 
 [TestCommand_UpdateConfigIgnores_All/deep - 6]
-ScanGoModVersion = false
-
 [[IgnoredVulns]]
 id = "GHSA-2g4f-4pwh-qvx6"
 
@@ -6647,11 +6641,8 @@ id = "GHSA-whgm-jr23-g3j9"
 ---
 
 [TestCommand_UpdateConfigIgnores_All/deep - 7]
-ScanGoModVersion = false
-
 [[PackageOverrides]]
 name = "ajv"
-nameIsRegex = false
 ignore = true
 
 [[IgnoredVulns]]
@@ -6843,11 +6834,8 @@ id = "GHSA-2g4f-4pwh-qvx6"
 ---
 
 [TestCommand_UpdateConfigIgnores_All/deep_with_no_configs - 7]
-ScanGoModVersion = false
-
 [[PackageOverrides]]
 name = "ajv"
-nameIsRegex = false
 ignore = true
 
 [[IgnoredVulns]]
@@ -7072,8 +7060,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 ---
 
 [TestCommand_UpdateConfigIgnores_All/deep_with_removed_config - 3]
-ScanGoModVersion = false
-
 [[IgnoredVulns]]
 id = "GHSA-3w22-6jfg-527w"
 
@@ -7139,8 +7125,6 @@ id = "GHSA-2g4f-4pwh-qvx6"
 ---
 
 [TestCommand_UpdateConfigIgnores_All/deep_with_removed_config - 6]
-ScanGoModVersion = false
-
 [[IgnoredVulns]]
 id = "GHSA-2g4f-4pwh-qvx6"
 
@@ -7153,11 +7137,8 @@ id = "GHSA-whgm-jr23-g3j9"
 ---
 
 [TestCommand_UpdateConfigIgnores_All/deep_with_removed_config - 7]
-ScanGoModVersion = false
-
 [[PackageOverrides]]
 name = "ajv"
-nameIsRegex = false
 ignore = true
 
 [[IgnoredVulns]]
@@ -7347,7 +7328,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
 [TestCommand_UpdateConfigIgnores_All/global_config_deep - 4]
 GoVersionOverride = "1.20.0"
-ScanGoModVersion = false
 
 [[IgnoredVulns]]
 id = "GHSA-2g4f-4pwh-qvx6"
@@ -7541,7 +7521,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
 [TestCommand_UpdateConfigIgnores_All/global_config_shallow - 4]
 GoVersionOverride = "1.20.0"
-ScanGoModVersion = false
 
 [[IgnoredVulns]]
 id = "GHSA-3w22-6jfg-527w"
@@ -7710,8 +7689,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 ---
 
 [TestCommand_UpdateConfigIgnores_All/shallow - 3]
-ScanGoModVersion = false
-
 [[IgnoredVulns]]
 id = "GHSA-3w22-6jfg-527w"
 
@@ -8131,19 +8108,14 @@ reason = "Test manifest file (package-lock.json)"
 ---
 
 [TestCommand_UpdateConfigIgnores_Unused/deep - 6]
-ScanGoModVersion = false
-
 [[IgnoredVulns]]
 id = "GHSA-2g4f-4pwh-qvx6"
 
 ---
 
 [TestCommand_UpdateConfigIgnores_Unused/deep - 7]
-ScanGoModVersion = false
-
 [[PackageOverrides]]
 name = "ajv"
-nameIsRegex = false
 ignore = true
 
 ---
@@ -8391,11 +8363,8 @@ id = "GHSA-2g4f-4pwh-qvx6"
 ---
 
 [TestCommand_UpdateConfigIgnores_Unused/deep_with_no_configs - 7]
-ScanGoModVersion = false
-
 [[PackageOverrides]]
 name = "ajv"
-nameIsRegex = false
 ignore = true
 
 ---
@@ -8643,19 +8612,14 @@ id = "GHSA-2g4f-4pwh-qvx6"
 ---
 
 [TestCommand_UpdateConfigIgnores_Unused/deep_with_removed_config - 6]
-ScanGoModVersion = false
-
 [[IgnoredVulns]]
 id = "GHSA-2g4f-4pwh-qvx6"
 
 ---
 
 [TestCommand_UpdateConfigIgnores_Unused/deep_with_removed_config - 7]
-ScanGoModVersion = false
-
 [[PackageOverrides]]
 name = "ajv"
-nameIsRegex = false
 ignore = true
 
 ---
@@ -8880,7 +8844,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
 [TestCommand_UpdateConfigIgnores_Unused/global_config_deep - 4]
 GoVersionOverride = "1.20.0"
-ScanGoModVersion = false
 
 [[IgnoredVulns]]
 id = "GHSA-2g4f-4pwh-qvx6"
@@ -9087,7 +9050,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
 [TestCommand_UpdateConfigIgnores_Unused/global_config_shallow - 4]
 GoVersionOverride = "1.20.0"
-ScanGoModVersion = false
 
 ---
 
