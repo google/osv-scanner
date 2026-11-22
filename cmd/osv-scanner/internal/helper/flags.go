@@ -246,7 +246,7 @@ func BuildCommonScanFlags(defaultExtractors []string) []cli.Flag {
 			Usage: "disable default plugins, instead using only those enabled by --x-plugins",
 		},
 		&cli.StringFlag{
-			Name:  "experimental-update-config-ignores",
+			Name:  "x-update-config-ignores",
 			Usage: "update config file(s) to ignore vulnerabilities - must be one of: none, unused, or all",
 			Action: func(_ context.Context, _ *cli.Command, s string) error {
 				// todo: can we do something other than "none"?

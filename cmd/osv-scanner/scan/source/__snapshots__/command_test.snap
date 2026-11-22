@@ -1548,7 +1548,7 @@ OPTIONS:
    --x-disable-plugins string [ --x-disable-plugins string ]                        list of specific plugins and presets of plugins to not use
    --experimental-no-default-plugins                                                [DEPRECATED] (use "--x-no-default-plugins" instead) disable default plugins, instead using only those enabled by --x-plugins
    --x-no-default-plugins                                                           disable default plugins, instead using only those enabled by --x-plugins
-   --experimental-update-config-ignores string                                      update config file(s) to ignore vulnerabilities - must be one of: none, unused, or all
+   --x-update-config-ignores string                                                 update config file(s) to ignore vulnerabilities - must be one of: none, unused, or all
    --help, -h                                                                       show help
 
 ---

@@ -20,8 +20,8 @@ This requires that a configuration file already exists, and currently makes no a
 
 ```
 # remove only ignore entries that are not being used
-osv-scanner scan --experimental-update-config-ignores=unused .
+osv-scanner scan --x-update-config-ignores=unused .
 
 # add ignore entries for all found vulnerabilities
-osv-scanner scan --experimental-update-config-ignores=all .
+osv-scanner scan --x-update-config-ignores=all .
 ```
