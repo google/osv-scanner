@@ -121,7 +121,10 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 	}
 
 	userAgent := "osv-scanner_scan-source/" + version.OSVVersion
-	scannerAction := helper.GetCommonScannerActions(cmd, scanLicensesAllowlist)
+	scannerAction, err := helper.GetCommonScannerActions(cmd, scanLicensesAllowlist)
+	if err != nil {
+		return err
+	}
 
 	scannerAction.LockfilePaths = cmd.StringSlice("lockfile")
 	//nolint:staticcheck // ignore our own deprecated field

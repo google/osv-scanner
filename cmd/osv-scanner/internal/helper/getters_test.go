@@ -43,7 +43,10 @@ func TestGetCommonScannerActions_OfflineFlags(t *testing.T) {
 			cmd := &cli.Command{
 				Flags: BuildCommonScanFlags(nil),
 				Action: func(_ context.Context, cmd *cli.Command) error {
-					actions := GetCommonScannerActions(cmd, nil)
+					actions, err := GetCommonScannerActions(cmd, nil)
+					if err != nil {
+						return err
+					}
 					actionsCompareOffline = actions.CompareOffline
 					actionsPluginNetworkDisabled = actions.PluginNetworkDisabled
 					noResolve = cmd.Bool("no-resolve")

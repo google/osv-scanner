@@ -72,7 +72,10 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 		return err
 	}
 
-	scannerAction := helper.GetCommonScannerActions(cmd, scanLicensesAllowlist)
+	scannerAction, err := helper.GetCommonScannerActions(cmd, scanLicensesAllowlist)
+	if err != nil {
+		return err
+	}
 
 	scannerAction.Image = cmd.Args().First()
 	scannerAction.IsImageArchive = cmd.Bool("archive")

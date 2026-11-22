@@ -32,8 +32,11 @@ func GetScanLicensesAllowlist(cmd *cli.Command) ([]string, error) {
 	return allowlist, nil
 }
 
-func GetCommonScannerActions(cmd *cli.Command, scanLicensesAllowlist []string) osvscanner.ScannerActions {
-	callAnalysisStates := CreateCallAnalysisStates(cmd.StringSlice("call-analysis"), cmd.StringSlice("no-call-analysis"))
+func GetCommonScannerActions(cmd *cli.Command, scanLicensesAllowlist []string) (osvscanner.ScannerActions, error) {
+	callAnalysisStates, err := CreateCallAnalysisStates(cmd.StringSlice("call-analysis"), cmd.StringSlice("no-call-analysis"))
+	if err != nil {
+		return osvscanner.ScannerActions{}, err
+	}
 
 	return osvscanner.ScannerActions{
 		IncludeGitRoot:        cmd.Bool("include-git-root"),
@@ -47,7 +50,7 @@ func GetCommonScannerActions(cmd *cli.Command, scanLicensesAllowlist []string) o
 		ScanLicensesSummary:   cmd.IsSet("licenses"),
 		ScanLicensesAllowlist: scanLicensesAllowlist,
 		CallAnalysisStates:    callAnalysisStates,
-	}
+	}, nil
 }
 
 // FallbackToDeprecatedName returns the preferred cli flag name if set,
