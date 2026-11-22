@@ -2400,6 +2400,12 @@
       "type": "CVSS_V3"
     }
   ],
+  "GHSA-3w22-6jfg-527w": [
+    {
+      "score": "CVSS:4.0/AV:L/AC:H/AT:P/PR:L/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+      "type": "CVSS_V4"
+    }
+  ],
   "GHSA-3wrr-7qpf-2prh": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
@@ -2488,6 +2494,12 @@
   "GHSA-4mp9-239f-g9hg": [
     {
       "score": "CVSS:4.0/AV:N/AC:H/AT:N/PR:N/UI:N/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N",
+      "type": "CVSS_V4"
+    }
+  ],
+  "GHSA-4p39-36wj-23h4": [
+    {
+      "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N",
       "type": "CVSS_V4"
     }
   ],
@@ -4064,6 +4076,12 @@
       "type": "CVSS_V4"
     }
   ],
+  "GHSA-v88g-cgmw-v5xw": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:L",
+      "type": "CVSS_V3"
+    }
+  ],
   "GHSA-v8h7-rr48-vmmv": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
@@ -4073,6 +4091,12 @@
   "GHSA-v95c-p5hm-xq8f": [
     {
       "score": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:C/C:L/I:L/A:L",
+      "type": "CVSS_V3"
+    }
+  ],
+  "GHSA-v995-44v6-5fqm": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N",
       "type": "CVSS_V3"
     }
   ],

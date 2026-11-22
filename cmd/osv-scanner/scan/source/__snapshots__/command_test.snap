@@ -6457,24 +6457,46 @@ Filtered 2 ignored package/s from the scan.
 <tempdir>/nested-1/osv-scanner-test.toml has been updated to ignore 3 vulnerabilities
 <tempdir>/nested-2/osv-scanner-test.toml has been updated to ignore 3 vulnerabilities
 <tempdir>/nested-3/osv-scanner-test.toml has been updated to ignore 1 vulnerability
-<tempdir>/osv-scanner-test.toml has been updated to ignore 4 vulnerabilities
+<tempdir>/osv-scanner-test.toml has been updated to ignore 15 vulnerabilities
 
-Total 9 packages affected by 13 known vulnerabilities (0 Critical, 5 High, 8 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-13 vulnerabilities can be fixed.
+Total 9 packages affected by 24 known vulnerabilities (0 Critical, 5 High, 9 Medium, 9 Low, 1 Unknown) from 2 ecosystems.
+24 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-3w22-6jfg-527w: Nokogiri: Use-After-Free in Nokogiri when replacing an attribute value
+      Severity: '2.0'; Minimal Fix Version: '1.19.5';
+    GHSA-4p39-36wj-23h4: Nokogiri: Mutation XSS through `noscript` content in Nokogiri's HTML5...
+      Severity: '2.3'; Minimal Fix Version: '1.19.5';
+    GHSA-5prr-v3j2-97mh: Nokogiri: Possible Out-of-Bounds Read in `Nokogiri::XML::NodeSet#[]`
+      Severity: '6.3'; Minimal Fix Version: '1.19.4';
+    GHSA-5v8h-3h3q-446p: Nokogiri: Possible Use-After-Free when `Nokogiri::XML::Document#encoding=`...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-8678-w3jw-xfc2: Nokogiri: XML::Schema on JRuby allows network requests when NONET is set,...
+      Severity: '2.6'; Minimal Fix Version: '1.19.4';
+    GHSA-9cv2-cfxc-v4v2: Nokogiri: Null Pointer Dereference calling methods on uninitialized wrapper...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
       Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-p67v-3w7g-wjg7: Nokogiri: Possible Use-After-Free when directly using...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-phwj-rprq-35pp: Nokogiri: Possible Use-After-Free when setting an attribute value via...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
       Severity: '5.3'; Minimal Fix Version: '1.19.3';
+    GHSA-v995-44v6-5fqm: JRuby: NONET is bypassed for external DTDs and entities when the systemId uses...
+      Severity: '3.7'; Minimal Fix Version: '1.19.5';
+    GHSA-wfpw-mmfh-qq69: Nokogiri: Possible Use-After-Free in XInclude Processing
+      Severity: 'N/A'; Minimal Fix Version: '1.19.4';
+    GHSA-wjv4-x9w8-wm3h: Nokogiri: Possible Use-After-Free when setting `Document#root=` to an invalid...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  3 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
+  14 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -6536,13 +6558,46 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 ScanGoModVersion = false
 
 [[IgnoredVulns]]
+id = "GHSA-3w22-6jfg-527w"
+
+[[IgnoredVulns]]
+id = "GHSA-4p39-36wj-23h4"
+
+[[IgnoredVulns]]
+id = "GHSA-5prr-v3j2-97mh"
+
+[[IgnoredVulns]]
+id = "GHSA-5v8h-3h3q-446p"
+
+[[IgnoredVulns]]
+id = "GHSA-8678-w3jw-xfc2"
+
+[[IgnoredVulns]]
+id = "GHSA-9cv2-cfxc-v4v2"
+
+[[IgnoredVulns]]
 id = "GHSA-c4rq-3m3g-8wgx"
+
+[[IgnoredVulns]]
+id = "GHSA-p67v-3w7g-wjg7"
+
+[[IgnoredVulns]]
+id = "GHSA-phwj-rprq-35pp"
 
 [[IgnoredVulns]]
 id = "GHSA-v2fc-qm4h-8hqv"
 
 [[IgnoredVulns]]
+id = "GHSA-v995-44v6-5fqm"
+
+[[IgnoredVulns]]
+id = "GHSA-wfpw-mmfh-qq69"
+
+[[IgnoredVulns]]
 id = "GHSA-whgm-jr23-g3j9"
+
+[[IgnoredVulns]]
+id = "GHSA-wjv4-x9w8-wm3h"
 
 [[IgnoredVulns]]
 id = "GHSA-wx95-c6cv-8532"
@@ -6618,9 +6673,20 @@ Loaded filter from: <tempdir>/nested-3/osv-scanner-test.toml
 Package npm/ajv/6.0.0 has been filtered out because: (no reason given)
 Package npm/ajv/8.0.0 has been filtered out because: (no reason given)
 Filtered 2 ignored package/s from the scan.
-GHSA-c4rq-3m3g-8wgx has been filtered out because: (no reason given)
-GHSA-v2fc-qm4h-8hqv has been filtered out because: (no reason given)
-GHSA-wx95-c6cv-8532 has been filtered out because: (no reason given)
+GHSA-3w22-6jfg-527w and 1 alias have been filtered out because: (no reason given)
+GHSA-4p39-36wj-23h4 and 1 alias have been filtered out because: (no reason given)
+GHSA-5prr-v3j2-97mh and 1 alias have been filtered out because: (no reason given)
+GHSA-5v8h-3h3q-446p and 1 alias have been filtered out because: (no reason given)
+GHSA-8678-w3jw-xfc2 and 1 alias have been filtered out because: (no reason given)
+GHSA-9cv2-cfxc-v4v2 and 1 alias have been filtered out because: (no reason given)
+GHSA-c4rq-3m3g-8wgx and 1 alias have been filtered out because: (no reason given)
+GHSA-p67v-3w7g-wjg7 and 1 alias have been filtered out because: (no reason given)
+GHSA-phwj-rprq-35pp and 1 alias have been filtered out because: (no reason given)
+GHSA-v2fc-qm4h-8hqv and 1 alias have been filtered out because: (no reason given)
+GHSA-v995-44v6-5fqm and 1 alias have been filtered out because: (no reason given)
+GHSA-wfpw-mmfh-qq69 and 1 alias have been filtered out because: (no reason given)
+GHSA-wjv4-x9w8-wm3h and 1 alias have been filtered out because: (no reason given)
+GHSA-wx95-c6cv-8532 and 1 alias have been filtered out because: (no reason given)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-v88g-cgmw-v5xw and 1 alias have been filtered out because: (no reason given)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
@@ -6631,7 +6697,7 @@ GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
-Filtered 13 vulnerabilities from output
+Filtered 24 vulnerabilities from output
 
 No issues found
 
@@ -6655,22 +6721,44 @@ Package npm/ajv/8.0.0 has been filtered out because: (no reason given)
 Filtered 2 ignored package/s from the scan.
 <tempdir>/nested-3/osv-scanner-test.toml has been updated to ignore 1 vulnerability
 
-Total 9 packages affected by 13 known vulnerabilities (0 Critical, 5 High, 8 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-13 vulnerabilities can be fixed.
+Total 9 packages affected by 24 known vulnerabilities (0 Critical, 5 High, 9 Medium, 9 Low, 1 Unknown) from 2 ecosystems.
+24 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-3w22-6jfg-527w: Nokogiri: Use-After-Free in Nokogiri when replacing an attribute value
+      Severity: '2.0'; Minimal Fix Version: '1.19.5';
+    GHSA-4p39-36wj-23h4: Nokogiri: Mutation XSS through `noscript` content in Nokogiri's HTML5...
+      Severity: '2.3'; Minimal Fix Version: '1.19.5';
+    GHSA-5prr-v3j2-97mh: Nokogiri: Possible Out-of-Bounds Read in `Nokogiri::XML::NodeSet#[]`
+      Severity: '6.3'; Minimal Fix Version: '1.19.4';
+    GHSA-5v8h-3h3q-446p: Nokogiri: Possible Use-After-Free when `Nokogiri::XML::Document#encoding=`...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-8678-w3jw-xfc2: Nokogiri: XML::Schema on JRuby allows network requests when NONET is set,...
+      Severity: '2.6'; Minimal Fix Version: '1.19.4';
+    GHSA-9cv2-cfxc-v4v2: Nokogiri: Null Pointer Dereference calling methods on uninitialized wrapper...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
       Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-p67v-3w7g-wjg7: Nokogiri: Possible Use-After-Free when directly using...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-phwj-rprq-35pp: Nokogiri: Possible Use-After-Free when setting an attribute value via...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
       Severity: '5.3'; Minimal Fix Version: '1.19.3';
+    GHSA-v995-44v6-5fqm: JRuby: NONET is bypassed for external DTDs and entities when the systemId uses...
+      Severity: '3.7'; Minimal Fix Version: '1.19.5';
+    GHSA-wfpw-mmfh-qq69: Nokogiri: Possible Use-After-Free in XInclude Processing
+      Severity: 'N/A'; Minimal Fix Version: '1.19.4';
+    GHSA-wjv4-x9w8-wm3h: Nokogiri: Possible Use-After-Free when setting `Document#root=` to an invalid...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  3 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
+  14 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -6781,22 +6869,44 @@ Filtered 2 ignored package/s from the scan.
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
 Filtered 1 vulnerability from output
 
-Total 8 packages affected by 12 known vulnerabilities (0 Critical, 4 High, 8 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-12 vulnerabilities can be fixed.
+Total 8 packages affected by 23 known vulnerabilities (0 Critical, 4 High, 9 Medium, 9 Low, 1 Unknown) from 2 ecosystems.
+23 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-3w22-6jfg-527w: Nokogiri: Use-After-Free in Nokogiri when replacing an attribute value
+      Severity: '2.0'; Minimal Fix Version: '1.19.5';
+    GHSA-4p39-36wj-23h4: Nokogiri: Mutation XSS through `noscript` content in Nokogiri's HTML5...
+      Severity: '2.3'; Minimal Fix Version: '1.19.5';
+    GHSA-5prr-v3j2-97mh: Nokogiri: Possible Out-of-Bounds Read in `Nokogiri::XML::NodeSet#[]`
+      Severity: '6.3'; Minimal Fix Version: '1.19.4';
+    GHSA-5v8h-3h3q-446p: Nokogiri: Possible Use-After-Free when `Nokogiri::XML::Document#encoding=`...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-8678-w3jw-xfc2: Nokogiri: XML::Schema on JRuby allows network requests when NONET is set,...
+      Severity: '2.6'; Minimal Fix Version: '1.19.4';
+    GHSA-9cv2-cfxc-v4v2: Nokogiri: Null Pointer Dereference calling methods on uninitialized wrapper...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
       Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-p67v-3w7g-wjg7: Nokogiri: Possible Use-After-Free when directly using...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-phwj-rprq-35pp: Nokogiri: Possible Use-After-Free when setting an attribute value via...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
       Severity: '5.3'; Minimal Fix Version: '1.19.3';
+    GHSA-v995-44v6-5fqm: JRuby: NONET is bypassed for external DTDs and entities when the systemId uses...
+      Severity: '3.7'; Minimal Fix Version: '1.19.5';
+    GHSA-wfpw-mmfh-qq69: Nokogiri: Possible Use-After-Free in XInclude Processing
+      Severity: 'N/A'; Minimal Fix Version: '1.19.4';
+    GHSA-wjv4-x9w8-wm3h: Nokogiri: Possible Use-After-Free when setting `Document#root=` to an invalid...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  3 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
+  14 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -6863,24 +6973,46 @@ Package npm/ajv/8.0.0 has been filtered out because: (no reason given)
 Filtered 2 ignored package/s from the scan.
 <tempdir>/nested-2/osv-scanner-test.toml has been updated to ignore 3 vulnerabilities
 <tempdir>/nested-3/osv-scanner-test.toml has been updated to ignore 1 vulnerability
-<tempdir>/osv-scanner-test.toml has been updated to ignore 4 vulnerabilities
+<tempdir>/osv-scanner-test.toml has been updated to ignore 15 vulnerabilities
 
-Total 9 packages affected by 13 known vulnerabilities (0 Critical, 5 High, 8 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-13 vulnerabilities can be fixed.
+Total 9 packages affected by 24 known vulnerabilities (0 Critical, 5 High, 9 Medium, 9 Low, 1 Unknown) from 2 ecosystems.
+24 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-3w22-6jfg-527w: Nokogiri: Use-After-Free in Nokogiri when replacing an attribute value
+      Severity: '2.0'; Minimal Fix Version: '1.19.5';
+    GHSA-4p39-36wj-23h4: Nokogiri: Mutation XSS through `noscript` content in Nokogiri's HTML5...
+      Severity: '2.3'; Minimal Fix Version: '1.19.5';
+    GHSA-5prr-v3j2-97mh: Nokogiri: Possible Out-of-Bounds Read in `Nokogiri::XML::NodeSet#[]`
+      Severity: '6.3'; Minimal Fix Version: '1.19.4';
+    GHSA-5v8h-3h3q-446p: Nokogiri: Possible Use-After-Free when `Nokogiri::XML::Document#encoding=`...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-8678-w3jw-xfc2: Nokogiri: XML::Schema on JRuby allows network requests when NONET is set,...
+      Severity: '2.6'; Minimal Fix Version: '1.19.4';
+    GHSA-9cv2-cfxc-v4v2: Nokogiri: Null Pointer Dereference calling methods on uninitialized wrapper...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
       Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-p67v-3w7g-wjg7: Nokogiri: Possible Use-After-Free when directly using...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-phwj-rprq-35pp: Nokogiri: Possible Use-After-Free when setting an attribute value via...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
       Severity: '5.3'; Minimal Fix Version: '1.19.3';
+    GHSA-v995-44v6-5fqm: JRuby: NONET is bypassed for external DTDs and entities when the systemId uses...
+      Severity: '3.7'; Minimal Fix Version: '1.19.5';
+    GHSA-wfpw-mmfh-qq69: Nokogiri: Possible Use-After-Free in XInclude Processing
+      Severity: 'N/A'; Minimal Fix Version: '1.19.4';
+    GHSA-wjv4-x9w8-wm3h: Nokogiri: Possible Use-After-Free when setting `Document#root=` to an invalid...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  3 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
+  14 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -6942,13 +7074,46 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 ScanGoModVersion = false
 
 [[IgnoredVulns]]
+id = "GHSA-3w22-6jfg-527w"
+
+[[IgnoredVulns]]
+id = "GHSA-4p39-36wj-23h4"
+
+[[IgnoredVulns]]
+id = "GHSA-5prr-v3j2-97mh"
+
+[[IgnoredVulns]]
+id = "GHSA-5v8h-3h3q-446p"
+
+[[IgnoredVulns]]
+id = "GHSA-8678-w3jw-xfc2"
+
+[[IgnoredVulns]]
+id = "GHSA-9cv2-cfxc-v4v2"
+
+[[IgnoredVulns]]
 id = "GHSA-c4rq-3m3g-8wgx"
+
+[[IgnoredVulns]]
+id = "GHSA-p67v-3w7g-wjg7"
+
+[[IgnoredVulns]]
+id = "GHSA-phwj-rprq-35pp"
 
 [[IgnoredVulns]]
 id = "GHSA-v2fc-qm4h-8hqv"
 
 [[IgnoredVulns]]
+id = "GHSA-v995-44v6-5fqm"
+
+[[IgnoredVulns]]
+id = "GHSA-wfpw-mmfh-qq69"
+
+[[IgnoredVulns]]
 id = "GHSA-whgm-jr23-g3j9"
+
+[[IgnoredVulns]]
+id = "GHSA-wjv4-x9w8-wm3h"
 
 [[IgnoredVulns]]
 id = "GHSA-wx95-c6cv-8532"
@@ -7013,16 +7178,27 @@ Loaded filter from: <tempdir>/nested-3/osv-scanner-test.toml
 Package npm/ajv/6.0.0 has been filtered out because: (no reason given)
 Package npm/ajv/8.0.0 has been filtered out because: (no reason given)
 Filtered 2 ignored package/s from the scan.
-GHSA-c4rq-3m3g-8wgx has been filtered out because: (no reason given)
-GHSA-v2fc-qm4h-8hqv has been filtered out because: (no reason given)
-GHSA-wx95-c6cv-8532 has been filtered out because: (no reason given)
+GHSA-3w22-6jfg-527w and 1 alias have been filtered out because: (no reason given)
+GHSA-4p39-36wj-23h4 and 1 alias have been filtered out because: (no reason given)
+GHSA-5prr-v3j2-97mh and 1 alias have been filtered out because: (no reason given)
+GHSA-5v8h-3h3q-446p and 1 alias have been filtered out because: (no reason given)
+GHSA-8678-w3jw-xfc2 and 1 alias have been filtered out because: (no reason given)
+GHSA-9cv2-cfxc-v4v2 and 1 alias have been filtered out because: (no reason given)
+GHSA-c4rq-3m3g-8wgx and 1 alias have been filtered out because: (no reason given)
+GHSA-p67v-3w7g-wjg7 and 1 alias have been filtered out because: (no reason given)
+GHSA-phwj-rprq-35pp and 1 alias have been filtered out because: (no reason given)
+GHSA-v2fc-qm4h-8hqv and 1 alias have been filtered out because: (no reason given)
+GHSA-v995-44v6-5fqm and 1 alias have been filtered out because: (no reason given)
+GHSA-wfpw-mmfh-qq69 and 1 alias have been filtered out because: (no reason given)
+GHSA-wjv4-x9w8-wm3h and 1 alias have been filtered out because: (no reason given)
+GHSA-wx95-c6cv-8532 and 1 alias have been filtered out because: (no reason given)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-v88g-cgmw-v5xw and 1 alias have been filtered out because: (no reason given)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
-Filtered 9 vulnerabilities from output
+Filtered 20 vulnerabilities from output
 
 Total 3 packages affected by 4 known vulnerabilities (0 Critical, 1 High, 3 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 4 vulnerabilities can be fixed.
@@ -7059,24 +7235,46 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-<tempdir>/custom-config.toml has been updated to ignore 6 vulnerabilities
+<tempdir>/custom-config.toml has been updated to ignore 17 vulnerabilities
 
-Total 11 packages affected by 16 known vulnerabilities (0 Critical, 5 High, 11 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-16 vulnerabilities can be fixed.
+Total 11 packages affected by 27 known vulnerabilities (0 Critical, 5 High, 12 Medium, 9 Low, 1 Unknown) from 2 ecosystems.
+27 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-3w22-6jfg-527w: Nokogiri: Use-After-Free in Nokogiri when replacing an attribute value
+      Severity: '2.0'; Minimal Fix Version: '1.19.5';
+    GHSA-4p39-36wj-23h4: Nokogiri: Mutation XSS through `noscript` content in Nokogiri's HTML5...
+      Severity: '2.3'; Minimal Fix Version: '1.19.5';
+    GHSA-5prr-v3j2-97mh: Nokogiri: Possible Out-of-Bounds Read in `Nokogiri::XML::NodeSet#[]`
+      Severity: '6.3'; Minimal Fix Version: '1.19.4';
+    GHSA-5v8h-3h3q-446p: Nokogiri: Possible Use-After-Free when `Nokogiri::XML::Document#encoding=`...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-8678-w3jw-xfc2: Nokogiri: XML::Schema on JRuby allows network requests when NONET is set,...
+      Severity: '2.6'; Minimal Fix Version: '1.19.4';
+    GHSA-9cv2-cfxc-v4v2: Nokogiri: Null Pointer Dereference calling methods on uninitialized wrapper...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
       Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-p67v-3w7g-wjg7: Nokogiri: Possible Use-After-Free when directly using...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-phwj-rprq-35pp: Nokogiri: Possible Use-After-Free when setting an attribute value via...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
       Severity: '5.3'; Minimal Fix Version: '1.19.3';
+    GHSA-v995-44v6-5fqm: JRuby: NONET is bypassed for external DTDs and entities when the systemId uses...
+      Severity: '3.7'; Minimal Fix Version: '1.19.5';
+    GHSA-wfpw-mmfh-qq69: Nokogiri: Possible Use-After-Free in XInclude Processing
+      Severity: 'N/A'; Minimal Fix Version: '1.19.4';
+    GHSA-wjv4-x9w8-wm3h: Nokogiri: Possible Use-After-Free when setting `Document#root=` to an invalid...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  3 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
+  14 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -7154,7 +7352,31 @@ ScanGoModVersion = false
 id = "GHSA-2g4f-4pwh-qvx6"
 
 [[IgnoredVulns]]
+id = "GHSA-3w22-6jfg-527w"
+
+[[IgnoredVulns]]
+id = "GHSA-4p39-36wj-23h4"
+
+[[IgnoredVulns]]
+id = "GHSA-5prr-v3j2-97mh"
+
+[[IgnoredVulns]]
+id = "GHSA-5v8h-3h3q-446p"
+
+[[IgnoredVulns]]
+id = "GHSA-8678-w3jw-xfc2"
+
+[[IgnoredVulns]]
+id = "GHSA-9cv2-cfxc-v4v2"
+
+[[IgnoredVulns]]
 id = "GHSA-c4rq-3m3g-8wgx"
+
+[[IgnoredVulns]]
+id = "GHSA-p67v-3w7g-wjg7"
+
+[[IgnoredVulns]]
+id = "GHSA-phwj-rprq-35pp"
 
 [[IgnoredVulns]]
 id = "GHSA-v2fc-qm4h-8hqv"
@@ -7163,7 +7385,16 @@ id = "GHSA-v2fc-qm4h-8hqv"
 id = "GHSA-v88g-cgmw-v5xw"
 
 [[IgnoredVulns]]
+id = "GHSA-v995-44v6-5fqm"
+
+[[IgnoredVulns]]
+id = "GHSA-wfpw-mmfh-qq69"
+
+[[IgnoredVulns]]
 id = "GHSA-whgm-jr23-g3j9"
+
+[[IgnoredVulns]]
+id = "GHSA-wjv4-x9w8-wm3h"
 
 [[IgnoredVulns]]
 id = "GHSA-wx95-c6cv-8532"
@@ -7186,7 +7417,7 @@ id = "GHSA-2g4f-4pwh-qvx6"
 
 ---
 
-[TestCommand_UpdateConfigIgnores_All/global_config_deep - 7 - stdout]
+[TestCommand_UpdateConfigIgnores_All/global_config_deep - 7]
 [[PackageOverrides]]
 name = "ajv"
 ignore = true
@@ -7204,9 +7435,20 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-GHSA-c4rq-3m3g-8wgx has been filtered out because: (no reason given)
-GHSA-v2fc-qm4h-8hqv has been filtered out because: (no reason given)
-GHSA-wx95-c6cv-8532 has been filtered out because: (no reason given)
+GHSA-3w22-6jfg-527w and 1 alias have been filtered out because: (no reason given)
+GHSA-4p39-36wj-23h4 and 1 alias have been filtered out because: (no reason given)
+GHSA-5prr-v3j2-97mh and 1 alias have been filtered out because: (no reason given)
+GHSA-5v8h-3h3q-446p and 1 alias have been filtered out because: (no reason given)
+GHSA-8678-w3jw-xfc2 and 1 alias have been filtered out because: (no reason given)
+GHSA-9cv2-cfxc-v4v2 and 1 alias have been filtered out because: (no reason given)
+GHSA-c4rq-3m3g-8wgx and 1 alias have been filtered out because: (no reason given)
+GHSA-p67v-3w7g-wjg7 and 1 alias have been filtered out because: (no reason given)
+GHSA-phwj-rprq-35pp and 1 alias have been filtered out because: (no reason given)
+GHSA-v2fc-qm4h-8hqv and 1 alias have been filtered out because: (no reason given)
+GHSA-v995-44v6-5fqm and 1 alias have been filtered out because: (no reason given)
+GHSA-wfpw-mmfh-qq69 and 1 alias have been filtered out because: (no reason given)
+GHSA-wjv4-x9w8-wm3h and 1 alias have been filtered out because: (no reason given)
+GHSA-wx95-c6cv-8532 and 1 alias have been filtered out because: (no reason given)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-v88g-cgmw-v5xw and 1 alias have been filtered out because: (no reason given)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
@@ -7220,7 +7462,7 @@ GHSA-v88g-cgmw-v5xw and 1 alias have been filtered out because: (no reason given
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
-Filtered 16 vulnerabilities from output
+Filtered 27 vulnerabilities from output
 
 No issues found
 
@@ -7235,20 +7477,46 @@ Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-<tempdir>/custom-config.toml has been updated to ignore 2 vulnerabilities
+<tempdir>/custom-config.toml has been updated to ignore 15 vulnerabilities
 
-Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-2 vulnerabilities can be fixed.
+Total 2 packages affected by 15 known vulnerabilities (0 Critical, 2 High, 3 Medium, 9 Low, 1 Unknown) from 2 ecosystems.
+15 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-3w22-6jfg-527w: Nokogiri: Use-After-Free in Nokogiri when replacing an attribute value
+      Severity: '2.0'; Minimal Fix Version: '1.19.5';
+    GHSA-4p39-36wj-23h4: Nokogiri: Mutation XSS through `noscript` content in Nokogiri's HTML5...
+      Severity: '2.3'; Minimal Fix Version: '1.19.5';
+    GHSA-5prr-v3j2-97mh: Nokogiri: Possible Out-of-Bounds Read in `Nokogiri::XML::NodeSet#[]`
+      Severity: '6.3'; Minimal Fix Version: '1.19.4';
+    GHSA-5v8h-3h3q-446p: Nokogiri: Possible Use-After-Free when `Nokogiri::XML::Document#encoding=`...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-8678-w3jw-xfc2: Nokogiri: XML::Schema on JRuby allows network requests when NONET is set,...
+      Severity: '2.6'; Minimal Fix Version: '1.19.4';
+    GHSA-9cv2-cfxc-v4v2: Nokogiri: Null Pointer Dereference calling methods on uninitialized wrapper...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
+      Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-p67v-3w7g-wjg7: Nokogiri: Possible Use-After-Free when directly using...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-phwj-rprq-35pp: Nokogiri: Possible Use-After-Free when setting an attribute value via...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
+      Severity: '5.3'; Minimal Fix Version: '1.19.3';
+    GHSA-v995-44v6-5fqm: JRuby: NONET is bypassed for external DTDs and entities when the systemId uses...
+      Severity: '3.7'; Minimal Fix Version: '1.19.5';
+    GHSA-wfpw-mmfh-qq69: Nokogiri: Possible Use-After-Free in XInclude Processing
+      Severity: 'N/A'; Minimal Fix Version: '1.19.4';
+    GHSA-wjv4-x9w8-wm3h: Nokogiri: Possible Use-After-Free when setting `Document#root=` to an invalid...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+  14 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -7275,7 +7543,46 @@ GoVersionOverride = "1.20.0"
 ScanGoModVersion = false
 
 [[IgnoredVulns]]
+id = "GHSA-3w22-6jfg-527w"
+
+[[IgnoredVulns]]
+id = "GHSA-4p39-36wj-23h4"
+
+[[IgnoredVulns]]
+id = "GHSA-5prr-v3j2-97mh"
+
+[[IgnoredVulns]]
+id = "GHSA-5v8h-3h3q-446p"
+
+[[IgnoredVulns]]
+id = "GHSA-8678-w3jw-xfc2"
+
+[[IgnoredVulns]]
+id = "GHSA-9cv2-cfxc-v4v2"
+
+[[IgnoredVulns]]
+id = "GHSA-c4rq-3m3g-8wgx"
+
+[[IgnoredVulns]]
+id = "GHSA-p67v-3w7g-wjg7"
+
+[[IgnoredVulns]]
+id = "GHSA-phwj-rprq-35pp"
+
+[[IgnoredVulns]]
+id = "GHSA-v2fc-qm4h-8hqv"
+
+[[IgnoredVulns]]
+id = "GHSA-v995-44v6-5fqm"
+
+[[IgnoredVulns]]
+id = "GHSA-wfpw-mmfh-qq69"
+
+[[IgnoredVulns]]
 id = "GHSA-whgm-jr23-g3j9"
+
+[[IgnoredVulns]]
+id = "GHSA-wjv4-x9w8-wm3h"
 
 [[IgnoredVulns]]
 id = "GHSA-wx95-c6cv-8532"
@@ -7298,7 +7605,7 @@ id = "GHSA-2g4f-4pwh-qvx6"
 
 ---
 
-[TestCommand_UpdateConfigIgnores_All/global_config_shallow - 7 - stdout]
+[TestCommand_UpdateConfigIgnores_All/global_config_shallow - 7]
 [[PackageOverrides]]
 name = "ajv"
 ignore = true
@@ -7313,9 +7620,22 @@ Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-GHSA-wx95-c6cv-8532 has been filtered out because: (no reason given)
+GHSA-3w22-6jfg-527w and 1 alias have been filtered out because: (no reason given)
+GHSA-4p39-36wj-23h4 and 1 alias have been filtered out because: (no reason given)
+GHSA-5prr-v3j2-97mh and 1 alias have been filtered out because: (no reason given)
+GHSA-5v8h-3h3q-446p and 1 alias have been filtered out because: (no reason given)
+GHSA-8678-w3jw-xfc2 and 1 alias have been filtered out because: (no reason given)
+GHSA-9cv2-cfxc-v4v2 and 1 alias have been filtered out because: (no reason given)
+GHSA-c4rq-3m3g-8wgx and 1 alias have been filtered out because: (no reason given)
+GHSA-p67v-3w7g-wjg7 and 1 alias have been filtered out because: (no reason given)
+GHSA-phwj-rprq-35pp and 1 alias have been filtered out because: (no reason given)
+GHSA-v2fc-qm4h-8hqv and 1 alias have been filtered out because: (no reason given)
+GHSA-v995-44v6-5fqm and 1 alias have been filtered out because: (no reason given)
+GHSA-wfpw-mmfh-qq69 and 1 alias have been filtered out because: (no reason given)
+GHSA-wjv4-x9w8-wm3h and 1 alias have been filtered out because: (no reason given)
+GHSA-wx95-c6cv-8532 and 1 alias have been filtered out because: (no reason given)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
-Filtered 2 vulnerabilities from output
+Filtered 15 vulnerabilities from output
 
 No issues found
 
@@ -7331,20 +7651,46 @@ Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
 Loaded filter from: <tempdir>/osv-scanner-test.toml
-<tempdir>/osv-scanner-test.toml has been updated to ignore 2 vulnerabilities
+<tempdir>/osv-scanner-test.toml has been updated to ignore 15 vulnerabilities
 
-Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-2 vulnerabilities can be fixed.
+Total 2 packages affected by 15 known vulnerabilities (0 Critical, 2 High, 3 Medium, 9 Low, 1 Unknown) from 2 ecosystems.
+15 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-3w22-6jfg-527w: Nokogiri: Use-After-Free in Nokogiri when replacing an attribute value
+      Severity: '2.0'; Minimal Fix Version: '1.19.5';
+    GHSA-4p39-36wj-23h4: Nokogiri: Mutation XSS through `noscript` content in Nokogiri's HTML5...
+      Severity: '2.3'; Minimal Fix Version: '1.19.5';
+    GHSA-5prr-v3j2-97mh: Nokogiri: Possible Out-of-Bounds Read in `Nokogiri::XML::NodeSet#[]`
+      Severity: '6.3'; Minimal Fix Version: '1.19.4';
+    GHSA-5v8h-3h3q-446p: Nokogiri: Possible Use-After-Free when `Nokogiri::XML::Document#encoding=`...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-8678-w3jw-xfc2: Nokogiri: XML::Schema on JRuby allows network requests when NONET is set,...
+      Severity: '2.6'; Minimal Fix Version: '1.19.4';
+    GHSA-9cv2-cfxc-v4v2: Nokogiri: Null Pointer Dereference calling methods on uninitialized wrapper...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
+      Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-p67v-3w7g-wjg7: Nokogiri: Possible Use-After-Free when directly using...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-phwj-rprq-35pp: Nokogiri: Possible Use-After-Free when setting an attribute value via...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
+      Severity: '5.3'; Minimal Fix Version: '1.19.3';
+    GHSA-v995-44v6-5fqm: JRuby: NONET is bypassed for external DTDs and entities when the systemId uses...
+      Severity: '3.7'; Minimal Fix Version: '1.19.5';
+    GHSA-wfpw-mmfh-qq69: Nokogiri: Possible Use-After-Free in XInclude Processing
+      Severity: 'N/A'; Minimal Fix Version: '1.19.4';
+    GHSA-wjv4-x9w8-wm3h: Nokogiri: Possible Use-After-Free when setting `Document#root=` to an invalid...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+  14 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -7366,7 +7712,46 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 ScanGoModVersion = false
 
 [[IgnoredVulns]]
+id = "GHSA-3w22-6jfg-527w"
+
+[[IgnoredVulns]]
+id = "GHSA-4p39-36wj-23h4"
+
+[[IgnoredVulns]]
+id = "GHSA-5prr-v3j2-97mh"
+
+[[IgnoredVulns]]
+id = "GHSA-5v8h-3h3q-446p"
+
+[[IgnoredVulns]]
+id = "GHSA-8678-w3jw-xfc2"
+
+[[IgnoredVulns]]
+id = "GHSA-9cv2-cfxc-v4v2"
+
+[[IgnoredVulns]]
+id = "GHSA-c4rq-3m3g-8wgx"
+
+[[IgnoredVulns]]
+id = "GHSA-p67v-3w7g-wjg7"
+
+[[IgnoredVulns]]
+id = "GHSA-phwj-rprq-35pp"
+
+[[IgnoredVulns]]
+id = "GHSA-v2fc-qm4h-8hqv"
+
+[[IgnoredVulns]]
+id = "GHSA-v995-44v6-5fqm"
+
+[[IgnoredVulns]]
+id = "GHSA-wfpw-mmfh-qq69"
+
+[[IgnoredVulns]]
 id = "GHSA-whgm-jr23-g3j9"
+
+[[IgnoredVulns]]
+id = "GHSA-wjv4-x9w8-wm3h"
 
 [[IgnoredVulns]]
 id = "GHSA-wx95-c6cv-8532"
@@ -7402,7 +7787,7 @@ id = "GHSA-2g4f-4pwh-qvx6"
 
 ---
 
-[TestCommand_UpdateConfigIgnores_All/shallow - 7 - stdout]
+[TestCommand_UpdateConfigIgnores_All/shallow - 7]
 [[PackageOverrides]]
 name = "ajv"
 ignore = true
@@ -7418,9 +7803,22 @@ Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
 Loaded filter from: <tempdir>/osv-scanner-test.toml
-GHSA-wx95-c6cv-8532 has been filtered out because: (no reason given)
+GHSA-3w22-6jfg-527w and 1 alias have been filtered out because: (no reason given)
+GHSA-4p39-36wj-23h4 and 1 alias have been filtered out because: (no reason given)
+GHSA-5prr-v3j2-97mh and 1 alias have been filtered out because: (no reason given)
+GHSA-5v8h-3h3q-446p and 1 alias have been filtered out because: (no reason given)
+GHSA-8678-w3jw-xfc2 and 1 alias have been filtered out because: (no reason given)
+GHSA-9cv2-cfxc-v4v2 and 1 alias have been filtered out because: (no reason given)
+GHSA-c4rq-3m3g-8wgx and 1 alias have been filtered out because: (no reason given)
+GHSA-p67v-3w7g-wjg7 and 1 alias have been filtered out because: (no reason given)
+GHSA-phwj-rprq-35pp and 1 alias have been filtered out because: (no reason given)
+GHSA-v2fc-qm4h-8hqv and 1 alias have been filtered out because: (no reason given)
+GHSA-v995-44v6-5fqm and 1 alias have been filtered out because: (no reason given)
+GHSA-wfpw-mmfh-qq69 and 1 alias have been filtered out because: (no reason given)
+GHSA-wjv4-x9w8-wm3h and 1 alias have been filtered out because: (no reason given)
+GHSA-wx95-c6cv-8532 and 1 alias have been filtered out because: (no reason given)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
-Filtered 2 vulnerabilities from output
+Filtered 15 vulnerabilities from output
 
 No issues found
 
@@ -7436,18 +7834,44 @@ Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
 
-Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-2 vulnerabilities can be fixed.
+Total 2 packages affected by 15 known vulnerabilities (0 Critical, 2 High, 3 Medium, 9 Low, 1 Unknown) from 2 ecosystems.
+15 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-3w22-6jfg-527w: Nokogiri: Use-After-Free in Nokogiri when replacing an attribute value
+      Severity: '2.0'; Minimal Fix Version: '1.19.5';
+    GHSA-4p39-36wj-23h4: Nokogiri: Mutation XSS through `noscript` content in Nokogiri's HTML5...
+      Severity: '2.3'; Minimal Fix Version: '1.19.5';
+    GHSA-5prr-v3j2-97mh: Nokogiri: Possible Out-of-Bounds Read in `Nokogiri::XML::NodeSet#[]`
+      Severity: '6.3'; Minimal Fix Version: '1.19.4';
+    GHSA-5v8h-3h3q-446p: Nokogiri: Possible Use-After-Free when `Nokogiri::XML::Document#encoding=`...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-8678-w3jw-xfc2: Nokogiri: XML::Schema on JRuby allows network requests when NONET is set,...
+      Severity: '2.6'; Minimal Fix Version: '1.19.4';
+    GHSA-9cv2-cfxc-v4v2: Nokogiri: Null Pointer Dereference calling methods on uninitialized wrapper...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
+      Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-p67v-3w7g-wjg7: Nokogiri: Possible Use-After-Free when directly using...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-phwj-rprq-35pp: Nokogiri: Possible Use-After-Free when setting an attribute value via...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
+      Severity: '5.3'; Minimal Fix Version: '1.19.3';
+    GHSA-v995-44v6-5fqm: JRuby: NONET is bypassed for external DTDs and entities when the systemId uses...
+      Severity: '3.7'; Minimal Fix Version: '1.19.5';
+    GHSA-wfpw-mmfh-qq69: Nokogiri: Possible Use-After-Free in XInclude Processing
+      Severity: 'N/A'; Minimal Fix Version: '1.19.4';
+    GHSA-wjv4-x9w8-wm3h: Nokogiri: Possible Use-After-Free when setting `Document#root=` to an invalid...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+  14 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -7498,7 +7922,7 @@ id = "GHSA-2g4f-4pwh-qvx6"
 
 ---
 
-[TestCommand_UpdateConfigIgnores_All/shallow_with_removed_config - 7 - stdout]
+[TestCommand_UpdateConfigIgnores_All/shallow_with_removed_config - 7]
 [[PackageOverrides]]
 name = "ajv"
 ignore = true
@@ -7514,18 +7938,44 @@ Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
 
-Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-2 vulnerabilities can be fixed.
+Total 2 packages affected by 15 known vulnerabilities (0 Critical, 2 High, 3 Medium, 9 Low, 1 Unknown) from 2 ecosystems.
+15 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-3w22-6jfg-527w: Nokogiri: Use-After-Free in Nokogiri when replacing an attribute value
+      Severity: '2.0'; Minimal Fix Version: '1.19.5';
+    GHSA-4p39-36wj-23h4: Nokogiri: Mutation XSS through `noscript` content in Nokogiri's HTML5...
+      Severity: '2.3'; Minimal Fix Version: '1.19.5';
+    GHSA-5prr-v3j2-97mh: Nokogiri: Possible Out-of-Bounds Read in `Nokogiri::XML::NodeSet#[]`
+      Severity: '6.3'; Minimal Fix Version: '1.19.4';
+    GHSA-5v8h-3h3q-446p: Nokogiri: Possible Use-After-Free when `Nokogiri::XML::Document#encoding=`...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-8678-w3jw-xfc2: Nokogiri: XML::Schema on JRuby allows network requests when NONET is set,...
+      Severity: '2.6'; Minimal Fix Version: '1.19.4';
+    GHSA-9cv2-cfxc-v4v2: Nokogiri: Null Pointer Dereference calling methods on uninitialized wrapper...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
+      Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-p67v-3w7g-wjg7: Nokogiri: Possible Use-After-Free when directly using...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-phwj-rprq-35pp: Nokogiri: Possible Use-After-Free when setting an attribute value via...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
+      Severity: '5.3'; Minimal Fix Version: '1.19.3';
+    GHSA-v995-44v6-5fqm: JRuby: NONET is bypassed for external DTDs and entities when the systemId uses...
+      Severity: '3.7'; Minimal Fix Version: '1.19.5';
+    GHSA-wfpw-mmfh-qq69: Nokogiri: Possible Use-After-Free in XInclude Processing
+      Severity: 'N/A'; Minimal Fix Version: '1.19.4';
+    GHSA-wjv4-x9w8-wm3h: Nokogiri: Possible Use-After-Free when setting `Document#root=` to an invalid...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+  14 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -7568,22 +8018,44 @@ Filtered 3 vulnerabilities from output
 <tempdir>/nested-3/osv-scanner-test.toml had unused ignores that were removed:
  - GHSA-2g4f-4pwh-qvx6
 
-Total 7 packages affected by 10 known vulnerabilities (0 Critical, 4 High, 6 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-10 vulnerabilities can be fixed.
+Total 7 packages affected by 21 known vulnerabilities (0 Critical, 4 High, 7 Medium, 9 Low, 1 Unknown) from 2 ecosystems.
+21 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-3w22-6jfg-527w: Nokogiri: Use-After-Free in Nokogiri when replacing an attribute value
+      Severity: '2.0'; Minimal Fix Version: '1.19.5';
+    GHSA-4p39-36wj-23h4: Nokogiri: Mutation XSS through `noscript` content in Nokogiri's HTML5...
+      Severity: '2.3'; Minimal Fix Version: '1.19.5';
+    GHSA-5prr-v3j2-97mh: Nokogiri: Possible Out-of-Bounds Read in `Nokogiri::XML::NodeSet#[]`
+      Severity: '6.3'; Minimal Fix Version: '1.19.4';
+    GHSA-5v8h-3h3q-446p: Nokogiri: Possible Use-After-Free when `Nokogiri::XML::Document#encoding=`...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-8678-w3jw-xfc2: Nokogiri: XML::Schema on JRuby allows network requests when NONET is set,...
+      Severity: '2.6'; Minimal Fix Version: '1.19.4';
+    GHSA-9cv2-cfxc-v4v2: Nokogiri: Null Pointer Dereference calling methods on uninitialized wrapper...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
       Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-p67v-3w7g-wjg7: Nokogiri: Possible Use-After-Free when directly using...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-phwj-rprq-35pp: Nokogiri: Possible Use-After-Free when setting an attribute value via...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
       Severity: '5.3'; Minimal Fix Version: '1.19.3';
+    GHSA-v995-44v6-5fqm: JRuby: NONET is bypassed for external DTDs and entities when the systemId uses...
+      Severity: '3.7'; Minimal Fix Version: '1.19.5';
+    GHSA-wfpw-mmfh-qq69: Nokogiri: Possible Use-After-Free in XInclude Processing
+      Severity: 'N/A'; Minimal Fix Version: '1.19.4';
+    GHSA-wjv4-x9w8-wm3h: Nokogiri: Possible Use-After-Free when setting `Document#root=` to an invalid...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  3 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
+  14 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -7695,22 +8167,44 @@ GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 Filtered 3 vulnerabilities from output
 
-Total 7 packages affected by 10 known vulnerabilities (0 Critical, 4 High, 6 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-10 vulnerabilities can be fixed.
+Total 7 packages affected by 21 known vulnerabilities (0 Critical, 4 High, 7 Medium, 9 Low, 1 Unknown) from 2 ecosystems.
+21 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-3w22-6jfg-527w: Nokogiri: Use-After-Free in Nokogiri when replacing an attribute value
+      Severity: '2.0'; Minimal Fix Version: '1.19.5';
+    GHSA-4p39-36wj-23h4: Nokogiri: Mutation XSS through `noscript` content in Nokogiri's HTML5...
+      Severity: '2.3'; Minimal Fix Version: '1.19.5';
+    GHSA-5prr-v3j2-97mh: Nokogiri: Possible Out-of-Bounds Read in `Nokogiri::XML::NodeSet#[]`
+      Severity: '6.3'; Minimal Fix Version: '1.19.4';
+    GHSA-5v8h-3h3q-446p: Nokogiri: Possible Use-After-Free when `Nokogiri::XML::Document#encoding=`...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-8678-w3jw-xfc2: Nokogiri: XML::Schema on JRuby allows network requests when NONET is set,...
+      Severity: '2.6'; Minimal Fix Version: '1.19.4';
+    GHSA-9cv2-cfxc-v4v2: Nokogiri: Null Pointer Dereference calling methods on uninitialized wrapper...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
       Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-p67v-3w7g-wjg7: Nokogiri: Possible Use-After-Free when directly using...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-phwj-rprq-35pp: Nokogiri: Possible Use-After-Free when setting an attribute value via...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
       Severity: '5.3'; Minimal Fix Version: '1.19.3';
+    GHSA-v995-44v6-5fqm: JRuby: NONET is bypassed for external DTDs and entities when the systemId uses...
+      Severity: '3.7'; Minimal Fix Version: '1.19.5';
+    GHSA-wfpw-mmfh-qq69: Nokogiri: Possible Use-After-Free in XInclude Processing
+      Severity: 'N/A'; Minimal Fix Version: '1.19.4';
+    GHSA-wjv4-x9w8-wm3h: Nokogiri: Possible Use-After-Free when setting `Document#root=` to an invalid...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  3 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
+  14 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -7775,22 +8269,44 @@ Filtered 2 ignored package/s from the scan.
 <tempdir>/nested-3/osv-scanner-test.toml had unused ignores that were removed:
  - GHSA-2g4f-4pwh-qvx6
 
-Total 9 packages affected by 13 known vulnerabilities (0 Critical, 5 High, 8 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-13 vulnerabilities can be fixed.
+Total 9 packages affected by 24 known vulnerabilities (0 Critical, 5 High, 9 Medium, 9 Low, 1 Unknown) from 2 ecosystems.
+24 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-3w22-6jfg-527w: Nokogiri: Use-After-Free in Nokogiri when replacing an attribute value
+      Severity: '2.0'; Minimal Fix Version: '1.19.5';
+    GHSA-4p39-36wj-23h4: Nokogiri: Mutation XSS through `noscript` content in Nokogiri's HTML5...
+      Severity: '2.3'; Minimal Fix Version: '1.19.5';
+    GHSA-5prr-v3j2-97mh: Nokogiri: Possible Out-of-Bounds Read in `Nokogiri::XML::NodeSet#[]`
+      Severity: '6.3'; Minimal Fix Version: '1.19.4';
+    GHSA-5v8h-3h3q-446p: Nokogiri: Possible Use-After-Free when `Nokogiri::XML::Document#encoding=`...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-8678-w3jw-xfc2: Nokogiri: XML::Schema on JRuby allows network requests when NONET is set,...
+      Severity: '2.6'; Minimal Fix Version: '1.19.4';
+    GHSA-9cv2-cfxc-v4v2: Nokogiri: Null Pointer Dereference calling methods on uninitialized wrapper...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
       Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-p67v-3w7g-wjg7: Nokogiri: Possible Use-After-Free when directly using...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-phwj-rprq-35pp: Nokogiri: Possible Use-After-Free when setting an attribute value via...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
       Severity: '5.3'; Minimal Fix Version: '1.19.3';
+    GHSA-v995-44v6-5fqm: JRuby: NONET is bypassed for external DTDs and entities when the systemId uses...
+      Severity: '3.7'; Minimal Fix Version: '1.19.5';
+    GHSA-wfpw-mmfh-qq69: Nokogiri: Possible Use-After-Free in XInclude Processing
+      Severity: 'N/A'; Minimal Fix Version: '1.19.4';
+    GHSA-wjv4-x9w8-wm3h: Nokogiri: Possible Use-After-Free when setting `Document#root=` to an invalid...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  3 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
+  14 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -7896,22 +8412,44 @@ Package npm/ajv/6.0.0 has been filtered out because: (no reason given)
 Package npm/ajv/8.0.0 has been filtered out because: (no reason given)
 Filtered 2 ignored package/s from the scan.
 
-Total 9 packages affected by 13 known vulnerabilities (0 Critical, 5 High, 8 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-13 vulnerabilities can be fixed.
+Total 9 packages affected by 24 known vulnerabilities (0 Critical, 5 High, 9 Medium, 9 Low, 1 Unknown) from 2 ecosystems.
+24 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-3w22-6jfg-527w: Nokogiri: Use-After-Free in Nokogiri when replacing an attribute value
+      Severity: '2.0'; Minimal Fix Version: '1.19.5';
+    GHSA-4p39-36wj-23h4: Nokogiri: Mutation XSS through `noscript` content in Nokogiri's HTML5...
+      Severity: '2.3'; Minimal Fix Version: '1.19.5';
+    GHSA-5prr-v3j2-97mh: Nokogiri: Possible Out-of-Bounds Read in `Nokogiri::XML::NodeSet#[]`
+      Severity: '6.3'; Minimal Fix Version: '1.19.4';
+    GHSA-5v8h-3h3q-446p: Nokogiri: Possible Use-After-Free when `Nokogiri::XML::Document#encoding=`...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-8678-w3jw-xfc2: Nokogiri: XML::Schema on JRuby allows network requests when NONET is set,...
+      Severity: '2.6'; Minimal Fix Version: '1.19.4';
+    GHSA-9cv2-cfxc-v4v2: Nokogiri: Null Pointer Dereference calling methods on uninitialized wrapper...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
       Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-p67v-3w7g-wjg7: Nokogiri: Possible Use-After-Free when directly using...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-phwj-rprq-35pp: Nokogiri: Possible Use-After-Free when setting an attribute value via...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
       Severity: '5.3'; Minimal Fix Version: '1.19.3';
+    GHSA-v995-44v6-5fqm: JRuby: NONET is bypassed for external DTDs and entities when the systemId uses...
+      Severity: '3.7'; Minimal Fix Version: '1.19.5';
+    GHSA-wfpw-mmfh-qq69: Nokogiri: Possible Use-After-Free in XInclude Processing
+      Severity: 'N/A'; Minimal Fix Version: '1.19.4';
+    GHSA-wjv4-x9w8-wm3h: Nokogiri: Possible Use-After-Free when setting `Document#root=` to an invalid...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  3 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
+  14 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -7992,22 +8530,44 @@ Filtered 2 vulnerabilities from output
 <tempdir>/nested-3/osv-scanner-test.toml had unused ignores that were removed:
  - GHSA-2g4f-4pwh-qvx6
 
-Total 8 packages affected by 11 known vulnerabilities (0 Critical, 5 High, 6 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-11 vulnerabilities can be fixed.
+Total 8 packages affected by 22 known vulnerabilities (0 Critical, 5 High, 7 Medium, 9 Low, 1 Unknown) from 2 ecosystems.
+22 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-3w22-6jfg-527w: Nokogiri: Use-After-Free in Nokogiri when replacing an attribute value
+      Severity: '2.0'; Minimal Fix Version: '1.19.5';
+    GHSA-4p39-36wj-23h4: Nokogiri: Mutation XSS through `noscript` content in Nokogiri's HTML5...
+      Severity: '2.3'; Minimal Fix Version: '1.19.5';
+    GHSA-5prr-v3j2-97mh: Nokogiri: Possible Out-of-Bounds Read in `Nokogiri::XML::NodeSet#[]`
+      Severity: '6.3'; Minimal Fix Version: '1.19.4';
+    GHSA-5v8h-3h3q-446p: Nokogiri: Possible Use-After-Free when `Nokogiri::XML::Document#encoding=`...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-8678-w3jw-xfc2: Nokogiri: XML::Schema on JRuby allows network requests when NONET is set,...
+      Severity: '2.6'; Minimal Fix Version: '1.19.4';
+    GHSA-9cv2-cfxc-v4v2: Nokogiri: Null Pointer Dereference calling methods on uninitialized wrapper...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
       Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-p67v-3w7g-wjg7: Nokogiri: Possible Use-After-Free when directly using...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-phwj-rprq-35pp: Nokogiri: Possible Use-After-Free when setting an attribute value via...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
       Severity: '5.3'; Minimal Fix Version: '1.19.3';
+    GHSA-v995-44v6-5fqm: JRuby: NONET is bypassed for external DTDs and entities when the systemId uses...
+      Severity: '3.7'; Minimal Fix Version: '1.19.5';
+    GHSA-wfpw-mmfh-qq69: Nokogiri: Possible Use-After-Free in XInclude Processing
+      Severity: 'N/A'; Minimal Fix Version: '1.19.4';
+    GHSA-wjv4-x9w8-wm3h: Nokogiri: Possible Use-After-Free when setting `Document#root=` to an invalid...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  3 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
+  14 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -8056,7 +8616,7 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
 ---
 
-[TestCommand_UpdateConfigIgnores_Unused/deep_with_removed_config - 2]
+[TestCommand_UpdateConfigIgnores_Unused/deep_with_removed_config - 2 - stderr]
 
 ---
 
@@ -8117,22 +8677,44 @@ GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 Filtered 2 vulnerabilities from output
 
-Total 8 packages affected by 11 known vulnerabilities (0 Critical, 5 High, 6 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-11 vulnerabilities can be fixed.
+Total 8 packages affected by 22 known vulnerabilities (0 Critical, 5 High, 7 Medium, 9 Low, 1 Unknown) from 2 ecosystems.
+22 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-3w22-6jfg-527w: Nokogiri: Use-After-Free in Nokogiri when replacing an attribute value
+      Severity: '2.0'; Minimal Fix Version: '1.19.5';
+    GHSA-4p39-36wj-23h4: Nokogiri: Mutation XSS through `noscript` content in Nokogiri's HTML5...
+      Severity: '2.3'; Minimal Fix Version: '1.19.5';
+    GHSA-5prr-v3j2-97mh: Nokogiri: Possible Out-of-Bounds Read in `Nokogiri::XML::NodeSet#[]`
+      Severity: '6.3'; Minimal Fix Version: '1.19.4';
+    GHSA-5v8h-3h3q-446p: Nokogiri: Possible Use-After-Free when `Nokogiri::XML::Document#encoding=`...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-8678-w3jw-xfc2: Nokogiri: XML::Schema on JRuby allows network requests when NONET is set,...
+      Severity: '2.6'; Minimal Fix Version: '1.19.4';
+    GHSA-9cv2-cfxc-v4v2: Nokogiri: Null Pointer Dereference calling methods on uninitialized wrapper...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
       Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-p67v-3w7g-wjg7: Nokogiri: Possible Use-After-Free when directly using...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-phwj-rprq-35pp: Nokogiri: Possible Use-After-Free when setting an attribute value via...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
       Severity: '5.3'; Minimal Fix Version: '1.19.3';
+    GHSA-v995-44v6-5fqm: JRuby: NONET is bypassed for external DTDs and entities when the systemId uses...
+      Severity: '3.7'; Minimal Fix Version: '1.19.5';
+    GHSA-wfpw-mmfh-qq69: Nokogiri: Possible Use-After-Free in XInclude Processing
+      Severity: 'N/A'; Minimal Fix Version: '1.19.4';
+    GHSA-wjv4-x9w8-wm3h: Nokogiri: Possible Use-After-Free when setting `Document#root=` to an invalid...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  3 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
+  14 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -8185,7 +8767,7 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
 ---
 
-[TestCommand_UpdateConfigIgnores_Unused/global_config_deep - 1]
+[TestCommand_UpdateConfigIgnores_Unused/global_config_deep - 1 - stdout]
 Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
@@ -8203,22 +8785,44 @@ Filtered 6 vulnerabilities from output
 <tempdir>/custom-config.toml had unused ignores that were removed:
  - CVE-123-456-789
 
-Total 8 packages affected by 10 known vulnerabilities (0 Critical, 5 High, 5 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-10 vulnerabilities can be fixed.
+Total 8 packages affected by 21 known vulnerabilities (0 Critical, 5 High, 6 Medium, 9 Low, 1 Unknown) from 2 ecosystems.
+21 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-3w22-6jfg-527w: Nokogiri: Use-After-Free in Nokogiri when replacing an attribute value
+      Severity: '2.0'; Minimal Fix Version: '1.19.5';
+    GHSA-4p39-36wj-23h4: Nokogiri: Mutation XSS through `noscript` content in Nokogiri's HTML5...
+      Severity: '2.3'; Minimal Fix Version: '1.19.5';
+    GHSA-5prr-v3j2-97mh: Nokogiri: Possible Out-of-Bounds Read in `Nokogiri::XML::NodeSet#[]`
+      Severity: '6.3'; Minimal Fix Version: '1.19.4';
+    GHSA-5v8h-3h3q-446p: Nokogiri: Possible Use-After-Free when `Nokogiri::XML::Document#encoding=`...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-8678-w3jw-xfc2: Nokogiri: XML::Schema on JRuby allows network requests when NONET is set,...
+      Severity: '2.6'; Minimal Fix Version: '1.19.4';
+    GHSA-9cv2-cfxc-v4v2: Nokogiri: Null Pointer Dereference calling methods on uninitialized wrapper...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
       Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-p67v-3w7g-wjg7: Nokogiri: Possible Use-After-Free when directly using...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-phwj-rprq-35pp: Nokogiri: Possible Use-After-Free when setting an attribute value via...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
       Severity: '5.3'; Minimal Fix Version: '1.19.3';
+    GHSA-v995-44v6-5fqm: JRuby: NONET is bypassed for external DTDs and entities when the systemId uses...
+      Severity: '3.7'; Minimal Fix Version: '1.19.5';
+    GHSA-wfpw-mmfh-qq69: Nokogiri: Possible Use-After-Free in XInclude Processing
+      Severity: 'N/A'; Minimal Fix Version: '1.19.4';
+    GHSA-wjv4-x9w8-wm3h: Nokogiri: Possible Use-After-Free when setting `Document#root=` to an invalid...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  3 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
+  14 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -8265,7 +8869,7 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
 ---
 
-[TestCommand_UpdateConfigIgnores_Unused/global_config_deep - 2]
+[TestCommand_UpdateConfigIgnores_Unused/global_config_deep - 2 - stderr]
 
 ---
 
@@ -8308,7 +8912,7 @@ id = "GHSA-2g4f-4pwh-qvx6"
 
 ---
 
-[TestCommand_UpdateConfigIgnores_Unused/global_config_deep - 8]
+[TestCommand_UpdateConfigIgnores_Unused/global_config_deep - 8 - stdout]
 Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
@@ -8324,22 +8928,44 @@ GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 Filtered 6 vulnerabilities from output
 
-Total 8 packages affected by 10 known vulnerabilities (0 Critical, 5 High, 5 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-10 vulnerabilities can be fixed.
+Total 8 packages affected by 21 known vulnerabilities (0 Critical, 5 High, 6 Medium, 9 Low, 1 Unknown) from 2 ecosystems.
+21 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-3w22-6jfg-527w: Nokogiri: Use-After-Free in Nokogiri when replacing an attribute value
+      Severity: '2.0'; Minimal Fix Version: '1.19.5';
+    GHSA-4p39-36wj-23h4: Nokogiri: Mutation XSS through `noscript` content in Nokogiri's HTML5...
+      Severity: '2.3'; Minimal Fix Version: '1.19.5';
+    GHSA-5prr-v3j2-97mh: Nokogiri: Possible Out-of-Bounds Read in `Nokogiri::XML::NodeSet#[]`
+      Severity: '6.3'; Minimal Fix Version: '1.19.4';
+    GHSA-5v8h-3h3q-446p: Nokogiri: Possible Use-After-Free when `Nokogiri::XML::Document#encoding=`...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-8678-w3jw-xfc2: Nokogiri: XML::Schema on JRuby allows network requests when NONET is set,...
+      Severity: '2.6'; Minimal Fix Version: '1.19.4';
+    GHSA-9cv2-cfxc-v4v2: Nokogiri: Null Pointer Dereference calling methods on uninitialized wrapper...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
       Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-p67v-3w7g-wjg7: Nokogiri: Possible Use-After-Free when directly using...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-phwj-rprq-35pp: Nokogiri: Possible Use-After-Free when setting an attribute value via...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
       Severity: '5.3'; Minimal Fix Version: '1.19.3';
+    GHSA-v995-44v6-5fqm: JRuby: NONET is bypassed for external DTDs and entities when the systemId uses...
+      Severity: '3.7'; Minimal Fix Version: '1.19.5';
+    GHSA-wfpw-mmfh-qq69: Nokogiri: Possible Use-After-Free in XInclude Processing
+      Severity: 'N/A'; Minimal Fix Version: '1.19.4';
+    GHSA-wjv4-x9w8-wm3h: Nokogiri: Possible Use-After-Free when setting `Document#root=` to an invalid...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  3 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
+  14 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -8386,11 +9012,11 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
 ---
 
-[TestCommand_UpdateConfigIgnores_Unused/global_config_deep - 9]
+[TestCommand_UpdateConfigIgnores_Unused/global_config_deep - 9 - stderr]
 
 ---
 
-[TestCommand_UpdateConfigIgnores_Unused/global_config_shallow - 1]
+[TestCommand_UpdateConfigIgnores_Unused/global_config_shallow - 1 - stdout]
 Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
@@ -8399,18 +9025,44 @@ Scanned <tempdir>/package-lock.json file and found 1 package
  - CVE-123-456-789
  - GHSA-2g4f-4pwh-qvx6
 
-Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-2 vulnerabilities can be fixed.
+Total 2 packages affected by 15 known vulnerabilities (0 Critical, 2 High, 3 Medium, 9 Low, 1 Unknown) from 2 ecosystems.
+15 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-3w22-6jfg-527w: Nokogiri: Use-After-Free in Nokogiri when replacing an attribute value
+      Severity: '2.0'; Minimal Fix Version: '1.19.5';
+    GHSA-4p39-36wj-23h4: Nokogiri: Mutation XSS through `noscript` content in Nokogiri's HTML5...
+      Severity: '2.3'; Minimal Fix Version: '1.19.5';
+    GHSA-5prr-v3j2-97mh: Nokogiri: Possible Out-of-Bounds Read in `Nokogiri::XML::NodeSet#[]`
+      Severity: '6.3'; Minimal Fix Version: '1.19.4';
+    GHSA-5v8h-3h3q-446p: Nokogiri: Possible Use-After-Free when `Nokogiri::XML::Document#encoding=`...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-8678-w3jw-xfc2: Nokogiri: XML::Schema on JRuby allows network requests when NONET is set,...
+      Severity: '2.6'; Minimal Fix Version: '1.19.4';
+    GHSA-9cv2-cfxc-v4v2: Nokogiri: Null Pointer Dereference calling methods on uninitialized wrapper...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
+      Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-p67v-3w7g-wjg7: Nokogiri: Possible Use-After-Free when directly using...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-phwj-rprq-35pp: Nokogiri: Possible Use-After-Free when setting an attribute value via...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
+      Severity: '5.3'; Minimal Fix Version: '1.19.3';
+    GHSA-v995-44v6-5fqm: JRuby: NONET is bypassed for external DTDs and entities when the systemId uses...
+      Severity: '3.7'; Minimal Fix Version: '1.19.5';
+    GHSA-wfpw-mmfh-qq69: Nokogiri: Possible Use-After-Free in XInclude Processing
+      Severity: 'N/A'; Minimal Fix Version: '1.19.4';
+    GHSA-wjv4-x9w8-wm3h: Nokogiri: Possible Use-After-Free when setting `Document#root=` to an invalid...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+  14 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -8424,7 +9076,7 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
 ---
 
-[TestCommand_UpdateConfigIgnores_Unused/global_config_shallow - 2]
+[TestCommand_UpdateConfigIgnores_Unused/global_config_shallow - 2 - stderr]
 
 ---
 
@@ -8464,24 +9116,50 @@ id = "GHSA-2g4f-4pwh-qvx6"
 
 ---
 
-[TestCommand_UpdateConfigIgnores_Unused/global_config_shallow - 8]
+[TestCommand_UpdateConfigIgnores_Unused/global_config_shallow - 8 - stdout]
 Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
 
-Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-2 vulnerabilities can be fixed.
+Total 2 packages affected by 15 known vulnerabilities (0 Critical, 2 High, 3 Medium, 9 Low, 1 Unknown) from 2 ecosystems.
+15 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-3w22-6jfg-527w: Nokogiri: Use-After-Free in Nokogiri when replacing an attribute value
+      Severity: '2.0'; Minimal Fix Version: '1.19.5';
+    GHSA-4p39-36wj-23h4: Nokogiri: Mutation XSS through `noscript` content in Nokogiri's HTML5...
+      Severity: '2.3'; Minimal Fix Version: '1.19.5';
+    GHSA-5prr-v3j2-97mh: Nokogiri: Possible Out-of-Bounds Read in `Nokogiri::XML::NodeSet#[]`
+      Severity: '6.3'; Minimal Fix Version: '1.19.4';
+    GHSA-5v8h-3h3q-446p: Nokogiri: Possible Use-After-Free when `Nokogiri::XML::Document#encoding=`...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-8678-w3jw-xfc2: Nokogiri: XML::Schema on JRuby allows network requests when NONET is set,...
+      Severity: '2.6'; Minimal Fix Version: '1.19.4';
+    GHSA-9cv2-cfxc-v4v2: Nokogiri: Null Pointer Dereference calling methods on uninitialized wrapper...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
+      Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-p67v-3w7g-wjg7: Nokogiri: Possible Use-After-Free when directly using...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-phwj-rprq-35pp: Nokogiri: Possible Use-After-Free when setting an attribute value via...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
+      Severity: '5.3'; Minimal Fix Version: '1.19.3';
+    GHSA-v995-44v6-5fqm: JRuby: NONET is bypassed for external DTDs and entities when the systemId uses...
+      Severity: '3.7'; Minimal Fix Version: '1.19.5';
+    GHSA-wfpw-mmfh-qq69: Nokogiri: Possible Use-After-Free in XInclude Processing
+      Severity: 'N/A'; Minimal Fix Version: '1.19.4';
+    GHSA-wjv4-x9w8-wm3h: Nokogiri: Possible Use-After-Free when setting `Document#root=` to an invalid...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+  14 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -8495,29 +9173,55 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
 ---
 
-[TestCommand_UpdateConfigIgnores_Unused/global_config_shallow - 9]
+[TestCommand_UpdateConfigIgnores_Unused/global_config_shallow - 9 - stderr]
 
 ---
 
-[TestCommand_UpdateConfigIgnores_Unused/shallow - 1]
+[TestCommand_UpdateConfigIgnores_Unused/shallow - 1 - stdout]
 Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 
-Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-2 vulnerabilities can be fixed.
+Total 2 packages affected by 15 known vulnerabilities (0 Critical, 2 High, 3 Medium, 9 Low, 1 Unknown) from 2 ecosystems.
+15 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-3w22-6jfg-527w: Nokogiri: Use-After-Free in Nokogiri when replacing an attribute value
+      Severity: '2.0'; Minimal Fix Version: '1.19.5';
+    GHSA-4p39-36wj-23h4: Nokogiri: Mutation XSS through `noscript` content in Nokogiri's HTML5...
+      Severity: '2.3'; Minimal Fix Version: '1.19.5';
+    GHSA-5prr-v3j2-97mh: Nokogiri: Possible Out-of-Bounds Read in `Nokogiri::XML::NodeSet#[]`
+      Severity: '6.3'; Minimal Fix Version: '1.19.4';
+    GHSA-5v8h-3h3q-446p: Nokogiri: Possible Use-After-Free when `Nokogiri::XML::Document#encoding=`...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-8678-w3jw-xfc2: Nokogiri: XML::Schema on JRuby allows network requests when NONET is set,...
+      Severity: '2.6'; Minimal Fix Version: '1.19.4';
+    GHSA-9cv2-cfxc-v4v2: Nokogiri: Null Pointer Dereference calling methods on uninitialized wrapper...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
+      Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-p67v-3w7g-wjg7: Nokogiri: Possible Use-After-Free when directly using...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-phwj-rprq-35pp: Nokogiri: Possible Use-After-Free when setting an attribute value via...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
+      Severity: '5.3'; Minimal Fix Version: '1.19.3';
+    GHSA-v995-44v6-5fqm: JRuby: NONET is bypassed for external DTDs and entities when the systemId uses...
+      Severity: '3.7'; Minimal Fix Version: '1.19.5';
+    GHSA-wfpw-mmfh-qq69: Nokogiri: Possible Use-After-Free in XInclude Processing
+      Severity: 'N/A'; Minimal Fix Version: '1.19.4';
+    GHSA-wjv4-x9w8-wm3h: Nokogiri: Possible Use-After-Free when setting `Document#root=` to an invalid...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+  14 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -8531,7 +9235,7 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
 ---
 
-[TestCommand_UpdateConfigIgnores_Unused/shallow - 2]
+[TestCommand_UpdateConfigIgnores_Unused/shallow - 2 - stderr]
 
 ---
 
@@ -8578,25 +9282,51 @@ id = "GHSA-2g4f-4pwh-qvx6"
 
 ---
 
-[TestCommand_UpdateConfigIgnores_Unused/shallow - 8]
+[TestCommand_UpdateConfigIgnores_Unused/shallow - 8 - stdout]
 Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 
-Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-2 vulnerabilities can be fixed.
+Total 2 packages affected by 15 known vulnerabilities (0 Critical, 2 High, 3 Medium, 9 Low, 1 Unknown) from 2 ecosystems.
+15 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-3w22-6jfg-527w: Nokogiri: Use-After-Free in Nokogiri when replacing an attribute value
+      Severity: '2.0'; Minimal Fix Version: '1.19.5';
+    GHSA-4p39-36wj-23h4: Nokogiri: Mutation XSS through `noscript` content in Nokogiri's HTML5...
+      Severity: '2.3'; Minimal Fix Version: '1.19.5';
+    GHSA-5prr-v3j2-97mh: Nokogiri: Possible Out-of-Bounds Read in `Nokogiri::XML::NodeSet#[]`
+      Severity: '6.3'; Minimal Fix Version: '1.19.4';
+    GHSA-5v8h-3h3q-446p: Nokogiri: Possible Use-After-Free when `Nokogiri::XML::Document#encoding=`...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-8678-w3jw-xfc2: Nokogiri: XML::Schema on JRuby allows network requests when NONET is set,...
+      Severity: '2.6'; Minimal Fix Version: '1.19.4';
+    GHSA-9cv2-cfxc-v4v2: Nokogiri: Null Pointer Dereference calling methods on uninitialized wrapper...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
+      Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-p67v-3w7g-wjg7: Nokogiri: Possible Use-After-Free when directly using...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-phwj-rprq-35pp: Nokogiri: Possible Use-After-Free when setting an attribute value via...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
+      Severity: '5.3'; Minimal Fix Version: '1.19.3';
+    GHSA-v995-44v6-5fqm: JRuby: NONET is bypassed for external DTDs and entities when the systemId uses...
+      Severity: '3.7'; Minimal Fix Version: '1.19.5';
+    GHSA-wfpw-mmfh-qq69: Nokogiri: Possible Use-After-Free in XInclude Processing
+      Severity: 'N/A'; Minimal Fix Version: '1.19.4';
+    GHSA-wjv4-x9w8-wm3h: Nokogiri: Possible Use-After-Free when setting `Document#root=` to an invalid...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+  14 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -8610,28 +9340,54 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
 ---
 
-[TestCommand_UpdateConfigIgnores_Unused/shallow - 9]
+[TestCommand_UpdateConfigIgnores_Unused/shallow - 9 - stderr]
 
 ---
 
-[TestCommand_UpdateConfigIgnores_Unused/shallow_with_removed_config - 1]
+[TestCommand_UpdateConfigIgnores_Unused/shallow_with_removed_config - 1 - stdout]
 Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
 
-Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-2 vulnerabilities can be fixed.
+Total 2 packages affected by 15 known vulnerabilities (0 Critical, 2 High, 3 Medium, 9 Low, 1 Unknown) from 2 ecosystems.
+15 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-3w22-6jfg-527w: Nokogiri: Use-After-Free in Nokogiri when replacing an attribute value
+      Severity: '2.0'; Minimal Fix Version: '1.19.5';
+    GHSA-4p39-36wj-23h4: Nokogiri: Mutation XSS through `noscript` content in Nokogiri's HTML5...
+      Severity: '2.3'; Minimal Fix Version: '1.19.5';
+    GHSA-5prr-v3j2-97mh: Nokogiri: Possible Out-of-Bounds Read in `Nokogiri::XML::NodeSet#[]`
+      Severity: '6.3'; Minimal Fix Version: '1.19.4';
+    GHSA-5v8h-3h3q-446p: Nokogiri: Possible Use-After-Free when `Nokogiri::XML::Document#encoding=`...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-8678-w3jw-xfc2: Nokogiri: XML::Schema on JRuby allows network requests when NONET is set,...
+      Severity: '2.6'; Minimal Fix Version: '1.19.4';
+    GHSA-9cv2-cfxc-v4v2: Nokogiri: Null Pointer Dereference calling methods on uninitialized wrapper...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
+      Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-p67v-3w7g-wjg7: Nokogiri: Possible Use-After-Free when directly using...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-phwj-rprq-35pp: Nokogiri: Possible Use-After-Free when setting an attribute value via...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
+      Severity: '5.3'; Minimal Fix Version: '1.19.3';
+    GHSA-v995-44v6-5fqm: JRuby: NONET is bypassed for external DTDs and entities when the systemId uses...
+      Severity: '3.7'; Minimal Fix Version: '1.19.5';
+    GHSA-wfpw-mmfh-qq69: Nokogiri: Possible Use-After-Free in XInclude Processing
+      Severity: 'N/A'; Minimal Fix Version: '1.19.4';
+    GHSA-wjv4-x9w8-wm3h: Nokogiri: Possible Use-After-Free when setting `Document#root=` to an invalid...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+  14 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -8645,7 +9401,7 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
 ---
 
-[TestCommand_UpdateConfigIgnores_Unused/shallow_with_removed_config - 2]
+[TestCommand_UpdateConfigIgnores_Unused/shallow_with_removed_config - 2 - stderr]
 
 ---
 
@@ -8692,24 +9448,50 @@ id = "GHSA-2g4f-4pwh-qvx6"
 
 ---
 
-[TestCommand_UpdateConfigIgnores_Unused/shallow_with_removed_config - 8]
+[TestCommand_UpdateConfigIgnores_Unused/shallow_with_removed_config - 8 - stdout]
 Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
 
-Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-2 vulnerabilities can be fixed.
+Total 2 packages affected by 15 known vulnerabilities (0 Critical, 2 High, 3 Medium, 9 Low, 1 Unknown) from 2 ecosystems.
+15 vulnerabilities can be fixed.
 
 RubyGems
 
 lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
 
   nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-3w22-6jfg-527w: Nokogiri: Use-After-Free in Nokogiri when replacing an attribute value
+      Severity: '2.0'; Minimal Fix Version: '1.19.5';
+    GHSA-4p39-36wj-23h4: Nokogiri: Mutation XSS through `noscript` content in Nokogiri's HTML5...
+      Severity: '2.3'; Minimal Fix Version: '1.19.5';
+    GHSA-5prr-v3j2-97mh: Nokogiri: Possible Out-of-Bounds Read in `Nokogiri::XML::NodeSet#[]`
+      Severity: '6.3'; Minimal Fix Version: '1.19.4';
+    GHSA-5v8h-3h3q-446p: Nokogiri: Possible Use-After-Free when `Nokogiri::XML::Document#encoding=`...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-8678-w3jw-xfc2: Nokogiri: XML::Schema on JRuby allows network requests when NONET is set,...
+      Severity: '2.6'; Minimal Fix Version: '1.19.4';
+    GHSA-9cv2-cfxc-v4v2: Nokogiri: Null Pointer Dereference calling methods on uninitialized wrapper...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-c4rq-3m3g-8wgx: Nokogiri CSS selector tokenizer has regular expression backtracking
+      Severity: '7.5'; Minimal Fix Version: '1.19.3';
+    GHSA-p67v-3w7g-wjg7: Nokogiri: Possible Use-After-Free when directly using...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-phwj-rprq-35pp: Nokogiri: Possible Use-After-Free when setting an attribute value via...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
+    GHSA-v2fc-qm4h-8hqv: Nokogiri XSLT transform has a memory leak
+      Severity: '5.3'; Minimal Fix Version: '1.19.3';
+    GHSA-v995-44v6-5fqm: JRuby: NONET is bypassed for external DTDs and entities when the systemId uses...
+      Severity: '3.7'; Minimal Fix Version: '1.19.5';
+    GHSA-wfpw-mmfh-qq69: Nokogiri: Possible Use-After-Free in XInclude Processing
+      Severity: 'N/A'; Minimal Fix Version: '1.19.4';
+    GHSA-wjv4-x9w8-wm3h: Nokogiri: Possible Use-After-Free when setting `Document#root=` to an invalid...
+      Severity: '1.7'; Minimal Fix Version: '1.19.4';
     GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
       Severity: '5.3'; Minimal Fix Version: '1.19.1';
 
-  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+  14 known vulnerabilities found in lockfile:<tempdir>/Gemfile.lock
 
 npm
 
@@ -8723,7 +9505,7 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
 ---
 
-[TestCommand_UpdateConfigIgnores_Unused/shallow_with_removed_config - 9]
+[TestCommand_UpdateConfigIgnores_Unused/shallow_with_removed_config - 9 - stderr]
 
 ---
 
