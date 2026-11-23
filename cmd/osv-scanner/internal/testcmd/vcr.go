@@ -212,6 +212,10 @@ func InsertCassetteWithName(t *testing.T, name string) *http.Client {
 		mode = recorder.ModeReplayOnly
 	}
 
+	// tracks how many interactions were captured from the real transport (rather than replayed),
+	// so we know if the cassette actually needs to be written
+	var captured atomic.Int64
+
 	r, err := recorder.New(
 		path,
 		recorder.WithMarshalFunc(marshalCassettes),
@@ -223,6 +227,8 @@ func InsertCassetteWithName(t *testing.T, name string) *http.Client {
 		recorder.WithPassthrough(isPassthroughRequest),
 		recorder.WithMatcher(matcher),
 		recorder.WithHook(func(i *cassette.Interaction) error {
+			captured.Add(1)
+
 			// remove headers that are not important to reduce cassette size and noise
 			for _, header := range []string{
 				"Alt-Svc",
@@ -292,13 +298,17 @@ func InsertCassetteWithName(t *testing.T, name string) *http.Client {
 			return // skip Stop(), so no empty cassette gets written
 		}
 
+		// if nothing new was captured then the cassette on disk is already up to date,
+		// so skip writing it to avoid racing with parallel tests sharing the cassette
+		if captured.Load() == 0 {
+			return
+		}
+
 		if err := r.Stop(); err != nil {
 			t.Error(err)
 		}
 
-		if name != NoInteractions {
-			sortCassetteInteractions(t, path)
-		}
+		sortCassetteInteractions(t, path)
 	})
 
 	return client
