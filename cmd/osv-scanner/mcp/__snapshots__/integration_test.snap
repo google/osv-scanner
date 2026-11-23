@@ -27,3 +27,29 @@ lockfile:<rootdir>/testdata/go-project/go.mod: found 1 package with issues
   1 known vulnerability found in lockfile:<rootdir>/testdata/go-project/go.mod
 
 ---
+
+[TestIntegration_MCP_SSE_Subprocess/ScanVulnerableDependencies_IgnoreGlobPatterns - 1]
+Scanned <rootdir>/testdata/glob-project/package-lock.json file and found 1 package
+
+Total 1 package affected by 5 known vulnerabilities (0 Critical, 3 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+5 vulnerabilities can be fixed.
+
+npm
+
+lockfile:<rootdir>/testdata/glob-project/package-lock.json: found 1 package with issues
+
+  lodash@4.17.15 has the following known vulnerabilities:
+    GHSA-29mw-wpgm-hmr9: Regular Expression Denial of Service (ReDoS) in lodash
+      Severity: '5.3'; Minimal Fix Version: '4.17.21';
+    GHSA-35jh-r3h4-6jhm: Command Injection in lodash
+      Severity: '7.2'; Minimal Fix Version: '4.17.21';
+    GHSA-p6mc-m468-83gw: Prototype Pollution in lodash
+      Severity: '7.4'; Minimal Fix Version: '4.17.19';
+    GHSA-r5fr-rjxr-66jc: lodash vulnerable to Code Injection via `_.template` imports key names
+      Severity: '8.1'; Minimal Fix Version: '4.18.0';
+    GHSA-xxjr-mmjv-4gpg: Lodash has Prototype Pollution Vulnerability in `_.unset`, `_.omit`, and...
+      Severity: '6.9'; Minimal Fix Version: '4.17.23';
+
+  5 known vulnerabilities found in lockfile:<rootdir>/testdata/glob-project/package-lock.json
+
+---
