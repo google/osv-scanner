@@ -38,8 +38,8 @@ func Command(stdout, stderr io.Writer, clientFactories scalibrconfig.ClientFacto
 }
 
 func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clientFactories scalibrconfig.ClientFactories) error {
-	if cmd.Args().Len() == 0 {
-		return errors.New("please provide an image name or see the help document")
+	if cmd.Args().Len() != 1 {
+		return fmt.Errorf("please provide the name of a single image (got %d) or see the help document", cmd.Args().Len())
 	}
 
 	isImageArchive := cmd.Bool("archive")
