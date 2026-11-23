@@ -60,7 +60,7 @@ func FallbackToDeprecatedName(cmd *cli.Command, name, old string) string {
 	return old
 }
 
-func GetExperimentalScannerActions(cmd *cli.Command) osvscanner.ExperimentalScannerActions {
+func getExperimentalScannerActions(cmd *cli.Command) osvscanner.ExperimentalScannerActions {
 	return osvscanner.ExperimentalScannerActions{
 		PluginsEnabled:         cmd.StringSlice(FallbackToDeprecatedName(cmd, "x-plugins", "experimental-plugins")),
 		PluginsDisabled:        cmd.StringSlice(FallbackToDeprecatedName(cmd, "x-disable-plugins", "experimental-disable-plugins")),
