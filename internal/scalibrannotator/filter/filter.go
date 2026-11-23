@@ -14,6 +14,7 @@ import (
 	"github.com/google/osv-scalibr/enricher/vulnmatch/osvutil"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gomod"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gowork"
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
@@ -164,7 +165,8 @@ func (a *Annotator) Annotate(_ context.Context, _ *annotator.ScanInput, results 
 			// The 'go' directive in go.mod specifies the minimum required language version,
 			// not the actual toolchain version used to build/run, which can lead to false positives.
 			// We still want to scan binary stdlib versions as they represent the actual toolchain used.
-			if !configToUse.ScanGoModVersion && slices.Contains(psr.Plugins, gomod.Name) {
+			if !configToUse.ScanGoModVersion &&
+				(slices.Contains(psr.Plugins, gomod.Name) || slices.Contains(psr.Plugins, gowork.Name)) {
 				continue
 			}
 

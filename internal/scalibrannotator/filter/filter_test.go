@@ -9,6 +9,7 @@ import (
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gobinary"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gomod"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gowork"
 	dpkgmeta "github.com/google/osv-scalibr/extractor/filesystem/os/dpkg/metadata"
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/purl"
@@ -171,6 +172,14 @@ func TestAnnotator_Annotate_GoStdlib(t *testing.T) {
 			Plugins:  []string{gomod.Name},
 		}
 	}
+	goWorkStdlib := func(version string) *extractor.Package {
+		return &extractor.Package{
+			Name:     "stdlib",
+			Version:  version,
+			PURLType: purl.TypeGolang,
+			Plugins:  []string{gowork.Name},
+		}
+	}
 	goBinaryStdlib := func(version string) *extractor.Package {
 		return &extractor.Package{
 			Name:     "go",
@@ -215,6 +224,30 @@ func TestAnnotator_Annotate_GoStdlib(t *testing.T) {
 			wantPackages:  []*extractor.Package{goModStdlib("1.25.0")},
 		},
 		{
+			name:          "go_work_stdlib_is_filtered_by_default",
+			configManager: withConfig(config.Config{}),
+			inputPackages: []*extractor.Package{goWorkStdlib("1.21.0")},
+			wantPackages:  []*extractor.Package{},
+		},
+		{
+			name:          "go_work_stdlib_is_filtered_by_default_even_with_override",
+			configManager: withConfig(config.Config{GoVersionOverride: "1.25.0"}),
+			inputPackages: []*extractor.Package{goWorkStdlib("1.21.0")},
+			wantPackages:  []*extractor.Package{},
+		},
+		{
+			name:          "go_work_stdlib_is_kept_when_scanning_go_mod_version",
+			configManager: withConfig(config.Config{ScanGoModVersion: true}),
+			inputPackages: []*extractor.Package{goWorkStdlib("1.21.0")},
+			wantPackages:  []*extractor.Package{goWorkStdlib("1.21.0")},
+		},
+		{
+			name:          "go_work_stdlib_version_is_overridden",
+			configManager: withConfig(config.Config{ScanGoModVersion: true, GoVersionOverride: "1.25.0"}),
+			inputPackages: []*extractor.Package{goWorkStdlib("1.21.0")},
+			wantPackages:  []*extractor.Package{goWorkStdlib("1.25.0")},
+		},
+		{
 			name:          "go_binary_stdlib_is_kept_by_default",
 			configManager: withConfig(config.Config{}),
 			inputPackages: []*extractor.Package{goBinaryStdlib("1.21.0")},
@@ -230,8 +263,8 @@ func TestAnnotator_Annotate_GoStdlib(t *testing.T) {
 			name:            "container_scans_are_not_affected",
 			isContainerScan: true,
 			configManager:   withConfig(config.Config{GoVersionOverride: "1.25.0"}),
-			inputPackages:   []*extractor.Package{goModStdlib("1.21.0"), goBinaryStdlib("1.21.0")},
-			wantPackages:    []*extractor.Package{goModStdlib("1.21.0"), goBinaryStdlib("1.21.0")},
+			inputPackages:   []*extractor.Package{goModStdlib("1.21.0"), goWorkStdlib("1.21.0"), goBinaryStdlib("1.21.0")},
+			wantPackages:    []*extractor.Package{goModStdlib("1.21.0"), goWorkStdlib("1.21.0"), goBinaryStdlib("1.21.0")},
 		},
 	}
 
