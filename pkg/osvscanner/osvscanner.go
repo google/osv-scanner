@@ -16,6 +16,7 @@ import (
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
 	"github.com/google/osv-scalibr/binary/proto"
+	scalibrosvdev "github.com/google/osv-scalibr/enricher/vulnmatch/osvdev"
 	"github.com/google/osv-scalibr/inventory"
 	scalibrlog "github.com/google/osv-scalibr/log"
 	"github.com/google/osv-scalibr/plugin"
@@ -74,7 +75,8 @@ type ExperimentalScannerActions struct {
 
 	StatsCollector stats.Collector
 
-	HTTPClient *http.Client
+	HTTPClient   *http.Client
+	OSVDevClient scalibrosvdev.Client
 
 	// Custom ScalibrConfig to use instead of constructing default ones
 	ScalibrConfig *scalibrconfig.PluginConfig
@@ -483,11 +485,7 @@ func setupAccessors(actions ScannerActions) (*scalibrconfig.PluginConfig, Extern
 	if actions.ScalibrConfig != nil {
 		scalibrConfig = actions.ScalibrConfig
 	} else {
-		cf := localscalibr.NewClientFactories(actions.HTTPClient, actions.RequestUserAgent)
-		scalibrConfig = &scalibrconfig.PluginConfig{
-			ClientFactories: cf,
-		}
-		toClose = cf
+		scalibrConfig, toClose = localscalibr.NewPluginConfig(actions.HTTPClient, actions.RequestUserAgent)
 	}
 
 	cleanup := func() {

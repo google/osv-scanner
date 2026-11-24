@@ -10,6 +10,7 @@ import (
 	"runtime"
 	"slices"
 	"strings"
+	"time"
 
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/annotator"
@@ -17,6 +18,7 @@ import (
 	"github.com/google/osv-scalibr/enricher"
 	"github.com/google/osv-scalibr/enricher/packagedeprecation"
 	"github.com/google/osv-scalibr/enricher/reachability/java"
+	scalibrosvdev "github.com/google/osv-scalibr/enricher/vulnmatch/osvdev"
 	"github.com/google/osv-scalibr/enricher/vulnmatch/osvlocal"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
@@ -145,6 +147,18 @@ func getPlugins(
 	}
 
 	plugins := scalibrplugin.Resolve(actions.PluginsEnabled, actions.PluginsDisabled, finalScalibrConfig)
+
+	if actions.OSVDevClient != nil {
+		for i, plug := range plugins {
+			if plug.Name() == scalibrosvdev.Name {
+				plugins[i] = scalibrosvdev.NewWithClient(
+					actions.OSVDevClient,
+					5*time.Minute,
+				)
+			}
+		}
+	}
+
 	plugins = removeNetworkPluginsWhenOffline(plugins, actions)
 
 	// Append the pre-matching filter annotator so it always runs.

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 
+	"github.com/google/osv-scanner/v2/internal/osvdiet"
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
@@ -13,12 +14,12 @@ func Format() []string {
 	return format
 }
 
-func newResultPrinter(format string, writer io.Writer, terminalWidth int, showAllVulns bool) (resultPrinter, error) {
+func newResultPrinter(format string, writer io.Writer, terminalWidth int, showAllVulns bool, dietClient *osvdiet.Client) (resultPrinter, error) {
 	switch format {
 	case "html":
 		return &htmlReporter{writer}, nil
 	case "json":
-		return &jsonReporter{writer}, nil
+		return &jsonReporter{writer, dietClient}, nil
 	case "vertical":
 		return &verticalReporter{writer, terminalWidth, showAllVulns}, nil
 	case "table":

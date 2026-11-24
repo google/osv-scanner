@@ -20,12 +20,14 @@ require (
 	github.com/owenrumney/go-sarif/v3 v3.3.2
 	github.com/package-url/packageurl-go v0.1.7
 	github.com/pandatix/go-cvss v0.6.4
+	github.com/sergi/go-diff v1.4.0
 	github.com/tidwall/gjson v1.20.0
 	github.com/tidwall/pretty v1.2.2
 	github.com/tidwall/sjson v1.2.5
 	github.com/urfave/cli/v3 v3.14.0
 	go.yaml.in/yaml/v4 v4.0.0-rc.7
 	golang.org/x/term v0.48.0
+	golang.org/x/tools v0.52.0
 	golang.org/x/vuln v1.6.0
 	google.golang.org/grpc v1.85.0
 	google.golang.org/protobuf v1.36.12
@@ -157,7 +159,6 @@ require (
 	github.com/santhosh-tekuri/jsonschema/v6 v6.0.2 // indirect
 	github.com/segmentio/asm v1.2.1 // indirect
 	github.com/segmentio/encoding v0.5.4 // indirect
-	github.com/sergi/go-diff v1.4.0 // indirect
 	github.com/shirou/gopsutil/v3 v3.24.5 // indirect
 	github.com/shoenig/go-m1cpu v0.1.6 // indirect
 	github.com/sirupsen/logrus v1.10.1 // indirect
@@ -200,7 +201,6 @@ require (
 	golang.org/x/telemetry v0.0.0-20261009151841-97e8ea77aa2a // indirect
 	golang.org/x/text v0.44.0 // indirect
 	golang.org/x/time v0.15.0 // indirect
-	golang.org/x/tools v0.52.0 // indirect
 	golang.org/x/xerrors v0.0.0-20240903120638-7835f813f4da // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20260817212433-ac3dfec99bb1 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20260817212433-ac3dfec99bb1 // indirect

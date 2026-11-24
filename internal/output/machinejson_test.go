@@ -15,7 +15,7 @@ func TestPrintJSONResults_WithVulnerabilities(t *testing.T) {
 		t.Helper()
 
 		outputWriter := &bytes.Buffer{}
-		err := output.PrintJSONResults(args.vulnResult, outputWriter)
+		err := output.PrintJSONResults(args.vulnResult, outputWriter, nil)
 
 		if err != nil {
 			t.Errorf("Error writing JSON output: %s", err)
@@ -32,7 +32,7 @@ func TestPrintJSONResults_WithLicenseViolations(t *testing.T) {
 		t.Helper()
 
 		outputWriter := &bytes.Buffer{}
-		err := output.PrintJSONResults(args.vulnResult, outputWriter)
+		err := output.PrintJSONResults(args.vulnResult, outputWriter, nil)
 
 		if err != nil {
 			t.Errorf("Error writing JSON output: %s", err)
@@ -49,7 +49,7 @@ func TestPrintJSONResults_WithLicenseSummary(t *testing.T) {
 		t.Helper()
 
 		outputWriter := &bytes.Buffer{}
-		err := output.PrintJSONResults(args.vulnResult, outputWriter)
+		err := output.PrintJSONResults(args.vulnResult, outputWriter, nil)
 
 		if err != nil {
 			t.Errorf("Error writing JSON output: %s", err)
@@ -66,7 +66,7 @@ func TestPrintJSONResults_WithMixedIssues(t *testing.T) {
 		t.Helper()
 
 		outputWriter := &bytes.Buffer{}
-		err := output.PrintJSONResults(args.vulnResult, outputWriter)
+		err := output.PrintJSONResults(args.vulnResult, outputWriter, nil)
 
 		if err != nil {
 			t.Errorf("Error writing JSON output: %s", err)
