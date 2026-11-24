@@ -258,3 +258,21 @@ func groupSARIFFindings(vulnResults *models.VulnerabilityResults) []*groupedSARI
 
 	return groups
 }
+
+// collectDeprecatedPkgSources collects all deprecated packages and their sources in a deterministic order
+func collectDeprecatedPkgSources(vulnResults *models.VulnerabilityResults) []pkgWithSource {
+	deprecatedPkgs := make(pkgSourceSet)
+
+	for _, res := range vulnResults.Results {
+		for _, pkg := range res.Packages {
+			if pkg.Package.Deprecated {
+				deprecatedPkgs[pkgWithSource{
+					Package: pkg.Package,
+					Source:  res.Source,
+				}] = struct{}{}
+			}
+		}
+	}
+
+	return deprecatedPkgs.StableKeys()
+}

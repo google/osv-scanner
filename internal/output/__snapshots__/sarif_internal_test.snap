@@ -1,4 +1,41 @@
 
+[Test_createSARIFDeprecatedHelpText - 1]
+**Your dependency is flagged as deprecated or yanked.**
+
+Deprecated or yanked packages are no longer supported by their maintainers or have been removed from the package registry, and may contain unpatched bugs or security issues.
+
+/-/-/-/
+
+### Deprecated Packages
+
+| Source | Package Name | Package Version |
+| --- | --- | --- |
+| lockfile:/path/to/sub-rust-project/Cargo.lock | spin | 0.9.8 |
+
+## Remediation
+
+To resolve this finding, update the deprecated dependency to a supported version or replace it with a maintained alternative.
+
+If you wish to ignore a deprecated package completely (including any vulnerabilities and license violations), add a package override in an
+`osv-scanner.toml` file located in the same directory as the lockfile containing the dependency.
+
+See the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/
+
+Add or append these values to the following config files to ignore the deprecated package:
+
+`/path/to/sub-rust-project/osv-scanner.toml`
+
+```
+[[PackageOverrides]]
+name = "spin"
+version = "0.9.8"
+ecosystem = "crates.io"
+ignore = true
+reason = "Your reason for ignoring this package"
+```
+
+---
+
 [Test_createSARIFHelpText/#00 - 1]
 **Your dependency is vulnerable to [CVE-2022-24713](https://osv.dev/CVE-2022-24713)**
 (Also published as: [RUSTSEC-2022-0013](https://osv.dev/RUSTSEC-2022-0013), [GHSA-m5pq-gvj9-9vr8](https://osv.dev/GHSA-m5pq-gvj9-9vr8), ).

@@ -68,6 +68,7 @@ func TestPrintSARIFReport_WithVulnerabilities(t *testing.T) {
 				"\\\\path\\\\to\\\\my\\\\second\\\\osv-scanner.toml": "/path/to/my/second/osv-scanner.toml",
 				"\\\\path\\\\to\\\\my\\\\third\\\\osv-scanner.toml":  "/path/to/my/third/osv-scanner.toml",
 				"\\\\var\\\\lib\\\\dpkg\\\\osv-scanner.toml":         "/var/lib/dpkg/osv-scanner.toml",
+				"\\\\path\\\\to\\\\osv-scanner.toml":                 "/path/to/osv-scanner.toml",
 			}).MatchJSON(t, jsonStructure)
 	})
 }
@@ -89,6 +90,7 @@ func TestPrintSARIFReport_WithLicenseViolations(t *testing.T) {
 				"\\\\path\\\\to\\\\my\\\\first\\\\osv-scanner.toml":  "/path/to/my/first/osv-scanner.toml",
 				"\\\\path\\\\to\\\\my\\\\second\\\\osv-scanner.toml": "/path/to/my/second/osv-scanner.toml",
 				"\\\\path\\\\to\\\\my\\\\third\\\\osv-scanner.toml":  "/path/to/my/third/osv-scanner.toml",
+				"\\\\path\\\\to\\\\osv-scanner.toml":                 "/path/to/osv-scanner.toml",
 			}).MatchJSON(t, jsonStructure)
 	})
 }
@@ -110,6 +112,7 @@ func TestPrintSARIFReport_WithMixedIssues(t *testing.T) {
 				"\\\\path\\\\to\\\\my\\\\first\\\\osv-scanner.toml":  "/path/to/my/first/osv-scanner.toml",
 				"\\\\path\\\\to\\\\my\\\\second\\\\osv-scanner.toml": "/path/to/my/second/osv-scanner.toml",
 				"\\\\path\\\\to\\\\my\\\\third\\\\osv-scanner.toml":  "/path/to/my/third/osv-scanner.toml",
+				"\\\\path\\\\to\\\\osv-scanner.toml":                 "/path/to/osv-scanner.toml",
 			}).MatchJSON(t, jsonStructure)
 	})
 }
