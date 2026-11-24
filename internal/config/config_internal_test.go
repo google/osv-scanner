@@ -12,6 +12,9 @@ import (
 	apkmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/apk/metadata"
 	"github.com/google/osv-scalibr/extractor/filesystem/osv"
 	"github.com/google/osv-scalibr/purl"
+	"github.com/google/osv-scanner/v2/internal/grouper"
+	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 // Attempts to normalize any file paths in the given `output` so that they can
@@ -1405,6 +1408,273 @@ func TestConfig_FindPackageLicenseOverride(t *testing.T) {
 			got := tt.config.FindPackageLicenseOverride(tt.args)
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("FindPackageLicenseOverride() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestConfig_IgnoreVulns(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name string
+		// vulns found in a single package
+		args []*osvschema.Vulnerability
+		// vulns per package, each grouped separately like in a real scan;
+		// used instead of args when set
+		packages [][]*osvschema.Vulnerability
+		existing []*IgnoreEntry
+		want     []*IgnoreEntry
+	}{
+		{
+			name:     "nothing_happens_when_everything_is_empty",
+			args:     []*osvschema.Vulnerability{},
+			existing: []*IgnoreEntry{},
+			want:     []*IgnoreEntry{},
+		},
+		{
+			name: "empty_config_with_one_vuln",
+			args: []*osvschema.Vulnerability{
+				{Id: "GHSA-123"},
+			},
+			existing: []*IgnoreEntry{},
+			want:     []*IgnoreEntry{{ID: "GHSA-123"}},
+		},
+		{
+			name: "empty_config_with_two_vulns",
+			args: []*osvschema.Vulnerability{
+				{Id: "GHSA-123"},
+				{Id: "GHSA-456"},
+			},
+			existing: []*IgnoreEntry{},
+			want: []*IgnoreEntry{
+				{ID: "GHSA-123"},
+				{ID: "GHSA-456"},
+			},
+		},
+		{
+			name: "existing_properties_are_preserved",
+			args: []*osvschema.Vulnerability{
+				{Id: "GHSA-123"},
+				{Id: "GHSA-456"},
+				{Id: "GHSA-789"},
+			},
+			existing: []*IgnoreEntry{
+				{ID: "GHSA-123", Reason: "No ssh servers are connected to or hosted in Go lang"},
+				{ID: "GHSA-789", Used: true},
+			},
+			want: []*IgnoreEntry{
+				{ID: "GHSA-123", Reason: "No ssh servers are connected to or hosted in Go lang"},
+				{ID: "GHSA-456"},
+				{ID: "GHSA-789", Used: true},
+			},
+		},
+		{
+			name: "missing_vulns_are_removed",
+			args: []*osvschema.Vulnerability{
+				{Id: "GHSA-123"},
+				{Id: "GHSA-456"},
+			},
+			existing: []*IgnoreEntry{
+				{ID: "GHSA-789"},
+			},
+			want: []*IgnoreEntry{
+				{ID: "GHSA-123"},
+				{ID: "GHSA-456"},
+			},
+		},
+		{
+			name: "ids_are_deduplicated",
+			args: []*osvschema.Vulnerability{
+				{Id: "GHSA-123"},
+				{Id: "GHSA-123"},
+				{Id: "GHSA-456"},
+			},
+			existing: []*IgnoreEntry{},
+			want: []*IgnoreEntry{
+				{ID: "GHSA-123"},
+				{ID: "GHSA-456"},
+			},
+		},
+		{
+			name: "ids_are_deduplicated_including_already_existing",
+			args: []*osvschema.Vulnerability{
+				{Id: "GHSA-456"},
+				{Id: "GHSA-123"},
+				{Id: "GHSA-456"},
+				{Id: "GHSA-789"},
+			},
+			existing: []*IgnoreEntry{
+				{ID: "GHSA-456"},
+				{ID: "GHSA-456"},
+			},
+			want: []*IgnoreEntry{
+				{ID: "GHSA-123"},
+				{ID: "GHSA-456"},
+				{ID: "GHSA-789"},
+			},
+		},
+		{
+			name: "aliases_are_deduplicated",
+			args: []*osvschema.Vulnerability{
+				{Id: "GHSA-123"},
+				{Id: "GHSA-456"},
+				{Id: "GHSA-789", Aliases: []string{"GHSA-123", "CVE-123"}},
+			},
+			existing: []*IgnoreEntry{},
+			want: []*IgnoreEntry{
+				{ID: "GHSA-123"},
+				{ID: "GHSA-456"},
+			},
+		},
+		{
+			name: "existing_alias_entry",
+			args: []*osvschema.Vulnerability{
+				{Id: "GHSA-123", Aliases: []string{"CVE-2020-123"}},
+			},
+			existing: []*IgnoreEntry{
+				{
+					ID:             "CVE-2020-123",
+					Reason:         "keyed on an alias",
+					EffectiveUntil: time.Date(2099, 1, 1, 0, 0, 0, 0, time.UTC),
+				},
+			},
+			want: []*IgnoreEntry{
+				{
+					ID:             "CVE-2020-123",
+					Reason:         "keyed on an alias",
+					EffectiveUntil: time.Date(2099, 1, 1, 0, 0, 0, 0, time.UTC),
+				},
+			},
+		},
+		{
+			// the existing entry is neither the first alias (CVE) nor the last (GHSA)
+			name: "existing_alias_entry_not_sorted_first",
+			args: []*osvschema.Vulnerability{
+				{Id: "GHSA-123", Aliases: []string{"DRUPAL-CORE-2020-123", "CVE-2020-123"}},
+				{Id: "DRUPAL-CORE-2020-123", Aliases: []string{"GHSA-123", "CVE-2020-123"}},
+			},
+			existing: []*IgnoreEntry{
+				{ID: "DRUPAL-CORE-2020-123", Reason: "not exploitable"},
+			},
+			want: []*IgnoreEntry{
+				{ID: "DRUPAL-CORE-2020-123", Reason: "not exploitable"},
+			},
+		},
+		{
+			name: "two_configured_entries_for_same_vuln",
+			args: []*osvschema.Vulnerability{
+				{Id: "GHSA-123", Aliases: []string{"CVE-2020-123"}},
+			},
+			existing: []*IgnoreEntry{
+				{ID: "GHSA-123", Reason: "configured first"},
+				{ID: "CVE-2020-123", Reason: "configured second"},
+			},
+			// filtering checks aliases in sorted order, so would use the CVE entry
+			want: []*IgnoreEntry{
+				{ID: "CVE-2020-123", Reason: "configured second"},
+			},
+		},
+		{
+			name: "duplicate_configured_id_with_different_reasons",
+			args: []*osvschema.Vulnerability{
+				{Id: "GHSA-123"},
+			},
+			existing: []*IgnoreEntry{
+				{ID: "GHSA-123", Reason: "first"},
+				{ID: "GHSA-123", Reason: "second"},
+			},
+			want: []*IgnoreEntry{
+				{ID: "GHSA-123", Reason: "first"},
+			},
+		},
+		{
+			name: "same_vuln_across_packages",
+			packages: [][]*osvschema.Vulnerability{
+				{{Id: "GHSA-123", Aliases: []string{"CVE-2020-123"}}}, // e.g. ajv@6
+				{{Id: "GHSA-123", Aliases: []string{"CVE-2020-123"}}}, // e.g. ajv@8
+			},
+			want: []*IgnoreEntry{
+				{ID: "GHSA-123"},
+			},
+		},
+		{
+			name: "same_vuln_across_packages_with_existing_entry",
+			packages: [][]*osvschema.Vulnerability{
+				{{Id: "GHSA-123", Aliases: []string{"CVE-2020-123"}}}, // e.g. ajv@6
+				{{Id: "GHSA-123", Aliases: []string{"CVE-2020-123"}}}, // e.g. ajv@8
+			},
+			existing: []*IgnoreEntry{
+				{ID: "GHSA-123", Reason: "configured"},
+			},
+			want: []*IgnoreEntry{
+				{ID: "GHSA-123", Reason: "configured"},
+			},
+		},
+		{
+			name: "same_vuln_across_packages_followed_by_other_vulns",
+			packages: [][]*osvschema.Vulnerability{
+				{{Id: "GHSA-123", Aliases: []string{"CVE-2020-123"}}}, // e.g. ajv@6
+				{ // e.g. ajv@8
+					{Id: "GHSA-123", Aliases: []string{"CVE-2020-123"}},
+					{Id: "GHSA-456", Aliases: []string{"CVE-2020-456"}},
+				},
+				{{Id: "GHSA-789"}}, // e.g. ansi-html@0.0.1
+			},
+			want: []*IgnoreEntry{
+				{ID: "GHSA-123"},
+				{ID: "GHSA-456"},
+				{ID: "GHSA-789"},
+			},
+		},
+		{
+			// the records only share a CVE, so an entry for one record's id
+			// would not cause the other record to be ignored
+			name: "same_vuln_across_packages_with_different_records",
+			packages: [][]*osvschema.Vulnerability{
+				{{Id: "GHSA-123"}}, // e.g. an npm package
+				{{Id: "PYSEC-2020-123", Aliases: []string{"CVE-2020-123"}}}, // e.g. a PyPI package
+				{{Id: "GHSA-123", Aliases: []string{"CVE-2020-123"}}},       // e.g. another npm package
+			},
+			want: []*IgnoreEntry{
+				{ID: "PYSEC-2020-123"},
+				{ID: "GHSA-123"},
+			},
+		},
+		{
+			name: "same_vuln_across_packages_with_different_records_and_existing_alias_entry",
+			packages: [][]*osvschema.Vulnerability{
+				{{Id: "GHSA-123", Aliases: []string{"CVE-2020-123"}}},       // e.g. an npm package
+				{{Id: "PYSEC-2020-123", Aliases: []string{"CVE-2020-123"}}}, // e.g. a PyPI package
+			},
+			existing: []*IgnoreEntry{
+				{ID: "CVE-2020-123", Reason: "covers both"},
+			},
+			want: []*IgnoreEntry{
+				{ID: "CVE-2020-123", Reason: "covers both"},
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			packages := tt.packages
+			if packages == nil {
+				packages = [][]*osvschema.Vulnerability{tt.args}
+			}
+
+			var groups []models.GroupInfo
+			for _, vulns := range packages {
+				groups = append(groups, grouper.Group(grouper.ConvertVulnerabilityToIDAliases(vulns))...)
+			}
+
+			c := Config{IgnoredVulns: tt.existing}
+
+			c.IgnoreVulns(groups)
+
+			if diff := cmp.Diff(tt.want, c.IgnoredVulns); diff != "" {
+				t.Errorf("IgnoreVulns() (-want +got):\n%s", diff)
 			}
 		})
 	}
