@@ -68,7 +68,7 @@ func matchAnalysisWithPackageVulns(pkgs []models.PackageVulns, idToFindings map[
 		for _, f := range findings {
 			modulePath := f.Trace[0].Module
 			called := f.Trace[0].Function != ""
-			idToModuleToCalled[f.OSV][modulePath] = called
+			idToModuleToCalled[f.OSV][modulePath] = idToModuleToCalled[f.OSV][modulePath] || called
 		}
 	}
 
