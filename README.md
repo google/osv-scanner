@@ -182,6 +182,10 @@ If you have what looks like a bug, please use the [GitHub issue tracking system]
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for documentation on how to contribute code.
 
+## Package Security Watch
+
+[![Meerkat](https://meerkatsec.win/badge/github/google/osv-scanner.svg?size=large)](https://meerkatsec.win/r/github/google/osv-scanner)
+
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=google/osv-scanner&type=Date)](https://www.star-history.com/#google/osv-scanner&Date)
