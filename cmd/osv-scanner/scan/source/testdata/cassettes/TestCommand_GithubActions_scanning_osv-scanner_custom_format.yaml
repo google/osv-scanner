@@ -5,20 +5,14 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 238
+      content_length: 208
       host: api.osv.dev
       body: |
         {
           "queries": [
-            {
-              "commit": "4579d5538f06c5ef615a15bc67ebb9ac0523a973"
-            },
-            {
-              "commit": "6fc3b89fcdb89b593402e0dabc13a7d7fd3f762d"
-            },
-            {
-              "commit": "5d60bd2eb4642b64d00c845e5ca9f1ea41fd6db6"
-            }
+            { "commit": "4579d5538f06c5ef615a15bc67ebb9ac0523a973" },
+            { "commit": "6fc3b89fcdb89b593402e0dabc13a7d7fd3f762d" },
+            { "commit": "5d60bd2eb4642b64d00c845e5ca9f1ea41fd6db6" }
           ]
         }
       headers:
@@ -34,20 +28,14 @@ interactions:
       body: |
         {
           "results": [
-            {},
+            { },
             {
               "vulns": [
-                {
-                  "id": "CVE-2023-39137",
-                  "modified": "2026-10-28T02:30:53.096171Z"
-                },
-                {
-                  "id": "CVE-2023-39139",
-                  "modified": "2026-10-28T02:30:21.830378Z"
-                }
+                { "id": "CVE-2023-39137", "modified": "2026-10-28T02:30:53.096171Z" },
+                { "id": "CVE-2023-39139", "modified": "2026-10-28T02:30:21.830378Z" }
               ]
             },
-            {}
+            { }
           ]
         }
       headers:

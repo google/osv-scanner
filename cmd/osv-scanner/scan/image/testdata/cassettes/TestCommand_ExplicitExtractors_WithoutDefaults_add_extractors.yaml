@@ -5,16 +5,13 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 152
+      content_length: 130
       host: api.osv.dev
       body: |
         {
           "queries": [
             {
-              "package": {
-                "ecosystem": "Alpine:v3.22",
-                "name": "zlib"
-              },
+              "package": { "ecosystem": "Alpine:v3.22", "name": "zlib" },
               "version": "1.2.12-r1"
             }
           ]

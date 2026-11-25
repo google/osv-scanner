@@ -5,16 +5,13 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 144
+      content_length: 122
       host: api.osv.dev
       body: |
         {
           "queries": [
             {
-              "package": {
-                "ecosystem": "npm",
-                "name": "ansi-html"
-              },
+              "package": { "ecosystem": "npm", "name": "ansi-html" },
               "version": "0.0.1"
             }
           ]

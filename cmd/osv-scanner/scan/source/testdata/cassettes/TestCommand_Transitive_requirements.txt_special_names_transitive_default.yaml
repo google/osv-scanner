@@ -5,51 +5,33 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 800
+      content_length: 668
       host: api.osv.dev
       body: |
         {
           "queries": [
             {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "appium-python-client"
-              },
+              "package": { "ecosystem": "PyPI", "name": "appium-python-client" },
               "version": "2.11.1"
             },
             {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "appium-python-client"
-              },
+              "package": { "ecosystem": "PyPI", "name": "appium-python-client" },
               "version": "2.11.1"
             },
             {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "ruamel-yaml"
-              },
+              "package": { "ecosystem": "PyPI", "name": "ruamel-yaml" },
               "version": "0.19.1"
             },
             {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "ruamel-yaml"
-              },
+              "package": { "ecosystem": "PyPI", "name": "ruamel-yaml" },
               "version": "0.17.0"
             },
             {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "zope-interface"
-              },
+              "package": { "ecosystem": "PyPI", "name": "zope-interface" },
               "version": "8.7.0"
             },
             {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "zope-interface"
-              },
+              "package": { "ecosystem": "PyPI", "name": "zope-interface" },
               "version": "4.1.3"
             }
           ]
@@ -65,16 +47,7 @@ interactions:
       proto_minor: 0
       content_length: 31
       body: |
-        {
-          "results": [
-            {},
-            {},
-            {},
-            {},
-            {},
-            {}
-          ]
-        }
+        { "results": [{ }, { }, { }, { }, { }, { }] }
       headers:
         Content-Length:
           - "31"

@@ -5,23 +5,17 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 265
+      content_length: 221
       host: api.osv.dev
       body: |
         {
           "queries": [
             {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "emoji"
-              },
+              "package": { "ecosystem": "PyPI", "name": "emoji" },
               "version": "2.14.0"
             },
             {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "protobuf"
-              },
+              "package": { "ecosystem": "PyPI", "name": "protobuf" },
               "version": "4.25.5"
             }
           ]
@@ -39,7 +33,7 @@ interactions:
       body: |
         {
           "results": [
-            {},
+            { },
             {
               "vulns": [
                 {
@@ -50,14 +44,8 @@ interactions:
                   "id": "GHSA-8qvm-5x2c-j2w7",
                   "modified": "2026-09-10T03:50:25.255076Z"
                 },
-                {
-                  "id": "PYSEC-2026-1805",
-                  "modified": "2026-07-07T17:48:07.140464Z"
-                },
-                {
-                  "id": "PYSEC-2026-1806",
-                  "modified": "2026-07-07T17:48:07.186137Z"
-                }
+                { "id": "PYSEC-2026-1805", "modified": "2026-07-07T17:48:07.140464Z" },
+                { "id": "PYSEC-2026-1806", "modified": "2026-07-07T17:48:07.186137Z" }
               ]
             }
           ]

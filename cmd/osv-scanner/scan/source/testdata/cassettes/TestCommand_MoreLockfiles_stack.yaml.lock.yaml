@@ -5,37 +5,25 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 536
+      content_length: 448
       host: api.osv.dev
       body: |
         {
           "queries": [
             {
-              "package": {
-                "ecosystem": "Hackage",
-                "name": "fuzzyset"
-              },
+              "package": { "ecosystem": "Hackage", "name": "fuzzyset" },
               "version": "0.2.4"
             },
             {
-              "package": {
-                "ecosystem": "Hackage",
-                "name": "hasql-pool"
-              },
+              "package": { "ecosystem": "Hackage", "name": "hasql-pool" },
               "version": "1.0.1"
             },
             {
-              "package": {
-                "ecosystem": "Hackage",
-                "name": "jose-jwt"
-              },
+              "package": { "ecosystem": "Hackage", "name": "jose-jwt" },
               "version": "0.10.0"
             },
             {
-              "package": {
-                "ecosystem": "Hackage",
-                "name": "postgresql-libpq"
-              },
+              "package": { "ecosystem": "Hackage", "name": "postgresql-libpq" },
               "version": "0.10.1.0"
             }
           ]
@@ -51,14 +39,7 @@ interactions:
       proto_minor: 0
       content_length: 25
       body: |
-        {
-          "results": [
-            {},
-            {},
-            {},
-            {}
-          ]
-        }
+        { "results": [{ }, { }, { }, { }] }
       headers:
         Content-Length:
           - "25"

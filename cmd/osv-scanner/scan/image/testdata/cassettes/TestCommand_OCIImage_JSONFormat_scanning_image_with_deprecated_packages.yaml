@@ -5,352 +5,205 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 6488
+      content_length: 5410
       host: api.osv.dev
       body: |
         {
           "queries": [
             {
-              "package": {
-                "ecosystem": "Alpine:v3.22",
-                "name": "alpine-baselayout"
-              },
+              "package": { "ecosystem": "Alpine:v3.22", "name": "alpine-baselayout" },
               "version": "3.7.0-r0"
             },
             {
-              "package": {
-                "ecosystem": "Alpine:v3.22",
-                "name": "alpine-baselayout"
-              },
+              "package": { "ecosystem": "Alpine:v3.22", "name": "alpine-baselayout" },
               "version": "3.7.0-r0"
             },
             {
-              "package": {
-                "ecosystem": "Alpine:v3.22",
-                "name": "alpine-keys"
-              },
+              "package": { "ecosystem": "Alpine:v3.22", "name": "alpine-keys" },
               "version": "2.5-r0"
             },
             {
-              "package": {
-                "ecosystem": "Alpine:v3.22",
-                "name": "alpine-base"
-              },
+              "package": { "ecosystem": "Alpine:v3.22", "name": "alpine-base" },
               "version": "3.22.2-r0"
             },
             {
-              "package": {
-                "ecosystem": "Alpine:v3.22",
-                "name": "apk-tools"
-              },
+              "package": { "ecosystem": "Alpine:v3.22", "name": "apk-tools" },
               "version": "2.14.9-r3"
             },
             {
-              "package": {
-                "ecosystem": "Alpine:v3.22",
-                "name": "busybox"
-              },
+              "package": { "ecosystem": "Alpine:v3.22", "name": "busybox" },
               "version": "1.37.0-r19"
             },
             {
-              "package": {
-                "ecosystem": "Alpine:v3.22",
-                "name": "busybox"
-              },
+              "package": { "ecosystem": "Alpine:v3.22", "name": "busybox" },
               "version": "1.37.0-r19"
             },
             {
-              "package": {
-                "ecosystem": "Alpine:v3.22",
-                "name": "ca-certificates"
-              },
+              "package": { "ecosystem": "Alpine:v3.22", "name": "ca-certificates" },
               "version": "20250911-r0"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "displaydoc"
-              },
+              "package": { "ecosystem": "crates.io", "name": "displaydoc" },
               "version": "0.2.5"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "form_urlencoded"
-              },
+              "package": { "ecosystem": "crates.io", "name": "form_urlencoded" },
               "version": "1.2.2"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "icu_collections"
-              },
+              "package": { "ecosystem": "crates.io", "name": "icu_collections" },
               "version": "2.1.1"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "icu_locale_core"
-              },
+              "package": { "ecosystem": "crates.io", "name": "icu_locale_core" },
               "version": "2.1.1"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "icu_normalizer"
-              },
+              "package": { "ecosystem": "crates.io", "name": "icu_normalizer" },
               "version": "2.1.1"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "icu_normalizer_data"
-              },
+              "package": { "ecosystem": "crates.io", "name": "icu_normalizer_data" },
               "version": "2.1.1"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "icu_properties"
-              },
+              "package": { "ecosystem": "crates.io", "name": "icu_properties" },
               "version": "2.1.1"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "icu_properties_data"
-              },
+              "package": { "ecosystem": "crates.io", "name": "icu_properties_data" },
               "version": "2.1.1"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "icu_provider"
-              },
+              "package": { "ecosystem": "crates.io", "name": "icu_provider" },
               "version": "2.1.1"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "idna"
-              },
+              "package": { "ecosystem": "crates.io", "name": "idna" },
               "version": "1.1.0"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "idna_adapter"
-              },
+              "package": { "ecosystem": "crates.io", "name": "idna_adapter" },
               "version": "1.2.1"
             },
             {
-              "package": {
-                "ecosystem": "Alpine:v3.22",
-                "name": "apk-tools"
-              },
+              "package": { "ecosystem": "Alpine:v3.22", "name": "apk-tools" },
               "version": "2.14.9-r3"
             },
             {
-              "package": {
-                "ecosystem": "Alpine:v3.22",
-                "name": "openssl"
-              },
+              "package": { "ecosystem": "Alpine:v3.22", "name": "openssl" },
               "version": "3.5.4-r0"
             },
             {
-              "package": {
-                "ecosystem": "Alpine:v3.22",
-                "name": "openssl"
-              },
+              "package": { "ecosystem": "Alpine:v3.22", "name": "openssl" },
               "version": "3.5.4-r0"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "litemap"
-              },
+              "package": { "ecosystem": "crates.io", "name": "litemap" },
               "version": "0.8.1"
             },
             {
-              "package": {
-                "ecosystem": "Alpine:v3.22",
-                "name": "musl"
-              },
+              "package": { "ecosystem": "Alpine:v3.22", "name": "musl" },
               "version": "1.2.5-r10"
             },
             {
-              "package": {
-                "ecosystem": "Alpine:v3.22",
-                "name": "musl"
-              },
+              "package": { "ecosystem": "Alpine:v3.22", "name": "musl" },
               "version": "1.2.5-r10"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "percent-encoding"
-              },
+              "package": { "ecosystem": "crates.io", "name": "percent-encoding" },
               "version": "2.3.2"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "potential_utf"
-              },
+              "package": { "ecosystem": "crates.io", "name": "potential_utf" },
               "version": "0.1.4"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "proc-macro2"
-              },
+              "package": { "ecosystem": "crates.io", "name": "proc-macro2" },
               "version": "1.0.103"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "quote"
-              },
+              "package": { "ecosystem": "crates.io", "name": "quote" },
               "version": "1.0.42"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "rust_novuln_deprecated"
-              },
+              "package": { "ecosystem": "crates.io", "name": "rust_novuln_deprecated" },
               "version": "0.1.0"
             },
             {
-              "package": {
-                "ecosystem": "Alpine:v3.22",
-                "name": "pax-utils"
-              },
+              "package": { "ecosystem": "Alpine:v3.22", "name": "pax-utils" },
               "version": "1.3.8-r1"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "smallvec"
-              },
+              "package": { "ecosystem": "crates.io", "name": "smallvec" },
               "version": "1.15.1"
             },
             {
-              "package": {
-                "ecosystem": "Alpine:v3.22",
-                "name": "busybox"
-              },
+              "package": { "ecosystem": "Alpine:v3.22", "name": "busybox" },
               "version": "1.37.0-r19"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "stable_deref_trait"
-              },
+              "package": { "ecosystem": "crates.io", "name": "stable_deref_trait" },
               "version": "1.2.1"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "syn"
-              },
+              "package": { "ecosystem": "crates.io", "name": "syn" },
               "version": "2.0.111"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "synstructure"
-              },
+              "package": { "ecosystem": "crates.io", "name": "synstructure" },
               "version": "0.13.2"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "tinystr"
-              },
+              "package": { "ecosystem": "crates.io", "name": "tinystr" },
               "version": "0.8.2"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "unicode-ident"
-              },
+              "package": { "ecosystem": "crates.io", "name": "unicode-ident" },
               "version": "1.0.22"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "url"
-              },
+              "package": { "ecosystem": "crates.io", "name": "url" },
               "version": "2.5.3"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "utf8_iter"
-              },
+              "package": { "ecosystem": "crates.io", "name": "utf8_iter" },
               "version": "1.0.4"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "writeable"
-              },
+              "package": { "ecosystem": "crates.io", "name": "writeable" },
               "version": "0.6.2"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "yoke"
-              },
+              "package": { "ecosystem": "crates.io", "name": "yoke" },
               "version": "0.8.1"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "yoke-derive"
-              },
+              "package": { "ecosystem": "crates.io", "name": "yoke-derive" },
               "version": "0.8.1"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "zerofrom"
-              },
+              "package": { "ecosystem": "crates.io", "name": "zerofrom" },
               "version": "0.1.6"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "zerofrom-derive"
-              },
+              "package": { "ecosystem": "crates.io", "name": "zerofrom-derive" },
               "version": "0.1.6"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "zerotrie"
-              },
+              "package": { "ecosystem": "crates.io", "name": "zerotrie" },
               "version": "0.2.3"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "zerovec"
-              },
+              "package": { "ecosystem": "crates.io", "name": "zerovec" },
               "version": "0.11.5"
             },
             {
-              "package": {
-                "ecosystem": "crates.io",
-                "name": "zerovec-derive"
-              },
+              "package": { "ecosystem": "crates.io", "name": "zerovec-derive" },
               "version": "0.11.2"
             },
             {
-              "package": {
-                "ecosystem": "Alpine:v3.22",
-                "name": "zlib"
-              },
+              "package": { "ecosystem": "Alpine:v3.22", "name": "zlib" },
               "version": "1.3.1-r2"
             }
           ]
@@ -368,11 +221,11 @@ interactions:
       body: |
         {
           "results": [
-            {},
-            {},
-            {},
-            {},
-            {},
+            { },
+            { },
+            { },
+            { },
+            { },
             {
               "vulns": [
                 {
@@ -397,19 +250,19 @@ interactions:
                 }
               ]
             },
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
+            { },
+            { },
+            { },
+            { },
+            { },
+            { },
+            { },
+            { },
+            { },
+            { },
+            { },
+            { },
+            { },
             {
               "vulns": [
                 {
@@ -770,7 +623,7 @@ interactions:
                 }
               ]
             },
-            {},
+            { },
             {
               "vulns": [
                 {
@@ -803,13 +656,13 @@ interactions:
                 }
               ]
             },
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
+            { },
+            { },
+            { },
+            { },
+            { },
+            { },
+            { },
             {
               "vulns": [
                 {
@@ -822,21 +675,21 @@ interactions:
                 }
               ]
             },
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
+            { },
+            { },
+            { },
+            { },
+            { },
+            { },
+            { },
+            { },
+            { },
+            { },
+            { },
+            { },
+            { },
+            { },
+            { },
             {
               "vulns": [
                 {

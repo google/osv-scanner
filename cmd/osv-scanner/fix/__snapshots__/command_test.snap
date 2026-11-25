@@ -7117,10 +7117,7 @@ UNFIXABLE-VULNS: 10
       "version": "1.1.21",
       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.21.tgz",
       "integrity": "sha512-9zeA+KLZNNzglF2TPKRQEDyx6Yby7daAkuy8MiPzpXPsYDWi/DRM8jmwUDxokQjYqBpv5DgPiwD4h4ZZSy1Ujw==",
-      "dependencies": {
-        "concat-map": "0.0.1",
-        "balanced-match": "^1.0.0"
-      }
+      "dependencies": { "concat-map": "0.0.1", "balanced-match": "^1.0.0" }
     },
     "node_modules/caseless": {
       "version": "0.12.0",
@@ -7490,12 +7487,8 @@ UNFIXABLE-VULNS: 10
       "version": "3.1.5",
       "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-3.1.5.tgz",
       "integrity": "sha512-VgjWUsnnT6n+NUk6eZq77zeFdpW2LWDzP6zFGrCbHXiYNul5Dzqk2HHQ5uFH2DNW5Xbp8+jVzaeNt94ssEEl4w==",
-      "dependencies": {
-        "brace-expansion": "^1.1.7"
-      },
-      "engines": {
-        "node": "*"
-      }
+      "dependencies": { "brace-expansion": "^1.1.7" },
+      "engines": { "node": "*" }
     },
     "node_modules/minimist": {
       "version": "1.2.8",
@@ -8037,10 +8030,7 @@ UNFIXABLE-VULNS: 10
       "version": "1.1.21",
       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.21.tgz",
       "integrity": "sha512-9zeA+KLZNNzglF2TPKRQEDyx6Yby7daAkuy8MiPzpXPsYDWi/DRM8jmwUDxokQjYqBpv5DgPiwD4h4ZZSy1Ujw==",
-      "requires": {
-        "concat-map": "0.0.1",
-        "balanced-match": "^1.0.0"
-      }
+      "requires": { "concat-map": "0.0.1", "balanced-match": "^1.0.0" }
     },
     "caseless": {
       "version": "0.12.0",
@@ -8344,9 +8334,7 @@ UNFIXABLE-VULNS: 10
       "version": "3.1.5",
       "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-3.1.5.tgz",
       "integrity": "sha512-VgjWUsnnT6n+NUk6eZq77zeFdpW2LWDzP6zFGrCbHXiYNul5Dzqk2HHQ5uFH2DNW5Xbp8+jVzaeNt94ssEEl4w==",
-      "requires": {
-        "brace-expansion": "^1.1.7"
-      }
+      "requires": { "brace-expansion": "^1.1.7" }
     },
     "minimist": {
       "version": "1.2.8",
@@ -9271,10 +9259,7 @@ Guided remediation (the fix command) can be risky when run on untrusted projects
       "version": "1.1.21",
       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.21.tgz",
       "integrity": "sha512-9zeA+KLZNNzglF2TPKRQEDyx6Yby7daAkuy8MiPzpXPsYDWi/DRM8jmwUDxokQjYqBpv5DgPiwD4h4ZZSy1Ujw==",
-      "dependencies": {
-        "concat-map": "0.0.1",
-        "balanced-match": "^1.0.0"
-      }
+      "dependencies": { "concat-map": "0.0.1", "balanced-match": "^1.0.0" }
     },
     "node_modules/caseless": {
       "version": "0.12.0",
@@ -9644,12 +9629,8 @@ Guided remediation (the fix command) can be risky when run on untrusted projects
       "version": "3.1.5",
       "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-3.1.5.tgz",
       "integrity": "sha512-VgjWUsnnT6n+NUk6eZq77zeFdpW2LWDzP6zFGrCbHXiYNul5Dzqk2HHQ5uFH2DNW5Xbp8+jVzaeNt94ssEEl4w==",
-      "dependencies": {
-        "brace-expansion": "^1.1.7"
-      },
-      "engines": {
-        "node": "*"
-      }
+      "dependencies": { "brace-expansion": "^1.1.7" },
+      "engines": { "node": "*" }
     },
     "node_modules/minimist": {
       "version": "1.2.8",
@@ -10191,10 +10172,7 @@ Guided remediation (the fix command) can be risky when run on untrusted projects
       "version": "1.1.21",
       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.21.tgz",
       "integrity": "sha512-9zeA+KLZNNzglF2TPKRQEDyx6Yby7daAkuy8MiPzpXPsYDWi/DRM8jmwUDxokQjYqBpv5DgPiwD4h4ZZSy1Ujw==",
-      "requires": {
-        "concat-map": "0.0.1",
-        "balanced-match": "^1.0.0"
-      }
+      "requires": { "concat-map": "0.0.1", "balanced-match": "^1.0.0" }
     },
     "caseless": {
       "version": "0.12.0",
@@ -10498,9 +10476,7 @@ Guided remediation (the fix command) can be risky when run on untrusted projects
       "version": "3.1.5",
       "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-3.1.5.tgz",
       "integrity": "sha512-VgjWUsnnT6n+NUk6eZq77zeFdpW2LWDzP6zFGrCbHXiYNul5Dzqk2HHQ5uFH2DNW5Xbp8+jVzaeNt94ssEEl4w==",
-      "requires": {
-        "brace-expansion": "^1.1.7"
-      }
+      "requires": { "brace-expansion": "^1.1.7" }
     },
     "minimist": {
       "version": "1.2.8",
@@ -11651,10 +11627,7 @@ UNFIXABLE-VULNS: 10
       "version": "1.1.21",
       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.21.tgz",
       "integrity": "sha512-9zeA+KLZNNzglF2TPKRQEDyx6Yby7daAkuy8MiPzpXPsYDWi/DRM8jmwUDxokQjYqBpv5DgPiwD4h4ZZSy1Ujw==",
-      "dependencies": {
-        "concat-map": "0.0.1",
-        "balanced-match": "^1.0.0"
-      }
+      "dependencies": { "concat-map": "0.0.1", "balanced-match": "^1.0.0" }
     },
     "node_modules/caseless": {
       "version": "0.12.0",
@@ -12024,12 +11997,8 @@ UNFIXABLE-VULNS: 10
       "version": "3.1.5",
       "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-3.1.5.tgz",
       "integrity": "sha512-VgjWUsnnT6n+NUk6eZq77zeFdpW2LWDzP6zFGrCbHXiYNul5Dzqk2HHQ5uFH2DNW5Xbp8+jVzaeNt94ssEEl4w==",
-      "dependencies": {
-        "brace-expansion": "^1.1.7"
-      },
-      "engines": {
-        "node": "*"
-      }
+      "dependencies": { "brace-expansion": "^1.1.7" },
+      "engines": { "node": "*" }
     },
     "node_modules/minimist": {
       "version": "1.2.8",
@@ -12571,10 +12540,7 @@ UNFIXABLE-VULNS: 10
       "version": "1.1.21",
       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.21.tgz",
       "integrity": "sha512-9zeA+KLZNNzglF2TPKRQEDyx6Yby7daAkuy8MiPzpXPsYDWi/DRM8jmwUDxokQjYqBpv5DgPiwD4h4ZZSy1Ujw==",
-      "requires": {
-        "concat-map": "0.0.1",
-        "balanced-match": "^1.0.0"
-      }
+      "requires": { "concat-map": "0.0.1", "balanced-match": "^1.0.0" }
     },
     "caseless": {
       "version": "0.12.0",
@@ -12878,9 +12844,7 @@ UNFIXABLE-VULNS: 10
       "version": "3.1.5",
       "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-3.1.5.tgz",
       "integrity": "sha512-VgjWUsnnT6n+NUk6eZq77zeFdpW2LWDzP6zFGrCbHXiYNul5Dzqk2HHQ5uFH2DNW5Xbp8+jVzaeNt94ssEEl4w==",
-      "requires": {
-        "brace-expansion": "^1.1.7"
-      }
+      "requires": { "brace-expansion": "^1.1.7" }
     },
     "minimist": {
       "version": "1.2.8",

@@ -47,10 +47,7 @@ func TestToComparableRequest(t *testing.T) {
 	expectedBody := `{
   "queries": [
     {
-      "package": {
-        "ecosystem": "npm",
-        "name": "balanced-match"
-      },
+      "package": { "ecosystem": "npm", "name": "balanced-match" },
       "version": "1.0.2"
     }
   ]
@@ -107,10 +104,7 @@ func TestCassetteToComparableRequest(t *testing.T) {
 	expectedBody := `{
   "queries": [
     {
-      "package": {
-        "ecosystem": "npm",
-        "name": "balanced-match"
-      },
+      "package": { "ecosystem": "npm", "name": "balanced-match" },
       "version": "1.0.2"
     }
   ]

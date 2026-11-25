@@ -65,10 +65,7 @@ interactions:
                   "id": "GHSA-w3f6-pc54-gfw7",
                   "modified": "2026-07-08T06:29:31.732565Z"
                 },
-                {
-                  "id": "GHSA-xvr7-p2c6-j83w",
-                  "modified": "2025-08-13T23:54:02Z"
-                }
+                { "id": "GHSA-xvr7-p2c6-j83w", "modified": "2025-08-13T23:54:02Z" }
               ]
             },
             {

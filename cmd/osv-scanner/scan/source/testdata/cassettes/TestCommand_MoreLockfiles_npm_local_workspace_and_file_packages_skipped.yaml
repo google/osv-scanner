@@ -5,18 +5,12 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 141
+      content_length: 103
       host: api.osv.dev
       body: |
         {
           "queries": [
-            {
-              "package": {
-                "ecosystem": "npm",
-                "name": "wrappy"
-              },
-              "version": "1.0.2"
-            }
+            { "package": { "ecosystem": "npm", "name": "wrappy" }, "version": "1.0.2" }
           ]
         }
       headers:
@@ -30,11 +24,7 @@ interactions:
       proto_minor: 0
       content_length: 16
       body: |
-        {
-          "results": [
-            {}
-          ]
-        }
+        { "results": [{ }] }
       headers:
         Content-Length:
           - "16"

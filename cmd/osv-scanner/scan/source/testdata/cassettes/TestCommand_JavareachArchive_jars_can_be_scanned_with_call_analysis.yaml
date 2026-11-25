@@ -5,7 +5,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 3196
+      content_length: 3086
       host: api.osv.dev
       body: |
         {
@@ -32,17 +32,11 @@ interactions:
               "version": "1.11.327"
             },
             {
-              "package": {
-                "ecosystem": "Maven",
-                "name": "com.amazonaws:jmespath-java"
-              },
+              "package": { "ecosystem": "Maven", "name": "com.amazonaws:jmespath-java" },
               "version": "1.11.327"
             },
             {
-              "package": {
-                "ecosystem": "Maven",
-                "name": "com.example:hello-tester"
-              },
+              "package": { "ecosystem": "Maven", "name": "com.example:hello-tester" },
               "version": "1.0-SNAPSHOT"
             },
             {
@@ -74,10 +68,7 @@ interactions:
               "version": "2.6.7"
             },
             {
-              "package": {
-                "ecosystem": "Maven",
-                "name": "commons-codec:commons-codec"
-              },
+              "package": { "ecosystem": "Maven", "name": "commons-codec:commons-codec" },
               "version": "1.10"
             },
             {
@@ -88,10 +79,7 @@ interactions:
               "version": "1.1.3"
             },
             {
-              "package": {
-                "ecosystem": "Maven",
-                "name": "joda-time:joda-time"
-              },
+              "package": { "ecosystem": "Maven", "name": "joda-time:joda-time" },
               "version": "2.8.1"
             },
             {
@@ -130,10 +118,7 @@ interactions:
               "version": "9.4.40.v20210413"
             },
             {
-              "package": {
-                "ecosystem": "Maven",
-                "name": "org.eclipse.jetty:jetty-io"
-              },
+              "package": { "ecosystem": "Maven", "name": "org.eclipse.jetty:jetty-io" },
               "version": "9.4.40.v20210413"
             },
             {
@@ -172,8 +157,8 @@ interactions:
       body: |
         {
           "results": [
-            {},
-            {},
+            { },
+            { },
             {
               "vulns": [
                 {
@@ -182,9 +167,9 @@ interactions:
                 }
               ]
             },
-            {},
-            {},
-            {},
+            { },
+            { },
+            { },
             {
               "vulns": [
                 {
@@ -397,10 +382,10 @@ interactions:
                 }
               ]
             },
-            {},
-            {},
-            {},
-            {},
+            { },
+            { },
+            { },
+            { },
             {
               "vulns": [
                 {
@@ -417,8 +402,8 @@ interactions:
                 }
               ]
             },
-            {},
-            {},
+            { },
+            { },
             {
               "vulns": [
                 {
@@ -443,7 +428,7 @@ interactions:
                 }
               ]
             },
-            {},
+            { },
             {
               "vulns": [
                 {
@@ -460,7 +445,7 @@ interactions:
                 }
               ]
             },
-            {},
+            { },
             {
               "vulns": [
                 {

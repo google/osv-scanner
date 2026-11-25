@@ -5,16 +5,13 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 153
+      content_length: 131
       host: api.osv.dev
       body: |
         {
           "queries": [
             {
-              "package": {
-                "ecosystem": "NuGet",
-                "name": "Newtonsoft.Json"
-              },
+              "package": { "ecosystem": "NuGet", "name": "Newtonsoft.Json" },
               "version": "13.0.3"
             }
           ]
@@ -30,11 +27,7 @@ interactions:
       proto_minor: 0
       content_length: 16
       body: |
-        {
-          "results": [
-            {}
-          ]
-        }
+        { "results": [{ }] }
       headers:
         Content-Length:
           - "16"

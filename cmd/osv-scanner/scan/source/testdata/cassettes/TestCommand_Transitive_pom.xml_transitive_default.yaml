@@ -90,7 +90,7 @@ interactions:
                 }
               ]
             },
-            {}
+            { }
           ]
         }
       headers:

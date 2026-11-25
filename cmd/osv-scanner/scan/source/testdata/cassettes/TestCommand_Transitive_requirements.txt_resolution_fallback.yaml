@@ -5,30 +5,18 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 386
+      content_length: 304
       host: api.osv.dev
       body: |
         {
           "queries": [
+            { "package": { "ecosystem": "PyPI", "name": "flask" }, "version": "1.0.0" },
             {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "flask"
-              },
+              "package": { "ecosystem": "PyPI", "name": "flask-cors" },
               "version": "1.0.0"
             },
             {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "flask-cors"
-              },
-              "version": "1.0.0"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "pandas"
-              },
+              "package": { "ecosystem": "PyPI", "name": "pandas" },
               "version": "0.23.4"
             }
           ]
@@ -56,14 +44,8 @@ interactions:
                   "id": "GHSA-m2qf-hxjv-5gpq",
                   "modified": "2026-09-10T03:50:01.763387Z"
                 },
-                {
-                  "id": "PYSEC-2023-62",
-                  "modified": "2023-11-08T04:12:28.231927Z"
-                },
-                {
-                  "id": "PYSEC-2026-2151",
-                  "modified": "2026-07-13T07:15:25.033843Z"
-                }
+                { "id": "PYSEC-2023-62", "modified": "2023-11-08T04:12:28.231927Z" },
+                { "id": "PYSEC-2026-2151", "modified": "2026-07-13T07:15:25.033843Z" }
               ]
             },
             {
@@ -92,38 +74,17 @@ interactions:
                   "id": "GHSA-xc3p-ff3m-f46v",
                   "modified": "2026-09-10T03:49:15.088799Z"
                 },
-                {
-                  "id": "PYSEC-2020-43",
-                  "modified": "2025-10-09T07:22:50.566622Z"
-                },
-                {
-                  "id": "PYSEC-2024-271",
-                  "modified": "2026-06-10T17:01:16.365143Z"
-                },
-                {
-                  "id": "PYSEC-2024-71",
-                  "modified": "2026-07-09T16:56:25.795378Z"
-                },
-                {
-                  "id": "PYSEC-2026-1383",
-                  "modified": "2026-07-07T17:47:37.813563Z"
-                },
-                {
-                  "id": "PYSEC-2026-1384",
-                  "modified": "2026-07-07T17:47:37.819558Z"
-                },
-                {
-                  "id": "PYSEC-2026-1385",
-                  "modified": "2026-07-07T17:47:38.862225Z"
-                }
+                { "id": "PYSEC-2020-43", "modified": "2025-10-09T07:22:50.566622Z" },
+                { "id": "PYSEC-2024-271", "modified": "2026-06-10T17:01:16.365143Z" },
+                { "id": "PYSEC-2024-71", "modified": "2026-07-09T16:56:25.795378Z" },
+                { "id": "PYSEC-2026-1383", "modified": "2026-07-07T17:47:37.813563Z" },
+                { "id": "PYSEC-2026-1384", "modified": "2026-07-07T17:47:37.819558Z" },
+                { "id": "PYSEC-2026-1385", "modified": "2026-07-07T17:47:38.862225Z" }
               ]
             },
             {
               "vulns": [
-                {
-                  "id": "PYSEC-2020-73",
-                  "modified": "2023-11-08T04:02:12.263851Z"
-                }
+                { "id": "PYSEC-2020-73", "modified": "2023-11-08T04:02:12.263851Z" }
               ]
             }
           ]

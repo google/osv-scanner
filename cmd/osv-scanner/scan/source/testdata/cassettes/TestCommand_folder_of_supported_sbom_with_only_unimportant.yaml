@@ -5,16 +5,13 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 166
+      content_length: 144
       host: api.osv.dev
       body: |
         {
           "queries": [
             {
-              "package": {
-                "ecosystem": "Ubuntu:20.04:LTS",
-                "name": "pcre3"
-              },
+              "package": { "ecosystem": "Ubuntu:20.04:LTS", "name": "pcre3" },
               "version": "2:8.39-12ubuntu0.1"
             }
           ]

@@ -5,46 +5,25 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 638
+      content_length: 496
       host: api.osv.dev
       body: |
         {
           "queries": [
             {
-              "package": {
-                "ecosystem": "npm",
-                "name": "has-flag"
-              },
+              "package": { "ecosystem": "npm", "name": "has-flag" },
               "version": "4.0.0"
             },
             {
-              "package": {
-                "ecosystem": "Packagist",
-                "name": "league/flysystem"
-              },
+              "package": { "ecosystem": "Packagist", "name": "league/flysystem" },
               "version": "1.0.8"
             },
+            { "package": { "ecosystem": "Go", "name": "stdlib" }, "version": "1.99.9" },
             {
-              "package": {
-                "ecosystem": "Go",
-                "name": "stdlib"
-              },
+              "package": { "ecosystem": "Go", "name": "toolchain" },
               "version": "1.99.9"
             },
-            {
-              "package": {
-                "ecosystem": "Go",
-                "name": "toolchain"
-              },
-              "version": "1.99.9"
-            },
-            {
-              "package": {
-                "ecosystem": "npm",
-                "name": "wrappy"
-              },
-              "version": "1.0.2"
-            }
+            { "package": { "ecosystem": "npm", "name": "wrappy" }, "version": "1.0.2" }
           ]
         }
       headers:
@@ -60,7 +39,7 @@ interactions:
       body: |
         {
           "results": [
-            {},
+            { },
             {
               "vulns": [
                 {
@@ -73,9 +52,9 @@ interactions:
                 }
               ]
             },
-            {},
-            {},
-            {}
+            { },
+            { },
+            { }
           ]
         }
       headers:
