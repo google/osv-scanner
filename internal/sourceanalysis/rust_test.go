@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"reflect"
 	"strings"
@@ -93,7 +94,7 @@ func Test_rustBuildSource(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		got, err := rustBuildSource(tt.args.source)
+		got, err := rustBuildSource(tt.args.source, exec.CommandContext)
 		if (err != nil) != tt.wantErr {
 			t.Errorf("rustBuildSource() error = %v, wantErr %v", err, tt.wantErr)
 			return
