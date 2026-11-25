@@ -32,8 +32,21 @@ const (
 	RustLibExtension = ".rcgu.o/"
 )
 
-func rustAnalysis(pkgs []models.PackageVulns, source models.SourceInfo) {
-	binaryPaths, err := rustBuildSource(source)
+func rustAnalysis(pkgs []models.PackageVulns, source models.SourceInfo, offline bool, newCommand commandFactory) {
+	if offline {
+		// Cargo build scripts (build.rs) are arbitrary code from the scanned
+		// repository. CARGO_NET_OFFLINE=true only restricts Cargo's own registry
+		// access; it does not sandbox a build script that opens a socket. Do not
+		// launch cargo at all under --offline.
+		cmdlogger.Warnf(
+			"Skipping Rust call analysis on '%s': Cargo build scripts can execute arbitrary code and open network connections, which is not permitted in --offline mode. The package and vulnerability scan is unaffected; no reachability information is produced for this source.",
+			source.Path,
+		)
+
+		return
+	}
+
+	binaryPaths, err := rustBuildSource(source, newCommand)
 	if err != nil {
 		cmdlogger.Errorf("failed to build cargo/rust project from source: %s", err)
 		return
@@ -227,11 +240,11 @@ func extractRlibArchive(rlibPath string) (bytes.Buffer, error) {
 	return buf, nil
 }
 
-func rustBuildSource(source models.SourceInfo) ([]string, error) {
+func rustBuildSource(source models.SourceInfo, newCommand commandFactory) ([]string, error) {
 	projectBaseDir := filepath.Dir(source.Path)
 
 	// TODO: This will be moved to enrichers which does have context.
-	cmd := exec.CommandContext(context.TODO(), "cargo", "build", "--workspace", "--all-targets", "--release")
+	cmd := newCommand(context.TODO(), "cargo", "build", "--workspace", "--all-targets", "--release")
 	cmd.Env = append(cmd.Environ(), RustFlagsEnv)
 	cmd.Dir = projectBaseDir
 	if errors.Is(cmd.Err, exec.ErrDot) {
