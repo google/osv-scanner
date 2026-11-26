@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"net/http"
 	"sync"
+	"time"
 
 	"github.com/google/osv-scalibr/plugin/config"
 	"google.golang.org/grpc"
@@ -23,20 +24,42 @@ type grpcClientConnCloser interface {
 type ClientFactories struct {
 	mu               sync.Mutex
 	baseHTTPClient   *http.Client
+	ownedTransport   *http.Transport // created by NewClientFactories, if any
 	grpcClientConns  map[string]grpcClientConnCloser
 	defaultUserAgent string
 }
 
 var _ config.ClientFactories = (*ClientFactories)(nil)
 
+// defaultResponseHeaderTimeout bounds the default client's wait for a response
+// to start, for every request made through that client. It is above the 60s
+// after which the OSV.dev API answers 504 itself. Over HTTP/2 it also keeps
+// the OSV.dev client's four attempts plus backoff past the batch query's 300s
+// budget (InitialQueryTimeoutSeconds in pkg/osvscanner/scan.go), so a change
+// there needs a look here.
+const defaultResponseHeaderTimeout = 75 * time.Second
+
 // NewClientFactories returns a new ClientFactories instance.
+//
+// If baseHTTPClient is nil, the HTTP clients it returns use a copy of
+// http.DefaultTransport that waits at most defaultResponseHeaderTimeout for a
+// response to start. Reading the body is not limited, since the same clients
+// download the offline databases. If http.DefaultTransport has been replaced by
+// something other than an *http.Transport, it is used as is, without the limit.
 func NewClientFactories(baseHTTPClient *http.Client, defaultUserAgent string) *ClientFactories {
+	var ownedTransport *http.Transport
 	if baseHTTPClient == nil {
 		baseHTTPClient = &http.Client{}
+		if transport, ok := http.DefaultTransport.(*http.Transport); ok {
+			ownedTransport = transport.Clone()
+			ownedTransport.ResponseHeaderTimeout = defaultResponseHeaderTimeout
+			baseHTTPClient.Transport = ownedTransport
+		}
 	}
 
 	return &ClientFactories{
 		baseHTTPClient:   baseHTTPClient,
+		ownedTransport:   ownedTransport,
 		grpcClientConns:  make(map[string]grpcClientConnCloser),
 		defaultUserAgent: defaultUserAgent,
 	}
@@ -136,10 +159,15 @@ func (c *ClientFactories) GRPCClientConn(url string, dialOpts ...grpc.DialOption
 	return realConn, nil
 }
 
-// Close closes all open cached gRPC connections.
+// Close closes all open cached gRPC connections, and the idle HTTP connections
+// of the transport NewClientFactories created, if any.
 func (c *ClientFactories) Close() error {
 	c.mu.Lock()
 	defer c.mu.Unlock()
+
+	if c.ownedTransport != nil {
+		c.ownedTransport.CloseIdleConnections()
+	}
 
 	var errs []error
 	for url, conn := range c.grpcClientConns {
