@@ -497,7 +497,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 34 packages affected by 121 known vulnerabilities (13 Critical, 41 High, 50 Medium, 12 Low, 5 Unknown) from 1 ecosystem.
-68 vulnerabilities can be fixed.
+69 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -558,7 +558,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 34 packages affected by 121 known vulnerabilities (13 Critical, 41 High, 50 Medium, 12 Low, 5 Unknown) from 1 ecosystem.
-68 vulnerabilities can be fixed.
+69 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -759,7 +759,7 @@ Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 35 packages affected by 124 known vulnerabilities (13 Critical, 43 High, 50 Medium, 13 Low, 5 Unknown) from 1 ecosystem.
-68 vulnerabilities can be fixed.
+69 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -4308,7 +4308,11 @@ Scanning local image tarball "./testdata/test-almalinux-9.tar"
             "image_origin_details": {
               "index": 2
             }
-          }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "RUSTSEC-2026-0592"
+          ]
         }
       ]
     },
@@ -4366,7 +4370,7 @@ Scanning local image tarball "./testdata/test-almalinux-9.tar"
               "index": 0
             }
           },
-          "groups": 44,
+          "groups": 51,
           "vulnerabilities": [
             "ALPINE-CVE-2025-11187",
             "ALPINE-CVE-2025-15467",
@@ -4378,6 +4382,9 @@ Scanning local image tarball "./testdata/test-almalinux-9.tar"
             "ALPINE-CVE-2025-69419",
             "ALPINE-CVE-2025-69420",
             "ALPINE-CVE-2025-69421",
+            "ALPINE-CVE-2026-107493",
+            "ALPINE-CVE-2026-107496",
+            "ALPINE-CVE-2026-124709",
             "ALPINE-CVE-2026-14456",
             "ALPINE-CVE-2026-14457",
             "ALPINE-CVE-2026-18798",
@@ -4411,7 +4418,11 @@ Scanning local image tarball "./testdata/test-almalinux-9.tar"
             "ALPINE-CVE-2026-63076",
             "ALPINE-CVE-2026-7383",
             "ALPINE-CVE-2026-75803",
-            "ALPINE-CVE-2026-9076"
+            "ALPINE-CVE-2026-88822",
+            "ALPINE-CVE-2026-88823",
+            "ALPINE-CVE-2026-9076",
+            "ALPINE-CVE-2026-95691",
+            "ALPINE-CVE-2026-95692"
           ]
         },
         {
@@ -4426,7 +4437,7 @@ Scanning local image tarball "./testdata/test-almalinux-9.tar"
               "index": 0
             }
           },
-          "groups": 44,
+          "groups": 51,
           "vulnerabilities": [
             "ALPINE-CVE-2025-11187",
             "ALPINE-CVE-2025-15467",
@@ -4438,6 +4449,9 @@ Scanning local image tarball "./testdata/test-almalinux-9.tar"
             "ALPINE-CVE-2025-69419",
             "ALPINE-CVE-2025-69420",
             "ALPINE-CVE-2025-69421",
+            "ALPINE-CVE-2026-107493",
+            "ALPINE-CVE-2026-107496",
+            "ALPINE-CVE-2026-124709",
             "ALPINE-CVE-2026-14456",
             "ALPINE-CVE-2026-14457",
             "ALPINE-CVE-2026-18798",
@@ -4471,7 +4485,11 @@ Scanning local image tarball "./testdata/test-almalinux-9.tar"
             "ALPINE-CVE-2026-63076",
             "ALPINE-CVE-2026-7383",
             "ALPINE-CVE-2026-75803",
-            "ALPINE-CVE-2026-9076"
+            "ALPINE-CVE-2026-88822",
+            "ALPINE-CVE-2026-88823",
+            "ALPINE-CVE-2026-9076",
+            "ALPINE-CVE-2026-95691",
+            "ALPINE-CVE-2026-95692"
           ]
         },
         {
