@@ -515,6 +515,18 @@
       "type": "CVSS_V3"
     }
   ],
+  "ALPINE-CVE-2026-107493": [
+    {
+      "score": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:H",
+      "type": "CVSS_V3"
+    }
+  ],
+  "ALPINE-CVE-2026-107496": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "type": "CVSS_V3"
+    }
+  ],
   "ALPINE-CVE-2026-107891": [
     {
       "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
@@ -548,6 +560,12 @@
   "ALPINE-CVE-2026-118370": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:H",
+      "type": "CVSS_V3"
+    }
+  ],
+  "ALPINE-CVE-2026-124709": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
       "type": "CVSS_V3"
     }
   ],
@@ -1097,6 +1115,18 @@
       "type": "CVSS_V4"
     }
   ],
+  "ALPINE-CVE-2026-88822": [
+    {
+      "score": "CVSS:3.1/AV:A/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "type": "CVSS_V3"
+    }
+  ],
+  "ALPINE-CVE-2026-88823": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+      "type": "CVSS_V3"
+    }
+  ],
   "ALPINE-CVE-2026-9076": [
     {
       "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
@@ -1107,6 +1137,18 @@
     {
       "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
       "type": "CVSS_V4"
+    }
+  ],
+  "ALPINE-CVE-2026-95691": [
+    {
+      "score": "CVSS:3.1/AV:A/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:H",
+      "type": "CVSS_V3"
+    }
+  ],
+  "ALPINE-CVE-2026-95692": [
+    {
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "type": "CVSS_V3"
     }
   ],
   "ALSA-2022:7314": [],
@@ -5811,6 +5853,7 @@
       "type": "CVSS_V3"
     }
   ],
+  "RUSTSEC-2026-0592": [],
   "SUSE-SU-2024:3765-1": [],
   "SUSE-SU-2024:3926-1": [],
   "SUSE-SU-2024:4359-1": [],
