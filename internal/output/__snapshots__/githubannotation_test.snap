@@ -34,6 +34,11 @@
 
 ---
 
+[TestPrintGHAnnotationReport_SameVulnerabilityInDifferentPackages - 1]
+::error file=path/to/package-lock.json,line=1::path/to/package-lock.json%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| pkg-a   | https://osv.dev/OSV-1 | 7.5  | 1.0.0           | 1.2.3         |%0A| pkg-b   | https://osv.dev/OSV-1 | 7.5  | 2.0.0           |               |%0A+---------+-----------------------+------+-----------------+---------------+
+
+---
+
 [TestPrintGHAnnotationReport_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_no_license_violations - 1]
 
 ---
