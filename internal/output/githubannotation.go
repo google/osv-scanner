@@ -37,7 +37,7 @@ func createSourceRemediationTable(source models.PackageSource, groupedFixedVersi
 
 	for _, pv := range source.Packages {
 		for _, group := range pv.Groups {
-			fixedVersions := groupedFixedVersions[source.Source.String()+":"+group.IndexString()]
+			fixedVersions := groupedFixedVersions[fixedVersionsKey(source.Source, pv.Package, group)]
 
 			vulnIDs := make([]string, 0, len(group.IDs))
 			for _, id := range group.IDs {

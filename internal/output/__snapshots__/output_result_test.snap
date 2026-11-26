@@ -7435,6 +7435,278 @@
 
 ---
 
+[TestPrintOutputResults_WithVulnerabilities/one_source_with_two_packages_and_one_shared_vulnerability,_only_fixable_for_one_package - 1]
+{
+  "Ecosystems": [
+    {
+      "Name": "npm",
+      "Sources": [
+        {
+          "Name": "lockfile:<rootdir>/path/to/my/first/lockfile",
+          "Type": "lockfile",
+          "PackageTypeCount": {
+            "Regular": 2,
+            "Hidden": 0
+          },
+          "Packages": [
+            {
+              "Name": "mine1",
+              "OSPackageNames": [
+                ""
+              ],
+              "InstalledVersion": "1.2.3",
+              "Commit": "",
+              "FixedVersion": "1.2.4",
+              "RegularVulns": [
+                {
+                  "ID": "OSV-1",
+                  "GroupIDs": [
+                    "OSV-1"
+                  ],
+                  "Aliases": null,
+                  "Description": "Only fixed for one of the packages!",
+                  "IsFixable": true,
+                  "FixedVersion": "1.2.4",
+                  "VulnAnalysisType": 0,
+                  "SeverityRating": "UNKNOWN",
+                  "SeverityScore": "N/A",
+                  "EcosystemPriority": ""
+                }
+              ],
+              "HiddenVulns": [],
+              "LayerDetail": {
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
+              },
+              "VulnCount": {
+                "AnalysisCount": {
+                  "Regular": 1,
+                  "Hidden": 0
+                },
+                "SeverityCount": {
+                  "Critical": 0,
+                  "High": 0,
+                  "Medium": 0,
+                  "Low": 0,
+                  "Unknown": 1
+                },
+                "FixableCount": {
+                  "Fixed": 1,
+                  "UnFixed": 0
+                }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
+            },
+            {
+              "Name": "mine2",
+              "OSPackageNames": [
+                ""
+              ],
+              "InstalledVersion": "3.2.5",
+              "Commit": "",
+              "FixedVersion": "No fix available",
+              "RegularVulns": [
+                {
+                  "ID": "OSV-1",
+                  "GroupIDs": [
+                    "OSV-1"
+                  ],
+                  "Aliases": null,
+                  "Description": "Only fixed for one of the packages!",
+                  "IsFixable": false,
+                  "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
+                  "SeverityRating": "UNKNOWN",
+                  "SeverityScore": "N/A",
+                  "EcosystemPriority": ""
+                }
+              ],
+              "HiddenVulns": [],
+              "LayerDetail": {
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
+              },
+              "VulnCount": {
+                "AnalysisCount": {
+                  "Regular": 1,
+                  "Hidden": 0
+                },
+                "SeverityCount": {
+                  "Critical": 0,
+                  "High": 0,
+                  "Medium": 0,
+                  "Low": 0,
+                  "Unknown": 1
+                },
+                "FixableCount": {
+                  "Fixed": 0,
+                  "UnFixed": 1
+                }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
+            }
+          ],
+          "VulnCount": {
+            "AnalysisCount": {
+              "Regular": 2,
+              "Hidden": 0
+            },
+            "SeverityCount": {
+              "Critical": 0,
+              "High": 0,
+              "Medium": 0,
+              "Low": 0,
+              "Unknown": 2
+            },
+            "FixableCount": {
+              "Fixed": 1,
+              "UnFixed": 1
+            }
+          },
+          "LicenseViolationsCount": 0
+        }
+      ],
+      "IsOS": false
+    }
+  ],
+  "IsContainerScanning": false,
+  "ImageInfo": {
+    "OS": "",
+    "AllLayers": null,
+    "AllBaseImages": null
+  },
+  "LicenseSummary": {
+    "Summary": false,
+    "ShowViolations": false,
+    "LicenseCount": null
+  },
+  "VulnTypeSummary": {
+    "All": 2,
+    "OS": 0,
+    "Project": 2,
+    "Hidden": 0
+  },
+  "PackageTypeCount": {
+    "Regular": 2,
+    "Hidden": 0
+  },
+  "VulnCount": {
+    "AnalysisCount": {
+      "Regular": 2,
+      "Hidden": 0
+    },
+    "SeverityCount": {
+      "Critical": 0,
+      "High": 0,
+      "Medium": 0,
+      "Low": 0,
+      "Unknown": 2
+    },
+    "FixableCount": {
+      "Fixed": 1,
+      "UnFixed": 1
+    }
+  }
+}
+
+---
+
 [TestPrintOutputResults_WithVulnerabilities/one_source_with_vulnerabilities,_some_missing_content - 1]
 {
   "Ecosystems": [

@@ -81,19 +81,26 @@ func mustGetWorkingDirectory() string {
 	return dir
 }
 
+// fixedVersionsKey returns the key used by groupFixedVersions for the given
+// group of vulnerabilities in the given package from the given source
+func fixedVersionsKey(source models.SourceInfo, pkg models.PackageInfo, group models.GroupInfo) string {
+	return source.String() + ":" + pkg.Ecosystem + ":" + pkg.Name + ":" + group.IndexString()
+}
+
 // groupFixedVersions builds the fixed versions for each ID Group, with keys formatted like so:
-// `Source:ID`
+// `Source:Ecosystem:Package:ID`
 func groupFixedVersions(flattened []models.VulnerabilityFlattened) map[string][]string {
 	groupedFixedVersions := map[string][]string{}
 
 	// Get the fixed versions indexed by each group of vulnerabilities
 	// Prepend source path as same vulnerability in two projects should be counted twice
+	// Include the package as the same vulnerability can have different fixed versions in different packages
 	// Remember to sort and compact before displaying later
 	for _, vf := range flattened {
 		if vf.Vulnerability == nil {
 			continue
 		}
-		groupIdx := vf.Source.String() + ":" + vf.GroupInfo.IndexString()
+		groupIdx := fixedVersionsKey(vf.Source, vf.Package, vf.GroupInfo)
 		pkg := vulns.PackageKey{
 			Ecosystem: vf.Package.Ecosystem,
 			Name:      vf.Package.Name,

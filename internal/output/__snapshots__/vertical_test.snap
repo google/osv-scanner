@@ -1404,6 +1404,26 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
 ---
 
+[TestPrintVerticalResults_WithVulnerabilities/one_source_with_two_packages_and_one_shared_vulnerability,_only_fixable_for_one_package - 1]
+
+Total 2 packages affected by 2 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 2 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 2 packages with issues
+
+  mine1@1.2.3 has the following known vulnerabilities:
+    OSV-1: Only fixed for one of the packages!
+      Severity: 'N/A'; Minimal Fix Version: '1.2.4';
+  mine2@3.2.5 has the following known vulnerabilities:
+    OSV-1: Only fixed for one of the packages!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
+
+  2 known vulnerabilities found in lockfile:<rootdir>/path/to/my/first/lockfile
+
+---
+
 [TestPrintVerticalResults_WithVulnerabilities/one_source_with_vulnerabilities,_some_missing_content - 1]
 
 Total 2 packages affected by 4 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 4 Unknown) from 1 ecosystem.
@@ -2070,6 +2090,26 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
       Severity: '7.5'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
+
+---
+
+[TestPrintVerticalResults_WithVulnerabilities_WithoutAllVulns/one_source_with_two_packages_and_one_shared_vulnerability,_only_fixable_for_one_package - 1]
+
+Total 2 packages affected by 2 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 2 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 2 packages with issues
+
+  mine1@1.2.3 has the following known vulnerabilities:
+    OSV-1: Only fixed for one of the packages!
+      Severity: 'N/A'; Minimal Fix Version: '1.2.4';
+  mine2@3.2.5 has the following known vulnerabilities:
+    OSV-1: Only fixed for one of the packages!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
+
+  2 known vulnerabilities found in lockfile:<rootdir>/path/to/my/first/lockfile
 
 ---
 
