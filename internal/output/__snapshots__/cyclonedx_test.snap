@@ -2332,6 +2332,44 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
 
 ---
 
+[TestPrintCycloneDXResults/CycloneDX14_WithVulnerabilities/one_source_with_two_packages_and_one_shared_vulnerability,_only_fixable_for_one_package - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.4",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1@1.2.3",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.2.3",
+      "purl": "pkg:npm/mine1@1.2.3"
+    },
+    {
+      "bom-ref": "pkg:npm/mine2@3.2.5",
+      "type": "library",
+      "name": "mine2",
+      "version": "3.2.5",
+      "purl": "pkg:npm/mine2@3.2.5"
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "id": "OSV-1",
+      "description": "Only fixed for one of the packages!",
+      "credits": {},
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
+    }
+  ]
+}
+
+---
+
 [TestPrintCycloneDXResults/CycloneDX14_WithVulnerabilities/one_source_with_vulnerabilities,_some_missing_content - 1]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
@@ -4785,6 +4823,44 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       ],
       "description": "Something scary!",
       "credits": {}
+    }
+  ]
+}
+
+---
+
+[TestPrintCycloneDXResults/CycloneDX15_WithVulnerabilities/one_source_with_two_packages_and_one_shared_vulnerability,_only_fixable_for_one_package - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1@1.2.3",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.2.3",
+      "purl": "pkg:npm/mine1@1.2.3"
+    },
+    {
+      "bom-ref": "pkg:npm/mine2@3.2.5",
+      "type": "library",
+      "name": "mine2",
+      "version": "3.2.5",
+      "purl": "pkg:npm/mine2@3.2.5"
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "id": "OSV-1",
+      "description": "Only fixed for one of the packages!",
+      "credits": {},
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
     }
   ]
 }
@@ -7250,6 +7326,44 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
 
 ---
 
+[TestPrintCycloneDXResults/CycloneDX16_WithVulnerabilities/one_source_with_two_packages_and_one_shared_vulnerability,_only_fixable_for_one_package - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1@1.2.3",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.2.3",
+      "purl": "pkg:npm/mine1@1.2.3"
+    },
+    {
+      "bom-ref": "pkg:npm/mine2@3.2.5",
+      "type": "library",
+      "name": "mine2",
+      "version": "3.2.5",
+      "purl": "pkg:npm/mine2@3.2.5"
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "id": "OSV-1",
+      "description": "Only fixed for one of the packages!",
+      "credits": {},
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
+    }
+  ]
+}
+
+---
+
 [TestPrintCycloneDXResults/CycloneDX16_WithVulnerabilities/one_source_with_vulnerabilities,_some_missing_content - 1]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
@@ -9703,6 +9817,44 @@ unable to determine purl type of openssl@3.0.2-0ubuntu1.15 (Ubuntu:22.04)
       ],
       "description": "Something scary!",
       "credits": {}
+    }
+  ]
+}
+
+---
+
+[TestPrintCycloneDXResults/CycloneDX17_WithVulnerabilities/one_source_with_two_packages_and_one_shared_vulnerability,_only_fixable_for_one_package - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.7",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1@1.2.3",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.2.3",
+      "purl": "pkg:npm/mine1@1.2.3"
+    },
+    {
+      "bom-ref": "pkg:npm/mine2@3.2.5",
+      "type": "library",
+      "name": "mine2",
+      "version": "3.2.5",
+      "purl": "pkg:npm/mine2@3.2.5"
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "id": "OSV-1",
+      "description": "Only fixed for one of the packages!",
+      "credits": {},
+      "affects": [
+        {
+          "ref": ""
+        }
+      ]
     }
   ]
 }

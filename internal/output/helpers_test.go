@@ -1547,6 +1547,91 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
+			// each package should only be given its own fixed versions
+			name: "one_source_with_two_packages_and_one_shared_vulnerability,_only_fixable_for_one_package",
+			args: outputTestCaseArgs{
+				vulnResult: &models.VulnerabilityResults{
+					Results: []models.PackageSource{
+						{
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Packages: []models.PackageVulns{
+								{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
+										Name:      "mine1",
+										Version:   "1.2.3",
+										Ecosystem: "npm",
+										Extractor: packagelockjson.Extractor{},
+									}),
+									Vulnerabilities: []*osvschema.Vulnerability{
+										{
+											Id:      "OSV-1",
+											Summary: "Only fixed for one of the packages!",
+											Affected: []*osvschema.Affected{
+												{
+													Package: &osvschema.Package{Name: "mine1", Ecosystem: "npm"},
+													Ranges: []*osvschema.Range{{
+														Type: osvschema.Range_SEMVER,
+														Events: []*osvschema.Event{
+															{Introduced: "0"},
+															{Fixed: "1.2.4"},
+														},
+													}},
+												},
+												{
+													Package: &osvschema.Package{Name: "mine2", Ecosystem: "npm"},
+													Ranges: []*osvschema.Range{{
+														Type: osvschema.Range_SEMVER,
+														Events: []*osvschema.Event{
+															{Introduced: "0"},
+														},
+													}},
+												},
+											},
+										},
+									},
+								},
+								{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
+										Name:      "mine2",
+										Version:   "3.2.5",
+										Ecosystem: "npm",
+										Extractor: packagelockjson.Extractor{},
+									}),
+									Vulnerabilities: []*osvschema.Vulnerability{
+										{
+											Id:      "OSV-1",
+											Summary: "Only fixed for one of the packages!",
+											Affected: []*osvschema.Affected{
+												{
+													Package: &osvschema.Package{Name: "mine1", Ecosystem: "npm"},
+													Ranges: []*osvschema.Range{{
+														Type: osvschema.Range_SEMVER,
+														Events: []*osvschema.Event{
+															{Introduced: "0"},
+															{Fixed: "1.2.4"},
+														},
+													}},
+												},
+												{
+													Package: &osvschema.Package{Name: "mine2", Ecosystem: "npm"},
+													Ranges: []*osvschema.Range{{
+														Type: osvschema.Range_SEMVER,
+														Events: []*osvschema.Event{
+															{Introduced: "0"},
+														},
+													}},
+												},
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		{
 			name: "one_os_source_with_debian_and_ubuntu_packages,_some_with_unimportant_vulnerabilities",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{

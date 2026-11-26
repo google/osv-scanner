@@ -34,11 +34,6 @@
 
 ---
 
-[TestPrintGHAnnotationReport_SameVulnerabilityInDifferentPackages - 1]
-::error file=path/to/package-lock.json,line=1::path/to/package-lock.json%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| pkg-a   | https://osv.dev/OSV-1 | 7.5  | 1.0.0           | 1.2.3         |%0A| pkg-b   | https://osv.dev/OSV-1 | 7.5  | 2.0.0           |               |%0A+---------+-----------------------+------+-----------------+---------------+
-
----
-
 [TestPrintGHAnnotationReport_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_no_license_violations - 1]
 
 ---
@@ -296,6 +291,11 @@
 
 [TestPrintGHAnnotationReport_WithVulnerabilities/one_source_with_one_package_with_just_a_commit_and_one_vulnerability - 1]
 ::error file=path/to/my/first/lockfile,line=1::path/to/my/first/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 | 7.5  |                 |               |%0A+---------+-----------------------+------+-----------------+---------------+
+
+---
+
+[TestPrintGHAnnotationReport_WithVulnerabilities/one_source_with_two_packages_and_one_shared_vulnerability,_only_fixable_for_one_package - 1]
+::error file=path/to/my/first/lockfile,line=1::path/to/my/first/lockfile%0A+---------+-----------------------+------+-----------------+---------------+%0A| PACKAGE | VULNERABILITY ID      | CVSS | CURRENT VERSION | FIXED VERSION |%0A+---------+-----------------------+------+-----------------+---------------+%0A| mine1   | https://osv.dev/OSV-1 |      | 1.2.3           | 1.2.4         |%0A| mine2   | https://osv.dev/OSV-1 |      | 3.2.5           |               |%0A+---------+-----------------------+------+-----------------+---------------+
 
 ---
 

@@ -8,7 +8,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/output"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 	"github.com/google/osv-scanner/v2/pkg/models"
-	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 func TestPrintGHAnnotationReport_WithVulnerabilities(t *testing.T) {
@@ -60,60 +59,6 @@ func TestPrintGHAnnotationReport_WithMixedIssues(t *testing.T) {
 
 		testutility.NewSnapshot().MatchText(t, outputWriter.String())
 	})
-}
-
-func TestPrintGHAnnotationReport_SameVulnerabilityInDifferentPackages(t *testing.T) {
-	t.Parallel()
-
-	// an advisory that affects two packages, only one of which has a fix
-	vuln := &osvschema.Vulnerability{
-		Id: "OSV-1",
-		Affected: []*osvschema.Affected{
-			{
-				Package: &osvschema.Package{Name: "pkg-a", Ecosystem: "npm"},
-				Ranges: []*osvschema.Range{{
-					Type:   osvschema.Range_SEMVER,
-					Events: []*osvschema.Event{{Introduced: "0"}, {Fixed: "1.2.3"}},
-				}},
-			},
-			{
-				Package: &osvschema.Package{Name: "pkg-b", Ecosystem: "npm"},
-				Ranges: []*osvschema.Range{{
-					Type:   osvschema.Range_SEMVER,
-					Events: []*osvschema.Event{{Introduced: "0"}},
-				}},
-			},
-		},
-	}
-
-	vulnerablePackage := func(name, version string) models.PackageVulns {
-		return models.PackageVulns{
-			Package:         models.PackageInfo{Name: name, Version: version, Ecosystem: "npm"},
-			Vulnerabilities: []*osvschema.Vulnerability{vuln},
-			Groups:          []models.GroupInfo{{IDs: []string{"OSV-1"}, Aliases: []string{"OSV-1"}, MaxSeverity: "7.5"}},
-		}
-	}
-
-	vulnResult := &models.VulnerabilityResults{
-		Results: []models.PackageSource{
-			{
-				Source: models.SourceInfo{Path: "path/to/package-lock.json", Type: models.SourceTypeProjectPackage},
-				Packages: []models.PackageVulns{
-					vulnerablePackage("pkg-a", "1.0.0"),
-					vulnerablePackage("pkg-b", "2.0.0"),
-				},
-			},
-		},
-	}
-
-	outputWriter := &bytes.Buffer{}
-	err := output.PrintGHAnnotationReport(vulnResult, outputWriter)
-
-	if err != nil {
-		t.Errorf("Error writing GH annotation output: %s", err)
-	}
-
-	testutility.NewSnapshot().MatchText(t, outputWriter.String())
 }
 
 func TestPrintGHAnnotationReport_Escaping(t *testing.T) {
