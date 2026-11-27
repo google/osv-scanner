@@ -5,13 +5,6 @@ interactions:
           "requests": [
             {
               "versionKey": {
-                "name": "displaydoc",
-                "system": "CARGO",
-                "version": "0.2.5"
-              }
-            },
-            {
-              "versionKey": {
                 "name": "form_urlencoded",
                 "system": "CARGO",
                 "version": "1.2.2"
@@ -103,20 +96,6 @@ interactions:
             },
             {
               "versionKey": {
-                "name": "proc-macro2",
-                "system": "CARGO",
-                "version": "1.0.103"
-              }
-            },
-            {
-              "versionKey": {
-                "name": "quote",
-                "system": "CARGO",
-                "version": "1.0.42"
-              }
-            },
-            {
-              "versionKey": {
                 "name": "rust_novuln_deprecated",
                 "system": "CARGO",
                 "version": "0.1.0"
@@ -138,30 +117,9 @@ interactions:
             },
             {
               "versionKey": {
-                "name": "syn",
-                "system": "CARGO",
-                "version": "2.0.111"
-              }
-            },
-            {
-              "versionKey": {
-                "name": "synstructure",
-                "system": "CARGO",
-                "version": "0.13.2"
-              }
-            },
-            {
-              "versionKey": {
                 "name": "tinystr",
                 "system": "CARGO",
                 "version": "0.8.2"
-              }
-            },
-            {
-              "versionKey": {
-                "name": "unicode-ident",
-                "system": "CARGO",
-                "version": "1.0.22"
               }
             },
             {
@@ -194,21 +152,7 @@ interactions:
             },
             {
               "versionKey": {
-                "name": "yoke-derive",
-                "system": "CARGO",
-                "version": "0.8.1"
-              }
-            },
-            {
-              "versionKey": {
                 "name": "zerofrom",
-                "system": "CARGO",
-                "version": "0.1.6"
-              }
-            },
-            {
-              "versionKey": {
-                "name": "zerofrom-derive",
                 "system": "CARGO",
                 "version": "0.1.6"
               }
@@ -226,82 +170,12 @@ interactions:
                 "system": "CARGO",
                 "version": "0.11.5"
               }
-            },
-            {
-              "versionKey": {
-                "name": "zerovec-derive",
-                "system": "CARGO",
-                "version": "0.11.2"
-              }
             }
           ]
         }
       response: |-
         {
           "responses": [
-            {
-              "request": {
-                "versionKey": {
-                  "name": "displaydoc",
-                  "system": "CARGO",
-                  "version": "0.2.5"
-                }
-              },
-              "version": {
-                "cooldown": {
-                  "end": "2024-06-30T21:51:42Z"
-                },
-                "licenseDetails": [
-                  {
-                    "license": "Apache-2.0 OR MIT",
-                    "spdx": "Apache-2.0 OR MIT"
-                  }
-                ],
-                "licenses": [
-                  "Apache-2.0 OR MIT"
-                ],
-                "links": [
-                  {
-                    "label": "SOURCE_REPO",
-                    "url": "https://github.com/yaahc/displaydoc"
-                  },
-                  {
-                    "label": "HOMEPAGE",
-                    "url": "https://github.com/yaahc/displaydoc"
-                  },
-                  {
-                    "label": "DOCUMENTATION",
-                    "url": "https://docs.rs/displaydoc"
-                  }
-                ],
-                "publishedAt": "2024-06-20T21:51:42Z",
-                "purl": "pkg:cargo/displaydoc@0.2.5",
-                "registries": [
-                  "https://crates.io/"
-                ],
-                "relatedProjects": [
-                  {
-                    "projectKey": {
-                      "id": "github.com/yaahc/displaydoc"
-                    },
-                    "relationProvenance": "UNVERIFIED_METADATA",
-                    "relationType": "SOURCE_REPO"
-                  }
-                ],
-                "upstreamIdentifiers": [
-                  {
-                    "packageName": "displaydoc",
-                    "source": "CARGO_CRATES_IO",
-                    "versionString": "0.2.5"
-                  }
-                ],
-                "versionKey": {
-                  "name": "displaydoc",
-                  "system": "CARGO",
-                  "version": "0.2.5"
-                }
-              }
-            },
             {
               "request": {
                 "versionKey": {
@@ -314,7 +188,6 @@ interactions:
                 "cooldown": {
                   "end": "2025-08-31T08:47:43Z"
                 },
-                "isDefault": true,
                 "licenseDetails": [
                   {
                     "license": "Apache-2.0 OR MIT",
@@ -1067,124 +940,6 @@ interactions:
             {
               "request": {
                 "versionKey": {
-                  "name": "proc-macro2",
-                  "system": "CARGO",
-                  "version": "1.0.103"
-                }
-              },
-              "version": {
-                "cooldown": {
-                  "end": "2025-11-02T22:30:16Z"
-                },
-                "licenseDetails": [
-                  {
-                    "license": "Apache-2.0 OR MIT",
-                    "spdx": "Apache-2.0 OR MIT"
-                  }
-                ],
-                "licenses": [
-                  "Apache-2.0 OR MIT"
-                ],
-                "links": [
-                  {
-                    "label": "SOURCE_REPO",
-                    "url": "https://github.com/dtolnay/proc-macro2"
-                  },
-                  {
-                    "label": "DOCUMENTATION",
-                    "url": "https://docs.rs/proc-macro2"
-                  }
-                ],
-                "publishedAt": "2025-10-23T22:30:16Z",
-                "purl": "pkg:cargo/proc-macro2@1.0.103",
-                "registries": [
-                  "https://crates.io/"
-                ],
-                "relatedProjects": [
-                  {
-                    "projectKey": {
-                      "id": "github.com/dtolnay/proc-macro2"
-                    },
-                    "relationProvenance": "UNVERIFIED_METADATA",
-                    "relationType": "SOURCE_REPO"
-                  }
-                ],
-                "upstreamIdentifiers": [
-                  {
-                    "packageName": "proc-macro2",
-                    "source": "CARGO_CRATES_IO",
-                    "versionString": "1.0.103"
-                  }
-                ],
-                "versionKey": {
-                  "name": "proc-macro2",
-                  "system": "CARGO",
-                  "version": "1.0.103"
-                }
-              }
-            },
-            {
-              "request": {
-                "versionKey": {
-                  "name": "quote",
-                  "system": "CARGO",
-                  "version": "1.0.42"
-                }
-              },
-              "version": {
-                "cooldown": {
-                  "end": "2025-11-16T18:34:45Z"
-                },
-                "licenseDetails": [
-                  {
-                    "license": "Apache-2.0 OR MIT",
-                    "spdx": "Apache-2.0 OR MIT"
-                  }
-                ],
-                "licenses": [
-                  "Apache-2.0 OR MIT"
-                ],
-                "links": [
-                  {
-                    "label": "SOURCE_REPO",
-                    "url": "https://github.com/dtolnay/quote"
-                  },
-                  {
-                    "label": "DOCUMENTATION",
-                    "url": "https://docs.rs/quote/"
-                  }
-                ],
-                "publishedAt": "2025-11-06T18:34:45Z",
-                "purl": "pkg:cargo/quote@1.0.42",
-                "registries": [
-                  "https://crates.io/"
-                ],
-                "relatedProjects": [
-                  {
-                    "projectKey": {
-                      "id": "github.com/dtolnay/quote"
-                    },
-                    "relationProvenance": "UNVERIFIED_METADATA",
-                    "relationType": "SOURCE_REPO"
-                  }
-                ],
-                "upstreamIdentifiers": [
-                  {
-                    "packageName": "quote",
-                    "source": "CARGO_CRATES_IO",
-                    "versionString": "1.0.42"
-                  }
-                ],
-                "versionKey": {
-                  "name": "quote",
-                  "system": "CARGO",
-                  "version": "1.0.42"
-                }
-              }
-            },
-            {
-              "request": {
-                "versionKey": {
                   "name": "rust_novuln_deprecated",
                   "system": "CARGO",
                   "version": "0.1.0"
@@ -1313,124 +1068,6 @@ interactions:
             {
               "request": {
                 "versionKey": {
-                  "name": "syn",
-                  "system": "CARGO",
-                  "version": "2.0.111"
-                }
-              },
-              "version": {
-                "cooldown": {
-                  "end": "2025-12-03T04:14:16Z"
-                },
-                "licenseDetails": [
-                  {
-                    "license": "Apache-2.0 OR MIT",
-                    "spdx": "Apache-2.0 OR MIT"
-                  }
-                ],
-                "licenses": [
-                  "Apache-2.0 OR MIT"
-                ],
-                "links": [
-                  {
-                    "label": "SOURCE_REPO",
-                    "url": "https://github.com/dtolnay/syn"
-                  },
-                  {
-                    "label": "DOCUMENTATION",
-                    "url": "https://docs.rs/syn"
-                  }
-                ],
-                "publishedAt": "2025-11-23T04:14:16Z",
-                "purl": "pkg:cargo/syn@2.0.111",
-                "registries": [
-                  "https://crates.io/"
-                ],
-                "relatedProjects": [
-                  {
-                    "projectKey": {
-                      "id": "github.com/dtolnay/syn"
-                    },
-                    "relationProvenance": "UNVERIFIED_METADATA",
-                    "relationType": "SOURCE_REPO"
-                  }
-                ],
-                "upstreamIdentifiers": [
-                  {
-                    "packageName": "syn",
-                    "source": "CARGO_CRATES_IO",
-                    "versionString": "2.0.111"
-                  }
-                ],
-                "versionKey": {
-                  "name": "syn",
-                  "system": "CARGO",
-                  "version": "2.0.111"
-                }
-              }
-            },
-            {
-              "request": {
-                "versionKey": {
-                  "name": "synstructure",
-                  "system": "CARGO",
-                  "version": "0.13.2"
-                }
-              },
-              "version": {
-                "cooldown": {
-                  "end": "2025-05-10T16:37:46Z"
-                },
-                "licenseDetails": [
-                  {
-                    "license": "MIT",
-                    "spdx": "MIT"
-                  }
-                ],
-                "licenses": [
-                  "MIT"
-                ],
-                "links": [
-                  {
-                    "label": "SOURCE_REPO",
-                    "url": "https://github.com/mystor/synstructure"
-                  },
-                  {
-                    "label": "DOCUMENTATION",
-                    "url": "https://docs.rs/synstructure"
-                  }
-                ],
-                "publishedAt": "2025-04-30T16:37:46Z",
-                "purl": "pkg:cargo/synstructure@0.13.2",
-                "registries": [
-                  "https://crates.io/"
-                ],
-                "relatedProjects": [
-                  {
-                    "projectKey": {
-                      "id": "github.com/mystor/synstructure"
-                    },
-                    "relationProvenance": "UNVERIFIED_METADATA",
-                    "relationType": "SOURCE_REPO"
-                  }
-                ],
-                "upstreamIdentifiers": [
-                  {
-                    "packageName": "synstructure",
-                    "source": "CARGO_CRATES_IO",
-                    "versionString": "0.13.2"
-                  }
-                ],
-                "versionKey": {
-                  "name": "synstructure",
-                  "system": "CARGO",
-                  "version": "0.13.2"
-                }
-              }
-            },
-            {
-              "request": {
-                "versionKey": {
                   "name": "tinystr",
                   "system": "CARGO",
                   "version": "0.8.2"
@@ -1486,71 +1123,17 @@ interactions:
             {
               "request": {
                 "versionKey": {
-                  "name": "unicode-ident",
-                  "system": "CARGO",
-                  "version": "1.0.22"
-                }
-              },
-              "version": {
-                "cooldown": {
-                  "end": "2025-11-09T04:16:48Z"
-                },
-                "licenseDetails": [
-                  {
-                    "license": "Unicode-3.0 AND (Apache-2.0 OR MIT)",
-                    "spdx": "Unicode-3.0 AND (Apache-2.0 OR MIT)"
-                  }
-                ],
-                "licenses": [
-                  "Unicode-3.0 AND (Apache-2.0 OR MIT)"
-                ],
-                "links": [
-                  {
-                    "label": "SOURCE_REPO",
-                    "url": "https://github.com/dtolnay/unicode-ident"
-                  },
-                  {
-                    "label": "DOCUMENTATION",
-                    "url": "https://docs.rs/unicode-ident"
-                  }
-                ],
-                "publishedAt": "2025-10-30T04:16:48Z",
-                "purl": "pkg:cargo/unicode-ident@1.0.22",
-                "registries": [
-                  "https://crates.io/"
-                ],
-                "relatedProjects": [
-                  {
-                    "projectKey": {
-                      "id": "github.com/dtolnay/unicode-ident"
-                    },
-                    "relationProvenance": "UNVERIFIED_METADATA",
-                    "relationType": "SOURCE_REPO"
-                  }
-                ],
-                "upstreamIdentifiers": [
-                  {
-                    "packageName": "unicode-ident",
-                    "source": "CARGO_CRATES_IO",
-                    "versionString": "1.0.22"
-                  }
-                ],
-                "versionKey": {
-                  "name": "unicode-ident",
-                  "system": "CARGO",
-                  "version": "1.0.22"
-                }
-              }
-            },
-            {
-              "request": {
-                "versionKey": {
                   "name": "url",
                   "system": "CARGO",
                   "version": "2.5.3"
                 }
               },
               "version": {
+                "advisoryKeys": [
+                  {
+                    "id": "RUSTSEC-2026-0592"
+                  }
+                ],
                 "cooldown": {
                   "end": "2024-11-14T10:14:38Z"
                 },
@@ -1779,61 +1362,6 @@ interactions:
             {
               "request": {
                 "versionKey": {
-                  "name": "yoke-derive",
-                  "system": "CARGO",
-                  "version": "0.8.1"
-                }
-              },
-              "version": {
-                "cooldown": {
-                  "end": "2025-11-07T15:56:24Z"
-                },
-                "licenseDetails": [
-                  {
-                    "license": "Unicode-3.0",
-                    "spdx": "Unicode-3.0"
-                  }
-                ],
-                "licenses": [
-                  "Unicode-3.0"
-                ],
-                "links": [
-                  {
-                    "label": "SOURCE_REPO",
-                    "url": "https://github.com/unicode-org/icu4x"
-                  }
-                ],
-                "publishedAt": "2025-10-28T15:56:24Z",
-                "purl": "pkg:cargo/yoke-derive@0.8.1",
-                "registries": [
-                  "https://crates.io/"
-                ],
-                "relatedProjects": [
-                  {
-                    "projectKey": {
-                      "id": "github.com/unicode-org/icu4x"
-                    },
-                    "relationProvenance": "UNVERIFIED_METADATA",
-                    "relationType": "SOURCE_REPO"
-                  }
-                ],
-                "upstreamIdentifiers": [
-                  {
-                    "packageName": "yoke-derive",
-                    "source": "CARGO_CRATES_IO",
-                    "versionString": "0.8.1"
-                  }
-                ],
-                "versionKey": {
-                  "name": "yoke-derive",
-                  "system": "CARGO",
-                  "version": "0.8.1"
-                }
-              }
-            },
-            {
-              "request": {
-                "versionKey": {
                   "name": "zerofrom",
                   "system": "CARGO",
                   "version": "0.1.6"
@@ -1881,61 +1409,6 @@ interactions:
                 ],
                 "versionKey": {
                   "name": "zerofrom",
-                  "system": "CARGO",
-                  "version": "0.1.6"
-                }
-              }
-            },
-            {
-              "request": {
-                "versionKey": {
-                  "name": "zerofrom-derive",
-                  "system": "CARGO",
-                  "version": "0.1.6"
-                }
-              },
-              "version": {
-                "cooldown": {
-                  "end": "2025-03-08T18:21:58Z"
-                },
-                "licenseDetails": [
-                  {
-                    "license": "Unicode-3.0",
-                    "spdx": "Unicode-3.0"
-                  }
-                ],
-                "licenses": [
-                  "Unicode-3.0"
-                ],
-                "links": [
-                  {
-                    "label": "SOURCE_REPO",
-                    "url": "https://github.com/unicode-org/icu4x"
-                  }
-                ],
-                "publishedAt": "2025-02-26T18:21:58Z",
-                "purl": "pkg:cargo/zerofrom-derive@0.1.6",
-                "registries": [
-                  "https://crates.io/"
-                ],
-                "relatedProjects": [
-                  {
-                    "projectKey": {
-                      "id": "github.com/unicode-org/icu4x"
-                    },
-                    "relationProvenance": "UNVERIFIED_METADATA",
-                    "relationType": "SOURCE_REPO"
-                  }
-                ],
-                "upstreamIdentifiers": [
-                  {
-                    "packageName": "zerofrom-derive",
-                    "source": "CARGO_CRATES_IO",
-                    "versionString": "0.1.6"
-                  }
-                ],
-                "versionKey": {
-                  "name": "zerofrom-derive",
                   "system": "CARGO",
                   "version": "0.1.6"
                 }
@@ -2052,61 +1525,6 @@ interactions:
                   "name": "zerovec",
                   "system": "CARGO",
                   "version": "0.11.5"
-                }
-              }
-            },
-            {
-              "request": {
-                "versionKey": {
-                  "name": "zerovec-derive",
-                  "system": "CARGO",
-                  "version": "0.11.2"
-                }
-              },
-              "version": {
-                "cooldown": {
-                  "end": "2025-11-07T15:56:46Z"
-                },
-                "licenseDetails": [
-                  {
-                    "license": "Unicode-3.0",
-                    "spdx": "Unicode-3.0"
-                  }
-                ],
-                "licenses": [
-                  "Unicode-3.0"
-                ],
-                "links": [
-                  {
-                    "label": "SOURCE_REPO",
-                    "url": "https://github.com/unicode-org/icu4x"
-                  }
-                ],
-                "publishedAt": "2025-10-28T15:56:46Z",
-                "purl": "pkg:cargo/zerovec-derive@0.11.2",
-                "registries": [
-                  "https://crates.io/"
-                ],
-                "relatedProjects": [
-                  {
-                    "projectKey": {
-                      "id": "github.com/unicode-org/icu4x"
-                    },
-                    "relationProvenance": "UNVERIFIED_METADATA",
-                    "relationType": "SOURCE_REPO"
-                  }
-                ],
-                "upstreamIdentifiers": [
-                  {
-                    "packageName": "zerovec-derive",
-                    "source": "CARGO_CRATES_IO",
-                    "versionString": "0.11.2"
-                  }
-                ],
-                "versionKey": {
-                  "name": "zerovec-derive",
-                  "system": "CARGO",
-                  "version": "0.11.2"
                 }
               }
             }
