@@ -4,32 +4,32 @@ go 1.27.3
 
 require (
 	charm.land/glamour/v2 v2.0.1
-	charm.land/lipgloss/v2 v2.0.6
+	charm.land/lipgloss/v2 v2.1.1
 	github.com/BurntSushi/toml v1.6.0
 	github.com/CycloneDX/cyclonedx-go v0.12.0
 	github.com/gkampitakis/go-snaps v0.5.25
 	github.com/go-git/go-git/v5 v5.19.3
-	github.com/gobwas/glob v1.0.0
+	github.com/gobwas/glob v1.1.0
 	github.com/google/go-cmp v0.7.0
 	github.com/google/osv-scalibr v0.5.4-0.20261116103409-40cdfcf8b822
 	github.com/ianlancetaylor/demangle v0.0.0-20261012173340-cbb8aaea4290
-	github.com/jedib0t/go-pretty/v6 v6.8.3
+	github.com/jedib0t/go-pretty/v6 v6.9.2
 	github.com/modelcontextprotocol/go-sdk v1.8.0
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/ossf/osv-schema/bindings/go v0.0.0-20261026052736-6410c13304f9
 	github.com/owenrumney/go-sarif/v3 v3.3.2
 	github.com/package-url/packageurl-go v0.1.7
 	github.com/pandatix/go-cvss v0.6.4
-	github.com/tidwall/gjson v1.20.0
-	github.com/tidwall/pretty v1.2.2
-	github.com/tidwall/sjson v1.2.5
+	github.com/tidwall/gjson v1.20.5
+	github.com/tidwall/pretty v1.3.0
+	github.com/tidwall/sjson v1.2.11
 	github.com/urfave/cli/v3 v3.14.0
-	go.yaml.in/yaml/v4 v4.0.0-rc.7
+	go.yaml.in/yaml/v4 v4.0.0
 	golang.org/x/term v0.48.0
 	golang.org/x/vuln v1.6.0
 	google.golang.org/grpc v1.85.0
 	google.golang.org/protobuf v1.36.12
-	gopkg.in/dnaeon/go-vcr.v4 v4.0.7
+	gopkg.in/dnaeon/go-vcr.v4 v4.0.8
 	osv.dev/bindings/go v0.0.0-20261104004344-f40ffd96500c
 )
 
