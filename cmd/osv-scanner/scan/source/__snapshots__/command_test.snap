@@ -5135,6 +5135,48 @@ databases can only be downloaded when running in offline mode
 
 ---
 
+[TestCommand_LocalDatabases/go_project_skips_call_analysis - 1 - stdout]
+Scanning dir ./testdata/call-analysis-go-project-offline
+Scanned <rootdir>/testdata/call-analysis-go-project-offline/go.mod file and found 2 packages
+Loaded Go local db from <tempdir>/osv-scalibr/Go/all.zip
+Skipping call analysis on '<rootdir>/testdata/call-analysis-go-project-offline/go.mod' as it is disabled in offline mode
+
+Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
++------------------------------+------+-----------+------------------+-----------------------------------+-----------------------------------+--------------------------------------------------+
+| OSV URL                      | CVSS | ECOSYSTEM | PACKAGE          | VERSION                           | FIXED VERSION                     | SOURCE                                           |
++------------------------------+------+-----------+------------------+-----------------------------------+-----------------------------------+--------------------------------------------------+
+| https://osv.dev/GO-2022-0493 |      | Go        | golang.org/x/sys | 0.0.0-20220114195835-da31bd327af9 | 0.0.0-20220412211240-33da011f77ad | testdata/call-analysis-go-project-offline/go.mod |
++------------------------------+------+-----------+------------------+-----------------------------------+-----------------------------------+--------------------------------------------------+
+
+---
+
+[TestCommand_LocalDatabases/go_project_skips_call_analysis - 2 - stderr]
+
+---
+
+[TestCommand_LocalDatabases/go_project_skips_call_analysis - 3 - stdout]
+Scanning dir ./testdata/call-analysis-go-project-offline
+Scanned <rootdir>/testdata/call-analysis-go-project-offline/go.mod file and found 2 packages
+Loaded Go local db from <tempdir>/osv-scalibr/Go/all.zip
+Skipping call analysis on '<rootdir>/testdata/call-analysis-go-project-offline/go.mod' as it is disabled in offline mode
+
+Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
++------------------------------+------+-----------+------------------+-----------------------------------+-----------------------------------+--------------------------------------------------+
+| OSV URL                      | CVSS | ECOSYSTEM | PACKAGE          | VERSION                           | FIXED VERSION                     | SOURCE                                           |
++------------------------------+------+-----------+------------------+-----------------------------------+-----------------------------------+--------------------------------------------------+
+| https://osv.dev/GO-2022-0493 |      | Go        | golang.org/x/sys | 0.0.0-20220114195835-da31bd327af9 | 0.0.0-20220412211240-33da011f77ad | testdata/call-analysis-go-project-offline/go.mod |
++------------------------------+------+-----------+------------------+-----------------------------------+-----------------------------------+--------------------------------------------------+
+
+---
+
+[TestCommand_LocalDatabases/go_project_skips_call_analysis - 4 - stderr]
+
+---
+
 [TestCommand_LocalDatabases/ignoring_.gitignore - 1 - stdout]
 Scanning dir ./testdata/locks-gitignore
 Scanned <rootdir>/testdata/locks-gitignore/Gemfile.lock file and found 1 package
