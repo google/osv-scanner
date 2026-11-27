@@ -1,0 +1,65 @@
+{
+  "results": [
+    {
+      "source": {
+        "path": "/lib/apk/db/installed",
+        "type": "os"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "busybox",
+            "os_package_name": "busybox",
+            "version": "1.36.1-r2",
+            "ecosystem": "Alpine:v3.18",
+            "purl": "pkg:apk/alpine/busybox@1.36.1-r2?arch=x86_64&distro=3.18.3&origin=busybox",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            {
+              "id": "ALPINE-CVE-2023-42363"
+            }
+          ],
+          "groups": [
+            {
+              "ids": ["ALPINE-CVE-2023-42363"],
+              "aliases": ["ALPINE-CVE-2023-42363"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "/node_modules/.package-lock.json",
+        "type": "artifact"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "@babel/core",
+            "version": "7.22.1",
+            "ecosystem": "npm",
+            "purl": "pkg:npm/%40babel/core@7.22.1?source=PUBLIC_REGISTRY",
+            "image_origin_details": {
+              "index": 11
+            }
+          },
+          "vulnerabilities": [
+            {
+              "id": "GHSA-4x5r-pxfx-6jf8"
+            }
+          ],
+          "groups": [
+            {
+              "ids": ["GHSA-4x5r-pxfx-6jf8"],
+              "aliases": ["CVE-2026-49356", "GHSA-4x5r-pxfx-6jf8"]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
