@@ -335,7 +335,6 @@ interactions:
                 "cooldown": {
                   "end": "2025-08-31T08:47:43Z"
                 },
-                "isDefault": true,
                 "licenseDetails": [
                   {
                     "license": "Apache-2.0 OR MIT",
@@ -1761,6 +1760,11 @@ interactions:
                 }
               },
               "version": {
+                "advisoryKeys": [
+                  {
+                    "id": "RUSTSEC-2026-0592"
+                  }
+                ],
                 "cooldown": {
                   "end": "2024-11-14T10:14:38Z"
                 },

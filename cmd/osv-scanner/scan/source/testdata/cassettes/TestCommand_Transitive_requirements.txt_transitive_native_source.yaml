@@ -2336,10 +2336,42 @@ interactions:
               "upload-time": "2026-10-23T11:36:16.478386Z",
               "url": "https://files.pythonhosted.org/packages/fd/11/b524cbd9bbdaca58608e4cf4053fd463417549e1959fa8d3aa18319f9555/certifi-2026.10.23.tar.gz",
               "yanked": false
+            },
+            {
+              "core-metadata": {
+                "sha256": "940f90089b8c6f2bbd0fa6e93a66634289853a5bc1453e9f9b88ae53859a2553"
+              },
+              "data-dist-info-metadata": {
+                "sha256": "940f90089b8c6f2bbd0fa6e93a66634289853a5bc1453e9f9b88ae53859a2553"
+              },
+              "filename": "certifi-2026.11.20-py3-none-any.whl",
+              "hashes": {
+                "sha256": "7422df25243767b9877031a2248cb14d09ddac9beee846f4cef3d5c9191d488f"
+              },
+              "provenance": "https://pypi.org/integrity/certifi/2026.11.20/certifi-2026.11.20-py3-none-any.whl/provenance",
+              "requires-python": ">=3.7",
+              "size": 127913,
+              "upload-time": "2026-11-20T23:37:48.117638Z",
+              "url": "https://files.pythonhosted.org/packages/6d/39/5eec3296860b94ac20bb8ed807725b88f6adfab3f343df592afd975f5f86/certifi-2026.11.20-py3-none-any.whl",
+              "yanked": false
+            },
+            {
+              "core-metadata": false,
+              "data-dist-info-metadata": false,
+              "filename": "certifi-2026.11.20.tar.gz",
+              "hashes": {
+                "sha256": "af1cb240a8133f105aa52684a3a3258339d7f2fd0bd4e2812698ff5cf5588c4e"
+              },
+              "provenance": "https://pypi.org/integrity/certifi/2026.11.20/certifi-2026.11.20.tar.gz/provenance",
+              "requires-python": ">=3.7",
+              "size": 128901,
+              "upload-time": "2026-11-20T23:37:49.522670Z",
+              "url": "https://files.pythonhosted.org/packages/51/33/4cd27639502f010084bcef7a2036391dd637439901341ce1a530f36f6e51/certifi-2026.11.20.tar.gz",
+              "yanked": false
             }
           ],
           "meta": {
-            "_last-serial": 42639290,
+            "_last-serial": 43957934,
             "api-version": "1.4"
           },
           "name": "certifi",
@@ -2424,7 +2456,8 @@ interactions:
             "2026.7.22",
             "2026.10.18",
             "2026.10.19",
-            "2026.10.23"
+            "2026.10.23",
+            "2026.11.20"
           ]
         }
       headers:
@@ -2453,7 +2486,7 @@ interactions:
         Strict-Transport-Security:
           - max-age=31536000; includeSubDomains; preload
         Vary:
-          - Accept-Encoding, Accept
+          - Accept, Accept-Encoding
         X-Content-Type-Options:
           - nosniff
         X-Frame-Options:
@@ -72686,7 +72719,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "certifi"
               },
-              "version": "2026.10.23"
+              "version": "2026.11.20"
             },
             {
               "package": {

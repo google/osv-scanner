@@ -593,12 +593,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-10-23T11:36:14Z",
               "versionKey": {
                 "name": "certifi",
                 "system": "PYPI",
                 "version": "2026.10.23"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-11-20T23:37:48Z",
+              "versionKey": {
+                "name": "certifi",
+                "system": "PYPI",
+                "version": "2026.11.20"
               }
             },
             {
@@ -14053,7 +14061,7 @@ interactions:
           "versionKey": {
             "name": "certifi",
             "system": "PYPI",
-            "version": "2026.10.23"
+            "version": "2026.11.20"
           }
         }
       response: |-

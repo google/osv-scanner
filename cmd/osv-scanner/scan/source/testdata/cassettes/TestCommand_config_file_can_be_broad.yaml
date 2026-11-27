@@ -198,7 +198,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 2394
+      content_length: 2607
       body: |
         {
           "results": [
@@ -278,6 +278,18 @@ interactions:
                 {
                   "id": "DRUPAL-CORE-2026-016",
                   "modified": "2026-10-17T17:00:03.186936Z"
+                },
+                {
+                  "id": "DRUPAL-CORE-2026-017",
+                  "modified": "2026-11-21T17:15:02.034846Z"
+                },
+                {
+                  "id": "DRUPAL-CORE-2026-018",
+                  "modified": "2026-11-18T18:11:08.077970Z"
+                },
+                {
+                  "id": "DRUPAL-CORE-2026-019",
+                  "modified": "2026-11-25T18:11:16.337217Z"
                 },
                 {
                   "id": "GHSA-83v7-c2cf-p9c2",
@@ -379,7 +391,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "2394"
+          - "2607"
         Content-Type:
           - application/json
       status: 200 OK

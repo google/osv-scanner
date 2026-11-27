@@ -919,6 +919,14 @@ interactions:
               }
             },
             {
+              "publishedAt": "2026-11-25T02:12:32Z",
+              "versionKey": {
+                "name": "com.fasterxml.jackson.core:jackson-core",
+                "system": "MAVEN",
+                "version": "2.21.9"
+              }
+            },
+            {
               "publishedAt": "2026-05-31T23:57:06Z",
               "versionKey": {
                 "name": "com.fasterxml.jackson.core:jackson-core",

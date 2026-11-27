@@ -155,7 +155,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2022-37434",
-                  "modified": "2026-11-03T07:31:26.106861Z"
+                  "modified": "2026-11-20T21:18:04.061996Z"
                 },
                 {
                   "id": "ALPINE-CVE-2026-22184",
@@ -171,7 +171,7 @@ interactions:
                 },
                 {
                   "id": "ALPINE-CVE-2026-85091",
-                  "modified": "2026-10-06T21:30:02.437029Z"
+                  "modified": "2026-11-14T09:30:02.822085Z"
                 }
               ]
             }

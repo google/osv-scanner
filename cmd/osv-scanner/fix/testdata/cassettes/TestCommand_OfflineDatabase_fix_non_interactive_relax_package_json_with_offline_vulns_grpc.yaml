@@ -4777,6 +4777,14 @@ interactions:
               }
             },
             {
+              "publishedAt": "2026-11-11T12:32:33Z",
+              "versionKey": {
+                "name": "brace-expansion",
+                "system": "NPM",
+                "version": "1.1.22"
+              }
+            },
+            {
               "publishedAt": "2016-02-11T18:51:31Z",
               "versionKey": {
                 "name": "brace-expansion",
@@ -4929,6 +4937,14 @@ interactions:
               }
             },
             {
+              "publishedAt": "2026-11-11T12:30:22Z",
+              "versionKey": {
+                "name": "brace-expansion",
+                "system": "NPM",
+                "version": "2.1.8"
+              }
+            },
+            {
               "publishedAt": "2023-10-07T13:31:03Z",
               "versionKey": {
                 "name": "brace-expansion",
@@ -4942,6 +4958,14 @@ interactions:
                 "name": "brace-expansion",
                 "system": "NPM",
                 "version": "3.0.1"
+              }
+            },
+            {
+              "publishedAt": "2026-11-11T12:30:57Z",
+              "versionKey": {
+                "name": "brace-expansion",
+                "system": "NPM",
+                "version": "3.0.10"
               }
             },
             {
@@ -5043,12 +5067,19 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-09-14T21:59:00Z",
               "versionKey": {
                 "name": "brace-expansion",
                 "system": "NPM",
                 "version": "5.0.12"
+              }
+            },
+            {
+              "publishedAt": "2026-11-11T12:27:55Z",
+              "versionKey": {
+                "name": "brace-expansion",
+                "system": "NPM",
+                "version": "5.0.13"
               }
             },
             {
@@ -5113,6 +5144,15 @@ interactions:
                 "name": "brace-expansion",
                 "system": "NPM",
                 "version": "5.0.9"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-11-23T15:56:32Z",
+              "versionKey": {
+                "name": "brace-expansion",
+                "system": "NPM",
+                "version": "5.1.0"
               }
             }
           ]
@@ -8879,12 +8919,28 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-11-06T03:47:55Z",
               "versionKey": {
                 "name": "glob",
                 "system": "NPM",
                 "version": "14.0.4"
+              }
+            },
+            {
+              "publishedAt": "2026-11-11T18:20:51Z",
+              "versionKey": {
+                "name": "glob",
+                "system": "NPM",
+                "version": "14.0.5"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-11-12T12:02:26Z",
+              "versionKey": {
+                "name": "glob",
+                "system": "NPM",
+                "version": "14.0.6"
               }
             },
             {
@@ -10645,12 +10701,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2023-03-16T19:30:19Z",
               "versionKey": {
                 "name": "graceful-fs",
                 "system": "NPM",
                 "version": "4.2.11"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-11-12T12:06:24Z",
+              "versionKey": {
+                "name": "graceful-fs",
+                "system": "NPM",
+                "version": "4.2.12"
               }
             },
             {
@@ -14973,12 +15037,44 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-11-05T23:30:59Z",
               "versionKey": {
                 "name": "minimatch",
                 "system": "NPM",
                 "version": "11.0.5"
+              }
+            },
+            {
+              "publishedAt": "2026-11-10T16:35:22Z",
+              "versionKey": {
+                "name": "minimatch",
+                "system": "NPM",
+                "version": "11.0.6"
+              }
+            },
+            {
+              "publishedAt": "2026-11-10T23:03:46Z",
+              "versionKey": {
+                "name": "minimatch",
+                "system": "NPM",
+                "version": "11.0.7"
+              }
+            },
+            {
+              "publishedAt": "2026-11-11T09:50:19Z",
+              "versionKey": {
+                "name": "minimatch",
+                "system": "NPM",
+                "version": "11.0.8"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-11-16T21:52:08Z",
+              "versionKey": {
+                "name": "minimatch",
+                "system": "NPM",
+                "version": "11.0.9"
               }
             },
             {
@@ -27711,12 +27807,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2023-03-07T01:53:18Z",
               "versionKey": {
                 "name": "spdx-correct",
                 "system": "NPM",
                 "version": "3.2.0"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-11-17T19:02:55Z",
+              "versionKey": {
+                "name": "spdx-correct",
+                "system": "NPM",
+                "version": "4.0.0"
               }
             }
           ]
@@ -28937,12 +29041,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2026-09-24T14:37:52Z",
               "versionKey": {
                 "name": "string-width",
                 "system": "NPM",
                 "version": "8.3.0"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-11-11T16:32:37Z",
+              "versionKey": {
+                "name": "string-width",
+                "system": "NPM",
+                "version": "9.0.0"
               }
             }
           ]
@@ -29083,12 +29195,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2019-08-07T09:20:36Z",
               "versionKey": {
                 "name": "string_decoder",
                 "system": "NPM",
                 "version": "1.3.0"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-11-26T22:46:55Z",
+              "versionKey": {
+                "name": "string_decoder",
+                "system": "NPM",
+                "version": "1.4.0"
               }
             }
           ]
@@ -31049,12 +31169,20 @@ interactions:
               }
             },
             {
-              "isDefault": true,
               "publishedAt": "2018-08-05T16:59:03Z",
               "versionKey": {
                 "name": "validate-npm-package-license",
                 "system": "NPM",
                 "version": "3.0.4"
+              }
+            },
+            {
+              "isDefault": true,
+              "publishedAt": "2026-11-19T04:14:07Z",
+              "versionKey": {
+                "name": "validate-npm-package-license",
+                "system": "NPM",
+                "version": "4.0.0"
               }
             }
           ]
@@ -31858,7 +31986,7 @@ interactions:
           "versionKey": {
             "name": "brace-expansion",
             "system": "NPM",
-            "version": "1.1.21"
+            "version": "1.1.22"
           }
         }
       response: |-
@@ -31879,6 +32007,10 @@ interactions:
                 {
                   "name": "matcha",
                   "requirement": "^0.7.0"
+                },
+                {
+                  "name": "prettier",
+                  "requirement": "^3.9.8"
                 },
                 {
                   "name": "tape",

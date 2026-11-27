@@ -273,7 +273,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 121
+      content_length: 198
       body: |
         {
           "results": [
@@ -303,7 +303,14 @@ interactions:
             {},
             {},
             {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "RUSTSEC-2026-0592",
+                  "modified": "2026-11-22T10:00:02.260974Z"
+                }
+              ]
+            },
             {},
             {},
             {},
@@ -317,7 +324,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "121"
+          - "198"
         Content-Type:
           - application/json
       status: 200 OK
