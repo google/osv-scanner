@@ -3,6 +3,7 @@ package sourceanalysis
 import (
 	"path/filepath"
 
+	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
@@ -25,13 +26,27 @@ func vulnsFromAllPkgs(pkgs []models.PackageVulns) ([]*osvschema.Vulnerability, m
 }
 
 // Run runs the language specific analyzers on the code given packages and source info
-func Run(source models.SourceInfo, pkgs []models.PackageVulns, callAnalysis map[string]bool) {
+//
+// Analysis is skipped when offline, as the analyzers rely on external toolchains
+// (e.g. go, cargo) that can make network requests to fetch missing dependencies.
+func Run(source models.SourceInfo, pkgs []models.PackageVulns, callAnalysis map[string]bool, offline bool) {
+	isGo := source.Type == "lockfile" && filepath.Base(source.Path) == "go.mod" && callAnalysis["go"]
+	isRust := source.Type == "lockfile" && filepath.Base(source.Path) == "Cargo.lock" && callAnalysis["rust"]
+
+	if offline {
+		if isGo || isRust {
+			cmdlogger.Infof("Skipping call analysis on '%s' as it is disabled in offline mode", source.Path)
+		}
+
+		return
+	}
+
 	// GoVulnCheck
-	if source.Type == "lockfile" && filepath.Base(source.Path) == "go.mod" && callAnalysis["go"] {
+	if isGo {
 		goAnalysis(pkgs, source)
 	}
 
-	if source.Type == "lockfile" && filepath.Base(source.Path) == "Cargo.lock" && callAnalysis["rust"] {
+	if isRust {
 		rustAnalysis(pkgs, source)
 	}
 }

@@ -147,6 +147,8 @@ is not being executed, these vulnerabilities will be marked as unexecuted.
 
 To enable call analysis in all languages, call OSV-Scanner with the `--call-analysis=all` flag. By default, call analysis in Go is enabled, but you can disable it using the `--no-call-analysis=go` flag.
 
+Call analysis is not performed when using the [`--offline` flag](./offline-mode.md#offline-option), as it relies on external toolchains that can make network requests.
+
 ### Call analysis in Go
 
 OSV-Scanner uses the [`govulncheck`](https://pkg.go.dev/golang.org/x/vuln/cmd/govulncheck) library to analyze Go source code to identify called vulnerable functions.

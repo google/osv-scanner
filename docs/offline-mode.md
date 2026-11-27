@@ -52,7 +52,9 @@ The offline database flag `--offline` causes OSV-Scanner to scan your project ag
 osv-scanner --offline ./path/to/your/dir
 ```
 
-To use offline mode for just the vulnerability database, but allow other features to possibly make network requests (e.g. [transitive dependency scanning](./supported_languages_and_lockfiles.md#transitive-dependency-scanning)), you can use the `--offline-vulnerabilities` flag instead.
+[Call analysis](./scan-source.md#scanning-with-call-analysis) is disabled when using this flag, as it relies on external toolchains that can make network requests (e.g. to download missing dependencies).
+
+To use offline mode for just the vulnerability database, but allow other features to possibly make network requests (e.g. [transitive dependency scanning](./supported_languages_and_lockfiles.md#transitive-dependency-scanning) and call analysis), you can use the `--offline-vulnerabilities` flag instead. For example, `--offline-vulnerabilities --no-resolve` uses the local database and disables transitive dependency scanning, while still performing call analysis.
 
 ## Download offline databases option
 

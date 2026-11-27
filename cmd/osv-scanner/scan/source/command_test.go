@@ -1325,6 +1325,12 @@ func TestCommand_LocalDatabases(t *testing.T) {
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "-L", "./testdata/locks-scalibr/npm-omit-resolved/package-lock.json"},
 			Exit: 1,
 		},
+		// call analysis relies on external toolchains that can make network requests
+		{
+			Name: "go_project_skips_call_analysis",
+			Args: []string{"", "source", "--offline", "--download-offline-databases", "./testdata/call-analysis-go-project-offline"},
+			Exit: 1,
+		},
 	}
 
 	for _, tt := range tests {
