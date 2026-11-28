@@ -137,6 +137,6 @@ checksum:
   name_template: "{{ .ProjectName }}_SHA256SUMS"
   algorithm: sha256
 release:
-  draft: true
+  disable: true
 changelog:
   disable: false
